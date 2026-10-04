@@ -29,13 +29,15 @@ python3 build_site.py   # writes index.html, styles.css, script.js to the repo r
 
 You can also edit the three root files directly for small fixes; just copy the change into `source/src/` too, or the next rebuild will overwrite it.
 
+## Contact details in the site
+
+WhatsApp and phone +91 79773 60142, email uscalewithus@gmail.com, Instagram @uscalewithus, plus LinkedIn and GitHub in the footer.
+
 ## Before launch (search the code for `TODO`)
 
-1. Phone and WhatsApp number (placeholder `91XXXXXXXXXX` in every `wa.me` link and `+91 XXXXX XXXXX`)
-2. Email: confirm or replace `hello@uscale.in`
-3. Wire the contact form to Formspree or Getform (enquiries currently go nowhere)
-4. 2–3 real testimonials to replace the placeholders
-5. Project screenshots, 1440x900 PNG (optional; the CSS browser mockups ship otherwise) and real client logo SVGs for the logo wall
-6. Live domain (canonical, og:url, JSON-LD) and a 1200×630 share image
-7. Booking calendar link for "Book a free strategy call" (optional)
-8. GA4 measurement ID (commented snippet in the head)
+1. Wire the contact form to Formspree or Getform (enquiries currently go nowhere)
+2. 2–3 real testimonials to replace the placeholders
+3. Project screenshots, 1440x900 PNG (optional; the CSS browser mockups ship otherwise) and real client logo SVGs for the logo wall
+4. Live domain (canonical, og:url, JSON-LD) and a 1200×630 share image
+5. Booking calendar link for "Book a free strategy call" (optional)
+6. GA4 measurement ID (commented snippet in the head)
