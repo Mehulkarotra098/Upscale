@@ -123,7 +123,7 @@ cta_bars = ('<svg viewBox="0 0 400 320" preserveAspectRatio="xMaxYMax meet" aria
                       for x, t, o in [(14, 210, .08), (112, 150, .12), (210, 86, .17), (308, 10, .24)]) + '</svg>')
 
 # ---------- v3 content: real screenshots, real logos ----------
-SITE_URL = 'https://uscale-one.vercel.app/'  # live URL, set at deploy
+SITE_URL = 'https://uscalebymehul.vercel.app/'  # live URL, set at deploy
 BOOK = 'https://wa.me/917977360142?text=' + urllib.parse.quote("Hi Mehul, I'd like to book a free strategy call. A good time for me is: ")
 SZ = json.load(open(ROOT / 'asset_sizes.json'))
 ARW = '<span class="arw" aria-hidden="true"><b>↗</b><b>↗</b></span>'

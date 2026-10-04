@@ -6,7 +6,7 @@ The repo root is the live site: `index.html`, `styles.css`, `script.js` and `ass
 
 ## Live
 
-https://uscale-one.vercel.app (Vercel project `uscale`, deploys automatically on every push to `main`).
+https://uscalebymehul.vercel.app (Vercel project `uscale`, deploys automatically on every push to `main`).
 
 ## Deploy
 
