@@ -252,7 +252,6 @@ def service_page(ctx, s, parts):
 <main id="main">
   <div class="wrap hero-shell">
     <section class="sp-hero on-dark" data-tone="dark" aria-labelledby="page-title">
-      <span class="grain" aria-hidden="true"></span>
       <nav class="crumbs" aria-label="Breadcrumb"><ol><li><a href="/">Home</a></li><li><a href="/#services">Services</a></li><li aria-current="page">{e(s['short'])}</li></ol></nav>
       <h1 class="sp-hero__title" id="page-title">{e(s['h1'])}<span class="dot">.</span></h1>
       <p class="sp-hero__lead">{e(s['lead'])}</p>
