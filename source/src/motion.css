@@ -133,3 +133,5 @@ html.pin-ok .wk{--cw:min(44vw,calc((100vh - var(--header-h) - 340px) * 1.6),720p
 .quote--real .quote__by strong{color:var(--violet)}
 .quote__logo{margin-left:auto;height:22px;width:auto;max-width:90px;object-fit:contain;filter:grayscale(1);opacity:.6}
 @media (min-width:860px){.quotes:has(.quote--real:nth-child(4)){grid-template-columns:repeat(6,minmax(0,1fr))}.quotes:has(.quote--real:nth-child(4)) .quote{grid-column:span 2}.quotes:has(.quote--real:nth-child(4)) .quote:nth-child(4){grid-column:2 / span 2}.quotes .quote--real:nth-child(n+4){margin-top:0}}
+.hp{position:absolute!important;left:-9999px;width:1px;height:1px;opacity:0}
+.btn[aria-busy="true"]{opacity:.7;cursor:progress}

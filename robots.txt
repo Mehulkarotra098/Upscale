@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://uscale-one.vercel.app/sitemap.xml

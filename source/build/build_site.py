@@ -73,6 +73,8 @@ cta_bars = ('<svg viewBox="0 0 400 320" preserveAspectRatio="xMaxYMax meet" aria
                       for x, t, o in [(14, 210, .08), (112, 150, .12), (210, 86, .17), (308, 10, .24)]) + '</svg>')
 
 # ---------- v3 content: real screenshots, real logos ----------
+SITE_URL = 'https://uscale-one.vercel.app/'  # live URL, set at deploy
+BOOK = 'https://wa.me/917977360142?text=' + urllib.parse.quote("Hi U Scale, I'd like to book a free strategy call. A good time for me is: ")
 SZ = json.load(open(ROOT / 'asset_sizes.json'))
 ARW = '<span class="arw" aria-hidden="true"><b>↗</b><b>↗</b></span>'
 e = lambda t: html.escape(t, quote=False)
@@ -127,8 +129,9 @@ faq = '\n'.join(
     (f'        <div class="qa{" is-open" if i == 0 else ""}"><h3><button class="qa__btn" type="button" id="q{i}" aria-expanded="{"true" if i == 0 else "false"}" aria-controls="a{i}">'
      f'<span class="qa__n" aria-hidden="true">{i+1:02d}</span><span>{e(q)}</span><span class="qa__icon" aria-hidden="true"></span></button></h3>'
      f'<div class="qa__panel" id="a{i}" role="region" aria-labelledby="q{i}"><div><p>{e(a)}</p></div></div></div>'
-     + ('\n        <!-- TODO (optional): add a booking calendar link to "Book a free strategy call" -->' if i == 5 else ''))
+     )
     for i, (q, a) in enumerate(FAQ))
+faq = faq.replace('<p>Book a free strategy call', f'<p><a class="tlink" href="{e(BOOK)}" target="_blank" rel="noopener">Book a free strategy call</a>',1)
 
 # Founder blueprint: wireframe (design) underneath, filled build revealed by scroll
 def bp(built):
@@ -200,6 +203,7 @@ rep = {'{{QUOTES}}': quotes_html(),'{{LOGO_WALL}}': logo_wall, '{{WORK_TOTAL}}':
 rep.update({'{{' + k + '}}': v for k, v in ICONS.items()})
 for k, v in rep.items():
     src = src.replace(k, v)
+src = src.replace('https://uscale.in/', SITE_URL)
 left = re.findall(r'\{\{[A-Z_]+\}\}', src.replace('{{STYLES}}', '').replace('{{SCRIPT}}', ''))
 assert not left, left
 

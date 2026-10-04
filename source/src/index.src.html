@@ -7,7 +7,7 @@
 <meta name="description" content="U Scale is a full-service digital marketing agency in Mumbai. Websites, social media, SEO and ads, designed and built in-house. Transparent pricing from ₹35,000/month.">
 <meta name="theme-color" content="#FAF9FC">
 <meta name="robots" content="index, follow">
-<!-- TODO: set the live domain (uscale.in is unconfirmed) in canonical, og:url and the JSON-LD url -->
+<!-- Live URL comes from SITE_URL in build_site.py: change it there when a custom domain is added -->
 <link rel="canonical" href="https://uscale.in/">
 <meta property="og:type" content="website">
 <meta property="og:locale" content="en_IN">
@@ -15,16 +15,20 @@
 <meta property="og:title" content="U Scale: Digital Marketing Agency in Mumbai">
 <meta property="og:description" content="Websites, social media, SEO and ads, designed and built in-house. Transparent pricing from ₹35,000/month.">
 <meta property="og:url" content="https://uscale.in/">
-<!-- TODO: share image. Add a 1200x630 og:image (violet panel + reversed logo) and a matching twitter:image -->
+<meta property="og:image" content="https://uscale.in/og-image.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="U Scale: Be found. Be chosen. Digital marketing agency in Mumbai.">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://uscale.in/og-image.png">
 <meta name="twitter:card" content="summary_large_image">
 <link rel="icon" type="image/svg+xml" href="{{FAVICON}}">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Anton&family=Inter:wght@400;500;600;700&display=swap">
 <script type="application/ld+json">
-{"@context":"https://schema.org","@type":"LocalBusiness","@id":"https://uscale.in/#business","name":"U Scale","description":"Full-service digital marketing agency in Mumbai. Websites, social media, SEO and ads, designed and built in-house. Transparent pricing from ₹35,000/month.","url":"https://uscale.in/","image":"https://uscale.in/og-image.png","priceRange":"₹35,000+/month","telephone":"+91-79773-60142","email":"uscalewithus@gmail.com","sameAs":["https://www.instagram.com/uscalewithus/"],"address":{"@type":"PostalAddress","addressLocality":"Mumbai","addressRegion":"Maharashtra","addressCountry":"IN"},"areaServed":{"@type":"City","name":"Mumbai"},"founder":{"@type":"Person","name":"Mehul","sameAs":"https://www.linkedin.com/in/mehulkarotra/"},"hasOfferCatalog":{"@type":"OfferCatalog","name":"Digital marketing services","itemListElement":[{"@type":"Offer","itemOffered":{"@type":"Service","name":"Web Design"}},{"@type":"Offer","itemOffered":{"@type":"Service","name":"Social Media Management"}},{"@type":"Offer","itemOffered":{"@type":"Service","name":"SEO"}},{"@type":"Offer","itemOffered":{"@type":"Service","name":"Advertising"}}]}}
+{"@context":"https://schema.org","@type":"LocalBusiness","@id":"https://uscale.in/#business","name":"U Scale","description":"Full-service digital marketing agency in Mumbai. Websites, social media, SEO and ads, designed and built in-house. Transparent pricing from ₹35,000/month.","url":"https://uscale.in/","image":"https://uscale.in/og-image.png","priceRange":"₹35,000+/month","telephone":"+91-79773-60142","email":"uscalewithus@gmail.com","sameAs":["https://www.instagram.com/uscalewithus/"],"address":{"@type":"PostalAddress","addressLocality":"Mumbai","addressRegion":"Maharashtra","addressCountry":"IN"},"areaServed":{"@type":"City","name":"Mumbai"},"founder":{"@type":"Person","name":"Mehul Karotra","sameAs":"https://www.linkedin.com/in/mehulkarotra/"},"hasOfferCatalog":{"@type":"OfferCatalog","name":"Digital marketing services","itemListElement":[{"@type":"Offer","itemOffered":{"@type":"Service","name":"Web Design"}},{"@type":"Offer","itemOffered":{"@type":"Service","name":"Social Media Management"}},{"@type":"Offer","itemOffered":{"@type":"Service","name":"SEO"}},{"@type":"Offer","itemOffered":{"@type":"Service","name":"Advertising"}}]}}
 </script>
-<!-- TODO: once the domain and share image are live, check url, @id and image above -->
 <!-- TODO: GA4 measurement ID. Replace G-XXXXXXXXXX and uncomment to go live:
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX"></script>
 <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-XXXXXXXXXX');</script>
@@ -133,7 +137,6 @@ if(m==='off'||(m!=='on'&&matchMedia('(prefers-reduced-motion: reduce)').matches)
   </div>
 
   <!-- 5.2 TRUST BAR + CLIENT LOGO WALL -->
-  <!-- TODO: replace badges with real client logo SVGs when supplied -->
   <section class="trust" aria-labelledby="trust-label">
     <div class="wrap"><p class="eyebrow trust__label" id="trust-label">Trusted across industries</p></div>
     {{LOGO_WALL}}
@@ -395,8 +398,9 @@ if(m==='off'||(m!=='on'&&matchMedia('(prefers-reduced-motion: reduce)').matches)
       </div>
 
       <div data-reveal>
-        <!-- TODO: wire to Formspree/Getform before launch (set action + method, keep the JS success state) -->
-        <form class="form" id="enquiry" novalidate>
+        <!-- Enquiries are emailed to uscalewithus@gmail.com through FormSubmit (formsubmit.co). The very first submission triggers a one-time "Activate form" email to that inbox. -->
+        <form class="form" id="enquiry" action="https://formsubmit.co/uscalewithus@gmail.com" method="POST" novalidate>
+          <input class="hp" type="text" name="_honey" tabindex="-1" autocomplete="off" aria-hidden="true">
           <div class="form__row">
             <div class="field"><label for="f-name">Your name</label><input id="f-name" name="name" type="text" autocomplete="name" required aria-describedby="e-name"><span class="field__line" aria-hidden="true"></span><span class="field__err" id="e-name">Please add your name.</span></div>
             <div class="field"><label for="f-phone">Phone</label><input id="f-phone" name="phone" type="tel" inputmode="tel" autocomplete="tel" required aria-describedby="e-phone"><span class="field__line" aria-hidden="true"></span><span class="field__err" id="e-phone">Please add a phone number we can reach.</span></div>
@@ -407,7 +411,7 @@ if(m==='off'||(m!=='on'&&matchMedia('(prefers-reduced-motion: reduce)').matches)
         </form>
         <div class="form success" id="enquiry-done" hidden aria-live="polite">
           <span class="success__tick" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg></span>
-          <h3 tabindex="-1">Thanks, enquiry noted. For the fastest reply, ping us on WhatsApp.</h3>
+          <h3 tabindex="-1">Thanks, your enquiry is in our inbox. We reply within 24 hours; for the fastest reply, ping us on WhatsApp.</h3>
           <a class="btn btn--go" href="https://wa.me/917977360142?text=Hi%20U%20Scale%2C%20I%27d%20like%20to%20talk%20about%20my%20business." target="_blank" rel="noopener">{{ICON_CHAT}}Chat on WhatsApp</a>
         </div>
       </div>

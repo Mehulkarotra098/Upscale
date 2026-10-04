@@ -338,21 +338,38 @@
     });
   });
 
-  /* ---------- Enquiry form (front end only until wired to Formspree/Getform) ---------- */
+  /* ---------- Enquiry form: emails uscalewithus@gmail.com via FormSubmit (AJAX), WhatsApp fallback ---------- */
+  var FORM_ENDPOINT='https://formsubmit.co/ajax/uscalewithus@gmail.com';
   var form=$('#enquiry'), done=$('#enquiry-done');
   if(form){
     var rules={ name:function(v){ return v.trim().length>1; }, phone:function(v){ return /^[+()\d\s-]{8,}$/.test(v.trim())&&v.replace(/\D/g,'').length>=8; }, email:function(v){ return /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(v.trim()); }, need:function(v){ return v.trim().length>2; } };
     var check=function(i){ var ok=rules[i.name](i.value), f=i.closest('.field'); if(ok){ f.removeAttribute('data-invalid'); i.removeAttribute('aria-invalid'); } else { f.setAttribute('data-invalid',''); i.setAttribute('aria-invalid','true'); } return ok; };
-    $$('input,textarea',form).forEach(function(i){ i.addEventListener('blur',function(){ if(i.value) check(i); }); i.addEventListener('input',function(){ if(i.closest('.field').hasAttribute('data-invalid')) check(i); }); });
+    $$('input:not(.hp),textarea',form).forEach(function(i){ i.addEventListener('blur',function(){ if(i.value) check(i); }); i.addEventListener('input',function(){ if(i.closest('.field').hasAttribute('data-invalid')) check(i); }); });
     form.addEventListener('submit',function(e){
       e.preventDefault();
-      var bad=$$('input,textarea',form).filter(function(i){ return !check(i); });
+      var bad=$$('input:not(.hp),textarea',form).filter(function(i){ return !check(i); });
       if(bad.length){ bad[0].focus(); return; }
-      /* TODO: POST the form data to Formspree/Getform here, then show the success state */
-      form.hidden=true; done.hidden=false; done.classList.add('is-in');
-      var h=$('h3',done); if(h) h.focus({preventScroll:true});
-      var r=done.getBoundingClientRect(); if(motion&&fine) burst(r.left+48,r.top+40);
-      setTimeout(layout,50);
+      var fd=new FormData(form); if(fd.get('_honey')) return;
+      var btn=$('button[type=submit]',form), lbl=btn.innerHTML; btn.disabled=true; btn.setAttribute('aria-busy','true'); btn.firstChild.textContent='Sending… ';
+      var data={name:fd.get('name'),phone:fd.get('phone'),email:fd.get('email'),message:fd.get('need'),_subject:'New enquiry from '+fd.get('name')+' (uscale site)',_replyto:fd.get('email'),_template:'table',_captcha:'false'};
+      var show=function(ok){
+        btn.disabled=false; btn.removeAttribute('aria-busy'); btn.innerHTML=lbl;
+        var h=$('h3',done), wa=$('a',done);
+        if(!ok){
+          var txt='Hi U Scale, I\'m '+data.name+' ('+data.phone+', '+data.email+'). '+data.message;
+          if(wa) wa.href='https://wa.me/917977360142?text='+encodeURIComponent(txt);
+          if(h) h.textContent='Our inbox didn\'t answer just now. Tap below to send the same message on WhatsApp.';
+        }
+        form.hidden=true; done.hidden=false; done.classList.add('is-in');
+        if(h) h.focus({preventScroll:true});
+        var r=done.getBoundingClientRect(); if(ok&&motion&&fine) burst(r.left+48,r.top+40);
+        setTimeout(layout,50);
+      };
+      var ctl=('AbortController' in window)?new AbortController():null, to=setTimeout(function(){ if(ctl) ctl.abort(); },15000);
+      fetch(FORM_ENDPOINT,{method:'POST',headers:{'Content-Type':'application/json','Accept':'application/json'},body:JSON.stringify(data),signal:ctl?ctl.signal:undefined})
+        .then(function(r){ return r.json().catch(function(){ return {}; }).then(function(j){ return r.ok&&String(j.success)!=='false'; }); })
+        .catch(function(){ return false; })
+        .then(function(ok){ clearTimeout(to); show(ok); });
     });
   }
 

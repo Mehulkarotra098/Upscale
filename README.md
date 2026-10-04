@@ -4,6 +4,10 @@ Single-page site for **U Scale**, a full-service digital marketing agency in Mum
 
 The repo root is the live site: `index.html`, `styles.css`, `script.js` and `assets/` (real screenshots and client logos, WebP, about 1.2 MB). There is no build step, so it deploys as-is to Vercel, Netlify, GitHub Pages or any static host.
 
+## Live
+
+https://uscale-one.vercel.app (Vercel project `uscale`, deploys automatically on every push to `main`).
+
 ## Deploy
 
 - **Vercel / Netlify:** import this repo, framework preset "Other", no build command, output directory `/`.
@@ -39,10 +43,12 @@ WhatsApp and phone +91 79773 60142, email uscalewithus@gmail.com, Instagram @usc
 
 `source/src/testimonials.json` holds draft reviews for Prachi, Vidhi Parmar, Yash (BrandGen), Raj Patel and Vrushab Jain. A card only appears on the site when its entry has `"approved": true`, so send each person their draft, paste in their edited wording, flip the flag, rebuild. Until at least one is approved, three honest placeholders show.
 
-## Before launch (search the code for `TODO`)
+## Contact form
 
-1. Wire the contact form to Formspree or Getform (enquiries currently go nowhere)
-2. Get the five testimonial drafts approved (and add Raj's and Vrushab's business names)
-3. Live domain (canonical, og:url, JSON-LD) and a 1200×630 share image
-4. Booking calendar link for "Book a free strategy call" (optional)
-5. GA4 measurement ID (commented snippet in the head)
+Enquiries are emailed to uscalewithus@gmail.com through FormSubmit (no account, no backend). The first submission sends a one-time "Activate form" email to that inbox: click it once and every enquiry after that arrives as an email (reply-to is set to the visitor). If the service is ever unreachable, the form offers to send the same message on WhatsApp instead.
+
+## Still open (search the code for `TODO`)
+
+1. Get the five testimonial drafts approved (and add Raj's and Vrushab's business names)
+2. GA4 measurement ID (commented snippet in the head)
+3. Custom domain: add it in Vercel, then change `SITE_URL` in `source/build/build_site.py` and the URLs in `robots.txt` and `sitemap.xml`, and rebuild
