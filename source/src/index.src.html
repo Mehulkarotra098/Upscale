@@ -21,9 +21,16 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Anton&family=Inter:wght@400;500;600;700&display=swap">
+<!-- Client typefaces for the work mockups and logo wall, subset to only the characters they draw -->
+<link rel="stylesheet" href="{{SHOWCASE_FONTS}}">
 <script type="application/ld+json">
-{"@context":"https://schema.org","@type":"ProfessionalService","name":"U Scale","description":"Full-service digital marketing agency in Mumbai: websites, social media, SEO and ads, designed and built in-house.","url":"https://uscale.in/","areaServed":{"@type":"City","name":"Mumbai"},"priceRange":"From ₹35,000/month","founder":{"@type":"Person","name":"Mehul","sameAs":"https://www.linkedin.com/in/mehulkarotra/"}}
+{"@context":"https://schema.org","@type":"LocalBusiness","@id":"https://uscale.in/#business","name":"U Scale","description":"Full-service digital marketing agency in Mumbai. Websites, social media, SEO and ads, designed and built in-house. Transparent pricing from ₹35,000/month.","url":"https://uscale.in/","image":"https://uscale.in/og-image.png","priceRange":"₹35,000+/month","address":{"@type":"PostalAddress","addressLocality":"Mumbai","addressRegion":"Maharashtra","addressCountry":"IN"},"areaServed":{"@type":"City","name":"Mumbai"},"founder":{"@type":"Person","name":"Mehul","sameAs":"https://www.linkedin.com/in/mehulkarotra/"},"hasOfferCatalog":{"@type":"OfferCatalog","name":"Digital marketing services","itemListElement":[{"@type":"Offer","itemOffered":{"@type":"Service","name":"Web Design"}},{"@type":"Offer","itemOffered":{"@type":"Service","name":"Social Media Management"}},{"@type":"Offer","itemOffered":{"@type":"Service","name":"SEO"}},{"@type":"Offer","itemOffered":{"@type":"Service","name":"Advertising"}}]}}
 </script>
+<!-- TODO: once the domain and share image are live, check url, @id and image above; add "telephone" and "email" when confirmed -->
+<!-- TODO: GA4 measurement ID. Replace G-XXXXXXXXXX and uncomment to go live:
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-XXXXXXXXXX');</script>
+-->
 <script>
 /* Intro gate: the loader plays once per browser session. Runs before first paint so returning visitors never see a flash. */
 (function(){var d=document.documentElement;d.classList.add('js');
@@ -123,19 +130,11 @@ if(ONCE_PER_SESSION&&seen)d.classList.add('intro-skip');})();
     </section>
   </div>
 
-  <!-- 5.2 TRUST BAR -->
+  <!-- 5.2 TRUST BAR + CLIENT LOGO WALL -->
+  <!-- TODO: replace badges with real client logo SVGs when supplied -->
   <section class="trust" aria-labelledby="trust-label">
     <div class="wrap"><p class="eyebrow trust__label" id="trust-label">Trusted across industries</p></div>
-    <div class="marquee">
-      <div class="marquee__track">
-        <ul class="marquee__list">
-          <li><span>TIS Admissions</span></li><li><span>Antrah Wellness</span></li><li><span>Roar Arena</span></li><li><span>My Country Mobile</span></li><li><span>Callmama</span></li><li><span>GrowCred</span></li><li><span>Sashe by Prachi</span></li><li><span>Vidhi Parmar</span></li><li><span>BrandGen</span></li>
-        </ul>
-        <ul class="marquee__list" aria-hidden="true">
-          <li><span>TIS Admissions</span></li><li><span>Antrah Wellness</span></li><li><span>Roar Arena</span></li><li><span>My Country Mobile</span></li><li><span>Callmama</span></li><li><span>GrowCred</span></li><li><span>Sashe by Prachi</span></li><li><span>Vidhi Parmar</span></li><li><span>BrandGen</span></li>
-        </ul>
-      </div>
-    </div>
+    {{LOGO_WALL}}
   </section>
 
   <!-- 5.3 SERVICES -->

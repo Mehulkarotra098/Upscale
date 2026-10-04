@@ -1,6 +1,8 @@
 """Assembles the U Scale site.
 Outputs: site/index.html + site/styles.css + site/script.js (deploy as-is), and preview.html (single file, replay button) for review."""
-import json, re, urllib.parse, pathlib, html
+import json, re, urllib.parse, pathlib, html, sys
+sys.path.insert(0, str(pathlib.Path(__file__).resolve().parent))
+import showcase
 
 ROOT = pathlib.Path(__file__).resolve().parent
 REPO = ROOT.parent.parent
@@ -121,8 +123,9 @@ WORK = [
 ]
 e = lambda t: html.escape(t, quote=False)
 work_cards = '\n'.join(
+    f'        <!-- TODO: swap the {name} mockup with a real 1440x900 screenshot when Mehul supplies it -->\n'
     f'        <li class="wcard" data-reveal><a href="{url}" target="_blank" rel="noopener">'
-    f'<div class="wcard__thumb" aria-hidden="true">{th[k]}</div>'
+    f'<div class="wcard__thumb">{showcase.MOCKS[k]}</div>'
     f'<div class="wcard__body"><p class="wcard__meta">{e(meta)}</p><h3>{e(name)}</h3><span class="tag">{e(tag)}</span><p>{e(desc)}</p>'
     f'<span class="wcard__cta">View live site {ARW}<span class="sr-only"> (opens in a new tab)</span></span></div></a></li>'
     for k, name, meta, tag, desc, url in WORK)
@@ -159,9 +162,12 @@ def bp(built):
 blueprint = bp(False) + f'<div class="blueprint__built"><div>{bp(True)}</div></div><span class="blueprint__seam"></span>'
 
 src = (SRC / 'index.src.html').read_text()
-css = (SRC / 'styles.css').read_text()
+css = (SRC / 'styles.css').read_text() + '\n' + (SRC / 'showcase.css').read_text()
 js = (SRC / 'script.js').read_text()
-rep = {'{{LOADER_LOGO}}': loader_logo, '{{HEADER_LOGO}}': logo(), '{{FOOTER_LOGO}}': logo('logo--rev'), '{{FAVICON}}': favicon,
+SHOWCASE_FONTS = ('https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=Newsreader:ital,wght@0,400;1,400'
+  '&family=Archivo:wght@800&family=Outfit:wght@500;600&family=Plus+Jakarta+Sans:wght@800&family=Inter:wght@800;900&display=swap&text='
+  + urllib.parse.quote(showcase.font_text())).replace('&', '&amp;')
+rep = {'{{LOGO_WALL}}': showcase.logo_wall(), '{{SHOWCASE_FONTS}}': SHOWCASE_FONTS, '{{LOADER_LOGO}}': loader_logo, '{{HEADER_LOGO}}': logo(), '{{FOOTER_LOGO}}': logo('logo--rev'), '{{FAVICON}}': favicon,
        '{{CHART}}': chart, '{{CTA_BARS}}': cta_bars, '{{WORK_CARDS}}': work_cards, '{{FAQ}}': faq, '{{BLUEPRINT}}': blueprint}
 rep.update({'{{' + k + '}}': v for k, v in ICONS.items()})
 for k, v in rep.items():
