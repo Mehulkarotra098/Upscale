@@ -68,13 +68,63 @@ chart = ('<svg viewBox="0 0 420 300" aria-hidden="true" focusable="false">'
          + ''.join(f'<path class="bar" style="--b:{i};fill:var(--green);opacity:{o}" d="{slant_bar(x, 58, t, 266)}"/>' for i, (x, t, o) in enumerate(bars))
          + '</svg>')
 
+
+# ---------- Hero growth stack (interactive in script.js; this is the no-JS / motion-off render) ----------
+import math as _m
+GS = [('web', 'Website', 'Website: the base everything stands on.'),
+      ('seo', 'SEO', 'SEO: slow start, then it compounds.'),
+      ('social', 'Social', 'Social: steady trust, week after week.'),
+      ('ads', 'Ads', 'Ads: in front of buyers from day one.'),
+      ('ai', 'AI search', 'AI search: named when people ask AI.')]
+def gs_f(k, t):
+    if k == 'web': return .12 + .16 * t
+    if k == 'seo': return .36 * t ** 2.2
+    if k == 'social': return .17 * (1 - _m.exp(-3 * t)) / (1 - _m.exp(-3))
+    if k == 'ads': return .13 * (1 - _m.exp(-14 * t)) + .02 * t
+    s_ = min(1, max(0, (t - .25) / .75)); return .17 * s_ * s_ * (3 - 2 * s_)
+GN, GX0, GX1, GYB, GH, GMAX = 40, 4, 384, 196, 184, 1.2
+def gs_paths():
+    xs = [GX0 + (GX1 - GX0) * j / GN for j in range(GN + 1)]
+    low = [0.0] * (GN + 1); out = []
+    y = lambda v: GYB - GH * v / GMAX
+    for k, _, _ in GS:
+        up = [low[j] + gs_f(k, j / GN) for j in range(GN + 1)]
+        d = 'M' + ' L'.join(f'{xs[j]:.1f},{y(up[j]):.1f}' for j in range(GN + 1)) + ' L' + ' L'.join(f'{xs[j]:.1f},{y(low[j]):.1f}' for j in range(GN, -1, -1)) + 'Z'
+        out.append((k, d)); low = up
+    line = 'M' + ' L'.join(f'{xs[j]:.1f},{y(low[j]):.1f}' for j in range(GN + 1))
+    return out, line, (xs[-1], y(low[-1]))
+_lay, _line, (_ex, _ey) = gs_paths()
+growth = (
+    '<div class="gs" data-growth>'
+    '<div class="gs__head"><div class="gs__hl"><span class="gs__label">Your business online</span>'
+    '<span class="gs__status"><b data-gs-status>Chosen</b><i>.</i></span></div>'
+    '<span class="gs__count"><b data-gs-n>5</b>/5 channels</span></div>'
+    '<div class="gs__chart"><svg viewBox="0 0 400 204" role="img" aria-label="Illustration: website, SEO, social, ads and AI search stacking into one rising growth curve over twelve months" focusable="false">'
+    + ''.join(f'<line class="gs__grid" x1="4" x2="384" y1="{GYB - GH * i / 4:.0f}" y2="{GYB - GH * i / 4:.0f}"/>' for i in range(1, 5))
+    + ''.join(f'<path class="gs__layer" data-gs-layer="{k}" d="{d}"/>' for k, d in _lay)
+    + f'<line class="gs__base" x1="4" x2="384" y1="{GYB}" y2="{GYB}"/>'
+    + f'<path class="gs__line" data-gs-line d="{_line}"/>'
+    + f'<path class="gs__flow" data-gs-flow pathLength="1" d="{_line}"/>'
+    + '<g class="gs__comet" data-gs-comet transform="translate(-40 -40)"><circle class="gs__glow" r="9"/><circle r="3.6"/></g>'
+    + f'<g class="gs__end" data-gs-dot transform="translate({_ex:.1f} {_ey:.1f})"><circle class="gs__ring" r="11"/><circle class="gs__dot" r="5.5"/></g>'
+    + '</svg><div class="gs__axis" aria-hidden="true"><span>Month 1</span><span>Month 12</span></div></div>'
+    '<div class="gs__chips" role="group" aria-label="Channels: switch them on and off">'
+    + ''.join(f'<button class="gs__chip" type="button" data-k="{k}" aria-pressed="true"><i aria-hidden="true"></i>{html.escape(n)}</button>' for k, n, _ in GS)
+    + '</div><p class="gs__tip" data-gs-tip>Five channels, one plan. Tap any to switch it off.</p>'
+    '<p class="gs__note">Illustration, not a forecast.</p>'
+    '<span class="gs__badge" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M7 17 17 7M9 7h8v8"/></svg></span>'
+    '</div>'
+    '<div class="hf hf--search" aria-hidden="true"><div class="hf__bar"><svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="6.5"/><path d="m16 16 4 4"/></svg><span data-hf-q>web designer in mumbai</span><i class="hf__caret"></i></div>'
+    '<div class="hf__res"><span class="hf__fav"></span><span><b>Your business</b><small>Found, first page</small></span></div></div>'
+    '<div class="hf hf--toast" aria-hidden="true"><span class="hf__wa"><svg viewBox="0 0 24 24"><path d="M5 19l1.2-3.6A7.5 7.5 0 1 1 9 18.6z"/></svg></span><span><b>New enquiry</b><small>WhatsApp · just now</small></span></div>')
+
 cta_bars = ('<svg viewBox="0 0 400 320" preserveAspectRatio="xMaxYMax meet" aria-hidden="true" focusable="false">'
             + ''.join(f'<path style="fill:var(--lavender);opacity:{o}" d="{slant_bar(x, 78, t, 320, 18, 10)}"/>'
                       for x, t, o in [(14, 210, .08), (112, 150, .12), (210, 86, .17), (308, 10, .24)]) + '</svg>')
 
 # ---------- v3 content: real screenshots, real logos ----------
 SITE_URL = 'https://uscale-one.vercel.app/'  # live URL, set at deploy
-BOOK = 'https://wa.me/917977360142?text=' + urllib.parse.quote("Hi U Scale, I'd like to book a free strategy call. A good time for me is: ")
+BOOK = 'https://wa.me/917977360142?text=' + urllib.parse.quote("Hi Mehul, I'd like to book a free strategy call. A good time for me is: ")
 SZ = json.load(open(ROOT / 'asset_sizes.json'))
 ARW = '<span class="arw" aria-hidden="true"><b>↗</b><b>↗</b></span>'
 e = lambda t: html.escape(t, quote=False)
@@ -118,12 +168,13 @@ logo_wall = (f'<ul class="sr-only">{names}</ul>'
              f'<div class="lw__row r2"><div class="lw__track">{"".join(wall_cell(w) for w in r2)}{"".join(wall_cell(w, True) for w in r2)}</div></div></div>')
 
 FAQ = [
- ('How much does digital marketing cost in Mumbai?', "Our retainers start at ₹35,000/month and websites are fixed projects. Every engagement starts with a free audit, so you see exactly what you'd pay for before spending a rupee."),
- ('How long does SEO take to show results?', 'Honest answer: 3–6 months for meaningful movement. Anyone promising page one in 30 days is selling you something. We show you the trajectory every month.'),
+ ('Is U Scale an agency?', "No. U Scale is me, Mehul Karotra. You sign a contract with me directly, and I personally design, build and run your work. If a project ever needs a specialist, like a photographer, I bring them in and stay your single point of contact."),
+ ('How much does digital marketing cost in Mumbai?', "My retainers start at ₹35,000/month and websites are fixed-price projects. Every engagement starts with a free audit, so you see exactly what you'd pay for before spending a rupee."),
+ ('How long does SEO take to show results?', 'Honest answer: 3–6 months for meaningful movement. Anyone promising page one in 30 days is selling you something. I show you the trajectory every month.'),
  ('How long does it take to build a website?', 'A business website typically takes 4–8 weeks from kickoff to launch, depending on pages and how ready your content is.'),
- ('Do you lock clients into long contracts?', "No. Retainers run month-to-month after an initial 3-month sprint. We'd rather earn your renewal than enforce it."),
- ('What is AI search visibility (GEO)?', 'When someone asks ChatGPT or Perplexity for a recommendation in your category, does your business get mentioned? We optimise your presence so AI answers cite you.'),
- ('How do we start?', 'Book a free strategy call or ping us on WhatsApp. We audit your digital presence free, then send a plan with clear pricing.'),
+ ('Do you lock clients into long contracts?', "No. Retainers run month-to-month after an initial 3-month sprint. I'd rather earn your renewal than enforce it."),
+ ('What is AI search visibility (GEO)?', 'When someone asks ChatGPT or Perplexity for a recommendation in your category, does your business get mentioned? I optimise your presence so AI answers cite you.'),
+ ('How do we start?', 'Book a free strategy call or ping me on WhatsApp. I audit your digital presence for free, then send a plan with clear pricing.'),
 ]
 faq = '\n'.join(
     (f'        <div class="qa{" is-open" if i == 0 else ""}"><h3><button class="qa__btn" type="button" id="q{i}" aria-expanded="{"true" if i == 0 else "false"}" aria-controls="a{i}">'
@@ -150,7 +201,7 @@ def bp(built):
 blueprint = bp(False) + f'<div class="blueprint__built"><div>{bp(True)}</div></div><span class="blueprint__seam"></span>'
 
 src = (SRC / 'index.src.html').read_text()
-css = '\n'.join((SRC / f).read_text() for f in ['styles.css', 'work.css', 'motion.css'])
+css = '\n'.join((SRC / f).read_text() for f in ['styles.css', 'work.css', 'motion.css', 'growth.css'])
 def _rules(block):
     out, i, depth, start = [], 0, 0, 0
     for j, ch in enumerate(block):
@@ -178,10 +229,12 @@ def motion_css(c):
             depth += {'{': 1, '}': -1}.get(c[j], 0); j += 1
         inner = c[m.end():j-1]; out.append(c[pos:m.start()])
         rules = _rules(inner)
+        # Motion is decided by the visitor's Motion toggle (html.rm), not silently by the OS setting:
+        # "reduce" rules apply only when motion is off, "no-preference" rules whenever it is on.
         if m.group(1) == 'reduce':
-            out.append(c[m.start():j] + '\n' + '\n'.join(_prefix(r, 'rm') for r in rules))
+            out.append('\n'.join(_prefix(r, 'rm') for r in rules))
         else:
-            out.append('@media (prefers-reduced-motion:no-preference){' + '\n'.join(_prefix(r, 'on') for r in rules) + '}')
+            out.append('\n'.join(_prefix(r, 'on') for r in rules))
         pos = j
     out.append(c[pos:]); return ''.join(out)
 css = motion_css(css)
@@ -199,7 +252,7 @@ def quotes_html():
         out.append(f'      <li class="quote quote--real" style="--q:{i%3}" data-reveal>{dash}<blockquote><p>{e(t["quote"])}</p></blockquote><p class="quote__by"><span class="quote__av" aria-hidden="true">{ini}</span><span><strong>{e(t["name"])}</strong><br>{e(t["role"])}</span>{logo}</p></li>')
     return '\n'.join(out)
 rep = {'{{QUOTES}}': quotes_html(),'{{LOGO_WALL}}': logo_wall, '{{WORK_TOTAL}}': f'{len(WORK):02d}', '{{PROJECT_INDEX}}': project_index, '{{LOADER_LOGO}}': loader_logo, '{{HEADER_LOGO}}': logo(), '{{FOOTER_LOGO}}': logo('logo--rev'), '{{FAVICON}}': favicon,
-       '{{CHART}}': chart, '{{CTA_BARS}}': cta_bars, '{{WORK_CARDS}}': work_cards, '{{FAQ}}': faq, '{{BLUEPRINT}}': blueprint}
+       '{{CHART}}': growth, '{{CTA_BARS}}': cta_bars, '{{WORK_CARDS}}': work_cards, '{{FAQ}}': faq, '{{BLUEPRINT}}': blueprint}
 rep.update({'{{' + k + '}}': v for k, v in ICONS.items()})
 for k, v in rep.items():
     src = src.replace(k, v)
@@ -209,8 +262,10 @@ assert not left, left
 
 # Deployable folder
 site = REPO
-(site / 'index.html').write_text(src.replace('{{STYLES}}', '<link rel="stylesheet" href="styles.css">')
-                                    .replace('{{SCRIPT}}', '<script src="script.js"></script>').replace('<!--PREVIEW-REPLAY-->\n', ''))
+import hashlib as _h
+_v = _h.sha1((css + js).encode()).hexdigest()[:8]
+(site / 'index.html').write_text(src.replace('{{STYLES}}', f'<link rel="stylesheet" href="styles.css?v={_v}">')
+                                    .replace('{{SCRIPT}}', f'<script src="script.js?v={_v}"></script>').replace('<!--PREVIEW-REPLAY-->\n', ''))
 (site / 'styles.css').write_text(css)
 (site / 'script.js').write_text(js)
 
