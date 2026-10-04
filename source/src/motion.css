@@ -1,0 +1,135 @@
+/* ---------- v3 motion layer ---------- */
+
+/* Header scroll progress: a thin green line that grows like the "u" arm */
+.hdr-progress{position:absolute;left:0;right:0;bottom:0;height:2px;pointer-events:none}
+.hdr-progress i{display:block;height:100%;background:var(--green);transform-origin:left;transform:scaleX(var(--sp,0));border-radius:0 2px 2px 0}
+
+/* Hero cursor spotlight */
+.hero__spot{position:absolute;left:0;top:0;width:720px;height:720px;margin:-360px 0 0 -360px;border-radius:50%;background:radial-gradient(closest-side,rgba(201,188,232,.22),rgba(201,188,232,.07) 55%,rgba(201,188,232,0));pointer-events:none;z-index:-1;opacity:0;transform:translate3d(var(--hx,50vw),var(--hy,40vh),0);transition:opacity .6s ease}
+.hero.is-lit .hero__spot{opacity:1}
+
+/* Services: a soft glow follows the cursor inside each card */
+.svc{overflow:hidden;isolation:isolate}
+.svc::after{content:"";position:absolute;left:0;top:0;width:320px;height:320px;margin:-160px 0 0 -160px;border-radius:50%;background:radial-gradient(closest-side,rgba(201,188,232,.55),rgba(201,188,232,0));opacity:0;transform:translate3d(var(--gx,-400px),var(--gy,-400px),0);transition:opacity .35s ease;pointer-events:none;z-index:-1}
+.svc--flag::after,.svc--ai::after{background:radial-gradient(closest-side,rgba(201,188,232,.28),rgba(201,188,232,0))}
+.svc:hover::after{opacity:1}
+.svc__icon svg *{transition:transform .5s var(--ease-spring);transform-box:fill-box;transform-origin:center}
+.svc:hover .svc__icon svg *{transform:scale(1.08)}
+
+/* Process: pinned scene on desktop */
+.proc__head{display:grid;gap:clamp(14px,1.6vw,20px);margin-bottom:clamp(32px,5vw,64px)}
+@media (min-width:1024px){
+  html.pin-ok .proc__pin{height:280vh;position:relative}
+  html.pin-ok .proc__sticky{position:sticky;top:0;height:100vh;display:flex;align-items:center}
+  html.pin-ok .process{padding-block:0}
+  html.pin-ok .step{opacity:.35;transform:translateY(14px);transition:opacity .5s ease,transform .6s var(--ease-out)}
+  html.pin-ok .step.is-lit{opacity:1;transform:none}
+  html.pin-ok .step.is-now h3{color:var(--violet)}
+}
+.step.is-now .step__num{box-shadow:0 0 0 6px rgba(37,30,69,.1)}
+
+/* Pricing: tilt to cursor + slow lavender sweep around Grow */
+.plan{transform:perspective(900px) rotateX(var(--rx,0deg)) rotateY(var(--ry,0deg)) translateY(var(--ty,0px));transition:transform .5s var(--ease-out),border-color .4s ease,background-color .4s ease}
+.plan:hover{--ty:-4px}
+@media (min-width:960px){.plan--pop{--ty:-12px}.plan--pop:hover{--ty:-16px}}
+.plan--pop{overflow:hidden;isolation:isolate;border:0}
+.plan--pop::before{content:"";position:absolute;left:50%;top:50%;width:200%;aspect-ratio:1;margin:-100% 0 0 -100%;background:conic-gradient(from 0deg,rgba(201,188,232,0) 0deg,rgba(201,188,232,0) 250deg,var(--lavender) 320deg,rgba(201,188,232,0) 360deg);animation:sweep 7s linear infinite;z-index:-2}
+.plan--pop::after{content:"";position:absolute;inset:2px;border-radius:calc(var(--radius-card) - 2px);background:var(--space);z-index:-1}
+@keyframes sweep{to{transform:rotate(360deg)}}
+.plan--pop .plan__badge{position:static;justify-self:start;align-self:flex-start;margin-bottom:-4px}
+
+/* Testimonials: slow drift + animated dashed outline on hover */
+.quote{position:relative;border-color:transparent;animation:drift 9s ease-in-out infinite alternate;animation-delay:calc(var(--q,0) * -3s)}
+.quote svg.dash{position:absolute;inset:0;width:100%;height:100%;pointer-events:none;overflow:visible}
+.quote svg.dash rect{fill:none;stroke:rgba(37,30,69,.22);stroke-width:1.5;stroke-dasharray:6 7;transition:stroke .4s ease}
+.quote:hover svg.dash rect{stroke:var(--violet);animation:march 1.2s linear infinite}
+@keyframes march{to{stroke-dashoffset:-26}}
+@keyframes drift{from{transform:translateY(0)}to{transform:translateY(-10px)}}
+@media (min-width:860px){.quote:nth-child(2){margin-top:24px}}
+
+/* FAQ numbers fill violet when open */
+.qa__btn{grid-template-columns:40px 1fr 40px}
+.qa__n{width:40px;height:40px;border-radius:50%;display:grid;place-items:center;font:400 15px/1 var(--display);color:var(--violet);border:1.5px solid rgba(37,30,69,.18);transition:background-color .35s ease,color .35s ease,border-color .35s ease}
+.qa.is-open .qa__n{background:var(--violet);color:var(--white);border-color:var(--violet)}
+.qa__panel p{padding-left:56px}
+@media (max-width:520px){.qa__btn{grid-template-columns:34px 1fr 36px;gap:12px}.qa__n{width:34px;height:34px;font-size:13px}.qa__panel p{padding-left:0;padding-right:0}}
+
+/* Final CTA letters spring on hover */
+.cta__title .ch{display:inline-block;transition:transform .5s var(--ease-spring);will-change:transform}
+.cta__title .ch:hover{transform:translateY(-.08em) rotate(-3deg)}
+.cta__title .sp{display:inline-block;width:.22em}
+
+/* Contact: animated focus line + gentle WhatsApp pulse */
+.field{position:relative}
+.field__line{position:absolute;left:12px;right:12px;height:2px;border-radius:2px;background:var(--green);transform:scaleX(0);transform-origin:left;transition:transform .45s var(--ease-out);pointer-events:none}
+.field input ~ .field__line{top:calc(100% - 2px)}
+.field:focus-within .field__line{transform:scaleX(1)}
+.field:has(textarea) .field__line{top:auto;bottom:2px}
+.field:has(.field__err) .field__line{display:none}
+.channel--wa .channel__icon{animation:wa-pulse 2.6s ease-in-out infinite}
+@keyframes wa-pulse{0%,100%{transform:scale(1)}50%{transform:scale(1.07)}}
+
+/* Dark panels ease in as they enter */
+.panel{transform:scale(calc(.955 + var(--pp,1) * .045));transform-origin:50% 0}
+
+/* Footer: outlined "Built in Mumbai." fills with lavender as you arrive */
+.footer__big{position:relative;-webkit-text-stroke:0;color:inherit;padding-inline:0;overflow:hidden}
+.footer__big .fb{display:block;padding-inline:var(--gutter);white-space:nowrap}
+.footer__big .fb-out{color:transparent;-webkit-text-stroke:1.5px rgba(201,188,232,.38)}
+.footer__big .fb-fill{position:absolute;inset:0;overflow:hidden;transform:translateX(calc((var(--p,0) - 1) * 100%))}
+.footer__big .fb-fill > span{color:var(--lavender);transform:translateX(calc((1 - var(--p,0)) * 100%))}
+.footer__meta{display:flex;flex-wrap:wrap;align-items:center;gap:10px 18px;font-size:13px;color:rgba(201,188,232,.8);font-variant-numeric:tabular-nums}
+
+/* Motion toggle (like a film set's "motion on") */
+.mt{display:inline-flex;align-items:center;gap:8px;font:600 12px/1 var(--sans);letter-spacing:.12em;text-transform:uppercase;padding:9px 13px;border-radius:99px;border:1px solid var(--line-dark);background:transparent;color:var(--white);cursor:pointer}
+.mt i{width:8px;height:8px;border-radius:50%;background:var(--green);box-shadow:0 0 0 3px rgba(99,184,73,.25)}
+.mt[aria-pressed="false"] i{background:transparent;border:1.5px solid var(--lavender);box-shadow:none}
+.mt:hover{border-color:var(--lavender)}
+
+/* Bubble cursor: main bubble (DOM) + fine bubble trail (canvas) */
+.bubbles{position:fixed;inset:0;z-index:949;pointer-events:none;width:100vw;height:100vh}
+.cursor.is-drag .cursor__b{transform:scale(1.9);background:radial-gradient(circle,rgba(201,188,232,.95) 0 58%,rgba(201,188,232,0) 72%)}
+.cursor.is-drag .cursor__label{opacity:1;transform:translate(-50%,-50%) scale(1)}
+.cursor.is-down .cursor__b{transform:scale(.7)}
+
+/* Eyebrow scramble keeps width steady */
+[data-scramble]{font-variant-numeric:tabular-nums}
+
+/* Founder: toolkit chips + links */
+.creds .chips{display:flex;flex-wrap:wrap;gap:6px}
+.creds .chips span{font:600 12.5px/1 var(--sans);padding:7px 10px;border-radius:99px;background:var(--lav-tint);color:var(--violet)}
+.founder__links{display:flex;flex-wrap:wrap;align-items:center;gap:12px 22px}
+.tlink{font-weight:700;color:var(--violet);text-decoration:none;background:linear-gradient(currentColor,currentColor) 0 100%/0 2px no-repeat;transition:background-size .4s var(--ease-out);padding-block:6px}
+.tlink:hover{background-size:100% 2px}
+
+/* Reduced motion / motion off: everything settles, nothing moves */
+@media (prefers-reduced-motion:reduce){
+  .hero__spot,.svc::after{display:none}
+  .plan,.plan:hover{transform:none}
+  .plan--pop::before{animation:none;transform:rotate(300deg)}
+  .quote,.quote:hover svg.dash rect,.channel--wa .channel__icon,.lw__track{animation:none}
+  .lw__track{flex-wrap:wrap;width:auto;justify-content:center;padding-inline:var(--gutter)}
+  .lw__row{-webkit-mask-image:none;mask-image:none}
+  .lw__row.r2,.lw__dup{display:none}
+  .cta__title .ch:hover{transform:none}
+  .panel{transform:none}
+  .wk__page,.wk.peek .wk__page,.wk__a:hover .wk__page{transition:none;animation:none;transform:none}
+  .wk__a:hover,.wk__a:hover .wk__frame,.wk__a:hover .wk__phone{transform:none}
+  .footer__big .fb-fill,.footer__big .fb-fill > span{transform:none}
+  .ppv{display:none}
+}
+.quote svg.dash rect{width:calc(100% - 1.5px);height:calc(100% - 1.5px)}
+
+/* v3 QA fixes */
+.cta__title .cw{display:inline-block;white-space:nowrap}
+.footer__big{font-size:min(calc((100vw - 2 * var(--gutter)) / 6.75),15rem)}
+html.pin-ok .process{overflow:clip}
+.wk__phone ~ .wk__body,.wk__media:has(.wk__phone) + .wk__body{padding-top:30px}
+@media (max-width:899px){.pidx{display:none}}
+html.pin-ok .wk{--cw:min(44vw,calc((100vh - var(--header-h) - 340px) * 1.6),720px)}
+.quote--real{border-style:solid;border-color:var(--line-light)}
+.quote__av{width:40px;height:40px;border-radius:50%;flex:none;display:grid;place-items:center;background:var(--violet);color:var(--lavender);font:400 15px/1 var(--display);letter-spacing:.04em}
+.quote--real .quote__by::before{display:none}
+.quote--real .quote__by strong{color:var(--violet)}
+.quote__logo{margin-left:auto;height:22px;width:auto;max-width:90px;object-fit:contain;filter:grayscale(1);opacity:.6}
+@media (min-width:860px){.quotes:has(.quote--real:nth-child(4)){grid-template-columns:repeat(6,minmax(0,1fr))}.quotes:has(.quote--real:nth-child(4)) .quote{grid-column:span 2}.quotes:has(.quote--real:nth-child(4)) .quote:nth-child(4){grid-column:2 / span 2}.quotes .quote--real:nth-child(n+4){margin-top:0}}

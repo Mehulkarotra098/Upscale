@@ -1,8 +1,7 @@
 """Assembles the U Scale site.
-Outputs: site/index.html + site/styles.css + site/script.js (deploy as-is), and preview.html (single file, replay button) for review."""
+Outputs: index.html + styles.css + script.js + assets/ at the repo root (deploy as-is), and preview.html (single file, replay button) for review."""
 import json, re, urllib.parse, pathlib, html, sys
 sys.path.insert(0, str(pathlib.Path(__file__).resolve().parent))
-import showcase
 
 ROOT = pathlib.Path(__file__).resolve().parent
 REPO = ROOT.parent.parent
@@ -73,63 +72,48 @@ cta_bars = ('<svg viewBox="0 0 400 320" preserveAspectRatio="xMaxYMax meet" aria
             + ''.join(f'<path style="fill:var(--lavender);opacity:{o}" d="{slant_bar(x, 78, t, 320, 18, 10)}"/>'
                       for x, t, o in [(14, 210, .08), (112, 150, .12), (210, 86, .17), (308, 10, .24)]) + '</svg>')
 
-# ---------- Work thumbnails (palette only, 400x250) ----------
-def svgw(bg, body):
-    return f'<svg viewBox="0 0 400 250" preserveAspectRatio="xMidYMid slice" aria-hidden="true" focusable="false"><rect width="400" height="250" fill="{bg}"/>{body}</svg>'
-
-th = {}
-th['tis'] = svgw(LT, f'<rect x="18" y="18" width="364" height="214" rx="16" fill="none" stroke="{V}" stroke-opacity=".3" stroke-width="2" stroke-dasharray="8 8"/>'
-    f'<circle cx="318" cy="72" r="26" fill="{L}"/>'
-    + ''.join(f'<rect x="{70+i*62}" y="{200-h}" width="54" height="{h}" rx="8" fill="{V}" fill-opacity="{.55+i*.15:.2f}"/>' for i, h in enumerate([36, 66, 98, 132]))
-    + f'<path d="M281 68v-26l22 9-22 9" fill="{L}" stroke="{V}" stroke-width="2" stroke-linejoin="round"/>')
-th['antrah'] = svgw(V, ''.join(f'<circle class="th-breathe" cx="200" cy="125" r="{22*k}" fill="none" stroke="{L}" stroke-opacity="{1-.16*(k-1):.2f}" stroke-width="2"/>' for k in range(1, 6))
-    + f'<circle cx="200" cy="125" r="7" fill="{L}"/>')
-th['roar'] = svgw(LT, f'<rect x="108" y="44" width="184" height="96" rx="16" fill="{V}"/>'
-    f'<rect x="132" y="66" width="46" height="52" rx="8" fill="{L}"/><rect x="222" y="66" width="46" height="52" rx="8" fill="{L}"/>'
-    f'<circle cx="200" cy="82" r="5" fill="{L}"/><circle cx="200" cy="102" r="5" fill="{L}"/>'
-    + ''.join(f'<circle cx="{x}" cy="{y}" r="9" fill="{V}" fill-opacity="{o}"/>' for y, o, off in [(186, .22, 0), (212, .34, 11), (238, .5, 0)] for x in range(18 + off, 400, 24)))
-th['mcm'] = svgw(V, f'<rect x="28" y="28" width="128" height="34" rx="17" fill="{L}" fill-opacity=".16"/><circle cx="48" cy="45" r="7" fill="{L}"/><rect x="64" y="40" width="74" height="10" rx="5" fill="{L}" fill-opacity=".5"/>'
-    + ''.join(f'<rect class="th-wave" style="--w:{i}" x="{62+i*12}" y="{150-h/2}" width="6" height="{h}" rx="3" fill="{L}"/>'
-              for i, h in enumerate([18, 34, 52, 70, 46, 88, 104, 72, 54, 92, 118, 84, 60, 98, 76, 50, 66, 40, 28, 44, 24, 14, 10, 8])))
-th['callmama'] = svgw(LT, f'<rect x="146" y="22" width="108" height="206" rx="22" fill="{S}" stroke="{V}" stroke-width="4"/>'
-    f'<rect x="184" y="34" width="32" height="6" rx="3" fill="{V}" fill-opacity=".4"/><rect x="166" y="56" width="68" height="14" rx="7" fill="{L}"/>'
-    + ''.join(f'<circle cx="{172+c*28}" cy="{98+r*30}" r="9" fill="{V}" fill-opacity="{.85 if (r,c)!=(3,1) else 1}"/>' for r in range(4) for c in range(3))
-    + f'<circle cx="80" cy="70" r="20" fill="none" stroke="{V}" stroke-opacity=".25" stroke-width="2"/><circle cx="320" cy="180" r="30" fill="none" stroke="{V}" stroke-opacity=".2" stroke-width="2"/>')
-rings = ''.join(f'<ellipse cx="{200+k*1.5:.1f}" cy="{125-k:.1f}" rx="{14+k*17}" ry="{12+k*15}" fill="none" stroke="{L}" stroke-opacity="{.95-k*.12:.2f}" stroke-width="{2.4-k*.2:.1f}"/>' for k in range(6))
-th['growcred'] = svgw(V, f'<g class="th-spin">{rings}</g><path d="M200 136c-14-10-16-30 0-44 16 14 14 34 0 44Z" fill="{L}"/><path d="M200 136v18" stroke="{L}" stroke-width="3" stroke-linecap="round"/>')
-th['sashe'] = svgw(LT, ''.join(f'<path d="M{40+i*26} -10 C {120+i*30} 60, {40+i*22} 150, {170+i*34} 260" fill="none" stroke="{V}" stroke-opacity="{.25+i*.14:.2f}" stroke-width="{3+i*2}" stroke-linecap="round"/>' for i in range(6))
-    + f'<path d="M262 46a22 22 0 1 1 30 20v12" fill="none" stroke="{V}" stroke-width="4" stroke-linecap="round"/><path d="M226 112l66-34 66 34" fill="none" stroke="{V}" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>')
-stripes = ''.join(f'<path d="M{108+i*36} 58 l22 0 l-14 30 l-22 0 Z" fill="{L if i%2==0 else V}"/>' for i in range(6))
-th['vidhi'] = svgw(V, f'<g transform="rotate(-8 110 88)"><rect x="98" y="58" width="208" height="30" rx="4" fill="{V}" stroke="{L}" stroke-width="3"/>{stripes}</g>'
-    f'<rect x="98" y="96" width="208" height="120" rx="10" fill="none" stroke="{L}" stroke-width="3"/>'
-    f'<path d="M188 132v48l40-24-40-24Z" fill="{L}"/>'
-    + ''.join(f'<rect x="{116+i*22}" y="198" width="12" height="4" rx="2" fill="{L}" fill-opacity=".6"/>' for i in range(8)))
-tiles = ''.join(f'<rect x="{232+c*72}" y="{48+r*80}" width="62" height="70" rx="10" fill="{fill}"/>'
-                for (r, c), fill in zip([(0, 0), (0, 1), (1, 0), (1, 1)], [V, L, L, V]))
-th['brandgen'] = svgw(LT, f'<circle cx="86" cy="86" r="30" fill="{V}"/><circle cx="118" cy="128" r="30" fill="{L}" stroke="{S}" stroke-width="4"/><circle cx="80" cy="164" r="22" fill="{S}" stroke="{V}" stroke-width="3"/>'
-    f'<path d="M156 125h52" stroke="{V}" stroke-width="3" stroke-linecap="round" stroke-dasharray="2 9"/><path d="m200 116 10 9-10 9" fill="none" stroke="{V}" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>{tiles}'
-    f'<rect x="242" y="98" width="30" height="8" rx="4" fill="{L}"/><rect x="314" y="178" width="30" height="8" rx="4" fill="{L}"/>')
-
+# ---------- v3 content: real screenshots, real logos ----------
+SZ = json.load(open(ROOT / 'asset_sizes.json'))
 ARW = '<span class="arw" aria-hidden="true"><b>↗</b><b>↗</b></span>'
-WORK = [
- ('tis', 'TIS Admissions 2026–27', 'Education · Kandivali West, Mumbai', 'Concept · Web Development', 'A concept admissions experience: programs, campus life and a friction-free enquiry flow for an ICSE school.', 'https://tis-school-admissions-2026.vercel.app'),
- ('antrah', 'Antrah Wellness', 'Wellness · Mumbai', 'Web Development', 'Launch site for a two-day wellness gathering: five paths to wellbeing, one calm digital home.', 'https://antrah-wellness.vercel.app'),
- ('roar', 'Roar Arena', 'Sports · India', 'Web Development', "A live match center and fan community platform for India's sports watch-party culture.", 'https://roararenaindia.vercel.app'),
- ('mcm', 'My Country Mobile', 'Telecom · In-house role', 'UI/UX + Web', 'Interface design and web development for an AI-first cloud phone and contact center platform, built during an in-house role.', 'https://mycountrymobile.com'),
- ('callmama', 'Callmama', 'Telecom · In-house role', 'UI/UX + Web', 'Product design and web experience for an international calling brand, built during an in-house role.', 'https://www.callmama.com'),
- ('growcred', 'GrowCred', 'Climate Tech · Founder project', 'Product Build', 'Founder-built climate-tech platform: plant trees, upload proof, earn TreeCoin.', 'https://greencred.vercel.app'),
- ('sashe', 'Sashe by Prachi', 'Fashion · Mumbai', 'Web Development', "Digital flagship for a bespoke fashion label: editorial hero, signature looks, studio forms, founder story. Built mobile-first to the founder's pixel-level bar.", 'https://sashebyprachi.vercel.app'),
- ('vidhi', 'Vidhi Parmar', 'Creative · Mumbai', 'Web Development', 'Personal hire-me portfolio for a Mumbai AI visual artist: selected AI ad films, four-step process, services, FAQ.', 'https://vidhi-parmar-ai.vercel.app'),
- ('brandgen', 'BrandGen', 'AI SaaS · Marketing visuals', 'Social Media + Site', 'Website and social media for an AI tool that turns one brand reference into on-brand marketing visuals.', 'https://www.getbrandgen.com'),
-]
 e = lambda t: html.escape(t, quote=False)
-work_cards = '\n'.join(
-    f'        <!-- TODO: swap the {name} mockup with a real 1440x900 screenshot when Mehul supplies it -->\n'
-    f'        <li class="wcard" data-reveal><a href="{url}" target="_blank" rel="noopener">'
-    f'<div class="wcard__thumb">{showcase.MOCKS[k]}</div>'
-    f'<div class="wcard__body"><p class="wcard__meta">{e(meta)}</p><h3>{e(name)}</h3><span class="tag">{e(tag)}</span><p>{e(desc)}</p>'
-    f'<span class="wcard__cta">View live site {ARW}<span class="sr-only"> (opens in a new tab)</span></span></div></a></li>'
-    for k, name, meta, tag, desc, url in WORK)
+# slug, name, meta, tag, description, url, accent, has_mobile, wall_tag, page alt detail
+WORK = [
+ ('tis', 'TIS Admissions 2026–27', 'Education · Kandivali West, Mumbai', 'Concept · Web Development', 'A concept admissions experience: programs, campus life and a friction-free enquiry flow for an ICSE school.', 'https://tis-school-admissions-2026.vercel.app', '#FCC513', True, 'Concept', 'admissions hero, learning stages and campus sections'),
+ ('antrah', 'Antrah Wellness', 'Wellness · Mumbai', 'Web Development', 'Launch site for a two-day wellness gathering: five paths to wellbeing, one calm digital home.', 'https://antrah-wellness.vercel.app', '#6B2F0A', True, '', 'hero with the five paths and the story section'),
+ ('roar', 'Roar Arena', 'Sports · India', 'Web Development', "A live match center and fan community platform for India's sports watch-party culture.", 'https://roararenaindia.vercel.app', '#FF5428', True, '', 'matchday board hero and what we are building'),
+ ('mcm', 'My Country Mobile', 'Telecom · In-house role', 'UI/UX + Web', 'Interface design and web development for an AI-first cloud phone and contact center platform, built during an in-house role.', 'https://mycountrymobile.com', '#3B82F6', False, 'In-house', 'AI contact center hero, platform and core tools sections'),
+ ('callmama', 'Callmama', 'Telecom · In-house role', 'UI/UX + Web', 'Product design and web experience for an international calling brand, built during an in-house role.', 'https://www.callmama.com', '#1B99F9', False, 'In-house', 'calling app hero, country numbers and products'),
+ ('growcred', 'GrowCred', 'Climate Tech · Founder project', 'Product Build', 'Founder-built climate-tech platform: plant trees, upload proof, earn TreeCoin.', 'https://greencred.vercel.app', '#22C55E', True, '', 'hero and the plant, prove, protect loop'),
+ ('sashe', 'Sashe by Prachi', 'Fashion · Mumbai', 'Web Development', "Digital flagship for a bespoke fashion label: editorial hero, signature looks, studio forms, founder story. Built mobile-first to the founder's pixel-level bar.", 'https://sashebyprachi.vercel.app', '#641F2A', True, '', 'editorial hero, signature looks and studio forms'),
+ ('vidhi', 'Vidhi Parmar', 'Creative · Mumbai', 'Web Development', 'Personal hire-me portfolio for a Mumbai AI visual artist: selected AI ad films, four-step process, services, FAQ.', 'https://vidhi-parmar-ai.vercel.app', '#F0457F', True, '', 'showreel hero and about section'),
+ ('brandgen', 'BrandGen', 'AI SaaS · Marketing visuals', 'Social Media + Site', 'Website and social media for an AI tool that turns one brand reference into on-brand marketing visuals.', 'https://www.getbrandgen.com', '#F97015', False, '', 'models and voice prompt sections'),
+]
+def dom(u): return u.split('//')[1].rstrip('/')
+def work_card(w, i):
+    k, name, meta, tag, desc, url, acc, mob, _, alt = w
+    pw, ph = SZ[k + '-page']; lw, lh = SZ[k]
+    phone = (f'<div class="wk__phone"><div class="wk__screen"><img src="assets/work/{k}-mobile.webp" width="360" height="805" alt="{e(name)} on a phone" loading="lazy" decoding="async"></div></div>' if mob else '')
+    return (f'            <!-- TODO (optional): swap {e(name)} captures for fresh 1440x900 screenshots if the site changes -->\n'
+            f'            <li class="wk" style="--acc:{acc}" data-i="{i}" data-cursor="view"><a class="wk__a" href="{url}" target="_blank" rel="noopener">'
+            f'<div class="wk__media"><div class="wk__frame"><div class="wk__bar" aria-hidden="true"><i></i><i></i><i></i><span>{dom(url)}</span></div>'
+            f'<div class="wk__view"><img class="wk__page" src="assets/work/{k}-page.webp" width="{pw}" height="{ph}" alt="{e(name)} live site: {alt}" loading="lazy" decoding="async"></div></div>{phone}</div>'
+            f'<div class="wk__body"><div class="wk__top"><img class="wk__logo" src="assets/logos/{k}.webp" width="{lw}" height="{lh}" alt="" loading="lazy" decoding="async"><span class="wk__meta">{e(meta)}</span></div>'
+            f'<h3>{e(name)}</h3><span class="tag">{e(tag)}</span><p>{e(desc)}</p>'
+            f'<span class="wk__cta">View live site {ARW}<span class="sr-only"> (opens in a new tab)</span></span></div></a></li>')
+work_cards = '\n'.join(work_card(w, i) for i, w in enumerate(WORK))
+project_index = '\n'.join(
+    f'        <li><a href="{w[5]}" target="_blank" rel="noopener" data-peek="assets/work/{w[0]}-peek.webp"><b>{e(w[1])}</b><span>{e(w[2])} · {e(w[3])}</span><i aria-hidden="true">↗</i><span class="sr-only"> (opens in a new tab)</span></a></li>'
+    for w in WORK)
+def wall_cell(w, dup=False):
+    k = w[0]; lw, lh = SZ[k]; t = f'<span class="lw__tag">{w[8]}</span>' if w[8] else ''
+    return f'<div class="lw__cell{" lw__dup" if dup else ""}"><img src="assets/logos/{k}.webp" width="{lw}" height="{lh}" alt="" loading="lazy" decoding="async">{t}</div>'
+names = ''.join(f'<li>{e(w[1])}{" (concept project)" if w[8]=="Concept" else " (in-house role)" if w[8]=="In-house" else ""}</li>' for w in WORK)
+r1, r2 = WORK[:5], WORK[5:]
+logo_wall = (f'<ul class="sr-only">{names}</ul>'
+             f'<div class="wrap"><div class="lw__grid" aria-hidden="true">{"".join(wall_cell(w) for w in WORK)}</div></div>'
+             '<div class="lw__marq" aria-hidden="true">'
+             f'<div class="lw__row r1"><div class="lw__track">{"".join(wall_cell(w) for w in r1)}{"".join(wall_cell(w, True) for w in r1)}</div></div>'
+             f'<div class="lw__row r2"><div class="lw__track">{"".join(wall_cell(w) for w in r2)}{"".join(wall_cell(w, True) for w in r2)}</div></div></div>')
 
 FAQ = [
  ('How much does digital marketing cost in Mumbai?', "Our retainers start at ₹35,000/month and websites are fixed projects. Every engagement starts with a free audit, so you see exactly what you'd pay for before spending a rupee."),
@@ -141,7 +125,7 @@ FAQ = [
 ]
 faq = '\n'.join(
     (f'        <div class="qa{" is-open" if i == 0 else ""}"><h3><button class="qa__btn" type="button" id="q{i}" aria-expanded="{"true" if i == 0 else "false"}" aria-controls="a{i}">'
-     f'<span>{e(q)}</span><span class="qa__icon" aria-hidden="true"></span></button></h3>'
+     f'<span class="qa__n" aria-hidden="true">{i+1:02d}</span><span>{e(q)}</span><span class="qa__icon" aria-hidden="true"></span></button></h3>'
      f'<div class="qa__panel" id="a{i}" role="region" aria-labelledby="q{i}"><div><p>{e(a)}</p></div></div></div>'
      + ('\n        <!-- TODO (optional): add a booking calendar link to "Book a free strategy call" -->' if i == 5 else ''))
     for i, (q, a) in enumerate(FAQ))
@@ -163,12 +147,55 @@ def bp(built):
 blueprint = bp(False) + f'<div class="blueprint__built"><div>{bp(True)}</div></div><span class="blueprint__seam"></span>'
 
 src = (SRC / 'index.src.html').read_text()
-css = (SRC / 'styles.css').read_text() + '\n' + (SRC / 'showcase.css').read_text()
+css = '\n'.join((SRC / f).read_text() for f in ['styles.css', 'work.css', 'motion.css'])
+def _rules(block):
+    out, i, depth, start = [], 0, 0, 0
+    for j, ch in enumerate(block):
+        if ch == '{':
+            depth += 1
+        elif ch == '}':
+            depth -= 1
+            if depth == 0:
+                out.append(block[start:j+1].strip()); start = j + 1
+    return [r for r in out if r]
+def _prefix(rule, mode):
+    sel, body = rule.split('{', 1)
+    def one(x):
+        x = x.strip()
+        if mode == 'rm':
+            return 'html.js.rm' + x[3:] if x.startswith('.js') else ('html.rm' + x[4:] if x.startswith('html') else 'html.rm ' + x)
+        return 'html.js:not(.rm)' + x[3:] if x.startswith('.js') else ('html:not(.rm)' + x[4:] if x.startswith('html') else 'html:not(.rm) ' + x)
+    return ','.join(one(x) for x in sel.split(',')) + '{' + body
+def motion_css(c):
+    out, pos = [], 0
+    for m in re.finditer(r'@media \(prefers-reduced-motion:(reduce|no-preference)\)\{', c):
+        if m.start() < pos: continue
+        depth, j = 1, m.end()
+        while depth:
+            depth += {'{': 1, '}': -1}.get(c[j], 0); j += 1
+        inner = c[m.end():j-1]; out.append(c[pos:m.start()])
+        rules = _rules(inner)
+        if m.group(1) == 'reduce':
+            out.append(c[m.start():j] + '\n' + '\n'.join(_prefix(r, 'rm') for r in rules))
+        else:
+            out.append('@media (prefers-reduced-motion:no-preference){' + '\n'.join(_prefix(r, 'on') for r in rules) + '}')
+        pos = j
+    out.append(c[pos:]); return ''.join(out)
+css = motion_css(css)
 js = (SRC / 'script.js').read_text()
-SHOWCASE_FONTS = ('https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=Newsreader:ital,wght@0,400;1,400'
-  '&family=Archivo:wght@800&family=Outfit:wght@500;600&family=Plus+Jakarta+Sans:wght@800&family=Inter:wght@800;900&display=swap&text='
-  + urllib.parse.quote(showcase.font_text())).replace('&', '&amp;')
-rep = {'{{LOGO_WALL}}': showcase.logo_wall(), '{{SHOWCASE_FONTS}}': SHOWCASE_FONTS, '{{LOADER_LOGO}}': loader_logo, '{{HEADER_LOGO}}': logo(), '{{FOOTER_LOGO}}': logo('logo--rev'), '{{FAVICON}}': favicon,
+TQ = json.load(open(SRC/'testimonials.json')) if (SRC/'testimonials.json').exists() else []
+def quotes_html():
+    dash='<svg class="dash" aria-hidden="true" focusable="false"><rect x=".75" y=".75" rx="20"/></svg><span class="quote__mark" aria-hidden="true">“</span>'
+    ok=[t for t in TQ if t.get('approved')]
+    if not ok:
+        return '\n'.join(f'      <li class="quote" style="--q:{i}" data-reveal>{dash}<blockquote><p>Real client stories land here soon: our work speaks first.</p></blockquote><p class="quote__by">Your business could be next.</p></li>' for i in range(3))
+    out=[]
+    for i,t in enumerate(ok):
+        ini=''.join(w[0] for w in t['name'].split()[:2]).upper()
+        logo=(f'<img class="quote__logo" src="assets/logos/{t["logo"]}.webp" alt="" loading="lazy" decoding="async">' if t.get('logo') else '')
+        out.append(f'      <li class="quote quote--real" style="--q:{i%3}" data-reveal>{dash}<blockquote><p>{e(t["quote"])}</p></blockquote><p class="quote__by"><span class="quote__av" aria-hidden="true">{ini}</span><span><strong>{e(t["name"])}</strong><br>{e(t["role"])}</span>{logo}</p></li>')
+    return '\n'.join(out)
+rep = {'{{QUOTES}}': quotes_html(),'{{LOGO_WALL}}': logo_wall, '{{WORK_TOTAL}}': f'{len(WORK):02d}', '{{PROJECT_INDEX}}': project_index, '{{LOADER_LOGO}}': loader_logo, '{{HEADER_LOGO}}': logo(), '{{FOOTER_LOGO}}': logo('logo--rev'), '{{FAVICON}}': favicon,
        '{{CHART}}': chart, '{{CTA_BARS}}': cta_bars, '{{WORK_CARDS}}': work_cards, '{{FAQ}}': faq, '{{BLUEPRINT}}': blueprint}
 rep.update({'{{' + k + '}}': v for k, v in ICONS.items()})
 for k, v in rep.items():
@@ -190,5 +217,5 @@ pv = pv.replace('<!--PREVIEW-REPLAY-->', '<button class="pv-replay" type="button
 for t in ['<!doctype html>\n', '<html lang="en-IN">\n', '<head>\n', '</head>\n', '<body>\n', '</body>\n', '</html>\n']:
     pv = pv.replace(t, '', 1)
 pv = re.sub(r'<title>.*?</title>', '<title>U Scale Website</title>', pv, count=1)
-(REPO / 'source' / 'preview.html').write_text(pv)
+(REPO / 'source' / 'preview.html').write_text(pv.replace('"assets/', '"../assets/'))
 print('site/index.html', len((site / 'index.html').read_text()), '| styles', len(css), '| script', len(js), '| preview', len(pv))

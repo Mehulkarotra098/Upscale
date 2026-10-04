@@ -21,8 +21,6 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Anton&family=Inter:wght@400;500;600;700&display=swap">
-<!-- Client typefaces for the work mockups and logo wall, subset to only the characters they draw -->
-<link rel="stylesheet" href="{{SHOWCASE_FONTS}}">
 <script type="application/ld+json">
 {"@context":"https://schema.org","@type":"LocalBusiness","@id":"https://uscale.in/#business","name":"U Scale","description":"Full-service digital marketing agency in Mumbai. Websites, social media, SEO and ads, designed and built in-house. Transparent pricing from ₹35,000/month.","url":"https://uscale.in/","image":"https://uscale.in/og-image.png","priceRange":"₹35,000+/month","telephone":"+91-79773-60142","email":"uscalewithus@gmail.com","sameAs":["https://www.instagram.com/uscalewithus/"],"address":{"@type":"PostalAddress","addressLocality":"Mumbai","addressRegion":"Maharashtra","addressCountry":"IN"},"areaServed":{"@type":"City","name":"Mumbai"},"founder":{"@type":"Person","name":"Mehul","sameAs":"https://www.linkedin.com/in/mehulkarotra/"},"hasOfferCatalog":{"@type":"OfferCatalog","name":"Digital marketing services","itemListElement":[{"@type":"Offer","itemOffered":{"@type":"Service","name":"Web Design"}},{"@type":"Offer","itemOffered":{"@type":"Service","name":"Social Media Management"}},{"@type":"Offer","itemOffered":{"@type":"Service","name":"SEO"}},{"@type":"Offer","itemOffered":{"@type":"Service","name":"Advertising"}}]}}
 </script>
@@ -36,7 +34,9 @@
 (function(){var d=document.documentElement;d.classList.add('js');
 var ONCE_PER_SESSION=true,seen=false;
 try{seen=sessionStorage.getItem('usl-seen')==='1';sessionStorage.setItem('usl-seen','1');}catch(e){}
-if(ONCE_PER_SESSION&&seen)d.classList.add('intro-skip');})();
+if(ONCE_PER_SESSION&&seen)d.classList.add('intro-skip');
+var m=null;try{m=localStorage.getItem('us-motion');}catch(e){}
+if(m==='off'||(m!=='on'&&matchMedia('(prefers-reduced-motion: reduce)').matches))d.classList.add('rm');})();
 </script>
 {{STYLES}}
 </head>
@@ -47,6 +47,7 @@ if(ONCE_PER_SESSION&&seen)d.classList.add('intro-skip');})();
 <div class="usl run" id="usl" aria-hidden="true">{{LOADER_LOGO}}</div>
 
 <header class="site-header" id="top">
+  <span class="hdr-progress" aria-hidden="true"><i></i></span>
   <div class="wrap">
     <a class="brand" href="#top" aria-label="U Scale home">{{HEADER_LOGO}}</a>
     <nav class="nav" aria-label="Main">
@@ -82,6 +83,7 @@ if(ONCE_PER_SESSION&&seen)d.classList.add('intro-skip');})();
     <a class="btn btn--go" href="#contact" data-intent="audit">Request an audit <span class="arw" aria-hidden="true"><b>↗</b><b>↗</b></span></a>
     <a class="btn btn--ghost" href="https://wa.me/917977360142?text=Hi%20U%20Scale%2C%20I%27d%20like%20to%20talk%20about%20my%20business." target="_blank" rel="noopener">{{ICON_CHAT}}Chat on WhatsApp</a>
     <p class="menu__meta js-only">Mumbai · <time data-ist>--:--</time> IST</p>
+    <button class="mt" type="button" aria-pressed="true" data-motion-toggle><i aria-hidden="true"></i><span>Motion on</span></button>
   </div>
 </div>
 
@@ -91,6 +93,7 @@ if(ONCE_PER_SESSION&&seen)d.classList.add('intro-skip');})();
   <div class="wrap hero-shell">
     <section class="hero on-dark is-playing" id="hero" data-tone="dark" aria-labelledby="hero-title">
       <div class="hero__fx" aria-hidden="true">
+        <span class="hero__spot"></span>
         <span class="orb orb--a"><i></i></span>
         <span class="orb orb--b"><i></i></span>
         <span class="orb orb--c"><i></i></span>
@@ -140,7 +143,7 @@ if(ONCE_PER_SESSION&&seen)d.classList.add('intro-skip');})();
   <section class="section services" id="services" aria-labelledby="services-title">
     <div class="wrap">
       <header class="sec-head">
-        <p class="eyebrow" data-reveal>What we do</p>
+        <p class="eyebrow" data-reveal data-scramble>What we do</p>
         <h2 class="h2" id="services-title" data-split>Everything your business needs to win online.</h2>
         <p class="lead" data-reveal>Ten services. One team. Designed and built in-house: never outsourced, never templated.</p>
       </header>
@@ -175,39 +178,54 @@ if(ONCE_PER_SESSION&&seen)d.classList.add('intro-skip');})();
     </div>
   </section>
 
-  <!-- 5.4 HOW WE WORK -->
+  <!-- 5.4 HOW WE WORK (pinned scene on desktop) -->
   <section class="section process" id="process" aria-labelledby="process-title">
-    <div class="wrap">
-      <header class="sec-head">
-        <p class="eyebrow" data-reveal>How we work</p>
-        <h2 class="h2" id="process-title" data-split>A process built for results.</h2>
-      </header>
-      <ol class="steps" data-progress="steps" data-reveal-group>
-        <li class="step" data-reveal><span class="step__num" aria-hidden="true">01</span><h3><span class="sr-only">Step 1: </span>Audit</h3><p>We tear down your current digital presence and find every leak.</p></li>
-        <li class="step" data-reveal><span class="step__num" aria-hidden="true">02</span><h3><span class="sr-only">Step 2: </span>Blueprint</h3><p>You get a clear plan: what we do, when, and what it costs. No jargon.</p></li>
-        <li class="step" data-reveal><span class="step__num" aria-hidden="true">03</span><h3><span class="sr-only">Step 3: </span>Build</h3><p>Websites, content, campaigns, designed and shipped in-house.</p></li>
-        <li class="step" data-reveal><span class="step__num" aria-hidden="true">04</span><h3><span class="sr-only">Step 4: </span>Grow</h3><p>Monthly optimisation, honest reporting, and scaling what works.</p></li>
-      </ol>
+    <div class="proc__pin" data-proc>
+      <div class="proc__sticky">
+        <div class="wrap">
+          <header class="proc__head">
+            <p class="eyebrow" data-reveal data-scramble>How we work</p>
+            <h2 class="h2" id="process-title" data-split>A process built for results.</h2>
+          </header>
+          <ol class="steps" data-progress="steps" data-reveal-group>
+            <li class="step" data-reveal><span class="step__num" aria-hidden="true" data-n="1">01</span><h3><span class="sr-only">Step 1: </span>Audit</h3><p>We tear down your current digital presence and find every leak.</p></li>
+            <li class="step" data-reveal><span class="step__num" aria-hidden="true" data-n="2">02</span><h3><span class="sr-only">Step 2: </span>Blueprint</h3><p>You get a clear plan: what we do, when, and what it costs. No jargon.</p></li>
+            <li class="step" data-reveal><span class="step__num" aria-hidden="true" data-n="3">03</span><h3><span class="sr-only">Step 3: </span>Build</h3><p>Websites, content, campaigns, designed and shipped in-house.</p></li>
+            <li class="step" data-reveal><span class="step__num" aria-hidden="true" data-n="4">04</span><h3><span class="sr-only">Step 4: </span>Grow</h3><p>Monthly optimisation, honest reporting, and scaling what works.</p></li>
+          </ol>
+        </div>
+      </div>
     </div>
   </section>
 
-  <!-- 5.5 WORK -->
-  <section class="section work" id="work" aria-labelledby="work-title">
-    <div class="wrap">
-      <header class="sec-head">
-        <p class="eyebrow" data-reveal>Selected work</p>
-        <h2 class="h2" id="work-title" data-split>Proof, not promises.</h2>
-        <p class="lead" data-reveal>Real projects, shipped by our founder. This is the standard your business gets.</p>
-      </header>
-    </div>
-    <!-- TODO: project screenshots (1440x900 PNG) can replace the SVG thumbnails when supplied -->
-    <div class="work__rail" role="region" aria-label="Selected work, scroll sideways on mobile" tabindex="0" data-rail>
-      <ul class="work__list" data-reveal-group>
+  <!-- 5.5 WORK: real screenshots of every live site (pinned horizontal gallery on desktop, swipe rail on mobile) -->
+  <section class="work" id="work" aria-labelledby="work-title">
+    <div class="work__pin" data-pin>
+      <div class="work__sticky">
+        <div class="wrap work__head">
+          <div class="sec-head" style="margin:0">
+            <p class="eyebrow" data-reveal data-scramble>Selected work</p>
+            <h2 class="h2" id="work-title" data-split>Proof, not promises.</h2>
+            <p class="lead" data-reveal>Real projects, shipped by our founder. This is the standard your business gets.</p>
+          </div>
+          <p class="work__count" aria-hidden="true"><b data-wk-now>01</b><span> / {{WORK_TOTAL}}</span></p>
+        </div>
+        <div class="work__rail" role="region" aria-label="Selected work" tabindex="0" data-rail>
+          <ul class="work__track" data-track>
 {{WORK_CARDS}}
+          </ul>
+        </div>
+        <div class="work__progress" aria-hidden="true"><i data-rail-thumb></i></div>
+        <p class="work__hint" aria-hidden="true"><span>Swipe</span><span data-rail-count>1 / {{WORK_TOTAL}}</span></p>
+        <span class="work__bar" aria-hidden="true"><i></i></span>
+      </div>
+    </div>
+    <div class="wrap pidx">
+      <p class="eyebrow pidx__label">Project index</p>
+      <ul>
+{{PROJECT_INDEX}}
       </ul>
     </div>
-    <div class="work__progress" aria-hidden="true"><i data-rail-thumb></i></div>
-    <p class="work__hint" aria-hidden="true"><span>Swipe</span><span data-rail-count>1 / 9</span></p>
   </section>
 
   <!-- 5.6 PRICING -->
@@ -216,7 +234,7 @@ if(ONCE_PER_SESSION&&seen)d.classList.add('intro-skip');})();
       <div class="panel on-dark" data-tone="dark">
         <span class="grain" aria-hidden="true"></span>
         <header class="sec-head">
-          <p class="eyebrow" data-reveal>Pricing</p>
+          <p class="eyebrow" data-reveal data-scramble>Pricing</p>
           <h2 class="h2" id="pricing-title" data-split>Honest prices. No quote maze.</h2>
           <p class="lead" data-reveal>Most Mumbai agencies hide their pricing. We publish ours, because you should know what growth costs before you commit.</p>
         </header>
@@ -286,18 +304,16 @@ if(ONCE_PER_SESSION&&seen)d.classList.add('intro-skip');})();
   </section>
 
   <!-- 5.8 TESTIMONIALS -->
-  <!-- TODO: replace these three honest placeholders with 2-3 real client testimonials (name, business, quote) once supplied -->
+  <!-- Testimonials come from source/src/testimonials.json: a quote shows only once that client has approved it ("approved": true). Until then honest placeholders show. -->
   <section class="section testimonials" id="testimonials" aria-labelledby="testimonials-title">
     <div class="wrap">
       <header class="sec-head">
-        <p class="eyebrow" data-reveal>What clients say</p>
+        <p class="eyebrow" data-reveal data-scramble>What clients say</p>
         <h2 class="h2" id="testimonials-title" data-split>Words from the field.</h2>
       </header>
     </div>
     <ul class="quotes" data-reveal-group>
-      <li class="quote" data-reveal><span class="quote__mark" aria-hidden="true">“</span><blockquote><p>Real client stories land here soon: our work speaks first.</p></blockquote><p class="quote__by">Your business could be next.</p></li>
-      <li class="quote" data-reveal><span class="quote__mark" aria-hidden="true">“</span><blockquote><p>Real client stories land here soon: our work speaks first.</p></blockquote><p class="quote__by">Your business could be next.</p></li>
-      <li class="quote" data-reveal><span class="quote__mark" aria-hidden="true">“</span><blockquote><p>Real client stories land here soon: our work speaks first.</p></blockquote><p class="quote__by">Your business could be next.</p></li>
+{{QUOTES}}
     </ul>
   </section>
 
@@ -308,18 +324,23 @@ if(ONCE_PER_SESSION&&seen)d.classList.add('intro-skip');})();
       <div class="blueprint" data-progress="blueprint" data-reveal aria-hidden="true">
         {{BLUEPRINT}}
         <div class="blueprint__legend"><span>Design</span><span>Build</span></div>
-        <div class="blueprint__tag"><strong>Mehul</strong><span>Founder · Mumbai</span></div>
+        <div class="blueprint__tag"><strong>Mehul Karotra</strong><span>Founder · UI/UX developer-designer</span></div>
       </div>
       <div class="founder__copy">
-        <p class="eyebrow" data-reveal>Meet the founder</p>
+        <p class="eyebrow" data-reveal data-scramble>Meet the founder</p>
         <h2 class="h2" id="about-title" data-split>A designer who builds.</h2>
         <blockquote class="founder__quote" data-reveal><p>I'm Mehul, a UI/UX developer-designer from Mumbai. Most agencies sell marketing and outsource the building. I do the opposite: I design and build everything in-house, then market it. That's why U Scale exists.</p></blockquote>
         <dl class="creds" data-reveal>
           <div><dt>Now</dt><dd>UI/UX Developer, Apex36 Technology Services</dd></div>
           <div><dt>Formerly</dt><dd>My Country Mobile · ApplQ Innovations · Threepin Info Tec.</dd></div>
+          <div><dt>Education</dt><dd>Bachelor of Computer Application, Information Technology</dd></div>
+          <div><dt>Toolkit</dt><dd class="chips"><span>Figma</span><span>React.js</span><span>Tailwind CSS</span><span>WordPress</span><span>Illustrator</span><span>Photoshop</span><span>Git</span></dd></div>
           <div><dt>Based in</dt><dd>Mumbai, India</dd></div>
         </dl>
-        <a class="btn btn--ink" href="https://www.linkedin.com/in/mehulkarotra/" target="_blank" rel="noopener" data-reveal>Connect on LinkedIn <span class="arw arw--r" aria-hidden="true"><b>→</b><b>→</b></span><span class="sr-only"> (opens in a new tab)</span></a>
+        <div class="founder__links" data-reveal>
+          <a class="btn btn--ink" href="https://www.linkedin.com/in/mehulkarotra/" target="_blank" rel="noopener" data-magnetic>Connect on LinkedIn <span class="arw arw--r" aria-hidden="true"><b>→</b><b>→</b></span><span class="sr-only"> (opens in a new tab)</span></a>
+          <a class="tlink" href="https://mehulpatel.vercel.app/" target="_blank" rel="noopener">Mehul's portfolio ↗<span class="sr-only"> (opens in a new tab)</span></a>
+        </div>
       </div>
     </div>
   </section>
@@ -328,7 +349,7 @@ if(ONCE_PER_SESSION&&seen)d.classList.add('intro-skip');})();
   <section class="section faq" id="faq" aria-labelledby="faq-title">
     <div class="wrap faq__grid">
       <header class="sec-head">
-        <p class="eyebrow" data-reveal>FAQ</p>
+        <p class="eyebrow" data-reveal data-scramble>FAQ</p>
         <h2 class="h2" id="faq-title" data-split>Straight answers.</h2>
       </header>
       <div class="faq__list" data-accordion data-reveal>
@@ -344,7 +365,7 @@ if(ONCE_PER_SESSION&&seen)d.classList.add('intro-skip');})();
         <span class="grain" aria-hidden="true"></span>
         <div class="cta__bars" aria-hidden="true">{{CTA_BARS}}</div>
         <div class="cta__copy">
-          <h2 class="cta__title" id="cta-title">Let's scale<span class="dot">.</span></h2>
+          <h2 class="cta__title" id="cta-title" aria-label="Let's scale."><span aria-hidden="true"><span class="cw"><span class="ch">L</span><span class="ch">e</span><span class="ch">t</span><span class="ch">'</span><span class="ch">s</span></span><span class="sp"> </span><span class="cw"><span class="ch">s</span><span class="ch">c</span><span class="ch">a</span><span class="ch">l</span><span class="ch">e</span><span class="ch dot">.</span></span></span></h2>
           <p class="lead" data-reveal>Your competitors are already investing in digital. Every month you wait is a month they compound.</p>
           <div class="cta__btns" data-reveal data-wa-zone>
             <a class="btn btn--go" href="#contact" data-magnetic data-intent="audit">Request an audit <span class="arw" aria-hidden="true"><b>↗</b><b>↗</b></span></a>
@@ -360,7 +381,7 @@ if(ONCE_PER_SESSION&&seen)d.classList.add('intro-skip');})();
     <div class="wrap contact__grid">
       <div>
         <header class="sec-head">
-          <p class="eyebrow" data-reveal>Contact</p>
+          <p class="eyebrow" data-reveal data-scramble>Contact</p>
           <h2 class="h2" id="contact-title" data-split>Let's talk.</h2>
           <p class="lead" data-reveal>Tell us what you need. We reply within 24 hours, usually much faster on WhatsApp.</p>
         </header>
@@ -377,11 +398,11 @@ if(ONCE_PER_SESSION&&seen)d.classList.add('intro-skip');})();
         <!-- TODO: wire to Formspree/Getform before launch (set action + method, keep the JS success state) -->
         <form class="form" id="enquiry" novalidate>
           <div class="form__row">
-            <div class="field"><label for="f-name">Your name</label><input id="f-name" name="name" type="text" autocomplete="name" required aria-describedby="e-name"><span class="field__err" id="e-name">Please add your name.</span></div>
-            <div class="field"><label for="f-phone">Phone</label><input id="f-phone" name="phone" type="tel" inputmode="tel" autocomplete="tel" required aria-describedby="e-phone"><span class="field__err" id="e-phone">Please add a phone number we can reach.</span></div>
+            <div class="field"><label for="f-name">Your name</label><input id="f-name" name="name" type="text" autocomplete="name" required aria-describedby="e-name"><span class="field__line" aria-hidden="true"></span><span class="field__err" id="e-name">Please add your name.</span></div>
+            <div class="field"><label for="f-phone">Phone</label><input id="f-phone" name="phone" type="tel" inputmode="tel" autocomplete="tel" required aria-describedby="e-phone"><span class="field__line" aria-hidden="true"></span><span class="field__err" id="e-phone">Please add a phone number we can reach.</span></div>
           </div>
-          <div class="field"><label for="f-email">Email</label><input id="f-email" name="email" type="email" autocomplete="email" required aria-describedby="e-email"><span class="field__err" id="e-email">Please check the email address.</span></div>
-          <div class="field"><label for="f-need">What do you need?</label><textarea id="f-need" name="need" required aria-describedby="e-need"></textarea><span class="field__err" id="e-need">Tell us a little about what you need.</span></div>
+          <div class="field"><label for="f-email">Email</label><input id="f-email" name="email" type="email" autocomplete="email" required aria-describedby="e-email"><span class="field__line" aria-hidden="true"></span><span class="field__err" id="e-email">Please check the email address.</span></div>
+          <div class="field"><label for="f-need">What do you need?</label><textarea id="f-need" name="need" required aria-describedby="e-need"></textarea><span class="field__line" aria-hidden="true"></span><span class="field__err" id="e-need">Tell us a little about what you need.</span></div>
           <button class="btn btn--go" type="submit" data-magnetic>Send enquiry <span class="arw" aria-hidden="true"><b>↗</b><b>↗</b></span></button>
         </form>
         <div class="form success" id="enquiry-done" hidden aria-live="polite">
@@ -409,7 +430,7 @@ if(ONCE_PER_SESSION&&seen)d.classList.add('intro-skip');})();
       </ul>
     </nav>
   </div>
-  <p class="footer__big" aria-hidden="true" data-parallax="-0.06">Built in Mumbai.</p>
+  <div class="footer__big" aria-hidden="true" data-progress="foot"><span class="fb fb-out">Built in Mumbai.</span><span class="fb-fill"><span class="fb">Built in Mumbai.</span></span></div>
   <div class="wrap footer__bottom">
     <p>© 2026 U Scale · Digital Marketing Agency · Mumbai, India. Built in Mumbai.</p>
     <ul class="footer__social" aria-label="U Scale elsewhere">
@@ -418,9 +439,12 @@ if(ONCE_PER_SESSION&&seen)d.classList.add('intro-skip');})();
       <li><a href="https://github.com/Mehulkarotra098" target="_blank" rel="noopener">GitHub<span class="sr-only"> (opens in a new tab)</span></a></li>
       <li><a href="#top">Back to top <span aria-hidden="true">↑</span></a></li>
     </ul>
+    <div class="footer__meta"><button class="mt" type="button" aria-pressed="true" data-motion-toggle><i aria-hidden="true"></i><span>Motion on</span></button><span class="js-only">Mumbai · <time data-ist>--:--</time> IST</span></div>
   </div>
 </footer>
 
+<canvas class="bubbles" aria-hidden="true"></canvas>
+<div class="ppv" aria-hidden="true"><img alt="" decoding="async"></div>
 <div class="cursor" aria-hidden="true"><span class="cursor__b"></span><span class="cursor__label">View</span></div>
 <a class="wa-float" href="https://wa.me/917977360142?text=Hi%20U%20Scale%2C%20I%27d%20like%20to%20talk%20about%20my%20business." target="_blank" rel="noopener" aria-label="Chat on WhatsApp">{{ICON_CHAT}}</a>
 <!--PREVIEW-REPLAY-->
