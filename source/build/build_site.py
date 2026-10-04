@@ -1,5 +1,5 @@
 """Assembles the U Scale site.
-Outputs: index.html + styles.css + script.js + assets/ at the repo root (deploy as-is), and preview.html (single file, replay button) for review."""
+Outputs: site/index.html + site/styles.css + site/script.js (deploy as-is), and preview.html (single file, replay button) for review."""
 import json, re, urllib.parse, pathlib, html, sys
 sys.path.insert(0, str(pathlib.Path(__file__).resolve().parent))
 
@@ -109,7 +109,7 @@ growth = (
     + f'<g class="gs__end" data-gs-dot transform="translate({_ex:.1f} {_ey:.1f})"><circle class="gs__ring" r="11"/><circle class="gs__dot" r="5.5"/></g>'
     + '</svg><div class="gs__axis" aria-hidden="true"><span>Month 1</span><span>Month 12</span></div></div>'
     '<div class="gs__chips" role="group" aria-label="Channels: switch them on and off">'
-    + ''.join(f'<button class="gs__chip" type="button" data-k="{k}" aria-pressed="true"><i aria-hidden="true"></i>{html.escape(n)}</button>' for k, n, _ in GS)
+    + ''.join(f'<button class="gs__chip" type="button" data-k="{k}" aria-pressed="true"><i aria-hidden="true"></i>{html.escape(n)}</button>' for k, n, _ in [GS[0], GS[1], GS[3], GS[2], GS[4]])
     + '</div><p class="gs__tip" data-gs-tip>Five channels, one plan. Tap any to switch it off.</p>'
     '<p class="gs__note">Illustration, not a forecast.</p>'
     '<span class="gs__badge" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M7 17 17 7M9 7h8v8"/></svg></span>'
@@ -201,7 +201,7 @@ def bp(built):
 blueprint = bp(False) + f'<div class="blueprint__built"><div>{bp(True)}</div></div><span class="blueprint__seam"></span>'
 
 src = (SRC / 'index.src.html').read_text()
-css = '\n'.join((SRC / f).read_text() for f in ['styles.css', 'work.css', 'motion.css', 'growth.css'])
+css = '\n'.join((SRC / f).read_text() for f in ['styles.css', 'work.css', 'motion.css', 'growth.css', 'seo.css'])
 def _rules(block):
     out, i, depth, start = [], 0, 0, 0
     for j, ch in enumerate(block):
@@ -251,7 +251,10 @@ def quotes_html():
         logo=(f'<img class="quote__logo" src="assets/logos/{t["logo"]}.webp" alt="" loading="lazy" decoding="async">' if t.get('logo') else '')
         out.append(f'      <li class="quote quote--real" style="--q:{i%3}" data-reveal>{dash}<blockquote><p>{e(t["quote"])}</p></blockquote><p class="quote__by"><span class="quote__av" aria-hidden="true">{ini}</span><span><strong>{e(t["name"])}</strong><br>{e(t["role"])}</span>{logo}</p></li>')
     return '\n'.join(out)
-rep = {'{{QUOTES}}': quotes_html(),'{{LOGO_WALL}}': logo_wall, '{{WORK_TOTAL}}': f'{len(WORK):02d}', '{{PROJECT_INDEX}}': project_index, '{{LOADER_LOGO}}': loader_logo, '{{HEADER_LOGO}}': logo(), '{{FOOTER_LOGO}}': logo('logo--rev'), '{{FAVICON}}': favicon,
+ICONS_HEAD = ('<link rel="icon" href="/favicon.svg" type="image/svg+xml">\n<link rel="icon" href="/favicon-32.png" sizes="32x32" type="image/png">\n'
+              '<link rel="apple-touch-icon" href="/apple-touch-icon.png">\n<link rel="manifest" href="/site.webmanifest">')
+import seo_pages
+rep = {'{{ICONS_HEAD}}': ICONS_HEAD, '{{JSONLD}}': seo_pages.home_jsonld('https://uscale.in/', FAQ), '{{QUOTES}}': quotes_html(),'{{LOGO_WALL}}': logo_wall, '{{WORK_TOTAL}}': f'{len(WORK):02d}', '{{PROJECT_INDEX}}': project_index, '{{LOADER_LOGO}}': loader_logo, '{{HEADER_LOGO}}': logo(), '{{FOOTER_LOGO}}': logo('logo--rev'), '{{FAVICON}}': favicon,
        '{{CHART}}': growth, '{{CTA_BARS}}': cta_bars, '{{WORK_CARDS}}': work_cards, '{{FAQ}}': faq, '{{BLUEPRINT}}': blueprint}
 rep.update({'{{' + k + '}}': v for k, v in ICONS.items()})
 for k, v in rep.items():
@@ -265,9 +268,24 @@ site = REPO
 import hashlib as _h
 _v = _h.sha1((css + js).encode()).hexdigest()[:8]
 (site / 'index.html').write_text(src.replace('{{STYLES}}', f'<link rel="stylesheet" href="styles.css?v={_v}">')
-                                    .replace('{{SCRIPT}}', f'<script src="script.js?v={_v}"></script>').replace('<!--PREVIEW-REPLAY-->\n', ''))
+                                    .replace('{{SCRIPT}}', f'<script defer src="script.js?v={_v}"></script>').replace('<!--PREVIEW-REPLAY-->\n', ''))
 (site / 'styles.css').write_text(css)
 (site / 'script.js').write_text(js)
+(site / 'favicon.svg').write_text(fav)
+if not (site / 'icon-512.png').exists() or (site / 'favicon.svg').stat().st_mtime > (site / 'icon-512.png').stat().st_mtime:
+    import asyncio
+    from playwright.async_api import async_playwright
+    async def _icons():
+        async with async_playwright() as p:
+            b = await p.chromium.launch(); pg = await b.new_page()
+            for name, sz in [('favicon-32.png', 32), ('apple-touch-icon.png', 180), ('icon-192.png', 192), ('icon-512.png', 512)]:
+                await pg.set_viewport_size({'width': sz, 'height': sz})
+                await pg.set_content(f'<html><body style="margin:0;background:#251E45"><img src="{favicon}" style="width:{sz}px;height:{sz}px;display:block"></body></html>')
+                await pg.wait_for_timeout(150); await pg.screenshot(path=str(site / name))
+            await b.close()
+    asyncio.run(_icons())
+_slugs = seo_pages.build({'SITE_URL': SITE_URL, 'site': site, '_v': _v, 'WORK': WORK, 'FAQ': FAQ, 'ICONS': ICONS, 'ICONS_HEAD': ICONS_HEAD, 'SZ': SZ})
+print('service pages:', ', '.join(_slugs))
 
 # Preview: one file; the artifact skeleton supplies doctype/head/body
 pv = src.replace('{{STYLES}}', '<style>\n' + css + '\n.pv-replay{position:fixed;left:calc(16px + env(safe-area-inset-left,0px));bottom:calc(16px + env(safe-area-inset-bottom,0px));z-index:1001;display:inline-flex;align-items:center;gap:8px;font:600 14px/1 var(--sans);background:var(--violet);color:var(--white);border:1px solid var(--line-dark);border-radius:999px;padding:13px 18px;cursor:pointer;box-shadow:0 12px 24px -14px rgba(37,30,69,.6)}\n</style>')

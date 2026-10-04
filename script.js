@@ -298,9 +298,9 @@
     parts.push({x:x,y:y,vx:vx,vy:vy,r:r,t:0,life:life,w:Math.random()*6.28,c:Math.random()<.18?GRN:LAV});
   }
   function spawn(x,y,speed){
-    if(!ctx||!motion||!fine) return;
+    if(!ctx||!motion) return;
     var n=Math.min(3,Math.floor(speed/14)); if(Math.random()<speed/40) n++;
-    for(var i=0;i<n;i++) addP(x+(Math.random()-.5)*8,y+(Math.random()-.5)*8,(Math.random()-.5)*.5,-(.25+Math.random()*.7),1+Math.random()*2.5,600+Math.random()*250);
+    var rs=fine?1:1.7; for(var i=0;i<n;i++) addP(x+(Math.random()-.5)*8,y+(Math.random()-.5)*8,(Math.random()-.5)*.5,-(.25+Math.random()*.7),(1+Math.random()*2.5)*rs,600+Math.random()*250);
   }
   function burst(x,y){
     if(!ctx) return;
@@ -319,10 +319,17 @@
       ctx.lineWidth=1; ctx.strokeStyle='rgba('+c[0]+','+c[1]+','+c[2]+','+(.75*a).toFixed(3)+')'; ctx.stroke();
       if(r>1.6){ ctx.beginPath(); ctx.arc(p.x-r*.35,p.y-r*.38,r*.26,0,6.2832); ctx.fillStyle='rgba(255,255,255,'+(.7*a).toFixed(3)+')'; ctx.fill(); }
     }
-    return parts.length>0;
+    cvs.dataset.dirty='1'; return parts.length>0;
   }
   document.addEventListener('visibilitychange',function(){ if(document.hidden){ parts.length=0; if(ctx) ctx.clearRect(0,0,innerWidth,innerHeight); } });
 
+  /* Touch screens: the bubble trail follows your finger, and a tap pops a small burst */
+  if(!fine&&ctx){
+    var tLast=null;
+    window.addEventListener('touchstart',function(e){ if(!motion) return; var t=e.touches[0]; tLast={x:t.clientX,y:t.clientY}; burst(t.clientX,t.clientY); },{passive:true});
+    window.addEventListener('touchmove',function(e){ if(!motion||!tLast) return; var t=e.touches[0], sp=Math.hypot(t.clientX-tLast.x,t.clientY-tLast.y); tLast={x:t.clientX,y:t.clientY}; spawn(t.clientX,t.clientY,Math.min(sp,40)); kick(); },{passive:true});
+    window.addEventListener('touchend',function(){ tLast=null; },{passive:true});
+  }
   /* ---------- The one loop ---------- */
   var running=false, lastT=0;
   function kick(){ if(!running){ running=true; lastT=performance.now(); requestAnimationFrame(frame); } }
@@ -338,8 +345,8 @@
         hero.style.setProperty('--px',heroT.cx.toFixed(3)); hero.style.setProperty('--py',heroT.cy.toFixed(3)); hero.style.setProperty('--hx',spot.cx.toFixed(1)+'px'); hero.style.setProperty('--hy',spot.cy.toFixed(1)+'px');
         if(Math.abs(heroT.x-heroT.cx)+Math.abs(heroT.y-heroT.cy)>.002||Math.abs(spot.x-spot.cx)+Math.abs(spot.y-spot.cy)>.5) busy=true; }
       if(ppv&&ppvOn){ ppvP.cx=lerp(ppvP.cx,ppvP.x,.16); ppvP.cy=lerp(ppvP.cy,ppvP.y,.16); ppv.style.transform='translate3d('+(ppvP.cx+24).toFixed(1)+'px,'+(ppvP.cy-90).toFixed(1)+'px,0) rotate(-3deg)'; busy=true; }
-      if(drawParts(dt)) busy=true;
     }
+    if(motion&&parts.length&&drawParts(dt)) busy=true; else if(ctx&&!parts.length&&cvs.dataset.dirty){ ctx.clearRect(0,0,innerWidth,innerHeight); delete cvs.dataset.dirty; }
     if(busy||scrollDirty) requestAnimationFrame(frame); else running=false;
   }
 
@@ -411,12 +418,12 @@
         gChip[k].addEventListener('pointerenter',function(){ gs.setAttribute('data-focus',k); });
         gChip[k].addEventListener('pointerleave',function(){ gs.removeAttribute('data-focus'); });
       }
-      gChip[k].addEventListener('focus',function(){ gs.setAttribute('data-focus',k); });
+      gChip[k].addEventListener('focus',function(){ if(gChip[k].matches(':focus-visible')) gs.setAttribute('data-focus',k); });
       gChip[k].addEventListener('blur',function(){ gs.removeAttribute('data-focus'); });
     });
     gsBuild(introMs()+650);
     /* Alive while on screen: breathing layers, a comet on the curve, a demo that switches channels off and back on */
-    gsLive=function(dt){ gClock+=dt; gLive=true; gs.classList.add('is-live'); if(!gsMoving) gsDraw(); gsComet(); };
+    var gAcc=0; gsLive=function(dt){ gClock+=dt; gLive=true; gs.classList.add('is-live'); gAcc+=dt; if(!fine&&gAcc<32) return; gAcc=0; if(!gsMoving) gsDraw(); gsComet(); };
     gsSleep=function(){ gLive=false; gs.classList.remove('is-live'); };
     var DEMO=['seo','ads','social','ai','web'], demoI=0, demoT=null;
     var demo=function(){

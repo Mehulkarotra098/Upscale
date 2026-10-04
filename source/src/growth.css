@@ -30,7 +30,7 @@
 .gs__ring{fill:rgba(99,184,73,.25);opacity:0}
 .gs[data-focus] .gs__layer{opacity:.2}
 .gs[data-focus="web"] [data-gs-layer="web"],.gs[data-focus="seo"] [data-gs-layer="seo"],.gs[data-focus="social"] [data-gs-layer="social"],.gs[data-focus="ads"] [data-gs-layer="ads"],.gs[data-focus="ai"] [data-gs-layer="ai"]{opacity:1}
-.gs__axis{display:flex;justify-content:space-between;margin-top:7px;padding-right:4%;font:600 10px/1 var(--sans);letter-spacing:.14em;text-transform:uppercase;color:rgba(74,68,88,.72)}
+.gs__axis{display:flex;justify-content:space-between;margin-top:7px;padding-right:4%;font:600 10px/1 var(--sans);letter-spacing:.14em;text-transform:uppercase;color:#5C566B}
 .gs__chips{display:flex;flex-wrap:wrap;gap:6px;margin-top:clamp(14px,1.6vw,18px)}
 .gs__chip{--c:var(--gs-web);display:inline-flex;align-items:center;gap:7px;min-height:36px;padding:7px 11px 7px 9px;border-radius:99px;border:1.5px solid transparent;background:var(--lav-tint);color:var(--violet);font:600 12.5px/1 var(--sans);cursor:pointer;-webkit-tap-highlight-color:transparent;transition:background-color .3s ease,color .3s ease,border-color .3s ease,transform .45s var(--ease-spring)}
 .gs__chip i{width:12px;height:12px;border-radius:4px;background:var(--c)}
@@ -44,7 +44,7 @@
 .gs__chip[aria-pressed="true"]:hover{border-style:solid}
 .gs__chip:focus-visible{outline:2px solid var(--green);outline-offset:2px}
 .gs__tip{margin:12px 0 0;font:500 14px/1.45 var(--sans);color:var(--violet);min-height:1.45em}
-.gs__note{margin:3px 0 0;font:500 11px/1.3 var(--sans);color:rgba(74,68,88,.7)}
+.gs__note{margin:3px 0 0;font:500 11px/1.3 var(--sans);color:#5C566B}
 .gs__badge{position:absolute;top:-18px;right:-14px;width:54px;height:54px;border-radius:17px;background:var(--green);display:grid;place-items:center;box-shadow:0 16px 30px -14px rgba(8,5,22,.75);transform:translate3d(calc(var(--px,0) * 12px),calc(var(--py,0) * 12px),0) rotate(-6deg)}
 .gs__badge svg{width:24px;height:24px;fill:none;stroke:var(--violet);stroke-width:2.6;stroke-linecap:round;stroke-linejoin:round}
 @media (max-width:420px){.gs__status{font-size:30px}.gs__label{letter-spacing:.1em}}
@@ -121,3 +121,10 @@ html.menu-open .sprog{opacity:0}
 .hero__copy{container-type:inline-size}
 .hero__title{font-size:min(calc(100cqw / 4.5),6.6rem)}
 @media (min-width:1024px){.hero__title{font-size:min(calc(100cqw / 4.5),9.4rem)}}
+
+/* Phones: Website · SEO · Ads on the first row, Social · AI search below, evenly filled */
+@media (max-width:600px){
+  .gs__chips{display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:7px}
+  .gs__chip{grid-column:span 2;justify-content:center;padding-inline:6px}
+  .gs__chip:nth-child(n+4){grid-column:span 3}
+}

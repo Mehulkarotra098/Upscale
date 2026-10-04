@@ -34,7 +34,7 @@
 .wk__a:hover .wk__frame{transform:scale(1.015)}
 .wk__bar{display:flex;align-items:center;gap:5px;height:24px;padding:0 10px;background:#F1EEF6;border-bottom:1px solid rgba(37,30,69,.07)}
 .wk__bar i{width:7px;height:7px;border-radius:50%;background:rgba(37,30,69,.2)}
-.wk__bar span{flex:1;margin-left:8px;max-width:70%;height:14px;border-radius:7px;background:#fff;font:500 9px/14px var(--sans);color:rgba(37,30,69,.6);padding-inline:8px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.wk__bar span{flex:1;margin-left:8px;max-width:70%;height:14px;border-radius:7px;background:#fff;font:500 9px/14px var(--sans);color:#55506A;padding-inline:8px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .wk__view{position:relative;height:62.5cqw;overflow:hidden;background:#F1EEF6}
 .wk__page{display:block;width:100%;height:auto;transform:translateY(0);transition:transform 5.5s cubic-bezier(.45,0,.2,1)}
 .wk__a:hover .wk__page,.wk__a:focus-visible .wk__page{transform:translateY(calc(-100% + 62.5cqw))}
