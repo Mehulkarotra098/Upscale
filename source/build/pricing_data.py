@@ -1,13 +1,17 @@
 """Single source of truth for every price on the site (home price explorer, /pricing page, service pages, JSON-LD, llms.txt).
 From Mehul's published price sheet. Edit here, rebuild, and every page updates."""
 
-PLANS = [  # monthly retainers (unchanged)
-    dict(name='Launch', price=35000, per='/mo', for_='For businesses getting serious about digital.',
-         items=['Social media management (12 posts + 4 reels)', 'Google Business Profile setup', 'Baseline SEO', 'Monthly performance report']),
-    dict(name='Grow', price=75000, per='/mo', for_='For businesses ready to scale.', pop=True,
-         items=['Everything in Launch', 'Google + Meta ads management', 'Technical SEO + 4 blogs/month', 'WhatsApp lead funnels', 'LinkedIn presence']),
-    dict(name='Scale', price=None, per='', for_='For businesses playing to win.',
-         items=['Everything in Grow', 'Branding and identity', 'A weekly strategy call with me', 'Priority turnaround', 'Quarterly growth roadmap']),
+# The three ways to buy, shown as cards on the home page. Rows reference real items from the sheet below.
+PILLARS = [
+    dict(key='web', kick='One-time', name='Websites', lead='Designed in Figma, hand-built, fixed price agreed before I start.',
+         start='25,000', unit='', step='step-1', cta='Price my website',
+         rows=['Landing page', 'Portfolio site', 'Business site, 3–4 pages', 'Business site, 5–10 pages + blog', 'E-commerce, under 50 products', 'Restaurant site + own online ordering']),
+    dict(key='add', kick='Monthly', name='Growth', lead='SEO, ads and social, month-to-month. Combine only what you need.', pop=True,
+         start='8,000', unit='/mo', step='step-2', cta='Build my monthly mix',
+         rows=['Local SEO / Google Business Profile', 'Technical + on-page SEO', 'Ads management', 'AI search visibility (GEO)', 'Community & inbox management', 'Email marketing']),
+    dict(key='unit', kick='One-off', name='Single pieces', lead='Need just one thing? A post, a reel, a logo, a blog.',
+         start='800', unit='', step='step-3', cta='Pick single pieces',
+         rows=['Social post', 'Carousel', 'Reel edit (your footage)', 'SEO blog (~1,000 words)', 'Logo', 'Half-day shoot + 3 reels']),
 ]
 
 WEBSITES = [  # one-time, fixed price after a free audit

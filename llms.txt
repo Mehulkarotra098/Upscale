@@ -9,11 +9,6 @@
 
 ## Pricing (INR)
 
-### Monthly plans
-- Launch: ₹35,000/month (Social media management (12 posts + 4 reels); Google Business Profile setup; Baseline SEO; Monthly performance report)
-- Grow: ₹75,000/month (Everything in Launch; Google + Meta ads management; Technical SEO + 4 blogs/month; WhatsApp lead funnels; LinkedIn presence)
-- Scale: custom (Everything in Grow; Branding and identity; A weekly strategy call with me; Priority turnaround; Quarterly growth roadmap)
-
 ### Websites (one-time, fixed price)
 - Landing page: ₹25,000
 - Portfolio site: ₹40,000
@@ -26,7 +21,7 @@
 - Care plan: updates, backups, security: ₹3,500/mo
 - Copywriting (₹2,000/page), photography, premium plugins and payment gateway fees are quoted separately, always before I start.
 
-### Monthly add-ons
+### Monthly services (combine any)
 - Local SEO / Google Business Profile: ₹15,000/mo
 - Technical + on-page SEO: ₹25,000/mo
 - AI search visibility (GEO): ₹12,000/mo
@@ -71,7 +66,7 @@
 
 - **Is U Scale an agency or a freelancer?** A bit of both, in the best way. U Scale is me, Mehul Karotra, working as an independent, contract-based partner. You get agency-quality design, development and marketing, but you sign with me directly and talk to me directly. If a project ever needs a specialist, like a photographer, I bring them in and stay your single point of contact.
 - **How much does a website cost in Mumbai?** With me, a landing page is ₹25,000, a 3–4 page business site ₹55,000, a 5–10 page site with a blog ₹85,000, and e-commerce starts at ₹95,000. Every price is fixed and agreed in writing before I start. Every price is listed on the pricing page.
-- **How much does digital marketing cost in Mumbai?** Monthly plans start at ₹35,000 (Launch) and ₹75,000 (Grow). You can also add single services, like local SEO at ₹15,000/month or ads management from ₹20,000/month, or buy one-off work such as a reel edit for ₹2,500.
+- **How much does digital marketing cost in Mumbai?** There are no bundles to squeeze into: you pay only for what you need. Local SEO is ₹15,000/month, technical SEO ₹25,000/month, ads management ₹20,000/month (plus a ₹10,000 setup), AI search visibility ₹12,000/month, and one-off work starts at ₹800 for a social post. The quote builder on the pricing page adds it up for you.
 - **Do you work on contract or monthly retainer?** Both. Websites and branding are fixed-price contracts: 20% to start, 20% on design sign-off and 60% on launch. Marketing runs as a monthly retainer: a 3-month sprint, then month-to-month with 30 days notice. No long lock-ins.
 - **How long does SEO take to show results?** Honest answer: 3–6 months for meaningful movement. Anyone promising page one in 30 days is selling you something. I show you the trajectory every month.
 - **How long does it take to build a website?** A business website typically takes 4–8 weeks from kickoff to launch, depending on pages and how ready your content is. A landing page can be live in under two weeks.

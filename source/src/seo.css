@@ -188,3 +188,35 @@ html.pin-ok .sp-process .step{opacity:1;transform:none}
 .pricing-page .plans{margin-top:8px}
 .qb__totals strong em{display:block;font:600 11px/1.2 var(--sans);font-style:normal;letter-spacing:.06em;color:var(--lavender);margin-bottom:2px}
 .qb__totals strong span{font-size:.6em;color:var(--lavender);margin-left:2px}
+
+/* ---------- Home pricing: three real ways to buy (replaces the old placeholder plans) ---------- */
+.plan__kick{margin:0;font:600 11.5px/1 var(--sans);letter-spacing:.16em;text-transform:uppercase;color:var(--green)}
+.plan--pop .plan__kick{color:#3E8A28}
+.plans--pillars .plan{gap:14px}
+.plans--pillars .plan__price strong{font-size:clamp(40px,4.4vw,56px)}
+.plan__rows{list-style:none;margin:0;padding:0;display:grid;gap:0!important}
+.plan__rows li{display:flex!important;justify-content:space-between;align-items:baseline;gap:14px;padding:9px 0;border-bottom:1px dashed var(--line-dark);font-size:14.5px;line-height:1.4;color:var(--white)}
+.plan__rows li:last-child{border-bottom:0}
+.plan__rows b{flex:none;font-weight:700;font-variant-numeric:tabular-nums;color:var(--white)}
+.plan--pop .plan__rows li{border-color:var(--line-light);color:var(--violet)}
+.plan--pop .plan__rows b{color:var(--violet)}
+.plan__more{margin:-6px 0 0;font-size:12.5px;color:var(--body)}
+.plans--pillars .btn{margin-top:auto}
+/* terms strip under the cards */
+.pts{margin-top:clamp(28px,3.6vw,48px);display:grid;gap:clamp(18px,2.4vw,28px);align-items:center;padding:clamp(20px,2.6vw,30px);border-radius:var(--radius-card);border:1px dashed rgba(201,188,232,.35);background:rgba(250,249,252,.04)}
+.pts__k{margin:0 0 10px;font:600 11.5px/1 var(--sans);letter-spacing:.14em;text-transform:uppercase;color:var(--lavender)}
+.pts__bar{display:flex;gap:3px;height:30px;border-radius:9px;overflow:hidden;min-width:220px}
+.pts__bar span{flex:var(--w) 0 0;display:grid;place-items:center;background:rgba(201,188,232,.22)}
+.pts__bar span:nth-child(2){background:rgba(201,188,232,.42)}
+.pts__bar span:nth-child(3){background:var(--green)}
+.pts__bar b{font:700 11.5px/1 var(--sans);color:var(--white)}
+.pts__bar span:nth-child(3) b{color:var(--violet)}
+.pts__cap{margin:8px 0 0;font-size:12.5px;color:rgba(201,188,232,.85)}
+.pts__facts{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px 20px}
+.pts__facts li{display:grid;gap:2px}
+.pts__facts b{font:400 clamp(20px,1.8vw,24px)/1.05 var(--display);text-transform:uppercase;color:var(--white);letter-spacing:.01em}
+.pts__facts span{font-size:13px;line-height:1.35;color:var(--lavender)}
+.pts__btn{justify-self:start}
+@media (min-width:900px){.pts__facts{grid-template-columns:repeat(4,minmax(0,1fr))}}
+@media (min-width:1180px){.pts{grid-template-columns:minmax(240px,.8fr) minmax(0,2fr) auto}.pts__btn{justify-self:end}}
+#builder,.qb__step{scroll-margin-top:calc(var(--header-h) + 18px)}

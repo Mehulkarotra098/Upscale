@@ -44,14 +44,14 @@ SERVICES = [
   items=[('Local SEO and Google Maps','Google Business Profile set up and optimised, categories, photos, posts and review strategy for your area.'),
          ('Technical SEO','Site speed, indexing, crawl errors, mobile usability, schema markup and Core Web Vitals fixed at the source.'),
          ('On-page SEO','Titles, descriptions, headings and internal links written around what your customers actually search.'),
-         ('Content that ranks','Blog posts and service pages planned from keyword research, 4 per month on the Grow plan.'),
+         ('Content that ranks','Blog posts and service pages planned from keyword research, ₹2,000 per 1,000-word post.'),
          ('Citations and links','Consistent listings across Indian directories and genuine local links, no spammy shortcuts.'),
          ('Plain-English reports','Every month: rankings, traffic, calls and enquiries, and what I am doing next.')],
   steps=[('Audit','A full SEO audit of your site, Google Business Profile and top local competitors.'),
          ('Fix','Technical and on-page issues fixed first, because they unlock everything else.'),
          ('Grow','Content, local signals and links added month by month.'),
          ('Report','Monthly report and call. Honest about what moved and what did not.')],
-  price='Local SEO and Google Business Profile ₹15,000/month, technical + on-page SEO ₹25,000/month, or both inside the Grow plan (₹75,000/month). A deep-dive SEO audit is ₹7,500, free if we work together.',
+  price='Local SEO and Google Business Profile ₹15,000/month, technical + on-page SEO ₹25,000/month, or both together. A deep-dive SEO audit is ₹7,500, free if we work together.',
   work=['tis','antrah','sashe'],
   faq=[('How long does SEO take to show results?','Honest answer: 3 to 6 months for meaningful movement. Anyone promising page one in 30 days is selling you something. I show you the trajectory every month.'),
        ('What is local SEO?','Local SEO helps you appear in Google Maps and "near me" searches in your part of Mumbai. Your Google Business Profile is the heart of it.'),
@@ -64,7 +64,7 @@ SERVICES = [
   lead='Consistent, on-brand social media without you chasing anyone. As your freelance social media manager, I plan, design and post your content on Instagram, Facebook, LinkedIn and YouTube, and keep it tied to enquiries.',
   who='For businesses that know they should post regularly but never find the time, and for brands that want their feed to look as good as their product.',
   items=[('Monthly content calendar','A clear plan of posts, reels and stories, approved by you before anything goes live.'),
-         ('Designed posts and carousels','On-brand creatives designed for your audience, 12 posts and 4 reels a month on Launch.'),
+         ('Designed posts and carousels','On-brand creatives designed for your audience: ₹800 a post, ₹1,500 a carousel.'),
          ('Reels and short video','Scroll-stopping reels and shorts, edited for each platform.'),
          ('Posting and scheduling','Everything published at the right times, so your feed stays active without you.'),
          ('Engagement','Comments and DMs monitored and answered in your voice, with leads passed straight to you.'),
@@ -73,7 +73,7 @@ SERVICES = [
          ('Plan','A content calendar and visual direction for the month.'),
          ('Create','Posts, carousels and reels designed and edited.'),
          ('Post and learn','Published, engaged with, measured and improved every month.')],
-  price='The Launch plan (₹35,000/month) covers 12 posts and 4 reels a month. Or buy single pieces: posts ₹800, carousels ₹1,500, reel edits ₹2,500, and a half-day shoot with 3 reels ₹15,000.',
+  price='Community & inbox management is ₹12,000/month. Content is priced per piece: posts ₹800, carousels ₹1,500, reel edits ₹2,500, and a half-day shoot with 3 reels ₹15,000.',
   work=['brandgen','vidhi','sashe'],
   faq=[('Which platforms do you manage?','Instagram, Facebook, LinkedIn and YouTube. I recommend focusing on the two where your customers actually spend time.'),
        ('Do I have to approve every post?','You approve the monthly calendar and can review any post before it goes out.'),
@@ -117,7 +117,7 @@ SERVICES = [
          ('Structure','Schema, entity data and crawlable pages fixed.'),
          ('Content','Answer-ready pages and FAQs that AI tools can quote.'),
          ('Monitor','Ongoing checks and improvements as AI search changes.')],
-  price='AI search visibility is ₹12,000/month, on its own or stacked on any plan. An AI visibility audit is ₹2,500, free if we work together.',
+  price='AI search visibility is ₹12,000/month, on its own or alongside other services. An AI visibility audit is ₹2,500, free if we work together.',
   work=['brandgen','growcred','vidhi'],
   faq=[('What is GEO (generative engine optimisation)?','GEO is optimising your online presence so AI assistants like ChatGPT, Gemini and Perplexity mention and recommend your business in their answers.'),
        ('Is AI search replacing Google?','Not replacing, adding to it. More people now ask AI tools for recommendations, so it pays to show up in both.'),
@@ -144,9 +144,9 @@ def offer_catalog(site):
             if not minimum: o['price'] = price
         if desc: o['description'] = desc
         return o
-    items = [offer(f'{p["name"]} plan', p['price'], True, '; '.join(p['items'])) for p in PD.PLANS if p['price']]
-    items += [offer(n, v, monthly=('/mo' in pr), minimum=pr.startswith('from'), slug='website-design-mumbai') for n, pr, v in PD.WEBSITES if v]
+    items = [offer(n, v, monthly=('/mo' in pr), minimum=pr.startswith('from'), slug='website-design-mumbai') for n, pr, v in PD.WEBSITES if v]
     items += [offer(n, v, monthly=('/mo' in pr), desc=note) for n, pr, note, v in PD.ADDONS]
+    items += [offer(n, _num(pr), minimum=pr.startswith('from')) for g, its in PD.UNITS for n, pr in its]
     return {'@type': 'OfferCatalog', 'name': 'Web design and digital marketing price list', 'url': site + 'pricing', 'itemListElement': items}
 
 def home_jsonld(site, faq):
@@ -351,7 +351,7 @@ def page_404(ctx, parts):
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Anton&family=Inter:wght@400;500;600;700&display=swap">
 <script>document.documentElement.classList.add('js','intro-skip');</script>
 <link rel="stylesheet" href="/styles.css?v={v}"></head>
-<body class="page-sub">{header}{menu}
+<body class="page-sub"><a class="skip" href="#main">Skip to content</a>{header}{menu}
 <main id="main"><div class="wrap hero-shell"><section class="sp-hero on-dark" data-tone="dark" aria-labelledby="page-title">
 <p class="eyebrow">Error 404</p><h1 class="sp-hero__title" id="page-title">Not found<span class="dot">.</span></h1>
 <p class="sp-hero__lead">This page doesn't exist, but your next customer might be searching for you right now.</p>
@@ -366,10 +366,9 @@ def llms_txt(site, faq):
              '> Freelance web design, development and digital marketing in Mumbai, India. U Scale is Mehul Karotra, a UI/UX developer-designer who designs and builds websites and runs SEO, social media, Google and Meta ads and AI search visibility for businesses, personally, on fixed-price contracts or monthly plans. An independent alternative to a digital marketing agency.', '',
              f'- Website: {site}', f'- Contact: WhatsApp/phone {PHONE_D}, email {EMAIL}', '- Based in: Mumbai, Maharashtra, India (serves clients across India)',
              f'- Full price list: {site}pricing', '',
-             '## Pricing (INR)', '', '### Monthly plans']
-    lines += [f'- {p["name"]}: ' + (f'₹{p["price"]:,}/month' if p['price'] else 'custom') + ' (' + '; '.join(p['items']) + ')' for p in PD.PLANS]
-    lines += ['', '### Websites (one-time, fixed price)'] + [f'- {n}: {pr}' for n, pr, _ in PD.WEBSITES] + [f'- {PD.WEBSITES_NOTE}']
-    lines += ['', '### Monthly add-ons'] + [f'- {n}: {pr}' + (f' ({note})' if note else '') for n, pr, note, _ in PD.ADDONS]
+             '## Pricing (INR)', '']
+    lines += ['### Websites (one-time, fixed price)'] + [f'- {n}: {pr}' for n, pr, _ in PD.WEBSITES] + [f'- {PD.WEBSITES_NOTE}']
+    lines += ['', '### Monthly services (combine any)'] + [f'- {n}: {pr}' + (f' ({note})' if note else '') for n, pr, note, _ in PD.ADDONS]
     lines += ['', '### Unit prices'] + [f'- {g}: ' + '; '.join(f'{n} {pr}' for n, pr in items) for g, items in PD.UNITS]
     lines += ['', '### Terms'] + [f'- {t}' for t in PD.TERMS]
     lines += ['', '## Services', '']
@@ -412,12 +411,37 @@ def inr(n):
     if head: parts.insert(0, head)
     return '₹' + ','.join(parts + [tail])
 
-def pricing_teaser_html():
-    chips = [('Websites', 'from ₹25,000', 'one-time, fixed price'), ('Monthly add-ons', 'from ₹8,000', 'stack on any plan'), ('One-off work', 'from ₹800', 'a single post, reel or logo')]
-    c = ''.join(f'<li><small>{e(a)}</small><b>{e(b)}</b><span>{e(d)}</span></li>' for a, b, d in chips)
-    return (f'<div class="pt" data-reveal><div class="pt__copy"><p class="pt__kick">Need just one thing?</p>'
-            f'<p class="pt__title">Every price is public. Build your own quote in a minute<span class="dot">.</span></p></div>'
-            f'<ul class="pt__chips">{c}</ul><a class="btn btn--go pt__btn" href="/pricing#builder" data-magnetic>Build your quote <span class="arw" aria-hidden="true"><b>↗</b><b>↗</b></span></a></div>')
+def _lookup(name):
+    for n, pr, v in PD.WEBSITES:
+        if n == name: return pr
+    for n, pr, note, v in PD.ADDONS:
+        if n == name: return pr
+    for g, its in PD.UNITS:
+        for n, pr in its:
+            if n == name: return pr
+    raise KeyError(name)
+
+def pricing_pillars_html():
+    cards = ''
+    for p in PD.PILLARS:
+        rows = ''.join(f'<li><span>{e(r)}</span><b>{e(_lookup(r).replace("/mo", ""))}</b></li>' for r in p['rows'])
+        pop = p.get('pop')
+        cards += (f'<li class="plan plan--pillar{" plan--pop" if pop else ""}" data-reveal>'
+                  + (f'<span class="plan__badge">Where growth happens</span>' if pop else '')
+                  + f'<p class="plan__kick">{e(p["kick"])}</p><h3 class="plan__name">{e(p["name"])}</h3><p class="plan__for">{e(p["lead"])}</p>'
+                  + f'<p class="plan__price"><small>from</small><strong>₹{p["start"]}</strong><span>{e(p["unit"])}</span></p>'
+                  + f'<ul class="plan__rows"{" aria-label=\"Monthly prices\"" if p["unit"] else ""}>{rows}</ul>'
+                  + (f'<p class="plan__more">All prices per month.</p>' if p['unit'] else '')
+                  + f'<a class="btn {"btn--go" if pop else "btn--ghost"}" href="/pricing#{p["step"]}"{" data-magnetic" if pop else ""}>{e(p["cta"])} <span class="arw" aria-hidden="true"><b>↗</b><b>↗</b></span></a></li>')
+    return f'<ul class="plans plans--pillars" data-reveal-group>{cards}</ul>'
+
+def pricing_terms_strip_html():
+    return ('<div class="pts" data-reveal>'
+            '<div class="pts__pay"><p class="pts__k">How payment works</p><div class="pts__bar" aria-hidden="true"><span style="--w:20"><b>20%</b></span><span style="--w:20"><b>20%</b></span><span style="--w:60"><b>60%</b></span></div>'
+            '<p class="pts__cap">To start · On design sign-off · At launch</p></div>'
+            '<ul class="pts__facts"><li><b>Free audit</b><span>before every project</span></li><li><b>2–3 revisions</b><span>agreed in writing</span></li><li><b>No lock-ins</b><span>30 days notice on monthly work</span></li><li><b>14 days</b><span>every quote is valid</span></li></ul>'
+            '<a class="btn btn--go pts__btn" href="/pricing#builder" data-magnetic>Open the quote builder <span class="arw" aria-hidden="true"><b>↗</b><b>↗</b></span></a>'
+            '</div>')
 
 def quote_builder_html(ICON_CHAT):
     web = '<label class="qb__opt"><input type="radio" name="qb-web" value="" checked data-name="" data-once="0"><span class="qb__card"><b>No website for now</b><em>₹0</em></span></label>'
@@ -444,7 +468,7 @@ def quote_builder_html(ICON_CHAT):
         units += f'<div class="qb__ug"><h3>{e(g)}</h3>{rows}</div>'
     return f'''<div class="qb" id="builder" data-qb data-wa-zone>
   <div class="qb__steps">
-    <fieldset class="qb__step">
+    <fieldset class="qb__step" id="step-1">
       <legend><span class="qb__num">1</span><span>A website<small>One-time, fixed price after a free audit</small></span></legend>
       <div class="qb__opts qb__opts--web">{web}</div>
       <div class="qb__toggles">
@@ -453,11 +477,11 @@ def quote_builder_html(ICON_CHAT):
       </div>
       <p class="qb__fine">{e(PD.WEBSITES_NOTE)}</p>
     </fieldset>
-    <fieldset class="qb__step">
-      <legend><span class="qb__num">2</span><span>Monthly growth<small>Stack any of these on their own or on a plan. 30 days notice to stop.</small></span></legend>
+    <fieldset class="qb__step" id="step-2">
+      <legend><span class="qb__num">2</span><span>Monthly growth<small>Combine any of these. A 3-month sprint, then month-to-month with 30 days notice.</small></span></legend>
       <div class="qb__opts qb__opts--add">{adds}</div>
     </fieldset>
-    <fieldset class="qb__step">
+    <fieldset class="qb__step" id="step-3">
       <legend><span class="qb__num">3</span><span>One-off work<small>A single post, a reel, a logo: buy exactly what you need.</small></span></legend>
       <div class="qb__units">{units}</div>
     </fieldset>
@@ -502,7 +526,7 @@ def pricing_page(ctx, parts):
     header, menu, footer, tail = parts
     url = site + 'pricing'
     title = 'Website & Digital Marketing Prices in Mumbai | U Scale'
-    desc = 'Every price, published: websites from ₹25,000, marketing plans from ₹35,000/month, add-ons and one-off work. Freelance web design in Mumbai by Mehul.'
+    desc = 'Every price, published: websites from ₹25,000, monthly SEO, ads and social from ₹8,000, and one-off work from ₹800. Freelance web design in Mumbai.'
     faq = [ctx['FAQ'][i] for i in PRICING_FAQ_IDX]
     ld = json.dumps({'@context': 'https://schema.org', '@graph': [
         {'@type': 'WebPage', '@id': url + '#webpage', 'url': url, 'name': title, 'description': desc, 'isPartOf': {'@id': site + '#website'},
@@ -512,14 +536,6 @@ def pricing_page(ctx, parts):
             {'@type': 'ListItem', 'position': 1, 'name': 'Home', 'item': site}, {'@type': 'ListItem', 'position': 2, 'name': 'Pricing', 'item': url}]},
         {'@type': 'FAQPage', '@id': url + '#faq', 'mainEntity': [{'@type': 'Question', 'name': q, 'acceptedAnswer': {'@type': 'Answer', 'text': a}} for q, a in faq]},
     ]}, ensure_ascii=False, separators=(',', ':'))
-    chk = ctx['ICONS']['IC_CHECK']
-    plans = ''
-    for p in PD.PLANS:
-        price = f'<small>from</small><strong>₹{p["price"]:,}</strong><span>{p["per"]}</span>' if p['price'] else '<strong>Custom</strong>'
-        plans += (f'<li class="plan{" plan--pop" if p.get("pop") else ""}">' + ('<span class="plan__badge">Most popular</span>' if p.get('pop') else '')
-                  + f'<h3 class="plan__name">{e(p["name"])}</h3><p class="plan__for">{e(p["for_"])}</p><p class="plan__price">{price}</p><ul>'
-                  + ''.join(f'<li>{chk}{e(i)}</li>' for i in p['items']) + '</ul>'
-                  + f'<a class="btn {"btn--go" if p.get("pop") else "btn--ghost"}" href="{ea(WA)}" target="_blank" rel="noopener">Ask about {e(p["name"])}</a></li>')
     return f'''<!doctype html>
 <html lang="en-IN">
 <head>
@@ -568,19 +584,6 @@ def pricing_page(ctx, parts):
       <p class="sp-hero__who">Quotes are valid for 14 days. Every website and every plan starts with a free audit, so you know exactly what you are paying for before you spend a rupee.</p>
     </section>
   </div>
-
-  <section class="pricing pricing-page" aria-labelledby="plans-title">
-    <div class="wrap">
-      <div class="panel on-dark" data-tone="dark">
-        <header class="sec-head">
-          <p class="eyebrow">Monthly plans</p>
-          <h2 class="h2" id="plans-title">Bundles for steady growth.</h2>
-          <p class="lead">The simplest way to work together: one monthly price that covers the essentials. Start with a 3-month sprint, then go month-to-month.</p>
-        </header>
-        <ul class="plans">{plans}</ul>
-      </div>
-    </div>
-  </section>
 
   <section class="section qb-sec" aria-labelledby="qb-title">
     <div class="wrap">
