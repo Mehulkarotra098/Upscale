@@ -265,7 +265,8 @@ if(m==='off')d.classList.add('rm');})();
   </section>
 
   <!-- 5.8 TESTIMONIALS -->
-  <!-- Testimonials come from source/src/testimonials.json: a quote shows only once that client has approved it ("approved": true). Until then honest placeholders show. -->
+  <!-- Testimonials come from source/src/testimonials.json: a quote shows only once that client has approved it ("approved": true). Until at least one is approved, this whole section is left out of the build. -->
+  <!--T-->
   <section class="section testimonials" id="testimonials" aria-labelledby="testimonials-title">
     <div class="wrap">
       <header class="sec-head">
@@ -277,6 +278,7 @@ if(m==='off')d.classList.add('rm');})();
 {{QUOTES}}
     </ul>
   </section>
+  <!--/T-->
 
   <!-- 5.9 ABOUT / FOUNDER -->
   <section class="section founder" id="about" aria-labelledby="about-title">
@@ -401,7 +403,7 @@ if(m==='off')d.classList.add('rm');})();
       <li><a href="/pricing">Full price list</a></li>
     </ul>
   </nav>
-  <div class="footer__big" aria-hidden="true" data-progress="foot"><span class="fb fb-out">By Mehul Karotra.</span><span class="fb-fill"><span class="fb">By Mehul Karotra.</span></span></div>
+  <div class="footer__big" aria-hidden="true" data-progress="foot"><span class="fb fb-out" data-t="By Mehul Karotra."></span><span class="fb-fill"><span class="fb">By Mehul Karotra.</span></span></div>
   <div class="wrap footer__bottom">
     <p>© 2026 U Scale by Mehul Karotra · Mumbai, India.</p>
     <ul class="footer__social" aria-label="Mehul elsewhere">

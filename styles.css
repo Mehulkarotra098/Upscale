@@ -660,7 +660,7 @@ html.pin-ok .work__bar{display:block}
 /* Process: pinned scene on desktop */
 .proc__head{display:grid;gap:clamp(14px,1.6vw,20px);margin-bottom:clamp(32px,5vw,64px)}
 @media (min-width:1024px){
-  html.pin-ok .proc__pin{height:280vh;position:relative}
+  html.pin-ok .proc__pin{height:220vh;position:relative}
   html.pin-ok .proc__sticky{position:sticky;top:0;height:100vh;display:flex;align-items:center}
   html.pin-ok .process{padding-block:0}
   html.pin-ok .step{opacity:.35;transform:translateY(14px);transition:opacity .5s ease,transform .6s var(--ease-out)}
@@ -1137,3 +1137,35 @@ html.pin-ok .sp-process .step{opacity:1;transform:none}
 @media (min-width:900px){.pts__facts{grid-template-columns:repeat(4,minmax(0,1fr))}}
 @media (min-width:1180px){.pts{grid-template-columns:minmax(240px,.8fr) minmax(0,2fr) auto}.pts__btn{justify-self:end}}
 #builder,.qb__step{scroll-margin-top:calc(var(--header-h) + 18px)}
+
+/* ---------- Home pricing cards: link to the full list ---------- */
+.plan__all{align-self:start;display:inline-flex;align-items:center;gap:6px;min-height:44px;font:700 14px/1.2 var(--sans);color:var(--lavender);text-decoration:none;background:linear-gradient(currentColor,currentColor) 0 calc(100% - 8px)/0 2px no-repeat;transition:background-size .4s var(--ease-out)}
+.plan__all:hover{background-size:100% 2px}
+.plan__all:focus-visible{outline:2px solid var(--green);outline-offset:3px;border-radius:4px}
+.plan--pop .plan__all{color:var(--violet)}
+
+/* ---------- /pricing builder: quick-start presets ---------- */
+.qb__presets{grid-column:1/-1;display:grid;gap:12px}
+.qb__plabel{margin:0;font:600 14px/1.4 var(--sans);color:var(--violet)}
+.qb__presets [role=group]{display:flex;flex-wrap:wrap;gap:8px}
+.qb__preset{min-height:44px;padding:10px 18px;border-radius:99px;border:1.5px solid var(--line-light);background:var(--white);color:var(--violet);font:600 14px/1.2 var(--sans);cursor:pointer;-webkit-tap-highlight-color:transparent;transition:border-color .25s ease,background-color .3s ease,color .3s ease,transform .45s var(--ease-spring)}
+.qb__preset:hover{border-color:var(--violet)}
+.qb__preset:active{transform:scale(.97)}
+.qb__preset:focus-visible{outline:2px solid var(--green);outline-offset:2px}
+.qb__preset[aria-pressed=true]{background:var(--violet);border-color:var(--violet);color:var(--white)}
+@media (max-width:559px){.qb__presets [role=group]{display:grid;grid-template-columns:repeat(2,minmax(0,1fr))}.qb__preset{padding:10px 12px;font-size:13.5px}}
+@media (max-width:1079px){.qb__dock{grid-row:3}.qb__receipt{grid-row:4}}
+
+/* ---------- Tap targets: 40px minimum on touch ---------- */
+.qb__qty button{width:40px;height:40px}
+.qb__reset{min-height:44px;padding:0 12px}
+.svc__more{padding-block:12px;background-position:0 calc(100% - 6px)}
+.sp-more a{padding:13px 18px}
+.tlink{padding-block:11px;background-position:0 calc(100% - 5px)}
+.gs__chip{min-height:42px}
+.footer__social a{display:inline-flex;align-items:center;min-height:40px}
+.footer__social{gap:0 22px}
+.mt{min-height:40px;padding-inline:15px}
+.plans--pillars .plan__all{margin-top:auto}
+.plans--pillars .plan__all + .btn{margin-top:0}
+.footer__big .fb-out::before{content:attr(data-t)}

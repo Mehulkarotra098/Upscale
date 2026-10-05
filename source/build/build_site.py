@@ -245,7 +245,7 @@ def quotes_html():
     dash='<svg class="dash" aria-hidden="true" focusable="false"><rect x=".75" y=".75" rx="20"/></svg><span class="quote__mark" aria-hidden="true">“</span>'
     ok=[t for t in TQ if t.get('approved')]
     if not ok:
-        return '\n'.join(f'      <li class="quote" style="--q:{i}" data-reveal>{dash}<blockquote><p>Real client stories land here soon: our work speaks first.</p></blockquote><p class="quote__by">Your business could be next.</p></li>' for i in range(3))
+        return ''  # no approved quotes yet: the section is dropped from the page (see <!--T--> markers)
     out=[]
     for i,t in enumerate(ok):
         ini=''.join(w[0] for w in t['name'].split()[:2]).upper()
@@ -260,6 +260,7 @@ rep = {'{{PRICE_PILLARS}}': seo_pages.pricing_pillars_html(), '{{PRICE_TERMS}}':
 rep.update({'{{' + k + '}}': v for k, v in ICONS.items()})
 for k, v in rep.items():
     src = src.replace(k, v)
+src = re.sub(r'\s*<!--T-->.*?<!--/T-->', '', src, flags=re.S) if not rep['{{QUOTES}}'] else src.replace('  <!--T-->\n', '').replace('\n  <!--/T-->', '')
 src = src.replace('https://uscale.in/', SITE_URL)
 left = re.findall(r'\{\{[A-Z_]+\}\}', src.replace('{{STYLES}}', '').replace('{{SCRIPT}}', ''))
 assert not left, left

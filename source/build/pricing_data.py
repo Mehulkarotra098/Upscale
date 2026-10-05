@@ -4,14 +4,14 @@ From Mehul's published price sheet. Edit here, rebuild, and every page updates."
 # The three ways to buy, shown as cards on the home page. Rows reference real items from the sheet below.
 PILLARS = [
     dict(key='web', kick='One-time', name='Websites', lead='Designed in Figma, hand-built, fixed price agreed before I start.',
-         start='25,000', unit='', step='step-1', cta='Price my website',
-         rows=['Landing page', 'Portfolio site', 'Business site, 3–4 pages', 'Business site, 5–10 pages + blog', 'E-commerce, under 50 products', 'Restaurant site + own online ordering']),
+         start='25,000', unit='', noun='website prices', step='step-1', cta='Price my website',
+         rows=['Landing page', 'Business site, 3–4 pages', 'E-commerce, under 50 products']),
     dict(key='add', kick='Monthly', name='Growth', lead='SEO, ads and social, month-to-month. Combine only what you need.', pop=True,
-         start='8,000', unit='/mo', step='step-2', cta='Build my monthly mix',
-         rows=['Local SEO / Google Business Profile', 'Technical + on-page SEO', 'Ads management', 'AI search visibility (GEO)', 'Community & inbox management', 'Email marketing']),
+         start='8,000', unit='/mo', noun='monthly services', step='step-2', cta='Build my monthly mix',
+         rows=['Local SEO / Google Business Profile', 'Ads management', 'AI search visibility (GEO)']),
     dict(key='unit', kick='One-off', name='Single pieces', lead='Need just one thing? A post, a reel, a logo, a blog.',
-         start='800', unit='', step='step-3', cta='Pick single pieces',
-         rows=['Social post', 'Carousel', 'Reel edit (your footage)', 'SEO blog (~1,000 words)', 'Logo', 'Half-day shoot + 3 reels']),
+         start='800', unit='', noun='single-piece prices', step='step-3', cta='Pick single pieces',
+         rows=['Social post', 'Reel edit (your footage)', 'Logo']),
 ]
 
 WEBSITES = [  # one-time, fixed price after a free audit
@@ -45,6 +45,14 @@ UNITS = [  # pick exactly what you need
     ('Writing', [('SEO blog (~1,000 words)', '₹2,000'), ('Website copy', '₹2,000/page'), ('LinkedIn article', '₹2,500')]),
     ('Brand identity', [('Logo', '₹5,000'), ('Identity kit', '₹20,000'), ('Full identity system', 'from ₹45,000')]),
     ('Audits', [('SEO deep-dive audit (free if we work together)', '₹7,500'), ('AI visibility audit (free if we work together)', '₹2,500')]),
+]
+
+# Quick-start presets for the /pricing builder: honest starting points made only of items above.
+PRESETS = [
+    dict(label='New business website', web='Business site, 3–4 pages', checks=['Care plan'], units={}),
+    dict(label='Get found on Google', web='', checks=['Local SEO / Google Business Profile', 'AI search visibility (GEO)'], units={}),
+    dict(label='Leads from ads', web='Landing page', checks=['Ads management'], units={}),
+    dict(label='A month of social', web='', checks=[], units={'Social post': 12, 'Carousel': 4, 'Reel edit (your footage)': 4}),
 ]
 
 TERMS = [

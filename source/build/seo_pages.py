@@ -195,7 +195,7 @@ def chrome_parts(home_html):
     menu = grab(r'<div class="menu on-dark" id="menu".*?\n</div>')
     footer = grab(r'<footer class="site-footer.*?</footer>')
     tail = grab(r'<div class="sprog".*?<a class="wa-float".*?</a>')
-    fix = lambda h: re.sub(r'href="#(?!top")', 'href="/#', h).replace('brand" href="#top"', 'brand" href="/"')
+    fix = lambda h: re.sub(r'href="#(?!top")', 'href="/#', h).replace('brand" href="#top"', 'brand" href="/"').replace('href="/#pricing"', 'href="/pricing"')
     return fix(header), fix(menu), fix(footer), fix(tail)
 
 def faq_html(items, start=0):
@@ -298,7 +298,7 @@ def service_page(ctx, s, parts):
         <h2 class="h2" id="work-title" data-split>Sites I designed and built.</h2>
       </header>
       <ul class="rw-grid" data-reveal-group>{''.join(cards)}</ul>
-      <p class="sp-price" data-reveal><strong>Pricing.</strong> {e(s['price'])} <a class="tlink" href="/#pricing">See all plans</a></p>
+      <p class="sp-price" data-reveal><strong>Pricing.</strong> {e(s['price'])} <a class="tlink" href="/pricing">See every price</a></p>
     </div>
   </section>
 
@@ -421,17 +421,20 @@ def _lookup(name):
             if n == name: return pr
     raise KeyError(name)
 
+def _count(key):
+    return {'web': len(PD.WEBSITES), 'add': len(PD.ADDONS), 'unit': sum(len(i) for _, i in PD.UNITS)}[key]
+
 def pricing_pillars_html():
     cards = ''
     for p in PD.PILLARS:
-        rows = ''.join(f'<li><span>{e(r)}</span><b>{e(_lookup(r).replace("/mo", ""))}</b></li>' for r in p['rows'])
+        rows = ''.join(f'<li><span>{e(r)}</span><b>{e(_lookup(r))}</b></li>' for r in p['rows'])
         pop = p.get('pop')
         cards += (f'<li class="plan plan--pillar{" plan--pop" if pop else ""}" data-reveal>'
                   + (f'<span class="plan__badge">Where growth happens</span>' if pop else '')
                   + f'<p class="plan__kick">{e(p["kick"])}</p><h3 class="plan__name">{e(p["name"])}</h3><p class="plan__for">{e(p["lead"])}</p>'
                   + f'<p class="plan__price"><small>from</small><strong>₹{p["start"]}</strong><span>{e(p["unit"])}</span></p>'
                   + f'<ul class="plan__rows"{" aria-label=\"Monthly prices\"" if p["unit"] else ""}>{rows}</ul>'
-                  + (f'<p class="plan__more">All prices per month.</p>' if p['unit'] else '')
+                  + f'<a class="plan__all" href="/pricing#{p["step"]}">See all {_count(p["key"])} {e(p["noun"])} <span aria-hidden="true">→</span></a>'
                   + f'<a class="btn {"btn--go" if pop else "btn--ghost"}" href="/pricing#{p["step"]}"{" data-magnetic" if pop else ""}>{e(p["cta"])} <span class="arw" aria-hidden="true"><b>↗</b><b>↗</b></span></a></li>')
     return f'<ul class="plans plans--pillars" data-reveal-group>{cards}</ul>'
 
@@ -466,7 +469,9 @@ def quote_builder_html(ICON_CHAT):
                      f'<span class="qb__uname">{e(n)}<em>{e(pr)}</em></span>'
                      f'<span class="qb__qty"><button type="button" data-dec aria-label="One fewer: {ea(n)}">−</button><output aria-label="Quantity of {ea(n)}">0</output><button type="button" data-inc aria-label="Add one: {ea(n)}">+</button></span></div>')
         units += f'<div class="qb__ug"><h3>{e(g)}</h3>{rows}</div>'
+    presets = ''.join(f'<button type="button" class="qb__preset" aria-pressed="false" data-preset="{ea(json.dumps(dict(web=p["web"], checks=p["checks"], units=p["units"]), ensure_ascii=False))}">{e(p["label"])}</button>' for p in PD.PRESETS)
     return f'''<div class="qb" id="builder" data-qb data-wa-zone>
+  <div class="qb__presets"><p class="qb__plabel" id="qb-p-label">Not sure where to start? Try a common starting point:</p><div role="group" aria-labelledby="qb-p-label">{presets}</div></div>
   <div class="qb__steps">
     <fieldset class="qb__step" id="step-1">
       <legend><span class="qb__num">1</span><span>A website<small>One-time, fixed price after a free audit</small></span></legend>
@@ -576,12 +581,12 @@ def pricing_page(ctx, parts):
     <section class="sp-hero on-dark" data-tone="dark" aria-labelledby="page-title">
       <nav class="crumbs" aria-label="Breadcrumb"><ol><li><a href="/">Home</a></li><li aria-current="page">Pricing</li></ol></nav>
       <h1 class="sp-hero__title" id="page-title">Pricing, published openly<span class="dot">.</span></h1>
-      <p class="sp-hero__lead">Most agencies hide their prices behind a contact form. Here is everything I charge for web design and digital marketing in Mumbai, on one page: monthly plans, fixed-price websites, add-ons and single pieces of work.</p>
+      <p class="sp-hero__lead">Most agencies hide their prices behind a contact form. Here is everything I charge for web design and digital marketing in Mumbai, on one page: fixed-price websites, monthly growth services and single pieces of work.</p>
       <div class="hero__cta" data-wa-zone>
         <a class="btn btn--go" href="{ea(WA)}" target="_blank" rel="noopener" data-magnetic>{ctx['ICONS']['ICON_CHAT']}Ask me for a quote</a>
         <a class="btn btn--ghost" href="#builder">Build your quote</a>
       </div>
-      <p class="sp-hero__who">Quotes are valid for 14 days. Every website and every plan starts with a free audit, so you know exactly what you are paying for before you spend a rupee.</p>
+      <p class="sp-hero__who">Quotes are valid for 14 days. Every website and every monthly service starts with a free audit, so you know exactly what you are paying for before you spend a rupee.</p>
     </section>
   </div>
 

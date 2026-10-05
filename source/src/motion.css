@@ -19,7 +19,7 @@
 /* Process: pinned scene on desktop */
 .proc__head{display:grid;gap:clamp(14px,1.6vw,20px);margin-bottom:clamp(32px,5vw,64px)}
 @media (min-width:1024px){
-  html.pin-ok .proc__pin{height:280vh;position:relative}
+  html.pin-ok .proc__pin{height:220vh;position:relative}
   html.pin-ok .proc__sticky{position:sticky;top:0;height:100vh;display:flex;align-items:center}
   html.pin-ok .process{padding-block:0}
   html.pin-ok .step{opacity:.35;transform:translateY(14px);transition:opacity .5s ease,transform .6s var(--ease-out)}
