@@ -1,11 +1,55 @@
 # U Scale by Mehul Karotra
 
-> Independent web design, development and digital marketing in Mumbai, India. U Scale is one person, Mehul Karotra, a UI/UX developer-designer who designs and builds websites and runs SEO, social media, Google and Meta ads and AI search visibility for businesses, personally. Not an agency.
+> Freelance web design, development and digital marketing in Mumbai, India. U Scale is Mehul Karotra, a UI/UX developer-designer who designs and builds websites and runs SEO, social media, Google and Meta ads and AI search visibility for businesses, personally, on fixed-price contracts or monthly plans. An independent alternative to a digital marketing agency.
 
 - Website: https://uscalebymehul.vercel.app/
 - Contact: WhatsApp/phone +91 79773 60142, email uscalewithus@gmail.com
 - Based in: Mumbai, Maharashtra, India (serves clients across India)
-- Pricing: Launch plan from ₹35,000/month, Grow plan from ₹75,000/month, Scale plan custom. Websites are fixed-price projects. Every plan starts with a free digital audit. Plans start with a 3-month sprint, then run month-to-month.
+- Full price list: https://uscalebymehul.vercel.app/pricing
+
+## Pricing (INR)
+
+### Monthly plans
+- Launch: ₹35,000/month (Social media management (12 posts + 4 reels); Google Business Profile setup; Baseline SEO; Monthly performance report)
+- Grow: ₹75,000/month (Everything in Launch; Google + Meta ads management; Technical SEO + 4 blogs/month; WhatsApp lead funnels; LinkedIn presence)
+- Scale: custom (Everything in Grow; Branding and identity; A weekly strategy call with me; Priority turnaround; Quarterly growth roadmap)
+
+### Websites (one-time, fixed price)
+- Landing page: ₹25,000
+- Portfolio site: ₹40,000
+- Business site, 3–4 pages: ₹55,000
+- Business site, 5–10 pages + blog: ₹85,000
+- E-commerce, under 50 products: ₹95,000
+- E-commerce, 50–500 products: from ₹1,50,000
+- Restaurant site + own online ordering: ₹90,000
+- Redesign of your current site: 70% of a fresh build
+- Care plan: updates, backups, security: ₹3,500/mo
+- Copywriting (₹2,000/page), photography, premium plugins and payment gateway fees are quoted separately, always before I start.
+
+### Monthly add-ons
+- Local SEO / Google Business Profile: ₹15,000/mo
+- Technical + on-page SEO: ₹25,000/mo
+- AI search visibility (GEO): ₹12,000/mo
+- Ads management: ₹20,000/mo (Flat up to ₹1.5L monthly ad spend, then 12% of spend. Setup ₹10,000 one-time; ad spend paid to Google/Meta directly.)
+- Email marketing: ₹8,000/mo
+- Review & reputation management: ₹10,000/mo
+- WhatsApp automation: ₹8,000 setup (One-time setup; the WhatsApp platform is billed at cost.)
+- Community & inbox management: ₹12,000/mo
+
+### Unit prices
+- Social design: Social post ₹800; Carousel ₹1,500; Designed story ₹800; Infographic ₹4,000
+- Reel editing: Reel edit (your footage) ₹2,500; Premium edit (grading, motion graphics) ₹5,000
+- Reel production: Half-day shoot + 3 reels ₹15,000; Full-day shoot + 6 reels ₹25,000
+- Writing: SEO blog (~1,000 words) ₹2,000; Website copy ₹2,000/page; LinkedIn article ₹2,500
+- Brand identity: Logo ₹5,000; Identity kit ₹20,000; Full identity system from ₹45,000
+- Audits: SEO deep-dive audit (free if we work together) ₹7,500; AI visibility audit (free if we work together) ₹2,500
+
+### Terms
+- 20% advance to start, 20% on design sign-off, 60% on launch. Final files are released after the final payment.
+- 2–3 revision rounds included on every project, agreed in writing before I start.
+- Every website includes mobile-responsive design, enquiry forms, basic SEO, Google Maps, social links and a 15–30 day bug-fix window.
+- Retainers: free audit first, a 3-month sprint, then month-to-month. 30 days notice to pause or cancel.
+- Quotes are valid for 14 days.
 
 ## Services
 
@@ -21,14 +65,15 @@
 
 ## About Mehul Karotra
 
-- UI/UX developer-designer from Mumbai. LinkedIn: https://www.linkedin.com/in/mehulkarotra/ . Portfolio: https://mehulpatel.vercel.app/
+- UI/UX developer-designer from Mumbai working as an independent, contract-based partner. LinkedIn: https://www.linkedin.com/in/mehulkarotra/
 
 ## FAQ
 
-- **Is U Scale an agency?** No. U Scale is me, Mehul Karotra. You sign a contract with me directly, and I personally design, build and run your work. If a project ever needs a specialist, like a photographer, I bring them in and stay your single point of contact.
-- **How much does digital marketing cost in Mumbai?** My retainers start at ₹35,000/month and websites are fixed-price projects. Every engagement starts with a free audit, so you see exactly what you'd pay for before spending a rupee.
+- **Is U Scale an agency or a freelancer?** A bit of both, in the best way. U Scale is me, Mehul Karotra, working as an independent, contract-based partner. You get agency-quality design, development and marketing, but you sign with me directly and talk to me directly. If a project ever needs a specialist, like a photographer, I bring them in and stay your single point of contact.
+- **How much does a website cost in Mumbai?** With me, a landing page is ₹25,000, a 3–4 page business site ₹55,000, a 5–10 page site with a blog ₹85,000, and e-commerce starts at ₹95,000. Every price is fixed and agreed in writing before I start. Every price is listed on the pricing page.
+- **How much does digital marketing cost in Mumbai?** Monthly plans start at ₹35,000 (Launch) and ₹75,000 (Grow). You can also add single services, like local SEO at ₹15,000/month or ads management from ₹20,000/month, or buy one-off work such as a reel edit for ₹2,500.
+- **Do you work on contract or monthly retainer?** Both. Websites and branding are fixed-price contracts: 20% to start, 20% on design sign-off and 60% on launch. Marketing runs as a monthly retainer: a 3-month sprint, then month-to-month with 30 days notice. No long lock-ins.
 - **How long does SEO take to show results?** Honest answer: 3–6 months for meaningful movement. Anyone promising page one in 30 days is selling you something. I show you the trajectory every month.
-- **How long does it take to build a website?** A business website typically takes 4–8 weeks from kickoff to launch, depending on pages and how ready your content is.
-- **Do you lock clients into long contracts?** No. Retainers run month-to-month after an initial 3-month sprint. I'd rather earn your renewal than enforce it.
+- **How long does it take to build a website?** A business website typically takes 4–8 weeks from kickoff to launch, depending on pages and how ready your content is. A landing page can be live in under two weeks.
 - **What is AI search visibility (GEO)?** When someone asks ChatGPT or Perplexity for a recommendation in your category, does your business get mentioned? I optimise your presence so AI answers cite you.
 - **How do we start?** Book a free strategy call or ping me on WhatsApp. I audit your digital presence for free, then send a plan with clear pricing.

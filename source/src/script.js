@@ -158,6 +158,7 @@
   }
   var sprog=$('.sprog'), sprogLbl=$('[data-sprog-label]'), sprogT;
   var SPROG=[['hero','Home'],['services','Services'],['process','Process'],['work','Work'],['pricing','Pricing'],['audit','Free audit'],['testimonials','Clients'],['about','About'],['faq','FAQ'],['cta',"Let's scale"],['contact','Contact']].map(function(x){ return [document.getElementById(x[0]),x[1]]; });
+  if(!SPROG[0][0]){ SPROG=$$('main > section, main > .hero-shell').map(function(sec){ var ey=$('.eyebrow,.crumbs [aria-current]',sec), h=$('h1,h2',sec); var t=(ey&&(ey.dataset.final||ey.textContent)||h&&(h.getAttribute('aria-label')||h.textContent)||'').trim(); return [sec,t.length>22?t.slice(0,21)+'…':t]; }).filter(function(x){ return x[1]; }); if(!SPROG.length) SPROG=[[null,'']]; }
   function markScroll(){ scrollDirty=true; kick(); }
   function setSteps(p,idx){
     steps.forEach(function(s,i){
@@ -467,6 +468,47 @@
     var kio=new IntersectionObserver(function(es){ es.forEach(function(e){ if(e.isIntersecting&&motion&&!pin.on){ e.target.classList.add('peek'); kio.unobserve(e.target); } }); },{threshold:.7});
     cards.forEach(function(c){ kio.observe(c); });
   }
+
+  /* ---------- Quote builder (/pricing): live estimate, 20/20/60 split, one-tap WhatsApp ---------- */
+  $$('[data-qb]').forEach(function(qb){
+    var q=function(sel){ return $(sel,qb); };
+    var onceEl=q('[data-qb-once]'), moEl=q('[data-qb-mo]'), once2=q('[data-qb-once2]'), mo2=q('[data-qb-mo2]'), lines=q('[data-qb-lines]'), split=q('[data-qb-split]'), send=q('[data-qb-send]'), dock=q('[data-qb-dock]'), redesign=q('[data-redesign]');
+    var fmt=function(n){ return '₹'+inr.format(Math.round(n)); };
+    var units=$$('.qb__unit',qb), prev={o:0,m:0};
+    units.forEach(function(u){ u.qty=0;
+      $('[data-inc]',u).addEventListener('click',function(){ u.qty=Math.min(99,u.qty+1); upd(); });
+      $('[data-dec]',u).addEventListener('click',function(){ u.qty=Math.max(0,u.qty-1); upd(); });
+    });
+    qb.addEventListener('change',upd);
+    q('[data-qb-reset]').addEventListener('click',function(){
+      $$('input',qb).forEach(function(i){ i.checked = i.type==='radio' ? !i.dataset.name : false; });
+      units.forEach(function(u){ u.qty=0; }); upd();
+    });
+    function bump(el){ if(!motion) return; el.classList.remove('is-bump'); void el.offsetWidth; el.classList.add('is-bump'); }
+    function upd(){
+      var o=0, m=0, fo=false, fm=false, items=[];
+      var web=$('input[name="qb-web"]:checked',qb);
+      if(web&&web.dataset.name){ var v=+web.dataset.once, rd=redesign&&redesign.checked; if(rd) v*=.7; o+=v; if(web.dataset.from) fo=true;
+        items.push([web.dataset.name+(rd?' (redesign)':''),(web.dataset.from?'from ':'')+fmt(v)]); }
+      $$('input[type="checkbox"][data-name]',qb).forEach(function(c){
+        if(!c.checked) return; var co=+c.dataset.once||0, cm=+c.dataset.mo||0; o+=co; m+=cm; if(c.dataset.from) fm=true;
+        var lab=[]; if(cm) lab.push((c.dataset.from?'from ':'')+fmt(cm)+'/mo'); if(co) lab.push(fmt(co)+' setup'); items.push([c.dataset.name,lab.join(' + ')]);
+      });
+      units.forEach(function(u){ $('output',u).textContent=u.qty; u.classList.toggle('is-on',u.qty>0); if(!u.qty) return;
+        var v=u.qty*(+u.dataset.once); o+=v; if(u.dataset.from) fo=true; items.push([u.qty+' × '+u.dataset.name+(u.dataset.per?' (pages)':''),(u.dataset.from?'from ':'')+fmt(v)]); });
+      var ot=(fo&&o?'from ':'')+fmt(o), mt=(fm&&m?'from ':'')+fmt(m)+(m?'/mo':'');
+      onceEl.innerHTML=(fo&&o?'<em>from</em>':'')+fmt(o); moEl.innerHTML=(fm&&m?'<em>from</em>':'')+fmt(m)+(m?'<span>/mo</span>':''); once2.textContent=ot; mo2.textContent=mt;
+      if(o!==prev.o) bump(onceEl); if(m!==prev.m) bump(moEl); prev={o:o,m:m};
+      lines.innerHTML = items.length ? items.map(function(it){ return '<li><span>'+it[0].replace(/</g,'&lt;')+'</span><b>'+it[1]+'</b></li>'; }).join('') : '<li class="qb__empty">Nothing picked yet. Start with a website, a monthly service or a single piece of work.</li>';
+      split.hidden=!(o>0);
+      if(o>0){ q('[data-qb-p1]').textContent=fmt(o*.2); q('[data-qb-p2]').textContent=fmt(o*.2); q('[data-qb-p3]').textContent=fmt(o*.6); }
+      dock.classList.toggle('is-on',items.length>0);
+      var msg='Hi Mehul, I built a quote on your website:\n'+(items.length?items.map(function(it){ return '- '+it[0]+': '+it[1]; }).join('\n')+'\nEstimate: '+ot+' one-time'+(m?' + '+mt:'')+'.\n':'\n')+"Can we talk about it?";
+      send.href='https://wa.me/917977360142?text='+encodeURIComponent(msg);
+    }
+    upd();
+    var rc=q('.qb__receipt'); if(rc&&'IntersectionObserver' in window) new IntersectionObserver(function(es){ dock.classList.toggle('is-near',es[0].isIntersecting); },{threshold:.15}).observe(rc);
+  });
 
   /* ---------- FAQ: one open at a time, first open by default ---------- */
   $$('[data-accordion]').forEach(function(acc){
