@@ -8,26 +8,29 @@
 <meta name="author" content="Mehul Karotra">
 <meta name="geo.region" content="IN-MH">
 <meta name="geo.placename" content="Mumbai">
-<link rel="alternate" hreflang="en-IN" href="https://uscale.in/">
-<link rel="alternate" hreflang="x-default" href="https://uscale.in/">
+<link rel="alternate" hreflang="en-IN" href="{{SITE_URL}}">
+<link rel="alternate" hreflang="x-default" href="{{SITE_URL}}">
 <!-- Google Search Console: paste the verification meta tag here once the property is created -->
 {{ICONS_HEAD}}
 <meta name="theme-color" content="#FAF9FC">
-<meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1">
-<!-- Live URL comes from SITE_URL in build_site.py: change it there when a custom domain is added -->
-<link rel="canonical" href="https://uscale.in/">
+<meta name="robots" content="{{ROBOTS}}">
+<!-- Every absolute URL on this page is filled from the SITE_URL environment variable at build time (see source/build/config.py) -->
+<link rel="canonical" href="{{SITE_URL}}">
 <meta property="og:type" content="website">
 <meta property="og:locale" content="en_IN">
 <meta property="og:site_name" content="U Scale">
 <meta property="og:title" content="U Scale by Mehul Karotra | Freelance web design &amp; digital marketing, Mumbai">
 <meta property="og:description" content="Agency-quality work, without the agency. Websites, SEO, social media and ads by Mehul Karotra, with every price published.">
-<meta property="og:url" content="https://uscale.in/">
-<meta property="og:image" content="https://uscale.in/og-image.png">
+<meta property="og:url" content="{{SITE_URL}}">
+<meta property="og:image" content="{{SITE_URL}}og-image.png">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
 <meta property="og:image:alt" content="U Scale by Mehul Karotra: Be found. Be chosen.">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:image" content="https://uscale.in/og-image.png">
+<meta name="twitter:title" content="U Scale by Mehul Karotra | Freelance web design &amp; digital marketing, Mumbai">
+<meta name="twitter:description" content="Agency-quality work, without the agency. Websites, SEO, social media and ads by Mehul Karotra, with every price published.">
+<meta name="twitter:image" content="{{SITE_URL}}og-image.png">
+<meta name="twitter:image:alt" content="U Scale by Mehul Karotra: Be found. Be chosen.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Anton&family=Inter:wght@400;500;600;700&display=swap">

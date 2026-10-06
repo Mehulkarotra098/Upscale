@@ -1,8 +1,10 @@
 """SEO layer for the U Scale site: home JSON-LD, service landing pages, sitemap, robots, llms.txt, 404, icons.
-Called from build_site.py after the home page is assembled. Pure static output, no build step needed to deploy."""
-import json, re, html, datetime
+Called from build_site.py after the home page is assembled. Pure static output (standard library only).
+URLs come from ctx['SITE_URL'], which build_site.py reads from the SITE_URL environment variable (config.py)."""
+import json, re, html
+import config
 
-TODAY = datetime.date.today().isoformat()
+TODAY = config.BUILD_DATE
 e = lambda t: html.escape(t, quote=False)
 ea = lambda t: html.escape(t, quote=True)
 
@@ -214,9 +216,9 @@ def service_page(ctx, s, parts):
     wmap = {w[0]: w for w in WORK}
     cards = []
     for k in s['work']:
-        w = wmap[k]
+        w = wmap[k]; lw, lh = ctx['SZ'][k]
         cards.append(f'<li class="rw"><a href="{w[5]}" target="_blank" rel="noopener" data-cursor="view"><span class="rw__img"><img src="/assets/work/{k}-peek.webp" width="768" height="480" alt="{ea(w[1])} website" loading="lazy" decoding="async"></span>'
-                     f'<span class="rw__body"><img class="rw__logo" src="/assets/logos/{k}.webp" width="{ctx['SZ'][k][0]}" height="{ctx['SZ'][k][1]}" alt="" loading="lazy" decoding="async"><b>{e(w[1])}</b><small>{e(w[2])}</small></span><span class="sr-only"> (opens in a new tab)</span></a></li>')
+                     f'<span class="rw__body"><img class="rw__logo" src="/assets/logos/{k}.webp" width="{lw}" height="{lh}" alt="" loading="lazy" decoding="async"><b>{e(w[1])}</b><small>{e(w[2])}</small></span><span class="sr-only"> (opens in a new tab)</span></a></li>')
     others = ''.join(f'<li><a href="/services/{o["slug"]}">{e(o["name"])}</a></li>' for o in SERVICES if o is not s)
     items = ''.join(f'<li class="svc" data-reveal><span class="svc__n" aria-hidden="true">{i+1:02d}</span><h3>{e(t)}</h3><p>{e(d)}</p></li>' for i, (t, d) in enumerate(s['items']))
     steps = ''.join(f'<li class="step" data-reveal><span class="step__num" aria-hidden="true" data-n="{i+1}">{i+1:02d}</span><h3><span class="sr-only">Step {i+1}: </span>{e(t)}</h3><p>{e(d)}</p></li>' for i, (t, d) in enumerate(s['steps']))
@@ -228,11 +230,12 @@ def service_page(ctx, s, parts):
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>{e(s['title'])}</title>
 <meta name="description" content="{ea(s['desc'])}">
-<meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1">
+<meta name="robots" content="{ctx['ROBOTS']}">
 <meta name="author" content="Mehul Karotra">
 <meta name="theme-color" content="#FAF9FC">
 <link rel="canonical" href="{url}">
 <link rel="alternate" hreflang="en-IN" href="{url}">
+<link rel="alternate" hreflang="x-default" href="{url}">
 <meta property="og:type" content="website">
 <meta property="og:locale" content="en_IN">
 <meta property="og:site_name" content="U Scale">
@@ -242,7 +245,10 @@ def service_page(ctx, s, parts):
 <meta property="og:image" content="{site}og-image.png">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="U Scale by Mehul Karotra: Be found. Be chosen.">
 <meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="{ea(s['title'])}">
+<meta name="twitter:description" content="{ea(s['desc'])}">
 <meta name="twitter:image" content="{site}og-image.png">
 {ctx['ICONS_HEAD']}
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -391,7 +397,13 @@ def build(ctx):
     urls = [(site, '1.0'), (site + 'pricing', '0.9')] + [(svc_url(site, s), '0.8') for s in SERVICES]
     (out / 'sitemap.xml').write_text('<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n'
         + ''.join(f'  <url><loc>{u}</loc><lastmod>{TODAY}</lastmod><priority>{p}</priority></url>\n' for u, p in urls) + '</urlset>\n')
-    (out / 'robots.txt').write_text(f'User-agent: *\nAllow: /\nDisallow: /404\n\n# AI assistants are welcome to read and cite this site\nUser-agent: GPTBot\nAllow: /\nUser-agent: OAI-SearchBot\nAllow: /\nUser-agent: PerplexityBot\nAllow: /\nUser-agent: Google-Extended\nAllow: /\nUser-agent: ClaudeBot\nAllow: /\n\nSitemap: {site}sitemap.xml\n')
+    if config.INDEXABLE:
+        robots = (f'User-agent: *\nAllow: /\nDisallow: /404\n\n# AI assistants are welcome to read and cite this site\n'
+                  + ''.join(f'User-agent: {b}\nAllow: /\n' for b in ['GPTBot', 'OAI-SearchBot', 'PerplexityBot', 'Google-Extended', 'ClaudeBot'])
+                  + f'\nSitemap: {site}sitemap.xml\n')
+    else:  # preview / non-production build: keep it out of search engines
+        robots = 'User-agent: *\nDisallow: /\n'
+    (out / 'robots.txt').write_text(robots)
     (out / 'llms.txt').write_text(llms_txt(site, ctx['FAQ']))
     (out / 'site.webmanifest').write_text(json.dumps({'name': 'U Scale by Mehul Karotra', 'short_name': 'U Scale', 'start_url': '/', 'display': 'standalone',
         'background_color': '#FAF9FC', 'theme_color': '#251E45', 'icons': [{'src': '/icon-192.png', 'sizes': '192x192', 'type': 'image/png'}, {'src': '/icon-512.png', 'sizes': '512x512', 'type': 'image/png'}]}, indent=1))
@@ -548,11 +560,12 @@ def pricing_page(ctx, parts):
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>{e(title)}</title>
 <meta name="description" content="{ea(desc)}">
-<meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1">
+<meta name="robots" content="{ctx['ROBOTS']}">
 <meta name="author" content="Mehul Karotra">
 <meta name="theme-color" content="#FAF9FC">
 <link rel="canonical" href="{url}">
 <link rel="alternate" hreflang="en-IN" href="{url}">
+<link rel="alternate" hreflang="x-default" href="{url}">
 <meta property="og:type" content="website">
 <meta property="og:locale" content="en_IN">
 <meta property="og:site_name" content="U Scale">
@@ -562,7 +575,10 @@ def pricing_page(ctx, parts):
 <meta property="og:image" content="{site}og-image.png">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="U Scale by Mehul Karotra: Be found. Be chosen.">
 <meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="{ea(title)}">
+<meta name="twitter:description" content="{ea(desc)}">
 <meta name="twitter:image" content="{site}og-image.png">
 {ctx['ICONS_HEAD']}
 <link rel="preconnect" href="https://fonts.googleapis.com">

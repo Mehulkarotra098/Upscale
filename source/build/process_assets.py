@@ -1,7 +1,7 @@
 """Turn raw captures into site assets: stitched page screenshots, phone captures, transparent logos."""
 import numpy as np, pathlib
 from PIL import Image
-C = pathlib.Path('capture'); A = pathlib.Path('site/assets'); (A/'work').mkdir(parents=True, exist_ok=True); (A/'logos').mkdir(parents=True, exist_ok=True)
+C = pathlib.Path('capture'); A = pathlib.Path(__file__).resolve().parent.parent / 'static' / 'assets'; (A/'work').mkdir(parents=True, exist_ok=True); (A/'logos').mkdir(parents=True, exist_ok=True)
 W = 1152
 def load(p): return Image.open(C/p).convert('RGB')
 def trim_scrollbar(im, frac=0.0115):  # Chrome scrollbar on the right edge of viewport captures

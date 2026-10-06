@@ -1,7 +1,11 @@
-"""Assembles the U Scale site.
-Outputs: site/index.html + site/styles.css + site/script.js (deploy as-is), and preview.html (single file, replay button) for review."""
-import json, re, urllib.parse, pathlib, html, sys
+"""Assembles the U Scale site into OUTPUT_DIR (default public/), which is what Vercel serves.
+Run: python3 source/build/build_site.py   (Vercel runs this as the build command)
+Writes the home page, styles.css, script.js, pricing + service pages, sitemap, robots, llms.txt, 404 and manifest,
+copies source/static/ (images, icons) alongside, and writes source/preview.html (single file) for local review.
+The public URL comes from the SITE_URL environment variable: see config.py."""
+import json, re, urllib.parse, pathlib, html, sys, shutil
 sys.path.insert(0, str(pathlib.Path(__file__).resolve().parent))
+import config
 
 ROOT = pathlib.Path(__file__).resolve().parent
 REPO = ROOT.parent.parent
@@ -123,7 +127,7 @@ cta_bars = ('<svg viewBox="0 0 400 320" preserveAspectRatio="xMaxYMax meet" aria
                       for x, t, o in [(14, 210, .08), (112, 150, .12), (210, 86, .17), (308, 10, .24)]) + '</svg>')
 
 # ---------- v3 content: real screenshots, real logos ----------
-SITE_URL = 'https://uscalebymehul.vercel.app/'  # live URL, set at deploy
+SITE_URL = config.SITE_URL  # from the SITE_URL env var (see config.py)
 BOOK = 'https://wa.me/917977360142?text=' + urllib.parse.quote("Hi Mehul, I'd like to book a free strategy call. A good time for me is: ")
 SZ = json.load(open(ROOT / 'asset_sizes.json'))
 ARW = '<span class="arw" aria-hidden="true"><b>↗</b><b>↗</b></span>'
@@ -255,26 +259,32 @@ def quotes_html():
 ICONS_HEAD = ('<link rel="icon" href="/favicon.svg" type="image/svg+xml">\n<link rel="icon" href="/favicon-32.png" sizes="32x32" type="image/png">\n'
               '<link rel="apple-touch-icon" href="/apple-touch-icon.png">\n<link rel="manifest" href="/site.webmanifest">')
 import seo_pages
-rep = {'{{PRICE_PILLARS}}': seo_pages.pricing_pillars_html(), '{{PRICE_TERMS}}': seo_pages.pricing_terms_strip_html(), '{{ICONS_HEAD}}': ICONS_HEAD, '{{JSONLD}}': seo_pages.home_jsonld('https://uscale.in/', FAQ), '{{QUOTES}}': quotes_html(),'{{LOGO_WALL}}': logo_wall, '{{WORK_TOTAL}}': f'{len(WORK):02d}', '{{PROJECT_INDEX}}': project_index, '{{LOADER_LOGO}}': loader_logo, '{{HEADER_LOGO}}': logo(), '{{FOOTER_LOGO}}': logo('logo--rev'), '{{FAVICON}}': favicon,
+rep = {'{{PRICE_PILLARS}}': seo_pages.pricing_pillars_html(), '{{PRICE_TERMS}}': seo_pages.pricing_terms_strip_html(), '{{ICONS_HEAD}}': ICONS_HEAD, '{{JSONLD}}': seo_pages.home_jsonld(SITE_URL, FAQ), '{{QUOTES}}': quotes_html(),'{{LOGO_WALL}}': logo_wall, '{{WORK_TOTAL}}': f'{len(WORK):02d}', '{{PROJECT_INDEX}}': project_index, '{{LOADER_LOGO}}': loader_logo, '{{HEADER_LOGO}}': logo(), '{{FOOTER_LOGO}}': logo('logo--rev'), '{{FAVICON}}': favicon,
        '{{CHART}}': growth, '{{CTA_BARS}}': cta_bars, '{{WORK_CARDS}}': work_cards, '{{FAQ}}': faq, '{{BLUEPRINT}}': blueprint}
 rep.update({'{{' + k + '}}': v for k, v in ICONS.items()})
 for k, v in rep.items():
     src = src.replace(k, v)
 src = re.sub(r'\s*<!--T-->.*?<!--/T-->', '', src, flags=re.S) if not rep['{{QUOTES}}'] else src.replace('  <!--T-->\n', '').replace('\n  <!--/T-->', '')
-src = src.replace('https://uscale.in/', SITE_URL)
+src = src.replace('{{SITE_URL}}', SITE_URL).replace('{{ROBOTS}}', config.ROBOTS_META)
 left = re.findall(r'\{\{[A-Z_]+\}\}', src.replace('{{STYLES}}', '').replace('{{SCRIPT}}', ''))
 assert not left, left
 
-# Deployable folder
-site = REPO
+# Deployable folder: start clean, copy static files (images, icons), then write the generated pages
+site = config.OUT
+STATIC = REPO / 'source' / 'static'
+if site.exists():
+    shutil.rmtree(site)
+shutil.copytree(STATIC, site)
 import hashlib as _h
 _v = _h.sha1((css + js).encode()).hexdigest()[:8]
-(site / 'index.html').write_text(src.replace('{{STYLES}}', f'<link rel="stylesheet" href="styles.css?v={_v}">')
-                                    .replace('{{SCRIPT}}', f'<script defer src="script.js?v={_v}"></script>').replace('<!--PREVIEW-REPLAY-->\n', ''))
+(site / 'index.html').write_text(src.replace('{{STYLES}}', f'<link rel="stylesheet" href="/styles.css?v={_v}">')
+                                    .replace('{{SCRIPT}}', f'<script defer src="/script.js?v={_v}"></script>').replace('<!--PREVIEW-REPLAY-->\n', ''))
 (site / 'styles.css').write_text(css)
 (site / 'script.js').write_text(js)
 (site / 'favicon.svg').write_text(fav)
-if not (site / 'icon-512.png').exists() or (site / 'favicon.svg').stat().st_mtime > (site / 'icon-512.png').stat().st_mtime:
+# PNG icons are rendered from the favicon with Playwright only when asked (python3 build_site.py --icons),
+# so normal and Vercel builds need nothing beyond the Python standard library.
+if '--icons' in sys.argv:
     import asyncio
     from playwright.async_api import async_playwright
     async def _icons():
@@ -283,10 +293,12 @@ if not (site / 'icon-512.png').exists() or (site / 'favicon.svg').stat().st_mtim
             for name, sz in [('favicon-32.png', 32), ('apple-touch-icon.png', 180), ('icon-192.png', 192), ('icon-512.png', 512)]:
                 await pg.set_viewport_size({'width': sz, 'height': sz})
                 await pg.set_content(f'<html><body style="margin:0;background:#251E45"><img src="{favicon}" style="width:{sz}px;height:{sz}px;display:block"></body></html>')
-                await pg.wait_for_timeout(150); await pg.screenshot(path=str(site / name))
+                await pg.wait_for_timeout(150); await pg.screenshot(path=str(STATIC / name))
             await b.close()
     asyncio.run(_icons())
-_slugs = seo_pages.build({'SITE_URL': SITE_URL, 'site': site, '_v': _v, 'WORK': WORK, 'FAQ': FAQ, 'ICONS': ICONS, 'ICONS_HEAD': ICONS_HEAD, 'SZ': SZ})
+    for name in ['favicon-32.png', 'apple-touch-icon.png', 'icon-192.png', 'icon-512.png']:
+        shutil.copy2(STATIC / name, site / name)
+_slugs = seo_pages.build({'SITE_URL': SITE_URL, 'ROBOTS': config.ROBOTS_META, 'site': site, '_v': _v, 'WORK': WORK, 'FAQ': FAQ, 'ICONS': ICONS, 'ICONS_HEAD': ICONS_HEAD, 'SZ': SZ})
 print('service pages:', ', '.join(_slugs))
 
 # Preview: one file; the artifact skeleton supplies doctype/head/body
@@ -296,5 +308,5 @@ pv = pv.replace('<!--PREVIEW-REPLAY-->', '<button class="pv-replay" type="button
 for t in ['<!doctype html>\n', '<html lang="en-IN">\n', '<head>\n', '</head>\n', '<body>\n', '</body>\n', '</html>\n']:
     pv = pv.replace(t, '', 1)
 pv = re.sub(r'<title>.*?</title>', '<title>U Scale Website</title>', pv, count=1)
-(REPO / 'source' / 'preview.html').write_text(pv.replace('"assets/', '"../assets/'))
-print('site/index.html', len((site / 'index.html').read_text()), '| styles', len(css), '| script', len(js), '| preview', len(pv))
+(REPO / 'source' / 'preview.html').write_text(pv.replace('"assets/', '"static/assets/').replace('"/assets/', '"static/assets/'))
+print(f'built {site} for {SITE_URL} ({"indexable" if config.INDEXABLE else "noindex"}) | index', len((site / 'index.html').read_text()), '| styles', len(css), '| script', len(js), '| preview', len(pv))

@@ -1,2 +1,4 @@
-source/
-README.md
+public/
+source/preview.html
+__pycache__/
+.DS_Store
