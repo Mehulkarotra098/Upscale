@@ -1,8 +1,8 @@
 """Build settings, read from the environment so nothing about the deployment is hardcoded.
 
 SITE_URL      Public origin of the site, e.g. https://uscale.in  (set this in Vercel → Settings → Environment Variables)
-              Fallbacks, in order: Vercel's VERCEL_PROJECT_PRODUCTION_URL (the project's production domain),
-              then DEFAULT_SITE_URL below for local builds.
+              If unset, DEFAULT_SITE_URL below is used. (Vercel's VERCEL_PROJECT_PRODUCTION_URL is deliberately
+              not used: with several production aliases it can pick a host you don't want as canonical.)
 OUTPUT_DIR    Where the built site is written (default: public/ at the repo root, which Vercel serves).
 VERCEL_ENV    Set by Vercel. Anything other than "production" (preview, development) is built as noindex,
               so preview URLs never compete with the real site in Google. Override with SITE_INDEXABLE=1/0.
@@ -24,7 +24,7 @@ def _origin(raw):
     return raw.rstrip('/') + '/'
 
 
-SITE_URL = _origin(os.environ.get('SITE_URL')) or _origin(os.environ.get('VERCEL_PROJECT_PRODUCTION_URL')) or _origin(DEFAULT_SITE_URL)
+SITE_URL = _origin(os.environ.get('SITE_URL')) or _origin(DEFAULT_SITE_URL)
 
 _env = os.environ.get('VERCEL_ENV', 'production')
 _flag = os.environ.get('SITE_INDEXABLE')

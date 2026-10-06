@@ -19,7 +19,7 @@ https://uscalebymehul.vercel.app (Vercel project `uscale`, deploys automatically
 
 | Variable | Purpose | Default |
 |---|---|---|
-| `SITE_URL` | Public origin used in canonical tags, Open Graph, JSON-LD, sitemap, robots.txt and llms.txt | Vercel's production domain (`VERCEL_PROJECT_PRODUCTION_URL`), else `https://uscalebymehul.vercel.app` |
+| `SITE_URL` | Public origin used in canonical tags, Open Graph, JSON-LD, sitemap, robots.txt and llms.txt | `https://uscalebymehul.vercel.app` (`DEFAULT_SITE_URL` in `config.py`) |
 | `SITE_INDEXABLE` | Force `1` (indexable) or `0` (noindex) | Indexable only when `VERCEL_ENV=production`, so preview deployments are `noindex` with a `Disallow: /` robots.txt |
 | `OUTPUT_DIR` | Build output folder | `public` |
 | `BUILD_DATE` | `lastmod` / `dateModified` date (YYYY-MM-DD) | Last git commit date, else today |
