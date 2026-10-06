@@ -10,7 +10,7 @@ BUILD_DATE    Optional YYYY-MM-DD for sitemap lastmod / dateModified. Default: l
 """
 import datetime, os, pathlib, subprocess
 
-DEFAULT_SITE_URL = 'https://uscalebymehul.vercel.app'
+DEFAULT_SITE_URL = 'https://uscale.in'
 
 REPO = pathlib.Path(__file__).resolve().parent.parent.parent
 

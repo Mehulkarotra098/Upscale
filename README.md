@@ -13,13 +13,13 @@ public/          build output (git-ignored)
 
 ## Live
 
-https://uscalebymehul.vercel.app (Vercel project `uscale`, deploys automatically on every push to `main`).
+https://uscale.in (Vercel project `uscale`, deploys automatically on every push to `main`). Domain registered at GoDaddy; DNS: A `@` → `216.198.79.1`.
 
 ## Environment variables
 
 | Variable | Purpose | Default |
 |---|---|---|
-| `SITE_URL` | Public origin used in canonical tags, Open Graph, JSON-LD, sitemap, robots.txt and llms.txt | `https://uscalebymehul.vercel.app` (`DEFAULT_SITE_URL` in `config.py`) |
+| `SITE_URL` | Public origin used in canonical tags, Open Graph, JSON-LD, sitemap, robots.txt and llms.txt | `https://uscale.in` (`DEFAULT_SITE_URL` in `config.py`) |
 | `SITE_INDEXABLE` | Force `1` (indexable) or `0` (noindex) | Indexable only when `VERCEL_ENV=production`, so preview deployments are `noindex` with a `Disallow: /` robots.txt |
 | `OUTPUT_DIR` | Build output folder | `public` |
 | `BUILD_DATE` | `lastmod` / `dateModified` date (YYYY-MM-DD) | Last git commit date, else today |
