@@ -16,8 +16,7 @@ const indexableFlag = env.SITE_INDEXABLE;
 export const SITE_URL = toOrigin(env.SITE_URL) || 'https://uscale.in/';
 export const SITE_HOST = new URL(SITE_URL).host.replace(/^www\./, '');
 export const IS_PROD = env.VERCEL_ENV === 'production';
-const INDEXABLE =
-  indexableFlag != null ? !['0', 'false', 'no'].includes(indexableFlag) : (env.VERCEL_ENV || 'production') === 'production';
+const INDEXABLE = indexableFlag != null ? !['0', 'false', 'no'].includes(indexableFlag) : (env.VERCEL_ENV || 'production') === 'production';
 export const ROBOTS = INDEXABLE ? 'index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1' : 'noindex, nofollow';
 
 export const DATABASE_URL = env.DATABASE_URL || env.POSTGRES_URL || '';
