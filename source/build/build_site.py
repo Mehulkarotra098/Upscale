@@ -17,7 +17,6 @@ def r1(d):
 
 U = r1(P['u']); LET = [r1(p) for p in P['letters']]; VB = "262 272 1221 305"
 V, G, L, S = '#251E45', '#63B849', '#C9BCE8', '#FAF9FC'
-LT = '#ECE7F5'
 
 loader_logo = (f'<svg class="usl__logo" viewBox="{VB}" fill-rule="evenodd" role="img" aria-label="uscale">'
                f'<path id="usl-u" style="fill:var(--green)" d="{U}"/>'
@@ -63,14 +62,6 @@ def slant_bar(x, w, top, bottom, slant=12, r=7):
             f"L{x+w-r},{top+k:.2f} Q{x+w},{top} {x+w},{top+r} L{x+w},{bottom-r} "
             f"Q{x+w},{bottom} {x+w-r},{bottom} L{x+r},{bottom} Q{x},{bottom} {x},{bottom-r} Z")
 
-bars = [(40, 166, 1), (126, 134, .85), (212, 98, .7), (298, 46, .55)]
-chart = ('<svg viewBox="0 0 420 300" aria-hidden="true" focusable="false">'
-         '<rect class="ln" style="--b:0;fill:var(--lavender)" x="40" y="34" width="150" height="11" rx="5.5"/>'
-         '<rect class="ln" style="--b:1;fill:var(--violet)" x="40" y="70" width="322" height="15" rx="7.5"/>'
-         '<rect class="ln" style="--b:2;fill:var(--violet);opacity:.5" x="40" y="100" width="232" height="15" rx="7.5"/>'
-         '<line x1="40" x2="380" y1="267" y2="267" style="stroke:var(--violet);opacity:.12" stroke-width="2" stroke-linecap="round"/>'
-         + ''.join(f'<path class="bar" style="--b:{i};fill:var(--green);opacity:{o}" d="{slant_bar(x, 58, t, 266)}"/>' for i, (x, t, o) in enumerate(bars))
-         + '</svg>')
 
 
 # ---------- Hero growth stack (interactive in script.js; this is the no-JS / motion-off render) ----------

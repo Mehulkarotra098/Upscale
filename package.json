@@ -8,8 +8,11 @@
   "scripts": {
     "build": "python3 source/build/build_site.py && node admin/build.mjs && node scripts/check-functions.mjs",
     "dev": "node dev/server.mjs",
-    "admin:build": "node admin/build.mjs",
-    "check": "node scripts/check-functions.mjs"
+    "lint": "eslint . && prettier --check .",
+    "format": "prettier --write .",
+    "test": "node --test \"test/unit/*.test.js\"",
+    "test:integration": "node --import ./test/helpers/env.js --test \"test/integration/*.test.js\"",
+    "check": "npm run lint && npm test && node scripts/check-functions.mjs"
   },
   "dependencies": {
     "dom-serializer": "^3.1.1",
@@ -17,9 +20,10 @@
     "domutils": "^4.0.2",
     "htmlparser2": "^12.0.0",
     "pg": "^8.23.1",
-    "sanitize-html": "2.17.1"
+    "sanitize-html": "2.18.1"
   },
   "devDependencies": {
+    "@eslint/js": "9.39.5",
     "@tiptap/core": "^3.32.0",
     "@tiptap/extension-image": "^3.32.0",
     "@tiptap/extension-table": "^3.32.0",
@@ -27,6 +31,15 @@
     "@tiptap/pm": "^3.32.0",
     "@tiptap/starter-kit": "^3.32.0",
     "esbuild": "^0.28.2",
-    "preact": "^10.29.8"
+    "eslint": "9.39.5",
+    "eslint-plugin-react": "7.37.5",
+    "globals": "15.15.0",
+    "preact": "^10.29.8",
+    "prettier": "3.9.10"
+  },
+  "overrides": {
+    "sanitize-html": {
+      "htmlparser2": "9.1.0"
+    }
   }
 }

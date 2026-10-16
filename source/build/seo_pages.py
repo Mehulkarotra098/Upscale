@@ -462,15 +462,6 @@ import pricing_data as PD
 def _num(pr):  # '₹1,50,000' -> 150000 ; 'from ₹45,000' -> 45000
     import re as _re
     m = _re.search(r'₹([\d,]+)', pr); return int(m.group(1).replace(',', '')) if m else 0
-def inr(n):
-    s = str(int(n)); 
-    if len(s) <= 3: return '₹' + s
-    head, tail = s[:-3], s[-3:]
-    parts = []
-    while len(head) > 2: parts.insert(0, head[-2:]); head = head[:-2]
-    if head: parts.insert(0, head)
-    return '₹' + ','.join(parts + [tail])
-
 def _lookup(name):
     for n, pr, v in PD.WEBSITES:
         if n == name: return pr

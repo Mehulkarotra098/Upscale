@@ -1,5 +1,4 @@
 // Shared UI pieces for the admin: icons, modal, toasts, confirm, field helpers, relative time.
-import { h } from 'preact';
 import { useEffect, useRef, useState } from 'preact/hooks';
 
 const P = {
@@ -44,22 +43,54 @@ const P = {
 };
 
 export function Icon({ name, size = 18, stroke = 1.9 }) {
-  return <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width={stroke} stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d={P[name] || ''} /></svg>;
+  return (
+    <svg
+      width={size}
+      height={size}
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      stroke-width={stroke}
+      stroke-linecap="round"
+      stroke-linejoin="round"
+      aria-hidden="true"
+    >
+      <path d={P[name] || ''} />
+    </svg>
+  );
 }
 
 export function Modal({ title, onClose, children, wide = false, footer = null }) {
   const ref = useRef();
   useEffect(() => {
     const prev = document.activeElement;
-    const k = (e) => { if (e.key === 'Escape') onClose?.(); };
+    const k = (e) => {
+      if (e.key === 'Escape') onClose?.();
+    };
     document.addEventListener('keydown', k);
     setTimeout(() => ref.current?.querySelector('input,textarea,select,button:not(.md__x)')?.focus(), 30);
-    return () => { document.removeEventListener('keydown', k); if (prev && !prev.isContentEditable) prev.focus?.(); };
+    return () => {
+      document.removeEventListener('keydown', k);
+      if (prev && !prev.isContentEditable) prev.focus?.();
+    };
   }, []);
   return (
-    <div class="md" role="dialog" aria-modal="true" aria-label={title} onMouseDown={(e) => { if (e.target === e.currentTarget) onClose?.(); }}>
+    <div
+      class="md"
+      role="dialog"
+      aria-modal="true"
+      aria-label={title}
+      onMouseDown={(e) => {
+        if (e.target === e.currentTarget) onClose?.();
+      }}
+    >
       <div class={`md__box${wide ? ' md__box--wide' : ''}`} ref={ref}>
-        <header class="md__head"><h2>{title}</h2><button class="md__x" type="button" onClick={onClose} aria-label="Close"><Icon name="x" /></button></header>
+        <header class="md__head">
+          <h2>{title}</h2>
+          <button class="md__x" type="button" onClick={onClose} aria-label="Close">
+            <Icon name="x" />
+          </button>
+        </header>
         <div class="md__body">{children}</div>
         {footer && <footer class="md__foot">{footer}</footer>}
       </div>
@@ -72,8 +103,20 @@ let pushToast = () => {};
 export const toast = (msg, kind = 'ok') => pushToast({ msg, kind, id: Math.random() });
 export function Toasts() {
   const [list, set] = useState([]);
-  pushToast = (t) => { set((l) => [...l.slice(-2), t]); setTimeout(() => set((l) => l.filter((x) => x.id !== t.id)), t.kind === 'err' ? 6000 : 3200); };
-  return <div class="toasts" role="status" aria-live="polite">{list.map((t) => <div key={t.id} class={`toast toast--${t.kind}`}><Icon name={t.kind === 'err' ? 'x' : 'check'} size={16} />{t.msg}</div>)}</div>;
+  pushToast = (t) => {
+    set((l) => [...l.slice(-2), t]);
+    setTimeout(() => set((l) => l.filter((x) => x.id !== t.id)), t.kind === 'err' ? 6000 : 3200);
+  };
+  return (
+    <div class="toasts" role="status" aria-live="polite">
+      {list.map((t) => (
+        <div key={t.id} class={`toast toast--${t.kind}`}>
+          <Icon name={t.kind === 'err' ? 'x' : 'check'} size={16} />
+          {t.msg}
+        </div>
+      ))}
+    </div>
+  );
 }
 
 // ---- confirm
@@ -83,11 +126,25 @@ export function ConfirmHost() {
   const [c, set] = useState(null);
   askConfirm = set;
   if (!c) return null;
-  const done = (v) => { c.resolve(v); set(null); };
+  const done = (v) => {
+    c.resolve(v);
+    set(null);
+  };
   return (
-    <Modal title={c.title || 'Are you sure?'} onClose={() => done(false)} footer={<>
-      <button class="btn btn--ghost" type="button" onClick={() => done(false)}>Cancel</button>
-      <button class={`btn ${c.danger ? 'btn--danger' : 'btn--go'}`} type="button" onClick={() => done(true)}>{c.ok || 'Confirm'}</button></>}>
+    <Modal
+      title={c.title || 'Are you sure?'}
+      onClose={() => done(false)}
+      footer={
+        <>
+          <button class="btn btn--ghost" type="button" onClick={() => done(false)}>
+            Cancel
+          </button>
+          <button class={`btn ${c.danger ? 'btn--danger' : 'btn--go'}`} type="button" onClick={() => done(true)}>
+            {c.ok || 'Confirm'}
+          </button>
+        </>
+      }
+    >
       <p class="md__text">{c.text}</p>
     </Modal>
   );
@@ -96,7 +153,15 @@ export function ConfirmHost() {
 export function Field({ label, hint, count, max, children, warn }) {
   return (
     <label class="fld">
-      <span class="fld__top"><span class="fld__label">{label}</span>{count !== undefined && <span class={`fld__count${max && count > max ? ' is-over' : ''}`}>{count}{max ? ` / ${max}` : ''}</span>}</span>
+      <span class="fld__top">
+        <span class="fld__label">{label}</span>
+        {count !== undefined && (
+          <span class={`fld__count${max && count > max ? ' is-over' : ''}`}>
+            {count}
+            {max ? ` / ${max}` : ''}
+          </span>
+        )}
+      </span>
       {children}
       {hint && <span class={`fld__hint${warn ? ' is-warn' : ''}`}>{hint}</span>}
     </label>
@@ -108,7 +173,10 @@ export function Toggle({ checked, onChange, label, hint }) {
     <label class="tgl">
       <input type="checkbox" checked={checked} onChange={(e) => onChange(e.currentTarget.checked)} />
       <span class="tgl__ui" aria-hidden="true" />
-      <span><b>{label}</b>{hint && <small>{hint}</small>}</span>
+      <span>
+        <b>{label}</b>
+        {hint && <small>{hint}</small>}
+      </span>
     </label>
   );
 }
@@ -126,7 +194,8 @@ function dur(s) {
   if (s < 86400 * 30) return `${Math.round(s / 86400)} d`;
   return new Date(Date.now() - s * 1000).toLocaleDateString('en-IN', { day: 'numeric', month: 'short', year: 'numeric' });
 }
-export const fmtDate = (d) => new Date(d).toLocaleString('en-IN', { day: 'numeric', month: 'short', year: 'numeric', hour: 'numeric', minute: '2-digit' });
+export const fmtDate = (d) =>
+  new Date(d).toLocaleString('en-IN', { day: 'numeric', month: 'short', year: 'numeric', hour: 'numeric', minute: '2-digit' });
 export const kb = (n) => (n > 1048576 ? `${(n / 1048576).toFixed(1)} MB` : `${Math.max(1, Math.round(n / 1024))} KB`);
 
 export function statusOf(p) {
@@ -134,8 +203,16 @@ export function statusOf(p) {
   if (p.published_at && new Date(p.published_at) > new Date()) return { key: 'sched', label: 'Scheduled' };
   return { key: 'live', label: 'Live' };
 }
-export const Pill = ({ p }) => { const s = statusOf(p); return <span class={`pill pill--${s.key}`}>{s.label}</span>; };
+export const Pill = ({ p }) => {
+  const s = statusOf(p);
+  return <span class={`pill pill--${s.key}`}>{s.label}</span>;
+};
 
 export function Spinner({ label = 'Loading' }) {
-  return <div class="spin" role="status"><span class="spin__dot" /><span class="sr">{label}</span></div>;
+  return (
+    <div class="spin" role="status">
+      <span class="spin__dot" />
+      <span class="sr">{label}</span>
+    </div>
+  );
 }

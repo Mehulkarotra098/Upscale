@@ -23,15 +23,22 @@ await build({
   define: { 'process.env.NODE_ENV': '"production"' },
 });
 
-const v = (f) => createHash('sha1').update(readFileSync(join(out, f))).digest('hex').slice(0, 10);
-writeFileSync(join(out, 'index.html'), `<!doctype html>
+const v = (f) =>
+  createHash('sha1')
+    .update(readFileSync(join(out, f)))
+    .digest('hex')
+    .slice(0, 10);
+writeFileSync(
+  join(out, 'index.html'),
+  `<!doctype html>
 <html lang="en">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="robots" content="noindex, nofollow">
 <title>Blog admin · U Scale</title>
-<link rel="icon" href="/favicon.ico">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="icon" href="/favicon-32.png" sizes="32x32" type="image/png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Anton&family=Inter:wght@400;500;600;700;800&display=swap">
@@ -42,5 +49,6 @@ writeFileSync(join(out, 'index.html'), `<!doctype html>
 <script type="module" src="/admin/app.js?v=${v('app.js')}"></script>
 </body>
 </html>
-`);
+`,
+);
 console.log('admin built →', out);
