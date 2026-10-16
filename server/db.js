@@ -50,8 +50,7 @@ function getPool() {
 const wrongHost = (e) => /tenant or user not found|ENOTFOUND|EAI_AGAIN|getaddrinfo/i.test(`${e?.code} ${e?.message}`);
 
 const MIGRATIONS = [
-  `CREATE SCHEMA IF NOT EXISTS ${SCHEMA};
-   SET LOCAL search_path TO ${SCHEMA};
+  `SET LOCAL search_path TO ${SCHEMA};
    CREATE TABLE IF NOT EXISTS users (
      id SERIAL PRIMARY KEY,
      email TEXT NOT NULL UNIQUE,
@@ -155,7 +154,10 @@ async function migrate() {
   const c = await getPool().connect();
   try {
     await c.query('BEGIN');
-    await c.query(`CREATE SCHEMA IF NOT EXISTS ${SCHEMA}`);
+    // only create the schema when it's missing: CREATE SCHEMA IF NOT EXISTS needs CREATE on the database even when
+    // the schema exists, and the app role (which owns the schema) shouldn't need that
+    const has = await c.query('SELECT 1 FROM pg_namespace WHERE nspname = $1', [SCHEMA]);
+    if (!has.rows.length) await c.query(`CREATE SCHEMA ${SCHEMA}`);
     await c.query(`SET LOCAL search_path TO ${SCHEMA}`);
     await c.query('SELECT pg_advisory_xact_lock(722011)'); // racing cold starts migrate one at a time
     await c.query('CREATE TABLE IF NOT EXISTS schema_version (v INT NOT NULL)');

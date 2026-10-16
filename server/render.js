@@ -73,7 +73,7 @@ function auditCta(title = 'Is your business easy to find online?', lead = 'Get a
   return `<section class="cta sp-cta bp-endcta" aria-labelledby="cta-title">
   <div class="wrap"><div class="panel on-dark" data-tone="dark"><span class="grain" aria-hidden="true"></span>
     <div class="cta__copy">
-      <h2 class="sp-cta__title" id="cta-title">${esc(title)}<span class="dot">.</span></h2>
+      <h2 class="sp-cta__title" id="cta-title">${esc(title)}${/[?!.]$/.test(title) ? '' : '<span class="dot">.</span>'}</h2>
       <p class="lead">${esc(lead)}</p>
       <div class="cta__btns" data-wa-zone>
         <a class="btn btn--go" href="/#contact" data-intent="audit" data-magnetic>Get a free audit ${ARW}</a>
