@@ -23,8 +23,14 @@ await build({
   define: { 'process.env.NODE_ENV': '"production"' },
 });
 
-const v = (f) => createHash('sha1').update(readFileSync(join(out, f))).digest('hex').slice(0, 10);
-writeFileSync(join(out, 'index.html'), `<!doctype html>
+const v = (f) =>
+  createHash('sha1')
+    .update(readFileSync(join(out, f)))
+    .digest('hex')
+    .slice(0, 10);
+writeFileSync(
+  join(out, 'index.html'),
+  `<!doctype html>
 <html lang="en">
 <head>
 <meta charset="utf-8">
@@ -43,5 +49,6 @@ writeFileSync(join(out, 'index.html'), `<!doctype html>
 <script type="module" src="/admin/app.js?v=${v('app.js')}"></script>
 </body>
 </html>
-`);
+`,
+);
 console.log('admin built →', out);

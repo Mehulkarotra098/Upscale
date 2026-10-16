@@ -15,13 +15,16 @@ if (process.argv[2] === '--child') {
     const m = await import(path.join(root, 'api', f));
     if (typeof m.default !== 'function') throw new Error(`api/${f} has no default export handler`);
   }
-  const { processContent } = await import(path.join(root, 'server/content.js'));
+  const { processContent } = await import(path.join(root, 'server/content/article.js'));
   const out = processContent('<h2>Check</h2><p>Text with <a href="https://example.com">a link</a>.</p>', new Map());
   if (!out.html.includes('<h2')) throw new Error('content pipeline produced no output');
   console.log(`functions ok: ${files.join(', ')}`);
 } else {
   const args = process.allowedNodeEnvironmentFlags.has(FLAG) ? [FLAG] : [];
   if (!args.length) console.warn(`check-functions: ${FLAG} not supported by Node ${process.version}; checking without it`);
-  const r = spawnSync(process.execPath, [...args, fileURLToPath(import.meta.url), '--child'], { stdio: 'inherit', env: { ...process.env, DATABASE_URL: '', SESSION_SECRET: '' } });
+  const r = spawnSync(process.execPath, [...args, fileURLToPath(import.meta.url), '--child'], {
+    stdio: 'inherit',
+    env: { ...process.env, DATABASE_URL: '', SESSION_SECRET: '' },
+  });
   process.exit(r.status ?? 1);
 }
