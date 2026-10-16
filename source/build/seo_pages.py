@@ -367,11 +367,54 @@ def page_404(ctx, parts):
 <script defer src="/script.js?v={v}"></script></body></html>
 '''
 
+def blog_shell(ctx, parts):
+    """Chrome for the server-rendered blog (api/blog.js): same head assets, header, menu, footer and scripts as every page,
+    with <!--HEAD--> and <!--MAIN--> slots. Also publishes blog.css / blog.js with a content hash for cache-busting."""
+    import hashlib
+    header, menu, footer, tail = parts
+    out, v = ctx['site'], ctx['_v']
+    src = config.REPO / 'source' / 'src'
+    bcss, bjs = (src / 'blog.css').read_text(), (src / 'blog.js').read_text()
+    bv = hashlib.sha1((bcss + bjs).encode()).hexdigest()[:8]
+    (out / 'blog.css').write_text(bcss)
+    (out / 'blog.js').write_text(bjs)
+    (out / '_blog').mkdir(exist_ok=True)
+    (out / '_blog' / 'shell.html').write_text(f'''<!doctype html>
+<html lang="en-IN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<!--HEAD-->
+<meta name="theme-color" content="#FAF9FC">
+{ctx['ICONS_HEAD']}
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Anton&family=Inter:wght@400;500;600;700&display=swap">
+<script>(function(){{var d=document.documentElement;d.classList.add('js','intro-skip');var m=null;try{{m=localStorage.getItem('us-motion');}}catch(e){{}}if(m==='off')d.classList.add('rm');}})();</script>
+<link rel="stylesheet" href="/styles.css?v={v}">
+<link rel="stylesheet" href="/blog.css?v={bv}">
+</head>
+<body class="page-sub page-blog">
+<a class="skip" href="#main">Skip to content</a>
+{header}
+{menu}
+<main id="main">
+<!--MAIN-->
+</main>
+{footer}
+{tail}
+<script defer src="https://cdn.jsdelivr.net/npm/lenis@1.3.26/dist/lenis.min.js"></script>
+<script defer src="/script.js?v={v}"></script>
+<script defer src="/blog.js?v={bv}"></script>
+</body>
+</html>
+''')
+
 def llms_txt(site, faq):
     lines = ['# U Scale by Mehul Karotra', '',
              '> Freelance web design, development and digital marketing in Mumbai, India. U Scale is Mehul Karotra, a UI/UX developer-designer who designs and builds websites and runs SEO, social media, Google and Meta ads and AI search visibility for businesses, personally, on fixed-price contracts or monthly plans. An independent alternative to a digital marketing agency.', '',
              f'- Website: {site}', f'- Contact: WhatsApp/phone {PHONE_D}, email {EMAIL}', '- Based in: Mumbai, Maharashtra, India (serves clients across India)',
-             f'- Full price list: {site}pricing', '',
+             f'- Full price list: {site}pricing', f'- Blog (guides on websites, SEO, social media, ads and AI search): {site}blog', '',
              '## Pricing (INR)', '']
     lines += ['### Websites (one-time, fixed price)'] + [f'- {n}: {pr}' for n, pr, _ in PD.WEBSITES] + [f'- {PD.WEBSITES_NOTE}']
     lines += ['', '### Monthly services (combine any)'] + [f'- {n}: {pr}' + (f' ({note})' if note else '') for n, pr, note, _ in PD.ADDONS]
@@ -395,19 +438,24 @@ def build(ctx):
     (out / '404.html').write_text(page_404(ctx, parts))
     (out / 'pricing.html').write_text(pricing_page(ctx, parts))
     urls = [(site, '1.0'), (site + 'pricing', '0.9')] + [(svc_url(site, s), '0.8') for s in SERVICES]
-    (out / 'sitemap.xml').write_text('<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n'
+    # Sitemap index: static pages here, blog posts from the live database at /sitemap-blog.xml (server-rendered).
+    (out / 'sitemap-pages.xml').write_text('<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n'
         + ''.join(f'  <url><loc>{u}</loc><lastmod>{TODAY}</lastmod><priority>{p}</priority></url>\n' for u, p in urls) + '</urlset>\n')
+    (out / 'sitemap.xml').write_text('<?xml version="1.0" encoding="UTF-8"?>\n<sitemapindex xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n'
+        f'  <sitemap><loc>{site}sitemap-pages.xml</loc><lastmod>{TODAY}</lastmod></sitemap>\n'
+        f'  <sitemap><loc>{site}sitemap-blog.xml</loc></sitemap>\n</sitemapindex>\n')
     if config.INDEXABLE:
-        robots = (f'User-agent: *\nAllow: /\nDisallow: /404\n\n# AI assistants are welcome to read and cite this site\n'
-                  + ''.join(f'User-agent: {b}\nAllow: /\n' for b in ['GPTBot', 'OAI-SearchBot', 'PerplexityBot', 'Google-Extended', 'ClaudeBot'])
+        robots = (f'User-agent: *\nAllow: /\nDisallow: /404\nDisallow: /admin\nDisallow: /api/\nDisallow: /_blog/\nDisallow: /*?preview=\n\n# AI assistants are welcome to read and cite this site\n'
+                  + ''.join(f'User-agent: {b}\nAllow: /\nDisallow: /admin\nDisallow: /api/\n' for b in ['GPTBot', 'OAI-SearchBot', 'PerplexityBot', 'Google-Extended', 'ClaudeBot']).replace('Disallow: /api/\nUser', 'Disallow: /api/\n\nUser')
                   + f'\nSitemap: {site}sitemap.xml\n')
     else:  # preview / non-production build: keep it out of search engines
         robots = 'User-agent: *\nDisallow: /\n'
     (out / 'robots.txt').write_text(robots)
+    blog_shell(ctx, parts)
     (out / 'llms.txt').write_text(llms_txt(site, ctx['FAQ']))
     (out / 'site.webmanifest').write_text(json.dumps({'name': 'U Scale by Mehul Karotra', 'short_name': 'U Scale', 'start_url': '/', 'display': 'standalone',
         'background_color': '#FAF9FC', 'theme_color': '#251E45', 'icons': [{'src': '/icon-192.png', 'sizes': '192x192', 'type': 'image/png'}, {'src': '/icon-512.png', 'sizes': '512x512', 'type': 'image/png'}]}, indent=1))
-    return ['pricing'] + [s['slug'] for s in SERVICES]
+    return ['pricing', 'blog-shell'] + [s['slug'] for s in SERVICES]
 
 # ---------------------------------------------------------------- pricing: home teaser, quote builder, terms tiles
 import pricing_data as PD
