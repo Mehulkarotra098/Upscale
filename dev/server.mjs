@@ -65,4 +65,7 @@ http.createServer(async (req, res) => {
   } catch (e) {
     console.error(e); if (!res.headersSent) res.writeHead(500); res.end('dev server error');
   }
+}).on('error', (e) => {
+  console.error(e.code === 'EADDRINUSE' ? `dev: port ${PORT} is already in use (another dev server running?). Try PORT=8788 npm run dev` : e);
+  process.exit(1);
 }).listen(PORT, () => console.log(`dev: http://localhost:${PORT}`));
