@@ -54,7 +54,7 @@ export function Modal({ title, onClose, children, wide = false, footer = null })
     const k = (e) => { if (e.key === 'Escape') onClose?.(); };
     document.addEventListener('keydown', k);
     setTimeout(() => ref.current?.querySelector('input,textarea,select,button:not(.md__x)')?.focus(), 30);
-    return () => { document.removeEventListener('keydown', k); prev?.focus?.(); };
+    return () => { document.removeEventListener('keydown', k); if (prev && !prev.isContentEditable) prev.focus?.(); };
   }, []);
   return (
     <div class="md" role="dialog" aria-modal="true" aria-label={title} onMouseDown={(e) => { if (e.target === e.currentTarget) onClose?.(); }}>
@@ -72,7 +72,7 @@ let pushToast = () => {};
 export const toast = (msg, kind = 'ok') => pushToast({ msg, kind, id: Math.random() });
 export function Toasts() {
   const [list, set] = useState([]);
-  pushToast = (t) => { set((l) => [...l, t]); setTimeout(() => set((l) => l.filter((x) => x.id !== t.id)), t.kind === 'err' ? 6000 : 3200); };
+  pushToast = (t) => { set((l) => [...l.slice(-2), t]); setTimeout(() => set((l) => l.filter((x) => x.id !== t.id)), t.kind === 'err' ? 6000 : 3200); };
   return <div class="toasts" role="status" aria-live="polite">{list.map((t) => <div key={t.id} class={`toast toast--${t.kind}`}><Icon name={t.kind === 'err' ? 'x' : 'check'} size={16} />{t.msg}</div>)}</div>;
 }
 

@@ -64,6 +64,17 @@ function useTiptap(holder, content, { onUpdate, onSave, onLinkKey, onFiles }) {
   return editor;
 }
 
+// After inserting a block node (image, CTA) the selection is that node; typing or changing the block style would
+// replace it. Put the caret in the paragraph after it instead (creating one if the next block isn't text).
+function caretAfterNode(editor) {
+  const sel = editor.state.selection;
+  if (!sel.node) return;
+  const after = sel.to;
+  const next = editor.state.doc.resolve(after).nodeAfter;
+  if (next && next.isTextblock && next.type.name === 'paragraph' && next.content.size === 0) editor.chain().focus().setTextSelection(after + 1).run();
+  else editor.chain().focus().insertContentAt(after, { type: 'paragraph' }).setTextSelection(after + 1).run();
+}
+
 // ---------------------------------------------------------------- toolbar
 function Toolbar({ editor, onLink, onImage, onCta }) {
   if (!editor) return <div class="tb" />;
@@ -75,9 +86,9 @@ function Toolbar({ editor, onLink, onImage, onCta }) {
   const inCallout = editor.isActive('callout');
   return (
     <div class="tb" role="toolbar" aria-label="Formatting">
-      <select class="tb__sel" value={level ? `h${level}` : 'p'} aria-label="Text style" onChange={(e) => {
-        const v = e.currentTarget.value; v === 'p' ? c().setParagraph().run() : c().setHeading({ level: Number(v[1]) }).run(); }}>
-        <option value="p">Paragraph</option><option value="h2">Heading 2 (section)</option><option value="h3">Heading 3</option><option value="h4">Heading 4</option>
+      <select class="tb__sel" value={level ? `h${level}` : 'p'} aria-label="Text style" disabled={!!editor.state.selection.node} onChange={(e) => {
+        const v = e.currentTarget.value; if (editor.state.selection.node) return; v === 'p' ? c().setParagraph().run() : c().setHeading({ level: Number(v[1]) }).run(); }}>
+        <option value="p">Paragraph</option><option value="h2">Heading 2</option><option value="h3">Heading 3</option><option value="h4">Heading 4</option>
       </select>
       <span class="tb__sep" />
       <B name="bold" label="Bold (Ctrl+B)" active={editor.isActive('bold')} on={() => c().toggleBold().run()} />
@@ -277,9 +288,12 @@ export function PostEditor({ id, me, onDone }) {
   // put loaded content into the editor once both exist
   const loadedFor = useRef(null);
   useEffect(() => {
-    if (!editor || !post || loadedFor.current === (post.id || 'new')) return;
-    loadedFor.current = post.id || 'new';
-    editor.commands.setContent(post.content_json && post.content_json.type === 'doc' ? post.content_json : (post.content_html || ''), { emitUpdate: false });
+    // once per mount: the holder only exists after the post has loaded, so the view is attached here.
+    // (A new post keeps this component after its first save, so don't reload when its id changes.)
+    if (!editor || !post || loadedFor.current) return;
+    if (holder.current && !editor.editorView) editor.mount(holder.current);
+    loadedFor.current = true;
+    editor.commands.setContent(post.content_json?.type === 'doc' && post.content_json.content?.length ? post.content_json : (post.content_html || ''), { emitUpdate: false });
     setHtml(editor.getHTML());
     const onCta = ({ pos, attrs }) => setDialog({ type: 'cta', pos, attrs });
     editor.on('cta-edit', onCta);
@@ -382,6 +396,7 @@ export function PostEditor({ id, me, onDone }) {
     toast(`Linked “${idea.phrase}” → ${idea.title}`);
   }
 
+  const closeDialog = () => { setDialog(null); setTimeout(() => { if (editor && !editor.isDestroyed) { editor.view.focus(); } }, 0); };
   if (!post) return <div class="page"><p class="empty">Loading…</p></div>;
   const st = statusOf(post);
   const future = post.published_at && new Date(post.published_at) > new Date();
@@ -397,7 +412,7 @@ export function PostEditor({ id, me, onDone }) {
         <span class="edbar__state">{saving ? 'Saving…' : dirty ? 'Unsaved changes' : savedAt ? `Saved ${ago(savedAt)}` : 'New post'}</span>
         <span class="grow" />
         <button class={`seo-chip seo-chip--${seo.grade}`} type="button" onClick={() => { setTab('seo'); setPanelOpen(true); }} title="SEO score">SEO {seo.score}</button>
-        {post.id && st.key === 'live' && <a class="btn btn--ghost btn--sm" href={liveUrl} target="_blank" rel="noopener"><Icon name="ext" size={15} />View</a>}
+        {post.id > 0 && st.key === 'live' && <a class="btn btn--ghost btn--sm" href={liveUrl} target="_blank" rel="noopener"><Icon name="ext" size={15} />View</a>}
         <button class="btn btn--ghost btn--sm" type="button" onClick={preview}><Icon name="eye" size={15} />Preview</button>
         {post.status === 'draft' && <button class="btn btn--ghost btn--sm" type="button" onClick={() => save()} disabled={saving}>Save draft</button>}
         {post.status === 'draft'
@@ -510,17 +525,26 @@ export function PostEditor({ id, me, onDone }) {
         </aside>
       </div>
 
-      {dialog?.type === 'link' && editor && <LinkDialog editor={editor} onClose={() => setDialog(null)} />}
-      {dialog?.type === 'image' && <MediaPicker files={dialog.files} onClose={() => setDialog(null)} onPick={({ media, alt, caption }) => {
+      {dialog?.type === 'link' && editor && <LinkDialog editor={editor} onClose={closeDialog} />}
+      {dialog?.type === 'image' && <MediaPicker files={dialog.files} onClose={closeDialog} onPick={({ media, alt, caption }) => {
         editor.chain().focus().setImage({ src: media.url, alt, title: caption || null, 'data-id': String(media.id) }).run();
-        setDialog(null); toast('Image added');
+        caretAfterNode(editor);
+        closeDialog(); toast('Image added');
       }} />}
       {dialog?.type === 'cover' && <MediaPicker title="Cover image" askCaption={false} initial={post.cover} onClose={() => setDialog(null)} onPick={({ media, alt }) => { upd({ cover: { ...media, alt } }); setDialog(null); }} />}
-      {dialog?.type === 'cta' && <CtaDialog attrs={dialog.attrs} onClose={() => setDialog(null)}
+      {dialog?.type === 'cta' && <CtaDialog attrs={dialog.attrs} onClose={closeDialog}
         onDelete={dialog.pos != null ? () => { editor.chain().focus().setNodeSelection(dialog.pos).deleteSelection().run(); setDialog(null); } : null}
         onSave={(a) => {
           if (dialog.pos != null) editor.chain().focus().setNodeSelection(dialog.pos).updateAttributes('cta', a).run();
-          else editor.chain().focus().insertCta(a).run();
+          else {
+            // never replace a selected image, never nest inside a table: insert after them instead
+            const sel = editor.state.selection; const { $from } = sel;
+            let d = $from.depth; while (d > 0 && $from.node(d).type.name !== 'table') d--;
+            const at = sel.node ? sel.to : d > 0 ? $from.after(d) : null;
+            if (at != null) editor.chain().focus().insertContentAt(at, { type: 'cta', attrs: a }).setNodeSelection(at).run();
+            else editor.chain().focus().insertCta(a).run();
+            caretAfterNode(editor);
+          }
           setDialog(null);
         }} />}
     </div>
