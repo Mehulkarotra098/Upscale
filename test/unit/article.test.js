@@ -90,3 +90,19 @@ test('stats: words exclude CTA boxes; lead is the first real paragraph; empty pa
   assert.equal(out.words, 8);
   assert.equal(out.minutes, 1);
 });
+
+test('CTA and link hrefs only allow web, mail and phone links', () => {
+  const { html } = processContent(
+    '<div data-type="cta" data-href="javascript:alert(document.domain)"></div>' +
+      '<div data-type="cta" data-href="data:text/html,<script>alert(1)</script>"></div>' +
+      '<p><a href="https://uscale.in//evil.example/x">own-host trick</a> <a href="//evil.example">proto-relative</a></p>',
+  );
+  assert.ok(!/javascript:|data:text/i.test(html), html);
+  assert.equal((html.match(/class="btn btn--go" href="#"/g) || []).length, 2, 'unsafe CTA links become dead links');
+  assert.match(html, /<a href="\/evil\.example\/x">own-host trick<\/a>/, 'leading slashes collapse, so the link stays on the site');
+  assert.ok(!html.includes('href="//'), 'no protocol-relative links');
+});
+
+test('image ids outside the database range are ignored, not passed to SQL', () => {
+  assert.deepEqual(referencedMedia('<p><img src="/media/99999999999-x.webp" data-id="1e30"></p>'), []);
+});

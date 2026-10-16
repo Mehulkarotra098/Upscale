@@ -38,8 +38,8 @@ export const BOOTSTRAP_ADMIN = {
 /** Hard limits, in one place. Vercel rejects request bodies over 4.5 MB before they reach a function. */
 export const LIMITS = Object.freeze({
   bodyBytes: 4 * 1024 * 1024,
-  imageFullBytes: 2.5 * 1024 * 1024,
-  imageSmallBytes: 1 * 1024 * 1024,
+  imageFullBytes: 2 * 1024 * 1024, // full + small, base64-encoded (+33%), must stay under bodyBytes
+  imageSmallBytes: 0.75 * 1024 * 1024,
   imageMaxPx: 5000,
   articleHtmlChars: 800_000,
   passwordMin: 10,

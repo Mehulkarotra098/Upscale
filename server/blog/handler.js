@@ -7,6 +7,7 @@
 import { CRON_SECRET, INDEXNOW_KEY } from '../config.js';
 import { verify } from '../auth/tokens.js';
 import { hasDb, one } from '../db/client.js';
+import { toDbId } from '../lib/ids.js';
 import { CACHE, html, json, query, redirect, send, text } from '../lib/http.js';
 import { log } from '../lib/log.js';
 import * as categories from '../repos/categories.js';
@@ -19,6 +20,7 @@ import { fillShell, getShell } from './shell.js';
 
 const BOTS = /bot|crawl|spider|slurp|preview|facebookexternalhit|whatsapp|lighthouse|headless/i;
 const PER_PAGE = 9;
+const MAX_PAGE = 10_000;
 
 const page = async (req, res, status, rendered, cache = CACHE.page, headers) =>
   html(res, status, fillShell(await getShell(req), rendered), cache, headers);
@@ -32,8 +34,9 @@ function previewAllowed(token, slug) {
 
 const VIEWS = {
   async hit(req, res, p) {
-    if (req.method === 'POST' && !BOTS.test(req.headers['user-agent'] || '')) {
-      await posts.countView(Number(p.id) || 0).catch((err) => log.warn('blog', 'read count failed', { err }));
+    const postId = toDbId(p.id);
+    if (req.method === 'POST' && postId && !BOTS.test(req.headers['user-agent'] || '')) {
+      await posts.countView(postId).catch((err) => log.warn('blog', 'read count failed', { err }));
     }
     send(res, 204, '', { 'Cache-Control': CACHE.none });
   },
@@ -92,6 +95,7 @@ const VIEWS = {
 
   async index(req, res, p) {
     const pageNo = Math.max(1, Number.parseInt(p.page || '1', 10) || 1);
+    if (pageNo > MAX_PAGE) return notFoundPage(req, res);
     const category = p.category ? await categories.bySlug(String(p.category).toLowerCase()) : null;
     if (p.category && !category) return notFoundPage(req, res);
     const base = category ? `/blog/category/${category.slug}` : '/blog';
@@ -127,7 +131,7 @@ export default async function blogHandler(req, res) {
     }
     return await view(req, res, p);
   } catch (err) {
-    log.error('blog', 'render failed', { view: name, url: req.url, err });
+    log.error('blog', 'render failed', { view: name, path: String(req.url).split('?')[0], slug: p.slug, err }); // no query: it can hold preview tokens
     if (res.headersSent) return undefined;
     if (MACHINE.has(name)) return text(res, 503, 'Unavailable', 'text/plain', CACHE.none, { 'Retry-After': '60' });
     const soon = renderComingSoon();

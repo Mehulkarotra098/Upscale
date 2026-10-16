@@ -28,5 +28,9 @@ export const unavailable = (msg, code) => new HttpError(503, msg, { code });
 /** Status + safe message for any thrown value. */
 export function describe(err) {
   if (err instanceof HttpError) return { status: err.status, message: err.message };
+  // Postgres constraint errors from requests that raced each other or point at something just deleted
+  if (err?.code === '23505')
+    return { status: 409, message: 'That is already taken (someone may have just saved the same thing). Try again.' };
+  if (err?.code === '23503') return { status: 400, message: 'Something this refers to no longer exists. Reload and try again.' };
   return { status: 500, message: 'Something went wrong. Try again.' };
 }

@@ -598,6 +598,15 @@ export function PostEditor({ id, me, onDone }) {
   postRef.current = post;
   const dirtyRef = useRef();
   dirtyRef.current = dirty;
+  // Saves run one at a time. Each edit bumps `edits`; a save only clears "unsaved changes" if nothing was
+  // edited while it was in flight. `saved` holds the id and version the server last confirmed.
+  const inFlight = useRef(null);
+  const edits = useRef(0);
+  const saved = useRef({ id: 0, updatedAt: null });
+  const markDirty = () => {
+    edits.current += 1;
+    setDirty(true);
+  };
 
   // load
   useEffect(() => {
@@ -629,6 +638,7 @@ export function PostEditor({ id, me, onDone }) {
           setRevisions(d.revisions);
           setSlugTouched(true);
           setSavedAt(p.updated_at);
+          saved.current = { id: p.id, updatedAt: p.updated_at };
         } else setPost({ ...EMPTY, author_id: me.id });
       } catch (e) {
         toast(e.message, 'err');
@@ -642,7 +652,7 @@ export function PostEditor({ id, me, onDone }) {
   const editor = useTiptap(holder, null, {
     onUpdate: (ed) => {
       setHtml(ed.getHTML());
-      setDirty(true);
+      markDirty();
     },
     onSave: () => save(),
     onLinkKey: () => setDialog({ type: 'link' }),
@@ -667,7 +677,7 @@ export function PostEditor({ id, me, onDone }) {
 
   const upd = (patch) => {
     setPost((p) => ({ ...p, ...patch }));
-    setDirty(true);
+    markDirty();
   };
   // auto slug from the title until it's edited by hand or the post has gone live
   useEffect(() => {
@@ -699,27 +709,45 @@ export function PostEditor({ id, me, onDone }) {
     [post, html, dupes],
   );
 
+  // Ctrl+S, autosave, Preview and the buttons can all ask to save; they queue instead of racing.
   async function save(opts = {}) {
+    const previous = inFlight.current;
+    const run = (async () => {
+      await previous?.catch(() => {});
+      return saveNow(opts);
+    })();
+    inFlight.current = run;
+    try {
+      return await run;
+    } finally {
+      if (inFlight.current === run) inFlight.current = null;
+    }
+  }
+
+  async function saveNow(opts) {
     const p = postRef.current;
-    if (!p || !editor) return;
+    if (!p || !editor) return undefined;
     const status = opts.status || p.status;
     if (status === 'published' && !p.title.trim()) {
       toast('Add a title first', 'err');
-      return;
+      return undefined;
     }
     setSaving(true);
+    const editsAtSend = edits.current;
     try {
       const body = {
         ...p,
+        id: saved.current.id || p.id,
+        updated_at: saved.current.updatedAt,
         status,
         content_json: editor.getJSON(),
         content_html: editor.getHTML(),
         cover_media_id: p.cover?.id || null,
-        publishNow: !!opts.publishNow,
       };
       delete body.cover;
       const d = await api('save', body);
       const s = d.post;
+      saved.current = { id: s.id, updatedAt: s.updated_at };
       setPost((cur) => ({
         ...cur,
         id: s.id,
@@ -729,14 +757,14 @@ export function PostEditor({ id, me, onDone }) {
         excerpt: cur.excerpt,
         updated_at: s.updated_at,
       }));
-      setDirty(false);
+      if (edits.current === editsAtSend) setDirty(false); // edits made while saving stay "unsaved"
       setSavedAt(new Date().toISOString());
       try {
         localStorage.removeItem(`us-draft-${s.id}`);
       } catch {
         /* storage unavailable (private mode) */
       }
-      if (!p.id) history.replaceState(null, '', `#/edit/${s.id}`);
+      if (!p.id && location.hash !== `#/edit/${s.id}`) history.replaceState(null, '', `#/edit/${s.id}`);
       if (opts.toastMsg !== false)
         toast(
           opts.toastMsg ||
@@ -801,7 +829,7 @@ export function PostEditor({ id, me, onDone }) {
         return;
       }
     }
-    await save({ status: 'published', publishNow: true });
+    await save({ status: 'published' });
   }
   async function unpublish() {
     if (
@@ -842,7 +870,7 @@ export function PostEditor({ id, me, onDone }) {
       const d = await get('revision', { id: r.id });
       editor.commands.setContent(d.revision.content_json);
       setHtml(editor.getHTML());
-      setDirty(true);
+      markDirty();
       toast('Version restored. Save to keep it.');
     } catch (e) {
       toast(e.message, 'err');

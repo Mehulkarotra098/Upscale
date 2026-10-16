@@ -1,5 +1,5 @@
 // Sign in / out and "who am I".
-import { INDEXNOW_KEY, SERVICES, SITE_URL } from '../../config.js';
+import { SERVICES, SITE_URL } from '../../config.js';
 import { clearedCookie, sessionCookie, signIn } from '../../auth/session.js';
 import * as users from '../../repos/users.js';
 
@@ -26,7 +26,7 @@ export default {
   me: {
     method: 'GET',
     async run({ user }) {
-      return { user: users.forClient(user), site: SITE_URL, services: SERVICES, indexnow: Boolean(INDEXNOW_KEY) };
+      return { user: users.forClient(user), site: SITE_URL, services: SERVICES };
     },
   },
 };

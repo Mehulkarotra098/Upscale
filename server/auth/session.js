@@ -1,5 +1,5 @@
 // Admin sessions: signed HttpOnly cookie → user. Sign-in with rate limiting and first-run owner bootstrap.
-import { BOOTSTRAP_ADMIN, LIMITS } from '../config.js';
+import { BOOTSTRAP_ADMIN, BRAND, LIMITS } from '../config.js';
 import { tooMany, unauthorized } from '../lib/errors.js';
 import { cookies, clientIp, isHttps } from '../lib/http.js';
 import * as users from '../repos/users.js';
@@ -35,33 +35,36 @@ export async function signIn(req, rawEmail, password) {
     .toLowerCase()
     .slice(0, 200);
   const ip = clientIp(req);
+  // Record the attempt as a failure first and count afterwards (clearing it on success): parallel guesses each
+  // see the others, so a burst can't slip past the limit before any failure is written.
+  await users.recordLoginFailure(email, ip);
   const recent = await users.recentLoginFailures(email, ip, LIMITS.loginWindowMinutes);
-  if (recent.account >= LIMITS.loginFailuresPerAccount || recent.ip >= LIMITS.loginFailuresPerIp) {
+  if (recent.account > LIMITS.loginFailuresPerAccount || recent.ip > LIMITS.loginFailuresPerIp) {
     throw tooMany(`Too many attempts. Wait ${LIMITS.loginWindowMinutes} minutes and try again.`);
   }
 
+  const user = await checkCredentials(email, password);
+  if (!user) throw unauthorized('Wrong email or password.');
+  await users.clearLoginFailures(email, ip);
+  return users.publicFields(user);
+}
+
+async function checkCredentials(email, password) {
   const stored = await users.withHashByEmail(email);
-  let user = null;
-  if (stored) {
-    if (await verifyPassword(password, stored.password_hash)) user = stored;
-  } else if (await bootstrapAllowed(email, password)) {
-    user = await users.create({
+  if (stored) return (await verifyPassword(password, stored.password_hash)) ? stored : null;
+  if (!(await bootstrapAllowed(email, password))) return burnPasswordCheck(password);
+  try {
+    return await users.create({
       email,
       name: BOOTSTRAP_ADMIN.name,
       role: 'owner',
-      jobTitle: 'Founder, U Scale',
+      jobTitle: BRAND.authorTitle,
       passwordHash: await hashPassword(password),
     });
-  } else {
-    await burnPasswordCheck(password);
+  } catch (err) {
+    if (err?.code !== '23505') throw err;
+    return checkCredentials(email, password); // a parallel first sign-in created the owner a moment ago
   }
-
-  if (!user) {
-    await users.recordLoginFailure(email, ip);
-    throw unauthorized('Wrong email or password.');
-  }
-  await users.clearLoginFailures(email, ip);
-  return users.publicFields(user);
 }
 
 async function bootstrapAllowed(email, password) {

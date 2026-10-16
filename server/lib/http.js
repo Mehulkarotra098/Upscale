@@ -19,9 +19,18 @@ export function query(req) {
 /** Parse a JSON body, enforcing the size limit. Vercel pre-parses `req.body`; the dev server passes the raw stream. */
 export async function readJSON(req, limit = LIMITS.bodyBytes) {
   let raw;
-  if (req.body != null) {
-    if (typeof req.body === 'object' && !Buffer.isBuffer(req.body)) return req.body;
-    raw = Buffer.isBuffer(req.body) ? req.body.toString('utf8') : String(req.body);
+  let preParsed;
+  try {
+    preParsed = req.body; // Vercel parses lazily and throws on invalid JSON
+  } catch {
+    throw badRequest('Request body must be a JSON object');
+  }
+  if (preParsed != null) {
+    if (typeof preParsed === 'object' && !Buffer.isBuffer(preParsed)) {
+      if (Array.isArray(preParsed)) throw badRequest('Request body must be a JSON object');
+      return preParsed;
+    }
+    raw = Buffer.isBuffer(preParsed) ? preParsed.toString('utf8') : String(preParsed);
     if (Buffer.byteLength(raw) > limit) throw tooLarge();
   } else {
     const chunks = [];

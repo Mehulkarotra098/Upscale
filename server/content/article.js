@@ -10,6 +10,7 @@ import { Element, Text } from 'domhandler';
 import * as DU from 'domutils';
 import { SITE_HOST } from '../config.js';
 import { esc, slugify } from '../lib/text.js';
+import { toDbId } from '../lib/ids.js';
 import { mediaIdFromSrc, mediaUrl } from '../media/urls.js';
 
 const SANITIZE = {
@@ -112,18 +113,24 @@ function el(name, attribs = {}, children = []) {
 export function classifyLink(rawHref) {
   const href = String(rawHref || '').trim();
   if (!href) return { internal: true, href: '#' };
-  if (href.startsWith('#') || (href.startsWith('/') && !href.startsWith('//'))) return { internal: true, href };
+  if (href.startsWith('#') || (href.startsWith('/') && !href.startsWith('//')))
+    return { internal: true, href: href.replace(/^\/{2,}/, '/') };
   if (/^(mailto|tel):/i.test(href)) return { internal: false, href, contact: true };
   try {
     const u = new URL(href);
-    if (u.host.replace(/^www\./, '') === SITE_HOST) return { internal: true, href: u.pathname + u.search + u.hash || '/' };
+    // Only web links. Anything else (javascript:, data:, vbscript:, file:…) becomes a dead link.
+    if (u.protocol !== 'https:' && u.protocol !== 'http:') return { internal: true, href: '#' };
+    if (u.host.replace(/^www\./, '') === SITE_HOST) {
+      // "//evil.example" would leave the site, so leading slashes collapse to one
+      return { internal: true, href: `${u.pathname.replace(/^\/{2,}/, '/')}${u.search}${u.hash}` || '/' };
+    }
     return { internal: false, href: u.toString() };
   } catch {
     return { internal: true, href: '#' };
   }
 }
 
-const imageId = (img) => Number(img.attribs['data-id']) || mediaIdFromSrc(img.attribs.src);
+const imageId = (img) => toDbId(img.attribs['data-id']) || mediaIdFromSrc(img.attribs.src);
 
 /** Media ids used by <img> tags, so the caller can load their sizes before processContent(). */
 export function referencedMedia(rawHtml) {

@@ -14,6 +14,16 @@ test('readJSON: pre-parsed, string and streamed bodies', async () => {
   assert.deepEqual(await readJSON(stream('')), {});
 });
 
+test('readJSON: a body getter that throws (Vercel, invalid JSON) is a 400', async () => {
+  const req = { headers: {} };
+  Object.defineProperty(req, 'body', {
+    get() {
+      throw new Error('Invalid JSON');
+    },
+  });
+  await assert.rejects(readJSON(req), (e) => e instanceof HttpError && e.status === 400);
+});
+
 test('readJSON: rejects oversized, invalid and non-object bodies with a 4xx', async () => {
   await assert.rejects(readJSON(stream('x'.repeat(50)), 10), (e) => e instanceof HttpError && e.status === 413);
   await assert.rejects(readJSON(stream('{nope')), (e) => e.status === 400);
@@ -39,7 +49,8 @@ test('clientIp prefers the platform header over spoofable forwarded-for', () => 
 
 test('input helpers shape untrusted values', () => {
   assert.equal(input.id('12'), 12);
-  for (const bad of ['0', '-1', '1.5', 'x', null, '9007199254740993']) assert.equal(input.id(bad), null);
+  for (const bad of ['0', '-1', '1.5', 'x', null, '9007199254740993', '2147483648']) assert.equal(input.id(bad), null);
+  assert.equal(input.id('2147483647'), 2147483647);
   assert.throws(() => input.requireId('x', 'post'), /invalid post id/);
   assert.equal(input.email(' Me@Example.COM '), 'me@example.com');
   assert.throws(() => input.email('nope'), /valid email/);

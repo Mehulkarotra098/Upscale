@@ -58,6 +58,20 @@ let categoryId;
 let imageId;
 let postId;
 
+test('parallel wrong-password bursts cannot get past the limit', async () => {
+  const attacker = adminClient(admin, { ip: '198.51.100.77' });
+  const results = await Promise.all(Array.from({ length: 20 }, () => attacker.post('login', { ...OWNER, password: 'guess' })));
+  const tried = results.filter((r) => r.status === 401).length;
+  assert.ok(tried <= 8 + 3, `at most a handful over the limit get a password check (got ${tried})`);
+  assert.equal((await attacker.post('login', OWNER)).status, 429);
+});
+
+test('out-of-range numbers in URLs are a 404, not a database error', async () => {
+  assert.equal((await invoke(blog, { url: '/api/blog?page=99999999999999999999999' })).status, 404);
+  assert.equal((await invoke(img, { url: '/api/img?f=99999999999-x.webp' })).status, 404);
+  assert.equal((await owner.get('post', { id: '99999999999' })).status, 400);
+});
+
 test('categories and image uploads', async () => {
   const c = await owner.post('category-save', { name: 'Local SEO', description: 'Get found nearby' });
   assert.equal(c.status, 200);
@@ -107,7 +121,6 @@ test('draft → publish with images, links, FAQ; content is cleaned and indexed'
   assert.match(saved.content_html, /<h2 id="claim-your-profile">/);
   assert.match(saved.content_html, /target="_blank" rel="noopener nofollow"/);
   assert.equal(saved.focus_keyword, 'google maps');
-  assert.equal(draft.json().stats.images, 1);
 
   const media = (await owner.get('media')).json().media.find((m) => m.id === imageId);
   assert.equal(media.used, 1, 'post_media tracks the inline image');
@@ -162,6 +175,17 @@ test('public pages: article, listing, category, feeds, sitemap, read counter', a
   await invoke(blog, { method: 'POST', url: `/api/blog?view=hit&id=${postId}`, headers: { 'user-agent': 'Googlebot' } });
   await invoke(blog, { method: 'POST', url: '/api/blog?view=hit&id=999999', headers: { 'user-agent': 'Mozilla/5.0' } });
   assert.equal((await owner.get('stats')).json().views.d7, 1, 'bots and unknown posts are not counted');
+});
+
+test('two people saving the same post: the second gets a clear conflict instead of overwriting', async () => {
+  const current = (await owner.get('post', { id: postId })).json().post;
+  const first = await owner.post('save', { ...current, excerpt: 'First edit' });
+  assert.equal(first.status, 200);
+  const stale = await owner.post('save', { ...current, excerpt: 'Stale edit' });
+  assert.equal(stale.status, 409);
+  assert.match(stale.json().error, /Someone else saved this post/);
+  const revs = (await owner.get('post', { id: postId })).json().revisions;
+  assert.ok(revs.length >= 2, 'publishing kept a revision even though the article text did not change');
 });
 
 test('renaming a live post keeps the old URL working with a 301', async () => {

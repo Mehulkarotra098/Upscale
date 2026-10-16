@@ -69,6 +69,7 @@ export default {
       if (raw.length > LIMITS.articleHtmlChars) throw tooLarge('This article is too long to save');
       const article = processContent(raw, await media.dimensions(referencedMedia(raw)));
 
+      // A date in the future schedules the post; a past date backdates it; no date means "now".
       let publishedAt = input.date(body.published_at);
       if (status === 'published' && !publishedAt) publishedAt = existing?.published_at ?? new Date();
       const contentJson = body.content_json && typeof body.content_json === 'object' ? JSON.stringify(body.content_json) : null;
@@ -106,21 +107,12 @@ export default {
         userId: user.id,
         contentChanged,
         forceRevision: publishing,
+        expectedUpdatedAt: input.date(body.updated_at),
       });
 
       const live = isLive(saved);
       if (live && (contentChanged || publishing)) await pingIndexNow([`${SITE_URL}blog/${saved.slug}`, `${SITE_URL}blog`]);
-      return {
-        post: saved,
-        live,
-        stats: {
-          words: article.words,
-          minutes: article.minutes,
-          internal: article.internal,
-          external: article.external,
-          images: article.images.length,
-        },
-      };
+      return { post: saved, live };
     },
   },
 

@@ -10,18 +10,20 @@ import { log } from '../lib/log.js';
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..', '..');
 const FILES = [path.join(process.cwd(), 'public', '_blog', 'shell.html'), path.join(ROOT, 'public', '_blog', 'shell.html')];
 
+// Site CSS/JS are cached for a year by URL, so the fallback gets its own version per function instance.
+const V = Date.now().toString(36);
 const FALLBACK = `<!doctype html>
 <html lang="en-IN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <!--HEAD-->
 <link rel="icon" href="/favicon.svg" type="image/svg+xml">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Anton&family=Inter:wght@400;500;600;700&display=swap">
-<link rel="stylesheet" href="/styles.css"><link rel="stylesheet" href="/blog.css">
+<link rel="stylesheet" href="/styles.css?v=${V}"><link rel="stylesheet" href="/blog.css?v=${V}">
 </head><body class="page-sub page-blog"><a class="skip" href="#main">Skip to content</a>
 <header class="site-header"><div class="wrap"><a class="brand" href="/" aria-label="U Scale home"><b style="font:400 28px/1 var(--display);color:var(--violet)">uscale</b></a>
 <nav class="nav" aria-label="Main"><ul><li><a href="/#services">Services</a></li><li><a href="/pricing">Pricing</a></li><li><a href="/blog">Blog</a></li><li><a href="/#contact">Contact</a></li></ul></nav></div></header>
 <main id="main"><!--MAIN--></main>
 <footer class="site-footer on-dark" data-tone="dark"><div class="wrap footer__bottom"><p>© U Scale by Mehul Karotra · Mumbai, India.</p></div></footer>
-<script defer src="/blog.js"></script></body></html>`;
+<script defer src="/blog.js?v=${V}"></script></body></html>`;
 
 let cached = null;
 

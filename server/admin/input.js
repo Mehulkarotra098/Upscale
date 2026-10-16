@@ -2,14 +2,12 @@
 // the admin UI can show as is.
 import { badRequest } from '../lib/errors.js';
 import { clip } from '../lib/text.js';
+import { toDbId } from '../lib/ids.js';
 
 export const text = clip;
 
-/** Positive integer id, or null. */
-export function id(value) {
-  const n = Number(value);
-  return Number.isSafeInteger(n) && n > 0 ? n : null;
-}
+/** Positive database id (Postgres INT range), or null. */
+export const id = toDbId;
 
 /** Positive integer id, or a 400. */
 export function requireId(value, what = 'item') {

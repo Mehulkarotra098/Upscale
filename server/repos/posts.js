@@ -1,10 +1,11 @@
 // Posts: admin reads/writes, public reads, redirects, revisions, the post↔image index and read counts.
 import { LIMITS } from '../config.js';
 import { exec, one, query, tx } from '../db/client.js';
+import { conflict, notFound } from '../lib/errors.js';
 import { slugify } from '../lib/text.js';
-import { contains, LIVE } from './sql.js';
+import { contains, LIVE, TODAY } from './sql.js';
 
-const VIEWS_30D = `coalesce((SELECT sum(n) FROM post_views v WHERE v.post_id = p.id AND v.day > current_date - 30), 0)::int`;
+const VIEWS_30D = `coalesce((SELECT sum(n) FROM post_views v WHERE v.post_id = p.id AND v.day > ${TODAY} - 30), 0)::int`;
 const ADMIN_ROW = `p.id, p.slug, p.title, p.excerpt, p.status, p.published_at, p.updated_at, p.created_at, p.word_count,
   p.reading_minutes, p.focus_keyword, p.category_id, c.name AS cat_name, p.cover_media_id, m.name AS cover_name,
   u.name AS author_name, ${VIEWS_30D} AS views30`;
@@ -122,15 +123,20 @@ export async function uniqueSlug(base, exceptId = 0) {
  * Insert or update a post in one transaction, and keep everything that depends on it in step:
  * - an old URL of a live post 301-redirects to the new one; a slug that is now used again stops redirecting
  * - post_media lists exactly the images in the article
- * - a revision is kept when the content changed (at most every few minutes, always on publish)
+ * - a revision is kept when the content changed (at most every few minutes) and always on publish
+ * An update with `expectedUpdatedAt` fails with a conflict if someone else saved the post in the meantime.
  * @returns the saved row
  */
-export function save({ id, values, mediaIds, userId, contentChanged, forceRevision }) {
+export function save({ id, values, mediaIds, userId, contentChanged, forceRevision, expectedUpdatedAt }) {
   return tx(async (t) => {
     const vals = WRITABLE.map((c) => values[c]);
     let row;
     if (id) {
-      const before = await t.one('SELECT slug, status FROM posts WHERE id = $1 FOR UPDATE', [id]);
+      const before = await t.one('SELECT slug, status, updated_at FROM posts WHERE id = $1 FOR UPDATE', [id]);
+      if (!before) throw notFound('Post not found');
+      if (expectedUpdatedAt && new Date(before.updated_at).getTime() !== expectedUpdatedAt.getTime()) {
+        throw conflict('Someone else saved this post a moment ago. Reload to see their changes, then make yours again.');
+      }
       row = await t.one(
         `UPDATE posts SET ${WRITABLE.map((c, i) => `${c} = $${i + 2}`).join(', ')}, updated_at = now()
            ${contentChanged ? ', content_updated_at = now()' : ''} WHERE id = $1 RETURNING *`,
@@ -158,7 +164,7 @@ export function save({ id, values, mediaIds, userId, contentChanged, forceRevisi
       ]);
     }
 
-    if (values.content_json && contentChanged) {
+    if (values.content_json && (contentChanged || forceRevision)) {
       const last = await t.one('SELECT saved_at FROM post_revisions WHERE post_id = $1 ORDER BY saved_at DESC LIMIT 1', [row.id]);
       if (forceRevision || !last || Date.now() - new Date(last.saved_at).getTime() > LIMITS.revisionEveryMs) {
         await t.exec('INSERT INTO post_revisions (post_id, user_id, title, content_json) VALUES ($1, $2, $3, $4)', [
@@ -208,10 +214,10 @@ export async function dashboard() {
         count(*) FILTER (WHERE p.status = 'published' AND p.published_at > now())::int AS scheduled,
         count(*) FILTER (WHERE p.status = 'draft')::int AS drafts,
         coalesce(sum(p.word_count) FILTER (WHERE p.status = 'published'), 0)::int AS words FROM posts p`),
-    one(`SELECT coalesce(sum(n), 0)::int AS d30, coalesce(sum(n) FILTER (WHERE day > current_date - 7), 0)::int AS d7
-         FROM post_views WHERE day > current_date - 30`),
+    one(`SELECT coalesce(sum(n), 0)::int AS d30, coalesce(sum(n) FILTER (WHERE day > ${TODAY} - 7), 0)::int AS d7
+         FROM post_views WHERE day > ${TODAY} - 30`),
     query(`SELECT to_char(d, 'YYYY-MM-DD') AS day, coalesce(sum(v.n), 0)::int AS n
-           FROM generate_series(current_date - 29, current_date, '1 day') d LEFT JOIN post_views v ON v.day = d
+           FROM generate_series(${TODAY} - 29, ${TODAY}, '1 day') d LEFT JOIN post_views v ON v.day = d
            GROUP BY d ORDER BY d`),
     query(`SELECT ${ADMIN_ROW} ${ADMIN_FROM} WHERE p.status = 'published' ORDER BY views30 DESC, p.published_at DESC LIMIT 5`),
     query(`SELECT ${ADMIN_ROW} ${ADMIN_FROM} ORDER BY p.updated_at DESC LIMIT 6`),
@@ -283,7 +289,7 @@ export const latest = (n) => listLive({ page: 1, per: n }).then((r) => r.rows);
 export const countView = (id) =>
   exec(
     `INSERT INTO post_views (post_id, day, n)
-     SELECT p.id, (now() AT TIME ZONE 'Asia/Kolkata')::date, 1 FROM posts p WHERE p.id = $1 AND ${LIVE}
+     SELECT p.id, ${TODAY}, 1 FROM posts p WHERE p.id = $1 AND ${LIVE}
      ON CONFLICT (post_id, day) DO UPDATE SET n = post_views.n + 1`,
     [id],
   );
