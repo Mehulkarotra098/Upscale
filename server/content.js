@@ -38,7 +38,7 @@ const el = (name, attribs = {}, children = []) => {
 };
 const txt = (s) => new Text(s);
 
-export function mediaIdFromSrc(src) {
+function mediaIdFromSrc(src) {
   const m = String(src || '').match(/^(?:https?:\/\/[^/]+)?\/media\/(\d+)-[a-z0-9-]*?(?:-800)?\.(?:webp|jpg|jpeg|png|gif|avif)(?:\?.*)?$/i);
   return m ? Number(m[1]) : null;
 }
@@ -49,7 +49,7 @@ export function mediaUrl(m, small = false) {
 }
 
 // Classify a link: returns { internal, href } with internal links made root-relative.
-export function classifyLink(href) {
+function classifyLink(href) {
   href = String(href || '').trim();
   if (!href) return { internal: true, href: '#' };
   if (href.startsWith('#') || (href.startsWith('/') && !href.startsWith('//'))) return { internal: true, href };

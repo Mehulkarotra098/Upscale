@@ -14,7 +14,7 @@ const has = (text, kw) => {
   return words.length > 1 && words.every((w) => t.includes(` ${w}`));
 };
 
-export function parseDoc(html, siteHost) {
+function parseDoc(html, siteHost) {
   const doc = new DOMParser().parseFromString(`<div>${html || ''}</div>`, 'text/html');
   const root = doc.body.firstChild;
   root.querySelectorAll('[data-type="cta"]').forEach((n) => n.remove());

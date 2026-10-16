@@ -5,7 +5,7 @@ import { api, get } from './api.js';
 import { prepareImage } from './image.js';
 import { Icon, Modal, toast, confirmDialog, Field, kb, ago, Spinner } from './ui.jsx';
 
-export function useMedia() {
+function useMedia() {
   const [items, setItems] = useState(null);
   const [q, setQ] = useState('');
   const load = (term = q) => get('media', { q: term }).then((d) => setItems(d.media)).catch((e) => toast(e.message, 'err'));
@@ -13,7 +13,7 @@ export function useMedia() {
   return { items, setItems, q, setQ, load };
 }
 
-export function Uploader({ onUploaded, compact = false, initialFiles = null }) {
+function Uploader({ onUploaded, compact = false, initialFiles = null }) {
   const [busy, setBusy] = useState([]);
   const [drag, setDrag] = useState(false);
   const input = useRef();

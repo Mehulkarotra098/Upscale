@@ -17,7 +17,7 @@ const origin = (raw) => {
 
 export const SITE_URL = origin(process.env.SITE_URL) || 'https://uscale.in/';
 const flag = process.env.SITE_INDEXABLE;
-export const INDEXABLE = flag != null ? !['0', 'false', 'no'].includes(flag) : (process.env.VERCEL_ENV || 'production') === 'production';
+const INDEXABLE = flag != null ? !['0', 'false', 'no'].includes(flag) : (process.env.VERCEL_ENV || 'production') === 'production';
 export const ROBOTS = INDEXABLE ? 'index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1' : 'noindex, nofollow';
 export const DATABASE_URL = process.env.DATABASE_URL || process.env.POSTGRES_URL || process.env.NEON_DATABASE_URL || '';
 export const SESSION_SECRET = process.env.SESSION_SECRET || '';

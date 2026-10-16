@@ -189,7 +189,7 @@ async function connectCheck() {
   }
 }
 
-export async function db() {
+async function db() {
   if (!DATABASE_URL) throw Object.assign(new Error('DATABASE_URL is not set'), { code: 'NO_DB' });
   if (!ready) ready = connectCheck().then(migrate).catch((e) => { ready = null; throw e; });
   await ready;

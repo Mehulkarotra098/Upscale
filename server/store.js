@@ -40,10 +40,6 @@ export async function getPostBySlug(slug, { includeDrafts = false } = {}) {
     WHERE p.slug = $1 ${includeDrafts ? '' : `AND ${LIVE}`}`, [slug]);
 }
 
-export async function getPostById(id) {
-  return one('SELECT slug FROM posts WHERE id = $1', [id]);
-}
-
 export async function redirectFor(slug) {
   return one(`SELECT p.slug FROM post_redirects r JOIN posts p ON p.id = r.post_id WHERE r.slug = $1 AND ${LIVE}`, [slug]);
 }
