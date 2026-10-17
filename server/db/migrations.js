@@ -142,4 +142,8 @@ export const MIGRATIONS = [
       ALTER TABLE users ADD CONSTRAINT users_avatar_media_fk
         FOREIGN KEY (avatar_media_id) REFERENCES media(id) ON DELETE SET NULL;`,
   },
+  {
+    name: 'posts.indexnow_at: when IndexNow was last told about a post',
+    sql: `ALTER TABLE posts ADD COLUMN IF NOT EXISTS indexnow_at TIMESTAMPTZ;`,
+  },
 ];
