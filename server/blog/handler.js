@@ -2,9 +2,10 @@
 //   /blog                         → view=index          /blog/page/N            → view=index&page=N
 //   /blog/category/<c>[/page/N]   → view=index&category  /blog/<slug>            → view=post&slug
 //   /blog/rss.xml                 → view=rss            /sitemap-blog.xml       → view=sitemap
-//   /indexnow-key.txt             → view=indexnow       daily cron              → view=ping
+//   /indexnow-key.txt             → view=indexnow       daily cron              → view=ping (keeps the DB warm, IndexNow-pings newly live posts)
 // The read counter beacon posts to view=hit.
-import { CRON_SECRET, INDEXNOW_KEY } from '../config.js';
+import { CRON_SECRET, INDEXNOW_KEY, SITE_URL } from '../config.js';
+import { pingIndexNow } from '../lib/indexnow.js';
 import { verify } from '../auth/tokens.js';
 import { hasDb, one } from '../db/client.js';
 import { toDbId } from '../lib/ids.js';
@@ -51,7 +52,15 @@ const VIEWS = {
     if (CRON_SECRET && req.headers.authorization !== `Bearer ${CRON_SECRET}`)
       return text(res, 401, 'Unauthorized', 'text/plain', CACHE.none);
     await one('SELECT 1');
-    return text(res, 200, 'ok', 'text/plain', CACHE.none);
+    // Scheduled posts go live on their own, with no save to trigger a ping, so the daily cron
+    // (09:42 IST, just after the usual 09:30 slot) announces anything that went live since the last run.
+    const fresh = await posts.wentLiveSince(26);
+    const urls = fresh.flatMap((r) => [
+      `${SITE_URL}blog/${r.slug}`,
+      ...(r.category_slug ? [`${SITE_URL}blog/category/${r.category_slug}`] : []),
+    ]);
+    if (urls.length) await pingIndexNow([...urls, `${SITE_URL}blog`]);
+    return text(res, 200, `ok ${fresh.length}`, 'text/plain', CACHE.none);
   },
 
   async rss(req, res) {

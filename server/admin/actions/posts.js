@@ -1,28 +1,14 @@
 // Writing and managing posts.
-import { IS_PROD, INDEXNOW_KEY, LIMITS, SERVICE_SLUGS, SITE_URL, STATIC_PAGES } from '../../config.js';
+import { LIMITS, SERVICE_SLUGS, SITE_URL, STATIC_PAGES } from '../../config.js';
 import { expiresIn, sign } from '../../auth/tokens.js';
 import { processContent, referencedMedia } from '../../content/article.js';
 import { badRequest, notFound, tooLarge } from '../../lib/errors.js';
-import { log } from '../../lib/log.js';
 import { excerpt } from '../../lib/text.js';
 import * as categories from '../../repos/categories.js';
 import * as media from '../../repos/media.js';
 import * as posts from '../../repos/posts.js';
 import * as input from '../input.js';
-
-async function pingIndexNow(urls) {
-  if (!INDEXNOW_KEY || !IS_PROD) return;
-  try {
-    await fetch('https://api.indexnow.org/indexnow', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json; charset=utf-8' },
-      body: JSON.stringify({ host: new URL(SITE_URL).host, key: INDEXNOW_KEY, keyLocation: `${SITE_URL}indexnow-key.txt`, urlList: urls }),
-      signal: AbortSignal.timeout(4000),
-    });
-  } catch (err) {
-    log.warn('indexnow', 'ping failed', { err });
-  }
-}
+import { pingIndexNow } from '../../lib/indexnow.js';
 
 const isLive = (row) => row.status === 'published' && new Date(row.published_at) <= new Date();
 
