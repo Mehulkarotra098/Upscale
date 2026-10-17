@@ -414,7 +414,8 @@ def llms_txt(site, faq):
     lines = ['# U Scale by Mehul Karotra', '',
              '> Freelance web design, development and digital marketing in Mumbai, India. U Scale is Mehul Karotra, a UI/UX developer-designer who designs and builds websites and runs SEO, social media, Google and Meta ads and AI search visibility for businesses, personally, on fixed-price contracts or monthly plans. An independent alternative to a digital marketing agency.', '',
              f'- Website: {site}', f'- Contact: WhatsApp/phone {PHONE_D}, email {EMAIL}', '- Based in: Mumbai, Maharashtra, India (serves clients across India)',
-             f'- Full price list: {site}pricing', f'- Blog (guides on websites, SEO, social media, ads and AI search): {site}blog', '',
+             f'- Full price list: {site}pricing', f'- Blog (guides on websites, SEO, social media, ads and AI search): {site}blog',
+             f'- Free tool: Google review QR code and counter standee maker (runs in the browser, no sign-up): {site}tools/google-review-qr-code', '',
              '## Pricing (INR)', '']
     lines += ['### Websites (one-time, fixed price)'] + [f'- {n}: {pr}' for n, pr, _ in PD.WEBSITES] + [f'- {PD.WEBSITES_NOTE}']
     lines += ['', '### Monthly services (combine any)'] + [f'- {n}: {pr}' + (f' ({note})' if note else '') for n, pr, note, _ in PD.ADDONS]
@@ -428,6 +429,206 @@ def llms_txt(site, faq):
     lines += [f'- **{q}** {a}' for q, a in faq]
     return '\n'.join(lines) + '\n'
 
+# ---------------------------------------------------------------- free tools
+TOOL = dict(slug='google-review-qr-code',
+  title='Free Google Review QR Code & Standee Maker | U Scale',
+  desc='Make a free Google review QR code, a print-ready counter standee and WhatsApp review messages in English or Hinglish. No sign-up, nothing stored.',
+  h1='Free Google review QR code & standee maker',
+  lead='Paste your Google review link and get a QR code, a print-ready counter standee and ready-to-send WhatsApp messages, in English or Hinglish. Free, no sign-up, and nothing leaves your browser.',
+  faq=[('Is this tool really free?','Yes. There is no sign-up and no watermark you have to pay to remove. Everything runs in your browser: your link and business name are never sent to a server.'),
+       ('Where do I find my Google review link?','Search your business name on Google while signed in to the account that manages your Business Profile (or open business.google.com). Click Read reviews, then Get more reviews, and copy the link Google gives you.'),
+       ('Can I offer a discount or gift for a Google review?','No. Google does not allow rewards, discounts or gifts in exchange for reviews, or asking only happy customers. Ask every customer for an honest review instead. This tool warns you if your wording looks like an incentive.'),
+       ('What size should I print the QR code?','Keep the QR code at least 3 cm wide. The standee prints at A6 (10.5 x 14.8 cm) with the QR code about 4.3 cm wide, and the print option fits four standees on one A4 sheet.'),
+       ('Will the QR code stop working?','No. It is a plain QR code of your own Google link, with no redirect through us, so it keeps working as long as your Google link does.'),
+       ('Can I use the QR code on bills and packaging?','Yes. Download the QR code as PNG or SVG (best for printers) and add it to bills, bags, menus and visiting cards.')])
+
+def tool_jsonld(site, t):
+    url = f'{site}tools/{t["slug"]}'
+    g = [{'@type': 'WebApplication', '@id': url + '#app', 'name': 'Google Review QR Code & Standee Maker', 'url': url, 'description': t['desc'],
+          'applicationCategory': 'BusinessApplication', 'operatingSystem': 'Any (runs in the browser)', 'isAccessibleForFree': True, 'inLanguage': 'en-IN',
+          'offers': {'@type': 'Offer', 'price': '0', 'priceCurrency': 'INR'},
+          'publisher': {'@type': 'Organization', 'name': 'U Scale', 'url': site}, 'creator': {'@type': 'Person', 'name': 'Mehul Karotra', 'url': site}},
+         {'@type': 'BreadcrumbList', 'itemListElement': [{'@type': 'ListItem', 'position': 1, 'name': 'Home', 'item': site},
+            {'@type': 'ListItem', 'position': 2, 'name': 'Free tools', 'item': url}, {'@type': 'ListItem', 'position': 3, 'name': 'Google review QR code maker', 'item': url}]},
+         {'@type': 'FAQPage', 'mainEntity': [{'@type': 'Question', 'name': q, 'acceptedAnswer': {'@type': 'Answer', 'text': a}} for q, a in t['faq']]}]
+    return json.dumps({'@context': 'https://schema.org', '@graph': g}, ensure_ascii=False).replace('</', '<\\/')
+
+def tool_page(ctx, parts, tv):
+    site, v, t = ctx['SITE_URL'], ctx['_v'], TOOL
+    header, menu, footer, tail = parts
+    url = f'{site}tools/{t["slug"]}'
+    og = f'{site}assets/tools/google-review-qr-og.png'
+    swatches = ''.join(f'<button type="button" class="rq-sw" style="background:{c}" data-rq-accent="{c}" aria-pressed="false" aria-label="{n}"></button>'
+                       for c, n in [('#63B849', 'Green'), ('#F59E0B', 'Saffron'), ('#B3123E', 'Maroon'), ('#1D4ED8', 'Royal blue'), ('#0F766E', 'Teal'), ('#111111', 'Black')])
+    body = '''
+  <div class="wrap hero-shell">
+    <section class="sp-hero rq-hero on-dark" data-tone="dark" aria-labelledby="page-title">
+      <img class="rq-hero__art" src="/assets/tools/standee-sample.webp" width="600" height="846" alt="" decoding="async" fetchpriority="low">
+      <nav class="crumbs" aria-label="Breadcrumb"><ol><li><a href="/">Home</a></li><li aria-current="page">Free tools</li></ol></nav>
+      <p class="eyebrow">Free tool</p>
+      <h1 class="sp-hero__title" id="page-title">{h1}<span class="dot">.</span></h1>
+      <p class="sp-hero__lead">{lead}</p>
+      <div class="hero__cta"><a class="btn btn--go" href="#rq-start">Make my QR code <span class="arw" aria-hidden="true"><b>↓</b><b>↓</b></span></a></div>
+    </section>
+  </div>
+
+  <section class="section rq" aria-labelledby="rq-title">
+    <div class="wrap" data-rq>
+      <h2 class="sr-only" id="rq-title">Make your review QR code and standee</h2>
+      <p class="sr-only" id="rq-live" role="status" aria-live="polite"></p>
+      <div class="rq__grid">
+        <form class="rq-form" id="rq-start" onsubmit="return false" novalidate>
+          <div class="rq-step">
+            <p class="rq-step__head"><span class="rq-step__n" aria-hidden="true">1</span><label class="rq-step__title" for="rq-link">Paste your Google review link</label></p>
+            <input class="rq-input" id="rq-link" type="url" inputmode="url" autocomplete="off" spellcheck="false" placeholder="https://g.page/r/your-link/review" aria-describedby="rq-link-hint rq-link-msg">
+            <p class="rq-hint" id="rq-link-hint">Find it in your Google Business Profile: <b>Read reviews</b>, then <b>Get more reviews</b>. <a class="tlink" href="#rq-how">Step-by-step help</a></p>
+            <p class="rq-msg" id="rq-link-msg" role="status"></p>
+          </div>
+          <div class="rq-step">
+            <p class="rq-step__head"><span class="rq-step__n" aria-hidden="true">2</span><label class="rq-step__title" for="rq-name">Your business name</label></p>
+            <input class="rq-input" id="rq-name" type="text" maxlength="40" autocomplete="organization" placeholder="Sharma Sarees">
+          </div>
+          <div class="rq-step">
+            <p class="rq-step__head"><span class="rq-step__n" aria-hidden="true">3</span><span class="rq-step__title">Choose the wording</span></p>
+            <div class="rq-row rq-row--2">
+              <div><span class="rq-label" id="rq-lang-l">Language</span>
+                <div class="rq-seg" role="radiogroup" aria-labelledby="rq-lang-l"><input type="radio" name="rq-lang" id="rq-lang-en" value="en"><label for="rq-lang-en">English</label><input type="radio" name="rq-lang" id="rq-lang-hi" value="hi"><label for="rq-lang-hi">Hinglish</label></div></div>
+              <div><label class="rq-label" for="rq-head">Headline</label><select class="rq-select" id="rq-head"></select></div>
+            </div>
+            <div data-rq-custom hidden><label class="rq-label" for="rq-custom" style="margin-top:16px">Your headline</label><input class="rq-input" id="rq-custom" type="text" maxlength="60" placeholder="Thank you for visiting us!"></div>
+            <p class="rq-policy" id="rq-policy" hidden>Careful: Google does not allow discounts, gifts or rewards for reviews, or asking only for 5 stars. Ask for an honest review instead.</p>
+          </div>
+          <div class="rq-step">
+            <p class="rq-step__head"><span class="rq-step__n" aria-hidden="true">4</span><span class="rq-step__title">Pick a look</span></p>
+            <div class="rq-row rq-row--2">
+              <div><span class="rq-label" id="rq-theme-l">Background</span>
+                <div class="rq-seg" role="radiogroup" aria-labelledby="rq-theme-l"><input type="radio" name="rq-theme" id="rq-theme-d" value="dark"><label for="rq-theme-d">Dark</label><input type="radio" name="rq-theme" id="rq-theme-l2" value="light"><label for="rq-theme-l2">Light</label></div></div>
+              <div><span class="rq-label">Brand colour</span><div class="rq-swatches">{swatches}<label class="rq-color"><input type="color" id="rq-accent-custom" aria-label="Custom brand colour">Custom</label></div></div>
+            </div>
+            <label class="rq-check"><input type="checkbox" id="rq-credit"> Show a small &ldquo;Made free at uscale.in&rdquo; line</label>
+          </div>
+        </form>
+
+        <aside class="rq-preview" aria-label="Preview and downloads">
+          <canvas class="rq-canvas" id="rq-canvas" width="1240" height="1748" role="img" aria-label="Preview of your review standee"></canvas>
+          <p class="rq-preview__cap">A6 counter standee (10.5 x 14.8 cm), print-ready at 300 dpi</p>
+          <div class="rq-actions">
+            <button type="button" class="btn btn--go rq-wide" id="rq-dl-standee" data-rq-need-link disabled>Download standee (PNG)</button>
+            <button type="button" class="btn btn--ink rq-wide" id="rq-print" data-rq-need-link disabled>Print 4 on one A4 sheet</button>
+            <button type="button" class="btn btn--line" id="rq-dl-png" data-rq-need-link disabled>QR code PNG</button>
+            <button type="button" class="btn btn--line" id="rq-dl-svg" data-rq-need-link disabled>QR code SVG</button>
+          </div>
+          <a class="tlink rq-test" id="rq-test" href="#" target="_blank" rel="noopener" hidden>Test my review link</a>
+          <p class="rq-private"><span aria-hidden="true">&#128274;</span><span>Private by design: your link and business name stay in this browser. Nothing is uploaded or stored by us.</span></p>
+        </aside>
+      </div>
+
+      <div class="rq-block" id="rq-wa">
+        <header class="sec-head"><p class="eyebrow">WhatsApp</p><h2 class="h2">Send your link on WhatsApp</h2>
+          <p class="lead">Most reviews come from a polite message on the same day. Copy one, or send it straight from WhatsApp.</p></header>
+        <div class="rq-msgs" data-rq-msgs></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="rq-how" aria-labelledby="how-title">
+    <div class="wrap">
+      <header class="sec-head"><p class="eyebrow">Your review link</p><h2 class="h2" id="how-title">Find your Google review link in a minute</h2></header>
+      <ol class="rq-how">
+        <li><b>Search your business name on Google</b> while signed in to the Google account that manages your Business Profile. Or open business.google.com.</li>
+        <li>On your profile, click <b>Read reviews</b>, then <b>Get more reviews</b> (on some phones it says <b>Ask for reviews</b>).</li>
+        <li><b>Copy the link</b> and paste it in step 1 above. It looks like g.page/r/&hellip;/review.</li>
+      </ol>
+      <p class="rq-note">Google explains this in its help page, <a class="tlink" href="https://support.google.com/business/answer/16816815?hl=en" target="_blank" rel="noopener">Create a Google link or QR code to request reviews</a>. Google can make a basic QR code too; this tool adds a print-ready standee and WhatsApp messages.</p>
+    </div>
+  </section>
+
+  <section class="section" aria-labelledby="rules-title">
+    <div class="wrap">
+      <header class="sec-head"><p class="eyebrow">Stay inside the rules</p><h2 class="h2" id="rules-title">Ask every customer. Never pay for reviews.</h2></header>
+      <div class="rq-rules">
+        <div><h3>Do</h3><ul><li>Ask every customer for an honest review</li><li>Send your link on WhatsApp the same day</li><li>Put the QR code on the counter, bills and bags</li><li>Reply to every review, good or bad</li></ul></div>
+        <div><h3>Don&rsquo;t</h3><ul><li>Offer discounts, gifts or cashback for reviews</li><li>Ask only happy customers, or ask for 5 stars</li><li>Set review targets for staff</li><li>Post reviews from family, staff or bought accounts</li></ul></div>
+      </div>
+      <p class="rq-note">Source: Google&rsquo;s <a class="tlink" href="https://support.google.com/contributionpolicy/answer/7400114?hl=en" target="_blank" rel="noopener">policy on fake engagement</a>. For a full 30-day plan, read <a class="tlink" href="/blog/how-to-get-more-google-reviews">how to get more Google reviews</a>.</p>
+    </div>
+  </section>
+
+  <section class="section faq" aria-labelledby="faq-title">
+    <div class="wrap faq__grid">
+      <header class="sec-head"><p class="eyebrow">FAQ</p><h2 class="h2" id="faq-title">Review QR code questions.</h2></header>
+      <div class="faq__list" data-accordion>
+{faq}
+      </div>
+    </div>
+  </section>
+
+  <section class="cta sp-cta" id="contact" aria-labelledby="cta-title">
+    <div class="wrap">
+      <div class="panel on-dark" data-tone="dark">
+        <span class="grain" aria-hidden="true"></span>
+        <div class="cta__copy">
+          <h2 class="sp-cta__title" id="cta-title">Want more customers from Google<span class="dot">.</span></h2>
+          <p class="lead">I check your Google profile, reviews and website for free and send you the five fixes that matter most.</p>
+          <div class="cta__btns"><a class="btn btn--go" href="/#contact">Get a free audit <span class="arw" aria-hidden="true"><b>↗</b><b>↗</b></span></a><a class="btn btn--ghost" href="/services/seo-mumbai">Local SEO service</a></div>
+        </div>
+      </div>
+    </div>
+  </section>
+'''
+    body = (body.replace('{h1}', e(t['h1'])).replace('{lead}', e(t['lead'])).replace('{swatches}', swatches).replace('{faq}', faq_html(t['faq'])))
+    return f'''<!doctype html>
+<html lang="en-IN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>{e(t['title'])}</title>
+<meta name="description" content="{ea(t['desc'])}">
+<meta name="robots" content="{ctx['ROBOTS']}">
+<meta name="author" content="Mehul Karotra">
+<meta name="theme-color" content="#FAF9FC">
+<link rel="canonical" href="{url}">
+<link rel="alternate" hreflang="en-IN" href="{url}">
+<link rel="alternate" hreflang="x-default" href="{url}">
+<meta property="og:type" content="website">
+<meta property="og:locale" content="en_IN">
+<meta property="og:site_name" content="U Scale">
+<meta property="og:title" content="{ea(t['title'])}">
+<meta property="og:description" content="{ea(t['desc'])}">
+<meta property="og:url" content="{url}">
+<meta property="og:image" content="{og}">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Free Google review QR code and counter standee maker by U Scale">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="{ea(t['title'])}">
+<meta name="twitter:description" content="{ea(t['desc'])}">
+<meta name="twitter:image" content="{og}">
+{ctx['ICONS_HEAD']}
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Anton&family=Inter:wght@400;500;600;700&display=swap">
+<script type="application/ld+json">{tool_jsonld(site, t)}</script>
+<script>(function(){{var d=document.documentElement;d.classList.add('js','intro-skip');var m=null;try{{m=localStorage.getItem('us-motion');}}catch(e){{}}if(m==='off')d.classList.add('rm');}})();</script>
+<link rel="stylesheet" href="/styles.css?v={v}">
+<link rel="stylesheet" href="/tool.css?v={tv}">
+</head>
+<body class="page-sub page-tool">
+<a class="skip" href="#main">Skip to content</a>
+{header}
+{menu}
+<main id="main">{body}</main>
+{footer}
+{tail}
+<div id="rq-print-sheet" aria-hidden="true"></div>
+<script defer src="https://cdn.jsdelivr.net/npm/lenis@1.3.26/dist/lenis.min.js"></script>
+<script defer src="/script.js?v={v}"></script>
+<script defer src="/assets/vendor/qrcode-generator.min.js?v=1.4.4"></script>
+<script defer src="/tool.js?v={tv}"></script>
+</body>
+</html>
+'''
+
 def build(ctx):
     site, out = ctx['SITE_URL'], ctx['site']
     home = (out / 'index.html').read_text()
@@ -437,7 +638,15 @@ def build(ctx):
         (out / 'services' / f'{s["slug"]}.html').write_text(service_page(ctx, s, parts))
     (out / '404.html').write_text(page_404(ctx, parts))
     (out / 'pricing.html').write_text(pricing_page(ctx, parts))
-    urls = [(site, '1.0'), (site + 'pricing', '0.9')] + [(svc_url(site, s), '0.8') for s in SERVICES]
+    import hashlib
+    src = config.REPO / 'source' / 'src'
+    tcss, tjs = (src / 'tool.css').read_text(), (src / 'tool.js').read_text()
+    tv = hashlib.sha1((tcss + tjs).encode()).hexdigest()[:8]
+    (out / 'tool.css').write_text(tcss)
+    (out / 'tool.js').write_text(tjs)
+    (out / 'tools').mkdir(exist_ok=True)
+    (out / 'tools' / f'{TOOL["slug"]}.html').write_text(tool_page(ctx, parts, tv))
+    urls = [(site, '1.0'), (site + 'pricing', '0.9')] + [(svc_url(site, s), '0.8') for s in SERVICES] + [(f'{site}tools/{TOOL["slug"]}', '0.8')]
     # Sitemap index: static pages here, blog posts from the live database at /sitemap-blog.xml (server-rendered).
     (out / 'sitemap-pages.xml').write_text('<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n'
         + ''.join(f'  <url><loc>{u}</loc><lastmod>{TODAY}</lastmod><priority>{p}</priority></url>\n' for u, p in urls) + '</urlset>\n')
@@ -455,7 +664,7 @@ def build(ctx):
     (out / 'llms.txt').write_text(llms_txt(site, ctx['FAQ']))
     (out / 'site.webmanifest').write_text(json.dumps({'name': 'U Scale by Mehul Karotra', 'short_name': 'U Scale', 'start_url': '/', 'display': 'standalone',
         'background_color': '#FAF9FC', 'theme_color': '#251E45', 'icons': [{'src': '/icon-192.png', 'sizes': '192x192', 'type': 'image/png'}, {'src': '/icon-512.png', 'sizes': '512x512', 'type': 'image/png'}]}, indent=1))
-    return ['pricing', 'blog-shell'] + [s['slug'] for s in SERVICES]
+    return ['pricing', 'blog-shell', 'tools/' + TOOL['slug']] + [s['slug'] for s in SERVICES]
 
 # ---------------------------------------------------------------- pricing: home teaser, quote builder, terms tiles
 import pricing_data as PD
