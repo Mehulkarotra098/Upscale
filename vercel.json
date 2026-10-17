@@ -156,7 +156,7 @@
   "crons": [
     {
       "path": "/api/blog?view=ping",
-      "schedule": "17 3 * * *"
+      "schedule": "12 4 * * *"
     }
   ]
 }

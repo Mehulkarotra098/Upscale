@@ -276,6 +276,15 @@ export const sitemapRows = () =>
     FROM posts p LEFT JOIN media m ON m.id = p.cover_media_id
     WHERE ${LIVE} AND NOT p.noindex AND p.canonical_url = '' ORDER BY p.published_at DESC`);
 
+/** Indexable posts whose publish time passed in the last `hours` hours: scheduled posts that just went live. */
+export const wentLiveSince = (hours) =>
+  query(
+    `SELECT p.slug, c.slug AS category_slug FROM posts p LEFT JOIN categories c ON c.id = p.category_id
+    WHERE ${LIVE} AND NOT p.noindex AND p.canonical_url = '' AND p.published_at > now() - make_interval(hours => $1)
+    ORDER BY p.published_at`,
+    [hours],
+  );
+
 export const feedRows = (n = 30) =>
   query(
     `SELECT ${CARD}, p.content_html, u.name AS author_name ${CARD_FROM} LEFT JOIN users u ON u.id = p.author_id
