@@ -276,14 +276,16 @@ export const sitemapRows = () =>
     FROM posts p LEFT JOIN media m ON m.id = p.cover_media_id
     WHERE ${LIVE} AND NOT p.noindex AND p.canonical_url = '' ORDER BY p.published_at DESC`);
 
-/** Indexable posts whose publish time passed in the last `hours` hours: scheduled posts that just went live. */
-export const wentLiveSince = (hours) =>
+/** Live, indexable posts from the last week that IndexNow hasn't been told about yet (e.g. scheduled posts that just went live). */
+export const awaitingIndexNow = () =>
   query(
-    `SELECT p.slug, c.slug AS category_slug FROM posts p LEFT JOIN categories c ON c.id = p.category_id
-    WHERE ${LIVE} AND NOT p.noindex AND p.canonical_url = '' AND p.published_at > now() - make_interval(hours => $1)
+    `SELECT p.id, p.slug, c.slug AS category_slug FROM posts p LEFT JOIN categories c ON c.id = p.category_id
+    WHERE ${LIVE} AND NOT p.noindex AND p.canonical_url = '' AND p.indexnow_at IS NULL
+      AND p.published_at > now() - interval '7 days'
     ORDER BY p.published_at`,
-    [hours],
   );
+
+export const markIndexNow = (ids) => exec('UPDATE posts SET indexnow_at = now() WHERE id = ANY($1::int[])', [ids]);
 
 export const feedRows = (n = 30) =>
   query(

@@ -52,14 +52,17 @@ const VIEWS = {
     if (CRON_SECRET && req.headers.authorization !== `Bearer ${CRON_SECRET}`)
       return text(res, 401, 'Unauthorized', 'text/plain', CACHE.none);
     await one('SELECT 1');
-    // Scheduled posts go live on their own, with no save to trigger a ping, so the daily cron
-    // (09:42 IST, just after the usual 09:30 slot) announces anything that went live since the last run.
-    const fresh = await posts.wentLiveSince(26);
-    const urls = fresh.flatMap((r) => [
-      `${SITE_URL}blog/${r.slug}`,
-      ...(r.category_slug ? [`${SITE_URL}blog/category/${r.category_slug}`] : []),
-    ]);
-    if (urls.length) await pingIndexNow([...urls, `${SITE_URL}blog`]);
+    // Scheduled posts go live on their own, with no save to trigger a ping, so the daily cron (09:42 IST, just after
+    // the usual 09:30 slot) announces live posts IndexNow hasn't heard about. Each post is announced once, so repeat
+    // calls to this URL do nothing.
+    const fresh = await posts.awaitingIndexNow();
+    if (fresh.length) {
+      const urls = fresh.flatMap((r) => [
+        `${SITE_URL}blog/${r.slug}`,
+        ...(r.category_slug ? [`${SITE_URL}blog/category/${r.category_slug}`] : []),
+      ]);
+      if (await pingIndexNow([...urls, `${SITE_URL}blog`])) await posts.markIndexNow(fresh.map((r) => r.id));
+    }
     return text(res, 200, `ok ${fresh.length}`, 'text/plain', CACHE.none);
   },
 

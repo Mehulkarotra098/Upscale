@@ -23,7 +23,8 @@ export const DATABASE_URL = env.DATABASE_URL || env.POSTGRES_URL || '';
 /** Postgres schema for all tables. Tests give each run its own schema. */
 export const DB_SCHEMA = /^[a-z_][a-z0-9_]{0,40}$/.test(env.DB_SCHEMA || '') ? env.DB_SCHEMA : 'uscale';
 export const SESSION_SECRET = env.SESSION_SECRET || '';
-export const INDEXNOW_KEY = (env.INDEXNOW_KEY || '').trim();
+// IndexNow keys are public by design (served at /indexnow-key.txt to prove domain ownership), so a default lives here.
+export const INDEXNOW_KEY = (env.INDEXNOW_KEY || '438167be6e90a125783a393266a7650e').trim();
 export const CRON_SECRET = env.CRON_SECRET || '';
 
 /** First-run owner account: the first sign-in with these credentials creates it (only while no users exist). */

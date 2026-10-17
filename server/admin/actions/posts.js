@@ -97,7 +97,8 @@ export default {
       });
 
       const live = isLive(saved);
-      if (live && (contentChanged || publishing)) await pingIndexNow([`${SITE_URL}blog/${saved.slug}`, `${SITE_URL}blog`]);
+      if (live && (contentChanged || publishing) && (await pingIndexNow([`${SITE_URL}blog/${saved.slug}`, `${SITE_URL}blog`])))
+        await posts.markIndexNow([saved.id]);
       return { post: saved, live };
     },
   },
