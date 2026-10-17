@@ -38,11 +38,13 @@ a.bchip:hover{background:var(--lavender)}
 .bchip--lg{padding:8px 13px;font-size:12px}
 
 @media (min-width:900px){
-  .bcard--feat .bcard__link{display:grid;grid-template-columns:minmax(0,1.4fr) minmax(0,1fr);align-items:stretch}
-  .bcard--feat .bcard__img{aspect-ratio:40/21;min-height:100%;align-self:stretch}
-  .bcard--feat .bcard__body{padding:clamp(28px,3vw,48px);justify-content:center;gap:14px}
-  .bcard--feat .bcard__title{font-family:var(--display);font-weight:400;text-transform:uppercase;font-size:clamp(28px,2.6vw,40px);line-height:1.02;letter-spacing:.004em}
-  .bcard--feat .bcard__ex{font-size:16px;-webkit-line-clamp:3}
+  /* Featured post: full cover on top (never cropped), then title | summary side by side. */
+  .bcard--feat .bcard__img{aspect-ratio:40/21}
+  .bcard--feat .bcard__body{display:grid;grid-template-columns:minmax(0,1.2fr) minmax(0,1fr);grid-template-areas:"meta ex" "title ex" "title date";column-gap:clamp(28px,4vw,64px);row-gap:12px;padding:clamp(24px,3vw,40px);align-items:start}
+  .bcard--feat .bcard__meta{grid-area:meta}
+  .bcard--feat .bcard__title{grid-area:title;font-family:var(--display);font-weight:400;text-transform:uppercase;font-size:clamp(30px,3vw,46px);line-height:1.02;letter-spacing:.004em}
+  .bcard--feat .bcard__ex{grid-area:ex;font-size:16.5px;-webkit-line-clamp:4}
+  .bcard--feat .bcard__date{grid-area:date;margin-top:0;align-self:end}
 }
 
 .bpager{margin-top:clamp(28px,4vw,48px)}
