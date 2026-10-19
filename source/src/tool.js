@@ -61,6 +61,8 @@
   if (TEMPLATES.indexOf(state.template) < 0) state.template = 'classic';
   if (!FORMATS[state.format]) state.format = 'a6';
   var save = function () { try { localStorage.setItem(KEY, JSON.stringify(state)); } catch (e) { /* ignore */ } };
+  /* ?link=… (e.g. from the Google profile checker) pre-fills step 1 */
+  try { var qlink = new URLSearchParams(location.search).get('link'); if (qlink && qlink.length < 600) { state.link = qlink; history.replaceState(null, '', location.pathname + location.hash); } } catch (e) { /* ignore */ }
   var logo = null; // HTMLImageElement, session only
 
   /* ---------- review link ---------- */
