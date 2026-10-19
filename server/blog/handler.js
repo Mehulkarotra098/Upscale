@@ -6,6 +6,7 @@
 // The read counter beacon posts to view=hit.
 import { CRON_SECRET, INDEXNOW_KEY, SITE_URL } from '../config.js';
 import { pingIndexNow } from '../lib/indexnow.js';
+import { resolveShortLink, reviewUrl } from '../lib/maplink.js';
 import { verify } from '../auth/tokens.js';
 import { hasDb, one } from '../db/client.js';
 import { toDbId } from '../lib/ids.js';
@@ -64,6 +65,18 @@ const VIEWS = {
       if (await pingIndexNow([...urls, `${SITE_URL}blog`])) await posts.markIndexNow(fresh.map((r) => r.id));
     }
     return text(res, 200, `ok ${fresh.length}`, 'text/plain', CACHE.none);
+  },
+
+  /** Free review-QR tool: expand a short Google Maps share link to the business's review link. Nothing is stored. */
+  async maplink(req, res, p) {
+    const r = await resolveShortLink(String(p.u || '').slice(0, 300));
+    if (!r) return json(res, 422, { error: 'not_found' }, { 'Cache-Control': CACHE.none });
+    return json(
+      res,
+      200,
+      { placeId: r.placeId, name: r.name, review: reviewUrl(r.placeId) },
+      { 'Cache-Control': 'public, max-age=3600, s-maxage=86400' },
+    );
   },
 
   async rss(req, res) {

@@ -431,35 +431,139 @@ def llms_txt(site, faq):
 
 # ---------------------------------------------------------------- free tools
 TOOL = dict(slug='google-review-qr-code',
-  title='Free Google Review QR Code & Standee Maker | U Scale',
-  desc='Make a free Google review QR code, a print-ready counter standee and WhatsApp review messages in English or Hinglish. No sign-up, nothing stored.',
-  h1='Free Google review QR code & standee maker',
-  lead='Paste your Google review link and get a QR code, a print-ready counter standee and ready-to-send WhatsApp messages, in English or Hinglish. Free, no sign-up, and nothing leaves your browser.',
-  faq=[('Is this tool really free?','Yes. There is no sign-up and no watermark you have to pay to remove. Everything runs in your browser: your link and business name are never sent to a server.'),
-       ('Where do I find my Google review link?','Search your business name on Google while signed in to the account that manages your Business Profile (or open business.google.com). Click Read reviews, then Get more reviews, and copy the link Google gives you.'),
+  title='Google Review Link & QR Code Generator (Free) | U Scale',
+  desc='Get your Google review link from Google Maps, even without owner access, then make a QR code, print-ready standee and WhatsApp messages. Free.',
+  h1='Free Google review link & QR code maker',
+  lead='Find your Google review link in 30 seconds, even if you don\u2019t manage the Google profile. Then download a QR code, a counter standee in 6 designs and ready WhatsApp messages in English or Hinglish. Free, no sign-up.',
+  faq=[('What is a Google review link?','It is a link that opens the "write a review" box for your business on Google, so customers can leave a review in one tap instead of searching for you first.'),
+       ('How do I get my Google review link if I don\u2019t manage the Google profile?','Open Google Maps, search your business, tap Share and then Copy link. Paste that link into this tool. It finds your business and turns it into a direct review link, no owner access needed. This works for staff, family members and agencies too.'),
+       ('Where do business owners find the review link?','On a computer, open business.google.com (or search your business name on Google while signed in), click Read reviews, then Get more reviews, and copy the link. It looks like g.page/r/\u2026/review.'),
+       ('Is this tool really free?','Yes. There is no sign-up and nothing to pay to remove. Your business name, logo and wording stay in your browser. Only a short Google Maps link is checked once on our server to find your business, and nothing is stored.'),
        ('Can I offer a discount or gift for a Google review?','No. Google does not allow rewards, discounts or gifts in exchange for reviews, or asking only happy customers. Ask every customer for an honest review instead. This tool warns you if your wording looks like an incentive.'),
-       ('What size should I print the QR code?','Keep the QR code at least 3 cm wide. The standee prints at A6 (10.5 x 14.8 cm) with the QR code about 4.3 cm wide, and the print option fits four standees on one A4 sheet.'),
-       ('Will the QR code stop working?','No. It is a plain QR code of your own Google link, with no redirect through us, so it keeps working as long as your Google link does.'),
-       ('Can I use the QR code on bills and packaging?','Yes. Download the QR code as PNG or SVG (best for printers) and add it to bills, bags, menus and visiting cards.')])
+       ('What size should I print the QR code?','Keep the QR code at least 3 cm wide. The A6 standee prints with the QR code about 4 cm wide (4 per A4 sheet), the square table sticker prints 6 per A4 sheet, and the WhatsApp Status size is for sharing on your phone.'),
+       ('Will the QR code stop working?','No. It is a plain QR code of your Google review link, with no redirect through us, so it keeps working as long as your business is on Google.'),
+       ('Can I add my logo and brand colours?','Yes. Upload your logo, pick one of 10 colour themes or your own brand colour, and choose from 6 designs: Classic, Split, Card, Festive, Minimal and Bold.')])
 
 def tool_jsonld(site, t):
     url = f'{site}tools/{t["slug"]}'
-    g = [{'@type': 'WebApplication', '@id': url + '#app', 'name': 'Google Review QR Code & Standee Maker', 'url': url, 'description': t['desc'],
+    g = [{'@type': 'WebApplication', '@id': url + '#app', 'name': 'Google Review Link & QR Code Maker', 'url': url, 'description': t['desc'],
           'applicationCategory': 'BusinessApplication', 'operatingSystem': 'Any (runs in the browser)', 'isAccessibleForFree': True, 'inLanguage': 'en-IN',
           'offers': {'@type': 'Offer', 'price': '0', 'priceCurrency': 'INR'},
           'publisher': {'@type': 'Organization', 'name': 'U Scale', 'url': site}, 'creator': {'@type': 'Person', 'name': 'Mehul Karotra', 'url': site}},
+         {'@type': 'HowTo', 'name': 'How to get your Google review link without owner access', 'totalTime': 'PT1M',
+          'step': [{'@type': 'HowToStep', 'position': i + 1, 'name': n, 'text': x} for i, (n, x) in enumerate([
+            ('Open Google Maps', 'Open the Google Maps app or maps.google.com.'),
+            ('Find your business', 'Search your business name and open its listing.'),
+            ('Copy the link', 'Tap Share, then Copy link.'),
+            ('Paste it into the tool', 'Paste the link into step 1. The tool turns it into a direct Google review link and QR code.')])]},
          {'@type': 'BreadcrumbList', 'itemListElement': [{'@type': 'ListItem', 'position': 1, 'name': 'Home', 'item': site},
-            {'@type': 'ListItem', 'position': 2, 'name': 'Free tools', 'item': url}, {'@type': 'ListItem', 'position': 3, 'name': 'Google review QR code maker', 'item': url}]},
+            {'@type': 'ListItem', 'position': 2, 'name': 'Free tools', 'item': url}, {'@type': 'ListItem', 'position': 3, 'name': 'Google review link & QR code maker', 'item': url}]},
          {'@type': 'FAQPage', 'mainEntity': [{'@type': 'Question', 'name': q, 'acceptedAnswer': {'@type': 'Answer', 'text': a}} for q, a in t['faq']]}]
     return json.dumps({'@context': 'https://schema.org', '@graph': g}, ensure_ascii=False).replace('</', '<\\/')
+
+F = 'font-family="Inter,Arial,sans-serif"'
+INK, MUT, GRN, BLU = '#1F1F1F', '#5F6368', '#1E8E3E', '#0B57D0'
+
+def _t(x, y, txt, size=12, w=500, fill=INK, anchor='start'):
+    return f'<text x="{x}" y="{y}" {F} font-size="{size}" font-weight="{w}" fill="{fill}" text-anchor="{anchor}">{txt}</text>'
+
+def _tap(x, y):
+    """Pointing hand with its fingertip at (x, y); the hand sits below-right so the target stays readable."""
+    return (f'<circle cx="{x}" cy="{y}" r="7" fill="{GRN}" opacity=".35"/>'
+            f'<g transform="translate({x - 20} {y - 9.5}) scale(1.75)"><path d="M18.84 15.87l-4.54-2.26c-.17-.07-.35-.11-.54-.11H13v-6c0-.83-.67-1.5-1.5-1.5S10 6.67 10 7.5v10.74l-3.43-.72c-.08-.01-.15-.03-.24-.03-.31 0-.59.13-.79.33l-.79.8 4.94 4.94c.27.27.65.44 1.06.44h6.79c.75 0 1.33-.55 1.44-1.28l.75-5.27c.01-.07.02-.14.02-.2 0-.62-.38-1.16-.91-1.38z" fill="#fff" stroke="{INK}" stroke-width="1.2" stroke-linejoin="round"/></g>')
+
+def _pin(x, y, s=1, c='#EA4335'):
+    return f'<g transform="translate({x} {y}) scale({s})"><path d="M0 0c-6.6 0-12 5.2-12 11.6C-12 20.4 0 32 0 32s12-11.6 12-20.4C12 5.2 6.6 0 0 0z" fill="{c}"/><circle cy="11.5" r="4.6" fill="#fff"/></g>'
+
+def _stars(x, y, n=5, size=9):
+    st = 'M0-5l1.5 3.1 3.4.5-2.5 2.4.6 3.4L0 3.8-3 5.4l.6-3.4L-4.9-.4l3.4-.5z'
+    return ''.join(f'<path transform="translate({x + i * size * 1.15} {y}) scale({size / 10})" d="{st}" fill="#F9AB00"/>' for i in range(n))
+
+def _phone(uid, inner):
+    return (f'<svg viewBox="0 0 200 372" class="rq-gphone" aria-hidden="true" focusable="false"><defs><clipPath id="sc{uid}"><rect x="9" y="9" width="182" height="354" rx="24"/></clipPath>'
+            f'<filter id="sh{uid}" x="-10%" y="-10%" width="120%" height="130%"><feDropShadow dx="0" dy="2" stdDeviation="3" flood-color="#000" flood-opacity=".14"/></filter></defs>'
+            f'<rect x="1" y="1" width="198" height="370" rx="32" fill="#1D1930"/><rect x="9" y="9" width="182" height="354" rx="24" fill="#fff"/>'
+            f'<g clip-path="url(#sc{uid})">{inner}</g><rect x="80" y="15" width="40" height="9" rx="4.5" fill="#1D1930"/></svg>')
+
+def _map(y0=0):
+    roads = ''.join([f'<path d="M-10 {y0+60} L210 {y0+120}" stroke="#fff" stroke-width="12"/>', f'<path d="M70 {y0-10} L110 {y0+380}" stroke="#fff" stroke-width="12"/>',
+                     f'<path d="M-10 {y0+230} L210 {y0+200}" stroke="#fff" stroke-width="10"/>', f'<path d="M160 {y0-10} L140 {y0+380}" stroke="#FDE293" stroke-width="9"/>'])
+    return (f'<rect x="0" y="{y0}" width="200" height="380" fill="#EEF1F4"/><rect x="18" y="{y0+130}" width="44" height="54" rx="6" fill="#D4EBD0"/>'
+            f'<rect x="120" y="{y0+250}" width="56" height="60" rx="6" fill="#D4EBD0"/><rect x="118" y="{y0+20}" width="60" height="40" rx="6" fill="#E3DFF0"/>{roads}')
+
+def tool_guides():
+    # 1. Search and tap the business
+    s1 = _map(0) + _pin(150, 250, .8) + _pin(40, 300, .7) + (
+        f'<rect x="16" y="34" width="168" height="38" rx="19" fill="#fff" filter="url(#sh1)"/>'
+        f'<circle cx="35" cy="52" r="6" fill="none" stroke="{MUT}" stroke-width="2.2"/><path d="M39.5 56.5l4.5 4.5" stroke="{MUT}" stroke-width="2.2" stroke-linecap="round"/>'
+        + _t(52, 57, 'Sharma Sarees', 13.5, 600) + f'<rect x="146" y="44" width="1.8" height="17" fill="{BLU}"/>'
+        f'<rect x="16" y="80" width="168" height="128" rx="14" fill="#fff" filter="url(#sh1)"/>'
+        f'<rect x="22" y="86" width="156" height="44" rx="10" fill="#E6F4EA"/>' + _pin(38, 95, .62)
+        + _t(54, 105, 'Sharma Sarees', 12.5, 700) + _t(54, 121, 'Saree shop · Andheri E', 10, 500, MUT)
+        + ''.join(_pin(38, 141 + i * 32, .55, '#9AA0A6') + _t(54, 151 + i * 32, n, 11.5, 500, '#3C4043') + _t(54, 164 + i * 32, sub, 9, 400, MUT)
+                  for i, (n, sub) in enumerate([('Sharma Sweets', 'Sweet shop · 2 km'), ('Sharma Hardware', 'Hardware store · 3 km')]))
+        + f'<rect x="22" y="86" width="156" height="44" rx="10" fill="none" stroke="{GRN}" stroke-width="2"/>' + _tap(160, 126))
+    # 2. Business page, tap Share
+    chips = [('Directions', 68, True), ('Save', 44, False), ('Share', 52, False)]
+    cx, chip_svg = 16, ''
+    for label, w, filled in chips:
+        chip_svg += (f'<rect x="{cx}" y="214" width="{w}" height="30" rx="15" fill="{BLU if filled else "#fff"}" stroke="{"none" if filled else "#C4C7C5"}" stroke-width="1.2"/>'
+                     + _t(cx + w / 2, 233.5, label, 11, 600, '#fff' if filled else BLU, 'middle'))
+        cx += w + 5
+    share_x = 16 + 68 + 5 + 44 + 5
+    s2 = (f'<rect x="0" y="0" width="200" height="120" fill="#C77B4A"/><rect x="100" y="0" width="100" height="120" fill="#8E3B5A"/>'
+          f'<path d="M0 85 Q50 60 100 88 T200 80 V120 H0z" fill="#E9B04D" opacity=".85"/><path d="M118 20 l14 70 M150 14 l10 80" stroke="#F3D38A" stroke-width="5" opacity=".7"/>'
+          f'<rect x="0" y="112" width="200" height="260" rx="18" fill="#fff"/><rect x="88" y="119" width="24" height="4" rx="2" fill="#DADCE0"/>'
+          + _t(16, 152, 'Sharma Sarees', 17, 700) + _t(16, 172, '4.5', 11, 600, '#3C4043') + _stars(41, 168.5, 5, 9.5)
+          + _t(102, 172, '(212)', 10.5, 500, MUT) + _t(16, 192, 'Saree shop · ', 10.5, 500, MUT) + _t(81, 192, 'Open', 10.5, 600, GRN)
+          + chip_svg + ''.join(f'<rect x="16" y="{266 + i * 22}" width="{168 - i * 40}" height="9" rx="4.5" fill="#EEF0F2"/>' for i in range(4))
+          + f'<rect x="{share_x - 1.5}" y="212.5" width="55" height="33" rx="16.5" fill="none" stroke="{GRN}" stroke-width="2.5"/>' + _tap(share_x + 40, 242))
+    # 3. Share sheet, tap Copy link
+    s3 = (f'<rect x="0" y="0" width="200" height="372" fill="#fff"/>' + _t(16, 60, 'Sharma Sarees', 16, 700) + _stars(20, 78, 5, 9)
+          + f'<rect x="0" y="0" width="200" height="372" fill="#000" opacity=".42"/>'
+          f'<rect x="40" y="104" width="120" height="30" rx="15" fill="#303134"/>' + _t(100, 123.5, '✓ Link copied', 11, 600, '#fff', 'middle')
+          + f'<rect x="0" y="152" width="200" height="220" rx="20" fill="#fff"/><rect x="88" y="159" width="24" height="4" rx="2" fill="#DADCE0"/>'
+          + _t(16, 188, 'Share', 15, 700)
+          + f'<rect x="16" y="198" width="38" height="38" rx="8" fill="#C77B4A"/><rect x="35" y="198" width="19" height="38" rx="0" fill="#8E3B5A"/>'
+          + _t(62, 214, 'Sharma Sarees', 11.5, 700) + _t(62, 229, 'maps.app.goo.gl/…', 10, 500, MUT)
+          + f'<rect x="16" y="248" width="168" height="40" rx="12" fill="#E6F4EA" stroke="{GRN}" stroke-width="2"/>'
+          + f'<g transform="translate(30 259)" fill="none" stroke="{INK}" stroke-width="2" stroke-linecap="round"><path d="M7 11l4-4"/><path d="M5.5 8.5l-1.6 1.6a3 3 0 0 0 4.2 4.2l1.6-1.6"/><path d="M12.5 9.5l1.6-1.6a3 3 0 0 0-4.2-4.2L8.3 5.3"/></g>'
+          + _t(56, 273, 'Copy link', 13, 700)
+          + ''.join(f'<circle cx="{36 + i * 44}" cy="{318}" r="15" fill="{c}"/>' + _t(36 + i * 44, 347, n, 8.5, 500, MUT, 'middle')
+                    for i, (c, n) in enumerate([('#25D366', 'WhatsApp'), ('#E8F0FE', 'Messages'), ('#FCE8E6', 'Email'), ('#F1F3F4', 'More')]))
+          + _tap(162, 284))
+    # 4. Paste into the tool and download
+    qr = ''.join(f'<rect x="{84 + (i % 6) * 5.4}" y="{226 + (i // 6) * 5.4}" width="5" height="5" fill="#000"/>' for i in [0,1,2,4,5,6,8,11,13,14,16,19,21,23,24,25,27,29,30,31,33,34,35])
+    s4 = (f'<rect x="0" y="0" width="200" height="372" fill="#FAF9FC"/><rect x="14" y="32" width="172" height="24" rx="12" fill="#ECE7F5"/>'
+          + _t(100, 48.5, 'uscale.in/tools', 10.5, 600, '#4A4458', 'middle')
+          + f'<circle cx="25" cy="80" r="9" fill="#251E45"/>' + _t(25, 84, '1', 10, 700, '#fff', 'middle') + _t(40, 84.5, 'Paste your link', 12.5, 700, '#251E45')
+          + f'<rect x="100" y="94" width="52" height="24" rx="8" fill="#303134"/><path d="M122 118l4 5 4-5z" fill="#303134"/>' + _t(126, 110.5, 'Paste', 11, 600, '#fff', 'middle')
+          + f'<rect x="14" y="126" width="172" height="36" rx="10" fill="#fff" stroke="{GRN}" stroke-width="2.2"/>' + _t(24, 149, 'maps.app.goo.gl/x7Kq…', 11.5, 500)
+          + _t(16, 182, '✓ Found: Sharma Sarees', 11, 700, GRN)
+          + f'<rect x="66" y="194" width="68" height="94" rx="7" fill="#2C2454"/><rect x="78" y="220" width="44" height="44" rx="4" fill="#fff"/>{qr}'
+          + _t(100, 211, 'LOVED IT?', 8.5, 800, '#fff', 'middle') + ''.join(f'<circle cx="{88 + i * 6}" cy="276" r="1.8" fill="#FBBC04"/>' for i in range(5))
+          + f'<rect x="30" y="304" width="140" height="36" rx="18" fill="#63B849"/>' + _t(100, 327, 'Download', 13, 700, '#1D1930', 'middle')
+          + f'<rect x="28" y="302" width="144" height="40" rx="20" fill="none" stroke="{GRN}" stroke-width="2.5" opacity=".6"/>' + _tap(150, 338))
+    steps = [('Search your business', 'Open the <b>Google Maps</b> app, type your shop name, tap it.', s1),
+             ('Tap Share', 'On your business page, tap the <b>Share</b> button.', s2),
+             ('Tap Copy link', 'In the menu that pops up, tap <b>Copy link</b>.', s3),
+             ('Paste it here', 'Come back here, press and hold the box in step 1, tap <b>Paste</b>.', s4)]
+    return ''.join(f'<li class="rq-gs"><div class="rq-gs__hd"><span class="rq-gs__n" aria-hidden="true">{i + 1}</span><p><b class="rq-gs__t">{t}</b><span>{d}</span></p></div>'
+                   f'{_phone(i + 1, svg)}</li>' for i, (t, d, svg) in enumerate(steps))
 
 def tool_page(ctx, parts, tv):
     site, v, t = ctx['SITE_URL'], ctx['_v'], TOOL
     header, menu, footer, tail = parts
     url = f'{site}tools/{t["slug"]}'
     og = f'{site}assets/tools/google-review-qr-og.png'
-    swatches = ''.join(f'<button type="button" class="rq-sw" style="background:{c}" data-rq-accent="{c}" aria-pressed="false" aria-label="{n}"></button>'
-                       for c, n in [('#63B849', 'Green'), ('#F59E0B', 'Saffron'), ('#B3123E', 'Maroon'), ('#1D4ED8', 'Royal blue'), ('#0F766E', 'Teal'), ('#111111', 'Black')])
+    themes = [('midnight', 'Midnight', '#2C2454', '#16102C'), ('sunset', 'Sunset', '#FF6B3D', '#C81E63'), ('ocean', 'Ocean', '#1652D8', '#0B7F86'), ('forest', 'Forest', '#17663A', '#0A3520'),
+              ('royal', 'Royal', '#5B21B6', '#9D1279'), ('charcoal', 'Charcoal', '#262B36', '#0D1016'), ('paper', 'Paper', '#FFFFFF', '#F5F0E6'), ('mint', 'Mint', '#F4FCF7', '#D9F3E3'),
+              ('blush', 'Blush', '#FFF7F9', '#FBDDE6'), ('sky', 'Sky', '#F4F8FF', '#D8E6FF')]
+    swatches = ''.join(f'<button type="button" class="rq-sw" style="background:linear-gradient(135deg,{c1},{c2})" data-rq-theme="{k}" aria-pressed="false" aria-label="{n} colours" title="{n}"></button>' for k, n, c1, c2 in themes)
+    tpls = ''.join(f'<button type="button" class="rq-tpl" data-rq-tpl="{k}" aria-pressed="false" aria-label="{n}"><canvas aria-hidden="true"></canvas><span>{n}</span></button>'
+                   for k, n in [('classic', 'Classic'), ('split', 'Split'), ('card', 'Card'), ('festive', 'Festive'), ('minimal', 'Minimal'), ('bold', 'Bold')])
+    formats = ''.join(f'<button type="button" class="rq-fmt" data-rq-format="{k}" aria-pressed="false"><i class="rq-fmt__i rq-fmt__i--{k}" aria-hidden="true"></i><b>{n}</b><small>{d}</small></button>'
+                      for k, n, d in [('a6', 'Counter standee', 'A6 \u00b7 4 per A4'), ('square', 'Table sticker', 'Square \u00b7 6 per A4'), ('story', 'WhatsApp Status', 'Phone \u00b7 1080\u00d71920')])
     body = '''
   <div class="wrap hero-shell">
     <section class="sp-hero rq-hero on-dark" data-tone="dark" aria-labelledby="page-title">
@@ -468,7 +572,7 @@ def tool_page(ctx, parts, tv):
       <p class="eyebrow">Free tool</p>
       <h1 class="sp-hero__title" id="page-title">{h1}<span class="dot">.</span></h1>
       <p class="sp-hero__lead">{lead}</p>
-      <div class="hero__cta"><a class="btn btn--go" href="#rq-start">Make my QR code <span class="arw" aria-hidden="true"><b>↓</b><b>↓</b></span></a></div>
+      <div class="hero__cta"><a class="btn btn--go" href="#rq-start">Make my QR code <span class="arw" aria-hidden="true"><b>↓</b><b>↓</b></span></a><a class="btn btn--ghost" href="#rq-find">How to find my review link</a></div>
     </section>
   </div>
 
@@ -479,14 +583,36 @@ def tool_page(ctx, parts, tv):
       <div class="rq__grid">
         <form class="rq-form" id="rq-start" onsubmit="return false" novalidate>
           <div class="rq-step">
-            <p class="rq-step__head"><span class="rq-step__n" aria-hidden="true">1</span><label class="rq-step__title" for="rq-link">Paste your Google review link</label></p>
-            <input class="rq-input" id="rq-link" type="url" inputmode="url" autocomplete="off" spellcheck="false" placeholder="https://g.page/r/your-link/review" aria-describedby="rq-link-hint rq-link-msg">
-            <p class="rq-hint" id="rq-link-hint">Find it in your Google Business Profile: <b>Read reviews</b>, then <b>Get more reviews</b>. <a class="tlink" href="#rq-how">Step-by-step help</a></p>
+            <p class="rq-step__head"><span class="rq-step__n" aria-hidden="true">1</span><label class="rq-step__title" for="rq-link">Paste your Google Maps or review link</label></p>
+            <input class="rq-input" id="rq-link" type="url" inputmode="url" autocomplete="off" spellcheck="false" placeholder="Paste the link from Google Maps here" aria-describedby="rq-link-hint rq-link-msg">
+            <p class="rq-hint" id="rq-link-hint">Any of these work: a Google Maps share link (maps.app.goo.gl/&hellip;), a Google Maps page link, or the owner&rsquo;s review link (g.page/r/&hellip;/review).</p>
             <p class="rq-msg" id="rq-link-msg" role="status"></p>
+            <details class="rq-find" id="rq-find">
+              <summary>Don&rsquo;t have the link? Get it in 30 seconds</summary>
+              <div class="rq-tabs" role="tablist" aria-label="How to get the link">
+                <button type="button" role="tab" id="rq-tab-maps" aria-controls="rq-pane-maps" aria-selected="true" data-rq-tab>From Google Maps <small>Anyone &middot; easiest</small></button>
+                <button type="button" role="tab" id="rq-tab-owner" aria-controls="rq-pane-owner" aria-selected="false" tabindex="-1" data-rq-tab>From my Business Profile <small>Owners &amp; managers</small></button>
+              </div>
+              <div class="rq-pane" id="rq-pane-maps" role="tabpanel" aria-labelledby="rq-tab-maps">
+                <p class="rq-pane__lead">No login or owner access needed. Works for shop staff, family members and agencies too.</p>
+                <ol class="rq-guide">{guides}</ol>
+                <p class="rq-pane__pc"><b>On a computer?</b> Open <a class="tlink" href="https://www.google.com/maps" target="_blank" rel="noopener">Google Maps</a>, search your business, click it, then click <b>Share</b> &rarr; <b>Copy link</b>. Or simply copy the address from the browser bar once your business is open.</p>
+                <a class="btn btn--line rq-btn-sm" href="https://www.google.com/maps" target="_blank" rel="noopener">Open Google Maps</a>
+              </div>
+              <div class="rq-pane" id="rq-pane-owner" role="tabpanel" aria-labelledby="rq-tab-owner" hidden>
+                <ol class="rq-olist">
+                  <li>On a computer, open <a class="tlink" href="https://business.google.com/" target="_blank" rel="noopener">business.google.com</a> and sign in with the Google account that manages your business. (Or search your business name on Google while signed in.)</li>
+                  <li>Click <b>Read reviews</b>, then <b>Get more reviews</b>.</li>
+                  <li>Click <b>Copy</b>. The link looks like <code>g.page/r/&hellip;/review</code>. Paste it in step 1.</li>
+                </ol>
+                <p class="rq-pane__note">On a phone, the Google Maps method is quicker and gives the same review box. Google&rsquo;s own help page: <a class="tlink" href="https://support.google.com/business/answer/16816815?hl=en" target="_blank" rel="noopener">Create a Google link or QR code to request reviews</a>.</p>
+              </div>
+            </details>
           </div>
           <div class="rq-step">
             <p class="rq-step__head"><span class="rq-step__n" aria-hidden="true">2</span><label class="rq-step__title" for="rq-name">Your business name</label></p>
             <input class="rq-input" id="rq-name" type="text" maxlength="40" autocomplete="organization" placeholder="Sharma Sarees">
+            <div class="rq-logo"><label class="btn btn--line rq-btn-sm" for="rq-logo">Add your logo (optional)</label><input class="sr-only" id="rq-logo" type="file" accept="image/png,image/jpeg,image/webp"><button type="button" class="tlink rq-linkbtn" id="rq-logo-clear" hidden>Remove logo</button></div>
           </div>
           <div class="rq-step">
             <p class="rq-step__head"><span class="rq-step__n" aria-hidden="true">3</span><span class="rq-step__title">Choose the wording</span></p>
@@ -499,27 +625,28 @@ def tool_page(ctx, parts, tv):
             <p class="rq-policy" id="rq-policy" hidden>Careful: Google does not allow discounts, gifts or rewards for reviews, or asking only for 5 stars. Ask for an honest review instead.</p>
           </div>
           <div class="rq-step">
-            <p class="rq-step__head"><span class="rq-step__n" aria-hidden="true">4</span><span class="rq-step__title">Pick a look</span></p>
-            <div class="rq-row rq-row--2">
-              <div><span class="rq-label" id="rq-theme-l">Background</span>
-                <div class="rq-seg" role="radiogroup" aria-labelledby="rq-theme-l"><input type="radio" name="rq-theme" id="rq-theme-d" value="dark"><label for="rq-theme-d">Dark</label><input type="radio" name="rq-theme" id="rq-theme-l2" value="light"><label for="rq-theme-l2">Light</label></div></div>
-              <div><span class="rq-label">Brand colour</span><div class="rq-swatches">{swatches}<label class="rq-color"><input type="color" id="rq-accent-custom" aria-label="Custom brand colour">Custom</label></div></div>
-            </div>
+            <p class="rq-step__head"><span class="rq-step__n" aria-hidden="true">4</span><span class="rq-step__title">Design it</span></p>
+            <span class="rq-label">Size</span>
+            <div class="rq-fmts">{formats}</div>
+            <span class="rq-label rq-mt">Design</span>
+            <div class="rq-tpls">{tpls}</div>
+            <span class="rq-label rq-mt">Colours</span>
+            <div class="rq-swatches">{swatches}<label class="rq-color"><input type="color" id="rq-accent-custom" aria-label="Your brand colour">My brand colour</label><button type="button" class="tlink rq-linkbtn" id="rq-accent-reset" hidden>Reset</button></div>
             <label class="rq-check"><input type="checkbox" id="rq-credit"> Show a small &ldquo;Made free at uscale.in&rdquo; line</label>
           </div>
         </form>
 
         <aside class="rq-preview" aria-label="Preview and downloads">
           <canvas class="rq-canvas" id="rq-canvas" width="1240" height="1748" role="img" aria-label="Preview of your review standee"></canvas>
-          <p class="rq-preview__cap">A6 counter standee (10.5 x 14.8 cm), print-ready at 300 dpi</p>
+          <p class="rq-preview__cap" id="rq-cap">A6 counter standee (10.5 × 14.8 cm), print-ready at 300 dpi</p>
           <div class="rq-actions">
-            <button type="button" class="btn btn--go rq-wide" id="rq-dl-standee" data-rq-need-link disabled>Download standee (PNG)</button>
+            <button type="button" class="btn btn--go rq-wide" id="rq-dl-standee" data-rq-need-link disabled>Download design (PNG)</button>
             <button type="button" class="btn btn--ink rq-wide" id="rq-print" data-rq-need-link disabled>Print 4 on one A4 sheet</button>
             <button type="button" class="btn btn--line" id="rq-dl-png" data-rq-need-link disabled>QR code PNG</button>
             <button type="button" class="btn btn--line" id="rq-dl-svg" data-rq-need-link disabled>QR code SVG</button>
           </div>
           <a class="tlink rq-test" id="rq-test" href="#" target="_blank" rel="noopener" hidden>Test my review link</a>
-          <p class="rq-private"><span aria-hidden="true">&#128274;</span><span>Private by design: your link and business name stay in this browser. Nothing is uploaded or stored by us.</span></p>
+          <p class="rq-private"><span aria-hidden="true">&#128274;</span><span>Private by design: your name, logo and wording stay in this browser. A short Maps link is only checked once to find your business, and nothing is stored.</span></p>
         </aside>
       </div>
 
@@ -533,13 +660,14 @@ def tool_page(ctx, parts, tv):
 
   <section class="section" id="rq-how" aria-labelledby="how-title">
     <div class="wrap">
-      <header class="sec-head"><p class="eyebrow">Your review link</p><h2 class="h2" id="how-title">Find your Google review link in a minute</h2></header>
-      <ol class="rq-how">
-        <li><b>Search your business name on Google</b> while signed in to the Google account that manages your Business Profile. Or open business.google.com.</li>
-        <li>On your profile, click <b>Read reviews</b>, then <b>Get more reviews</b> (on some phones it says <b>Ask for reviews</b>).</li>
-        <li><b>Copy the link</b> and paste it in step 1 above. It looks like g.page/r/&hellip;/review.</li>
-      </ol>
-      <p class="rq-note">Google explains this in its help page, <a class="tlink" href="https://support.google.com/business/answer/16816815?hl=en" target="_blank" rel="noopener">Create a Google link or QR code to request reviews</a>. Google can make a basic QR code too; this tool adds a print-ready standee and WhatsApp messages.</p>
+      <header class="sec-head"><p class="eyebrow">Your review link</p><h2 class="h2" id="how-title">3 ways to get your Google review link</h2>
+        <p class="lead">A Google review link opens the &ldquo;write a review&rdquo; box for your business in one tap. Pick whichever way is easiest for you.</p></header>
+      <div class="rq-ways">
+        <article><span class="rq-ways__n">1</span><h3>From Google Maps (anyone)</h3><p>Open Google Maps, search your business, tap <b>Share</b>, then <b>Copy link</b>, and paste it in this tool. It finds your business and builds the direct review link for you. No owner access needed.</p></article>
+        <article><span class="rq-ways__n">2</span><h3>From your Business Profile (owners)</h3><p>On a computer, open business.google.com, click <b>Read reviews</b>, then <b>Get more reviews</b>, and copy the <code>g.page/r/&hellip;/review</code> link.</p></article>
+        <article><span class="rq-ways__n">3</span><h3>From a Place ID (advanced)</h3><p>If you already know your Google Place ID (it starts with <code>ChIJ</code>), paste it in step 1 and the tool builds the review link from it.</p></article>
+      </div>
+      <p class="rq-note">Google&rsquo;s help page explains the owner method: <a class="tlink" href="https://support.google.com/business/answer/16816815?hl=en" target="_blank" rel="noopener">Create a Google link or QR code to request reviews</a>. Google makes a basic QR code on a computer only; this tool works on any phone and adds printable designs and WhatsApp messages.</p>
     </div>
   </section>
 
@@ -576,7 +704,7 @@ def tool_page(ctx, parts, tv):
     </div>
   </section>
 '''
-    body = (body.replace('{h1}', e(t['h1'])).replace('{lead}', e(t['lead'])).replace('{swatches}', swatches).replace('{faq}', faq_html(t['faq'])))
+    body = (body.replace('{h1}', e(t['h1'])).replace('{lead}', e(t['lead'])).replace('{swatches}', swatches).replace('{tpls}', tpls).replace('{formats}', formats).replace('{guides}', tool_guides()).replace('{faq}', faq_html(t['faq'])))
     return f'''<!doctype html>
 <html lang="en-IN">
 <head>
@@ -599,7 +727,7 @@ def tool_page(ctx, parts, tv):
 <meta property="og:image" content="{og}">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
-<meta property="og:image:alt" content="Free Google review QR code and counter standee maker by U Scale">
+<meta property="og:image:alt" content="Free Google review link and QR code maker by U Scale">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="{ea(t['title'])}">
 <meta name="twitter:description" content="{ea(t['desc'])}">
