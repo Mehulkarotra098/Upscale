@@ -6,6 +6,8 @@
 // The read counter beacon posts to view=hit.
 import { CRON_SECRET, INDEXNOW_KEY, SITE_URL } from '../config.js';
 import { pingIndexNow } from '../lib/indexnow.js';
+import * as sitePages from '../repos/sitepages.js';
+import { changedPages, staticPages } from './sitepages.js';
 import { resolveShortLink, reviewUrl } from '../lib/maplink.js';
 import { allow } from '../lib/ratelimit.js';
 import { checkSite } from '../lib/sitecheck.js';
@@ -66,7 +68,10 @@ const VIEWS = {
       ]);
       if (await pingIndexNow([...urls, `${SITE_URL}blog`])) await posts.markIndexNow(fresh.map((r) => r.id));
     }
-    return text(res, 200, `ok ${fresh.length}`, 'text/plain', CACHE.none);
+    // Static pages whose content changed since IndexNow last heard about them (dates come from the build).
+    const changed = changedPages(staticPages(SITE_URL), await sitePages.known());
+    if (changed.length && (await pingIndexNow(changed.map((p) => p.url)))) await sitePages.mark(changed);
+    return text(res, 200, `ok ${fresh.length} ${changed.length}`, 'text/plain', CACHE.none);
   },
 
   /** Free review-QR tool: expand a short Google Maps share link to the business's review link. Nothing is stored. */

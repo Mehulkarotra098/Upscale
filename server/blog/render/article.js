@@ -91,7 +91,7 @@ export function renderArticle({ post, related, preview = false }) {
       timeRequired: `PT${post.reading_minutes}M`,
       articleSection: post.cat_name || undefined,
       keywords: [post.focus_keyword, ...tags].filter(Boolean).join(', ') || undefined,
-      author: { '@type': 'Person', '@id': abs('#mehul'), name: author, url: abs('#about'), jobTitle: authorTitle, sameAs: BRAND.sameAs },
+      author: { '@type': 'Person', '@id': abs('#mehul'), name: author, url: abs('about'), jobTitle: authorTitle, sameAs: BRAND.sameAs },
       publisher: { '@id': ORGANIZATION['@id'] },
     },
     ORGANIZATION,
@@ -140,7 +140,7 @@ export function renderArticle({ post, related, preview = false }) {
     <h1 class="bpost__title">${esc(post.title)}</h1>
     ${post.excerpt ? `<p class="bpost__dek">${esc(post.excerpt)}</p>` : ''}
     <div class="bpost__meta">
-      <span class="bauthor"><span class="bauthor__av">${avatar}</span><span><b>${esc(author)}</b><small>${esc(authorTitle)}</small></span></span>
+      <span class="bauthor"><span class="bauthor__av">${avatar}</span><span><b><a href="/about" rel="author">${esc(author)}</a></b><small>${esc(authorTitle)}</small></span></span>
       <span class="bpost__facts">
         <span>${ICON_CALENDAR}<time datetime="${isoDate(published)}">${fmtDate(published)}</time></span>
         ${showUpdated ? `<span class="bpost__upd">Updated <time datetime="${isoDate(modified)}">${fmtDate(modified)}</time></span>` : ''}

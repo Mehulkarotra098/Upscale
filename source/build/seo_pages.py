@@ -162,29 +162,28 @@ def home_jsonld(site, faq):
            'contactPoint': {'@type': 'ContactPoint', 'telephone': PHONE, 'email': EMAIL, 'contactType': 'sales', 'areaServed': 'IN', 'availableLanguage': ['English', 'Hindi']},
            'knowsAbout': ['Freelance web design', 'Web design', 'Web development', 'Digital marketing', 'UI/UX design', 'Search engine optimisation', 'Local SEO', 'Social media marketing', 'Google Ads', 'Meta Ads', 'Generative engine optimisation'],
            'hasOfferCatalog': offer_catalog(site)}
-    person = {'@type': 'Person', '@id': site + '#mehul', 'name': 'Mehul Karotra', 'jobTitle': 'Freelance web designer, developer and digital marketer',
-              'url': site + '#about', 'image': site + 'og-image.png', 'sameAs': SAME[1:],
-              'homeLocation': {'@type': 'City', 'name': 'Mumbai'},
-              'alumniOf': {'@type': 'EducationalOrganization', 'name': 'Bachelor of Computer Application (Information Technology)'},
-              'knowsAbout': ['Figma', 'React.js', 'Tailwind CSS', 'WordPress', 'Illustrator', 'Photoshop', 'SEO']}
+    import aeo
+    person = aeo.person_full(site)
     website = {'@type': 'WebSite', '@id': site + '#website', 'url': site, 'name': 'U Scale', 'inLanguage': 'en-IN', 'publisher': {'@id': site + '#business'}}
     page = {'@type': 'WebPage', '@id': site + '#webpage', 'url': site, 'name': 'Freelance Web Designer & Digital Marketer in Mumbai | U Scale',
-            'isPartOf': {'@id': site + '#website'}, 'about': {'@id': site + '#business'}, 'primaryImageOfPage': site + 'og-image.png', 'inLanguage': 'en-IN', 'dateModified': TODAY}
+            'isPartOf': {'@id': site + '#website'}, 'about': {'@id': site + '#business'}, 'primaryImageOfPage': site + 'og-image.png', 'inLanguage': 'en-IN', 'dateModified': '__LASTMOD__'}
     faqp = {'@type': 'FAQPage', '@id': site + '#faq', 'mainEntity': [{'@type': 'Question', 'name': q, 'acceptedAnswer': {'@type': 'Answer', 'text': a}} for q, a in faq]}
     return json.dumps({'@context': 'https://schema.org', '@graph': [website, page, biz, person, faqp]}, ensure_ascii=False, separators=(',', ':'))
 
 def service_jsonld(site, s):
+    import aeo
     url = svc_url(site, s)
     return json.dumps({'@context': 'https://schema.org', '@graph': [
         {'@type': 'WebPage', '@id': url + '#webpage', 'url': url, 'name': s['title'], 'description': s['desc'], 'isPartOf': {'@id': site + '#website'},
-         'breadcrumb': {'@id': url + '#breadcrumb'}, 'inLanguage': 'en-IN', 'dateModified': TODAY},
-        {'@type': 'Service', '@id': url + '#service', 'name': s['name'], 'serviceType': s['name'], 'url': url, 'description': s['desc'],
-         'provider': {'@type': 'ProfessionalService', '@id': site + '#business', 'name': 'U Scale by Mehul Karotra', 'url': site, 'telephone': PHONE,
-                      'address': {'@type': 'PostalAddress', 'addressLocality': 'Mumbai', 'addressRegion': 'Maharashtra', 'addressCountry': 'IN'}},
-         'areaServed': [{'@type': 'City', 'name': 'Mumbai'}, {'@type': 'Country', 'name': 'India'}]},
+         'about': {'@id': url + '#service'}, 'mainEntity': {'@id': url + '#service'}, 'author': {'@id': site + '#mehul'},
+         'breadcrumb': {'@id': url + '#breadcrumb'}, 'inLanguage': 'en-IN', 'dateModified': '__LASTMOD__'},
+        {'@type': 'Service', '@id': url + '#service', 'name': s['name'], 'serviceType': s['name'], 'url': url, 'description': s['answer'],
+         'provider': {'@id': site + '#business'}, 'areaServed': [{'@type': 'City', 'name': 'Mumbai'}, {'@type': 'Country', 'name': 'India'}],
+         'offers': aeo.offers_ld(site, s['offers'])},
+        aeo.biz_ref(site), aeo.person_ref(site),
         {'@type': 'BreadcrumbList', '@id': url + '#breadcrumb', 'itemListElement': [
             {'@type': 'ListItem', 'position': 1, 'name': 'Home', 'item': site},
-            {'@type': 'ListItem', 'position': 2, 'name': 'Services', 'item': site + '#services'},
+            {'@type': 'ListItem', 'position': 2, 'name': 'Services', 'item': site + 'services'},
             {'@type': 'ListItem', 'position': 3, 'name': s['name'], 'item': url}]},
         {'@type': 'FAQPage', '@id': url + '#faq', 'mainEntity': [{'@type': 'Question', 'name': q, 'acceptedAnswer': {'@type': 'Answer', 'text': a}} for q, a in s['faq']]},
     ]}, ensure_ascii=False, separators=(',', ':'))
@@ -265,7 +264,7 @@ def service_page(ctx, s, parts):
 <main id="main">
   <div class="wrap hero-shell">
     <section class="sp-hero on-dark" data-tone="dark" aria-labelledby="page-title">
-      <nav class="crumbs" aria-label="Breadcrumb"><ol><li><a href="/">Home</a></li><li><a href="/#services">Services</a></li><li aria-current="page">{e(s['short'])}</li></ol></nav>
+      <nav class="crumbs" aria-label="Breadcrumb"><ol><li><a href="/">Home</a></li><li><a href="/services">Services</a></li><li aria-current="page">{e(s['short'])}</li></ol></nav>
       <h1 class="sp-hero__title" id="page-title">{e(s['h1'])}<span class="dot">.</span></h1>
       <p class="sp-hero__lead">{e(s['lead'])}</p>
       <div class="hero__cta" data-wa-zone>
@@ -275,6 +274,7 @@ def service_page(ctx, s, parts):
       <p class="sp-hero__who">{e(s['who'])}</p>
     </section>
   </div>
+{__import__('aeo').brief_html(s['answer'], s['facts'], 'Key facts: ' + s['name'], 'brief-title')}
 
   <section class="section" aria-labelledby="inc-title">
     <div class="wrap">
@@ -410,10 +410,12 @@ def blog_shell(ctx, parts):
 </html>
 ''')
 
-def llms_txt(site, faq):
+def llms_txt(site, faq, updated=TODAY):
     lines = ['# U Scale by Mehul Karotra', '',
              '> Freelance web design, development and digital marketing in Mumbai, India. U Scale is Mehul Karotra, a UI/UX developer-designer who designs and builds websites and runs SEO, social media, Google and Meta ads and AI search visibility for businesses, personally, on fixed-price contracts or monthly plans. An independent alternative to a digital marketing agency.', '',
-             f'- Website: {site}', f'- Contact: WhatsApp/phone {PHONE_D}, email {EMAIL}', '- Based in: Mumbai, Maharashtra, India (serves clients across India)',
+             f'- Website: {site}', f'- About Mehul Karotra: {site}about', f'- All services and prices: {site}services',
+             f'- Contact: WhatsApp/phone {PHONE_D}, email {EMAIL}', '- Based in: Mumbai, Maharashtra, India (serves clients across India)',
+             '- Languages: English and Hindi', f'- Last updated: {updated}', f'- Full text of every page for AI tools: {site}llms-full.txt',
              f'- Full price list: {site}pricing', f'- Blog (guides on websites, SEO, social media, ads and AI search): {site}blog',
              f'- Free tool: Google Business Profile checker, a score out of 100 with a fix list and review goal (runs in the browser, no sign-up): {site}tools/google-business-profile-checker',
              f'- Free tool: Google review QR code and counter standee maker (runs in the browser, no sign-up): {site}tools/google-review-qr-code',
@@ -426,7 +428,7 @@ def llms_txt(site, faq):
     lines += ['', '## Services', '']
     lines += [f'- [{s["name"]}]({svc_url(site, s)}): {s["desc"]}' for s in SERVICES]
     lines += ['', '## Work', '', '- TIS Admissions (concept), Antrah Wellness, Roar Arena, My Country Mobile (in-house role), Callmama (in-house role), GrowCred, Sashe by Prachi, Vidhi Parmar, BrandGen. Live links are on the home page.', '',
-              '## About Mehul Karotra', '', f'- UI/UX developer-designer from Mumbai working as an independent, contract-based partner. LinkedIn: {SAME[1]}', '',
+              '## About Mehul Karotra', '', f'- UI/UX developer-designer from Mumbai and founder of U Scale, working as an independent, contract-based partner. Profile: {site}about. LinkedIn: {SAME[1]}. GitHub: {SAME[2]}', '',
               '## FAQ', '']
     lines += [f'- **{q}** {a}' for q, a in faq]
     return '\n'.join(lines) + '\n'
@@ -451,7 +453,10 @@ def tool_jsonld(site, t):
     g = [{'@type': 'WebApplication', '@id': url + '#app', 'name': 'Google Review Link & QR Code Maker', 'url': url, 'description': t['desc'],
           'applicationCategory': 'BusinessApplication', 'operatingSystem': 'Any (runs in the browser)', 'isAccessibleForFree': True, 'inLanguage': 'en-IN',
           'offers': {'@type': 'Offer', 'price': '0', 'priceCurrency': 'INR'},
-          'publisher': {'@type': 'Organization', 'name': 'U Scale', 'url': site}, 'creator': {'@type': 'Person', 'name': 'Mehul Karotra', 'url': site}},
+          'publisher': {'@id': site + '#business'}, 'creator': {'@id': site + '#mehul'}},
+         {'@type': 'WebPage', '@id': url + '#webpage', 'url': url, 'name': t['title'], 'description': t['desc'], 'isPartOf': {'@id': site + '#website'},
+          'mainEntity': {'@id': url + '#app'}, 'author': {'@id': site + '#mehul'}, 'inLanguage': 'en-IN', 'dateModified': '__LASTMOD__'},
+         __import__('aeo').biz_ref(site), __import__('aeo').person_ref(site),
          {'@type': 'HowTo', 'name': 'How to get your Google review link without owner access', 'totalTime': 'PT1M',
           'step': [{'@type': 'HowToStep', 'position': i + 1, 'name': n, 'text': x} for i, (n, x) in enumerate([
             ('Open Google Maps', 'Open the Google Maps app or maps.google.com.'),
@@ -851,7 +856,16 @@ def gbp_jsonld(site, t):
     g = [{'@type': 'WebApplication', '@id': url + '#app', 'name': 'Google Business Profile Checker', 'url': url, 'description': t['desc'],
           'applicationCategory': 'BusinessApplication', 'operatingSystem': 'Any (runs in the browser)', 'isAccessibleForFree': True, 'inLanguage': ['en-IN', 'hi-Latn'],
           'offers': {'@type': 'Offer', 'price': '0', 'priceCurrency': 'INR'},
-          'publisher': {'@type': 'Organization', 'name': 'U Scale', 'url': site}, 'creator': {'@type': 'Person', 'name': 'Mehul Karotra', 'url': site}},
+          'publisher': {'@id': site + '#business'}, 'creator': {'@id': site + '#mehul'}},
+         {'@type': 'WebPage', '@id': url + '#webpage', 'url': url, 'name': t['title'], 'description': t['desc'], 'isPartOf': {'@id': site + '#website'},
+          'mainEntity': {'@id': url + '#app'}, 'author': {'@id': site + '#mehul'}, 'inLanguage': 'en-IN', 'dateModified': '__LASTMOD__'},
+         __import__('aeo').biz_ref(site), __import__('aeo').person_ref(site),
+         {'@type': 'HowTo', 'name': 'How to check your Google Business Profile for free', 'totalTime': 'PT3M',
+          'step': [{'@type': 'HowToStep', 'position': i + 1, 'name': n, 'text': x} for i, (n, x) in enumerate([
+            ('Find your business', 'Type your shop name and area, or paste your Google Maps link, to load your live Google listing.'),
+            ('Answer 16 quick questions', 'Each question shows a picture of where to look on your listing; your score adds up live.'),
+            ('Check your website', 'If you have a website, the tool reads your home page and runs Google\u2019s PageSpeed test on it.'),
+            ('Get your report', 'See your score out of 100, the fixes that matter most, and how many reviews you need to catch a competitor.')])]},
          _crumbs_ld(site, [('Home', site), ('Free tools', site + 'tools'), ('Google Business Profile checker', url)]),
          {'@type': 'FAQPage', 'mainEntity': [{'@type': 'Question', 'name': q, 'acceptedAnswer': {'@type': 'Answer', 'text': a}} for q, a in t['faq']]}]
     return json.dumps({'@context': 'https://schema.org', '@graph': g}, ensure_ascii=False).replace('</', '<\\/')
@@ -1008,10 +1022,11 @@ def tools_hub(ctx, parts, tv):
     desc = 'Free tools for Indian shops, clinics and salons: check your Google Business Profile score and make a Google review QR code standee. No sign-up.'
     ld = json.dumps({'@context': 'https://schema.org', '@graph': [
         {'@type': 'CollectionPage', '@id': url + '#page', 'url': url, 'name': title, 'description': desc, 'inLanguage': 'en-IN', 'isPartOf': {'@id': site + '#website'},
+         'publisher': {'@id': site + '#business'}, 'dateModified': '__LASTMOD__',
          'mainEntity': {'@type': 'ItemList', 'itemListElement': [
             {'@type': 'ListItem', 'position': 1, 'url': f'{site}tools/google-business-profile-checker', 'name': 'Google Business Profile checker'},
             {'@type': 'ListItem', 'position': 2, 'url': f'{site}tools/google-review-qr-code', 'name': 'Google review link & QR code maker'}]}},
-        _crumbs_ld(site, [('Home', site), ('Free tools', url)])]}, ensure_ascii=False).replace('</', '<\\/')
+        __import__('aeo').biz_ref(site), _crumbs_ld(site, [('Home', site), ('Free tools', url)])]}, ensure_ascii=False).replace('</', '<\\/')
     head = _tool_head(ctx, url, title, desc, f'{site}assets/tools/gbp-checker-og.png', 'Free tools for local businesses by U Scale', ld, tv)
     return f'''{head}
 <body class="page-sub page-tool page-hub">
@@ -1045,6 +1060,8 @@ def tools_hub(ctx, parts, tv):
 
 def build(ctx):
     site, out = ctx['SITE_URL'], ctx['site']
+    import aeo
+    aeo.enrich(SERVICES)
     home = (out / 'index.html').read_text()
     parts = chrome_parts(home)
     (out / 'services').mkdir(exist_ok=True)
@@ -1064,26 +1081,28 @@ def build(ctx):
     (out / 'tools' / f'{TOOL["slug"]}.html').write_text(tool_page(ctx, parts, tv))
     (out / 'tools' / f'{GBP["slug"]}.html').write_text(gbp_page(ctx, parts, tv))
     (out / 'tools' / 'index.html').write_text(tools_hub(ctx, parts, tv))
-    urls = ([(site, '1.0'), (site + 'pricing', '0.9')] + [(svc_url(site, s), '0.8') for s in SERVICES]
-            + [(site + 'tools', '0.7'), (f'{site}tools/{GBP["slug"]}', '0.8'), (f'{site}tools/{TOOL["slug"]}', '0.8')])
+    (out / 'about.html').write_text(aeo.about_page(ctx, parts))
+    (out / 'services.html').write_text(aeo.services_hub(ctx, parts))
+    rels = (['index.html', 'about.html', 'services.html', 'pricing.html'] + [f'services/{x["slug"]}.html' for x in SERVICES]
+            + ['tools/index.html', f'tools/{GBP["slug"]}.html', f'tools/{TOOL["slug"]}.html'])
+    dates = aeo.stamp_pages(out, site, rels)  # each page's date moves only when its content changes
+    prio = {site: '1.0', site + 'pricing': '0.9', site + 'services': '0.9', site + 'about': '0.8', site + 'tools': '0.7'}
     # Sitemap index: static pages here, blog posts from the live database at /sitemap-blog.xml (server-rendered).
     (out / 'sitemap-pages.xml').write_text('<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n'
-        + ''.join(f'  <url><loc>{u}</loc><lastmod>{TODAY}</lastmod><priority>{p}</priority></url>\n' for u, p in urls) + '</urlset>\n')
+        + ''.join(f'  <url><loc>{u}</loc><lastmod>{d}</lastmod><priority>{prio.get(u, "0.8")}</priority></url>\n' for u, d in dates.items()) + '</urlset>\n')
     (out / 'sitemap.xml').write_text('<?xml version="1.0" encoding="UTF-8"?>\n<sitemapindex xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n'
-        f'  <sitemap><loc>{site}sitemap-pages.xml</loc><lastmod>{TODAY}</lastmod></sitemap>\n'
+        f'  <sitemap><loc>{site}sitemap-pages.xml</loc><lastmod>{max(dates.values())}</lastmod></sitemap>\n'
         f'  <sitemap><loc>{site}sitemap-blog.xml</loc></sitemap>\n</sitemapindex>\n')
-    if config.INDEXABLE:
-        robots = (f'User-agent: *\nAllow: /\nDisallow: /404\nDisallow: /admin\nDisallow: /api/\nDisallow: /_blog/\nDisallow: /*?preview=\n\n# AI assistants are welcome to read and cite this site\n'
-                  + ''.join(f'User-agent: {b}\nAllow: /\nDisallow: /admin\nDisallow: /api/\n' for b in ['GPTBot', 'OAI-SearchBot', 'PerplexityBot', 'Google-Extended', 'ClaudeBot']).replace('Disallow: /api/\nUser', 'Disallow: /api/\n\nUser')
-                  + f'\nSitemap: {site}sitemap.xml\n')
-    else:  # preview / non-production build: keep it out of search engines
-        robots = 'User-agent: *\nDisallow: /\n'
+    robots = aeo.robots_txt(site) if config.INDEXABLE else 'User-agent: *\nDisallow: /\n'  # previews stay out of search engines
     (out / 'robots.txt').write_text(robots)
     blog_shell(ctx, parts)
-    (out / 'llms.txt').write_text(llms_txt(site, ctx['FAQ']))
+    (out / 'llms.txt').write_text(llms_txt(site, ctx['FAQ'], max(dates.values())))
+    (out / 'llms-full.txt').write_text(aeo.llms_full(site, ctx['FAQ']))
+    # Static pages + their content dates, read by the daily cron to tell IndexNow (Bing, which feeds ChatGPT search) what changed.
+    (out / '_blog' / 'pages.json').write_text(json.dumps([{'url': u, 'lastmod': d} for u, d in dates.items()]))
     (out / 'site.webmanifest').write_text(json.dumps({'name': 'U Scale by Mehul Karotra', 'short_name': 'U Scale', 'start_url': '/', 'display': 'standalone',
         'background_color': '#FAF9FC', 'theme_color': '#251E45', 'icons': [{'src': '/icon-192.png', 'sizes': '192x192', 'type': 'image/png'}, {'src': '/icon-512.png', 'sizes': '512x512', 'type': 'image/png'}]}, indent=1))
-    return ['pricing', 'blog-shell', 'tools', 'tools/' + TOOL['slug'], 'tools/' + GBP['slug']] + [s['slug'] for s in SERVICES]
+    return ['about', 'services', 'pricing', 'blog-shell', 'tools', 'tools/' + TOOL['slug'], 'tools/' + GBP['slug']] + [s['slug'] for s in SERVICES]
 
 # ---------------------------------------------------------------- pricing: home teaser, quote builder, terms tiles
 import pricing_data as PD
@@ -1214,7 +1233,7 @@ def pricing_page(ctx, parts):
     faq = [ctx['FAQ'][i] for i in PRICING_FAQ_IDX]
     ld = json.dumps({'@context': 'https://schema.org', '@graph': [
         {'@type': 'WebPage', '@id': url + '#webpage', 'url': url, 'name': title, 'description': desc, 'isPartOf': {'@id': site + '#website'},
-         'about': {'@id': site + '#business'}, 'breadcrumb': {'@id': url + '#breadcrumb'}, 'inLanguage': 'en-IN', 'dateModified': TODAY},
+         'about': {'@id': site + '#business'}, 'breadcrumb': {'@id': url + '#breadcrumb'}, 'inLanguage': 'en-IN', 'dateModified': '__LASTMOD__'},
         dict(offer_catalog(site), **{'@id': url + '#prices', 'provider': {'@type': 'ProfessionalService', '@id': site + '#business', 'name': 'U Scale by Mehul Karotra', 'url': site, 'telephone': PHONE}}),
         {'@type': 'BreadcrumbList', '@id': url + '#breadcrumb', 'itemListElement': [
             {'@type': 'ListItem', 'position': 1, 'name': 'Home', 'item': site}, {'@type': 'ListItem', 'position': 2, 'name': 'Pricing', 'item': url}]},

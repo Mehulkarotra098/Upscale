@@ -146,4 +146,14 @@ export const MIGRATIONS = [
     name: 'posts.indexnow_at: when IndexNow was last told about a post',
     sql: `ALTER TABLE posts ADD COLUMN IF NOT EXISTS indexnow_at TIMESTAMPTZ;`,
   },
+  {
+    name: 'site_pages: content date of each static page IndexNow was last told about',
+    sql: `
+      CREATE TABLE IF NOT EXISTS site_pages (
+        url TEXT PRIMARY KEY,
+        lastmod DATE NOT NULL,
+        pinged_at TIMESTAMPTZ NOT NULL DEFAULT now()
+      );
+      ALTER TABLE site_pages ENABLE ROW LEVEL SECURITY;`,
+  },
 ];

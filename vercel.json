@@ -9,7 +9,7 @@
   "regions": ["bom1"],
   "functions": {
     "api/blog.js": {
-      "includeFiles": "public/_blog/shell.html",
+      "includeFiles": "public/_blog/{shell.html,pages.json}",
       "maxDuration": 10
     },
     "api/img.js": {

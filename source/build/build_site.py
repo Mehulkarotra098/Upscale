@@ -299,5 +299,6 @@ pv = pv.replace('<!--PREVIEW-REPLAY-->', '<button class="pv-replay" type="button
 for t in ['<!doctype html>\n', '<html lang="en-IN">\n', '<head>\n', '</head>\n', '<body>\n', '</body>\n', '</html>\n']:
     pv = pv.replace(t, '', 1)
 pv = re.sub(r'<title>.*?</title>', '<title>U Scale Website</title>', pv, count=1)
+pv = pv.replace('__LASTMOD_H__', config.BUILD_DATE).replace('__LASTMOD__', config.BUILD_DATE)  # local preview only
 (REPO / 'source' / 'preview.html').write_text(pv.replace('"assets/', '"static/assets/').replace('"/assets/', '"static/assets/'))
 print(f'built {site} for {SITE_URL} ({"indexable" if config.INDEXABLE else "noindex"}) | index', len((site / 'index.html').read_text()), '| styles', len(css), '| script', len(js), '| preview', len(pv))
