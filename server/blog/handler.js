@@ -7,10 +7,12 @@
 import { CRON_SECRET, INDEXNOW_KEY, SITE_URL } from '../config.js';
 import { pingIndexNow } from '../lib/indexnow.js';
 import { resolveShortLink, reviewUrl } from '../lib/maplink.js';
+import { allow } from '../lib/ratelimit.js';
+import { checkSite } from '../lib/sitecheck.js';
 import { verify } from '../auth/tokens.js';
 import { hasDb, one } from '../db/client.js';
 import { toDbId } from '../lib/ids.js';
-import { CACHE, html, json, query, redirect, send, text } from '../lib/http.js';
+import { CACHE, clientIp, html, json, query, redirect, send, text } from '../lib/http.js';
 import { log } from '../lib/log.js';
 import * as categories from '../repos/categories.js';
 import * as posts from '../repos/posts.js';
@@ -74,9 +76,17 @@ const VIEWS = {
     return json(
       res,
       200,
-      { placeId: r.placeId, name: r.name, review: reviewUrl(r.placeId) },
+      { placeId: r.placeId, name: r.name, review: reviewUrl(r.placeId), url: r.url },
       { 'Cache-Control': 'public, max-age=3600, s-maxage=86400' },
     );
+  },
+
+  /** Free Google profile checker: one-off check of a business's public website. Nothing is stored. */
+  async site(req, res, p) {
+    if (!allow(`site:${clientIp(req)}`, 6)) return json(res, 429, { error: 'slow_down' }, { 'Retry-After': '60' });
+    const r = await checkSite(String(p.u || ''), { business: String(p.b || '') });
+    if (r.error) return json(res, r.status || 422, { error: r.error });
+    return json(res, 200, r, { 'Cache-Control': 'public, max-age=0, s-maxage=3600' });
   },
 
   async rss(req, res) {
