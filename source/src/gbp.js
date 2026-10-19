@@ -349,7 +349,7 @@
   }
 
   /* ---------- website check: our server reads the page, the browser runs Google PageSpeed (free, keyless) ---------- */
-  var PSI = 'https://www.googleapis.com/pagespeedonline/v5/runPagespeed';
+  var PSI = 'https://www.googleapis.com/pagespeedonline/v5/runPagespeed', PSI_KEY = root.getAttribute('data-psi') || '';
   var siteBusy = false, siteStep = 0, siteTimer = 0;
   function siteCard() {
     var t = T();
@@ -411,8 +411,10 @@
     var p1 = fetch('/api/blog?view=site&u=' + encodeURIComponent(url) + '&b=' + encodeURIComponent(bizShort()))
       .then(function (r) { return r.json().then(function (j) { return r.ok ? j : Promise.reject(j.error || 'x'); }); })
       .then(function (j) { state.siteRes = j; }, function () { state.siteErr = 'x'; });
-    var p2 = fetch(PSI + '?url=' + encodeURIComponent(full) + '&strategy=mobile&locale=en&category=performance&category=seo&category=accessibility&category=best-practices')
-      .then(function (r) { return r.ok ? r.json() : Promise.reject(r.status); })
+    var q = PSI + '?url=' + encodeURIComponent(full) + '&strategy=mobile&locale=en&category=performance&category=seo&category=accessibility&category=best-practices';
+    var get = function (u) { return fetch(u).then(function (r) { return r.ok ? r.json() : Promise.reject(r.status); }); };
+    /* our free key first; if it's missing or refused, try Google's shared keyless allowance */
+    var p2 = (PSI_KEY ? get(q + '&key=' + encodeURIComponent(PSI_KEY)).catch(function (st) { return st === 400 || st === 500 ? Promise.reject(st) : get(q); }) : get(q))
       .then(function (j) { state.psi = pickPsi(j); }, function () { state.psiErr = 'x'; });
     Promise.all([p1, p2]).then(function () {
       siteBusy = false; clearInterval(siteTimer);
