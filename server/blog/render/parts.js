@@ -16,12 +16,16 @@ export const ICON_CLOCK =
 export const ICON_CALENDAR =
   '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" aria-hidden="true"><rect x="3.5" y="5" width="17" height="15" rx="3"/><path d="M8 3v4M16 3v4M3.5 10h17"/></svg>';
 
+// Same @id as the static pages (#business), so the blog and the site describe one entity.
 export const ORGANIZATION = {
-  '@type': 'Organization',
-  '@id': abs('#org'),
-  name: BRAND.name,
+  '@type': 'ProfessionalService',
+  '@id': abs('#business'),
+  name: 'U Scale by Mehul Karotra',
+  alternateName: BRAND.name,
   url: SITE_URL,
   logo: { '@type': 'ImageObject', url: abs('icon-512.png'), width: 512, height: 512 },
+  address: { '@type': 'PostalAddress', addressLocality: 'Mumbai', addressRegion: 'Maharashtra', addressCountry: 'IN' },
+  founder: { '@id': abs('#mehul') },
   sameAs: BRAND.sameAs,
 };
 

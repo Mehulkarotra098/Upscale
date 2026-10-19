@@ -68,6 +68,8 @@ a.bchip:hover{background:var(--lavender)}
 .bpost__meta{display:flex;flex-wrap:wrap;align-items:center;gap:14px 28px;padding-top:6px;width:100%}
 .bauthor{display:inline-flex;align-items:center;gap:12px}
 .bauthor b{display:block;font:700 15px/1.25 var(--sans);color:var(--violet)}
+.bauthor b a{color:inherit;text-decoration:none}
+.bauthor b a:hover{text-decoration:underline;text-underline-offset:3px}
 .bauthor small{display:block;font-size:13px;color:var(--body)}
 .bauthor__av{flex:none;width:46px;height:46px;border-radius:50%;overflow:hidden;display:grid;place-items:center;background:var(--violet);color:var(--lavender);font:400 18px/1 var(--display)}
 .bauthor__av img{width:100%;height:100%;object-fit:cover}

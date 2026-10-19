@@ -38,7 +38,7 @@
 .gs__chip[data-k="social"]{--c:var(--gs-social)}
 .gs__chip[data-k="ads"]{--c:var(--gs-ads)}
 .gs__chip[data-k="ai"]{--c:var(--gs-ai)}
-.gs__chip[aria-pressed="false"]{background:transparent;color:rgba(74,68,88,.75);border:1.5px dashed rgba(37,30,69,.28)}
+.gs__chip[aria-pressed="false"]{background:transparent;color:#5d586a;border:1.5px dashed rgba(37,30,69,.28)}
 .gs__chip[aria-pressed="false"] i{background:transparent;box-shadow:inset 0 0 0 2px var(--c)}
 .gs__chip:hover{border-color:var(--violet)}
 .gs__chip[aria-pressed="true"]:hover{border-style:solid}
