@@ -504,7 +504,7 @@ a.channel:hover{transform:translateY(-3px);border-color:var(--lavender);box-shad
 html.menu-open{overflow:hidden}
 
 /* ---------- Bubble cursor (desktop accent; native cursor stays) ---------- */
-.cursor{position:fixed;left:0;top:0;z-index:950;width:0;height:0;pointer-events:none;opacity:0;transition:opacity .35s ease}
+.cursor{position:fixed;left:0;top:0;z-index:950;width:0;height:0;pointer-events:none;opacity:0;transition:opacity .35s ease;will-change:transform}
 .cursor.is-on{opacity:1}
 .cursor__b{position:absolute;left:-22px;top:-22px;width:44px;height:44px;border-radius:50%;background:radial-gradient(circle at 38% 36%,rgba(99,184,73,.30),rgba(201,188,232,.42) 52%,rgba(201,188,232,0) 72%);transform:scale(1);transition:transform .45s var(--ease-out),background-color .3s ease}
 .cursor.is-hover .cursor__b{transform:scale(1.6)}
