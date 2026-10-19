@@ -783,6 +783,11 @@ GBP = dict(slug='google-business-profile-checker',
        ('Is the website check real?', 'Yes. Your browser runs Google\u2019s own PageSpeed Insights test on your home page as a phone would load it, so the speed, SEO, accessibility and best-practice scores are Google\u2019s numbers. We also read the page for what local customers need: a tap-to-call button, WhatsApp, your address and map, and business details (schema) Google can match to your profile.'),
        ('How often should I check my profile?', 'Once a month, and every time something changes: new phone number, new address, new timings or a festival holiday.')])
 
+import os
+# Google PageSpeed Insights key (free, no billing). Public by design: restrict it in Google Cloud to the PageSpeed
+# Insights API and to uscale.in referrers. Without it the browser calls PageSpeed keyless (shared, often exhausted).
+PSI_KEY = re.sub(r'[^A-Za-z0-9_-]', '', os.environ.get('PAGESPEED_KEY', ''))[:80]
+
 def _gbp_art(uid='h'):
     """Score card illustration (hero / hub card)."""
     bars = [('Profile basics', .86, '#1E8E3E'), ('Photos & updates', .55, '#C27A00'), ('Reviews', .72, '#4E9A2E'), ('Website & trust', .4, '#C5221F')]
@@ -869,7 +874,7 @@ def gbp_page(ctx, parts, tv):
   </div>
 
   <section class="section gp" aria-labelledby="gp-title">
-    <div class="wrap" data-gp>
+    <div class="wrap" data-gp data-psi="{psi}">
       <h2 class="sr-only" id="gp-title">Check your Google Business Profile</h2>
       <p class="sr-only" id="gp-live" role="status" aria-live="polite"></p>
       <div class="gp__grid">
@@ -968,7 +973,7 @@ def gbp_page(ctx, parts, tv):
   </section>
 '''
     body = (body.replace('{art}', _gbp_art()).replace('{h1}', e(t['h1'])).replace('{lead}', e(t['lead'])).replace('{faq}', faq_html(t['faq']))
-            .replace('{more}', _tool_card('qr')))
+            .replace('{more}', _tool_card('qr')).replace('{psi}', ea(PSI_KEY)))
     head = _tool_head(ctx, url, t['title'], t['desc'], og, 'Free Google Business Profile checker by U Scale', gbp_jsonld(site, t), tv)
     return f'''{head}
 <body class="page-sub page-tool page-gp">
