@@ -342,11 +342,11 @@
     if(gsMoving){ if(gsStep(dt)) busy=true; else gsMoving=false; }
     if(gsLive){ if(motion&&heroVis&&!document.hidden&&gs.classList.contains('is-ready')){ gsLive(dt); busy=true; } else if(gs.classList.contains('is-live')) gsSleep(); }
     if(motion&&fine){
-      if(cur&&ptr.on){ var kc=1-Math.exp(-dt/28); ptr.cx=lerp(ptr.cx,ptr.x,kc); ptr.cy=lerp(ptr.cy,ptr.y,kc); /* time-based: ~65 ms to 90% at any refresh rate */ cur.style.transform='translate3d('+ptr.cx.toFixed(1)+'px,'+ptr.cy.toFixed(1)+'px,0)'; if(Math.abs(ptr.x-ptr.cx)+Math.abs(ptr.y-ptr.cy)>.3) busy=true; }
+      if(cur&&ptr.on){ ptr.cx=lerp(ptr.cx,ptr.x,.2); ptr.cy=lerp(ptr.cy,ptr.y,.2); cur.style.transform='translate3d('+ptr.cx.toFixed(1)+'px,'+ptr.cy.toFixed(1)+'px,0)'; if(Math.abs(ptr.x-ptr.cx)+Math.abs(ptr.y-ptr.cy)>.3) busy=true; }
       if(hero){ heroT.cx=lerp(heroT.cx,heroT.x,.08); heroT.cy=lerp(heroT.cy,heroT.y,.08); spot.cx=lerp(spot.cx,spot.x,.14); spot.cy=lerp(spot.cy,spot.y,.14);
         hero.style.setProperty('--px',heroT.cx.toFixed(3)); hero.style.setProperty('--py',heroT.cy.toFixed(3)); hero.style.setProperty('--hx',spot.cx.toFixed(1)+'px'); hero.style.setProperty('--hy',spot.cy.toFixed(1)+'px');
         if(Math.abs(heroT.x-heroT.cx)+Math.abs(heroT.y-heroT.cy)>.002||Math.abs(spot.x-spot.cx)+Math.abs(spot.y-spot.cy)>.5) busy=true; }
-      if(ppv&&ppvOn){ var kp=1-Math.exp(-dt/55); ppvP.cx=lerp(ppvP.cx,ppvP.x,kp); ppvP.cy=lerp(ppvP.cy,ppvP.y,kp); ppv.style.transform='translate3d('+(ppvP.cx+24).toFixed(1)+'px,'+(ppvP.cy-90).toFixed(1)+'px,0) rotate(-3deg)'; busy=true; }
+      if(ppv&&ppvOn){ ppvP.cx=lerp(ppvP.cx,ppvP.x,.16); ppvP.cy=lerp(ppvP.cy,ppvP.y,.16); ppv.style.transform='translate3d('+(ppvP.cx+24).toFixed(1)+'px,'+(ppvP.cy-90).toFixed(1)+'px,0) rotate(-3deg)'; busy=true; }
     }
     if(motion&&parts.length&&drawParts(dt)) busy=true; else if(ctx&&!parts.length&&cvs.dataset.dirty){ ctx.clearRect(0,0,innerWidth,innerHeight); delete cvs.dataset.dirty; }
     if(busy||scrollDirty) requestAnimationFrame(frame); else running=false;
