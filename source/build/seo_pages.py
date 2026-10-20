@@ -429,6 +429,7 @@ def llms_txt(site, faq, updated=TODAY):
     lines += [f'- [{s["name"]}]({svc_url(site, s)}): {s["desc"]}' for s in SERVICES]
     lines += ['', '## Work', '', '- TIS Admissions (concept), Antrah Wellness, Roar Arena, My Country Mobile (in-house role), Callmama (in-house role), GrowCred, Sashe by Prachi, Vidhi Parmar, BrandGen. Live links are on the home page.', '',
               '## About Mehul Karotra', '', f'- UI/UX developer-designer from Mumbai and founder of U Scale, working as an independent, contract-based partner. Profile: {site}about. LinkedIn: {SAME[1]}. GitHub: {SAME[2]}', '',
+              '## Sister company', '', '- Apex36 Technologies (https://www.apex36tech.com/): a separate software and AI studio in Mumbai, run independently. U Scale does websites and marketing; Apex36 builds custom software and AI products.', '',
               '## FAQ', '']
     lines += [f'- **{q}** {a}' for q, a in faq]
     return '\n'.join(lines) + '\n'
