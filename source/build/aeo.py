@@ -390,6 +390,7 @@ def about_page(ctx, parts):
       </header>
       <p>U Scale is not an agency with account managers. It is me, working as an independent, contract-based partner. Websites and branding are fixed-price contracts: 20% to start, 20% on design sign-off and 60% on launch. Marketing runs as a monthly plan: a 3-month sprint, then month-to-month with 30 days notice. Every price is on the <a class="tlink" href="/pricing">pricing page</a>.</p>
       <p>If a project ever needs a specialist, like a photographer, I bring them in and stay your single point of contact. I reply personally within 24 hours, usually much faster on WhatsApp.</p>
+      <p>Websites and marketing are what I do. When a business needs custom software or an AI product built, I point them to our sister company, <a class="tlink" href="https://www.apex36tech.com/" target="_blank" rel="noopener">Apex36 Technologies</a><span class="sr-only"> (opens in a new tab)</span>, a separate Mumbai studio for software and AI.</p>
       <h3>What I do</h3>
       <ul class="sp-list">{svcs}<li><a class="tlink" href="/services">All services and prices</a></li></ul>
       <h3>Selected work</h3>
