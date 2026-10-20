@@ -338,7 +338,7 @@ def service_page(ctx, s, parts):
 </main>
 {footer}
 {tail}
-<script defer src="https://cdn.jsdelivr.net/npm/lenis@1.3.26/dist/lenis.min.js"></script>
+<script defer src="/assets/vendor/lenis.min.js"></script>
 <script defer src="/script.js?v={v}"></script>
 </body>
 </html>
@@ -399,7 +399,7 @@ def blog_shell(ctx, parts):
 </main>
 {footer}
 {tail}
-<script defer src="https://cdn.jsdelivr.net/npm/lenis@1.3.26/dist/lenis.min.js"></script>
+<script defer src="/assets/vendor/lenis.min.js"></script>
 <script defer src="/script.js?v={v}"></script>
 <script defer src="/blog.js?v={bv}"></script>
 </body>
@@ -758,7 +758,7 @@ def tool_page(ctx, parts, tv):
 {footer}
 {tail}
 <div id="rq-print-sheet" aria-hidden="true"></div>
-<script defer src="https://cdn.jsdelivr.net/npm/lenis@1.3.26/dist/lenis.min.js"></script>
+<script defer src="/assets/vendor/lenis.min.js"></script>
 <script defer src="/script.js?v={v}"></script>
 <script defer src="/assets/vendor/qrcode-generator.min.js?v=1.4.4"></script>
 <script defer src="/tool.js?v={tv}"></script>
@@ -990,7 +990,7 @@ def gbp_page(ctx, parts, tv):
 <main id="main">{body}</main>
 {footer}
 {tail}
-<script defer src="https://cdn.jsdelivr.net/npm/lenis@1.3.26/dist/lenis.min.js"></script>
+<script defer src="/assets/vendor/lenis.min.js"></script>
 <script defer src="/script.js?v={v}"></script>
 <script defer src="/gbp-art.js?v={tv}"></script>
 <script defer src="/gbp.js?v={tv}"></script>
@@ -1045,7 +1045,7 @@ def tools_hub(ctx, parts, tv):
 </main>
 {footer}
 {tail}
-<script defer src="https://cdn.jsdelivr.net/npm/lenis@1.3.26/dist/lenis.min.js"></script>
+<script defer src="/assets/vendor/lenis.min.js"></script>
 <script defer src="/script.js?v={v}"></script>
 </body>
 </html>
@@ -1336,7 +1336,7 @@ def pricing_page(ctx, parts):
 </main>
 {footer}
 {tail}
-<script defer src="https://cdn.jsdelivr.net/npm/lenis@1.3.26/dist/lenis.min.js"></script>
+<script defer src="/assets/vendor/lenis.min.js"></script>
 <script defer src="/script.js?v={v}"></script>
 </body>
 </html>
