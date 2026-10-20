@@ -187,7 +187,8 @@
       sprog.classList.toggle('on-dark',onDark);
       if(Math.abs(y-lastY)>1){ sprog.classList.add('is-active'); clearTimeout(sprogT); sprogT=setTimeout(function(){ sprog.classList.remove('is-active'); },1000); }
     }
-    if(waFloat&&heroCta) waFloat.classList.toggle('is-visible', heroCta.getBoundingClientRect().bottom<0 && waVisible.size===0);
+    /* WhatsApp button: out of the way while reading down (like the header), back on the way up */
+    if(waFloat&&heroCta) waFloat.classList.toggle('is-visible', heroCta.getBoundingClientRect().bottom<0 && waVisible.size===0 && !headerEl.classList.contains('is-hidden'));
     if(motion){
       if(hero) hero.style.setProperty('--sy',Math.min(y,1200).toFixed(0));
       /* work gallery */

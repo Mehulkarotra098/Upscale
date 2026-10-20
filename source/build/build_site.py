@@ -136,10 +136,25 @@ WORK = [
  ('brandgen', 'BrandGen', 'AI SaaS · Marketing visuals', 'Social Media + Site', 'Website and social media for an AI tool that turns one brand reference into on-brand marketing visuals.', 'https://www.getbrandgen.com', '#F97015', False, '', 'models and voice prompt sections'),
 ]
 def dom(u): return u.split('//')[1].rstrip('/')
+# Phone mockup for the work cards: titanium edge, glass bezel, Dynamic Island, side keys,
+# a status bar tinted like the site's own header, and the home indicator. Sized by --hw in CSS.
+STATUS = {'vidhi': ('#212121', 'light'), 'sashe': ('#f5efe8', 'dark'), 'tis': ('#fffaf0', 'dark'),
+          'antrah': ('#f4f2e3', 'dark'), 'roar': ('#060606', 'light'), 'growcred': ('#f6fcf3', 'dark')}
+STATUS_ICONS = ('<svg class="hs__icons" viewBox="0 0 66 12" aria-hidden="true"><g fill="currentColor">'
+    '<rect x="0" y="8" width="3" height="4" rx="1"/><rect x="5" y="6" width="3" height="6" rx="1"/><rect x="10" y="3.5" width="3" height="8.5" rx="1"/><rect x="15" y="1" width="3" height="11" rx="1"/>'
+    '<path d="M30.5 3.2a9.8 9.8 0 0 1 6.9 2.8l1.3-1.3a11.6 11.6 0 0 0-16.4 0l1.3 1.3a9.8 9.8 0 0 1 6.9-2.8Zm0 3.7a6 6 0 0 1 4.2 1.7l1.3-1.3a7.9 7.9 0 0 0-11 0l1.3 1.3a6 6 0 0 1 4.2-1.7Zm0 3.7a2.3 2.3 0 0 1 1.6.7l-1.6 1.6-1.6-1.6a2.3 2.3 0 0 1 1.6-.7Z"/>'
+    '<rect x="44" y="1.5" width="19" height="9" rx="2.6" fill="none" stroke="currentColor" stroke-opacity=".45"/><rect x="45.8" y="3.3" width="13.5" height="5.4" rx="1.4"/><rect x="64" y="4.3" width="1.6" height="3.4" rx=".8" fill-opacity=".45"/>'
+    '</g></svg>')
+def handset(k, name):
+    bg, fg = STATUS.get(k, ('#ffffff', 'dark'))
+    return (f'<div class="wk__phone hs" aria-hidden="true"><i class="hs__key hs__key--a"></i><i class="hs__key hs__key--u"></i><i class="hs__key hs__key--d"></i><i class="hs__key hs__key--p"></i>'
+            f'<div class="hs__screen"><div class="hs__status is-{fg}" style="background:{bg}"><span class="hs__time">9:41</span><span class="hs__island"></span>{STATUS_ICONS}</div>'
+            f'<img class="hs__page" src="assets/work/{k}-mobile.webp" srcset="assets/work/{k}-mobile.webp 1x, assets/work/{k}-mobile@2x.webp 2x" width="360" height="805" alt="" loading="lazy" decoding="async">'
+            f'<span class="hs__home"></span></div></div>')
 def work_card(w, i):
     k, name, meta, tag, desc, url, acc, mob, _, alt = w
     pw, ph = SZ[k + '-page']; lw, lh = SZ[k]
-    phone = (f'<div class="wk__phone"><div class="wk__screen"><img src="assets/work/{k}-mobile.webp" width="360" height="805" alt="{e(name)} on a phone" loading="lazy" decoding="async"></div></div>' if mob else '')
+    phone = handset(k, name) if mob else ''
     return (f'            <!-- TODO (optional): swap {e(name)} captures for fresh 1440x900 screenshots if the site changes -->\n'
             f'            <li class="wk" style="--acc:{acc}" data-i="{i}" data-cursor="view"><a class="wk__a" href="{url}" target="_blank" rel="noopener">'
             f'<div class="wk__media"><div class="wk__frame"><div class="wk__bar" aria-hidden="true"><i></i><i></i><i></i><span>{dom(url)}</span></div>'
@@ -291,6 +306,15 @@ if '--icons' in sys.argv:
         shutil.copy2(STATIC / name, site / name)
 _slugs = seo_pages.build({'SITE_URL': SITE_URL, 'ROBOTS': config.ROBOTS_META, 'site': site, '_v': _v, 'WORK': WORK, 'FAQ': FAQ, 'ICONS': ICONS, 'ICONS_HEAD': ICONS_HEAD, 'SZ': SZ})
 print('service pages:', ', '.join(_slugs))
+
+# Keep the brand name on one line: "U Scale" never breaks between U and Scale. Visible text only;
+# tags, attributes, scripts, styles and JSON-LD are left exactly as they are.
+_SKIP = re.compile(r'(<script\b.*?</script>|<style\b.*?</style>|<title\b.*?</title>|<textarea\b.*?</textarea>|<[^>]+>)', re.S | re.I)
+def _brand_nbsp(markup):
+    return ''.join(part if part.startswith('<') else part.replace('U Scale', 'U&nbsp;Scale') for part in _SKIP.split(markup))
+for _page in site.rglob('*.html'):
+    if 'admin' in _page.relative_to(site).parts: continue
+    _page.write_text(_brand_nbsp(_page.read_text()))
 
 # Preview: one file; the artifact skeleton supplies doctype/head/body
 pv = src.replace('{{STYLES}}', '<style>\n' + css + '\n.pv-replay{position:fixed;left:calc(16px + env(safe-area-inset-left,0px));bottom:calc(16px + env(safe-area-inset-bottom,0px));z-index:1001;display:inline-flex;align-items:center;gap:8px;font:600 14px/1 var(--sans);background:var(--violet);color:var(--white);border:1px solid var(--line-dark);border-radius:999px;padding:13px 18px;cursor:pointer;box-shadow:0 12px 24px -14px rgba(37,30,69,.6)}\n</style>')

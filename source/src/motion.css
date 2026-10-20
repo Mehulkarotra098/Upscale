@@ -73,7 +73,7 @@
 .panel{transform:scale(calc(.955 + var(--pp,1) * .045));transform-origin:50% 0}
 
 /* Footer: outlined "Built in Mumbai." fills with lavender as you arrive */
-.footer__big{position:relative;-webkit-text-stroke:0;color:inherit;padding-inline:0;overflow:hidden}
+.footer__big{position:relative;-webkit-text-stroke:0;color:inherit;padding-inline:0;padding-bottom:clamp(8px,1.4vw,18px);overflow:hidden}
 .footer__big .fb{display:block;padding-inline:var(--gutter);white-space:nowrap}
 .footer__big .fb-out{color:transparent;-webkit-text-stroke:1.5px rgba(201,188,232,.38)}
 .footer__big .fb-fill{position:absolute;inset:0;overflow:hidden;transform:translateX(calc((var(--p,0) - 1) * 100%))}
@@ -123,7 +123,7 @@
 /* v3 QA fixes */
 .cta__title .cw{display:inline-block;white-space:nowrap}
 .footer__big{container-type:inline-size}
-.footer__big .fb{font-size:min(calc((100cqw - 2 * var(--gutter)) / 7.7),15rem);line-height:.82}
+.footer__big .fb{font-size:min(calc((100cqw - 2 * var(--gutter)) / 7.7),15rem);line-height:.96}
 html.pin-ok .wk{width:var(--cwj,var(--cw))}
 html.pin-ok .process{overflow:clip}
 .wk__phone ~ .wk__body,.wk__media:has(.wk__phone) + .wk__body{padding-top:30px}
