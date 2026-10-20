@@ -250,9 +250,7 @@ def service_page(ctx, s, parts):
 <meta name="twitter:description" content="{ea(s['desc'])}">
 <meta name="twitter:image" content="{site}og-image.png">
 {ctx['ICONS_HEAD']}
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Anton&family=Inter:wght@400;500;600;700&display=swap">
+<link rel="preload" href="/assets/fonts/anton-latin.woff2" as="font" type="font/woff2" crossorigin><link rel="preload" href="/assets/fonts/inter-latin.woff2" as="font" type="font/woff2" crossorigin>
 <script type="application/ld+json">{service_jsonld(site, s)}</script>
 <script>(function(){{var d=document.documentElement;d.classList.add('js','intro-skip');var m=null;try{{m=localStorage.getItem('us-motion');}}catch(e){{}}if(m==='off')d.classList.add('rm');}})();</script>
 <link rel="stylesheet" href="/styles.css?v={v}">
@@ -354,7 +352,7 @@ def page_404(ctx, parts):
 <html lang="en-IN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Page not found | U Scale by Mehul</title><meta name="robots" content="noindex">
 {ctx['ICONS_HEAD']}
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Anton&family=Inter:wght@400;500;600;700&display=swap">
+<link rel="preload" href="/assets/fonts/anton-latin.woff2" as="font" type="font/woff2" crossorigin><link rel="preload" href="/assets/fonts/inter-latin.woff2" as="font" type="font/woff2" crossorigin>
 <script>document.documentElement.classList.add('js','intro-skip');</script>
 <link rel="stylesheet" href="/styles.css?v={v}"></head>
 <body class="page-sub"><a class="skip" href="#main">Skip to content</a>{header}{menu}
@@ -387,9 +385,7 @@ def blog_shell(ctx, parts):
 <!--HEAD-->
 <meta name="theme-color" content="#FAF9FC">
 {ctx['ICONS_HEAD']}
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Anton&family=Inter:wght@400;500;600;700&display=swap">
+<link rel="preload" href="/assets/fonts/anton-latin.woff2" as="font" type="font/woff2" crossorigin><link rel="preload" href="/assets/fonts/inter-latin.woff2" as="font" type="font/woff2" crossorigin>
 <script>(function(){{var d=document.documentElement;d.classList.add('js','intro-skip');var m=null;try{{m=localStorage.getItem('us-motion');}}catch(e){{}}if(m==='off')d.classList.add('rm');}})();</script>
 <link rel="stylesheet" href="/styles.css?v={v}">
 <link rel="stylesheet" href="/blog.css?v={bv}">
@@ -748,9 +744,7 @@ def tool_page(ctx, parts, tv):
 <meta name="twitter:description" content="{ea(t['desc'])}">
 <meta name="twitter:image" content="{og}">
 {ctx['ICONS_HEAD']}
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Anton&family=Inter:wght@400;500;600;700&display=swap">
+<link rel="preload" href="/assets/fonts/anton-latin.woff2" as="font" type="font/woff2" crossorigin><link rel="preload" href="/assets/fonts/inter-latin.woff2" as="font" type="font/woff2" crossorigin>
 <script type="application/ld+json">{tool_jsonld(site, t)}</script>
 <script>(function(){{var d=document.documentElement;d.classList.add('js','intro-skip');var m=null;try{{m=localStorage.getItem('us-motion');}}catch(e){{}}if(m==='off')d.classList.add('rm');}})();</script>
 <link rel="stylesheet" href="/styles.css?v={v}">
@@ -840,9 +834,7 @@ def _tool_head(ctx, url, title, desc, og, og_alt, jsonld, tv, extra_fonts=''):
 <meta name="twitter:description" content="{ea(desc)}">
 <meta name="twitter:image" content="{og}">
 {ctx['ICONS_HEAD']}
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Anton&family=Inter:wght@400;500;600;700&display=swap">
+<link rel="preload" href="/assets/fonts/anton-latin.woff2" as="font" type="font/woff2" crossorigin><link rel="preload" href="/assets/fonts/inter-latin.woff2" as="font" type="font/woff2" crossorigin>
 <script type="application/ld+json">{jsonld}</script>
 <script>(function(){{var d=document.documentElement;d.classList.add('js','intro-skip');var m=null;try{{m=localStorage.getItem('us-motion');}}catch(e){{}}if(m==='off')d.classList.add('rm');}})();</script>
 <link rel="stylesheet" href="/styles.css?v={v}">
@@ -1268,9 +1260,7 @@ def pricing_page(ctx, parts):
 <meta name="twitter:description" content="{ea(desc)}">
 <meta name="twitter:image" content="{site}og-image.png">
 {ctx['ICONS_HEAD']}
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Anton&family=Inter:wght@400;500;600;700&display=swap">
+<link rel="preload" href="/assets/fonts/anton-latin.woff2" as="font" type="font/woff2" crossorigin><link rel="preload" href="/assets/fonts/inter-latin.woff2" as="font" type="font/woff2" crossorigin>
 <script type="application/ld+json">{ld}</script>
 <script>(function(){{var d=document.documentElement;d.classList.add('js','intro-skip');var m=null;try{{m=localStorage.getItem('us-motion');}}catch(e){{}}if(m==='off')d.classList.add('rm');}})();</script>
 <link rel="stylesheet" href="/styles.css?v={v}">

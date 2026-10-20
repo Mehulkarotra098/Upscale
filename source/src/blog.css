@@ -63,7 +63,7 @@ a.bchip:hover{background:var(--lavender)}
 .crumbs--light ol{color:var(--body)}
 .crumbs--light a:hover{color:var(--violet)}
 .crumbs--light [aria-current]{color:var(--violet);overflow:hidden;text-overflow:ellipsis;white-space:nowrap;max-width:40ch}
-.bpost__title{margin:0;font:400 clamp(2.3rem,6.2vw,4.6rem)/.98 var(--display);text-transform:uppercase;letter-spacing:.004em;color:var(--violet);max-width:20ch;text-wrap:balance}
+.bpost__title{margin:0;font:400 clamp(2.3rem,6.2vw,4.6rem)/1.02 var(--display);text-transform:uppercase;letter-spacing:.004em;color:var(--violet);max-width:20ch;text-wrap:balance}
 .bpost__dek{margin:0;max-width:62ch;font-size:clamp(17px,1.5vw,20px);line-height:1.6;color:var(--body)}
 .bpost__meta{display:flex;flex-wrap:wrap;align-items:center;gap:14px 28px;padding-top:6px;width:100%}
 .bauthor{display:inline-flex;align-items:center;gap:12px}
