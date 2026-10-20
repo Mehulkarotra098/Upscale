@@ -305,7 +305,7 @@ def _page(ctx, parts, url, title, desc, ld, body):
 </main>
 {footer}
 {tail}
-<script defer src="https://cdn.jsdelivr.net/npm/lenis@1.3.26/dist/lenis.min.js"></script>
+<script defer src="/assets/vendor/lenis.min.js"></script>
 <script defer src="/script.js?v={v}"></script>
 </body>
 </html>

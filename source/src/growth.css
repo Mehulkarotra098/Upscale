@@ -63,7 +63,7 @@ html.js:not(.rm) .gs:not(.is-ready) .gs__layer,html.js:not(.rm) .gs:not(.is-read
   .gs__chip.is-pop{animation:gs-chip .5s var(--ease-spring)}
 }
 @keyframes gs-ping{0%{transform:scale(.45);opacity:1}80%,100%{transform:scale(1.7);opacity:0}}
-@keyframes gs-swap{from{transform:translateY(105%);opacity:0}to{transform:none;opacity:1}}
+@keyframes gs-swap{from{transform:translateY(105%)}to{transform:none}}
 @keyframes gs-hop{50%{translate:0 -9px;scale:1.1}}
 @keyframes gs-chip{40%{scale:1.1}}
 @media (prefers-reduced-motion:reduce){
