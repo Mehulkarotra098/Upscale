@@ -336,7 +336,7 @@ def _faq_ld(url, items):
 
 # ---------------------------------------------------------------- /about
 ABOUT_FACTS = [('Name', 'Mehul Karotra'), ('Role', 'Founder of U Scale; UI/UX developer-designer'),
-               ('Based in', 'Mumbai, Maharashtra, India'), ('Now', 'UI/UX Developer, Apex36 Technology Services'),
+               ('Based in', 'Mumbai, Maharashtra, India'), ('Now', 'UI/UX Developer, Apex36 Technologies'),
                ('Formerly', 'My Country Mobile · ApplQ Innovations · Threepin Info Tec.'),
                ('Education', 'Bachelor of Computer Application, Information Technology'),
                ('Toolkit', 'Figma, React.js, Tailwind CSS, WordPress, Illustrator, Photoshop, Git'),
