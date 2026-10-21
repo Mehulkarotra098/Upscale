@@ -26,6 +26,8 @@ export const SESSION_SECRET = env.SESSION_SECRET || '';
 // IndexNow keys are public by design (served at /indexnow-key.txt to prove domain ownership), so a default lives here.
 export const INDEXNOW_KEY = (env.INDEXNOW_KEY || '438167be6e90a125783a393266a7650e').trim();
 export const CRON_SECRET = env.CRON_SECRET || '';
+/** Google Places API (New) key for shop reports and outreach. Server-side only: restrict it to the Places API. */
+export const PLACES_KEY = (env.GOOGLE_PLACES_KEY || '').trim();
 
 /** First-run owner account: the first sign-in with these credentials creates it (only while no users exist). */
 export const BOOTSTRAP_ADMIN = {
