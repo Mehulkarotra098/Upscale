@@ -19,6 +19,10 @@ import { log } from '../lib/log.js';
 import * as categories from '../repos/categories.js';
 import * as posts from '../repos/posts.js';
 import { renderArticle } from './render/article.js';
+import { renderReport } from './render/report.js';
+import * as shops from '../repos/shops.js';
+import { buildReport } from '../outreach/report.js';
+import { hasPlaces } from '../outreach/places.js';
 import { renderRss, renderSitemap } from './render/feeds.js';
 import { renderListing } from './render/listing.js';
 import { renderComingSoon, renderNotFound } from './render/simple.js';
@@ -94,6 +98,21 @@ const VIEWS = {
     return json(res, 200, r, { 'Cache-Control': 'public, max-age=0, s-maxage=3600' });
   },
 
+  /** Shop report: /r/<code>. Fresh Google data each time (cached a few hours); only the code → place ID is stored. */
+  async report(req, res, p) {
+    const code = String(p.c || '').toLowerCase();
+    if (!shops.isCode(code) || !hasPlaces()) return notFoundPage(req, res);
+    const row = await shops.byCode(code);
+    if (!row) return notFoundPage(req, res);
+    const data = await buildReport(row.place_id);
+    if (!data) return notFoundPage(req, res);
+    if (!BOTS.test(req.headers['user-agent'] || '')) shops.countView(code).catch(() => {});
+    const lang = p.lang === 'hi' ? 'hi' : 'en';
+    return page(req, res, 200, renderReport(data, { code, lang }), 'public, max-age=0, s-maxage=21600, stale-while-revalidate=86400', {
+      'X-Robots-Tag': 'noindex, nofollow',
+    });
+  },
+
   async rss(req, res) {
     text(res, 200, renderRss(await posts.feedRows()), 'application/rss+xml', CACHE.feed);
   },
@@ -154,7 +173,7 @@ const VIEWS = {
   },
 };
 
-const NEEDS_DB = new Set(['ping', 'rss', 'sitemap', 'latest', 'post', 'index']);
+const NEEDS_DB = new Set(['ping', 'rss', 'sitemap', 'latest', 'post', 'index', 'report']);
 const MACHINE = new Set(['ping', 'rss', 'sitemap', 'latest']);
 
 export default async function blogHandler(req, res) {

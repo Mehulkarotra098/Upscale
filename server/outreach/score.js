@@ -14,8 +14,7 @@ export function indianMobile(raw) {
   return /^[6-9]\d{9}$/.test(d) ? d : '';
 }
 
-export const grade = (pts) =>
-  pts >= 80 ? 'strong' : pts >= 60 ? 'gaps' : pts >= 40 ? 'work' : 'losing';
+export const grade = (pts) => (pts >= 80 ? 'strong' : pts >= 60 ? 'gaps' : pts >= 40 ? 'work' : 'losing');
 
 export const GRADES = {
   strong: { en: 'Strong profile', hi: 'Shandaar profile' },
@@ -78,10 +77,11 @@ export function scorePlace(place, nearbyList = [], now = Date.now()) {
         ? `${leaderName} ke ${bar} reviews tak pahunchne ke liye lagbhag ${gap} aur reviews chahiye. Har customer se maangiye, counter par QR code rakhiye.`
         : `Lagbhag ${gap} aur reviews chahiye. Har customer se maangiye, counter par QR code rakhiye.`,
     },
-    rating: rating > 0 && rating < 4.3 && {
-      en: `Your rating is ${rating.toFixed(1)}. Reply to every review, fix what people complain about, and ask happy customers to review.`,
-      hi: `Aapki rating ${rating.toFixed(1)} hai. Har review ka jawab dijiye, shikayaton ko theek kijiye, aur khush customers se review maangiye.`,
-    },
+    rating: rating > 0 &&
+      rating < 4.3 && {
+        en: `Your rating is ${rating.toFixed(1)}. Reply to every review, fix what people complain about, and ask happy customers to review.`,
+        hi: `Aapki rating ${rating.toFixed(1)} hai. Har review ka jawab dijiye, shikayaton ko theek kijiye, aur khush customers se review maangiye.`,
+      },
     recent: (ageDays == null || ageDays > 30) && {
       en: 'We couldn’t see a review from the last month. Customers trust fresh reviews: ask this week’s customers.',
       hi: 'Pichhle mahine ka koi review nahi dikha. Customers naye reviews par bharosa karte hain: is hafte ke customers se maangiye.',

@@ -26,12 +26,11 @@ const DETAIL_FIELDS = [
   'nationalPhoneNumber',
   'internationalPhoneNumber',
   'websiteUri',
-  'regularOpeningHours.weekdayDescriptions',
+  'regularOpeningHours',
   'rating',
   'userRatingCount',
-  'photos.name',
-  'reviews.rating',
-  'reviews.publishTime',
+  'photos',
+  'reviews',
   'editorialSummary',
 ].join(',');
 
@@ -73,7 +72,13 @@ export async function searchIds({ text, rect, pageToken, fetchImpl }) {
       textQuery: text,
       pageSize: 20,
       regionCode: 'IN',
-      ...(rect ? { locationRestriction: { rectangle: { low: { latitude: rect[0], longitude: rect[1] }, high: { latitude: rect[2], longitude: rect[3] } } } } : {}),
+      ...(rect
+        ? {
+            locationRestriction: {
+              rectangle: { low: { latitude: rect[0], longitude: rect[1] }, high: { latitude: rect[2], longitude: rect[3] } },
+            },
+          }
+        : {}),
       ...(pageToken ? { pageToken } : {}),
     },
   });
@@ -86,7 +91,12 @@ export async function findOne(text, { fetchImpl } = {}) {
     method: 'POST',
     fields: 'places.id,places.displayName,places.shortFormattedAddress',
     fetchImpl,
-    body: { textQuery: text, pageSize: 1, regionCode: 'IN', locationBias: { circle: { center: { latitude: 19.076, longitude: 72.8777 }, radius: 50000 } } },
+    body: {
+      textQuery: text,
+      pageSize: 1,
+      regionCode: 'IN',
+      locationBias: { circle: { center: { latitude: 19.076, longitude: 72.8777 }, radius: 50000 } },
+    },
   });
   const p = data?.places?.[0];
   return p ? { id: p.id, name: p.displayName?.text || '', address: p.shortFormattedAddress || '' } : null;

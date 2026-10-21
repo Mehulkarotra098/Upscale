@@ -29,6 +29,16 @@ export const CRON_SECRET = env.CRON_SECRET || '';
 /** Google Places API (New) key for shop reports and outreach. Server-side only: restrict it to the Places API. */
 export const PLACES_KEY = (env.GOOGLE_PLACES_KEY || '').trim();
 
+/** WhatsApp Cloud API (the Google score bot). From Meta → WhatsApp → API setup, and the app's Basic settings. */
+export const WA = Object.freeze({
+  token: (env.WA_TOKEN || '').trim(), // permanent system-user token with whatsapp_business_messaging
+  phoneId: (env.WA_PHONE_ID || '').trim(), // phone number ID (not the phone number)
+  verifyToken: (env.WA_VERIFY_TOKEN || '').trim(), // any long random string, also typed into Meta's webhook settings
+  appSecret: (env.WA_APP_SECRET || '').trim(), // signs every webhook call (X-Hub-Signature-256)
+  graph: (env.WA_GRAPH_VERSION || 'v23.0').trim(),
+  dailyChecks: Number(env.WA_DAILY_CHECKS) || 8, // per person per day, to keep Google costs in the free tier
+});
+
 /** First-run owner account: the first sign-in with these credentials creates it (only while no users exist). */
 export const BOOTSTRAP_ADMIN = {
   email: String(env.ADMIN_EMAIL || '')

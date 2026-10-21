@@ -6,6 +6,7 @@ import { Icon, Toasts, ConfirmHost, toast } from './ui.jsx';
 import { Dashboard, PostsList, Categories, Team } from './pages.jsx';
 import { PostEditor } from './editor.jsx';
 import { MediaPage } from './media.jsx';
+import { LeadsPage } from './leads.jsx';
 import './styles.css';
 
 const Logo = () => (
@@ -88,6 +89,7 @@ const NAV = [
   ['#/posts', 'Posts', 'posts'],
   ['#/media', 'Media', 'media'],
   ['#/categories', 'Categories', 'cat'],
+  ['#/leads', 'WhatsApp leads', 'spark'],
   ['#/team', 'Team & account', 'team'],
 ];
 
@@ -150,6 +152,7 @@ function App() {
     );
   else if (hash.startsWith('#/posts')) page = <PostsList />;
   else if (hash.startsWith('#/media')) page = <MediaPage />;
+  else if (hash.startsWith('#/leads')) page = <LeadsPage />;
   else if (hash.startsWith('#/categories')) page = <Categories me={me} />;
   else if (hash.startsWith('#/team')) page = <Team me={me} onMe={setMe} />;
   else page = <Dashboard me={me} />;

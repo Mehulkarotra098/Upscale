@@ -156,4 +156,38 @@ export const MIGRATIONS = [
       );
       ALTER TABLE site_pages ENABLE ROW LEVEL SECURITY;`,
   },
+  {
+    name: 'shop reports and WhatsApp bot: report codes (Google place IDs only), bot leads, processed message ids',
+    sql: `
+      CREATE TABLE IF NOT EXISTS shop_reports (
+        code TEXT PRIMARY KEY,
+        place_id TEXT NOT NULL UNIQUE,
+        source TEXT NOT NULL DEFAULT 'bot' CHECK (source IN ('bot','outreach','check')),
+        views INT NOT NULL DEFAULT 0,
+        created_at TIMESTAMPTZ NOT NULL DEFAULT now()
+      );
+      CREATE TABLE IF NOT EXISTS wa_leads (
+        wa_id TEXT PRIMARY KEY,
+        profile_name TEXT NOT NULL DEFAULT '',
+        last_code TEXT REFERENCES shop_reports(code) ON DELETE SET NULL,
+        last_score INT,
+        checks INT NOT NULL DEFAULT 0,
+        checks_today INT NOT NULL DEFAULT 0,
+        checks_day DATE,
+        wants_help BOOLEAN NOT NULL DEFAULT false,
+        opted_out BOOLEAN NOT NULL DEFAULT false,
+        status TEXT NOT NULL DEFAULT 'new' CHECK (status IN ('new','contacted','audit','client','no')),
+        note TEXT NOT NULL DEFAULT '',
+        created_at TIMESTAMPTZ NOT NULL DEFAULT now(),
+        last_message_at TIMESTAMPTZ NOT NULL DEFAULT now()
+      );
+      CREATE INDEX IF NOT EXISTS wa_leads_recent ON wa_leads (last_message_at DESC);
+      CREATE TABLE IF NOT EXISTS wa_seen (
+        msg_id TEXT PRIMARY KEY,
+        at TIMESTAMPTZ NOT NULL DEFAULT now()
+      );
+      ALTER TABLE shop_reports ENABLE ROW LEVEL SECURITY;
+      ALTER TABLE wa_leads ENABLE ROW LEVEL SECURITY;
+      ALTER TABLE wa_seen ENABLE ROW LEVEL SECURITY;`,
+  },
 ];
