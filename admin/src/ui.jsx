@@ -40,6 +40,7 @@ const P = {
   upload: 'M12 16V4M7 9l5-5 5 5M4 16v4h16v-4',
   key: 'M14.5 9.5a4 4 0 1 1-8 0 4 4 0 0 1 8 0zM13.5 12.5L20 19M17 16l2-2',
   spark: 'M12 3l2 5.5L19.5 10 14 12l-2 5.5L10 12 4.5 10 10 8.5z',
+  send: 'M21 3L10.5 13.5M21 3l-6.5 18-4-7.5L3 9.5z',
 };
 
 export function Icon({ name, size = 18, stroke = 1.9 }) {

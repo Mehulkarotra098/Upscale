@@ -3,9 +3,9 @@
 // It only ever replies: it never messages anyone first. Dependencies are injected so the flow is easy to test.
 import { BRAND, SITE_URL } from '../config.js';
 import { GRADES } from '../outreach/score.js';
+import { MAPS_LINK as MAPS, withCity } from '../outreach/resolve.js';
 
 const MEHUL = BRAND.phone.replace(/\D/g, '');
-const MAPS = /(google\.[a-z.]+\/maps|maps\.app\.goo\.gl|goo\.gl\/maps|g\.page|share\.google|maps\.google\.)/i;
 const GREETING = /^(hi+|hii+|hello|hey|helo|namaste|namaskar|start|menu|help|score|check|hy|hlo|\?)[\s!.,]*$/i;
 const STOP = /^(stop|unsubscribe|band karo|mat bhejo|no more)[\s!.]*$/i;
 
@@ -83,8 +83,7 @@ export async function reply(msg, d) {
   if (link && MAPS.test(link)) placeId = await d.resolveMaps(link);
   if (!placeId) {
     const query = (link ? text.replace(link, '') : text).trim().slice(0, 120);
-    if (query.length >= 3)
-      placeId = (await d.findOne(/mumbai|thane|navi|delhi|pune/i.test(query) ? query : `${query}, Mumbai`))?.id || null;
+    if (query.length >= 3) placeId = (await d.findOne(withCity(query)))?.id || null;
   }
   if (!placeId) return [{ type: 'text', body: TEXT.notFound }];
 

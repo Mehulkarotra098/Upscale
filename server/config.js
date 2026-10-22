@@ -39,6 +39,13 @@ export const WA = Object.freeze({
   dailyChecks: Number(env.WA_DAILY_CHECKS) || 8, // per person per day, to keep Google costs in the free tier
 });
 
+/** Outreach: shops Mehul messages by hand each day, and the site-wide daily cap on the public /check page. */
+export const OUTREACH = Object.freeze({
+  daily: Number(env.OUTREACH_DAILY) || 10, // a few personal messages a day keeps the WhatsApp number safe
+  followUpDays: 3, // one follow-up, this many days after a first message with no reply
+  checksPerDay: Number(env.CHECKS_PER_DAY) || 150, // /check lookups a day across the whole site (Google free tier)
+});
+
 /** First-run owner account: the first sign-in with these credentials creates it (only while no users exist). */
 export const BOOTSTRAP_ADMIN = {
   email: String(env.ADMIN_EMAIL || '')

@@ -36,6 +36,10 @@
   ],
   "rewrites": [
     {
+      "source": "/check",
+      "destination": "/api/blog?view=check"
+    },
+    {
       "source": "/r/:code",
       "destination": "/api/blog?view=report&c=:code"
     },
