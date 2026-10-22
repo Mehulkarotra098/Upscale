@@ -14,8 +14,9 @@ import media from './actions/media.js';
 import posts from './actions/posts.js';
 import session from './actions/session.js';
 import team from './actions/team.js';
+import leads from './actions/leads.js';
 
-const ACTIONS = { ...session, ...dashboard, ...posts, ...media, ...categories, ...team };
+const ACTIONS = { ...session, ...dashboard, ...posts, ...media, ...categories, ...team, ...leads };
 
 function checkSameOrigin(req) {
   if (req.headers['x-us-admin'] !== '1') throw forbidden('Missing admin header');

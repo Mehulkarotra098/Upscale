@@ -17,6 +17,9 @@
     },
     "api/admin.js": {
       "maxDuration": 20
+    },
+    "api/wa.js": {
+      "maxDuration": 20
     }
   },
   "redirects": [
@@ -32,6 +35,10 @@
     }
   ],
   "rewrites": [
+    {
+      "source": "/r/:code",
+      "destination": "/api/blog?view=report&c=:code"
+    },
     {
       "source": "/favicon.ico",
       "destination": "/favicon-32.png"
@@ -82,6 +89,15 @@
     }
   ],
   "headers": [
+    {
+      "source": "/r/(.*)",
+      "headers": [
+        {
+          "key": "X-Robots-Tag",
+          "value": "noindex, nofollow"
+        }
+      ]
+    },
     {
       "source": "/assets/(.*)",
       "headers": [
