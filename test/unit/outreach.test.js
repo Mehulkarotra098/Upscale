@@ -139,6 +139,11 @@ test('SerpApi place → the fields scoring reads; photos unknown get half marks 
   assert.ok(!s.fixes.some((f) => f.id === 'photos'));
   assert.equal(s.facts.ageDays, 14);
   assert.equal(toPlace({ place_id: 'x'.repeat(12), open_state: 'Permanently closed' }).businessStatus, 'CLOSED_PERMANENTLY');
+  // Place pages give "type" as a list (seen live on uscale.in/r/... for a pizzeria-café)
+  const listy = toPlace({ place_id: 'y'.repeat(12), title: 'House of Doh', type: ['Pizza restaurant', 'Cafe'], rating: 4.4, reviews: 200 });
+  assert.equal(listy.primaryType, 'pizza_restaurant');
+  assert.equal(listy.primaryTypeDisplayName.text, 'Pizza restaurant');
+  assert.equal(toPlace({ place_id: 'z'.repeat(12) }).primaryType, '');
 });
 
 test('SerpApi client: findOne, details and nearby call the Maps engine and map results', async () => {
