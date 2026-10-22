@@ -279,3 +279,4 @@ html.pin-ok .sp-process .step{opacity:1;transform:none}
 .sp-list--work span{color:var(--body);font-size:14px}
 .sp-from{margin:2px 0 0;font-size:15px;color:var(--violet)}
 @media (max-width:559px){.sp-facts th,.sp-facts td{display:block;width:auto;padding:0}.sp-facts tr{display:block;padding:12px 0;border-top:1px solid var(--line-light)}.sp-facts tr:first-child{border-top:0;padding-top:0}.sp-facts th{margin-bottom:4px}.sp-facts th,.sp-facts td{border:0}}
+.gp-hero__quick{margin:2px 0 0;color:var(--lavender);font:500 15px/1.55 var(--sans)}.gp-hero__quick a{color:var(--green);font-weight:700;text-decoration:underline;text-underline-offset:3px}

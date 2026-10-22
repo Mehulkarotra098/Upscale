@@ -877,6 +877,7 @@ def gbp_page(ctx, parts, tv):
       <h1 class="sp-hero__title" id="page-title">{h1}<span class="dot">.</span></h1>
       <p class="sp-hero__lead">{lead}</p>
       <div class="hero__cta"><a class="btn btn--go" href="#gp-start">Check my profile <span class="arw" aria-hidden="true"><b>↓</b><b>↓</b></span></a><a class="btn btn--ghost" href="#gp-how">How Google ranks shops</a></div>
+      <p class="gp-hero__quick">In a hurry? <a href="/check">Instant check: just type your shop name</a> and get your score next to the busiest shops nearby in about 30 seconds.</p>
     </section>
   </div>
 
