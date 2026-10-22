@@ -39,6 +39,7 @@ export function scorePlace(place, nearbyList = [], now = Date.now()) {
   const count = Number(place.userRatingCount) || 0;
   const rating = Number(place.rating) || 0;
   const photos = (place.photos || []).length; // the API returns at most 10
+  const photosUnknown = Boolean(place.photosUnknown); // SerpApi gives no photo count: half marks, no fix suggested
   const hours = (place.regularOpeningHours?.weekdayDescriptions || []).length > 0;
   const phone = Boolean(place.nationalPhoneNumber || place.internationalPhoneNumber);
   const website = Boolean(place.websiteUri);
@@ -57,7 +58,7 @@ export function scorePlace(place, nearbyList = [], now = Date.now()) {
     { id: 'rating', max: 15, got: rating >= 4.6 ? 15 : rating >= 4.3 ? 11 : rating >= 4.0 ? 7 : rating >= 3.5 ? 3 : 0 },
     { id: 'recent', max: 10, got: ageDays == null ? 0 : ageDays <= 30 ? 10 : ageDays <= 90 ? 6 : ageDays <= 180 ? 3 : 0 },
     { id: 'volume', max: 7, got: count >= 50 ? 7 : count >= 20 ? 4 : count >= 5 ? 2 : 0 },
-    { id: 'photos', max: 12, got: 12 * Math.min(1, photos / 10) },
+    { id: 'photos', max: 12, got: photosUnknown ? 6 : 12 * Math.min(1, photos / 10) },
     { id: 'rank', max: 13, got: rank && rank <= 3 ? 13 : rank && rank <= 7 ? 8 : rank && rank <= 12 ? 4 : 0 },
     { id: 'website', max: 7, got: website ? 7 : 0 },
     { id: 'hours', max: 6, got: hours ? 6 : 0 },
@@ -87,10 +88,11 @@ export function scorePlace(place, nearbyList = [], now = Date.now()) {
       hi: 'Pichhle mahine ka koi review nahi dikha. Customers naye reviews par bharosa karte hain: is hafte ke customers se maangiye.',
     },
     volume: false,
-    photos: photos < 10 && {
-      en: `Only ${photos} photo${photos === 1 ? '' : 's'} on the listing. Add at least 10 real ones: shop front, inside, your work and your team.`,
-      hi: `Listing par sirf ${photos} photo hain. Kam se kam 10 asli photos daaliye: dukaan ka bahar, andar, aapka kaam aur team.`,
-    },
+    photos: !photosUnknown &&
+      photos < 10 && {
+        en: `Only ${photos} photo${photos === 1 ? '' : 's'} on the listing. Add at least 10 real ones: shop front, inside, your work and your team.`,
+        hi: `Listing par sirf ${photos} photo hain. Kam se kam 10 asli photos daaliye: dukaan ka bahar, andar, aapka kaam aur team.`,
+      },
     rank: (!rank || rank > 3) && {
       en: rank
         ? `You’re #${rank} of ${nearbyList.length} similar businesses nearby on Google. The top 3 get most of the calls.`

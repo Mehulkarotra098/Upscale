@@ -15,7 +15,9 @@ export async function buildReport(placeId, { fetchImpl, now = Date.now() } = {})
   if (!place || !place.id) return null;
   const rivals =
     place.primaryType && place.location
-      ? await nearby({ location: place.location, type: place.primaryType, fetchImpl }).catch(() => [])
+      ? await nearby({ location: place.location, type: place.primaryType, label: place.primaryTypeDisplayName?.text, fetchImpl }).catch(
+          () => [],
+        )
       : [];
   const score = scorePlace(place, rivals, now);
   const data = {

@@ -28,6 +28,8 @@ export const INDEXNOW_KEY = (env.INDEXNOW_KEY || '438167be6e90a125783a393266a765
 export const CRON_SECRET = env.CRON_SECRET || '';
 /** Google Places API (New) key for shop reports and outreach. Server-side only: restrict it to the Places API. */
 export const PLACES_KEY = (env.GOOGLE_PLACES_KEY || '').trim();
+/** SerpApi key (Google Maps engine): the no-Google-Cloud alternative for shop data, used when PLACES_KEY is empty. */
+export const SERPAPI_KEY = (env.SERPAPI_KEY || '').trim();
 
 /** WhatsApp Cloud API (the Google score bot). From Meta → WhatsApp → API setup, and the app's Basic settings. */
 export const WA = Object.freeze({
@@ -37,6 +39,15 @@ export const WA = Object.freeze({
   appSecret: (env.WA_APP_SECRET || '').trim(), // signs every webhook call (X-Hub-Signature-256)
   graph: (env.WA_GRAPH_VERSION || 'v23.0').trim(),
   dailyChecks: Number(env.WA_DAILY_CHECKS) || 8, // per person per day, to keep Google costs in the free tier
+});
+
+/** Outreach: shops Mehul messages by hand each day, and the site-wide daily cap on the public /check page. */
+export const OUTREACH = Object.freeze({
+  daily: Number(env.OUTREACH_DAILY) || 10, // a few personal messages a day keeps the WhatsApp number safe
+  followUpDays: 3, // one follow-up, this many days after a first message with no reply
+  // Shop lookups a day across the whole site (/check + bot). Google's free tier allows ~150; SerpApi's free plan ~250
+  // searches a MONTH (3 per new shop), so the default drops to 3 a day on SerpApi.
+  checksPerDay: Number(env.CHECKS_PER_DAY) || ((env.GOOGLE_PLACES_KEY || '').trim() ? 150 : 3),
 });
 
 /** First-run owner account: the first sign-in with these credentials creates it (only while no users exist). */

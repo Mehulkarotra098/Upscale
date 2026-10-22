@@ -129,7 +129,7 @@ export function renderReport(data, { code, lang = 'en', date = new Date() }) {
     .join('')}</ul></section>
   <section class="rp-card rp-cta"><h2>${esc(t.ctaT)}</h2><p>${esc(t.ctaL)}</p>
     <div class="hero__cta"><a class="btn btn--go" href="${esc(wa)}" rel="nofollow">${esc(t.ctaB)}</a>
-    <a class="btn btn--ghost" href="/tools/google-business-profile-checker">${esc(t.again)}</a></div></section>
+    <a class="btn btn--ghost" href="/check">${esc(t.again)}</a></div></section>
   <p class="rp-note">${esc(fill(t.note, { d: when }))}</p>
 </div>`;
 

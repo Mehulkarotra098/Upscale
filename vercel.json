@@ -10,7 +10,7 @@
   "functions": {
     "api/blog.js": {
       "includeFiles": "public/_blog/{shell.html,pages.json}",
-      "maxDuration": 10
+      "maxDuration": 20
     },
     "api/img.js": {
       "maxDuration": 10
@@ -35,6 +35,10 @@
     }
   ],
   "rewrites": [
+    {
+      "source": "/check",
+      "destination": "/api/blog?view=check"
+    },
     {
       "source": "/r/:code",
       "destination": "/api/blog?view=report&c=:code"

@@ -231,3 +231,13 @@ a.bchip:hover{background:var(--lavender)}
 .rp-cta p{margin:0 0 18px;color:var(--lavender);font:500 16px/1.6 var(--sans)}
 .rp-note{margin:4px 2px 0;color:var(--body);font:500 13px/1.6 var(--sans)}
 @media (max-width:560px){.rp-fixes li{grid-template-columns:30px 1fr}.rp-gain{grid-column:2;justify-self:start}.rp-table td:nth-child(2){display:none}}
+.ck-hero{gap:16px}
+.ck-form{display:grid;grid-template-columns:1fr auto;gap:10px;width:100%;max-width:640px}
+.ck-form input{width:100%;font:500 16px/1.4 var(--sans);color:var(--violet);background:var(--white);border:1.5px solid transparent;border-radius:12px;padding:15px 16px;-webkit-appearance:none;appearance:none}
+.ck-form input:focus{outline:none;box-shadow:0 0 0 4px rgba(99,184,73,.55)}
+.ck-err{margin:0;padding:10px 14px;border-radius:12px;background:rgba(229,72,77,.16);color:#FFD7D8;font:600 14px/1.45 var(--sans);max-width:640px}
+.ck-hint{margin:0;color:var(--lavender);font:500 14px/1.5 var(--sans)}
+.ck-points{list-style:none;margin:0;padding:0;display:grid;gap:12px}
+.ck-points li{display:grid;gap:3px;padding:14px;border-radius:14px;background:var(--lav-tint);font:500 15px/1.5 var(--sans);color:var(--body)}
+.ck-points b{color:var(--violet)}
+@media (max-width:560px){.ck-form{grid-template-columns:1fr}.ck-form .btn{width:100%}}

@@ -190,4 +190,32 @@ export const MIGRATIONS = [
       ALTER TABLE wa_leads ENABLE ROW LEVEL SECURITY;
       ALTER TABLE wa_seen ENABLE ROW LEVEL SECURITY;`,
   },
+  {
+    name: 'outreach: shops Mehul messages by hand (10 a day), and the daily cap for the public /check page',
+    sql: `
+      CREATE TABLE IF NOT EXISTS outreach_shops (
+        id SERIAL PRIMARY KEY,
+        name TEXT NOT NULL,
+        kind TEXT NOT NULL DEFAULT 'other' CHECK (kind IN ('clothing','cafe','restaurant','salon','other')),
+        area TEXT NOT NULL DEFAULT '',
+        phone TEXT NOT NULL UNIQUE CHECK (phone ~ '^[6-9][0-9]{9}$'),
+        hook TEXT NOT NULL DEFAULT '',
+        maps_url TEXT NOT NULL DEFAULT '',
+        report_code TEXT REFERENCES shop_reports(code) ON DELETE SET NULL,
+        status TEXT NOT NULL DEFAULT 'queued'
+          CHECK (status IN ('queued','sent','replied','audit','client','no','stop')),
+        note TEXT NOT NULL DEFAULT '',
+        batch_day DATE,
+        sent_at TIMESTAMPTZ,
+        followed_up_at TIMESTAMPTZ,
+        created_at TIMESTAMPTZ NOT NULL DEFAULT now()
+      );
+      CREATE INDEX IF NOT EXISTS outreach_queue ON outreach_shops (status, batch_day, id);
+      CREATE TABLE IF NOT EXISTS check_days (
+        day DATE PRIMARY KEY,
+        n INT NOT NULL DEFAULT 0
+      );
+      ALTER TABLE outreach_shops ENABLE ROW LEVEL SECURITY;
+      ALTER TABLE check_days ENABLE ROW LEVEL SECURITY;`,
+  },
 ];

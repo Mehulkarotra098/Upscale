@@ -2149,3 +2149,103 @@ html,
 body {
   overflow-x: hidden;
 }
+
+/* outreach */
+.oc__grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(min(100%, 360px), 1fr));
+  gap: 14px;
+}
+.oc {
+  background: var(--white);
+  border: 1px solid var(--line);
+  border-radius: var(--r-lg);
+  padding: 16px 18px;
+  display: grid;
+  gap: 10px;
+  align-content: start;
+}
+.oc--done {
+  background: var(--space);
+}
+.oc__head {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 10px;
+}
+.oc__name {
+  color: var(--ink);
+  font-size: 16px;
+}
+.oc__status {
+  flex: 0 0 auto;
+  max-width: 150px;
+}
+.oc__hook {
+  margin: 0;
+  padding: 8px 12px;
+  border-radius: 10px;
+  background: var(--lav-t);
+  color: var(--violet);
+  font-weight: 500;
+}
+.oc__msg summary {
+  cursor: pointer;
+  font-weight: 600;
+  color: var(--muted);
+}
+.oc__msg pre {
+  margin: 8px 0 0;
+  white-space: pre-wrap;
+  font: 400 14px/1.55 var(--sans);
+  color: var(--body);
+  background: #e9f6e3;
+  border-radius: 12px;
+  padding: 10px 12px;
+}
+.oc__acts {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+.oc__acts .btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+.oc__note {
+  width: 100%;
+}
+.oc__fill {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 14px;
+  padding: 14px 18px;
+  border-radius: var(--r-lg);
+  background: var(--white);
+  border: 1px dashed var(--line-2);
+}
+.oc__fill p {
+  margin: 0;
+  font-weight: 600;
+  color: var(--ink);
+}
+.oc__info {
+  margin: 0 0 14px;
+  padding: 10px 14px;
+  border-radius: var(--r);
+  background: #fff1dc;
+  color: #7a4704;
+  font-weight: 500;
+}
+.oc__result {
+  margin-top: 12px;
+}
+.oc__result ul {
+  margin: 6px 0 0;
+  padding-left: 18px;
+}

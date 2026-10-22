@@ -4,7 +4,7 @@
 //   /blog/rss.xml                 → view=rss            /sitemap-blog.xml       → view=sitemap
 //   /indexnow-key.txt             → view=indexnow       daily cron              → view=ping (keeps the DB warm, IndexNow-pings newly live posts)
 // The read counter beacon posts to view=hit.
-import { CRON_SECRET, INDEXNOW_KEY, SITE_URL } from '../config.js';
+import { CRON_SECRET, INDEXNOW_KEY, OUTREACH, SITE_URL } from '../config.js';
 import { pingIndexNow } from '../lib/indexnow.js';
 import * as sitePages from '../repos/sitepages.js';
 import { changedPages, staticPages } from './sitepages.js';
@@ -20,6 +20,9 @@ import * as categories from '../repos/categories.js';
 import * as posts from '../repos/posts.js';
 import { renderArticle } from './render/article.js';
 import { renderReport } from './render/report.js';
+import { renderCheck } from './render/check.js';
+import { resolveQuery } from '../outreach/resolve.js';
+import * as outreach from '../repos/outreach.js';
 import * as shops from '../repos/shops.js';
 import { buildReport } from '../outreach/report.js';
 import { hasPlaces } from '../outreach/places.js';
@@ -113,6 +116,24 @@ const VIEWS = {
     });
   },
 
+  /** Instant check: /check?q=<shop name or Maps link> → finds the shop on Google → its report page (/r/<code>). */
+  async check(req, res, p) {
+    if (!hasPlaces()) return redirect(res, '/tools/google-business-profile-checker', 302);
+    const q = String(p.q || '')
+      .trim()
+      .slice(0, 200);
+    if (!q) return page(req, res, 200, renderCheck(), CACHE.page);
+    const again = (error, status = 200) => page(req, res, status, renderCheck({ q, error }), CACHE.none);
+    if (q.length < 3) return again('Type the shop’s name and area, or paste its Google Maps link.');
+    if (BOTS.test(req.headers['user-agent'] || '')) return again('Checks run for people only.', 403);
+    if (!allow(`check:${clientIp(req)}`, 4)) return again('Too many checks in a minute. Try again shortly.', 429);
+    if (!(await outreach.takeCheck(OUTREACH.checksPerDay)))
+      return again('Today’s free checks are used up. Please try again tomorrow, or WhatsApp us from the home page.', 429);
+    const placeId = await resolveQuery(q);
+    if (!placeId) return again('We couldn’t find that on Google. Add the area (e.g. “Andheri East”), or paste the Google Maps link.');
+    return redirect(res, `/r/${await shops.codeFor(placeId, 'check')}`, 303);
+  },
+
   async rss(req, res) {
     text(res, 200, renderRss(await posts.feedRows()), 'application/rss+xml', CACHE.feed);
   },
@@ -173,7 +194,7 @@ const VIEWS = {
   },
 };
 
-const NEEDS_DB = new Set(['ping', 'rss', 'sitemap', 'latest', 'post', 'index', 'report']);
+const NEEDS_DB = new Set(['ping', 'rss', 'sitemap', 'latest', 'post', 'index', 'report', 'check']);
 const MACHINE = new Set(['ping', 'rss', 'sitemap', 'latest']);
 
 export default async function blogHandler(req, res) {
