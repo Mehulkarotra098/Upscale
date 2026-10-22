@@ -4,7 +4,7 @@ import { OUTREACH, SITE_URL } from '../../config.js';
 import { badRequest, conflict, notFound } from '../../lib/errors.js';
 import { log } from '../../lib/log.js';
 import { firstMessage, followUpMessage, KINDS, parseImport, waLink } from '../../outreach/message.js';
-import { hasPlaces } from '../../outreach/places.js';
+import { hasPlaces, provider } from '../../outreach/places.js';
 import { resolveQuery } from '../../outreach/resolve.js';
 import * as outreach from '../../repos/outreach.js';
 import * as shops from '../../repos/shops.js';
@@ -57,6 +57,7 @@ export default {
         daily: OUTREACH.daily,
         followUpDays: OUTREACH.followUpDays,
         places: hasPlaces(),
+        provider: provider(),
         today: today.map(withMessages),
         followUps: follow.map(withMessages),
         all: all.map(withMessages),
@@ -71,7 +72,9 @@ export default {
     async run() {
       const ids = await outreach.fillBatch(OUTREACH.daily);
       let reports = 0;
-      if (hasPlaces() && ids.length) {
+      // Automatic report links only on Google's API (generous free tier); on SerpApi's small free plan, make them one
+      // at a time with the button.
+      if (provider() === 'google' && ids.length) {
         const rows = (await outreach.today()).filter((r) => ids.includes(r.id) && !r.report_code);
         const done = await Promise.allSettled(rows.map(makeReport));
         reports = done.filter((d) => d.status === 'fulfilled' && d.value).length;

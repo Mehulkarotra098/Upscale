@@ -1,6 +1,10 @@
 import assert from 'node:assert/strict';
 import { test } from 'node:test';
 
+// Each test file runs in its own process: give this one a SerpApi key (and no Google key) before config.js loads.
+process.env.SERPAPI_KEY = 'test-key';
+delete process.env.GOOGLE_PLACES_KEY;
+
 const { firstMessage, followUpMessage, kindOf, parseImport, waLink } = await import('../../server/outreach/message.js');
 const { resolveQuery, withCity } = await import('../../server/outreach/resolve.js');
 const { renderCheck } = await import('../../server/blog/render/check.js');
@@ -101,4 +105,61 @@ test('check page: form, escaped query, error message, noindex', () => {
   assert.match(main, /role="alert">Not found</);
   assert.match(main, /aria-invalid="true"/);
   assert.doesNotMatch(renderCheck().main, /ck-err/);
+});
+
+test('SerpApi place → the fields scoring reads; photos unknown get half marks and no photo fix', async () => {
+  const { toPlace, relativeToIso } = await import('../../server/outreach/serpapi.js');
+  const { scorePlace } = await import('../../server/outreach/score.js');
+  const now = Date.parse('2026-10-22T00:00:00Z');
+  assert.equal(relativeToIso('3 weeks ago', now), new Date(now - 21 * 86_400_000).toISOString());
+  assert.equal(relativeToIso('a month ago', now), new Date(now - 30 * 86_400_000).toISOString());
+  assert.equal(relativeToIso('Edited recently', now), '');
+  const place = toPlace(
+    {
+      place_id: 'ChIJ_test_place_1234',
+      title: 'Sharma Sarees',
+      address: 'Andheri East, Mumbai',
+      gps_coordinates: { latitude: 19.11, longitude: 72.87 },
+      rating: 4.6,
+      reviews: 40,
+      type: 'Sari shop',
+      type_ids: ['sari_shop'],
+      phone: '098200 12345',
+      hours: [{ monday: '10 am–9 pm' }, { tuesday: '10 am–9 pm' }],
+      user_reviews: { most_relevant: [{ date: '2 weeks ago' }, { iso_date: '2026-09-01T00:00:00Z' }] },
+    },
+    now,
+  );
+  assert.equal(place.primaryType, 'sari_shop');
+  assert.equal(place.businessStatus, 'OPERATIONAL');
+  assert.equal(place.regularOpeningHours.weekdayDescriptions.length, 2);
+  assert.equal(place.reviews.length, 2);
+  const s = scorePlace(place, [{ id: 'other', name: 'Big Saree Co', rating: 4.5, reviews: 300 }], now);
+  assert.equal(s.parts.find((p) => p.id === 'photos').got, 6);
+  assert.ok(!s.fixes.some((f) => f.id === 'photos'));
+  assert.equal(s.facts.ageDays, 14);
+  assert.equal(toPlace({ place_id: 'x'.repeat(12), open_state: 'Permanently closed' }).businessStatus, 'CLOSED_PERMANENTLY');
+});
+
+test('SerpApi client: findOne, details and nearby call the Maps engine and map results', async () => {
+  const serp = await import('../../server/outreach/serpapi.js');
+  const { provider } = await import('../../server/outreach/places.js');
+  assert.equal(provider(), 'serpapi');
+  const seen = [];
+  const fake = (body) => async (url) => (seen.push(new URL(url)), { ok: true, status: 200, json: async () => body });
+  const one = await serp.findOne('Sharma Sarees, Mumbai', {
+    fetchImpl: fake({ local_results: [{ place_id: 'P1', title: 'Sharma', address: 'Andheri' }] }),
+  });
+  assert.deepEqual(one, { id: 'P1', name: 'Sharma', address: 'Andheri' });
+  assert.equal(seen[0].searchParams.get('engine'), 'google_maps');
+  assert.equal(seen[0].searchParams.get('q'), 'Sharma Sarees, Mumbai');
+  const near = await serp.nearby({
+    location: { latitude: 19.1, longitude: 72.8 },
+    type: 'sari_shop',
+    label: 'Sari shop',
+    fetchImpl: fake({ local_results: [{ place_id: 'P2', title: 'Rival', rating: 4.4, reviews: 120 }] }),
+  });
+  assert.deepEqual(near, [{ id: 'P2', name: 'Rival', rating: 4.4, reviews: 120 }]);
+  assert.equal(seen[1].searchParams.get('ll'), '@19.1,72.8,15z');
+  assert.equal(await serp.details('bad id!'), null);
 });

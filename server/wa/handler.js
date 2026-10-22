@@ -2,13 +2,14 @@
 //   GET  → Meta's one-time verification (hub.challenge)
 //   POST → incoming messages. Every call is checked against Meta's signature before anything is read.
 import { createHmac, timingSafeEqual } from 'node:crypto';
-import { WA } from '../config.js';
+import { OUTREACH, WA } from '../config.js';
 import { hasDb } from '../db/client.js';
 import { query, send as sendRaw, text } from '../lib/http.js';
 import { log } from '../lib/log.js';
 import { buildReport } from '../outreach/report.js';
 import { findOne, hasPlaces } from '../outreach/places.js';
 import { resolveMaps } from '../outreach/resolve.js';
+import * as outreach from '../repos/outreach.js';
 import * as shops from '../repos/shops.js';
 import { reply } from './bot.js';
 import { markRead, send } from './send.js';
@@ -40,7 +41,8 @@ const deps = {
   lead: shops.lead,
   optOut: shops.optOut,
   wantsHelp: shops.wantsHelp,
-  takeCheck: (waId) => shops.takeCheck(waId, WA.dailyChecks),
+  // Per person, then the site-wide daily allowance shared with /check (keeps Google/SerpApi inside the free tier).
+  takeCheck: async (waId) => (await shops.takeCheck(waId, WA.dailyChecks)) && outreach.takeCheck(OUTREACH.checksPerDay),
   resolveMaps,
   findOne,
   buildReport,

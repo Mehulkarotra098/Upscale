@@ -297,7 +297,14 @@ export function OutreachPage() {
 
       {!data.places && (
         <p class="oc__info">
-          Report links are off until the Google Places key is added in Vercel. Messages still work: they offer to send the report instead.
+          Report links are off until a shop-data key (Google Places or SerpApi) is added in Vercel. Messages still work: they offer to send
+          the report instead.
+        </p>
+      )}
+      {data.provider === 'serpapi' && (
+        <p class="oc__info">
+          Shop data comes from SerpApi’s free plan (about 80 reports a month). Messages offer the report; when a shop replies “haan”, tap
+          “Make report link” and send it.
         </p>
       )}
 

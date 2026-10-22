@@ -6,8 +6,9 @@
 // Cost (India pricing, Oct 2026): Text Search with IDs only is free and unlimited; Place Details Enterprise +
 // Atmosphere has 7,000 free calls a month; Nearby Search Enterprise has 7,000. A batch of 10 shops a day uses
 // roughly 15 details + 10 nearby calls, so normal use stays inside the free allowance.
-import { PLACES_KEY } from '../config.js';
+import { PLACES_KEY, SERPAPI_KEY } from '../config.js';
 import { HttpError } from '../lib/errors.js';
+import * as serp from './serpapi.js';
 
 const BASE = 'https://places.googleapis.com/v1';
 const TIMEOUT_MS = 6000;
@@ -36,7 +37,9 @@ const DETAIL_FIELDS = [
 
 const NEARBY_FIELDS = 'places.id,places.displayName,places.rating,places.userRatingCount,places.primaryType';
 
-export const hasPlaces = () => Boolean(PLACES_KEY);
+/** Where shop data comes from: Google's own Places API if its key is set, else SerpApi (no Google Cloud needed). */
+export const provider = () => (PLACES_KEY ? 'google' : SERPAPI_KEY ? 'serpapi' : '');
+export const hasPlaces = () => Boolean(provider());
 
 async function call(path, { method = 'GET', fields, body, fetchImpl = fetch } = {}) {
   if (!PLACES_KEY) throw new HttpError(503, 'Google Places key is not set up yet');
@@ -87,6 +90,7 @@ export async function searchIds({ text, rect, pageToken, fetchImpl }) {
 
 /** First match for a free-text query such as "Glow Salon Marol" (used by the public checker and WhatsApp bot). */
 export async function findOne(text, { fetchImpl } = {}) {
+  if (provider() === 'serpapi') return serp.findOne(text, { fetchImpl });
   const data = await call('/places:searchText', {
     method: 'POST',
     fields: 'places.id,places.displayName,places.shortFormattedAddress',
@@ -105,11 +109,13 @@ export async function findOne(text, { fetchImpl } = {}) {
 /** Everything a report needs about one place, or null if Google no longer has it. */
 export async function details(placeId, { fetchImpl } = {}) {
   if (!/^[A-Za-z0-9_-]{10,300}$/.test(String(placeId || ''))) return null;
+  if (provider() === 'serpapi') return serp.details(placeId, { fetchImpl });
   return call(`/places/${encodeURIComponent(placeId)}?languageCode=en&regionCode=IN`, { fields: DETAIL_FIELDS, fetchImpl });
 }
 
 /** Up to 20 businesses of the same main type within `radius` metres, most popular first. */
-export async function nearby({ location, type, radius = 1200, fetchImpl }) {
+export async function nearby({ location, type, label, radius = 1200, fetchImpl }) {
+  if (provider() === 'serpapi') return serp.nearby({ location, type, label, fetchImpl });
   if (!location || !type) return [];
   const data = await call('/places:searchNearby', {
     method: 'POST',
