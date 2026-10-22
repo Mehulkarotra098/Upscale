@@ -41,6 +41,9 @@ export function relativeToIso(text, now = Date.now()) {
   return new Date(now - n * UNIT[m[2].toLowerCase()]).toISOString();
 }
 
+/** SerpApi fields can be a string or a list of strings ("type" is a list on place pages): first non-empty string. */
+const first = (v) => (Array.isArray(v) ? v.find((x) => typeof x === 'string' && x.trim()) || '' : typeof v === 'string' ? v : '');
+
 const STATUS = (open) =>
   /permanently closed/i.test(open || '')
     ? 'CLOSED_PERMANENTLY'
@@ -57,12 +60,13 @@ function weekdays(hours) {
 /** SerpApi place_results → the Places API (New) fields score.js and report.js read. */
 export function toPlace(p, now = Date.now()) {
   const reviews = Array.isArray(p.user_reviews) ? p.user_reviews : p.user_reviews?.most_relevant || [];
-  const type = p.type || (Array.isArray(p.types) ? p.types[0] : '') || '';
+  const type = first(p.type) || first(p.types);
+  const address = first(p.address);
   return {
     id: p.place_id,
-    displayName: { text: p.title || '' },
-    shortFormattedAddress: p.address || '',
-    formattedAddress: p.address || '',
+    displayName: { text: first(p.title) },
+    shortFormattedAddress: address,
+    formattedAddress: address,
     location: p.gps_coordinates ? { latitude: p.gps_coordinates.latitude, longitude: p.gps_coordinates.longitude } : null,
     primaryType:
       p.type_ids?.[0] ||
@@ -71,11 +75,11 @@ export function toPlace(p, now = Date.now()) {
         .replace(/[^a-z]+/g, '_')
         .replace(/^_|_$/g, ''),
     primaryTypeDisplayName: { text: type },
-    types: p.type_ids || [],
-    businessStatus: STATUS(p.open_state),
+    types: Array.isArray(p.type_ids) ? p.type_ids : [],
+    businessStatus: STATUS(first(p.open_state)),
     googleMapsUri: `https://www.google.com/maps/place/?q=place_id:${encodeURIComponent(p.place_id)}`,
-    nationalPhoneNumber: p.phone || '',
-    websiteUri: p.website || '',
+    nationalPhoneNumber: first(p.phone),
+    websiteUri: first(p.website),
     regularOpeningHours: { weekdayDescriptions: weekdays(p.operating_hours || p.hours) },
     rating: Number(p.rating) || 0,
     userRatingCount: Number(p.reviews) || 0,
@@ -89,7 +93,7 @@ export function toPlace(p, now = Date.now()) {
 export async function findOne(text, { fetchImpl } = {}) {
   const data = await call({ type: 'search', q: text, ll: MUMBAI }, { fetchImpl });
   const p = data?.place_results || data?.local_results?.[0];
-  return p?.place_id ? { id: p.place_id, name: p.title || '', address: p.address || '' } : null;
+  return p?.place_id ? { id: p.place_id, name: first(p.title), address: first(p.address) } : null;
 }
 
 export async function details(placeId, { fetchImpl, now } = {}) {
@@ -105,7 +109,7 @@ export async function nearby({ location, type, label, fetchImpl }) {
   const data = await call({ type: 'search', q, ll: `@${location.latitude},${location.longitude},15z` }, { fetchImpl });
   return (data?.local_results || []).slice(0, 20).map((r) => ({
     id: r.place_id,
-    name: r.title || '',
+    name: first(r.title),
     rating: Number(r.rating) || 0,
     reviews: Number(r.reviews) || 0,
   }));
