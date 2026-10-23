@@ -184,8 +184,8 @@ PAGES = [
  dict(slug='restaurants-cafes', kind='business', crumb='Restaurants & cafés', service='Restaurant and café website design with online ordering',
   card='Your own menu and online ordering, so regulars stop paying the apps’ commission.',
   title='Restaurant Website with Online Ordering, Mumbai | U Scale',
-  desc='Your own restaurant or café website with menu and online ordering, so regulars order direct, not through an app that takes 20–25%. '
-       f'Fixed {price("Restaurant site + own online ordering")}, by Mehul Karotra.',
+  desc='Restaurant or café website with your menu and your own online ordering, so regulars order direct, not via an app that takes 20–25%. '
+       f'Fixed {price("Restaurant site + own online ordering")}.',
   h1='Restaurant & café websites with online ordering', eyebrow='Websites by business',
   lead='Your menu and your own online ordering, on a website you own. Regulars order from you directly, not through an app that keeps a share of every order.',
   stats=[(price('Restaurant site + own online ordering'), 'Fixed price'), ('0%', 'App commission on direct orders'), ('4–8 wk', 'To go live')],
@@ -259,8 +259,8 @@ PAGES = [
  dict(slug='boutiques-fashion', kind='business', crumb='Boutiques & fashion', service='Website design for boutiques and fashion labels',
   card='A catalogue with “Order on WhatsApp” on every product, or a full online store.',
   title='Boutique & Clothing Store Website Design, Mumbai | U Scale',
-  desc='Websites for Mumbai boutiques, clothing stores and fashion labels: a catalogue with WhatsApp orders, or a full online store from '
-       f'{price("E-commerce, under 50 products")}. Designed and hand-coded by Mehul Karotra.',
+  desc='Websites for Mumbai boutiques and clothing stores: a catalogue with WhatsApp orders, or a full online store from '
+       f'{price("E-commerce, under 50 products")}. Designed by Mehul Karotra.',
   h1='Boutique & clothing store websites', eyebrow='Websites by business',
   lead='A catalogue your Instagram followers can browse properly, product pages Google can find, and orders on WhatsApp or online. Fixed price.',
   stats=[(price('Business site, 3–4 pages'), 'Catalogue site, from'), (price('E-commerce, under 50 products'), 'Online store, under 50 products'), ('1 tap', 'From product to WhatsApp order')],
@@ -332,8 +332,8 @@ PAGES = [
   card='A website designer based in Ghatkopar West, who can meet you at your shop.',
   places=['Ghatkopar', 'Vikhroli', 'Kurla', 'Chembur', 'Powai', 'Mulund'],
   title='Website Designer & Developer in Ghatkopar, Mumbai | U Scale',
-  desc='A website designer and developer based in Ghatkopar West: websites from ₹25,000, plus Google Business Profile and local SEO for '
-       'Ghatkopar businesses, by Mehul Karotra. Free audit.',
+  desc='Website designer and developer based in Ghatkopar West: websites from ₹25,000, plus Google listings and local SEO for Ghatkopar '
+       'businesses. Free audit.',
   h1='Website designer & developer in Ghatkopar', eyebrow='Near you',
   lead='I’m Mehul Karotra, based in Ghatkopar West. I design and build websites and run Google listings and local SEO for businesses here, and I can come to your shop to talk it through.',
   stats=[(price('Landing page'), 'Websites from'), ('₹15,000', 'Local SEO, a month'), ('Free', 'Audit at your shop')],
@@ -441,8 +441,8 @@ PAGES = [
   card='Market rates, saal ka domain-hosting kharcha aur GST, seedhi bhasha mein.',
   service='Website banane ka kharcha, Mumbai (2026)',
   title='Website Banane me Kitna Kharcha Aata Hai? (2026) | U Scale',
-  desc='Mumbai mein website banane ka asli kharcha: landing page ₹25,000 se, business website ₹55,000, online store ₹95,000 se. '
-       'Saal ka domain-hosting kharcha aur GST bhi, seedhi bhasha mein.',
+  desc='Website banane me kitna kharcha aata hai? Mumbai ke market rates, ₹25,000 se fixed prices, saal ka domain-hosting kharcha aur GST, '
+       'seedhi bhasha mein.',
   h1='Website banane me kitna kharcha aata hai?', eyebrow='Guide · Hinglish',
   lead='Main Mehul Karotra hoon, Ghatkopar West se. Main websites khud banata hoon aur apne saare prices publicly likhta hoon. Yahan seedha hisaab hai.',
   stats=[('₹8k–2L', 'Market range'), (price('Landing page'), 'U Scale se shuru'), ('₹4.4–9.4k', 'Har saal ka kharcha')],
@@ -535,7 +535,7 @@ PAGES = [
  dict(slug='freelancer-vs-agency-vs-website-builder', kind='guide', crumb='Freelancer vs agency vs builder',
   card='Real price ranges, who each suits, and what to watch for, compared honestly.',
   service='Freelancer vs agency vs DIY website builder, Mumbai (2026)',
-  title='Freelancer vs Agency vs Website Builder, Mumbai 2026 | U Scale',
+  title='Freelancer vs Agency vs Website Builder (2026) | U Scale',
   desc='Should a Mumbai business hire a freelancer, an agency or use a DIY website builder? Real price ranges, who each suits, and what to '
        'watch for, compared honestly.',
   h1='Freelancer, agency or DIY builder: which is right for you?', eyebrow='Guide · Compared',
