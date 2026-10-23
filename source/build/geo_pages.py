@@ -47,7 +47,16 @@ SRC = {
                  'https://razorpay.com/blog/razorpay-payment-gateway-pricing-explained/'),
     'free-listings': ('Google Merchant Center Help', 'Free listings for products', 'https://support.google.com/merchants/answer/13889434'),
     'local-rank': ('Google Business Profile Help', 'How to improve your local ranking on Google', 'https://support.google.com/business/answer/7091'),
+    'in-domain': ('Hostinger, checked 21 Oct 2026', '.in domain price and renewal', 'https://www.hostinger.com/in/tld/in-domain'),
+    'gd-domain': ('GoDaddy India, checked 21 Oct 2026', '.in domain price and renewal', 'https://www.godaddy.com/en-in/tlds/in-domain'),
+    'hosting': ('Hostinger, checked 21 Oct 2026', 'Web hosting plans and renewal prices', 'https://www.hostinger.com/in/web-hosting'),
+    'ssl': ('Let’s Encrypt', 'Free SSL certificates', 'https://letsencrypt.org/'),
+    'shopify': ('Shopify India, checked 21 Oct 2026', 'Shopify pricing', 'https://www.shopify.com/in/pricing'),
+    'razorpay-pricing': ('Razorpay', 'Razorpay pricing', 'https://razorpay.com/pricing/'),
+    'gst-22': ('CBIC', 'CGST Act, section 22: who must register for GST', 'https://taxinformation.cbic.gov.in/content/html/tax_repository/gst/acts/2017_CGST_act/active/chapter6/section22_v1.00.html'),
 }
+GUIDES_NOTE = ('Market ranges come from 16 website price guides published by Mumbai and Indian agencies in 2025–26, '
+               'compared by U Scale in October 2026; they overlap rather than agree.')
 
 
 def sources_html(keys):
@@ -62,7 +71,7 @@ def bullets(items):
 def table(head, rows, caption):
     th = ''.join(f'<th scope="col">{e(h)}</th>' for h in head)
     body = ''.join('<tr><th scope="row">' + e(r[0]) + '</th>' + ''.join(f'<td>{e(c)}</td>' for c in r[1:]) + '</tr>' for r in rows)
-    wide = ' sp-compare--wide' if len(head) > 2 else ''
+    wide = ' sp-compare--wide' if len(head) > 3 else ''
     return f'<div class="sp-tablewrap"><table class="sp-compare{wide}"><caption class="sr-only">{e(caption)}</caption><thead><tr>{th}</tr></thead><tbody>{body}</tbody></table></div>'
 
 
@@ -307,6 +316,144 @@ PAGES = [
   sources=['local-rank'],
   offers=['Landing page', 'Business site, 3–4 pages', 'Restaurant site + own online ordering', 'Local SEO / Google Business Profile'],
   work=[]),
+
+ dict(slug='website-banane-ka-kharcha', kind='guide', lang='hi-Latn', crumb='Website banane ka kharcha',
+  service='Website banane ka kharcha, Mumbai (2026)',
+  title='Website Banane ka Kharcha Mumbai mein (2026) | U Scale',
+  desc='Mumbai mein website banane ka asli kharcha: landing page ₹25,000 se, business website ₹55,000, online store ₹95,000 se. '
+       'Saal ka domain-hosting kharcha aur GST bhi, seedhi bhasha mein.',
+  h1='Website banane ka kharcha kitna hai?', eyebrow='Guide · Hinglish',
+  lead='Main Mehul Karotra hoon, Ghatkopar West se. Main websites khud design aur code karta hoon, aur apne saare prices publicly likhta hoon. '
+       'Yahan seedha hisaab hai: website banane mein kitna lagta hai, har saal kya kharcha aata hai, aur pay karne se pehle kya poochna hai.',
+  answer='Mumbai mein template wali basic business website lagbhag ₹8,000–₹30,000 mein, kisi Mumbai studio se ₹15,000–₹50,000 mein, aur custom '
+         'design wali website ₹40,000 se ₹2 lakh tak mein banti hai. U Scale ke fixed prices: landing page ₹25,000, 3–4 page business website '
+         '₹55,000 aur online store ₹95,000 se. Iske upar har saal domain aur hosting ka kharcha aata hai: offer khatam hone ke baad lagbhag '
+         '₹4,400–₹9,400 saal ka, GST alag.',
+  facts=[('Template wali basic website', '₹8,000–₹30,000'),
+         ('Mumbai studio se business website', '₹15,000–₹50,000'),
+         ('Custom design wali website', '₹40,000–₹2,00,000'),
+         ('Online store', '₹25,000–₹3,00,000, products aur features pe depend karta hai'),
+         ('U Scale ke fixed prices', f'Landing page {price("Landing page")} · Business site {price("Business site, 3–4 pages")} · '
+                                     f'Blog ke saath {price("Business site, 5–10 pages + blog")} · Online store {price("E-commerce, under 50 products")} se'),
+         ('Har saal ka kharcha', 'Domain + hosting lagbhag ₹4,400–₹9,400 (offer ke baad, GST se pehle)'),
+         ('GST', 'Registered agency 18% GST jodti hai; chhote freelancer aksar nahi')],
+  sections=[
+   ('Ek website ₹10,000 ki aur doosri ₹1 lakh ki kyun?',
+    '<p>Price zyada tar time ka hota hai. ₹25,000 se kam mein zyada tar websites ek ready-made theme hoti hain jisme aapka logo, colours aur '
+    'photos daal diye jaate hain. Bahut businesses ke liye yeh theek hai, bas pata hona chahiye ki aap kya khareed rahe ho.</p>'
+    + bullets(['<b>Template ya custom design:</b> custom design mein har page aapke business ke hisaab se banta hai.',
+               '<b>Text kaun likhega:</b> aap khud likhoge toh sasta, designer likhega toh mehenga par aksar behtar.',
+               '<b>Features:</b> booking, online ordering, payments, product catalogue, ya Hindi-Marathi pages, har ek kaam badhata hai.',
+               '<b>Products:</b> 30 products ka store aur 300 ka store alag projects hain.',
+               '<b>Kaun bana raha hai:</b> freelancer projects zyada tar ₹10,000–₹80,000, agency projects ₹50,000–₹3 lakh.'])
+    + '<p class="sp-note">Market ranges 16 website price guides se hain jo Mumbai aur Indian agencies ne 2025–26 mein publish kiye; U Scale ne '
+      'inhe October 2026 mein compare kiya. Yeh ek doosre se poori tarah match nahi karte, isliye ranges diye hain.</p>'),
+   ('Har saal ka kharcha jo quote mein nahi likha hota',
+    table(['Kharcha', 'Offer price', 'Renewal pe'], [
+        ('.in domain', '₹1, 3 saal ki purchase ke saath', '₹899 saal ka (Hostinger, GoDaddy)'),
+        ('.com domain', '₹1, 3 saal ki purchase ke saath', '₹1,499–₹1,599 saal ka'),
+        ('Shared hosting', '₹69–₹199 mahina, 3–4 saal advance', '₹289–₹649 mahina renewal pe (Hostinger)'),
+        ('SSL (padlock)', 'Free', 'Free (Let’s Encrypt ya aapka host)'),
+        ('Online store platform', 'Shopify Basic ₹1,499 mahina, saal ka bill', 'Same'),
+        ('Payment gateway', 'Razorpay 2% har payment pe, fee pe GST', 'Same'),
+    ], 'Website ka saalana kharcha: offer price aur renewal')
+    + '<p class="sp-note">Prices providers ke apne pages se, 21 October 2026. ₹1 domain aur ₹69 hosting wale offers sach hain, par 3–4 saal ki purchase '
+      'chahiye, aur renewal pe hosting offer se chaar guna tak mehengi ho sakti hai. Offer nahi, renewal ke hisaab se plan kariye.</p>'),
+   ('GST: 18%, par hamesha nahi',
+    bullets(['<b>Agency 18% jodti hai:</b> website design pe 18% GST lagta hai, toh ₹40,000 ka quote ₹47,200 ban jaata hai.',
+             '<b>Chhote freelancer aksar GST nahi lete:</b> service provider ko GST registration tab chahiye jab saal ka turnover ₹20 lakh se upar ho '
+             '(CGST Act, section 22), aur jo registered nahi hai woh GST collect nahi kar sakta. Agar freelancer GST jode, toh GSTIN maangiye.',
+             '<b>Aapko wapas mil sakta hai:</b> agar aapka business GST-registered hai, toh apne CA se input tax credit ke baare mein poochiye.'])),
+   ('Pay karne se pehle yeh 6 sawaal poochiye',
+    bullets(['Price GST ke saath hai ya bina?',
+             'Domain kiske naam aur email pe register hoga? (Aapke naam pe hona chahiye.)',
+             'Launch pe website ka admin login aur hosting login milega?',
+             'Offer khatam hone ke baad hosting aur domain ka saal ka kharcha kitna hoga?',
+             'Kitne rounds ke changes included hain?',
+             'Design custom hai ya theme? Theme hai toh kaunsi?'])),
+   ('Website kitne din mein banti hai?',
+    '<p>Landing page 3–7 din, basic business website 1–4 hafte, custom design wali 3–8 hafte, aur online store 4–12 hafte, products ki '
+    'sankhya pe depend karta hai. U Scale se website zyada tar 4–8 hafte mein live hoti hai. Sabse bada delay aksar build nahi hota: photos, '
+    'prices aur text ka intezaar hota hai.</p>'),
+  ],
+  faq=[('Mumbai mein website banane ka kharcha kitna hai?',
+        'Template wali basic business website lagbhag ₹8,000–₹30,000, Mumbai studio se ₹15,000–₹50,000, aur custom design ₹40,000 se ₹2 lakh tak. '
+        f'U Scale ke fixed prices: landing page {price("Landing page")}, 3–4 page business website {price("Business site, 3–4 pages")}, online store {price("E-commerce, under 50 products")} se.'),
+       ('Website ka har saal kya kharcha aata hai?',
+        'Domain aur hosting: offer khatam hone ke baad lagbhag ₹4,400–₹9,400 saal ka, GST se pehle. .in domain ka renewal ₹899 saal ka hai. '
+        'Online store pe platform fee aur har payment pe gateway fee alag se.'),
+       ('Kya website banane pe GST lagta hai?',
+        'Haan, website design pe 18% GST lagta hai jab registered agency ya freelancer bill karta hai. Jiska turnover ₹20 lakh se kam hai aur jo '
+        'registered nahi hai, woh GST nahi le sakta.'),
+       ('₹5,000–₹10,000 wali sasti website lena theek hai?',
+        'Agar aapko pata hai ki yeh ek theme hai aur domain aur logins aapke naam pe honge, toh chhote kaam ke liye theek ho sakta hai. Theme ka naam, '
+        'renewal price aur launch ke baad support ke baare mein likhit mein poochiye.'),
+       ('Kya U Scale ka price fixed hai?',
+        'Haan. Free audit ke baad price fixed hota hai aur kaam shuru hone se pehle likhit mein agree hota hai: 20% shuru mein, 20% design approve '
+        'hone pe, 60% launch pe. Copywriting, photography aur payment gateway fees alag se, hamesha pehle bata ke.')],
+  sources=['in-domain', 'gd-domain', 'hosting', 'ssl', 'shopify', 'razorpay-pricing', 'gst-22'],
+  offers=['Landing page', 'Business site, 3–4 pages', 'Business site, 5–10 pages + blog', 'E-commerce, under 50 products'],
+  work=[]),
+
+ dict(slug='freelancer-vs-agency-vs-website-builder', kind='guide', crumb='Freelancer vs agency vs builder',
+  service='Freelancer vs agency vs DIY website builder, Mumbai (2026)',
+  title='Freelancer vs Agency vs Website Builder, Mumbai 2026 | U Scale',
+  desc='Should a Mumbai business hire a freelancer, an agency or use a DIY website builder? Real price ranges, who each suits, and what to '
+       'watch for, compared honestly.',
+  h1='Freelancer, agency or DIY builder: which is right for you?', eyebrow='Guide · Compared',
+  lead='Three honest ways to get a business website in Mumbai, plus where U Scale fits. I’m Mehul Karotra; I run U Scale, so I have a side, '
+       'which is why every claim here comes with a price range you can check against other quotes.',
+  answer='For most small businesses in Mumbai, a good freelancer or one-person studio gives the best value. Freelancer projects mostly cost '
+         '₹10,000–₹80,000 and agency projects ₹50,000–₹3 lakh, according to 16 price guides published by Mumbai and Indian agencies in '
+         '2025–26. A DIY builder costs least upfront but takes your time and a monthly fee. Choose an agency when you need a large team '
+         'working in parallel. U Scale sits in between: one person doing the work, with written scope and a fixed price.',
+  facts=[('DIY website builder', 'A monthly plan (Shopify Basic ₹1,499/month billed yearly) plus your own time'),
+         ('Freelancer', '₹10,000–₹80,000 for most projects'),
+         ('Agency', '₹50,000–₹3,00,000 for most projects; premium agencies quote ₹2.5 lakh and up'),
+         ('U Scale', f'Fixed: landing page {price("Landing page")}, business site {price("Business site, 3–4 pages")}, online store from {price("E-commerce, under 50 products")}'),
+         ('Whatever you choose', 'Domain, admin login and hosting login in your name')],
+  sections=[
+   ('Side by side',
+    table(['', 'DIY builder', 'Freelancer', 'Agency', 'U Scale'], [
+        ('Typical cost', 'Monthly plan + your time', '₹10,000–₹80,000', '₹50,000–₹3,00,000', f'Fixed, {price("Landing page")}–{price("E-commerce, under 50 products")} for most sites'),
+        ('Who does the work', 'You', 'One person', 'A team: designer, developer, account manager', 'Mehul Karotra, personally'),
+        ('Design', 'A template', 'Often a theme (ask which)', 'Custom', 'Custom, designed in Figma'),
+        ('Good for', 'Testing an idea on a tiny budget', 'Simple sites with a clear brief', 'Large sites with many people working in parallel',
+         'Small businesses that want custom work and one point of contact'),
+        ('Watch out for', 'Hours of your time; a template look; fees on every sale', 'Who fixes things after launch, and who holds the logins',
+         'You also pay for the team and the office', 'One person, so the start date depends on his queue: ask for it'),
+    ], 'Freelancer, agency, DIY builder and U Scale compared')
+    + f'<p class="sp-note">{e(GUIDES_NOTE)}</p>'),
+   ('When an agency is the better choice',
+    '<p>Pick an agency when the site is large, needs several specialists at once (developers, writers, a photographer, an ads team) or has a hard '
+    'launch date that one person can’t meet. You pay for the team, and for a big project that is worth it.</p>'),
+   ('When a DIY builder is enough',
+    '<p>If you are testing an idea, need a single page for a few weeks, or have more time than budget, a builder like Shopify, Wix or WordPress is a '
+    'fair choice. Count the hours you will spend and the fees on every sale. On Shopify’s Basic plan in India, Shopify adds its own 2% on '
+    'each sale on top of the payment gateway’s fee, because Shopify Payments isn’t available here.</p>'),
+   ('Six checks before you hire anyone',
+    bullets(['The domain is registered in your business’s name, with your email.',
+             'You get the website admin login and the hosting login at launch, in writing.',
+             'You know the hosting and domain renewal prices, not just the offer price.',
+             'You know whether the design is custom or a theme, and which theme.',
+             'Pages, rounds of changes, who writes the text and the timeline are written down before the advance.',
+             'You know who fixes things after launch, for how long, and what edits cost after that.'])),
+  ],
+  faq=[('Should I hire a freelancer or an agency for my website in Mumbai?',
+        'For most small businesses a freelancer or one-person studio is the better value: you talk directly to the person doing the work, decisions '
+        'are faster, and you don’t pay for account managers. Choose an agency for large sites that need a team working in parallel.'),
+       ('Is a website builder like Wix or Shopify good enough?',
+        'For testing an idea on a small budget, yes. You pay a monthly plan and spend your own time, the design is a template, and online stores pay '
+        'fees on every sale. A designed site makes sense once the website has to win customers on its own.'),
+       ('Is U Scale a freelancer or an agency?',
+        'A bit of both. U Scale is one person, Mehul Karotra, working with an agency’s process: a written scope, a fixed price agreed before work '
+        'starts, and design approval before the build.'),
+       ('Who should own my website and domain?',
+        'You. Whoever builds it, the domain should be registered in your business’s name with your email, and you should get the admin and hosting '
+        'logins at launch.')],
+  sources=['shopify'],
+  offers=['Landing page', 'Business site, 3–4 pages', 'E-commerce, under 50 products'],
+  work=[]),
 ]
 
 
@@ -344,8 +491,17 @@ IMAGES = {
        alt='Schematic of Mumbai Metro Line 1 from Western Express Highway through Chakala, Airport Road, Marol Naka and Saki Naka to Ghatkopar, with Andheri East areas marked',
        caption='Andheri East and Ghatkopar are on the same Metro line. Schematic, not to scale.')],
 }
+IMAGES['website-banane-ka-kharcha'] = [
+  dict(file=A + 'website-banane-ka-kharcha-mumbai-2026', w=1200, h=760, at=-1,
+       alt='Chart of website prices in Mumbai in 2026: template site ₹8,000–₹30,000, Mumbai studio ₹15,000–₹50,000, custom design ₹40,000–₹2 lakh, online store ₹25,000–₹3 lakh, with U Scale fixed prices marked',
+       caption='Website prices in Mumbai, 2026: market ranges from 16 agency price guides, with U Scale’s fixed prices marked.')]
+IMAGES['freelancer-vs-agency-vs-website-builder'] = [
+  dict(file=A + 'freelancer-vs-agency-vs-website-builder-mumbai', w=1200, h=760, at=-1,
+       alt='Comparison of a DIY website builder, a freelancer, an agency and U Scale for a Mumbai business website: typical cost, who does the work and who each suits',
+       caption='DIY builder, freelancer, agency or U Scale: typical cost and who each suits.')]
 OG = {'restaurants-cafes': 'og-restaurant-website-mumbai', 'boutiques-fashion': 'og-boutique-website-mumbai',
-      'ghatkopar': 'og-website-designer-ghatkopar', 'andheri-east': 'og-website-design-andheri-east'}
+      'ghatkopar': 'og-website-designer-ghatkopar', 'andheri-east': 'og-website-design-andheri-east',
+      'website-banane-ka-kharcha': 'og-website-banane-ka-kharcha', 'freelancer-vs-agency-vs-website-builder': 'og-freelancer-vs-agency-vs-builder'}
 
 
 def _src(img):
@@ -378,14 +534,23 @@ def _jsonld(site, p):
     parent = SP.svc_url(site, PARENT)
     area = ([{'@type': 'Place', 'name': f'{n}, Mumbai'} for n in p['places']] if p['kind'] == 'area'
             else [{'@type': 'City', 'name': 'Mumbai'}, {'@type': 'Country', 'name': 'India'}])
+    lang = p.get('lang', 'en-IN')
+    service = {'@type': 'Service', '@id': url + '#service', 'name': p['service'], 'serviceType': 'Website design', 'url': url, 'description': p['answer'],
+               'provider': {'@id': site + '#business'}, 'areaServed': area, 'offers': aeo.offers_ld(site, p['offers']),
+               'isRelatedTo': {'@type': 'Service', '@id': parent + '#service', 'name': PARENT['name'], 'url': parent}}
+    if p['kind'] == 'guide':  # a guide is an article by Mehul about the service, not the service itself
+        main = {'@type': 'Article', '@id': url + '#article', 'headline': p['h1'], 'description': p['answer'], 'inLanguage': lang,
+                'author': {'@id': site + '#mehul'}, 'publisher': {'@id': site + '#business'}, 'dateModified': '__LASTMOD__',
+                'mainEntityOfPage': {'@id': url + '#webpage'},
+                'about': {'@type': 'Service', '@id': parent + '#service', 'name': PARENT['name'], 'url': parent}}
+    else:
+        main = service
     graph = [
         {'@type': 'WebPage', '@id': url + '#webpage', 'url': url, 'name': p['title'], 'description': p['desc'], 'isPartOf': {'@id': site + '#website'},
-         'about': {'@id': url + '#service'}, 'mainEntity': {'@id': url + '#service'}, 'author': {'@id': site + '#mehul'},
-         'breadcrumb': {'@id': url + '#breadcrumb'}, 'inLanguage': 'en-IN', 'dateModified': '__LASTMOD__',
+         'about': {'@id': main['@id']}, 'mainEntity': {'@id': main['@id']}, 'author': {'@id': site + '#mehul'},
+         'breadcrumb': {'@id': url + '#breadcrumb'}, 'inLanguage': lang, 'dateModified': '__LASTMOD__',
          'citation': [SRC[k][2] for k in p['sources']]},
-        {'@type': 'Service', '@id': url + '#service', 'name': p['service'], 'serviceType': 'Website design', 'url': url, 'description': p['answer'],
-         'provider': {'@id': site + '#business'}, 'areaServed': area, 'isRelatedTo': {'@type': 'Service', '@id': parent + '#service', 'name': PARENT['name'], 'url': parent},
-         'offers': aeo.offers_ld(site, p['offers'])},
+        main,
         aeo.biz_ref(site), aeo.person_ref(site),
         {'@type': 'BreadcrumbList', '@id': url + '#breadcrumb', 'itemListElement': [
             {'@type': 'ListItem', 'position': 1, 'name': 'Home', 'item': site},
@@ -425,7 +590,8 @@ def _work(ctx, keys):
 
 def _cta(p, wa):
     others = [q for q in PAGES if q is not p]
-    nav = ''.join(f'<li><a href="/services/{BASE}/{q["slug"]}">{e(q["crumb"] if q["kind"] == "area" else q["h1"].split(" with ")[0])}</a></li>' for q in others)
+    label = lambda q: q['crumb'] if q['kind'] in ('area', 'guide') else q['h1'].split(' with ')[0]
+    nav = ''.join(f'<li><a href="/services/{BASE}/{q["slug"]}">{e(label(q))}</a></li>' for q in others)
     return f'''
   <section class="cta sp-cta" id="contact" aria-labelledby="cta-title">
     <div class="wrap">
@@ -448,7 +614,9 @@ def _cta(p, wa):
 
 def page(ctx, parts, p):
     site = ctx['SITE_URL']; url = url_of(site, p)
-    wa = f'https://wa.me/{aeo.ENTITY["whatsapp"]}?text=' + urllib.parse.quote(f"Hi Mehul, I found your page on {p['crumb'].lower()} websites. I'd like to talk about my business.")
+    msg = ("Hi Mehul, I read your guide on uscale.in. I'd like a quote for my website." if p['kind'] == 'guide'
+           else f"Hi Mehul, I found your page on {p['crumb'].lower()} websites. I'd like to talk about my business.")
+    wa = f'https://wa.me/{aeo.ENTITY["whatsapp"]}?text=' + urllib.parse.quote(msg)
     imgs = IMAGES.get(p['slug'], [])
     at = lambda i: ''.join(figure(x) for x in imgs if x['at'] == i)
     lead_img = f'''
@@ -470,8 +638,9 @@ def page(ctx, parts, p):
       <p class="sp-price"><strong>Prices.</strong> Every U Scale price is published. {_link('/pricing', 'See the full price list')}</p>
     </div>
   </section>'''
-    body = (_hero(p, wa) + aeo.brief_html(p['answer'], p['facts'], 'Key facts: ' + p['service'], 'brief-title') + secs + tail
-            + aeo._faq_section(p['faq'], 'Questions, answered.') + _cta(p, wa))
+    content = (_hero(p, wa) + aeo.brief_html(p['answer'], p['facts'], 'Key facts: ' + p['service'], 'brief-title') + secs + tail
+               + aeo._faq_section(p['faq'], 'Sawaal-jawaab.' if p.get('lang') == 'hi-Latn' else 'Questions, answered.'))
+    body = (f'<div lang="{p["lang"]}">{content}</div>' if p.get('lang') else content) + _cta(p, wa)
     og = (f'{site}assets/pages/{OG[p["slug"]]}.jpg', p['h1'] + ' · U Scale by Mehul Karotra')
     return aeo._page(ctx, parts, url, p['title'], p['desc'], _jsonld(site, p), body, og)
 
@@ -489,7 +658,8 @@ def build(ctx, parts):
 def llms_lines(site):
     biz = [p for p in PAGES if p['kind'] == 'business']; area = [p for p in PAGES if p['kind'] == 'area']
     return (['', '## Websites by type of business', ''] + [f'- [{p["h1"]}]({url_of(site, p)}): {p["desc"]}' for p in biz]
-            + ['', '## Areas', ''] + [f'- [{p["h1"]}]({url_of(site, p)}): {p["desc"]}' for p in area])
+            + ['', '## Areas', ''] + [f'- [{p["h1"]}]({url_of(site, p)}): {p["desc"]}' for p in area]
+            + ['', '## Guides', ''] + [f'- [{p["h1"]}]({url_of(site, p)}): {p["desc"]}' for p in PAGES if p['kind'] == 'guide'])
 
 
 def _text(html):
@@ -519,5 +689,7 @@ def related_html():
     """Links block for the main website-design page: by business, by area."""
     biz = ''.join(f'<li><a href="/services/{BASE}/{p["slug"]}">{e(p["h1"])}</a></li>' for p in PAGES if p['kind'] == 'business')
     area = ''.join(f'<li><a href="/services/{BASE}/{p["slug"]}">{e(p["h1"])}</a></li>' for p in PAGES if p['kind'] == 'area')
+    guide = ''.join(f'<li><a href="/services/{BASE}/{p["slug"]}">{e(p["crumb"])}</a></li>' for p in PAGES if p['kind'] == 'guide')
     return (f'<nav class="sp-more" aria-label="Websites by business"><p class="eyebrow">By business</p><ul>{biz}</ul></nav>'
-            f'<nav class="sp-more" aria-label="Websites near you"><p class="eyebrow">Near you</p><ul>{area}</ul></nav>')
+            f'<nav class="sp-more" aria-label="Websites near you"><p class="eyebrow">Near you</p><ul>{area}</ul></nav>'
+            f'<nav class="sp-more" aria-label="Website guides"><p class="eyebrow">Guides</p><ul>{guide}</ul></nav>')
