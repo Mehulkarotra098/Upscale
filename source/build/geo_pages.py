@@ -106,11 +106,34 @@ SRC = {
     'hosting': ('Hostinger, checked 21 Oct 2026', 'Web hosting plans and renewal prices', 'https://www.hostinger.com/in/web-hosting'),
     'ssl': ('Let’s Encrypt', 'Free SSL certificates', 'https://letsencrypt.org/'),
     'shopify': ('Shopify India, checked 21 Oct 2026', 'Shopify pricing', 'https://www.shopify.com/in/pricing'),
-    'razorpay-pricing': ('Razorpay', 'Razorpay pricing', 'https://razorpay.com/pricing/'),
+    'razorpay-pricing': ('Razorpay, checked 23 Oct 2026', 'Razorpay pricing', 'https://razorpay.com/pricing/'),
     'gst-22': ('CBIC', 'CGST Act, section 22: who must register for GST', 'https://taxinformation.cbic.gov.in/content/html/tax_repository/gst/acts/2017_CGST_act/active/chapter6/section22_v1.00.html'),
+    'com-domain': ('Hostinger, checked 23 Oct 2026', '.com domain price and renewal', 'https://www.hostinger.com/in/tld/com-domain'),
+    'gd-com': ('GoDaddy India, checked 23 Oct 2026', '.com domain price and renewal', 'https://www.godaddy.com/en-in/tlds/com-domain'),
+    'merchant-lp': ('Google Merchant Center Help', 'Landing page requirements', 'https://support.google.com/merchants/answer/4752265'),
+    'shopify-payments': ('Shopify Help Center', 'Shopify Payments supported countries', 'https://help.shopify.com/en/manual/payments/shopify-payments/supported-countries'),
+    # The 16 website price guides behind the market ranges (read 21 Oct 2026); none is U Scale.
+    'g-pac': ('PAC Solution Web, Mumbai, 3 Aug 2026', 'Website Design Cost in Mumbai: Complete Pricing Guide for 2026', 'https://pacsolutionweb.com/website-design-cost-mumbai/'),
+    'g-webbird': ('Webbird, Mumbai, updated 4 Apr 2026', 'Website Design Cost in Mumbai', 'https://www.webbird.in/blog/website-design-cost-in-mumbai/'),
+    'g-mwd': ('Mumbai Web Design, updated 31 Jul 2026', 'Website design cost in Mumbai 2026', 'https://www.mumbaiwebdesign.in/blogs/website-design-cost-in-mumbai-2026/'),
+    'g-five': ('Five Online, Mumbai, 10 Dec 2025', 'How to choose the best website designer in Mumbai: real examples and costs', 'https://fiveonline.in/blogs/how-to-choose-the-best-website-designer-in-mumbai-real-examples-costs'),
+    'g-green': ('Green Media Technology, Mumbai, 22 Jun 2026', 'How much does website development cost in Mumbai this year', 'https://greenmediatechnology.com/blog/how-much-does-website-development-cost-in-mumbai-this-year'),
+    'g-wgi': ('Web Gurus India, Mumbai, 20 Jul 2026', 'What Does Website Design Actually Cost in Mumbai (2026)?', 'https://blog.webgurusindia.in/what-does-website-design-actually-cost-in-mumbai-2026-a-transparent-inr-breakdow/'),
+    'g-rds': ('RDS Web & IT Solutions, Mumbai, 11 Feb 2026', 'Website design cost in Mumbai', 'https://rdswebtech.com/website-design-cost-mumbai'),
+    'g-jimmy': ('Jimmy Thakkar, Mumbai, undated (seen 21 Oct 2026)', 'Web design and hosting prices, Mumbai', 'https://www.jimmythakkar.com/web-design-hosting-prices-mumbai'),
+    'g-hostinger': ('Hostinger India, updated 26 Feb 2026', 'How much does a website cost in India', 'https://www.hostinger.com/in/tutorials/website-cost'),
+    'g-esc': ('Easy Site Coders, 23 Jul 2026', 'Website development cost in India 2026', 'https://easysitecoders.com/blog/website-development-cost-in-india-2026'),
+    'g-zethic': ('Zethic Technologies, updated 21 Sep 2026', 'Website development cost in India 2026: full price breakdown', 'https://zethic.com/website-development-cost-in-india-2026-full-price-breakdown/'),
+    'g-htbg': ('HT Business Group, 22 Jun 2026', 'Website development cost in India 2026', 'https://htbusinessgroup.com/website-development-cost-in-india-2026/'),
+    'g-orange': ('OrangeMantra, 14 Jul 2026', 'Guide on determining website development cost', 'https://www.orangemantra.com/blog/guide-on-determining-website-development-cost/'),
+    'g-secuod': ('Secuodsoft, 12 Mar 2026', 'Website development cost in India', 'https://www.secuodsoft.com/blog/web-development/website-development-cost-in-india.php'),
+    'g-devg': ('DevGraphiq, updated 20 Aug 2026', 'Website development cost in India', 'https://devgraphiq.com/website-development-cost-in-india'),
+    'g-goodfirms': ('GoodFirms, updated 26 Aug 2026', 'Web development cost in India', 'https://www.goodfirms.co/blog/web-development-cost-in-india'),
 }
-GUIDES_NOTE = ('Market ranges come from 16 website price guides published by Mumbai and Indian agencies in 2025–26, '
-               'compared by U Scale in October 2026; they overlap rather than agree.')
+GUIDES = ['g-pac', 'g-webbird', 'g-mwd', 'g-five', 'g-green', 'g-wgi', 'g-rds', 'g-jimmy',
+          'g-hostinger', 'g-esc', 'g-zethic', 'g-htbg', 'g-orange', 'g-secuod', 'g-devg', 'g-goodfirms']
+GUIDES_NOTE = ('Market ranges come from 16 website price guides published in 2025–26 by Mumbai and Indian web firms, a hosting company '
+               'and a directory, compared by U Scale in October 2026 and listed under Sources below; they overlap rather than agree.')
 
 
 def src_chip(k):
@@ -173,7 +196,7 @@ def svc_links(extra=()):
 
 MAPS_FAQ = ('Verify your Google Business Profile, choose the most specific primary category, keep hours, phone, photos and services complete, '
             'earn genuine reviews every week and reply to them, and show the same name, phone number and area on your website. Google ranks '
-            'local results on relevance, distance and prominence, and nobody can change how far a searcher is from you.')
+            'local results on relevance, distance and prominence, and nobody can change how far a searcher is from you, so no one can promise a top-3 spot.')
 RANKING = Cards([
     ('search', 'Relevance', 'How well your listing and website match the search. <b>You control it:</b> categories, services, the words on your site.'),
     ('pin', 'Distance', 'How far you are from the person searching. <b>Nobody can change it</b>, which is why the other two matter.'),
@@ -193,8 +216,8 @@ PAGES = [
   art=dict(kind='img', img='rest', chips=[('cart', 'New order · ₹190 · paid by UPI'), ('check', '0% app commission')]),
   answer='U Scale builds restaurant and café websites in Mumbai with the menu, photos, timings and the restaurant’s own online ordering, for a '
          f'fixed {price("Restaurant site + own online ordering")}. Orders placed on your own website carry no delivery-app commission: you pay only '
-         'the payment gateway fee, about 2% plus GST on a standard plan. Most restaurants keep Zomato and Swiggy for new customers and move '
-         'their regulars to direct ordering.',
+         'the payment gateway fee, about 2% plus GST on a standard plan. You can keep Zomato and Swiggy for new customers and give your '
+         'regulars a way to order direct.',
   facts=[('Price', f'Website + own online ordering {price("Restaurant site + own online ordering")}, fixed. Without ordering (menu, photos, '
                    f'timings, contact), the business-site price applies: {price("Business site, 3–4 pages")} for 3–4 pages'),
          ('Who builds it', 'Mehul Karotra, personally: designed in Figma, then hand-coded'),
@@ -207,7 +230,7 @@ PAGES = [
    Sec('How much do Zomato and Swiggy really cost a restaurant?',
        Stat('20–25%', 'of the order value: what restaurants typically pay established delivery apps in commission', 'nrai'),
        P('Restaurants typically pay established delivery platforms a commission of 20–25% of the order value, according to Sagar Daryani, '
-         'president of the National Restaurant Association of India (NRAI), in October 2026. Paid placements on the apps come on top. Newer '
+         'president of the National Restaurant Association of India (NRAI), in October 2026. He adds that advertising, discounts and promotions add to what restaurants spend. Newer '
          'platforms are pitching lower rates: Flipkart has reportedly proposed a base commission of around 10% for its food delivery launch.',
          'Your own website does not replace the apps. They are where new customers discover you. A website gives the people who already know '
          'you, your regulars, a way to order from you directly.'),
@@ -242,7 +265,7 @@ PAGES = [
         'link to order direct, and keep the apps for reach.'),
        ('How much commission do Zomato and Swiggy charge restaurants?',
         'Rates are agreed restaurant by restaurant, but restaurants typically pay established platforms 20–25% of the order value, according to the '
-        'president of the National Restaurant Association of India (October 2026). Paid placements and GST on the commission come on top.'),
+        'president of the National Restaurant Association of India (October 2026). He adds that advertising, discounts and promotions add to what restaurants spend.'),
        ('Who delivers orders placed on my own website?',
         'You choose: your own delivery staff, takeaway pickup, or a delivery partner you book per order. The website takes the order and the '
         'payment; delivery stays in your control.'),
@@ -264,12 +287,12 @@ PAGES = [
        f'{price("E-commerce, under 50 products")}. Designed by Mehul Karotra.',
   h1='Boutique & clothing store websites', eyebrow='Websites by business',
   lead='A catalogue your Instagram followers can browse properly, product pages Google can find, and orders on WhatsApp or online. Fixed price.',
-  stats=[(price('Business site, 3–4 pages'), 'Catalogue site, from'), (price('E-commerce, under 50 products'), 'Online store, under 50 products'), ('1 tap', 'From product to WhatsApp order')],
+  stats=[(price('Business site, 3–4 pages'), 'Catalogue site, from'), (price('E-commerce, under 50 products'), 'Online store, under 50 products'), ('1 tap', 'To order on WhatsApp')],
   art=dict(kind='img', img='bout', chips=[('chat', 'Order on WhatsApp'), ('tag', 'Size M · ₹3,450')]),
   answer='U Scale designs and builds websites for boutiques, saree shops and fashion labels in Mumbai: a catalogue site with an “Order on WhatsApp” '
          f'button on every product, or a full online store with cart and payments from {price("E-commerce, under 50 products")} for under 50 products. '
-         'Every product gets its own page, so it can be found on Google and listed for free across Google Search, Images, Lens and the Shopping tab '
-         'through Google Merchant Center.',
+         'Every product gets its own page that Google can find. Product pages that show the price, availability and a way to buy can also be '
+         'submitted to Google Merchant Center for free listings on Google Search, Images, Lens and the Shopping tab.',
   facts=[('Catalogue site', f'Products, lookbook and “Order on WhatsApp” buttons, priced by pages after a free audit, from {price("Business site, 3–4 pages")}'),
          ('Online store', f'Under 50 products {price("E-commerce, under 50 products")} · 50–500 products {price("E-commerce, 50–500 products")}'),
          ('Who builds it', 'Mehul Karotra, personally: designed in Figma, then hand-coded'),
@@ -289,8 +312,8 @@ PAGES = [
        eyebrow='Instagram vs website'),
    Sec('List your products on Google for free',
        P('Google Merchant Center lets shops list products for free across Google Search, the Shopping tab, Google Images, Google Lens, Maps and the '
-         'products section of a Business Profile. It needs a product page on your own website for every item, with price and availability, and '
-         'shipping details for India. Google does not promise that every product is shown.'),
+         'products section of a Business Profile. Google’s rules ask for a product page on your own website for every item, showing the price, '
+         'availability and a buy button or a similar way to order, plus shipping details for India. Made-to-order pieces without a fixed price may not qualify. Google does not promise that every product is shown.'),
        Chips(['Google Search', 'Shopping tab', 'Google Images', 'Google Lens', 'Google Maps', 'Business Profile'], 'Where free listings can show'),
        eyebrow='Free listings', tone='band'),
    Sec('Catalogue with WhatsApp orders, or a full online store?',
@@ -322,10 +345,10 @@ PAGES = [
         'colour and delivery in the conversation.'),
        ('Can my products show on Google Shopping for free?',
         'Yes, through Google Merchant Center’s free listings, which can show products on Google Search, the Shopping tab, Images, Lens and Maps. '
-        'You need a product page on your own website for each item, with price and availability. Google does not guarantee that every product is shown.'),
+        'You need a product page on your own website for each item, showing the price, availability and a buy button or a similar way to order; made-to-order pieces without a fixed price may not qualify. Google does not guarantee that every product is shown.'),
        ('Who takes the product photos?',
         'You can use your own photos. If you need a shoot, photography is quoted separately, always before work starts.')],
-  sources=['free-listings', 'razorpay'],
+  sources=['free-listings', 'merchant-lp', 'razorpay'],
   offers=['E-commerce, under 50 products', 'E-commerce, 50–500 products', 'Business site, 3–4 pages'],
   work=['sashe']),
 
@@ -333,11 +356,11 @@ PAGES = [
   card='A website designer based in Ghatkopar West, who can meet you at your shop.',
   places=['Ghatkopar', 'Vikhroli', 'Kurla', 'Chembur', 'Powai', 'Mulund'],
   title='Website Designer & Developer in Ghatkopar, Mumbai | U Scale',
-  desc='Website designer and developer based in Ghatkopar West: websites from ₹25,000, plus Google listings and local SEO for Ghatkopar '
+  desc=f'Website designer and developer based in Ghatkopar West: websites from {price("Landing page")}, plus Google listings and local SEO for Ghatkopar '
        'businesses. Free audit.',
   h1='Website designer & developer in Ghatkopar', eyebrow='Near you',
   lead='I’m Mehul Karotra, based in Ghatkopar West. I design and build websites and run Google listings and local SEO for businesses here, and I can come to your shop to talk it through.',
-  stats=[(price('Landing page'), 'Websites from'), ('₹15,000', 'Local SEO, a month'), ('Free', 'Audit at your shop')],
+  stats=[(price('Landing page'), 'Websites from'), (_fmt(rupees('Local SEO / Google Business Profile')), 'Local SEO, a month'), ('Free', 'Audit at your shop')],
   art=dict(kind='portrait', chips=[('pin', 'Ghatkopar West, Mumbai'), ('chat', 'Replies on WhatsApp')]),
   answer='U Scale is Mehul Karotra, a freelance website designer and digital marketer based in Ghatkopar West, Mumbai. He designs and hand-codes '
          f'websites at fixed prices (a landing page {price("Landing page")}, a 3–4 page business site {price("Business site, 3–4 pages")}) and runs '
@@ -352,17 +375,17 @@ PAGES = [
          ('Languages', 'English and Hindi')],
   sections=[
    Sec('Why Ghatkopar customers find you, or your competitor, on Google',
-       P('When someone nearby searches “saree shop near me” or “clinic in Ghatkopar”, Google shows a map with three businesses first. Google says '
+       P('When someone nearby searches “saree shop near me” or “clinic in Ghatkopar”, Google often shows a map with a few local businesses first. Google says '
          'it ranks local results on relevance (how well your listing matches the search), distance (how far you are from the person searching) and '
          'prominence (how well known you are, judged partly from reviews and from the web). A website that names your area, services and timings, '
-         'and matches your Google listing exactly, helps with relevance and prominence. Distance is the one thing nobody can change.'),
+         'and matches your Google listing exactly, helps with relevance; reviews and mentions across the web build prominence. Distance is the one thing nobody can change.'),
        Img('found'),
        RANKING,
        eyebrow='The map pack'),
    Sec('Where I meet clients around Ghatkopar',
        Svg('gk-map'),
        Chips(['Ghatkopar West', 'Ghatkopar East', 'Vikhroli', 'Powai', 'Kurla', 'Chembur', 'Mulund'], 'Areas I visit'),
-       P('Further away? U Scale works with businesses across Mumbai, Thane and Navi Mumbai over WhatsApp and video calls.'),
+       P('Further away? I work with businesses across Mumbai, and with clients elsewhere in India, over WhatsApp and video calls.'),
        eyebrow='Near you', tone='band', sid='areas'),
    Sec('What I do for businesses in Ghatkopar', svc_links(), eyebrow='Services', layout='wide'),
    Sec('Check where you stand, free', Tools(), eyebrow='Free tools', layout='wide'),
@@ -375,8 +398,8 @@ PAGES = [
         f'blog {price("Business site, 5–10 pages + blog")} and an online store from {price("E-commerce, under 50 products")}. The same fixed prices apply anywhere in Mumbai.'),
        ('How do I get my Ghatkopar business into the Google Maps top 3?', MAPS_FAQ),
        ('Do you also work in Ghatkopar East, Vikhroli and Kurla?',
-        'Yes. Ghatkopar East and West, Vikhroli, Kurla, Chembur, Powai and Mulund are all close by, and U Scale works with businesses across Mumbai, '
-        'Thane and Navi Mumbai.')],
+        'Yes. Ghatkopar East and West, Vikhroli, Kurla, Chembur, Powai and Mulund are all close by, and U Scale works with businesses across Mumbai '
+        'and with clients elsewhere in India over WhatsApp and video calls.')],
   sources=['local-rank'],
   offers=['Landing page', 'Business site, 3–4 pages', 'Business site, 5–10 pages + blog', 'Local SEO / Google Business Profile'],
   work=[]),
@@ -401,7 +424,7 @@ PAGES = [
          ('Local SEO', f'Google Business Profile and local SEO {price("Local SEO / Google Business Profile")}'),
          ('Free audit', 'In person at your shop or office, or online')],
   sections=[
-   Sec('What we keep finding on Andheri East Google listings',
+   Sec('What I found on Andheri East Google listings',
        P('In October 2026 U Scale looked at the Google listings of more than 30 clothing shops, cafés and restaurants in Andheri East, and visited '
          'shops near Gundavali Metro for a free audit day. The same few gaps came up again and again:'),
        Cards([('globe', 'No website on the listing', 'Good ratings and hundreds of reviews, but people who want the menu or catalogue go to a delivery app, a directory or a competitor.'),
@@ -410,11 +433,12 @@ PAGES = [
               ('star', 'Followers, but few reviews', 'A strong Instagram following but far fewer Google reviews.'),
               ('phone', 'No quick way to ask', 'A website with no WhatsApp or call button, so a visitor on a phone gives up.')], cols=3, numbered=True,
              cta=('/tools/google-business-profile-checker', 'search', 'Check your listing free', 'A score out of 100 and a fix list in about two minutes, so you see which of these apply to you.', 'Check my listing')),
-       P('Each of these can be fixed in days, and most cost nothing but time. The free Google Business Profile checker below shows which ones apply to you.'),
+       P('A dead or wrong link can be fixed the same day and asking for reviews costs only time; a missing website takes a few weeks. The free Google Business Profile checker below shows which ones apply to you.'),
        eyebrow='Audit findings', layout='wide'),
    Sec('One Metro line from Ghatkopar',
        Svg('ae-metro'),
-       P('U Scale is based in Ghatkopar West, at the other end of Metro Line 1 from Andheri East, so a meeting at your shop is a short ride away.'),
+       P('My office is in Ghatkopar West, at the eastern end of Metro Line 1. The line stops in Andheri East at WEH, Chakala (J.B. Nagar), '
+         'Airport Road, Marol Naka and Saki Naka, so a meeting at your shop is a short ride away.'),
        eyebrow='Getting here', tone='band', sid='metro'),
    Sec('What I do for businesses in Andheri East',
        svc_links(extra=[(f'/services/{BASE}/restaurants-cafes', 'cart', 'Restaurant & café websites', 'Your own menu and online ordering, no app commission.', price('Restaurant site + own online ordering'))]),
