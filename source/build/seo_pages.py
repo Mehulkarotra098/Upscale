@@ -243,7 +243,7 @@ def service_page(ctx, s, parts):
 {ctx['ICONS_HEAD']}
 <link rel="preload" href="/assets/fonts/anton-latin.woff2" as="font" type="font/woff2" crossorigin><link rel="preload" href="/assets/fonts/inter-latin.woff2" as="font" type="font/woff2" crossorigin>
 <script type="application/ld+json">{service_jsonld(site, s)}</script>
-<script>(function(){{var d=document.documentElement;d.classList.add('js','intro-skip');var m=null;try{{m=localStorage.getItem('us-motion');}}catch(e){{}}if(m==='off')d.classList.add('rm');}})();</script>
+<script>(function(){{var d=document.documentElement;d.classList.add('js','intro-skip');var m=null;try{{m=localStorage.getItem('us-motion');}}catch(e){{}}if(m==='off')d.classList.add('rm');if(navigator.webdriver)d.classList.add('agent','rm','intro-skip');}})();</script>
 <link rel="stylesheet" href="/styles.css?v={v}">
 </head>
 <body class="page-sub">
@@ -378,7 +378,7 @@ def blog_shell(ctx, parts):
 <meta name="theme-color" content="#FAF9FC">
 {ctx['ICONS_HEAD']}
 <link rel="preload" href="/assets/fonts/anton-latin.woff2" as="font" type="font/woff2" crossorigin><link rel="preload" href="/assets/fonts/inter-latin.woff2" as="font" type="font/woff2" crossorigin>
-<script>(function(){{var d=document.documentElement;d.classList.add('js','intro-skip');var m=null;try{{m=localStorage.getItem('us-motion');}}catch(e){{}}if(m==='off')d.classList.add('rm');}})();</script>
+<script>(function(){{var d=document.documentElement;d.classList.add('js','intro-skip');var m=null;try{{m=localStorage.getItem('us-motion');}}catch(e){{}}if(m==='off')d.classList.add('rm');if(navigator.webdriver)d.classList.add('agent','rm','intro-skip');}})();</script>
 <link rel="stylesheet" href="/styles.css?v={v}">
 <link rel="stylesheet" href="/blog.css?v={bv}">
 </head>
@@ -740,7 +740,7 @@ def tool_page(ctx, parts, tv):
 {ctx['ICONS_HEAD']}
 <link rel="preload" href="/assets/fonts/anton-latin.woff2" as="font" type="font/woff2" crossorigin><link rel="preload" href="/assets/fonts/inter-latin.woff2" as="font" type="font/woff2" crossorigin>
 <script type="application/ld+json">{tool_jsonld(site, t)}</script>
-<script>(function(){{var d=document.documentElement;d.classList.add('js','intro-skip');var m=null;try{{m=localStorage.getItem('us-motion');}}catch(e){{}}if(m==='off')d.classList.add('rm');}})();</script>
+<script>(function(){{var d=document.documentElement;d.classList.add('js','intro-skip');var m=null;try{{m=localStorage.getItem('us-motion');}}catch(e){{}}if(m==='off')d.classList.add('rm');if(navigator.webdriver)d.classList.add('agent','rm','intro-skip');}})();</script>
 <link rel="stylesheet" href="/styles.css?v={v}">
 <link rel="stylesheet" href="/tool.css?v={tv}">
 </head>
@@ -830,7 +830,7 @@ def _tool_head(ctx, url, title, desc, og, og_alt, jsonld, tv, extra_fonts=''):
 {ctx['ICONS_HEAD']}
 <link rel="preload" href="/assets/fonts/anton-latin.woff2" as="font" type="font/woff2" crossorigin><link rel="preload" href="/assets/fonts/inter-latin.woff2" as="font" type="font/woff2" crossorigin>
 <script type="application/ld+json">{jsonld}</script>
-<script>(function(){{var d=document.documentElement;d.classList.add('js','intro-skip');var m=null;try{{m=localStorage.getItem('us-motion');}}catch(e){{}}if(m==='off')d.classList.add('rm');}})();</script>
+<script>(function(){{var d=document.documentElement;d.classList.add('js','intro-skip');var m=null;try{{m=localStorage.getItem('us-motion');}}catch(e){{}}if(m==='off')d.classList.add('rm');if(navigator.webdriver)d.classList.add('agent','rm','intro-skip');}})();</script>
 <link rel="stylesheet" href="/styles.css?v={v}">
 <link rel="stylesheet" href="/tool.css?v={tv}">
 </head>'''
@@ -1265,7 +1265,7 @@ def pricing_page(ctx, parts):
 {ctx['ICONS_HEAD']}
 <link rel="preload" href="/assets/fonts/anton-latin.woff2" as="font" type="font/woff2" crossorigin><link rel="preload" href="/assets/fonts/inter-latin.woff2" as="font" type="font/woff2" crossorigin>
 <script type="application/ld+json">{ld}</script>
-<script>(function(){{var d=document.documentElement;d.classList.add('js','intro-skip');var m=null;try{{m=localStorage.getItem('us-motion');}}catch(e){{}}if(m==='off')d.classList.add('rm');}})();</script>
+<script>(function(){{var d=document.documentElement;d.classList.add('js','intro-skip');var m=null;try{{m=localStorage.getItem('us-motion');}}catch(e){{}}if(m==='off')d.classList.add('rm');if(navigator.webdriver)d.classList.add('agent','rm','intro-skip');}})();</script>
 <link rel="stylesheet" href="/styles.css?v={v}">
 </head>
 <body class="page-sub">

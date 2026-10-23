@@ -44,7 +44,7 @@ var ONCE_PER_SESSION=true,seen=false;
 try{seen=sessionStorage.getItem('usl-seen')==='1';sessionStorage.setItem('usl-seen','1');}catch(e){}
 if(ONCE_PER_SESSION&&seen)d.classList.add('intro-skip');
 var m=null;try{m=localStorage.getItem('us-motion');}catch(e){}
-if(m==='off')d.classList.add('rm');})();
+if(m==='off')d.classList.add('rm');if(navigator.webdriver)d.classList.add('agent','rm','intro-skip');})();
 </script>
 {{STYLES}}
 </head>

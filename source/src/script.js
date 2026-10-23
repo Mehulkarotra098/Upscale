@@ -107,6 +107,7 @@
     } }); },{rootMargin:'0px 0px -8% 0px',threshold:.12});
     revealEls.forEach(function(el){ rio.observe(el); });
   } else revealAll();
+  if(d.classList.contains('agent')) revealAll();
   $$('.scan').forEach(function(s){ var o=new IntersectionObserver(function(es){ if(es[0].isIntersecting){ s.classList.add('is-in'); o.disconnect(); } }); o.observe(s); });
 
   /* ---------- Layout: pinned scenes only on roomy desktop screens with motion on ---------- */
