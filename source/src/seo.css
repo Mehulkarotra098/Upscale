@@ -806,10 +806,10 @@ html.pin-ok .sp-process .step{opacity:1;transform:none}
   .fp-lead-more{position:absolute;width:1px;height:1px;margin:-1px;padding:0;border:0;overflow:hidden;clip:rect(0 0 0 0);clip-path:inset(50%);white-space:nowrap}
 }
 @media (min-width:1024px){.fp-hero--parent .fp-hero__title{font-size:clamp(3.6rem,4.9vw,5rem)}}
+/* Motion (no comments inside the media block: build_site.motion_css rewrites it rule by rule). The hero art rises into
+   place, transform only, so the image paints (and counts for LCP) at once; reveals are quicker with a 60ms stagger. */
 @media (prefers-reduced-motion:no-preference){
-  /* the hero art rises into place; transform only, so the image paints (and counts for LCP) at once */
   .js .fp-art{animation:fpRise .7s var(--ease-out) .06s both}
-  /* tighter, quicker reveals on these long pages */
   .js .fp-sec [data-reveal],.js .sp-brief-wrap [data-reveal],.js .fp-related [data-reveal]{transition:opacity .6s ease,transform .75s var(--ease-out);transition-delay:calc(var(--rd,0) * 60ms)}
 }
 @keyframes fpRise{from{transform:translateY(24px)}}
