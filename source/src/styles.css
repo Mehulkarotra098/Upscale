@@ -570,8 +570,8 @@ html.menu-open{overflow:hidden}
   .plan{padding:22px 20px}
   .pts{padding:20px 18px}
   .stats{grid-template-columns:auto auto auto;justify-content:space-between}
-  .stat{padding-right:0}
-  .stat + .stat{padding-left:14px}
+  .stat{padding-right:10px}
+  .stat + .stat{padding-left:12px}
   .stat__label{font-size:10.5px;letter-spacing:.06em}
   .channel{grid-template-columns:44px minmax(0,1fr) auto;gap:12px;padding:14px 16px}
   .channel__icon{width:44px;height:44px}

@@ -110,7 +110,7 @@ growth = (
     '<span class="gs__badge" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M7 17 17 7M9 7h8v8"/></svg></span>'
     '</div>'
     '<div class="hf hf--search" aria-hidden="true"><div class="hf__bar"><svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="6.5"/><path d="m16 16 4 4"/></svg><span data-hf-q>web designer in mumbai</span><i class="hf__caret"></i></div>'
-    '<div class="hf__res"><span class="hf__fav"></span><span><b>Your business</b><small>Found, first page</small></span></div></div>'
+    '<div class="hf__res"><span class="hf__fav"></span><span><b>Your business</b><small>Found on Google</small></span></div></div>'
     '<div class="hf hf--toast" aria-hidden="true"><span class="hf__wa"><svg viewBox="0 0 24 24"><path d="M5 19l1.2-3.6A7.5 7.5 0 1 1 9 18.6z"/></svg></span><span><b>New enquiry</b><small>WhatsApp · just now</small></span></div>')
 
 cta_bars = ('<svg viewBox="0 0 400 320" preserveAspectRatio="xMaxYMax meet" aria-hidden="true" focusable="false">'

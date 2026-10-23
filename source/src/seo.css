@@ -330,6 +330,7 @@ html.pin-ok .sp-process .step{opacity:1;transform:none}
 .fp-stats .stat__label{font-size:11.5px;letter-spacing:.08em;line-height:1.3;margin-top:7px}
 .fp-stats .stat{padding-right:8px}
 .fp-stats .stat+.stat{padding-left:clamp(10px,2.2vw,26px)}
+.fp-stats .stat__num--long{font-size:clamp(17px,4.6vw,30px)}
 @media (min-width:1024px){
   .fp-hero{grid-template-columns:minmax(0,1fr) minmax(0,1.08fr);align-items:center;column-gap:clamp(28px,3.4vw,56px)}
   .fp-art--img{max-width:660px;margin-right:clamp(-28px,-1.6vw,0px)}
@@ -753,7 +754,7 @@ html.pin-ok .sp-process .step{opacity:1;transform:none}
 .fp-pricecard b{grid-column:1;font:400 clamp(26px,3vw,34px)/1 var(--display);text-transform:uppercase;letter-spacing:.01em}
 .fp-pricecard>.fp-ic{grid-column:2;grid-row:1 / span 2;width:40px;height:40px;padding:10px;border-radius:50%;background:var(--violet);color:var(--white);transition:transform .4s var(--ease-out)}
 .fp-pricecard:hover>.fp-ic{transform:rotate(45deg)}
-@media (min-width:860px){.fp-foot{grid-template-columns:minmax(0,1.6fr) minmax(0,1fr);gap:16px;align-items:stretch}}
+@media (min-width:860px){.fp-foot{grid-template-columns:minmax(0,1.6fr) minmax(0,1fr);gap:16px;align-items:stretch}.fp-pricecard{align-self:start;position:sticky;top:calc(var(--header-h) + 16px)}}
 
 /* ---- related pages ---- */
 .fp-related{margin-top:clamp(28px,4vw,48px);display:grid;gap:14px}

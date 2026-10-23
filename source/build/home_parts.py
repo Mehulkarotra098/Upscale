@@ -69,7 +69,7 @@ def services3():
         dict(cls=' svc3__card--web on-dark', viz='web', ic='globe', k='Get a website', h='A website that brings you enquiries',
              p='Designed in Figma and hand-coded, mobile first, with WhatsApp and call buttons where people decide.',
              chips=['Landing pages', 'Business sites', 'Online stores', 'Restaurant ordering'],
-             price=f'{price("Landing page")} to {price("E-commerce, under 50 products")}, fixed',
+             price=f'From {price("Landing page")}, fixed',
              links=[('/services/website-design-mumbai', 'Website design in Mumbai')]),
         dict(cls='', viz='found', ic='pin', k='Get found', h='Show up on Google, Maps and AI answers',
              p='Your Google Business Profile, local and technical SEO, and getting named when people ask ChatGPT or Gemini.',

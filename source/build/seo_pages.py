@@ -16,7 +16,7 @@ WA = 'https://wa.me/917977360142?text=Hi%20Mehul%2C%20I%27d%20like%20to%20talk%2
 SERVICES = [
  dict(slug='website-design-mumbai', short='Website design', cta='website', name='Website Design & Development',
   title='Website Design in Mumbai from ₹25,000, Fixed Price | U Scale',
-  desc='Custom websites for Mumbai businesses, designed in Figma and hand-coded by Mehul Karotra. Landing page ₹25,000, business site ₹55,000, store from ₹95,000; live in 4–8 weeks.',
+  desc='Custom websites for Mumbai businesses, designed in Figma and hand-coded by Mehul Karotra. Landing page ₹25,000, business site ₹55,000; live in 4–8 weeks.',
   h1='Website design & development in Mumbai',
   lead='I am a freelance web designer and developer in Mumbai. I design every page in Figma and build it by hand, so what you approve is exactly what goes live, at a fixed price agreed before I start.',
   who='For clinics, schools, studios, cafés, startups and founders who need a site that looks premium, loads fast on a phone and turns visitors into WhatsApp chats, calls and enquiries.',
@@ -29,7 +29,7 @@ SERVICES = [
   steps=[('Audit','I review your current site or competitors and agree the goals, pages and must-haves.'),
          ('Design','You see real screens in Figma, desktop and mobile, and we refine them together.'),
          ('Build','I code the approved design, connect forms and analytics, and test on phones and browsers.'),
-         ('Launch','Domain, hosting, Search Console and a final check. Then small tweaks are on me for two weeks.')],
+         ('Launch','Domain, hosting, Search Console and a final check. Then bug fixes are free in the 15–30 day bug-fix window.')],
   price='Landing pages ₹25,000, business sites from ₹55,000, a 5–10 page site with blog ₹85,000, online stores from ₹95,000 and restaurant sites with online ordering ₹90,000. A redesign of your current site is 70% of the price of a fresh build, and a care plan is ₹3,500/month.',
   work=['tis','antrah','roar','sashe','vidhi','growcred'],
   faq=[('How much does a website cost in Mumbai?','It depends on the number of pages and features. I quote a fixed price after a free audit, so there are no surprises and no hourly billing.'),
@@ -39,7 +39,7 @@ SERVICES = [
        ('Can you redesign my existing website?','Yes. I start with an audit of what works and what leaks enquiries, then redesign around that.')]),
  dict(slug='seo-mumbai', short='SEO', cta='SEO', name='SEO Services',
   title='SEO Services in Mumbai: Local & Technical | U Scale',
-  desc='Local SEO and Google Business Profile from ₹15,000 a month, technical SEO ₹25,000, done personally by Mehul Karotra in Mumbai. Expect 3–6 months; no ranking guarantees.',
+  desc='Local SEO and Google Business Profile from ₹15,000 a month, technical SEO ₹25,000, by Mehul Karotra in Mumbai. Expect 3–6 months; no ranking guarantees.',
   h1='SEO services in Mumbai',
   lead='I work as a freelance SEO consultant for Mumbai businesses, helping you show up when nearby customers search on Google and Maps. Local SEO, technical fixes and content, done personally, with honest monthly reporting.',
   who='For local businesses that depend on people searching "near me", and for service businesses that want steady enquiries without paying for every click.',
@@ -106,7 +106,7 @@ SERVICES = [
        ('Will I see where my money goes?','Yes. You own the ad accounts and get a monthly report showing spend, leads and cost per lead.')]),
  dict(slug='ai-search-visibility', short='AI search', cta='AI search visibility', name='AI Search Visibility (GEO)',
   title='AI Search Visibility (GEO) for Indian Businesses | U Scale',
-  desc='See what ChatGPT, Gemini and Google AI say about your business, then fix the facts, reviews and pages they draw on. ₹12,000 a month or a ₹2,500 audit. No guarantees.',
+  desc='See what ChatGPT, Gemini and Google AI say about your business, then fix the facts and pages they draw on. ₹12,000 a month or a ₹2,500 audit. No guarantees.',
   h1='AI search visibility (GEO)',
   lead="When someone asks ChatGPT, Gemini or Google's AI Mode for a recommendation in your category, is your business mentioned, and is what they say correct? I check what AI tools say about you today, then fix the facts, reviews, listings and pages they draw on. No one can guarantee a mention; I show you what changed every month.",
   who='For local businesses whose customers already ask AI assistants for recommendations, and who want those answers to get their name, services, prices and area right.',
@@ -1283,8 +1283,8 @@ def pricing_page(ctx, parts):
     header, menu, footer, tail = parts
     url = site + 'pricing'
     title = 'Website Design Cost & Prices in Mumbai | U Scale'
-    desc = ('Every price, published: websites from ₹25,000, local SEO ₹15,000/month, ads management ₹20,000/month and one-off work from ₹800. '
-            'Web design and marketing by Mehul Karotra, Mumbai.')
+    desc = ('Every price published: websites from ₹25,000, local SEO ₹15,000/month, ads management ₹20,000/month, '
+            'one-off work from ₹800. By Mehul Karotra, Mumbai.')
     faq = [ctx['FAQ'][i] for i in PRICING_FAQ_IDX]
     ld = json.dumps({'@context': 'https://schema.org', '@graph': [
         {'@type': 'WebPage', '@id': url + '#webpage', 'url': url, 'name': title, 'description': desc, 'isPartOf': {'@id': site + '#website'},

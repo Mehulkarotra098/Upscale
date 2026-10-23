@@ -287,7 +287,7 @@ PAGES = [
        f'{price("E-commerce, under 50 products")}. Designed by Mehul Karotra.',
   h1='Boutique & clothing store websites', eyebrow='Websites by business',
   lead='A catalogue your Instagram followers can browse properly, product pages Google can find, and orders on WhatsApp or online. Fixed price.',
-  stats=[(price('Business site, 3–4 pages'), 'Catalogue site, from'), (price('E-commerce, under 50 products'), 'Online store, under 50 products'), ('1 tap', 'To order on WhatsApp')],
+  stats=[(price('Business site, 3–4 pages'), 'Catalogue sites from'), (price('E-commerce, under 50 products'), 'Online store, under 50 products'), ('1 tap', 'To order on WhatsApp')],
   art=dict(kind='img', img='bout', chips=[('chat', 'Order on WhatsApp'), ('tag', 'Size M · ₹3,450')]),
   answer='U Scale designs and builds websites for boutiques, saree shops and fashion labels in Mumbai: a catalogue site with an “Order on WhatsApp” '
          f'button on every product, or a full online store with cart and payments from {price("E-commerce, under 50 products")} for under 50 products. '
@@ -566,8 +566,8 @@ PAGES = [
   card='Price ranges from 16 published guides, who each option suits, and what to watch for.',
   service='Freelancer vs agency vs DIY website builder, Mumbai (2026)',
   title='Freelancer vs Agency vs Website Builder (2026) | U Scale',
-  desc='Should a Mumbai business hire a freelancer, an agency or use a DIY website builder? Price ranges from 16 published price guides '
-       '(2025–26), who each option suits, and what to watch for.',
+  desc='Freelancer, agency or DIY website builder for a Mumbai business? Price ranges from 16 published guides (2025–26), '
+       'who each one suits and what to watch for.',
   h1='Freelancer, agency or website builder?', eyebrow='Guide · Compared',
   lead='Should a Mumbai business hire a freelancer, an agency or build its website on a DIY builder? I run U Scale, so I have a side: the price ranges here come from 16 published price guides (2025–26), listed below, not from my own prices.',
   stats=[('₹10k–₹80k', 'Freelancer'), ('₹50k–₹3L', 'Agency'), ('16', 'Price guides, listed below')],
@@ -1128,7 +1128,11 @@ def lead_html(t, at=110):
 
 def _hero(p, wa, icons):
     hi = _hi(p)
-    stats = ''.join(f'<li class="stat"><span class="stat__num">{e(n)}</span><span class="stat__label">{e(l)}</span></li>' for n, l in p['stats'])
+    # long values (price ranges) get a smaller size on phones so they never run into the next stat
+    # (the whole row shares one size, so the three numbers stay even)
+    long = ' stat__num--long' if any(len(n) >= 8 for n, _ in p['stats']) else ''
+    stats = ''.join(f'<li class="stat"><span class="stat__num{long}">{e(n)}</span><span class="stat__label">{e(l)}</span></li>'
+                    for n, l in p['stats'])
     see = 'Prices dekhiye' if hi else 'See prices & facts'
     talk = 'WhatsApp pe free audit' if hi else 'Free audit on WhatsApp'
     return f'''  <div class="wrap hero-shell">
@@ -1187,7 +1191,7 @@ def _how(p):
         steps = [('Free audit', 'Aapki website, Google listing aur Instagram dekhta hoon, goals aur pages tay karte hain.', 'Free'),
                  ('Likhit plan', 'Kaun se pages, kab tak, aur exact price, kuch bhi pay karne se pehle likhit mein.', 'Fixed price'),
                  ('Design aur build', 'Figma mein asli screens, desktop aur mobile. Aap approve karte ho, phir main code karke phones pe test karta hoon.', '20% shuru mein · 20% design approve pe'),
-                 ('Launch', 'Domain, hosting, Search Console aur final check. Phir chhote tweaks do hafte tak free.', '60% launch pe')]
+                 ('Launch', 'Domain, hosting, Search Console aur final check. Phir 15–30 din ki bug-fix window mein fixes free.', '60% launch pe')]
         promise = [('key', 'Domain, code aur logins aapke naam'), ('file', 'Price kaam se pehle likhit mein'), ('shield', 'Launch ke baad 15–30 din bug-fix')]
     else:
         head, sub = 'Fixed price. No surprises.', 'From free audit to launch, in four steps.'
@@ -1195,7 +1199,7 @@ def _how(p):
         steps = [('Free audit', 'I check your website, Google listing and Instagram, and we agree the goals, pages and must-haves.', 'Free'),
                  ('Written plan', 'What I will build, by when, and the exact price, in writing before you pay anything.', 'Fixed price'),
                  ('Design & build', 'You approve real screens in Figma, desktop and mobile, before I code them and test on phones.', '20% to start · 20% on design sign-off'),
-                 ('Launch', 'Domain, hosting, Search Console and a final check. Then small tweaks are on me for two weeks.', '60% on launch')]
+                 ('Launch', 'Domain, hosting, Search Console and a final check. Then bug fixes are free in the 15–30 day bug-fix window.', '60% on launch')]
         promise = [('key', 'Your domain, code and logins, in your name'), ('file', 'Price fixed in writing before work starts'), ('shield', '15–30 day bug-fix window after launch')]
     shots, sz = ['step-audit', 'step-plan', 'step-design', 'step-launch'], '(max-width: 759px) 82vw, (max-width: 1099px) 46vw, 290px'
     li = ''.join(f'<li class="fp-step" data-reveal>{_shot(shots[i], sz, "fp-step__media")}<div class="fp-step__body"><span class="fp-step__n" aria-hidden="true">{i + 1:02d}</span><h3>{e(t)}</h3><p>{e(d)}</p>'
