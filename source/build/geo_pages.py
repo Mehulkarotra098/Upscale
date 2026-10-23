@@ -409,13 +409,13 @@ PAGES = [
   places=['Andheri East', 'Marol', 'Chakala', 'Saki Naka', 'MIDC Andheri', 'JB Nagar'],
   title='Website Designer for Andheri East Businesses | U Scale',
   desc='Websites, Google listings and local SEO for shops, cafés and offices in Andheri East: Marol, Chakala, Saki Naka and MIDC. Fixed prices '
-       'from ₹25,000, free audit.',
+       f'from {price("Landing page")}, free audit.',
   h1='Website design for Andheri East businesses', eyebrow='Near you',
   lead='Shops, cafés and offices in Andheri East compete for the same searches on Google. I design websites and fix Google listings here, and in October 2026 I ran a free audit day for local shops.',
   stats=[('30+', 'Local listings checked'), (price('Landing page'), 'Websites from'), ('Free', 'Audit, in person')],
   art=dict(kind='img', img='step-audit'),
   answer='U Scale’s Mehul Karotra designs websites and sets up Google Business Profiles and local SEO for shops, cafés, restaurants and offices in '
-         'Andheri East, including Marol, Chakala, Saki Naka, MIDC and JB Nagar. Websites start at ₹25,000 at a fixed price, local SEO is '
+         f'Andheri East, including Marol, Chakala, Saki Naka, MIDC and JB Nagar. Websites start at {price("Landing page")} at a fixed price, local SEO is '
          f'{price("Local SEO / Google Business Profile")}, and every project starts with a free audit, which U Scale also runs in person for shops in the area.',
   facts=[('Areas', 'Marol, Chakala, Saki Naka, MIDC, JB Nagar, Gundavali and the rest of Andheri East'),
          ('Who', 'Mehul Karotra, personally; based in Ghatkopar West, on the same Metro line'),
@@ -435,7 +435,7 @@ PAGES = [
              cta=('/tools/google-business-profile-checker', 'search', 'Check your listing free', 'A score out of 100 and a fix list in about two minutes, so you see which of these apply to you.', 'Check my listing')),
        P('A dead or wrong link can be fixed the same day and asking for reviews costs only time; a missing website takes a few weeks. The free Google Business Profile checker below shows which ones apply to you.'),
        eyebrow='Audit findings', layout='wide'),
-   Sec('One Metro line from Ghatkopar',
+   Sec('Meetings at your shop in Andheri East',
        Svg('ae-metro'),
        P('My office is in Ghatkopar West, at the eastern end of Metro Line 1. The line stops in Andheri East at WEH, Chakala (J.B. Nagar), '
          'Airport Road, Marol Naka and Saki Naka, so a meeting at your shop is a short ride away.'),
@@ -446,7 +446,7 @@ PAGES = [
    Sec('Check where you stand, free', Tools(), eyebrow='Free tools', layout='wide'),
   ],
   faq=[('Who designs websites for small businesses in Andheri East?',
-        'U Scale’s Mehul Karotra designs and builds websites for shops, cafés, restaurants and offices in Andheri East, at fixed prices from ₹25,000. '
+        f'U Scale’s Mehul Karotra designs and builds websites for shops, cafés, restaurants and offices in Andheri East, at fixed prices from {price("Landing page")}. '
         'He works personally with each client and offers a free audit, in person or online.'),
        ('Is there a web design company in Andheri East?',
         'There are several. U Scale is not a company with an office in Andheri: it is Mehul Karotra, a one-person practice based in Ghatkopar West, one '
@@ -471,8 +471,8 @@ PAGES = [
   desc='Website banane me kitna kharcha aata hai? Mumbai ke market rates, ₹25,000 se fixed prices, saal ka domain-hosting kharcha aur GST, '
        'seedhi bhasha mein.',
   h1='Website banane me kitna kharcha aata hai?', eyebrow='Guide · Hinglish',
-  lead='Main Mehul Karotra hoon, Ghatkopar West se. Main websites khud banata hoon aur apne saare prices publicly likhta hoon. Yahan seedha hisaab hai.',
-  stats=[('₹8k–2L', 'Market range'), (price('Landing page'), 'U Scale se shuru'), ('₹4.4–9.4k', 'Har saal ka kharcha')],
+  lead='Main Mehul Karotra hoon, Mumbai se. Main websites khud banata hoon aur apne saare prices publicly likhta hoon. Yahan seedha hisaab hai.',
+  stats=[('₹8k–₹2L', 'Market range, 2025–26 guides'), (price('Landing page'), 'U Scale se shuru'), ('₹4.4k–₹9.4k', 'Har saal ka kharcha')],
   art=dict(kind='img', img='step-plan', caption='U Scale ka ek sample fixed-price quote. Saanjh Studio ek sample brand hai, asli client nahi.'),
   answer='Mumbai mein template wali basic business website lagbhag ₹8,000–₹30,000 mein, kisi Mumbai studio se ₹15,000–₹50,000 mein, aur custom '
          'design wali website ₹40,000 se ₹2 lakh tak mein banti hai. U Scale ke fixed prices: landing page ₹25,000, 3–4 page business website '
@@ -492,10 +492,10 @@ PAGES = [
               ('Custom design wali website', 40000, 200000), ('Online store', 25000, 300000)],
              marks=[(rupees('Landing page'), 'Landing page'), (rupees('Business site, 3–4 pages'), 'Business site'), (rupees('E-commerce, under 50 products'), 'Online store')],
              ticks=[0, 50000, 100000, 150000, 200000, 250000, 300000], unit_note='U Scale ke fixed prices'),
-       P('Price zyada tar time ka hota hai. ₹25,000 se kam mein zyada tar websites ek ready-made theme hoti hain jisme aapka logo, colours aur '
-         'photos daal diye jaate hain. Bahut businesses ke liye yeh theek hai, bas pata hona chahiye ki aap kya khareed rahe ho.'),
+       P('Price zyada tar time ka hota hai. Sasti websites aksar ek ready-made theme hoti hain jisme aapka logo, colours aur '
+         'photos daal diye jaate hain. Bahut businesses ke liye yeh theek hai, bas pata hona chahiye ki aap kya khareed rahe hain.'),
        Cards([('layers', 'Template ya custom design', 'Custom design mein har page aapke business ke hisaab se banta hai.'),
-              ('pen', 'Text kaun likhega', 'Aap khud likhoge toh sasta, designer likhega toh mehenga par aksar behtar.'),
+              ('pen', 'Text kaun likhega', 'Aap khud likhenge toh sasta padega; designer ya copywriter likhega toh kharcha badhega.'),
               ('bolt', 'Features', 'Booking, online ordering, payments, product catalogue, ya Hindi-Marathi pages, har ek kaam badhata hai.'),
               ('box', 'Products', '30 products ka store aur 300 ka store alag projects hain.'),
               ('user', 'Kaun bana raha hai', 'Freelancer projects zyada tar ₹10,000–₹80,000, agency projects ₹50,000–₹3 lakh.')], cols=3),
@@ -504,15 +504,16 @@ PAGES = [
        eyebrow='Market rates', layout='wide'),
    Sec('Har saal ka kharcha jo quote mein nahi likha hota',
        Table(['Kharcha', 'Offer price', 'Renewal pe'], [
-           ('.in domain', '₹1, 3 saal ki purchase ke saath', '₹899 saal ka (Hostinger, GoDaddy)'),
-           ('.com domain', '₹1, 3 saal ki purchase ke saath', '₹1,499–₹1,599 saal ka'),
-           ('Shared hosting', '₹69–₹199 mahina, 3–4 saal advance', '₹289–₹649 mahina renewal pe (Hostinger)'),
+           ('.in domain', '₹1 pehle saal (GoDaddy pe 3 saal ki purchase ke saath)', '₹899 saal ka (Hostinger, GoDaddy)'),
+           ('.com domain', '₹1 pehle saal (GoDaddy pe 3 saal ki purchase ke saath)', '₹1,499–₹1,599 saal ka (Hostinger, GoDaddy)'),
+           ('Shared hosting', '₹69–₹199 mahina, 48 mahine (4 saal) advance', '₹289–₹649 mahina renewal pe (Hostinger)'),
            ('SSL (padlock)', 'Free', 'Free (Let’s Encrypt ya aapka host)'),
            ('Online store platform', 'Shopify Basic ₹1,499 mahina, saal ka bill', 'Same'),
            ('Payment gateway', 'Razorpay 2% har payment pe, fee pe GST', 'Same'),
        ], 'Website ka saalana kharcha: offer price aur renewal'),
-       Note('Prices providers ke apne pages se, 21 October 2026. ₹1 domain aur ₹69 hosting wale offers sach hain, par 3–4 saal ki purchase '
-            'chahiye, aur renewal pe hosting offer se chaar guna tak mehengi ho sakti hai. Offer nahi, renewal ke hisaab se plan kariye.'),
+       Note('Prices providers ke apne pages se, 21–23 October 2026, GST se pehle. ₹1 domain aur ₹69 hosting wale offers sach hain, par ₹69 '
+            'hosting ke liye 48 mahine (4 saal) ki purchase chahiye, aur renewal pe hosting offer se chaar guna se zyada mehengi ho jaati hai '
+            '(₹69 se ₹289 mahina). Offer nahi, renewal ke hisaab se plan kariye.'),
        eyebrow='Saal ka kharcha', tone='band'),
    Sec('GST: 18%, par hamesha nahi',
        Cards([('rupee', 'Agency 18% jodti hai', 'Website design pe 18% GST lagta hai, toh ₹40,000 ka quote ₹47,200 ban jaata hai.'),
@@ -531,17 +532,17 @@ PAGES = [
    Sec('Website kitne din mein banti hai?',
        Durations([('Landing page', 3 / 7, 1, '3–7 din'), ('Basic business website', 1, 4, '1–4 hafte'),
                   ('Custom design wali website', 3, 8, '3–8 hafte'), ('Online store', 4, 12, '4–12 hafte')], scale=12, label='hafte'),
-       P('Landing page 3–7 din, basic business website 1–4 hafte, custom design wali 3–8 hafte, aur online store 4–12 hafte, products ki '
+       P('Price guides ke hisaab se landing page 3–7 din, basic business website 1–4 hafte, custom design wali 3–8 hafte, aur online store 4–12 hafte, products ki '
          'sankhya pe depend karta hai. U Scale se website zyada tar 4–8 hafte mein live hoti hai. Sabse bada delay aksar build nahi hota: photos, '
          'prices aur text ka intezaar hota hai.'),
        eyebrow='Timeline'),
   ],
-  faq=[('Mumbai mein website banane me kitna kharcha aata hai?',
+  faq=[('Mumbai mein website banane mein kitna kharcha aata hai?',
         'Template wali basic business website lagbhag ₹8,000–₹30,000, Mumbai studio se ₹15,000–₹50,000, aur custom design ₹40,000 se ₹2 lakh tak. '
         f'U Scale ke fixed prices: landing page {price("Landing page")}, 3–4 page business website {price("Business site, 3–4 pages")}, online store {price("E-commerce, under 50 products")} se.'),
-       ('E-commerce website banane me kitna kharcha aata hai?',
+       ('E-commerce website banane mein kitna kharcha aata hai?',
         'Market mein online store ₹25,000 se ₹3 lakh tak, products aur features pe depend karta hai. U Scale se 50 se kam products ka store '
-        f'{price("E-commerce, under 50 products")} aur 50–500 products ka {price("E-commerce, 50–500 products")}. Iske upar har payment pe gateway fee, '
+        f'{price("E-commerce, under 50 products")} aur 50–500 products ka {_fmt(rupees("E-commerce, 50–500 products"))} se. Iske upar har payment pe gateway fee, '
         'aur Shopify jaisa platform ho toh uski monthly fee alag.'),
        ('Website ka har saal kya kharcha aata hai?',
         'Domain aur hosting: offer khatam hone ke baad lagbhag ₹4,400–₹9,400 saal ka, GST se pehle. .in domain ka renewal ₹899 saal ka hai. '
@@ -555,37 +556,37 @@ PAGES = [
        ('Kya U Scale ka price fixed hai?',
         'Haan. Free audit ke baad price fixed hota hai aur kaam shuru hone se pehle likhit mein agree hota hai: 20% shuru mein, 20% design approve '
         'hone pe, 60% launch pe. Copywriting, photography aur payment gateway fees alag se, hamesha pehle bata ke.')],
-  sources=['in-domain', 'gd-domain', 'hosting', 'ssl', 'shopify', 'razorpay-pricing', 'gst-22'],
+  sources=['in-domain', 'gd-domain', 'com-domain', 'gd-com', 'hosting', 'ssl', 'shopify', 'razorpay-pricing', 'gst-22'],
   offers=['Landing page', 'Business site, 3–4 pages', 'Business site, 5–10 pages + blog', 'E-commerce, under 50 products'],
   work=[]),
 
  dict(slug='freelancer-vs-agency-vs-website-builder', kind='guide', crumb='Freelancer vs agency vs builder',
-  card='Real price ranges, who each suits, and what to watch for, compared honestly.',
+  card='Price ranges from 16 published guides, who each option suits, and what to watch for.',
   service='Freelancer vs agency vs DIY website builder, Mumbai (2026)',
   title='Freelancer vs Agency vs Website Builder (2026) | U Scale',
-  desc='Should a Mumbai business hire a freelancer, an agency or use a DIY website builder? Real price ranges, who each suits, and what to '
-       'watch for, compared honestly.',
-  h1='Freelancer, agency or DIY builder: which is right for you?', eyebrow='Guide · Compared',
-  lead='Three honest ways to get a business website in Mumbai, plus where U Scale fits. I run U Scale, so I have a side: every claim here comes with a range you can check.',
-  stats=[('₹10–80k', 'Freelancer'), ('₹50k–3L', 'Agency'), ('16', 'Price guides compared')],
+  desc='Should a Mumbai business hire a freelancer, an agency or use a DIY website builder? Price ranges from 16 published price guides '
+       '(2025–26), who each option suits, and what to watch for.',
+  h1='Freelancer, agency or website builder?', eyebrow='Guide · Compared',
+  lead='Should a Mumbai business hire a freelancer, an agency or build its website on a DIY builder? I run U Scale, so I have a side: the price ranges here come from 16 published price guides (2025–26), listed below, not from my own prices.',
+  stats=[('₹10k–₹80k', 'Freelancer'), ('₹50k–₹3L', 'Agency'), ('16', 'Price guides, listed below')],
   art=dict(kind='ranges'),
-  answer='For most small businesses in Mumbai, a good freelancer or one-person studio gives the best value. Freelancer projects mostly cost '
-         '₹10,000–₹80,000 and agency projects ₹50,000–₹3 lakh, according to 16 price guides published by Mumbai and Indian agencies in '
-         '2025–26. A DIY builder costs least upfront but takes your time and a monthly fee. Choose an agency when you need a large team '
+  answer='For a small Mumbai business with a simple site, a freelancer or one-person studio is often enough, and usually costs less than an agency. Freelancer projects mostly cost '
+         '₹10,000–₹80,000 and agency projects ₹50,000–₹3 lakh, according to 16 website price guides published in 2025–26 '
+         '(listed below). A DIY builder costs least upfront but takes your time and a monthly fee. Choose an agency when you need a large team '
          'working in parallel. U Scale sits in between: one person doing the work, with written scope and a fixed price.',
   facts=[('DIY website builder', 'A monthly plan (Shopify Basic ₹1,499/month billed yearly) plus your own time'),
          ('Freelancer', '₹10,000–₹80,000 for most projects'),
-         ('Agency', '₹50,000–₹3,00,000 for most projects; premium agencies quote ₹2.5 lakh and up'),
+         ('Agency', '₹50,000–₹3,00,000 for most projects'),
          ('U Scale', f'Fixed: landing page {price("Landing page")}, business site {price("Business site, 3–4 pages")}, online store from {price("E-commerce, under 50 products")}'),
          ('Whatever you choose', 'Domain, admin login and hosting login in your name')],
   sections=[
    Sec('Freelancer vs agency vs DIY builder, side by side',
        Options([dict(name='DIY builder', tag='Tiny budget', rows=[('Typical cost', 'Monthly plan + your time'), ('Who does the work', 'You'), ('Design', 'A template'),
                      ('Good for', 'Testing an idea on a tiny budget'), ('Watch out for', 'Hours of your time; a template look; fees on every sale')]),
-                dict(name='Freelancer', tag='Simple sites', rows=[('Typical cost', '₹10,000–₹80,000'), ('Who does the work', 'One person'), ('Design', 'Often a theme (ask which)'),
+                dict(name='Freelancer', tag='Simple sites', rows=[('Typical cost', '₹10,000–₹80,000'), ('Who does the work', 'One person'), ('Design', 'A theme or custom (ask which)'),
                      ('Good for', 'Simple sites with a clear brief'), ('Watch out for', 'Who fixes things after launch, and who holds the logins')]),
-                dict(name='Agency', tag='Large sites', rows=[('Typical cost', '₹50,000–₹3,00,000'), ('Who does the work', 'A team: designer, developer, account manager'), ('Design', 'Custom'),
-                     ('Good for', 'Large sites with many people working in parallel'), ('Watch out for', 'You also pay for the team and the office')]),
+                dict(name='Agency', tag='Large sites', rows=[('Typical cost', '₹50,000–₹3,00,000'), ('Who does the work', 'A team: designer, developer, account manager'), ('Design', 'Custom, or a customised theme (ask which)'),
+                     ('Good for', 'Large sites with many people working in parallel'), ('Watch out for', 'Part of the price pays for the team around the work; you may deal with an account manager, not the designer')]),
                 dict(name='U Scale', tag='One person, fixed price', hi=True, rows=[('Typical cost', f'Fixed, {price("Landing page")}–{price("E-commerce, under 50 products")} for most sites'),
                      ('Who does the work', 'Mehul Karotra, personally'), ('Design', 'Custom, designed in Figma'),
                      ('Good for', 'Small businesses that want custom work and one point of contact'), ('Watch out for', 'One person, so the start date depends on his queue: ask for it')])],
@@ -596,9 +597,9 @@ PAGES = [
          'launch date that one person can’t meet. You pay for the team, and for a big project that is worth it.'),
        eyebrow='Agency', layout='half'),
    Sec('When a DIY builder is enough',
-       P('If you are testing an idea, need a single page for a few weeks, or have more time than budget, a builder like Shopify, Wix or WordPress is a '
+       P('If you are testing an idea, need a single page for a few weeks, or have more time than budget, a builder like Shopify, Wix or WordPress.com is a '
          'fair choice. Count the hours you will spend and the fees on every sale. On Shopify’s Basic plan in India, Shopify adds its own 2% on '
-         'each sale on top of the payment gateway’s fee, because Shopify Payments isn’t available here.'),
+         'each sale on top of the payment gateway’s fee, because Shopify Payments isn’t available in India.'),
        eyebrow='DIY builder', layout='half'),
    Sec('Six checks before you hire anyone',
        Check(['The domain is registered in your business’s name, with your email.',
@@ -610,7 +611,7 @@ PAGES = [
        eyebrow='Checklist', layout='wide', tone='dark'),
   ],
   faq=[('Should I hire a freelancer or an agency for my website in Mumbai?',
-        'For most small businesses a freelancer or one-person studio is the better value: you talk directly to the person doing the work, decisions '
+        'For a small business with a simple site, a freelancer or one-person studio is often enough: you talk directly to the person doing the work, decisions '
         'are faster, and you don’t pay for account managers. Choose an agency for large sites that need a team working in parallel.'),
        ('Is a website builder like Wix or Shopify good enough?',
         'For testing an idea on a small budget, yes. You pay a monthly plan and spend your own time, the design is a template, and online stores pay '
@@ -621,7 +622,7 @@ PAGES = [
        ('Who should own my website and domain?',
         'You. Whoever builds it, the domain should be registered in your business’s name with your email, and you should get the admin and hosting '
         'logins at launch.')],
-  sources=['shopify'],
+  sources=['shopify', 'shopify-payments', *GUIDES],
   offers=['Landing page', 'Business site, 3–4 pages', 'E-commerce, under 50 products'],
   work=[]),
 ]
@@ -1061,7 +1062,7 @@ def _hero_art(p):
         for n, a0, z, t in rows:
             bar = (f'<span class="fp-mini__track"><i style="--a:{a0 / 3000:.2f}%;--b:{z / 3000:.2f}%"></i></span>' if a0 else '<span class="fp-mini__track fp-mini__track--na"></span>')
             li += f'<li class="{"is-us" if n == "U Scale" else ""}"><span class="fp-mini__n">{e(n)}</span>{bar}<b>{e(t)}</b></li>'
-        return (f'<div class="fp-art fp-mini" aria-label="Typical website cost in Mumbai by option"><p class="fp-mini__k">Typical cost of a business website, Mumbai 2026</p>'
+        return (f'<div class="fp-art fp-mini" aria-label="Typical website cost in Mumbai by option"><p class="fp-mini__k">Typical website cost, from 2025–26 price guides</p>'
                 f'<ul>{li}</ul><p class="fp-mini__s" aria-hidden="true"><span>₹0</span><span>₹1L</span><span>₹2L</span><span>₹3L</span></p></div>')
     return ''
 
@@ -1141,15 +1142,16 @@ def _hero(p, wa, icons):
 def _who(p):
     hi = _hi(p)
     img = IMG['mehul']
+    base = 'Ghatkopar West' if p['kind'] == 'area' else 'Mumbai'  # the office area is named only on area pages
     if hi:
-        k, h, d = 'Aap kiske saath kaam karoge', 'Mehul Karotra, khud.', ('Main har website Figma mein design karta hoon aur khud code karta hoon. Ghatkopar West '
+        k, h, d = 'Aap kiske saath kaam karenge', 'Mehul Karotra, khud.', ('Main har website Figma mein design karta hoon aur khud code karta hoon. Mumbai '
                                                                      'mein based hoon; baat WhatsApp pe seedha mujhse hoti hai, kisi account manager se nahi.')
-        badges = ['Ghatkopar West, Mumbai', 'Figma design, hand-coded', 'English aur Hindi']
+        badges = ['Mumbai', 'Figma design, hand-coded', 'English aur Hindi']
         more = 'Mehul ke baare mein'
     else:
-        k, h, d = 'Who you’ll work with', 'Mehul Karotra, personally.', ('I design every site in Figma and code it myself. I’m based in Ghatkopar West, '
+        k, h, d = 'Who you’ll work with', 'Mehul Karotra, personally.', (f'I design every site in Figma and code it myself. I’m based in {base}, '
                                                                         'and you talk to me directly on WhatsApp, not to an account manager.')
-        badges = ['Based in Ghatkopar West', 'Designs in Figma, hand-codes', 'English and Hindi']
+        badges = [f'Based in {base}', 'Designs in Figma, hand-codes', 'English and Hindi']
         more = 'More about Mehul'
     li = ''.join(f'<li>{icon("check")}{e(x)}</li>' for x in badges)
     return f'''
@@ -1292,7 +1294,7 @@ def _cta(p, wa, icons):
         
         <div class="cta__copy">
           <h2 class="sp-cta__title" id="cta-title">Get a free audit<span class="dot">.</span></h2>
-          <p class="lead">Tell me about your business. I reply within 24 hours, usually much faster on WhatsApp.</p>
+          <p class="lead">{'Apne business ke baare mein bataiye. Main 24 ghante ke andar reply karta hoon, WhatsApp pe aksar usse kaafi pehle.' if _hi(p) else 'Tell me about your business. I reply within 24 hours, usually much faster on WhatsApp.'}</p>
           <div class="cta__btns" data-wa-zone>
             <a class="btn btn--go" href="{ea(wa)}" target="_blank" rel="noopener" data-magnetic>{icons['ICON_CHAT']}Chat on WhatsApp</a>
             <a class="btn btn--ghost" href="mailto:{SP.EMAIL}">Email me</a>
