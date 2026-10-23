@@ -24,11 +24,9 @@ MEHUL = GP.IMG['mehul']
 
 
 def _pic(img, sizes, eager=False, small=None):
-    s = small or img['small']
     load = 'fetchpriority="high" decoding="async"' if eager else 'loading="lazy" decoding="async"'
-    f = img['file']
-    return (f'<picture><source type="image/avif" srcset="{f}-{s}.avif {s}w, {f}.avif {img["w"]}w" sizes="{sizes}">'
-            f'<img src="{f}.webp" srcset="{f}-{s}.webp {s}w, {f}.webp {img["w"]}w" sizes="{sizes}" width="{img["w"]}" height="{img["h"]}" '
+    return (f'<picture><source type="image/avif" srcset="{GP.srcset(img, "avif", small)}" sizes="{sizes}">'
+            f'<img src="{GP.vurl(img["file"] + ".webp")}" srcset="{GP.srcset(img, "webp", small)}" sizes="{sizes}" width="{img["w"]}" height="{img["h"]}" '
             f'alt="{ea(img["alt"])}" {load}></picture>')
 
 

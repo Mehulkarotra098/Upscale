@@ -263,6 +263,7 @@ def quotes_html():
         out.append(f'      <li class="quote quote--real" style="--q:{i%3}" data-reveal>{dash}<blockquote><p>{e(t["quote"])}</p></blockquote><p class="quote__by"><span class="quote__av" aria-hidden="true">{ini}</span><span><strong>{e(t["name"])}</strong><br>{e(t["role"])}</span>{logo}</p></li>')
     return '\n'.join(out)
 ICONS_HEAD = ('<link rel="icon" href="/favicon.svg" type="image/svg+xml">\n<link rel="icon" href="/favicon-32.png" sizes="32x32" type="image/png">\n'
+              '<link rel="icon" href="/icon-192.png" sizes="192x192" type="image/png">\n'
               '<link rel="apple-touch-icon" href="/apple-touch-icon.png">\n<link rel="manifest" href="/site.webmanifest">')
 import seo_pages
 rep = {'{{PRICE_PILLARS}}': seo_pages.pricing_pillars_html(), '{{PRICE_TERMS}}': seo_pages.pricing_terms_strip_html(), '{{ICONS_HEAD}}': ICONS_HEAD, '{{JSONLD}}': seo_pages.home_jsonld(SITE_URL, FAQ), '{{QUOTES}}': quotes_html(),'{{LOGO_WALL}}': logo_wall, '{{WORK_TOTAL}}': f'{len(WORK):02d}', '{{PROJECT_INDEX}}': project_index, '{{LOADER_LOGO}}': loader_logo, '{{HEADER_LOGO}}': logo(), '{{FOOTER_LOGO}}': logo('logo--rev'), '{{FAVICON}}': favicon,
@@ -280,6 +281,45 @@ assert not left, left
 # Deployable folder: start clean, copy static files (images, icons), then write the generated pages
 site = config.OUT
 STATIC = REPO / 'source' / 'static'
+
+# Image guard: every product shot in geo_pages.IMG must exist at both widths in both formats, be non-empty and decode
+# at the width the pages declare. A missing, 0-byte or half-written AVIF shows alt text instead of the picture
+# (browsers do not fall back to the WebP), so the build stops here instead of shipping it. Pillow decodes the file
+# when it is installed; without it (Vercel's build image) the width is read from the WebP/AVIF header.
+import geo_pages as GP
+def _img_width(p):
+    try:
+        from PIL import Image, features
+        if p.suffix != '.avif' or features.check('avif'):
+            with Image.open(p) as im:
+                im.load()
+                return im.size[0]
+    except ImportError:
+        pass
+    b = p.read_bytes()
+    if p.suffix == '.webp' and b[:4] == b'RIFF' and b[8:12] == b'WEBP':
+        c = b[12:16]
+        if c == b'VP8 ': return int.from_bytes(b[26:28], 'little') & 0x3fff
+        if c == b'VP8L': return (int.from_bytes(b[21:25], 'little') & 0x3fff) + 1
+        if c == b'VP8X': return int.from_bytes(b[24:27], 'little') + 1
+    if p.suffix == '.avif' and b[4:8] == b'ftyp' and b'avif' in b[8:int.from_bytes(b[:4], 'big')]:
+        i = b.find(b'ispe')
+        if i > 0: return int.from_bytes(b[i + 8:i + 12], 'big')
+    return None
+_bad = []
+for _k, _im in GP.IMG.items():
+    for _w, _stem in ((_im['w'], _im['file']), (_im['small'], f"{_im['file']}-{_im['small']}")):
+        for _ext in ('avif', 'webp'):
+            _p = STATIC / f'{_stem.lstrip("/")}.{_ext}'
+            try:
+                _got = _img_width(_p) if _p.is_file() and _p.stat().st_size > 0 else 'missing or 0 bytes'
+            except Exception as _ex:
+                _got = f'does not decode ({_ex})'
+            if _got != _w:
+                _bad.append(f'{_p.relative_to(REPO)} [{_k}]: expected {_w}px wide, got {_got}')
+if _bad:
+    sys.exit('Image check failed, nothing was built:\n  ' + '\n  '.join(_bad))
+
 if site.exists():
     shutil.rmtree(site)
 shutil.copytree(STATIC, site)
@@ -314,9 +354,19 @@ print('service pages:', ', '.join(_slugs))
 _SKIP = re.compile(r'(<script\b.*?</script>|<style\b.*?</style>|<title\b.*?</title>|<textarea\b.*?</textarea>|<[^>]+>)', re.S | re.I)
 def _brand_nbsp(markup):
     return ''.join(part if part.startswith('<') else part.replace('U Scale', 'U&nbsp;Scale') for part in _SKIP.split(markup))
+# Cache busting for the image URLs not built by geo_pages._pic (work screenshots, logos, the About portrait, tool
+# art): /assets is cached for 30 days, so each src/srcset/imagesrcset/data-peek image URL gets ?v=<sha1 of the file>,
+# exactly as geo_pages.vurl does. Share images (og:image, JSON-LD, sitemaps) keep their plain URLs.
+_IMG_ATTR = re.compile(r'\b(src|srcset|imagesrcset|data-peek)="([^"]*)"')
+_IMG_URL = re.compile(r'(?<![\w/.-])(/?assets/[\w./@-]+\.(?:webp|avif|png|jpe?g|gif|svg))(?![?\w])')
+def _img_v(m):
+    p = m.group(1); a = '/' + p.lstrip('/')
+    return p + GP.vurl(a)[len(a):] if (STATIC / a[1:]).is_file() else p
+def _asset_v(markup):
+    return _IMG_ATTR.sub(lambda m: f'{m.group(1)}="{_IMG_URL.sub(_img_v, m.group(2))}"', markup)
 for _page in site.rglob('*.html'):
     if 'admin' in _page.relative_to(site).parts: continue
-    _page.write_text(_brand_nbsp(_page.read_text()))
+    _page.write_text(_brand_nbsp(_asset_v(_page.read_text())))
 
 # Preview: one file; the artifact skeleton supplies doctype/head/body
 pv = src.replace('{{STYLES}}', '<style>\n' + css + '\n.pv-replay{position:fixed;left:calc(16px + env(safe-area-inset-left,0px));bottom:calc(16px + env(safe-area-inset-bottom,0px));z-index:1001;display:inline-flex;align-items:center;gap:8px;font:600 14px/1 var(--sans);background:var(--violet);color:var(--white);border:1px solid var(--line-dark);border-radius:999px;padding:13px 18px;cursor:pointer;box-shadow:0 12px 24px -14px rgba(37,30,69,.6)}\n</style>')

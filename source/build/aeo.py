@@ -186,7 +186,7 @@ BRIEF = {
   answer='U Scale is Mehul Karotra, a freelance website designer and developer in Mumbai. Every site is designed in Figma and hand-coded, '
          'at a fixed price agreed in writing before work starts: a landing page is ₹25,000, a 3–4 page business site ₹55,000 and '
          'e-commerce starts at ₹95,000. Most business sites go live in 4–8 weeks.',
-  facts=[('Who does the work', 'Mehul Karotra, personally. No templates, no outsourcing.'),
+  facts=[('Who does the work', 'Mehul Karotra, personally: he designs and codes every site himself. No templates.'),
          ('Price', 'Landing page ₹25,000 · Portfolio ₹40,000 · Business site, 3–4 pages ₹55,000 · 5–10 pages + blog ₹85,000 · '
                    'E-commerce from ₹95,000 · Restaurant site + online ordering ₹90,000'),
          ('Timeline', '4–8 weeks for a business site; a landing page can be live in under two weeks'),
@@ -270,14 +270,15 @@ BRIEF = {
              'keywords and creatives are tested and improved.')],
   offers=['Ads management']),
  'ai-search-visibility': dict(
-  answer='AI search visibility, also called GEO or AEO, helps your business get named in answers from ChatGPT, Gemini, Perplexity and '
-         'Google AI Overviews. U Scale’s Mehul Karotra audits what AI tools say about you, fixes schema and entity data, writes '
-         'answer-ready pages and monitors the results, for ₹12,000 a month. A one-off AI visibility audit is ₹2,500.',
+  answer='AI search visibility, also called GEO or AEO, is work that helps ChatGPT, Gemini, Perplexity and Google AI Overviews describe '
+         'your business accurately when people ask for a recommendation. U Scale’s Mehul Karotra checks what AI tools say about you, '
+         'fixes the facts, reviews, listings and pages they draw on, and re-checks every month, for ₹12,000 a month. A one-off AI '
+         'visibility audit is ₹2,500. No one can guarantee a mention.',
   facts=[('Who does the work', 'Mehul Karotra, personally'),
          ('Price', '₹12,000/month, on its own or with other services'),
          ('AI visibility audit', '₹2,500, free if we work together'),
          ('AI tools covered', 'ChatGPT, Gemini, Perplexity and Google AI Overviews'),
-         ('Work includes', 'Schema and entity data, answer-ready pages and FAQs, llms.txt and AI crawler access, listings and reviews, monitoring'),
+         ('Work includes', 'Facts that match everywhere, answer-ready pages and FAQs, crawler access, listings and genuine reviews, monitoring'),
          ('Contract', CONTRACT)],
   faq_more=[('How much does AI search optimisation (GEO) cost in India?',
              'With U Scale, AI search visibility costs ₹12,000 a month, on its own or alongside SEO. A one-off AI visibility audit is '
@@ -291,8 +292,9 @@ BRIEF = {
              'reviews, directory listings and mentions on other sites. Consistent name, address, phone and service details everywhere make '
              'a business easier to recommend.'),
             ('What is llms.txt?',
-             'llms.txt is a plain-text file at the root of a website that gives AI tools a clean summary of the business, its services, '
-             'prices and key pages. U Scale’s own is at uscale.in/llms.txt.')],
+             'llms.txt is an optional plain-text summary that some sites publish for AI tools. Google says its AI features don’t need it, '
+             'and other AI companies have not said they rely on it, so treat it as a tidy extra, not a requirement. '
+             'U Scale’s own is at uscale.in/llms.txt.')],
   offers=['AI search visibility (GEO)', 'AI visibility audit (free if we work together)']),
 }
 
@@ -443,7 +445,7 @@ def _faq_ld(url, items):
 
 
 # ---------------------------------------------------------------- /about
-ABOUT_FACTS = [('Name', 'Mehul Karotra'), ('Role', 'Founder of U Scale; UI/UX developer-designer'),
+ABOUT_FACTS = [('Name', 'Mehul Karotra'), ('Role', 'Founder of U Scale; UI/UX developer-designer'), ('Founded', 'U Scale, 2026'),
                ('Based in', ENTITY['base'] + ', Maharashtra, India'), ('Now', 'UI/UX Developer, Apex36 Technologies'),
                ('Formerly', 'My Country Mobile · ApplQ Innovations · Threepin Info Tec.'),
                ('Languages', 'English and Hindi'), ('Contact', f'WhatsApp or call {SP.PHONE_D} · {SP.EMAIL}')]
@@ -471,7 +473,7 @@ HOW = [('Audit', 'I go through your website, Google listing and socials and show
 def about_page(ctx, parts):
     site = ctx['SITE_URL']; url = site + 'about'
     title = 'About Mehul Karotra, Founder of U Scale | Mumbai'
-    desc = ('Mehul Karotra is a Mumbai-based UI/UX developer-designer and the person behind U Scale: websites, SEO, social media, ads and '
+    desc = ('Mehul Karotra is a Mumbai UI/UX developer-designer and founder of U Scale: websites, SEO, social media, ads and '
             'AI search visibility, done personally.')
     ld = json.dumps({'@context': 'https://schema.org', '@graph': [
         {'@type': ['AboutPage', 'ProfilePage'], '@id': url + '#webpage', 'url': url, 'name': title, 'description': desc, 'inLanguage': 'en-IN',
@@ -501,7 +503,7 @@ def about_page(ctx, parts):
       </header>
       <p>U Scale is not an agency with account managers. It is me, working as an independent, contract-based partner. Websites and branding are fixed-price contracts: 20% to start, 20% on design sign-off and 60% on launch. Marketing runs as a monthly plan: a 3-month sprint, then month-to-month with 30 days notice. Every price is on the <a class="tlink" href="/pricing">pricing page</a>.</p>
       <p>If a project ever needs a specialist, like a photographer, I bring them in and stay your single point of contact. I reply personally within 24 hours, usually much faster on WhatsApp.</p>
-      <p>Websites and marketing are what I do. When a business needs custom software or an AI product built, I point them to our sister company, <a class="tlink" href="https://www.apex36tech.com/" target="_blank" rel="noopener">Apex36 Technologies</a><span class="sr-only"> (opens in a new tab)</span>, a separate Mumbai studio for software and AI.</p>
+      <p>Websites and marketing are what I do. When a business needs custom software or an AI product built, I point them to U Scale’s sister company, <a class="tlink" href="https://www.apex36tech.com/" target="_blank" rel="noopener">Apex36 Technologies</a><span class="sr-only"> (opens in a new tab)</span>, a separate Mumbai studio for software and AI.</p>
       <h3>What I do</h3>
       <ul class="sp-list">{svcs}<li><a class="tlink" href="/services">All services and prices</a></li></ul>
       <h3>Selected work</h3>
@@ -530,7 +532,7 @@ EXTRA_SERVICES = [  # offered on the price list, without a page of their own
     ('Content & reels production', 'Reels, shorts and ad creatives, shot and edited for your brand.', ['Reel edit (your footage)', 'Half-day shoot + 3 reels', 'Full-day shoot + 6 reels']),
     ('WhatsApp automation', 'Lead funnels, broadcast flows and follow-ups on autopilot.', ['WhatsApp automation']),
     ('Email marketing', 'Newsletters and automated email follow-ups.', ['Email marketing']),
-    ('Review & reputation management', 'Reviews monitored, responded to and generated.', ['Review & reputation management']),
+    ('Review & reputation management', 'Reviews monitored and answered, and new ones requested from real customers.', ['Review & reputation management']),
     ('Writing', 'SEO blogs, website copy and LinkedIn articles.', ['SEO blog (~1,000 words)', 'Website copy', 'LinkedIn article']),
 ]
 SVC_FROM = {'website-design-mumbai': 'From ₹25,000 one-time', 'seo-mumbai': 'From ₹15,000/month', 'social-media-management-mumbai': '₹12,000/month + content from ₹800',
@@ -543,7 +545,7 @@ HUB_FAQ = [
      'branding and identity, content and reels production, WhatsApp automation, email marketing, review and reputation management, and writing.'),
     ('Can I combine services?', 'Yes. There are no bundles to squeeze into: you pick only what you need and the quote builder on the pricing page adds it up. '
      'Monthly services run as a 3-month sprint, then month-to-month with 30 days notice.'),
-    ('Who does the work?', 'Mehul Karotra, personally. Nothing is outsourced; if a project needs a specialist like a photographer, he brings them in and '
+    ('Who does the work?', 'Mehul Karotra, personally. If a project needs a specialist like a photographer, he brings them in and '
      'stays your single point of contact.'),
 ]
 
@@ -578,7 +580,7 @@ def services_hub(ctx, parts):
         for i, s in enumerate(SP.SERVICES))
     extra = ''.join(f'<tr><th scope="row">{e(n)}</th><td>{e(d)} ' + ' · '.join(f'{e(x)} {e(_price(x)[0])}' for x in names) + '</td></tr>'
                     for n, d, names in EXTRA_SERVICES)
-    body = f'''{_hero('Services', 'Services and prices', 'Web design, SEO and digital marketing for Mumbai businesses, all done by me, Mehul Karotra. Nothing is outsourced, nothing comes out of a template, and every price is published.')}
+    body = f'''{_hero('Services', 'Services and prices', 'Web design, SEO and digital marketing for Mumbai businesses, done by me, Mehul Karotra. No account managers, nothing comes out of a template, and every price is published.')}
 {brief_html(HUB_ANSWER, [('Who does the work', 'Mehul Karotra, personally'), ('Where', 'Mumbai, and businesses across India'),
                          ('Websites', 'Fixed price: 20% to start, 20% on design sign-off, 60% on launch'), ('Monthly services', CONTRACT),
                          ('Free audit', 'Every engagement starts with a free audit of your website, Google listing and socials')],

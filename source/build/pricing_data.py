@@ -31,7 +31,7 @@ ADDONS = [  # monthly; stack on any plan or buy on their own
     ('Local SEO / Google Business Profile', '₹15,000/mo', None, 15000),
     ('Technical + on-page SEO', '₹25,000/mo', None, 25000),
     ('AI search visibility (GEO)', '₹12,000/mo', None, 12000),
-    ('Ads management', '₹20,000/mo', 'Flat up to ₹1.5L monthly ad spend, then 12% of spend. Setup ₹10,000 one-time; ad spend paid to Google/Meta directly.', 20000),
+    ('Ads management', '₹20,000/mo', 'Flat up to ₹1.5 lakh monthly ad spend, then 12% of spend. Setup ₹10,000 one-time; ad spend paid to Google/Meta directly.', 20000),
     ('Email marketing', '₹8,000/mo', None, 8000),
     ('Review & reputation management', '₹10,000/mo', None, 10000),
     ('WhatsApp automation', '₹8,000 setup', 'One-time setup; the WhatsApp platform is billed at cost.', 8000),

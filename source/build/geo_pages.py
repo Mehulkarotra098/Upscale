@@ -18,7 +18,7 @@ Rules for adding a page:
   * every number comes from pricing_data.py or a linked, dated source;
   * no client names or shop weaknesses (findings are described in general terms).
 """
-import json, re, urllib.parse
+import hashlib, json, pathlib, re, urllib.parse
 
 import aeo
 import pricing_data as PD
@@ -659,12 +659,30 @@ def page_images(p):
     return [IMG[k] for k in keys]
 
 
+# Cache busting: /assets is cached for 30 days (vercel.json) under plain file names, so every image URL the pages
+# emit carries ?v=<first 8 hex of the file's sha1>. Re-encoding a file changes its URL; untouched files keep theirs.
+_STATIC = pathlib.Path(__file__).resolve().parent.parent / 'static'
+_VER = {}
+
+
+def vurl(path):
+    """'/assets/x.webp' -> '/assets/x.webp?v=1a2b3c4d' (hash of that exact file in source/static, cached per build)."""
+    if path not in _VER:
+        _VER[path] = hashlib.sha1((_STATIC / path.lstrip('/')).read_bytes()).hexdigest()[:8]
+    return f'{path}?v={_VER[path]}'
+
+
+def srcset(img, ext, small=None):
+    """'<file>-640.avif?v=... 640w, <file>.avif?v=... 1200w' for an IMG entry."""
+    s, f = small or img['small'], img['file']
+    return f'{vurl(f"{f}-{s}.{ext}")} {s}w, {vurl(f"{f}.{ext}")} {img["w"]}w'
+
+
 def _pic(img, sizes, eager=False, cls=''):
-    s = img['small']
     load = 'fetchpriority="high" decoding="async"' if eager else 'loading="lazy" decoding="async"'
     return (f'<picture{f" class={chr(34)}{cls}{chr(34)}" if cls else ""}>'
-            f'<source type="image/avif" srcset="{img["file"]}-{s}.avif {s}w, {img["file"]}.avif {img["w"]}w" sizes="{sizes}">'
-            f'<img src="{img["file"]}.webp" srcset="{img["file"]}-{s}.webp {s}w, {img["file"]}.webp {img["w"]}w" sizes="{sizes}" '
+            f'<source type="image/avif" srcset="{srcset(img, "avif")}" sizes="{sizes}">'
+            f'<img src="{vurl(img["file"] + ".webp")}" srcset="{srcset(img, "webp")}" sizes="{sizes}" '
             f'width="{img["w"]}" height="{img["h"]}" alt="{ea(img["alt"])}" {load}></picture>')
 
 
@@ -1230,8 +1248,8 @@ def page(ctx, parts, p):
     if imgs:
         i0 = imgs[0]
         sizes = '(max-width: 559px) 260px, (max-width: 1023px) 300px, 400px' if p['art']['kind'] == 'portrait' else '(max-width: 559px) 82vw, (max-width: 1023px) 600px, 660px'
-        preload = (f'<link rel="preload" as="image" type="image/avif" imagesrcset="{i0["file"]}-{i0["small"]}.avif {i0["small"]}w, '
-                   f'{i0["file"]}.avif {i0["w"]}w" imagesizes="{sizes}" fetchpriority="high">')
+        preload = (f'<link rel="preload" as="image" type="image/avif" imagesrcset="{srcset(i0, "avif")}" '
+                   f'imagesizes="{sizes}" fetchpriority="high">')
     return aeo._page(ctx, parts, url, p['title'], p['desc'], _jsonld(site, p), body, og, extra_head=preload, lang=p.get('lang', 'en-IN'))
 
 
