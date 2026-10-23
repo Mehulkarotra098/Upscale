@@ -385,7 +385,7 @@ PAGES = [
    Sec('Where I meet clients around Ghatkopar',
        Svg('gk-map'),
        Chips(['Ghatkopar West', 'Ghatkopar East', 'Vikhroli', 'Powai', 'Kurla', 'Chembur', 'Mulund'], 'Areas I visit'),
-       P('Further away? I work with businesses across Mumbai, and with clients elsewhere in India, over WhatsApp and video calls.'),
+       P('Further away? I work with businesses across Mumbai, Thane and Navi Mumbai, and with clients elsewhere in India, over WhatsApp and video calls.'),
        eyebrow='Near you', tone='band', sid='areas'),
    Sec('What I do for businesses in Ghatkopar', svc_links(), eyebrow='Services', layout='wide'),
    Sec('Check where you stand, free', Tools(), eyebrow='Free tools', layout='wide'),
@@ -398,8 +398,8 @@ PAGES = [
         f'blog {price("Business site, 5–10 pages + blog")} and an online store from {price("E-commerce, under 50 products")}. The same fixed prices apply anywhere in Mumbai.'),
        ('How do I get my Ghatkopar business into the Google Maps top 3?', MAPS_FAQ),
        ('Do you also work in Ghatkopar East, Vikhroli and Kurla?',
-        'Yes. Ghatkopar East and West, Vikhroli, Kurla, Chembur, Powai and Mulund are all close by, and U Scale works with businesses across Mumbai '
-        'and with clients elsewhere in India over WhatsApp and video calls.')],
+        'Yes. Ghatkopar East and West, Vikhroli, Kurla, Chembur, Powai and Mulund are all close by, and U Scale works with businesses across Mumbai, '
+        'Thane and Navi Mumbai, and with clients elsewhere in India over WhatsApp and video calls.')],
   sources=['local-rank'],
   offers=['Landing page', 'Business site, 3–4 pages', 'Business site, 5–10 pages + blog', 'Local SEO / Google Business Profile'],
   work=[]),
@@ -501,6 +501,8 @@ PAGES = [
               ('user', 'Kaun bana raha hai', 'Freelancer projects zyada tar ₹10,000–₹80,000, agency projects ₹50,000–₹3 lakh.')], cols=3),
        Note('Market ranges 16 website price guides se hain jo Mumbai aur Indian agencies ne 2025–26 mein publish kiye; U Scale ne inhe October 2026 '
             'mein compare kiya. Yeh ek doosre se poori tarah match nahi karte, isliye ranges diye hain.'),
+       P('Saare 16 guides ki list (publisher, date aur link) '
+         '<a href="/services/website-design-mumbai/freelancer-vs-agency-vs-website-builder#sources">yahan dekhiye</a>.'),
        eyebrow='Market rates', layout='wide'),
    Sec('Har saal ka kharcha jo quote mein nahi likha hota',
        Table(['Kharcha', 'Offer price', 'Renewal pe'], [
@@ -1072,7 +1074,7 @@ def _jsonld(site, p):
     url = url_of(site, p)
     parent = SP.svc_url(site, PARENT)
     area = ([{'@type': 'Place', 'name': f'{n}, Mumbai'} for n in p['places']] if p['kind'] == 'area'
-            else [{'@type': 'City', 'name': 'Mumbai'}, {'@type': 'Country', 'name': 'India'}])
+            else aeo.area_served())
     lang = p.get('lang', 'en-IN')
     imgs = image_ld(site, url, p)
     service = {'@type': 'Service', '@id': url + '#service', 'name': p['service'], 'serviceType': 'Website design', 'url': url, 'description': p['answer'],
@@ -1126,7 +1128,7 @@ def _hero(p, wa, icons):
     <section class="sp-hero fp-hero on-dark" data-tone="dark" aria-labelledby="page-title">
       <div class="fp-hero__copy">
         <nav class="crumbs" aria-label="Breadcrumb"><ol><li><a href="/">Home</a></li><li><a href="/services">Services</a></li><li><a href="/services/{BASE}">{e(PARENT['short'])}</a></li><li aria-current="page">{e(p['crumb'])}</li></ol></nav>
-        <p class="eyebrow">{e(p['eyebrow'])}</p><h1 class="sp-hero__title fp-hero__title" id="page-title">{e(p['h1'])}{'' if p['h1'].endswith('?') else '<span class="dot">.</span>'}</h1>
+        <p class="eyebrow">{e(p['eyebrow'])}</p><h1 class="sp-hero__title fp-hero__title{' fp-hero__title--acc' if re.search('[À-ÖØ-öø-ÿ]', p['h1']) else ''}" id="page-title">{e(p['h1'])}{'' if p['h1'].endswith('?') else '<span class="dot">.</span>'}</h1>
         <p class="sp-hero__lead">{lead_html(p['lead'])}</p>
         <div class="fp-hero__ctas">
           <div class="hero__cta" data-wa-zone><a class="btn btn--go" href="{ea(wa)}" target="_blank" rel="noopener" data-magnetic>{icons['ICON_CHAT']}{talk}</a></div>
@@ -1272,7 +1274,7 @@ def _foot(p):
     return f'''
   <section class="section fp-sec fp-sec--foot" aria-label="{'Sources aur prices' if hi else 'Sources and prices'}">
     <div class="wrap fp-foot">
-      <div class="fp-sources"><h2 class="fp-mini-h">Sources</h2><ol>{li}</ol></div>
+      <div class="fp-sources" id="sources"><h2 class="fp-mini-h">Sources</h2><ol>{li}</ol></div>
       <a class="fp-pricecard" href="/pricing"><span class="fp-pricecard__k">{icon('rupee')}{'Har price published hai' if hi else 'Every price is published'}</span><b>{'Poori price list dekhiye' if hi else 'See the full price list'}</b>{icon('arrow')}</a>
     </div>
   </section>'''

@@ -320,6 +320,8 @@ html.pin-ok .sp-process .step{opacity:1;transform:none}
 .fp-hero{gap:clamp(26px,4vw,40px);padding:clamp(24px,5vw,64px) clamp(18px,5vw,64px) clamp(26px,4.6vw,60px)}
 .fp-hero__copy{display:grid;gap:clamp(14px,2vw,22px);justify-items:start;min-width:0}
 .fp-hero__title{font-size:clamp(2.45rem,10.6vw,5.4rem);max-width:15ch;line-height:1.04;text-wrap:balance}
+/* Anton's capital accents (CAFÉ) rise .24em above cap height: titles with one get the leading to clear the line above */
+.fp-hero__title--acc{line-height:1.16}
 .fp-hero .sp-hero__lead{font-size:clamp(16px,1.35vw,18.5px);max-width:52ch}
 .fp-hero .crumbs ol{font-size:10.5px;letter-spacing:.12em}
 .fp-hero .hero__cta .btn svg{width:20px;height:20px}
@@ -788,14 +790,15 @@ html.pin-ok .sp-process .step{opacity:1;transform:none}
    ===================================================================== */
 /* ---- hero: CTAs, product shot on the violet stage ---- */
 .fp-hero__ctas{display:flex;flex-wrap:wrap;gap:12px;margin-top:4px}
-.fp-hero__ctas .hero__cta{margin-top:0;width:auto}
+.fp-hero__ctas .hero__cta{margin-top:0}
 .fp-hero__more svg{width:20px;height:20px}
 .fp-hero--parent .sp-hero__who{margin-top:0}
 @media (max-width:559px){
   /* phones: eyebrow, H1, one-sentence lead, WhatsApp CTA, the product shot, then the second CTA and the numbers */
   .fp-hero{row-gap:14px}
   .fp-hero__copy,.fp-hero__ctas{display:contents}
-  .fp-hero>.fp-art{order:2;width:100%;max-width:none;margin:8px 0 4px}
+  .fp-hero>.fp-art{order:2;margin:8px 0 4px}
+  .fp-hero>.fp-art--img{width:100%;max-width:none}
   .fp-hero__more,.fp-hero .fp-stats,.fp-hero .sp-hero__who{order:3}
   .fp-hero__more{width:100%}
   .fp-hero .fp-stats{margin-top:6px}
