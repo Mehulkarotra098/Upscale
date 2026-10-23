@@ -21,25 +21,54 @@ e, ea = SP.e, SP.ea
 TODAY = config.BUILD_DATE
 
 # ---------------------------------------------------------------- entities
-ADDRESS = {'@type': 'PostalAddress', 'addressLocality': 'Mumbai', 'addressRegion': 'Maharashtra', 'addressCountry': 'IN'}
-LINKEDIN, GITHUB, INSTAGRAM = 'https://www.linkedin.com/in/mehulkarotra/', 'https://github.com/Mehulkarotra098', 'https://www.instagram.com/uscalewithus/'
+# Who U Scale is comes from one file (source/entity.json), shared with the blog, so every page, llms.txt and the
+# blog describe exactly the same business. AI answer engines cross-check these details against the Google Business
+# Profile and directory listings, so they must match those word for word.
+ENTITY = json.loads((config.REPO / 'source' / 'entity.json').read_text())
+FOUNDER = ENTITY['founder']
+_pick = lambda urls, host: next((u for u in urls if host in u), '')
+INSTAGRAM = _pick(ENTITY['sameAs'], 'instagram.com')
+LINKEDIN, GITHUB = _pick(FOUNDER['sameAs'], 'linkedin.com'), _pick(FOUNDER['sameAs'], 'github.com')
+ADDRESS = {'@type': 'PostalAddress', **ENTITY['address']}
+CITIES = {'Mumbai', 'Thane', 'Navi Mumbai'}
+PRICE_RANGE = '₹800 – ₹1,50,000'
+
+
+def area_served():
+    """Cities as City, Mumbai neighbourhoods as Place ("Ghatkopar, Mumbai"), then India (remote work)."""
+    return ([{'@type': 'City', 'name': n} if n in CITIES else {'@type': 'Place', 'name': f'{n}, Mumbai'} for n in ENTITY['areaServed']]
+            + [{'@type': 'Country', 'name': 'India'}])
 
 
 def biz_ref(site):
     """Compact node for the business, repeated with the same @id on every page so each page's graph is self-contained."""
-    return {'@type': 'ProfessionalService', '@id': site + '#business', 'name': 'U Scale by Mehul Karotra', 'alternateName': 'U Scale',
-            'url': site, 'logo': site + 'icon-512.png', 'image': site + 'og-image.png', 'telephone': SP.PHONE, 'email': SP.EMAIL,
-            'priceRange': '₹800 – ₹1,50,000', 'address': ADDRESS, 'founder': {'@id': site + '#mehul'}, 'sameAs': [INSTAGRAM, LINKEDIN]}
+    return {'@type': 'ProfessionalService', '@id': site + '#business', 'name': ENTITY['name'], 'alternateName': ENTITY['alternateName'],
+            'disambiguatingDescription': ENTITY['disambiguatingDescription'],
+            'url': site, 'logo': site + 'icon-512.png', 'image': site + 'og-image.png', 'telephone': ENTITY['phone'], 'email': ENTITY['email'],
+            'priceRange': PRICE_RANGE, 'address': ADDRESS, 'founder': {'@id': site + '#mehul'}, 'sameAs': ENTITY['sameAs']}
+
+
+def biz_full(site, catalog=None):
+    """The full business node (home page): the compact node plus description, areas, languages and the price catalogue."""
+    b = dict(biz_ref(site), description=ENTITY['description'], slogan=ENTITY['slogan'], foundingDate=ENTITY['foundingDate'],
+             areaServed=area_served(), knowsLanguage=ENTITY['languages'],
+             contactPoint={'@type': 'ContactPoint', 'telephone': ENTITY['phone'], 'email': ENTITY['email'], 'contactType': 'sales',
+                           'areaServed': 'IN', 'availableLanguage': ENTITY['languages']},
+             knowsAbout=['Freelance web design', 'Web design', 'Web development', 'Digital marketing', 'UI/UX design',
+                         'Search engine optimisation', 'Local SEO', 'Google Business Profile', 'Social media marketing', 'Google Ads',
+                         'Meta Ads', 'Generative engine optimisation'])
+    if catalog: b['hasOfferCatalog'] = catalog
+    return b
 
 
 def person_full(site):
     """The one full description of Mehul Karotra. Used on the home page and /about; other pages refer to it by @id."""
-    return {'@type': 'Person', '@id': site + '#mehul', 'name': 'Mehul Karotra', 'givenName': 'Mehul', 'familyName': 'Karotra',
-            'jobTitle': 'Founder of U Scale; freelance UI/UX developer-designer and digital marketer', 'url': site + 'about',
+    return {'@type': 'Person', '@id': site + '#mehul', 'name': FOUNDER['name'], 'givenName': FOUNDER['givenName'], 'familyName': FOUNDER['familyName'],
+            'jobTitle': FOUNDER['jobTitle'], 'url': site + 'about',
             'description': 'Mumbai-based UI/UX developer-designer who personally designs and builds websites and runs SEO, social media, '
                            'Google and Meta ads and AI search visibility for businesses through U Scale.',
             'worksFor': {'@id': site + '#business'}, 'homeLocation': {'@type': 'City', 'name': 'Mumbai'},
-            'knowsLanguage': ['English', 'Hindi'], 'sameAs': [LINKEDIN, GITHUB],
+            'knowsLanguage': ENTITY['languages'], 'sameAs': FOUNDER['sameAs'], 'image': person_image(site),
             'hasCredential': {'@type': 'EducationalOccupationalCredential', 'credentialCategory': 'degree',
                               'name': 'Bachelor of Computer Application (Information Technology)'},
             'knowsAbout': ['Web design', 'Web development', 'UI/UX design', 'Search engine optimisation', 'Local SEO',
@@ -47,8 +76,52 @@ def person_full(site):
                            'Generative engine optimisation', 'Figma', 'React.js', 'Tailwind CSS', 'WordPress']}
 
 
+def person_image(site):
+    return {'@type': 'ImageObject', '@id': site + '#mehul-photo', 'url': site + FOUNDER['image'], 'contentUrl': site + FOUNDER['image'],
+            'width': 900, 'height': 900, 'caption': 'Mehul Karotra, founder of U Scale', 'creditText': 'U Scale'}
+
+
 def person_ref(site):
-    return {'@type': 'Person', '@id': site + '#mehul', 'name': 'Mehul Karotra', 'url': site + 'about'}
+    return {'@type': 'Person', '@id': site + '#mehul', 'name': FOUNDER['name'], 'url': site + 'about', 'sameAs': FOUNDER['sameAs'],
+            'image': site + FOUNDER['image']}
+
+
+def website_ref(site):
+    return {'@type': 'WebSite', '@id': site + '#website', 'url': site, 'name': 'U Scale', 'inLanguage': 'en-IN', 'publisher': {'@id': site + '#business'}}
+
+
+_LD = re.compile(r'(<script type="application/ld\+json">)(.*?)(</script>)', re.S)
+
+
+def _refs(x, out):
+    if isinstance(x, dict):
+        if set(x) == {'@id'}: out.add(x['@id'])
+        for v in x.values(): _refs(v, out)
+    elif isinstance(x, list):
+        for v in x: _refs(v, out)
+    return out
+
+
+def complete_graph(html, site):
+    """Make every page's schema graph self-contained: if a page points at the site (#website), the business (#business) or
+    Mehul (#mehul) by @id without describing it, add the compact node, so an answer engine reading one page alone still
+    knows exactly who is behind it."""
+    nodes = {site + '#website': website_ref, site + '#business': biz_ref, site + '#mehul': person_ref}
+
+    def fix(m):
+        try:
+            d = json.loads(m.group(2).replace('<\\/', '</'))
+        except ValueError:
+            return m.group(0)
+        g = d.get('@graph')
+        if not isinstance(g, list): return m.group(0)
+        for _ in range(3):  # an added node can itself point at another (website → business → mehul)
+            have = {n.get('@id') for n in g if isinstance(n, dict) and len(n) > 1}
+            missing = [i for i in sorted(_refs(g, set()) - have) if i in nodes]
+            if not missing: break
+            g += [nodes[i](site) for i in missing]
+        return m.group(1) + json.dumps(d, ensure_ascii=False, separators=(',', ':')).replace('</', '<\\/') + m.group(3)
+    return _LD.sub(fix, html)
 
 
 # ---------------------------------------------------------------- prices
@@ -238,8 +311,9 @@ def brief_html(answer, facts, caption, head_id):
 
 
 # ---------------------------------------------------------------- shared page shell for /about and /services
-def _head(ctx, url, title, desc, ld):
+def _head(ctx, url, title, desc, ld, og=None):
     site, v = ctx['SITE_URL'], ctx['_v']
+    og = og or (site + 'og-image.png', 'U Scale by Mehul Karotra: Be found. Be chosen.')
     return f'''<!doctype html>
 <html lang="en-IN">
 <head>
@@ -259,18 +333,18 @@ def _head(ctx, url, title, desc, ld):
 <meta property="og:title" content="{ea(title)}">
 <meta property="og:description" content="{ea(desc)}">
 <meta property="og:url" content="{url}">
-<meta property="og:image" content="{site}og-image.png">
+<meta property="og:image" content="{og[0]}">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
-<meta property="og:image:alt" content="U Scale by Mehul Karotra: Be found. Be chosen.">
+<meta property="og:image:alt" content="{ea(og[1])}">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="{ea(title)}">
 <meta name="twitter:description" content="{ea(desc)}">
-<meta name="twitter:image" content="{site}og-image.png">
+<meta name="twitter:image" content="{og[0]}">
 {ctx['ICONS_HEAD']}
 <link rel="preload" href="/assets/fonts/anton-latin.woff2" as="font" type="font/woff2" crossorigin><link rel="preload" href="/assets/fonts/inter-latin.woff2" as="font" type="font/woff2" crossorigin>
 <script type="application/ld+json">{ld}</script>
-<script>(function(){{var d=document.documentElement;d.classList.add('js','intro-skip');var m=null;try{{m=localStorage.getItem('us-motion');}}catch(e){{}}if(m==='off')d.classList.add('rm');}})();</script>
+<script>(function(){{var d=document.documentElement;d.classList.add('js','intro-skip');var m=null;try{{m=localStorage.getItem('us-motion');}}catch(e){{}}if(m==='off')d.classList.add('rm');if(navigator.webdriver)d.classList.add('agent','rm','intro-skip');}})();</script>
 <link rel="stylesheet" href="/styles.css?v={v}">
 </head>'''
 
@@ -292,10 +366,10 @@ def _hero(crumb, title, lead, eyebrow=None, cta=True):
   </div>'''
 
 
-def _page(ctx, parts, url, title, desc, ld, body):
+def _page(ctx, parts, url, title, desc, ld, body, og=None):
     header, menu, footer, tail = parts
     v = ctx['_v']
-    return f'''{_head(ctx, url, title, desc, ld)}
+    return f'''{_head(ctx, url, title, desc, ld, og)}
 <body class="page-sub">
 <a class="skip" href="#main">Skip to content</a>
 {header}
@@ -334,7 +408,7 @@ def _faq_ld(url, items):
 
 # ---------------------------------------------------------------- /about
 ABOUT_FACTS = [('Name', 'Mehul Karotra'), ('Role', 'Founder of U Scale; UI/UX developer-designer'),
-               ('Based in', 'Mumbai, Maharashtra, India'), ('Now', 'UI/UX Developer, Apex36 Technologies'),
+               ('Based in', ENTITY['base'] + ', Maharashtra, India'), ('Now', 'UI/UX Developer, Apex36 Technologies'),
                ('Formerly', 'My Country Mobile · ApplQ Innovations · Threepin Info Tec.'),
                ('Education', 'Bachelor of Computer Application, Information Technology'),
                ('Toolkit', 'Figma, React.js, Tailwind CSS, WordPress, Illustrator, Photoshop, Git'),
@@ -347,7 +421,8 @@ ABOUT_FAQ = [
     ('Is U Scale an agency or a freelancer?', 'A bit of both. U Scale is one person, Mehul Karotra, working as an independent, contract-based partner. '
      'You get agency-quality design, development and marketing, but you sign with him and talk to him directly. If a project needs a specialist, '
      'like a photographer, he brings them in and stays your single point of contact.'),
-    ('Where is U Scale based?', 'U Scale is based in Mumbai, Maharashtra, India, and works with businesses across India.'),
+    ('Where is U Scale based?', 'U Scale is based in Ghatkopar West, Mumbai. Mehul meets clients across Mumbai, Thane and Navi Mumbai, and works '
+     'with businesses across India remotely.'),
     ('How do I contact Mehul Karotra?', f'WhatsApp or call {SP.PHONE_D}, or email {SP.EMAIL}. He replies personally within 24 hours, usually much faster on WhatsApp.'),
 ]
 ABOUT_ANSWER = ('Mehul Karotra is a UI/UX developer-designer based in Mumbai, India, and the founder of U Scale. He personally designs and '
@@ -379,6 +454,10 @@ def about_page(ctx, parts):
                     for i, (t, d) in enumerate(HOW))
     body = f'''{_hero('About', 'About Mehul Karotra', 'I’m Mehul, a UI/UX developer-designer from Mumbai and the person behind U Scale. I started U Scale because small businesses deserve agency-quality work without paying for account managers and hand-offs. When you work with U Scale, you work with me: I design it, build it, market it, and answer your WhatsApp myself.', eyebrow='The person doing your work')}
 {brief_html(ABOUT_ANSWER, ABOUT_FACTS, 'Key facts about Mehul Karotra', 'about-brief')}
+
+  <section class="section sp-q sp-q--img" aria-label="Photo">
+    <div class="wrap sp-prose"><figure class="sp-fig sp-fig--portrait"><img src="/{FOUNDER['image']}" srcset="/{FOUNDER['image'].replace('.webp', '-480.webp')} 480w, /{FOUNDER['image']} 900w" sizes="340px" width="900" height="900" alt="Mehul Karotra, website designer and founder of U Scale, based in Ghatkopar West, Mumbai" loading="lazy" decoding="async"><figcaption>Mehul Karotra, founder of U Scale.</figcaption></figure></div>
+  </section>
 
   <section class="section" aria-labelledby="what-title">
     <div class="wrap sp-prose">
@@ -518,7 +597,7 @@ def stamp_pages(out, site, rels):
     dates, changed = {}, False
     for rel in rels:
         p = out / rel
-        html = p.read_text()
+        html = complete_graph(p.read_text(), site)
         url = site + ('' if rel == 'index.html' else rel[:-5].replace('/index', ''))
         fp = _fingerprint(html)
         k = known.get(url)
@@ -555,6 +634,8 @@ def llms_full(site, faq):
         L += [f'- {t}: {d}' for t, d in s['items']] + ['', '### How it works', '']
         L += [f'{i+1}. {t}: {d}' for i, (t, d) in enumerate(s['steps'])] + ['', '### Questions', '']
         L += [f'**{q}**\n{a}\n' for q, a in s['faq']]
+    import geo_pages
+    L += geo_pages.llms_full(site)
     L += ['## Free tools', '',
           f'- Google Business Profile checker: {site}tools/google-business-profile-checker. {SP.GBP["lead"]}',
           f'- Google review link & QR code maker: {site}tools/google-review-qr-code. {SP.TOOL["lead"]}', '']

@@ -525,6 +525,10 @@ html.menu-open{overflow:hidden}
 .cursor.is-view .cursor__label{opacity:1;transform:translate(-50%,-50%) scale(1)}
 
 /* ---------- Scroll reveals (JS adds .is-in; without JS everything is visible) ---------- */
+/* Browser agents (navigator.webdriver: ChatGPT agent, Gemini in Chrome, Operator-style tools) get the whole page at once:
+   no intro, no motion, nothing waiting to be revealed, so screenshots and the accessibility tree show every section. */
+.agent [data-reveal]:not(.is-in){opacity:1!important;transform:none!important}
+.agent [data-split] .swi{transform:none!important}
 @media (prefers-reduced-motion:no-preference){
   .js [data-reveal]:not(.is-in){opacity:0;transform:translateY(28px)}
   .js [data-reveal]{transition:opacity .8s ease,transform .95s var(--ease-out);transition-delay:calc(var(--rd,0) * 90ms)}

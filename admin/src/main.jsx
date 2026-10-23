@@ -7,6 +7,7 @@ import { Dashboard, PostsList, Categories, Team } from './pages.jsx';
 import { PostEditor } from './editor.jsx';
 import { MediaPage } from './media.jsx';
 import { LeadsPage } from './leads.jsx';
+import { AiSearchPage } from './aisearch.jsx';
 import { OutreachPage } from './outreach.jsx';
 import './styles.css';
 
@@ -91,6 +92,7 @@ const NAV = [
   ['#/media', 'Media', 'media'],
   ['#/categories', 'Categories', 'cat'],
   ['#/outreach', 'Outreach', 'send'],
+  ['#/ai', 'AI search', 'bot'],
   ['#/leads', 'WhatsApp leads', 'spark'],
   ['#/team', 'Team & account', 'team'],
 ];
@@ -155,6 +157,7 @@ function App() {
   else if (hash.startsWith('#/posts')) page = <PostsList />;
   else if (hash.startsWith('#/media')) page = <MediaPage />;
   else if (hash.startsWith('#/leads')) page = <LeadsPage />;
+  else if (hash.startsWith('#/ai')) page = <AiSearchPage />;
   else if (hash.startsWith('#/outreach')) page = <OutreachPage />;
   else if (hash.startsWith('#/categories')) page = <Categories me={me} />;
   else if (hash.startsWith('#/team')) page = <Team me={me} onMe={setMe} />;

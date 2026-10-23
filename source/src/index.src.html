@@ -44,7 +44,7 @@ var ONCE_PER_SESSION=true,seen=false;
 try{seen=sessionStorage.getItem('usl-seen')==='1';sessionStorage.setItem('usl-seen','1');}catch(e){}
 if(ONCE_PER_SESSION&&seen)d.classList.add('intro-skip');
 var m=null;try{m=localStorage.getItem('us-motion');}catch(e){}
-if(m==='off')d.classList.add('rm');})();
+if(m==='off')d.classList.add('rm');if(navigator.webdriver)d.classList.add('agent','rm','intro-skip');})();
 </script>
 {{STYLES}}
 </head>
@@ -409,6 +409,10 @@ if(m==='off')d.classList.add('rm');})();
       <li><a href="/tools/google-business-profile-checker">Free Google profile checker</a></li>
       <li><a href="/tools/google-review-qr-code">Free Google review QR maker</a></li>
       <li><a href="/tools">All free tools</a></li>
+      <li><a href="/services/website-design-mumbai/restaurants-cafes">Restaurant &amp; café websites</a></li>
+      <li><a href="/services/website-design-mumbai/boutiques-fashion">Boutique &amp; fashion websites</a></li>
+      <li><a href="/services/website-design-mumbai/ghatkopar">Web designer in Ghatkopar</a></li>
+      <li><a href="/services/website-design-mumbai/andheri-east">Andheri East</a></li>
       <li><a href="/about">About Mehul Karotra</a></li>
     </ul>
   </nav>
@@ -416,6 +420,7 @@ if(m==='off')d.classList.add('rm');})();
   <div class="wrap footer__bottom">
     <div class="footer__legal">
       <p>© 2026 U Scale by Mehul Karotra · Mumbai, India.</p>
+      <address class="footer__nap">Ghatkopar West, Mumbai · Serving Mumbai, Thane &amp; Navi Mumbai · <a href="tel:+917977360142">+91 79773 60142</a> · <a href="mailto:uscalewithus@gmail.com">uscalewithus@gmail.com</a></address>
       <p class="footer__sister"><span>Sister company</span> <a href="https://www.apex36tech.com/" target="_blank" rel="noopener"><img src="/assets/apex36-mark.webp" width="22" height="19" alt="" loading="lazy" decoding="async">Apex36 Technologies<span class="sr-only"> (opens in a new tab)</span></a></p>
     </div>
     <ul class="footer__social" aria-label="Mehul elsewhere">

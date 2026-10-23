@@ -1,50 +1,74 @@
 {
  "https://uscale.in/": {
-  "fp": "0f46aa523211283b",
-  "date": "2026-10-20"
+  "fp": "69142e4e9ec04151",
+  "date": "2026-10-23"
  },
  "https://uscale.in/about": {
-  "fp": "8bcd2462c8679c6e",
-  "date": "2026-10-20"
+  "fp": "257f0f34095cfedb",
+  "date": "2026-10-23"
  },
  "https://uscale.in/pricing": {
-  "fp": "1d66d4d0e025f572",
-  "date": "2026-10-20"
+  "fp": "2d6db2ce56a91ea2",
+  "date": "2026-10-23"
  },
  "https://uscale.in/services": {
-  "fp": "e160387f3c337b1c",
-  "date": "2026-10-20"
+  "fp": "29d9e57de99688f4",
+  "date": "2026-10-23"
  },
  "https://uscale.in/services/ai-search-visibility": {
-  "fp": "960b19e743c49cee",
-  "date": "2026-10-20"
+  "fp": "eaa07e5134f80c61",
+  "date": "2026-10-23"
  },
  "https://uscale.in/services/google-meta-ads-mumbai": {
-  "fp": "8e6c17ccc7805f90",
-  "date": "2026-10-20"
+  "fp": "bb9c7d3b08a345c2",
+  "date": "2026-10-23"
  },
  "https://uscale.in/services/seo-mumbai": {
-  "fp": "bf69311973628448",
-  "date": "2026-10-20"
+  "fp": "6f42252309b6edcd",
+  "date": "2026-10-23"
  },
  "https://uscale.in/services/social-media-management-mumbai": {
-  "fp": "a1498da8440073cd",
-  "date": "2026-10-20"
+  "fp": "b3033e712d59883a",
+  "date": "2026-10-23"
  },
  "https://uscale.in/services/website-design-mumbai": {
-  "fp": "121137d1ff2f8fa5",
-  "date": "2026-10-20"
+  "fp": "df5961de702f7064",
+  "date": "2026-10-23"
+ },
+ "https://uscale.in/services/website-design-mumbai/andheri-east": {
+  "fp": "e7a4b302206f6098",
+  "date": "2026-10-23"
+ },
+ "https://uscale.in/services/website-design-mumbai/boutiques-fashion": {
+  "fp": "a0de7c450ee8a74c",
+  "date": "2026-10-23"
+ },
+ "https://uscale.in/services/website-design-mumbai/freelancer-vs-agency-vs-website-builder": {
+  "fp": "518647a50dbc1705",
+  "date": "2026-10-23"
+ },
+ "https://uscale.in/services/website-design-mumbai/ghatkopar": {
+  "fp": "a2a0b26f3853d67b",
+  "date": "2026-10-23"
+ },
+ "https://uscale.in/services/website-design-mumbai/restaurants-cafes": {
+  "fp": "4af464af6db8318a",
+  "date": "2026-10-23"
+ },
+ "https://uscale.in/services/website-design-mumbai/website-banane-ka-kharcha": {
+  "fp": "9b7f1708864dfde2",
+  "date": "2026-10-23"
  },
  "https://uscale.in/tools": {
-  "fp": "c9b227485e537239",
-  "date": "2026-10-20"
+  "fp": "44f05ee1d81b5f1d",
+  "date": "2026-10-23"
  },
  "https://uscale.in/tools/google-business-profile-checker": {
-  "fp": "bf1c4b623f6ed7bb",
-  "date": "2026-10-22"
+  "fp": "a0510e756e2a2432",
+  "date": "2026-10-23"
  },
  "https://uscale.in/tools/google-review-qr-code": {
-  "fp": "f8f3c7486f28cb7b",
-  "date": "2026-10-20"
+  "fp": "b1a3606942c5fe7f",
+  "date": "2026-10-23"
  }
 }

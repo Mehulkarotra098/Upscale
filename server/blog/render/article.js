@@ -1,5 +1,5 @@
 // /blog/<slug>: the article page.
-import { BRAND, ROBOTS, SERVICES } from '../../config.js';
+import { BRAND, ENTITY, ROBOTS, SERVICES } from '../../config.js';
 import { esc, excerpt, fmtDate, isoDate } from '../../lib/text.js';
 import { mediaUrl } from '../../media/urls.js';
 import {
@@ -91,7 +91,15 @@ export function renderArticle({ post, related, preview = false }) {
       timeRequired: `PT${post.reading_minutes}M`,
       articleSection: post.cat_name || undefined,
       keywords: [post.focus_keyword, ...tags].filter(Boolean).join(', ') || undefined,
-      author: { '@type': 'Person', '@id': abs('#mehul'), name: author, url: abs('about'), jobTitle: authorTitle, sameAs: BRAND.sameAs },
+      author: {
+        '@type': 'Person',
+        '@id': abs('#mehul'),
+        name: author,
+        url: abs('about'),
+        jobTitle: authorTitle,
+        sameAs: BRAND.authorSameAs,
+        image: abs(ENTITY.founder.image),
+      },
       publisher: { '@id': ORGANIZATION['@id'] },
     },
     ORGANIZATION,

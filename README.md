@@ -35,6 +35,7 @@ https://uscale.in (Vercel project `uscale`, deploys automatically on every push 
 | `ADMIN_NAME` | Display name of that first account | `Mehul Karotra` |
 | `INDEXNOW_KEY` | Optional. Pings Bing/Yandex instantly on publish; key served at `/indexnow-key.txt` | off |
 | `CRON_SECRET` | Optional. When set, only Vercel's cron (which sends it) can call the keep-alive ping | open |
+| `AI_LOG_KEY` | Optional. Any long random string. Turns on the AI search log: `middleware.js` reports AI assistants, AI crawlers and visits from AI answers to `/api/blog?view=ai`, shown in Admin → AI search | off |
 
 Set them in Vercel → Project → Settings → Environment Variables (Production and Preview). See `.env.example`.
 
