@@ -120,8 +120,8 @@ def src_chip(k):
 # ---------------------------------------------------------------- content blocks
 # Each block is a dict with a 't' (type). render(block) → HTML; text(block) → plain text for llms-full.txt.
 def P(*paras):            return dict(t='p', paras=paras)
-def Cards(items, cols=3, numbered=False, tone=''):  # items: (icon or None, title, text html)
-    return dict(t='cards', items=items, cols=cols, numbered=numbered, tone=tone)
+def Cards(items, cols=3, numbered=False, tone='', cta=None):  # items: (icon or None, title, text html); cta: (href, icon, title, text, button) closes the grid
+    return dict(t='cards', items=items, cols=cols, numbered=numbered, tone=tone, cta=cta)
 def Stat(big, label, src):  return dict(t='stat', big=big, label=label, src=src)
 def Note(text):           return dict(t='note', text=text)
 def Check(items):         return dict(t='check', items=items)
@@ -134,6 +134,7 @@ def Chips(items, label):  return dict(t='chips', items=items, label=label)
 def Svg(key):             return dict(t='svg', key=key)
 def Calc():               return dict(t='calc')
 def Tools(lang='en'):     return dict(t='tools', lang=lang)
+def Img(key):             return dict(t='img', key=key)  # a product shot from IMG, with its caption
 
 
 def Sec(h, *blocks, eyebrow='', lead='', layout='split', tone='', sid=''):
@@ -355,6 +356,7 @@ PAGES = [
          'it ranks local results on relevance (how well your listing matches the search), distance (how far you are from the person searching) and '
          'prominence (how well known you are, judged partly from reviews and from the web). A website that names your area, services and timings, '
          'and matches your Google listing exactly, helps with relevance and prominence. Distance is the one thing nobody can change.'),
+       Img('found'),
        RANKING,
        eyebrow='The map pack'),
    Sec('Where I meet clients around Ghatkopar',
@@ -388,7 +390,7 @@ PAGES = [
   h1='Website design for Andheri East businesses', eyebrow='Near you',
   lead='Shops, cafés and offices in Andheri East compete for the same searches on Google. I design websites and fix Google listings here, and in October 2026 I ran a free audit day for local shops.',
   stats=[('30+', 'Local listings checked'), (price('Landing page'), 'Websites from'), ('Free', 'Audit, in person')],
-  art=dict(kind='audit'),
+  art=dict(kind='img', img='step-audit'),
   answer='U Scale’s Mehul Karotra designs websites and sets up Google Business Profiles and local SEO for shops, cafés, restaurants and offices in '
          'Andheri East, including Marol, Chakala, Saki Naka, MIDC and JB Nagar. Websites start at ₹25,000 at a fixed price, local SEO is '
          f'{price("Local SEO / Google Business Profile")}, and every project starts with a free audit, which U Scale also runs in person for shops in the area.',
@@ -406,7 +408,8 @@ PAGES = [
               ('unlink', 'A website link that no longer opens', 'A dead link sends customers away and makes the listing look neglected.'),
               ('alert', 'Someone else’s link in the website field', 'A booking-app, marketplace or free-page link where the shop’s own website should be.'),
               ('star', 'Followers, but few reviews', 'A strong Instagram following but far fewer Google reviews.'),
-              ('phone', 'No quick way to ask', 'A website with no WhatsApp or call button, so a visitor on a phone gives up.')], cols=3, numbered=True),
+              ('phone', 'No quick way to ask', 'A website with no WhatsApp or call button, so a visitor on a phone gives up.')], cols=3, numbered=True,
+             cta=('/tools/google-business-profile-checker', 'search', 'Check your listing free', 'A score out of 100 and a fix list in about two minutes, so you see which of these apply to you.', 'Check my listing')),
        P('Each of these can be fixed in days, and most cost nothing but time. The free Google Business Profile checker below shows which ones apply to you.'),
        eyebrow='Audit findings', layout='wide'),
    Sec('One Metro line from Ghatkopar',
@@ -446,7 +449,7 @@ PAGES = [
   h1='Website banane me kitna kharcha aata hai?', eyebrow='Guide · Hinglish',
   lead='Main Mehul Karotra hoon, Ghatkopar West se. Main websites khud banata hoon aur apne saare prices publicly likhta hoon. Yahan seedha hisaab hai.',
   stats=[('₹8k–2L', 'Market range'), (price('Landing page'), 'U Scale se shuru'), ('₹4.4–9.4k', 'Har saal ka kharcha')],
-  art=dict(kind='ticket'),
+  art=dict(kind='img', img='step-plan', caption='U Scale ka ek sample fixed-price quote. Saanjh Studio ek sample brand hai, asli client nahi.'),
   answer='Mumbai mein template wali basic business website lagbhag ₹8,000–₹30,000 mein, kisi Mumbai studio se ₹15,000–₹50,000 mein, aur custom '
          'design wali website ₹40,000 se ₹2 lakh tak mein banti hai. U Scale ke fixed prices: landing page ₹25,000, 3–4 page business website '
          '₹55,000 aur online store ₹95,000 se. Iske upar har saal domain aur hosting ka kharcha aata hai: offer khatam hone ke baad lagbhag '
@@ -625,9 +628,11 @@ IMG = {
                alt='Demo salon website on a phone and a laptop: a booking screen with stylist, day and time slots and a Confirm on WhatsApp button, the salon\'s services with prices, and its map listing with a booking link',
                caption='A demo salon website that takes bookings on WhatsApp. Mira Studio is a sample brand.'),
  'step-audit': dict(file=A + 'free-website-audit-report-mumbai', w=1200, h=900, small=640,
-               alt='Sample free audit for a Mumbai boutique: an overall score of 58 out of 100 with scores for the website, Google listing and Instagram, the old site marked with three problems, and a WhatsApp message with three fixes to get more orders'),
+               alt='Sample free audit for a Mumbai boutique: an overall score of 58 out of 100 with scores for the website, Google listing and Instagram, the old site marked with three problems, and a WhatsApp message with three fixes to get more orders',
+               caption='A sample free audit by U Scale. Saanjh Studio is a sample brand, not a real shop.'),
  'step-plan': dict(file=A + 'fixed-price-website-quote-mumbai', w=1200, h=900, small=640,
-               alt='Sample fixed-price quote for a boutique website: three line items, a total of ₹55,000 and a 20%, 20%, 60% payment split, stamped accepted and signed, with the owner\'s WhatsApp reply'),
+               alt='Sample fixed-price quote for a boutique website: three line items, a total of ₹55,000 and a 20%, 20%, 60% payment split, stamped accepted and signed, with the owner\'s WhatsApp reply',
+               caption='A sample fixed-price quote from U Scale. Saanjh Studio is a sample brand, not a real client.'),
  'step-design': dict(file=A + 'website-design-review-approval', w=1200, h=900, small=640,
                alt='Sample design review in a design tool: desktop and mobile versions of a boutique product page, with the owner\'s comment approving it'),
  'step-launch': dict(file=A + 'website-launch-monthly-report', w=1200, h=900, small=640,
@@ -656,6 +661,7 @@ def page_images(p):
     keys = []
     if p['art']['kind'] == 'img': keys.append(p['art']['img'])
     if p['art']['kind'] == 'portrait': keys.append('mehul')
+    keys += [b['key'] for s in p['sections'] for b in s['blocks'] if b['t'] == 'img' and b['key'] not in keys]
     return [IMG[k] for k in keys]
 
 
@@ -756,8 +762,11 @@ def _ae_wide():
         last = i == len(st) - 1
         nodes += (f'<g class="fp-metro__st{" fp-metro__st--base" if last else ""}"><circle cx="{x}" cy="200" r="{13 if last else 9}"/>'
                   f'<text x="{x}" y="{246 if i % 2 == 0 else 268}" text-anchor="middle">{e(name)}</text></g>')
-        if area:
-            nodes += f'<g class="fp-metro__area"><rect x="{x - 78}" y="104" width="156" height="40" rx="20"/><text x="{x}" y="129" text-anchor="middle">{e(area)}</text><path d="M{x} 144v40"/></g>'
+        if area:  # pills sized to their text, alternating two rows so neighbours never overlap, kept inside the zone (x 40–720)
+            n = sum(1 for _, a in st[:i] if a); w = 24 + len(area) * 8.6; top = 96 if n % 2 == 0 else 142
+            px = min(max(x - w / 2, 50), 710 - w)
+            nodes += (f'<g class="fp-metro__area"><rect x="{px:.0f}" y="{top}" width="{w:.0f}" height="36" rx="18"/><text x="{px + w / 2:.0f}" y="{top + 23}" text-anchor="middle">{e(area)}</text>'
+                      f'<path d="M{x} {top + 36}V{188}"/></g>')
     return f"""<svg class="fp-metro--wide" viewBox="0 0 1080 320" role="img" aria-labelledby="aemetro-t aemetro-d">
     <title id="aemetro-t">Andheri East and Ghatkopar on Mumbai Metro Line 1</title><desc id="aemetro-d">{e(AE_DESC)}</desc>
     <rect width="1080" height="320" rx="28" class="fp-map__bg"/>
@@ -781,7 +790,8 @@ def _ae_tall():
         nodes += (f'<g class="fp-metro__st{" fp-metro__st--base" if last else ""}"><circle cx="64" cy="{y}" r="{14 if last else 10}"/>'
                   f'<text x="94" y="{y + 7}" class="fp-metro__tl">{e(name)}</text></g>')
         if area:
-            nodes += f'<g class="fp-metro__area"><rect x="236" y="{y - 20}" width="{min(200, 26 + len(area) * 10)}" height="40" rx="20"/><text x="{236 + min(200, 26 + len(area) * 10) / 2:.0f}" y="{y + 6}" text-anchor="middle">{e(area)}</text></g>'
+            w = min(190, 26 + len(area) * 10)  # capped so the longest pill keeps clear of the zone border (x 436)
+            nodes += f'<g class="fp-metro__area"><rect x="236" y="{y - 20}" width="{w}" height="40" rx="20"/><text x="{236 + w / 2:.0f}" y="{y + 6}" text-anchor="middle">{e(area)}</text></g>'
     return f"""<svg class="fp-metro--tall" viewBox="0 0 460 740" role="img" aria-labelledby="aemetro2-t aemetro2-d">
     <title id="aemetro2-t">Andheri East and Ghatkopar on Mumbai Metro Line 1</title><desc id="aemetro2-d">{e(AE_DESC)}</desc>
     <rect width="460" height="740" rx="28" class="fp-map__bg"/>
@@ -813,6 +823,10 @@ def _cards(b):
         mark = f'<span class="fp-card__n" aria-hidden="true">{i + 1:02d}</span>' if b['numbered'] else ''
         ico = f'<span class="fp-card__ic">{icon(ic)}</span>' if ic else ''
         out.append(f'<li class="fp-card" data-reveal>{ico}{mark}<h3>{e(t)}</h3><p>{d}</p></li>')
+    if b.get('cta'):  # a dark link card, e.g. to fill the empty sixth cell of a 3-column grid of five
+        href, ic, t, d, go = b['cta']
+        out.append(f'<li data-reveal><a class="fp-card fp-card--cta on-dark" href="{ea(href)}"><span class="fp-card__ic">{icon(ic)}</span><b class="fp-card__t">{e(t)}</b>'
+                   f'<p>{e(d)}</p><span class="fp-card__go">{e(go)}{icon("arrow")}</span></a></li>')
     return f'<ul class="fp-cards fp-cards--{b["cols"]}{" fp-cards--n" if b["numbered"] else ""}" data-reveal-group>{"".join(out)}</ul>'
 
 
@@ -866,16 +880,21 @@ def _options(b):
         cards += (f'<li class="fp-opt{" fp-opt--hi on-dark" if o.get("hi") else ""}" data-reveal><p class="fp-opt__tag">{e(o["tag"])}</p>'
                   f'<h3>{e(o["name"])}</h3><dl>{rows}</dl></li>')
     note = f'<p class="fp-note">{e(b["note"])}</p>' if b['note'] else ''
-    return f'<ul class="fp-opts fp-opts--{len(b["items"])}" data-reveal-group>{cards}</ul>{note}'
+    snap = ' fp-snap" data-snap aria-label="Options compared' if len(b['items']) > 2 else ''  # 3+ cards: a swipe row on phones
+    return f'<ul class="fp-opts fp-opts--{len(b["items"])}{snap}" data-reveal-group>{cards}</ul>{note}'
 
 
 def _range(b):
     hi = b['ticks'][-1]
     pct = lambda v: f'{v / hi * 100:.2f}%'
     ticks = ''.join(f'<span style="--x:{pct(t)}">{e(_short(t) if t else "₹0")}</span>' for t in b['ticks'])
-    rows = ''.join(f'<li class="fp-range__row"><span class="fp-range__l">{e(l)}</span><span class="fp-range__track"><i style="--a:{pct(a)};--b:{pct(z)}"></i></span>'
+    # a mark is also plotted as a green dot on the row it matches ("Business site" → "...business website", "Online store" → "Online store")
+    on_row = lambda l: ''.join(f'<b class="fp-range__us" style="--x:{pct(v)}"></b>' for v, ml in b['marks'] if ml.split()[0].lower() in l.lower())
+    rows = ''.join(f'<li class="fp-range__row"><span class="fp-range__l">{e(l)}</span><span class="fp-range__track"><i style="--a:{pct(a)};--b:{pct(z)}"></i>{on_row(l)}</span>'
                    f'<span class="fp-range__v">{_short(a)}–{_short(z)}</span></li>' for l, a, z in b['rows'])
-    marks = ''.join(f'<span class="fp-range__mark" style="--x:{pct(v)}"><b>{_short(v)}</b><small>{e(l)}</small></span>' for v, l in b['marks'])
+    # labels alternate below / above the line so close prices (₹25k, ₹55k) never touch
+    marks = ''.join(f'<span class="fp-range__mark{" fp-range__mark--up" if i % 2 else ""}" style="--x:{pct(v)}"><b>{_short(v)}</b><small>{e(l)}</small></span>'
+                    for i, (v, l) in enumerate(b['marks']))
     return f'''<div class="fp-range" data-reveal>
   <div class="fp-range__scale" aria-hidden="true">{ticks}</div>
   <ul class="fp-range__rows">{rows}</ul>
@@ -906,10 +925,16 @@ def _links(b):
     return f'<ul class="fp-links" data-reveal-group>{out}</ul>'
 
 
+def _shot(key, sizes, cls):
+    """A product shot (IMG key) on the violet stage used across the site; lazy, below the fold."""
+    return f'<figure class="{cls}">{_pic(IMG[key], sizes)}</figure>'
+
+
 def _tools(b):
-    return f'''<ul class="fp-tools" data-reveal-group>
-  <li data-reveal><a class="fp-tool fp-tool--dark on-dark" href="/tools/google-business-profile-checker"><span class="fp-tool__k">Free · about 2 minutes</span><span class="fp-tool__t">Google Business Profile checker</span><span class="fp-tool__d">A score out of 100 and a fix list for your listing.</span><span class="fp-tool__go">Check my listing {icon("arrow")}</span></a></li>
-  <li data-reveal><a class="fp-tool" href="/tools/google-review-qr-code"><span class="fp-tool__k">Free · printable</span><span class="fp-tool__t">Google review QR code maker</span><span class="fp-tool__d">A counter standee that brings in reviews.</span><span class="fp-tool__go">Make my QR code {icon("arrow")}</span></a></li>
+    sz = '(max-width: 759px) 92vw, 560px'
+    return f'''<ul class="fp-tools fp-tools--media" data-reveal-group>
+  <li data-reveal><a class="fp-tool fp-tool--dark on-dark" href="/tools/google-business-profile-checker">{_shot('tool-checker', sz, 'fp-tool__media')}<span class="fp-tool__k">Free · about 2 minutes</span><span class="fp-tool__t">Google Business Profile checker</span><span class="fp-tool__d">A score out of 100 and a fix list for your listing.</span><span class="fp-tool__go">Check my listing {icon("arrow")}</span></a></li>
+  <li data-reveal><a class="fp-tool" href="/tools/google-review-qr-code">{_shot('tool-qr', sz, 'fp-tool__media')}<span class="fp-tool__k">Free · printable</span><span class="fp-tool__t">Google review QR code maker</span><span class="fp-tool__d">A counter standee that brings in reviews.</span><span class="fp-tool__go">Make my QR code {icon("arrow")}</span></a></li>
 </ul>'''
 
 
@@ -920,7 +945,8 @@ def render(b):
     if t == 'stat': return f'<div class="fp-stat" data-reveal><b>{e(b["big"])}</b><p>{e(b["label"])}</p>{src_chip(b["src"])}</div>'
     if t == 'note': return f'<p class="fp-note">{e(b["text"])}</p>'
     if t == 'check':
-        return '<ol class="fp-check" data-reveal-group>' + ''.join(f'<li data-reveal><span class="fp-check__ic">{icon("check")}</span><span>{e(x)}</span></li>' for x in b['items']) + '</ol>'
+        # questions to ask, not things already done: numbered 01–06 rather than ticked
+        return '<ol class="fp-check" data-reveal-group>' + ''.join(f'<li data-reveal><span class="fp-check__ic fp-check__n" aria-hidden="true">{i + 1:02d}</span><span>{e(x)}</span></li>' for i, x in enumerate(b['items'])) + '</ol>'
     if t == 'table': return _table(b)
     if t == 'options': return _options(b)
     if t == 'range': return _range(b)
@@ -930,6 +956,10 @@ def render(b):
     if t == 'svg': return SVGS[b['key']]()
     if t == 'calc': return _calc()
     if t == 'tools': return _tools(b)
+    if t == 'img':
+        img = IMG[b['key']]
+        return (f'<figure class="fp-shot" data-reveal><div class="fp-shot__stage">{_pic(img, "(max-width: 1023px) 92vw, 720px")}</div>'
+                f'<figcaption>{e(img["caption"])}</figcaption></figure>')
     raise ValueError(t)
 
 
@@ -958,7 +988,7 @@ def text(b):
     if t == 'dur': return '\n'.join(f'- {l}: {tt}' for l, a, z, tt in b['rows'])
     if t == 'links': return '\n'.join(f'- {tt}: {d}' + (f' ({pr})' if pr else '') for _, _, tt, d, pr in b['items'])
     if t == 'chips': return f'{b["label"]}: ' + ', '.join(b['items'])
-    if t == 'svg': return ''
+    if t in ('svg', 'img'): return ''
     if t == 'calc': return _calc_text()
     if t == 'tools': return ('- Free Google Business Profile checker: a score out of 100 and a fix list in about two minutes.\n'
                              '- Free Google review QR code maker: a printable counter standee that brings in reviews.')
@@ -966,13 +996,22 @@ def text(b):
 
 
 # ---------------------------------------------------------------- hero art
+# Phones: the product shot spans the hero's full content width (92vw); tablets and desktops: a fixed column.
+HERO_SIZES = '(max-width: 559px) 92vw, (max-width: 1023px) 600px, 660px'
+
+
+def hero_img(key, caption=None):
+    """Hero product shot for pages outside PAGES (the parent website-design page)."""
+    return _hero_art(dict(art=dict(kind='img', img=key, caption=caption)))
+
+
 def _hero_art(p):
     a = p['art']; k = a['kind']
     chips = ''.join(f'<span class="fp-chip fp-chip--{i + 1}">{icon(ic)}{e(t)}</span>' for i, (ic, t) in enumerate(a.get('chips', [])))
     if k == 'img':
         img = IMG[a['img']]
-        return (f'<figure class="fp-art fp-art--img">{_pic(img, "(max-width: 559px) 82vw, (max-width: 1023px) 600px, 660px", eager=True)}{chips}'
-                f'<figcaption>{e(img["caption"])}</figcaption></figure>')
+        return (f'<figure class="fp-art fp-art--img fp-art--{ea(a["img"])}">{_pic(img, HERO_SIZES, eager=True)}{chips}'
+                f'<figcaption>{e(a.get("caption") or img["caption"])}</figcaption></figure>')
     if k == 'portrait':
         img = IMG['mehul']
         return (f'<figure class="fp-art fp-art--portrait"><div class="fp-portrait">{_pic(img, "(max-width: 559px) 260px, (max-width: 1023px) 300px, 400px", eager=True)}'
@@ -1045,6 +1084,14 @@ def _hi(p):
     return p.get('lang') == 'hi-Latn'
 
 
+def lead_html(t, at=110):
+    """Hero lead. On phones a long lead shows only its first sentence; the rest stays in the HTML (and for screen
+    readers and crawlers) and is only visually hidden below 560px, so the product shot reaches the first screen."""
+    m = re.match(r'(.+?[.?!])\s+(\S.*)$', t, re.S)
+    if len(t) <= at or not m: return e(t)
+    return f'{e(m[1])} <span class="fp-lead-more">{e(m[2])}</span>'
+
+
 def _hero(p, wa, icons):
     hi = _hi(p)
     stats = ''.join(f'<li class="stat"><span class="stat__num">{e(n)}</span><span class="stat__label">{e(l)}</span></li>' for n, l in p['stats'])
@@ -1055,10 +1102,10 @@ def _hero(p, wa, icons):
       <div class="fp-hero__copy">
         <nav class="crumbs" aria-label="Breadcrumb"><ol><li><a href="/">Home</a></li><li><a href="/services">Services</a></li><li><a href="/services/{BASE}">{e(PARENT['short'])}</a></li><li aria-current="page">{e(p['crumb'])}</li></ol></nav>
         <p class="eyebrow">{e(p['eyebrow'])}</p><h1 class="sp-hero__title fp-hero__title" id="page-title">{e(p['h1'])}{'' if p['h1'].endswith('?') else '<span class="dot">.</span>'}</h1>
-        <p class="sp-hero__lead">{e(p['lead'])}</p>
-        <div class="hero__cta" data-wa-zone>
-          <a class="btn btn--go" href="{ea(wa)}" target="_blank" rel="noopener" data-magnetic>{icons['ICON_CHAT']}{talk}</a>
-          <a class="btn btn--ghost" href="#brief-title">{see}</a>
+        <p class="sp-hero__lead">{lead_html(p['lead'])}</p>
+        <div class="fp-hero__ctas">
+          <div class="hero__cta" data-wa-zone><a class="btn btn--go" href="{ea(wa)}" target="_blank" rel="noopener" data-magnetic>{icons['ICON_CHAT']}{talk}</a></div>
+          <a class="btn btn--ghost fp-hero__more" href="#brief-title">{see}</a>
         </div>
         <ul class="stats fp-stats">{stats}</ul>
       </div>
@@ -1102,23 +1149,28 @@ def _how(p):
     hi = _hi(p)
     if hi:
         head, sub = 'Fixed price. Koi surprise nahi.', 'Free audit se launch tak, chaar steps.'
-        steps = [('Audit', 'Aapki website, Google listing aur Instagram dekhta hoon, goals aur pages tay karte hain.', 'Free'),
-                 ('Design', 'Figma mein asli screens, desktop aur mobile, saath mein refine karte hain.', '20% shuru mein · 20% design approve pe'),
-                 ('Build', 'Approved design ko code karta hoon, forms jodta hoon, phones pe test karta hoon.', ''),
+        steps = [('Free audit', 'Aapki website, Google listing aur Instagram dekhta hoon, goals aur pages tay karte hain.', 'Free'),
+                 ('Likhit plan', 'Kaun se pages, kab tak, aur exact price, kuch bhi pay karne se pehle likhit mein.', 'Fixed price'),
+                 ('Design aur build', 'Figma mein asli screens, desktop aur mobile. Aap approve karte ho, phir main code karke phones pe test karta hoon.', '20% shuru mein · 20% design approve pe'),
                  ('Launch', 'Domain, hosting, Search Console aur final check. Phir chhote tweaks do hafte tak free.', '60% launch pe')]
         promise = [('key', 'Domain, code aur logins aapke naam'), ('file', 'Price kaam se pehle likhit mein'), ('shield', 'Launch ke baad 15–30 din bug-fix')]
     else:
         head, sub = 'Fixed price. No surprises.', 'From free audit to launch, in four steps.'
-        steps = [(t, d, tag) for (t, d), tag in zip(PARENT['steps'], ['Free', '20% to start · 20% on design sign-off', '', '60% on launch'])]
+        # The same four steps as the home page, each shown with its product shot (audit, quote, design review, launch).
+        steps = [('Free audit', 'I check your website, Google listing and Instagram, and we agree the goals, pages and must-haves.', 'Free'),
+                 ('Written plan', 'What I will build, by when, and the exact price, in writing before you pay anything.', 'Fixed price'),
+                 ('Design & build', 'You approve real screens in Figma, desktop and mobile, before I code them and test on phones.', '20% to start · 20% on design sign-off'),
+                 ('Launch', 'Domain, hosting, Search Console and a final check. Then small tweaks are on me for two weeks.', '60% on launch')]
         promise = [('key', 'Your domain, code and logins, in your name'), ('file', 'Price fixed in writing before work starts'), ('shield', '15–30 day bug-fix window after launch')]
-    li = ''.join(f'<li class="fp-step" data-reveal><span class="fp-step__n" aria-hidden="true">{i + 1:02d}</span><h3>{e(t)}</h3><p>{e(d)}</p>'
-                 + (f'<span class="fp-step__tag">{e(tag)}</span>' if tag else '') + '</li>' for i, (t, d, tag) in enumerate(steps))
+    shots, sz = ['step-audit', 'step-plan', 'step-design', 'step-launch'], '(max-width: 759px) 82vw, (max-width: 1099px) 46vw, 290px'
+    li = ''.join(f'<li class="fp-step" data-reveal>{_shot(shots[i], sz, "fp-step__media")}<div class="fp-step__body"><span class="fp-step__n" aria-hidden="true">{i + 1:02d}</span><h3>{e(t)}</h3><p>{e(d)}</p>'
+                 + (f'<span class="fp-step__tag">{e(tag)}</span>' if tag else '') + '</div></li>' for i, (t, d, tag) in enumerate(steps))
     pr = ''.join(f'<li>{icon(ic)}<span>{e(x)}</span></li>' for ic, x in promise)
     return f'''
   <section class="section fp-sec fp-sec--how" aria-labelledby="how-title">
     <div class="wrap">
       <header class="sec-head fp-head"><p class="eyebrow">{'Kaise kaam hota hai' if hi else 'How it works'}</p><h2 class="h2 fp-h2" id="how-title">{e(head)}</h2><p class="lead">{e(sub)}</p></header>
-      <ol class="fp-steps" data-reveal-group>{li}</ol>
+      <ol class="fp-steps fp-steps--media fp-snap" data-reveal-group data-snap aria-label="{'Chaar steps' if hi else 'The four steps'}">{li}</ol>
       <ul class="fp-promise" data-reveal>{pr}</ul>
     </div>
   </section>'''
@@ -1205,7 +1257,7 @@ def _related(p):
     others = [q for q in PAGES if q is not p]
     li = ''.join(f'<li><a class="fp-rel" href="/services/{BASE}/{q["slug"]}"><span class="fp-rel__k">{kinds[q["kind"]]}</span><b>{e(q["h1"])}</b>'
                  f'<span class="fp-rel__d">{e(q["card"])}</span>{icon("arrow")}</a></li>' for q in others)
-    return f'<nav class="fp-related" aria-label="More website pages"><p class="eyebrow">Keep reading</p><ul>{li}</ul></nav>'
+    return f'<nav class="fp-related" aria-label="More website pages"><p class="eyebrow">Keep reading</p><ul class="fp-snap" data-snap>{li}</ul></nav>'
 
 
 def _cta(p, wa, icons):
@@ -1219,9 +1271,10 @@ def _cta(p, wa, icons):
           <p class="lead">Tell me about your business. I reply within 24 hours, usually much faster on WhatsApp.</p>
           <div class="cta__btns" data-wa-zone>
             <a class="btn btn--go" href="{ea(wa)}" target="_blank" rel="noopener" data-magnetic>{icons['ICON_CHAT']}Chat on WhatsApp</a>
-            <a class="btn btn--ghost" href="mailto:{SP.EMAIL}">Email {SP.EMAIL}</a>
+            <a class="btn btn--ghost" href="mailto:{SP.EMAIL}">Email me</a>
             <a class="btn btn--ghost" href="tel:+{aeo.ENTITY['whatsapp']}">Call {SP.PHONE_D}</a>
           </div>
+          <p class="sp-cta__mail">Email: {SP.EMAIL}</p>
         </div>
       </div>
       {_related(p)}
@@ -1238,16 +1291,17 @@ def page(ctx, parts, p):
     wa = f'https://wa.me/{aeo.ENTITY["whatsapp"]}?text=' + urllib.parse.quote(msg)
     toc = [((s['sid'] or f's{i}') + '-title', s['h']) for i, s in enumerate(p['sections'])]
     toc += [('how-title', 'Kaise kaam hota hai' if _hi(p) else 'How it works'), ('faq-title', 'Sawaal-jawaab' if _hi(p) else 'Questions')]
-    content = (_hero(p, wa, icons) + aeo.brief_html(p['answer'], p['facts'], 'Key facts: ' + p['service'], 'brief-title', toc, 'Is page pe' if _hi(p) else 'On this page')
+    content = (_hero(p, wa, icons) + aeo.brief_html(p['answer'], p['facts'], 'Key facts: ' + p['service'], 'brief-title', toc, 'Is page pe' if _hi(p) else 'On this page',
+                                                    fold=3, more='Saare facts' if _hi(p) else 'All facts')
                + _sections(p) + _work(ctx, p['work']) + ('' if p['art']['kind'] == 'portrait' else _who(p)) + _how(p)
                + aeo._faq_section(p['faq'], 'Sawaal-jawaab.' if _hi(p) else 'Questions, answered.') + _foot(p))
     body = (f'<div lang="{p["lang"]}">{content}</div>' if p.get('lang') else content) + _cta(p, wa, icons)
     og = (f'{site}assets/pages/{OG[p["slug"]]}.jpg', OG_ALT[p['slug']])
     imgs = page_images(p)
     preload = None
-    if imgs:
+    if imgs and p['art']['kind'] in ('img', 'portrait'):
         i0 = imgs[0]
-        sizes = '(max-width: 559px) 260px, (max-width: 1023px) 300px, 400px' if p['art']['kind'] == 'portrait' else '(max-width: 559px) 82vw, (max-width: 1023px) 600px, 660px'
+        sizes = '(max-width: 559px) 260px, (max-width: 1023px) 300px, 400px' if p['art']['kind'] == 'portrait' else HERO_SIZES
         preload = (f'<link rel="preload" as="image" type="image/avif" imagesrcset="{srcset(i0, "avif")}" '
                    f'imagesizes="{sizes}" fetchpriority="high">')
     return aeo._page(ctx, parts, url, p['title'], p['desc'], _jsonld(site, p), body, og, extra_head=preload, lang=p.get('lang', 'en-IN'))

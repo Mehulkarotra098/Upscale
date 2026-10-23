@@ -10,6 +10,8 @@ export const BLOG_TITLE = 'Blog: website, SEO & growth tips for Indian businesse
 export const BLOG_DESC =
   'Practical guides on websites, Google rankings, social media, ads and AI search for Mumbai and Indian businesses, from Mehul Karotra at U Scale.';
 export const DEFAULT_OG = abs('og-image.png');
+/** A category page with fewer live posts than this is thin: it stays crawlable (noindex, follow) but out of the sitemap. */
+export const MIN_CATEGORY_POSTS = 3;
 export const ARROW = '<span class="arw" aria-hidden="true"><b>↗</b><b>↗</b></span>';
 export const ICON_CLOCK =
   '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="8.5"/><path d="M12 7.5V12l3 2"/></svg>';

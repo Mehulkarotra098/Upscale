@@ -127,7 +127,7 @@ def how():
       <header class="sec-head">
         <p class="eyebrow" data-reveal data-scramble>How it works</p>
         <h2 class="h2" id="how-title" data-split>Fixed price. No surprises.</h2>
-        <p class="lead" data-reveal>From a free audit to launch in four steps. Monthly work runs as a 3-month sprint, then month-to-month with 30 days notice.</p>
+        <p class="lead" data-reveal>From a free audit to launch in four steps. Monthly work runs as a 3-month sprint, then month-to-month with 30 days&rsquo; notice.</p>
       </header>
       <ol class="fp-steps" data-reveal-group>{li}</ol>
       <ul class="fp-promise" data-reveal>{pr}</ul>

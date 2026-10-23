@@ -52,7 +52,7 @@
 .qa__n{width:40px;height:40px;border-radius:50%;display:grid;place-items:center;font:400 15px/1 var(--display);color:var(--violet);border:1.5px solid rgba(37,30,69,.18);transition:background-color .35s ease,color .35s ease,border-color .35s ease}
 .qa.is-open .qa__n{background:var(--violet);color:var(--white);border-color:var(--violet)}
 .qa__panel p{padding-left:56px}
-@media (max-width:520px){.qa__btn{grid-template-columns:34px 1fr 36px;gap:12px}.qa__n{width:34px;height:34px;font-size:13px}.qa__panel p{padding-left:0;padding-right:0}}
+@media (max-width:520px){.qa__btn{grid-template-columns:34px 1fr 36px;gap:12px}.qa__n{width:34px;height:34px;font-size:13px}.qa__icon{width:36px;height:36px}.qa__panel p{padding-left:0;padding-right:0}}
 
 /* Final CTA letters spring on hover */
 .cta__title .ch{display:inline-block;transition:transform .5s var(--ease-spring);will-change:transform}

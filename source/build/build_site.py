@@ -119,7 +119,7 @@ cta_bars = ('<svg viewBox="0 0 400 320" preserveAspectRatio="xMaxYMax meet" aria
 
 # ---------- v3 content: real screenshots, real logos ----------
 SITE_URL = config.SITE_URL  # from the SITE_URL env var (see config.py)
-BOOK = 'https://wa.me/917977360142?text=' + urllib.parse.quote("Hi Mehul, I'd like to book a free strategy call. A good time for me is: ")
+BOOK = 'https://wa.me/917977360142?text=' + urllib.parse.quote("Hi Mehul, I'd like a free audit. My business is: ")
 SZ = json.load(open(ROOT / 'asset_sizes.json'))
 ARW = '<span class="arw" aria-hidden="true"><b>↗</b><b>↗</b></span>'
 e = lambda t: html.escape(t, quote=False)
@@ -179,13 +179,13 @@ logo_wall = (f'<ul class="sr-only">{names}</ul>'
 
 FAQ = [
  ('Is U Scale an agency or a freelancer?', "A bit of both, in the best way. U Scale is me, Mehul Karotra, working as an independent, contract-based partner. You get agency-quality design, development and marketing, but you sign with me directly and talk to me directly. If a project ever needs a specialist, like a photographer, I bring them in and stay your single point of contact."),
- ('How much does a website cost in Mumbai?', "With me, a landing page is ₹25,000, a 3–4 page business site ₹55,000, a 5–10 page site with a blog ₹85,000, and e-commerce starts at ₹95,000. Every price is fixed and agreed in writing before I start. Every price is listed on the pricing page."),
+ ('How much does a website cost in Mumbai?', "With me, a landing page is ₹25,000, a 3–4 page business site ₹55,000, a 5–10 page site with a blog ₹85,000, and an online store starts at ₹95,000. Every price is fixed and agreed in writing before I start."),
  ('How much does digital marketing cost in Mumbai?', "There are no bundles to squeeze into: you pay only for what you need. Local SEO is ₹15,000/month, technical SEO ₹25,000/month, ads management ₹20,000/month (plus a ₹10,000 setup), AI search visibility ₹12,000/month, and one-off work starts at ₹800 for a social post. The quote builder on the pricing page adds it up for you."),
- ('Do you work on contract or monthly retainer?', "Both. Websites and branding are fixed-price contracts: 20% to start, 20% on design sign-off and 60% on launch. Marketing runs as a monthly retainer: a 3-month sprint, then month-to-month with 30 days notice. No long lock-ins."),
+ ('Do you work on contract or monthly retainer?', "Both. Websites and branding are fixed-price contracts: 20% to start, 20% on design sign-off and 60% on launch. Marketing runs as a monthly retainer: a 3-month sprint, then month-to-month with 30 days’ notice. No long lock-ins."),
  ('How long does SEO take to show results?', 'Honest answer: 3–6 months for meaningful movement. Anyone promising page one in 30 days is selling you something. I show you the trajectory every month.'),
  ('How long does it take to build a website?', 'A business website typically takes 4–8 weeks from kickoff to launch, depending on pages and how ready your content is. A landing page can be live in under two weeks.'),
  ('What is AI search visibility (GEO)?', "It is how often, and how accurately, AI assistants like ChatGPT, Gemini and Google's AI Overviews mention your business when people ask for a recommendation. I check what they say today, then fix the facts, reviews, listings and pages they rely on. No one can guarantee a mention."),
- ('How do we start?', 'Book a free strategy call or ping me on WhatsApp. I audit your digital presence for free, then send a plan with clear pricing.'),
+ ('How do we start?', 'Get your free audit on WhatsApp. I audit your digital presence for free, then send a plan with clear pricing.'),
 ]
 faq = '\n'.join(
     (f'        <div class="qa{" is-open" if i == 0 else ""}"><h3><button class="qa__btn" type="button" id="q{i}" aria-expanded="{"true" if i == 0 else "false"}" aria-controls="a{i}">'
@@ -193,7 +193,7 @@ faq = '\n'.join(
      f'<div class="qa__panel" id="a{i}" role="region" aria-labelledby="q{i}"><div><p>{e(a)}</p></div></div></div>'
      )
     for i, (q, a) in enumerate(FAQ))
-faq = faq.replace('<p>Book a free strategy call', f'<p><a class="tlink" href="{e(BOOK)}" target="_blank" rel="noopener">Book a free strategy call</a>',1)
+faq = faq.replace('<p>Get your free audit', f'<p><a class="tlink" href="{e(BOOK)}" target="_blank" rel="noopener">Get your free audit</a>',1)
 
 # Founder blueprint: wireframe (design) underneath, filled build revealed by scroll
 def bp(built):
@@ -297,12 +297,18 @@ def _img_width(p):
     except ImportError:
         pass
     b = p.read_bytes()
-    if p.suffix == '.webp' and b[:4] == b'RIFF' and b[8:12] == b'WEBP':
+    if p.suffix == '.webp' and b[:4] == b'RIFF' and b[8:12] == b'WEBP' and int.from_bytes(b[4:8], 'little') + 8 <= len(b):
         c = b[12:16]
         if c == b'VP8 ': return int.from_bytes(b[26:28], 'little') & 0x3fff
         if c == b'VP8L': return (int.from_bytes(b[21:25], 'little') & 0x3fff) + 1
         if c == b'VP8X': return int.from_bytes(b[24:27], 'little') + 1
     if p.suffix == '.avif' and b[4:8] == b'ftyp' and b'avif' in b[8:int.from_bytes(b[:4], 'big')]:
+        j = 0  # top-level boxes must add up to the file: a half-written file ends inside a box
+        while j < len(b):
+            n = int.from_bytes(b[j:j + 4], 'big')
+            n = int.from_bytes(b[j + 8:j + 16], 'big') if n == 1 else (len(b) - j if n == 0 else n)
+            if n < 8 or j + n > len(b): return None
+            j += n
         i = b.find(b'ispe')
         if i > 0: return int.from_bytes(b[i + 8:i + 12], 'big')
     return None
@@ -312,7 +318,7 @@ for _k, _im in GP.IMG.items():
         for _ext in ('avif', 'webp'):
             _p = STATIC / f'{_stem.lstrip("/")}.{_ext}'
             try:
-                _got = _img_width(_p) if _p.is_file() and _p.stat().st_size > 0 else 'missing or 0 bytes'
+                _got = (_img_width(_p) or 'an unreadable or truncated file') if _p.is_file() and _p.stat().st_size > 0 else 'missing or 0 bytes'
             except Exception as _ex:
                 _got = f'does not decode ({_ex})'
             if _got != _w:

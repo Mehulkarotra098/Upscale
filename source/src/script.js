@@ -19,10 +19,15 @@
   if(d.classList.contains('intro-skip')) endLoader();
   else if(usl){ usl.addEventListener('animationend',function(e){ if(e.target===usl) endLoader(); }); safety=setTimeout(endLoader,2600); }
 
-  /* ---------- Smooth scroll (Lenis on desktop pointers; native on touch) ---------- */
-  var lenis=null;
+  /* ---------- Smooth scroll (Lenis on desktop pointers; native on touch) ----------
+     Lenis is self-hosted and fetched only when it will be used (fine pointer, motion on), so phones never download it. */
+  var lenis=null, lenisReq=false;
   function startLenis(){
-    if(lenis||!motion||!fine||!window.Lenis) return;
+    if(lenis||!motion||!fine) return;
+    if(!window.Lenis){
+      if(!lenisReq){ lenisReq=true; var ls=document.createElement('script'); ls.src='/assets/vendor/lenis.min.js?v=1.3.26'; ls.async=true; ls.onload=startLenis; document.head.appendChild(ls); }
+      return;
+    }
     try{ lenis=new window.Lenis({lerp:.09,smoothWheel:true,autoRaf:false}); lenis.on('scroll',markScroll); }catch(e){ lenis=null; }
     kick();
   }
@@ -101,7 +106,7 @@
   var rio=null;
   if('IntersectionObserver' in window){
     rio=new IntersectionObserver(function(es){ es.forEach(function(e){ if(e.isIntersecting){
-      var el=e.target, grp=el.closest('.sec-head,.quotes,.work__track');
+      var el=e.target, grp=el.closest('.sec-head,.quotes,.work__track,[data-snap]');
       el.classList.add('is-in'); if(el.hasAttribute('data-scramble')) scramble(el); rio.unobserve(el);
       if(grp) $$('[data-reveal],[data-split]',grp).forEach(function(x){ if(!x.classList.contains('is-in')){ x.classList.add('is-in'); if(x.hasAttribute('data-scramble')) scramble(x); rio.unobserve(x); } });
     } }); },{rootMargin:'0px 0px -8% 0px',threshold:.12});
@@ -543,13 +548,17 @@
   if(form){
     /* Only name and a number are required: every extra field costs enquiries. The rest is checked only if filled in. */
     var rules={ name:function(v){ return v.trim().length>1; }, phone:function(v){ return /^[+()\d\s-]{8,}$/.test(v.trim())&&v.replace(/\D/g,'').length>=8; }, email:function(v){ return !v.trim()||/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(v.trim()); }, link:function(v){ return !v.trim()||v.trim().length>2; }, need:function(v){ return !v.trim()||v.trim().length>1; } };
-    var check=function(i){ var ok=rules[i.name](i.value), f=i.closest('.field'); if(ok){ f.removeAttribute('data-invalid'); i.removeAttribute('aria-invalid'); } else { f.setAttribute('data-invalid',''); i.setAttribute('aria-invalid','true'); } return ok; };
+    /* The error text is linked (aria-describedby) only while it shows, so screen readers don't read it out up front. */
+    var check=function(i){ var ok=rules[i.name](i.value), f=i.closest('.field'); if(ok){ f.removeAttribute('data-invalid'); i.removeAttribute('aria-invalid'); i.removeAttribute('aria-describedby'); } else { f.setAttribute('data-invalid',''); i.setAttribute('aria-invalid','true'); i.setAttribute('aria-describedby','e-'+i.name); } return ok; };
+    /* Honeypot: the name="_honey" stays in the HTML for the no-JS post to FormSubmit; with JS this script sends the
+       form itself, so the name comes off (browser agents don't see it as a form parameter) and it is read by class. */
+    var hp=$('.hp',form); if(hp) hp.removeAttribute('name');
     $$('input:not(.hp),textarea',form).forEach(function(i){ i.addEventListener('blur',function(){ if(i.value) check(i); }); i.addEventListener('input',function(){ if(i.closest('.field').hasAttribute('data-invalid')) check(i); }); });
     form.addEventListener('submit',function(e){
       e.preventDefault();
       var bad=$$('input:not(.hp),textarea',form).filter(function(i){ return !check(i); });
       if(bad.length){ bad[0].focus(); return; }
-      var fd=new FormData(form); if(fd.get('_honey')) return;
+      var fd=new FormData(form); if(hp&&hp.value) return;
       var btn=$('button[type=submit]',form), lbl=btn.innerHTML; btn.disabled=true; btn.setAttribute('aria-busy','true'); btn.firstChild.textContent='Sending… ';
       var data={name:fd.get('name'),phone:fd.get('phone'),email:fd.get('email')||'',website:fd.get('link')||'',message:fd.get('need')||'Free audit',_subject:'Free audit request from '+fd.get('name')+' (uscale site)',_template:'table',_captcha:'false'}; if(data.email) data._replyto=data.email;
       var show=function(ok){
@@ -630,4 +639,13 @@
     }
     f.addEventListener('input',run); f.addEventListener('submit',function(e){ e.preventDefault(); }); run();
   });
+  /* Key facts on phones: the first rows show, "All facts" opens the rest (all rows are always in the HTML) */
+  $$('[data-facts-more]').forEach(function(b){
+    var t=document.getElementById(b.getAttribute('aria-controls'));
+    b.addEventListener('click',function(){ var on=b.getAttribute('aria-expanded')!=='true'; b.setAttribute('aria-expanded',on?'true':'false'); if(t) t.classList.toggle('is-open',on); });
+  });
+  /* Swipe rows (phones): a row that scrolls sideways and has no links of its own gets a tab stop, so arrow keys scroll it */
+  var snaps=$$('[data-snap]');
+  function snapTabs(){ snaps.forEach(function(s){ var over=s.scrollWidth>s.clientWidth+2&&!$('a,button',s); if(over) s.setAttribute('tabindex','0'); else s.removeAttribute('tabindex'); }); }
+  if(snaps.length){ snapTabs(); window.addEventListener('resize',snapTabs,{passive:true}); }
 })();

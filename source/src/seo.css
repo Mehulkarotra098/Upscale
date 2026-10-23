@@ -319,13 +319,13 @@ html.pin-ok .sp-process .step{opacity:1;transform:none}
 /* ---- hero ---- */
 .fp-hero{gap:clamp(26px,4vw,40px);padding:clamp(24px,5vw,64px) clamp(18px,5vw,64px) clamp(26px,4.6vw,60px)}
 .fp-hero__copy{display:grid;gap:clamp(14px,2vw,22px);justify-items:start;min-width:0}
-.fp-hero__title{font-size:clamp(2.45rem,10.6vw,5.4rem);max-width:15ch;line-height:.98}
+.fp-hero__title{font-size:clamp(2.45rem,10.6vw,5.4rem);max-width:15ch;line-height:1.04;text-wrap:balance}
 .fp-hero .sp-hero__lead{font-size:clamp(16px,1.35vw,18.5px);max-width:52ch}
 .fp-hero .crumbs ol{font-size:10.5px;letter-spacing:.12em}
 .fp-hero .hero__cta .btn svg{width:20px;height:20px}
 .fp-stats{margin-top:clamp(4px,1vw,12px);max-width:560px;padding-top:16px}
 .fp-stats .stat__num{font-size:clamp(21px,6.2vw,40px);white-space:nowrap}
-.fp-stats .stat__label{font-size:10px;letter-spacing:.11em;margin-top:7px}
+.fp-stats .stat__label{font-size:11.5px;letter-spacing:.08em;line-height:1.3;margin-top:7px}
 .fp-stats .stat{padding-right:8px}
 .fp-stats .stat+.stat{padding-left:clamp(10px,2.2vw,26px)}
 @media (min-width:1024px){
@@ -346,6 +346,9 @@ html.pin-ok .sp-process .step{opacity:1;transform:none}
 .fp-chip--2{right:-2%;bottom:20%;background:var(--green);color:var(--violet)}
 .fp-chip--2 .fp-ic{color:var(--violet)}
 @media (max-width:559px){.fp-chip{font-size:11.5px;padding:8px 11px}.fp-chip--1{left:0;top:2%}.fp-chip--2{right:0;bottom:16%}}
+/* boutique hero: the left phone's header is where chip 1 usually sits, so chip 1 moves into the clear space above the WhatsApp phone */
+.fp-art--img:has([src*="boutique-website"],[srcset*="boutique-website"]) .fp-chip--1{left:auto;right:5%;top:2%}
+@media (max-width:559px){.fp-art--img:has([src*="boutique-website"],[srcset*="boutique-website"]) .fp-chip--1{right:0;top:0}}
 @media (prefers-reduced-motion:no-preference){
   .js .fp-chip{animation:fpFloat 6s ease-in-out infinite}
   .js .fp-chip--2{animation-delay:-3s}
@@ -358,15 +361,20 @@ html.pin-ok .sp-process .step{opacity:1;transform:none}
 .fp-art--portrait{max-width:400px}
 .fp-portrait{position:relative;border-radius:calc(var(--radius-card) + 4px);overflow:hidden;aspect-ratio:4/5;background:#3a3160;box-shadow:0 40px 80px -40px rgba(10,6,30,.8)}
 .fp-portrait picture,.fp-portrait img{display:block;width:100%;height:100%;object-fit:cover;object-position:50% 22%}
-.fp-art .fp-portrait__plate{position:absolute;left:12px;right:12px;bottom:12px;display:grid;gap:3px;padding:12px 14px;border-radius:14px;background:rgba(255,255,255,.94);
-  color:var(--violet);text-align:left;margin:0;backdrop-filter:blur(6px)}
+.fp-art .fp-portrait__plate{position:absolute;left:12px;right:12px;bottom:12px;display:grid;gap:3px;padding:12px 14px;border-radius:14px;background:#fff;
+  color:var(--violet);text-align:left;margin:0;box-shadow:0 10px 24px -14px rgba(10,6,30,.55)}
 .fp-portrait__plate b{font:700 15px/1.2 var(--sans)}
 .fp-portrait__plate span{font:500 12.5px/1.35 var(--sans);color:var(--body)}
 /* chips sit on the shoulders, never on the face (face is the top half of the 4:5 crop) */
 .fp-art--portrait .fp-chip--1{left:-7%;top:auto;bottom:36%}
 .fp-art--portrait .fp-chip--2{right:-7%;top:auto;bottom:25%}
 @media (max-width:1023px){.fp-art--portrait{max-width:300px}}
-@media (max-width:559px){.fp-art--portrait{max-width:260px}.fp-art--portrait .fp-chip--1{left:-12%;bottom:38%}.fp-art--portrait .fp-chip--2{right:-12%;bottom:26%}}
+/* phones: the chips leave the photo and sit in a centred row under it, so nothing crowds the face */
+@media (max-width:559px){
+  .fp-art--portrait{max-width:none;display:flex;flex-wrap:wrap;justify-content:center;gap:8px}
+  .fp-art--portrait .fp-portrait{flex:0 0 auto;width:min(260px,100%);margin:0 max(0px,calc((100% - 260px) / 2)) 4px}
+  .fp-art--portrait .fp-chip{position:static}
+}
 
 /* white info cards in the hero (ticket, audit, mini ranges) */
 .fp-ticket,.fp-audit,.fp-mini{max-width:460px;padding:clamp(20px,2.6vw,30px);border-radius:var(--radius-card);background:var(--white);color:var(--violet);
@@ -410,7 +418,8 @@ html.pin-ok .sp-process .step{opacity:1;transform:none}
 
 /* ---- section rhythm ---- */
 .page-sub .section.fp-sec{padding-block:clamp(56px,8vw,112px)}
-.page-sub .section.fp-sec+.section.fp-sec:not(.fp-sec--band):not(.fp-sec--dark){padding-top:clamp(8px,2vw,24px)}
+/* two plain sections in a row share one gap; after a full-bleed lavender band the next section gets its full top padding (the :not() on the first section keeps this rule from out-ranking the band rule below) */
+.page-sub .section.fp-sec:not(.fp-sec--band)+.section.fp-sec:not(.fp-sec--band):not(.fp-sec--dark){padding-top:clamp(8px,2vw,24px)}
 .fp-sec--band{background:var(--lav-tint)}
 .page-sub .section.fp-sec--band+.section.fp-sec{padding-top:clamp(56px,8vw,112px)}
 .fp-head{margin-bottom:clamp(24px,3.6vw,48px);max-width:820px}
@@ -445,7 +454,7 @@ html.pin-ok .sp-process .step{opacity:1;transform:none}
 
 /* ---- cards ---- */
 .fp-cards{list-style:none;margin:0;padding:0;display:grid;gap:12px;grid-template-columns:minmax(0,1fr)}
-.fp-card{position:relative;display:grid;grid-template-columns:44px minmax(0,1fr);column-gap:14px;row-gap:6px;align-items:start;padding:18px;
+.fp-card{position:relative;display:grid;grid-template-columns:44px minmax(0,1fr);column-gap:14px;row-gap:6px;align-items:start;align-content:start;padding:18px;
   border-radius:var(--radius-card);background:var(--white);border:1px solid var(--line-light);transition:transform .5s var(--ease-out),box-shadow .5s var(--ease-out),border-color .4s ease}
 .fp-card:hover{transform:translateY(-3px);border-color:rgba(201,188,232,.9);box-shadow:0 24px 48px -32px rgba(37,30,69,.4)}
 .fp-card__ic{grid-row:1 / span 2;width:44px;height:44px;border-radius:13px;display:grid;place-items:center;background:var(--lav-tint);color:var(--violet)}
@@ -454,11 +463,23 @@ html.pin-ok .sp-process .step{opacity:1;transform:none}
 .fp-card p{grid-column:2;margin:0;font-size:15px;line-height:1.55;color:var(--body)}
 .fp-card p b{color:var(--violet)}
 .fp-sec--band .fp-card{background:var(--white);border-color:transparent}
+.fp-card--cta{height:100%;background:var(--violet);border-color:transparent;color:var(--white);text-decoration:none}
+.fp-card--cta:hover{border-color:transparent;box-shadow:0 30px 60px -32px rgba(37,30,69,.75)}
+.fp-card--cta .fp-card__ic{background:rgba(201,188,232,.16);color:var(--green)}
+.fp-card__t{padding-right:28px;font:700 17px/1.3 var(--sans);color:var(--white);align-self:center}
+.fp-card--cta p{color:var(--lavender)}
+.fp-card__go{grid-column:2;justify-self:start;display:inline-flex;align-items:center;gap:8px;margin-top:6px;padding:0 16px;min-height:44px;border-radius:12px;background:var(--green);color:var(--violet);font:700 14.5px/1 var(--sans)}
+.fp-card__go .fp-ic{width:16px;height:16px;transition:transform .4s var(--ease-out)}
+.fp-card--cta:hover .fp-card__go .fp-ic{transform:rotate(45deg)}
+.fp-card--cta:focus-visible{outline:2px solid var(--green);outline-offset:3px}
 @media (min-width:680px){
   .fp-cards--2,.fp-cards--3{grid-template-columns:repeat(2,minmax(0,1fr))}
   .fp-card{grid-template-columns:minmax(0,1fr);row-gap:10px;padding:clamp(20px,2.2vw,28px)}
   .fp-card__ic{grid-row:auto;width:48px;height:48px;margin-bottom:6px}
-  .fp-card h3{font-size:clamp(18px,1.4vw,20px);padding-right:0}
+  .fp-card h3{font-size:clamp(18px,1.4vw,20px);padding-right:0;align-self:start}
+  .fp-card__t{font-size:clamp(18px,1.4vw,20px);padding-right:0;align-self:start}
+  .fp-card--cta{grid-template-rows:auto auto auto 1fr}
+  .fp-card__go{grid-column:auto;align-self:end}
   .fp-card p{grid-column:auto;font-size:15.5px}
   .fp-card__n{font-size:22px;top:22px;right:22px}
 }
@@ -479,6 +500,7 @@ html.pin-ok .sp-process .step{opacity:1;transform:none}
   font:500 16px/1.5 var(--sans);color:var(--white)}
 .fp-check__ic{flex:none;width:30px;height:30px;border-radius:50%;display:grid;place-items:center;background:var(--green);color:var(--violet)}
 .fp-check__ic .fp-ic{width:17px;height:17px;stroke-width:2.6}
+.fp-check__n{width:34px;height:34px;margin-top:-4px;background:none;border:1.5px solid rgba(99,184,73,.7);color:var(--green);font:400 15px/1 var(--display);letter-spacing:.02em}
 @media (min-width:760px){.fp-check{grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}.fp-check li{padding:20px}}
 
 /* ---- options (compare cards) ---- */
@@ -508,6 +530,8 @@ html.pin-ok .sp-process .step{opacity:1;transform:none}
 .fp-range__v{font:700 14px/1 var(--sans);color:var(--body);text-align:right;white-space:nowrap}
 .fp-range__track,.fp-dur__track{grid-column:1 / -1;position:relative;height:14px;border-radius:99px;background:var(--lav-tint)}
 .fp-range__track i,.fp-dur__track i{position:absolute;top:0;bottom:0;left:var(--a);right:calc(100% - var(--b));min-width:10px;border-radius:99px;background:var(--lavender)}
+.fp-range__track i{background:rgba(37,30,69,.55)}
+.fp-range__us{position:absolute;z-index:1;top:50%;left:var(--x);width:14px;height:14px;margin:-7px 0 0 -7px;border-radius:50%;background:var(--green);box-shadow:0 0 0 3px var(--white)}
 .fp-range__marks{display:grid;gap:10px;padding-top:14px;border-top:1px dashed rgba(37,30,69,.18)}
 .fp-range__ml{display:flex;align-items:center;gap:8px;font:700 12px/1.3 var(--sans);letter-spacing:.12em;text-transform:uppercase;color:var(--violet)}
 .fp-range__ml::before{content:"";width:12px;height:12px;border-radius:50%;background:var(--green)}
@@ -521,8 +545,10 @@ html.pin-ok .sp-process .step{opacity:1;transform:none}
   .fp-range__row{grid-template-columns:30% minmax(0,1fr) 68px;gap:16px}
   .fp-range__track{grid-column:auto}
   .fp-range__marks{grid-template-columns:30% minmax(0,1fr) 68px;column-gap:16px;align-items:center}
-  .fp-range__mtrack{position:relative;height:56px;display:block}
-  .fp-range__mark{position:absolute;left:var(--x);top:0;transform:translateX(-50%);flex-direction:column;align-items:center;gap:4px;padding:0;background:none}
+  .fp-range__mtrack{position:relative;height:92px;display:block}
+  .fp-range__mtrack::before{content:"";position:absolute;left:0;right:0;top:50%;border-top:1px dashed rgba(37,30,69,.14)}
+  .fp-range__mark{position:absolute;left:var(--x);top:calc(50% - 6px);transform:translateX(-50%);flex-direction:column;align-items:center;gap:4px;padding:0;background:none}
+  .fp-range__mark--up{top:auto;bottom:calc(50% - 6px);flex-direction:column-reverse}
   .fp-range__mark::before{content:"";width:12px;height:12px;border-radius:50%;background:var(--green);box-shadow:0 0 0 4px rgba(99,184,73,.2);order:-1}
   .fp-range__mark b{font-size:18px}
   .fp-range__mark small{font-size:11px;white-space:nowrap}
@@ -556,13 +582,13 @@ html.pin-ok .sp-process .step{opacity:1;transform:none}
 
 /* ---- calculator ---- */
 .fp-calc{display:grid;gap:16px}
-.fp-calc__in{display:grid;gap:18px;padding:clamp(18px,2.6vw,28px);border-radius:var(--radius-card);background:rgba(255,255,255,.06);border:1px solid var(--line-dark)}
-.fp-field{display:grid;gap:10px;color:var(--white);font:600 15px/1.35 var(--sans)}
+.fp-calc__in{display:grid;grid-template-columns:minmax(0,1fr);gap:18px;padding:clamp(18px,2.6vw,28px);border-radius:var(--radius-card);background:rgba(255,255,255,.06);border:1px solid var(--line-dark)}
+.fp-field{display:grid;gap:10px;min-width:0;color:var(--white);font:600 15px/1.35 var(--sans)}
 .fp-field>span:first-child{display:flex;justify-content:space-between;gap:12px;align-items:baseline}
 .fp-field output{font:400 24px/1 var(--display);color:var(--green);letter-spacing:.01em}
-.fp-field__money{display:flex;align-items:center;gap:8px;padding:0 16px;min-height:56px;border-radius:14px;background:var(--white);color:var(--violet)}
+.fp-field__money{display:flex;align-items:center;gap:8px;min-width:0;padding:0 16px;min-height:56px;border-radius:14px;background:var(--white);color:var(--violet)}
 .fp-field__money b{font:400 24px/1 var(--display)}
-.fp-field__money input{flex:1;min-width:0;border:0;background:none;font:400 26px/1 var(--display);letter-spacing:.02em;color:var(--violet);padding:12px 0;outline:0}
+.fp-field__money input{flex:1;min-width:0;width:100%;border:0;background:none;font:400 26px/1 var(--display);letter-spacing:.02em;color:var(--violet);padding:12px 0;outline:0}
 .fp-field__money:focus-within{box-shadow:0 0 0 3px var(--green)}
 .fp-field input[type=range]{-webkit-appearance:none;appearance:none;width:100%;height:32px;background:none;cursor:pointer;margin:0}
 .fp-field input[type=range]::-webkit-slider-runnable-track{height:8px;border-radius:99px;background:linear-gradient(90deg,var(--green) var(--p,40%),rgba(201,188,232,.3) var(--p,40%))}
@@ -592,7 +618,14 @@ html.pin-ok .sp-process .step{opacity:1;transform:none}
 .fp-kept b{font:400 clamp(44px,11vw,64px)/1 var(--display);color:var(--green);letter-spacing:.01em}
 .fp-payback{margin:0;font:500 14px/1.5 var(--sans);color:var(--body)}
 .fp-payback b{color:var(--violet)}
-@media (min-width:960px){.fp-calc{grid-template-columns:minmax(0,.9fr) minmax(0,1.1fr);gap:20px;align-items:stretch}.fp-calc__in{align-content:start}}
+@media (min-width:960px){.fp-calc{grid-template-columns:minmax(0,.9fr) minmax(0,1.1fr);gap:20px;align-items:start}.fp-calc__in{align-content:start}}
+/* phones: the answer first, right under the inputs; the receipt row that only repeats the sales input steps aside */
+@media (max-width:959px){
+  .fp-kept{order:-2}
+  .fp-payback{order:-1}
+  .fp-receipt tr:first-child{display:none}
+  .fp-receipt tr:nth-child(2) th,.fp-receipt tr:nth-child(2) td{border-top:0;padding-top:0}
+}
 
 /* ---- service links ---- */
 .fp-links{list-style:none;margin:0;padding:0;display:grid;gap:12px}
@@ -665,7 +698,7 @@ html.pin-ok .sp-process .step{opacity:1;transform:none}
 .fp-metro__base-l{font:700 14px var(--sans);fill:#2E7A1F}
 .fp-metro--tall{display:block;max-width:440px}
 .fp-metro--wide{display:none!important}
-@media (min-width:760px){.fp-metro--wide{display:block!important}.fp-metro--tall{display:none}}
+@media (min-width:760px){.fp-metro--wide{display:block!important}.fp-metro--tall{display:none!important}}
 .fp-metro__tl{font:600 21px var(--sans);fill:var(--violet)}
 .fp-metro--tall .fp-metro__area text{font-size:16px}
 .fp-metro--tall .fp-metro__base-l{font-size:17px}
@@ -689,7 +722,7 @@ html.pin-ok .sp-process .step{opacity:1;transform:none}
 
 /* ---- how it works ---- */
 .fp-steps{list-style:none;margin:0;padding:0;display:grid;gap:12px;counter-reset:s}
-.fp-step{position:relative;display:grid;gap:6px;padding:18px 18px 18px 70px;border-radius:var(--radius-card);background:var(--white);border:1px solid var(--line-light)}
+.fp-step{position:relative;display:grid;align-content:start;gap:6px;padding:18px 18px 18px 70px;border-radius:var(--radius-card);background:var(--white);border:1px solid var(--line-light)}
 .fp-step__n{position:absolute;left:18px;top:18px;width:38px;height:38px;border-radius:50%;display:grid;place-items:center;background:var(--violet);color:var(--white);font:400 16px/1 var(--display)}
 .fp-step h3{margin:0;font:400 26px/1 var(--display);text-transform:uppercase;letter-spacing:.01em;color:var(--violet);padding-top:6px}
 .fp-step p{margin:0;font-size:15px;line-height:1.55;color:var(--body)}
@@ -723,7 +756,7 @@ html.pin-ok .sp-process .step{opacity:1;transform:none}
 /* ---- related pages ---- */
 .fp-related{margin-top:clamp(28px,4vw,48px);display:grid;gap:14px}
 .fp-related ul{list-style:none;margin:0;padding:0;display:grid;gap:10px}
-.fp-rel{position:relative;display:grid;gap:6px;padding:16px 54px 16px 18px;border-radius:var(--radius-card);background:var(--white);border:1px solid var(--line-light);text-decoration:none;color:inherit;height:100%;
+.fp-rel{position:relative;display:grid;align-content:start;gap:6px;padding:16px 54px 16px 18px;border-radius:var(--radius-card);background:var(--white);border:1px solid var(--line-light);text-decoration:none;color:inherit;height:100%;
   transition:transform .5s var(--ease-out),box-shadow .5s var(--ease-out),border-color .4s ease}
 .fp-rel:hover{transform:translateY(-3px);border-color:var(--lavender);box-shadow:0 24px 48px -32px rgba(37,30,69,.45)}
 .fp-rel__k{font:700 11px/1.2 var(--sans);letter-spacing:.14em;text-transform:uppercase;color:#2E7A1F}
@@ -748,3 +781,75 @@ html.pin-ok .sp-process .step{opacity:1;transform:none}
 .sp-toc a::before{content:counter(toc,decimal-leading-zero);flex:none;font:400 15px/1 var(--display);color:#2E7A1F;width:22px}
 .sp-toc a:hover{color:#2E7A1F}
 @media (max-width:959px){.sp-toc ol{max-height:none}}
+
+/* =====================================================================
+   Focus pages v2: rendered product shots instead of UI cards, tighter phone
+   pages (hero order, folded facts, swipe rows), subtle transform-only motion.
+   ===================================================================== */
+/* ---- hero: CTAs, product shot on the violet stage ---- */
+.fp-hero__ctas{display:flex;flex-wrap:wrap;gap:12px;margin-top:4px}
+.fp-hero__ctas .hero__cta{margin-top:0;width:auto}
+.fp-hero__more svg{width:20px;height:20px}
+.fp-hero--parent .sp-hero__who{margin-top:0}
+@media (max-width:559px){
+  /* phones: eyebrow, H1, one-sentence lead, WhatsApp CTA, the product shot, then the second CTA and the numbers */
+  .fp-hero{row-gap:14px}
+  .fp-hero__copy,.fp-hero__ctas{display:contents}
+  .fp-hero>.fp-art{order:2;width:100%;max-width:none;margin:8px 0 4px}
+  .fp-hero__more,.fp-hero .fp-stats,.fp-hero .sp-hero__who{order:3}
+  .fp-hero__more{width:100%}
+  .fp-hero .fp-stats{margin-top:6px}
+  .fp-hero .fp-art figcaption{margin-top:8px}
+  .fp-lead-more{position:absolute;width:1px;height:1px;margin:-1px;padding:0;border:0;overflow:hidden;clip:rect(0 0 0 0);clip-path:inset(50%);white-space:nowrap}
+}
+@media (min-width:1024px){.fp-hero--parent .fp-hero__title{font-size:clamp(3.6rem,4.9vw,5rem)}}
+@media (prefers-reduced-motion:no-preference){
+  /* the hero art rises into place; transform only, so the image paints (and counts for LCP) at once */
+  .js .fp-art{animation:fpRise .7s var(--ease-out) .06s both}
+  /* tighter, quicker reveals on these long pages */
+  .js .fp-sec [data-reveal],.js .sp-brief-wrap [data-reveal],.js .fp-related [data-reveal]{transition:opacity .6s ease,transform .75s var(--ease-out);transition-delay:calc(var(--rd,0) * 60ms)}
+}
+@keyframes fpRise{from{transform:translateY(24px)}}
+
+/* ---- product shot inside a section (Ghatkopar map pack) ---- */
+.fp-shot{margin:0;display:grid;gap:10px;min-width:0}
+.fp-shot__stage{aspect-ratio:6 / 5;overflow:hidden;border-radius:var(--radius-card);box-shadow:0 30px 60px -44px rgba(37,30,69,.55);
+  background:radial-gradient(90% 80% at 88% 0%,rgba(99,184,73,.18),rgba(99,184,73,0) 60%),radial-gradient(80% 80% at 0% 100%,rgba(201,188,232,.18),rgba(201,188,232,0) 60%),#2B2350}
+.fp-shot__stage picture,.fp-shot__stage img{display:block;width:100%;height:100%;object-fit:contain}
+.fp-shot figcaption{font:500 13.5px/1.5 var(--sans);color:var(--body)}
+
+/* ---- "In short": jump links as a swipe row of chips, facts folded on phones ---- */
+.sp-brief{--bp:clamp(22px,3.4vw,44px)}
+.sp-brief__answer,.sp-facts-wrap{min-width:0}
+.sp-facts__more{display:none}
+@media (max-width:959px){
+  .sp-toc{min-width:0;margin-inline:calc(var(--bp) * -1)}
+  .sp-toc p{padding-inline:var(--bp)}
+  .sp-toc ol{display:flex;gap:8px;overflow-x:auto;overscroll-behavior-x:contain;scroll-snap-type:x proximity;scroll-padding-inline:var(--bp);padding:2px var(--bp) 6px;scrollbar-width:none}
+  .sp-toc ol::-webkit-scrollbar{display:none}
+  .sp-toc li{flex:none;display:flex;scroll-snap-align:start}
+  .sp-toc a{max-width:232px;gap:9px;padding:9px 14px 9px 12px;border:1px solid var(--line-light);border-radius:14px;background:var(--space);font-size:14px;line-height:1.3}
+  .sp-toc a::before{width:auto;font-size:14px}
+  .sp-toc a:hover{border-color:var(--lavender)}
+}
+@media (max-width:559px){
+  .js .sp-facts--fold:not(.is-open) .sp-facts__x{display:none}
+  .js .sp-facts__more{display:flex;align-items:center;justify-content:space-between;gap:12px;width:100%;min-height:48px;margin-top:14px;padding:0 16px;border:1px solid var(--line-light);border-radius:12px;
+    background:var(--lav-tint);color:var(--violet);font:700 15px/1 var(--sans);cursor:pointer}
+  .sp-facts__more svg{width:18px;height:18px;flex:none;fill:none;stroke:currentColor;stroke-width:2.2;stroke-linecap:round;stroke-linejoin:round;transition:transform .3s var(--ease-out)}
+  .sp-facts__more[aria-expanded="true"] svg{transform:rotate(180deg)}
+  .sp-facts__more:focus-visible{outline:2px solid var(--violet);outline-offset:2px}
+}
+
+/* ---- long stacks become swipe rows on phones (how it works, 4-way comparison, keep reading) ---- */
+@media (max-width:759px){
+  .page-sub .fp-snap{display:flex;gap:12px;overflow-x:auto;overscroll-behavior-x:contain;scroll-snap-type:x mandatory;scroll-padding-inline:var(--gutter);
+    margin-inline:calc(var(--gutter) * -1);padding:4px var(--gutter) 16px;scrollbar-width:none}
+  .page-sub .fp-snap::-webkit-scrollbar{display:none}
+  .page-sub .fp-snap>li{flex:0 0 85%;min-width:0;scroll-snap-align:start}
+  .page-sub .fp-snap:focus-visible{outline:2px solid var(--green);outline-offset:-2px;border-radius:var(--radius-card)}
+  .fp-related .fp-snap{margin-bottom:-6px}
+}
+
+/* ---- contact: "Email me" button, the address in small type under the buttons ---- */
+.sp-cta__mail{margin:-6px 0 0;font:500 13.5px/1.4 var(--sans);color:rgba(201,188,232,.85);letter-spacing:.01em}

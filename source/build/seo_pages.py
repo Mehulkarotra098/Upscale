@@ -15,8 +15,8 @@ WA = 'https://wa.me/917977360142?text=Hi%20Mehul%2C%20I%27d%20like%20to%20talk%2
 # ---------------------------------------------------------------- service pages
 SERVICES = [
  dict(slug='website-design-mumbai', short='Website design', cta='website', name='Website Design & Development',
-  title='Freelance Website Designer in Mumbai | U Scale by Mehul',
-  desc='Custom, fast websites for Mumbai businesses, designed and coded by Mehul Karotra. No templates, SEO-ready from day one, live in 4 to 8 weeks.',
+  title='Website Design in Mumbai from ₹25,000, Fixed Price | U Scale',
+  desc='Custom websites for Mumbai businesses, designed in Figma and hand-coded by Mehul Karotra. Landing page ₹25,000, business site ₹55,000, store from ₹95,000; live in 4–8 weeks.',
   h1='Website design & development in Mumbai',
   lead='I am a freelance web designer and developer in Mumbai. I design every page in Figma and build it by hand, so what you approve is exactly what goes live, at a fixed price agreed before I start.',
   who='For clinics, schools, studios, cafés, startups and founders who need a site that looks premium, loads fast on a phone and turns visitors into WhatsApp chats, calls and enquiries.',
@@ -30,7 +30,7 @@ SERVICES = [
          ('Design','You see real screens in Figma, desktop and mobile, and we refine them together.'),
          ('Build','I code the approved design, connect forms and analytics, and test on phones and browsers.'),
          ('Launch','Domain, hosting, Search Console and a final check. Then small tweaks are on me for two weeks.')],
-  price='Landing pages ₹25,000, business sites from ₹55,000, a 5–10 page site with blog ₹85,000, e-commerce from ₹95,000 and restaurant sites with online ordering ₹90,000. A redesign of your current site is 70% of the price of a fresh build, and a care plan is ₹3,500/month.',
+  price='Landing pages ₹25,000, business sites from ₹55,000, a 5–10 page site with blog ₹85,000, online stores from ₹95,000 and restaurant sites with online ordering ₹90,000. A redesign of your current site is 70% of the price of a fresh build, and a care plan is ₹3,500/month.',
   work=['tis','antrah','roar','sashe','vidhi','growcred'],
   faq=[('How much does a website cost in Mumbai?','It depends on the number of pages and features. I quote a fixed price after a free audit, so there are no surprises and no hourly billing.'),
        ('How long does it take to build a website?','A typical business website takes 4 to 8 weeks from kickoff to launch. A landing page can be live in under two weeks.'),
@@ -39,11 +39,11 @@ SERVICES = [
        ('Can you redesign my existing website?','Yes. I start with an audit of what works and what leaks enquiries, then redesign around that.')]),
  dict(slug='seo-mumbai', short='SEO', cta='SEO', name='SEO Services',
   title='SEO Services in Mumbai: Local & Technical | U Scale',
-  desc='Honest SEO for Mumbai businesses: local SEO, Google Business Profile, technical fixes and content, done personally by Mehul Karotra. Clear monthly reporting.',
+  desc='Local SEO and Google Business Profile from ₹15,000 a month, technical SEO ₹25,000, done personally by Mehul Karotra in Mumbai. Expect 3–6 months; no ranking guarantees.',
   h1='SEO services in Mumbai',
   lead='I work as a freelance SEO consultant for Mumbai businesses, helping you show up when nearby customers search on Google and Maps. Local SEO, technical fixes and content, done personally, with honest monthly reporting.',
   who='For local businesses that depend on people searching "near me", and for service businesses that want steady enquiries without paying for every click.',
-  items=[('Local SEO and Google Maps','Google Business Profile set up and optimised, categories, photos, posts and review strategy for your area.'),
+  items=[('Google Business Profile and Maps','Google Business Profile set up and optimised, categories, photos, posts and review strategy for your area.'),
          ('Technical SEO','Site speed, indexing, crawl errors, mobile usability, schema markup and Core Web Vitals fixed at the source.'),
          ('On-page SEO','Titles, descriptions, headings and internal links written around what your customers actually search.'),
          ('Content people search for','Blog posts and service pages planned from keyword research, ₹2,000 per 1,000-word post.'),
@@ -57,7 +57,7 @@ SERVICES = [
   related='<p class="sp-price" data-reveal><strong>Local SEO near you.</strong> Website design and local SEO for businesses in <a class="tlink" href="/services/website-design-mumbai/ghatkopar">Ghatkopar</a> and <a class="tlink" href="/services/website-design-mumbai/andheri-east">Andheri East</a>.</p>',
   work=['tis','antrah','sashe'],
   faq=[('How long does SEO take to show results?','Honest answer: 3 to 6 months for meaningful movement. Anyone promising page one in 30 days is selling you something. I show you the trajectory every month.'),
-       ('What is local SEO?','Local SEO helps you appear in Google Maps and "near me" searches in your part of Mumbai. Your Google Business Profile is the heart of it.'),
+       ('What is local SEO?','Local SEO is making sure your business shows up when people nearby search for what you sell, in Google Maps, the map pack and "near me" searches. Google says it ranks local results on relevance, distance and prominence. In practice the work is: a complete, verified Google Business Profile with the right primary category, the same name, address and phone on your website and directories, steady genuine reviews with replies, and service pages that name your area. You can check your own listing free with the Google Business Profile checker. Step by step: How to get more Google reviews in 2026 and Why is my business not showing on Google Maps?'),
        ('Do you guarantee first-page rankings?','No one can honestly guarantee rankings. I guarantee the work, the transparency and a clear report of results every month.'),
        ('Do I need a new website for SEO?','Not always. I start by auditing your current site; if it can be fixed, I fix it.')]),
  dict(slug='social-media-management-mumbai', short='Social media', cta='social media', name='Social Media Management',
@@ -90,9 +90,9 @@ SERVICES = [
   who='For businesses that need enquiries now, while SEO and social build up, and for launches, offers and seasonal pushes.',
   items=[('Google Search ads','Campaigns built around high-intent searches in your area, with tight keywords and negatives.'),
          ('Meta ads (Facebook & Instagram)','Audience targeting, creatives and copy tested to find what actually brings enquiries.'),
-         ('Click-to-WhatsApp campaigns','Ads that open a WhatsApp chat with you, the fastest path to a conversation in India.'),
+         ('Click-to-WhatsApp campaigns','Ads that open a WhatsApp chat with you, so people can ask their question in the app they already use.'),
          ('Landing pages that convert','Focused pages built for the ad, so you are not paying for clicks that bounce.'),
-         ('Tracking set up properly','GA4, conversion tracking and the Meta pixel installed, so every rupee is measured.'),
+         ('Tracking set up properly','GA4, conversion tracking and the Meta pixel installed, so you can see which ads bring enquiries.'),
          ('Weekly optimisation','Budgets, bids, keywords and creatives adjusted weekly, with a clear monthly report.')],
   steps=[('Audit','Your goals, budget, offers and competitors reviewed.'),
          ('Set up','Tracking, campaigns, audiences, creatives and landing page built.'),
@@ -102,11 +102,11 @@ SERVICES = [
   work=['brandgen','roar'],
   faq=[('How much should I spend on ads in Mumbai?','It depends on your industry and goal. I recommend a test budget first, then scale what works. Ad spend goes directly to Google and Meta.'),
        ('What are click-to-WhatsApp ads?','Facebook and Instagram ads that open a WhatsApp chat with your business instead of a website, ideal for Indian customers who prefer to chat.'),
-       ('Google Ads or Meta ads, which is better?','Google catches people already searching; Meta creates demand with the right audience. Most businesses do best with a mix.'),
+       ('Google Ads or Meta ads, which is better?','Google catches people already searching; Meta creates demand with the right audience. Many local businesses use both: Google for people already searching, Meta to reach people nearby who are not searching yet.'),
        ('Will I see where my money goes?','Yes. You own the ad accounts and get a monthly report showing spend, leads and cost per lead.')]),
  dict(slug='ai-search-visibility', short='AI search', cta='AI search visibility', name='AI Search Visibility (GEO)',
-  title='AI Search Visibility (GEO) in India | U Scale by Mehul',
-  desc='Get your business named in ChatGPT, Gemini and Perplexity answers. Generative engine optimisation (GEO) for Mumbai and Indian businesses by Mehul Karotra.',
+  title='AI Search Visibility (GEO) for Indian Businesses | U Scale',
+  desc='See what ChatGPT, Gemini and Google AI say about your business, then fix the facts, reviews and pages they draw on. ₹12,000 a month or a ₹2,500 audit. No guarantees.',
   h1='AI search visibility (GEO)',
   lead="When someone asks ChatGPT, Gemini or Google's AI Mode for a recommendation in your category, is your business mentioned, and is what they say correct? I check what AI tools say about you today, then fix the facts, reviews, listings and pages they draw on. No one can guarantee a mention; I show you what changed every month.",
   who='For local businesses whose customers already ask AI assistants for recommendations, and who want those answers to get their name, services, prices and area right.',
@@ -206,13 +206,29 @@ def chrome_parts(home_html):
     fix = lambda h: re.sub(r'href="#(?!top")', 'href="/#', h).replace('brand" href="#top"', 'brand" href="/"').replace('href="/#pricing"', 'href="/pricing"')
     return fix(header), fix(menu), fix(footer), fix(tail)
 
+# FAQ answers stay plain text (JSON-LD, llms-full.txt); on the page, these exact phrases become links.
+FAQ_LINKS = {
+    'freelancer vs agency vs website builder': '/services/website-design-mumbai/freelancer-vs-agency-vs-website-builder',
+    'How to get more Google reviews in 2026': '/blog/how-to-get-more-google-reviews',
+    'Why is my business not showing on Google Maps?': '/blog/business-not-showing-on-google-maps',
+    'Google Business Profile checker': '/tools/google-business-profile-checker',
+    'How to get your business recommended by ChatGPT and Google AI Mode': '/blog/get-business-recommended-chatgpt-google-ai-mode',
+    'Your Instagram posts now show up on Google': '/blog/instagram-posts-google-search-seo',
+}
+
+def _faq_answer(a):
+    h = e(a)
+    for phrase, href in FAQ_LINKS.items():
+        h = h.replace(e(phrase), f'<a class="tlink" href="{href}">{e(phrase)}</a>', 1)
+    return h
+
 def faq_html(items, start=0):
     out = []
     for i, (q, a) in enumerate(items):
         n = start + i
         out.append(f'<div class="qa{" is-open" if i == 0 else ""}"><h3><button class="qa__btn" type="button" id="q{n}" aria-expanded="{"true" if i == 0 else "false"}" aria-controls="a{n}">'
                    f'<span class="qa__n" aria-hidden="true">{i+1:02d}</span><span>{e(q)}</span><span class="qa__icon" aria-hidden="true"></span></button></h3>'
-                   f'<div class="qa__panel" id="a{n}" role="region" aria-labelledby="q{n}"><div><p>{e(a)}</p></div></div></div>')
+                   f'<div class="qa__panel" id="a{n}" role="region" aria-labelledby="q{n}"><div><p>{_faq_answer(a)}</p></div></div></div>')
     return '\n'.join(out)
 
 def service_page(ctx, s, parts):
@@ -229,6 +245,9 @@ def service_page(ctx, s, parts):
     items = ''.join(f'<li class="svc" data-reveal><span class="svc__n" aria-hidden="true">{i+1:02d}</span><h3>{e(t)}</h3><p>{e(d)}</p></li>' for i, (t, d) in enumerate(s['items']))
     steps = ''.join(f'<li class="step" data-reveal><span class="step__num" aria-hidden="true" data-n="{i+1}">{i+1:02d}</span><h3><span class="sr-only">Step {i+1}: </span>{e(t)}</h3><p>{e(d)}</p></li>' for i, (t, d) in enumerate(s['steps']))
     wa = 'https://wa.me/917977360142?text=' + __import__('urllib.parse').parse.quote(f"Hi Mehul, I'd like to talk about my {s['cta']}.")
+    # Website design: the hero gets a product shot (demo salon site) like its focus pages; other services stay text-only.
+    GP = __import__('geo_pages') if s['slug'] == 'website-design-mumbai' else None
+    art = GP.hero_img('salon') if GP else ''
     return f'''<!doctype html>
 <html lang="en-IN">
 <head>
@@ -268,18 +287,18 @@ def service_page(ctx, s, parts):
 {menu}
 <main id="main">
   <div class="wrap hero-shell">
-    <section class="sp-hero on-dark" data-tone="dark" aria-labelledby="page-title">
+    <section class="sp-hero{' fp-hero fp-hero--parent' if art else ''} on-dark" data-tone="dark" aria-labelledby="page-title">{'<div class="fp-hero__copy">' if art else ''}
       <nav class="crumbs" aria-label="Breadcrumb"><ol><li><a href="/">Home</a></li><li><a href="/services">Services</a></li><li aria-current="page">{e(s['short'])}</li></ol></nav>
-      <h1 class="sp-hero__title" id="page-title">{e(s['h1'])}<span class="dot">.</span></h1>
-      <p class="sp-hero__lead">{e(s['lead'])}</p>
+      <h1 class="sp-hero__title{' fp-hero__title' if art else ''}" id="page-title">{e(s['h1'])}<span class="dot">.</span></h1>
+      <p class="sp-hero__lead">{GP.lead_html(s['lead']) if GP else e(s['lead'])}</p>
       <div class="hero__cta" data-wa-zone>
         <a class="btn btn--go" href="#contact" data-magnetic>Get a free audit <span class="arw" aria-hidden="true"><b>↗</b><b>↗</b></span></a>
         <a class="btn btn--ghost" href="{ea(wa)}" target="_blank" rel="noopener" data-magnetic>{ctx['ICONS']['ICON_CHAT']}Chat on WhatsApp</a>
       </div>
-      <p class="sp-hero__who">{e(s['who'])}</p>
+      <p class="sp-hero__who">{e(s['who'])}</p>{'</div>' + art if art else ''}
     </section>
   </div>
-{__import__('aeo').brief_html(s['answer'], s['facts'], 'Key facts: ' + s['name'], 'brief-title')}
+{__import__('aeo').brief_html(s['answer'], s['facts'], 'Key facts: ' + s['name'], 'brief-title', fold=3 if art else 0)}
 
   <section class="section" aria-labelledby="inc-title">
     <div class="wrap">
@@ -336,9 +355,10 @@ def service_page(ctx, s, parts):
           <p class="lead">Tell me what you need. I reply within 24 hours, usually much faster on WhatsApp.</p>
           <div class="cta__btns" data-wa-zone>
             <a class="btn btn--go" href="{ea(wa)}" target="_blank" rel="noopener" data-magnetic>{ctx['ICONS']['ICON_CHAT']}Chat on WhatsApp</a>
-            <a class="btn btn--ghost" href="mailto:{EMAIL}">Email {EMAIL}</a>
+            <a class="btn btn--ghost" href="mailto:{EMAIL}">Email me</a>
             <a class="btn btn--ghost" href="tel:+917977360142">Call {PHONE_D}</a>
           </div>
+          <p class="sp-cta__mail">Email: {EMAIL}</p>
         </div>
       </div>
       <nav class="sp-more" aria-label="Other services"><p class="eyebrow">Other services</p><ul>{others}</ul></nav>
@@ -347,7 +367,6 @@ def service_page(ctx, s, parts):
 </main>
 {footer}
 {tail}
-<script defer src="https://cdn.jsdelivr.net/npm/lenis@1.3.26/dist/lenis.min.js"></script>
 <script defer src="/script.js?v={v}"></script>
 </body>
 </html>
@@ -408,7 +427,6 @@ def blog_shell(ctx, parts):
 </main>
 {footer}
 {tail}
-<script defer src="https://cdn.jsdelivr.net/npm/lenis@1.3.26/dist/lenis.min.js"></script>
 <script defer src="/script.js?v={v}"></script>
 <script defer src="/blog.js?v={bv}"></script>
 </body>
@@ -678,7 +696,7 @@ def tool_page(ctx, parts, tv):
 
       <div class="rq-block" id="rq-wa">
         <header class="sec-head"><p class="eyebrow">WhatsApp</p><h2 class="h2">Send your link on WhatsApp</h2>
-          <p class="lead">Most reviews come from a polite message on the same day. Copy one, or send it straight from WhatsApp.</p></header>
+          <p class="lead">The simplest way to get a review is a polite message on the same day. Copy one, or send it straight from WhatsApp.</p></header>
         <div class="rq-msgs" data-rq-msgs></div>
       </div>
     </div>
@@ -702,9 +720,10 @@ def tool_page(ctx, parts, tv):
       <header class="sec-head"><p class="eyebrow">Stay inside the rules</p><h2 class="h2" id="rules-title">Ask every customer. Never pay for reviews.</h2></header>
       <div class="rq-rules">
         <div><h3>Do</h3><ul><li>Ask every customer for an honest review</li><li>Send your link on WhatsApp the same day</li><li>Put the QR code on the counter, bills and bags</li><li>Reply to every review, good or bad</li></ul></div>
-        <div><h3>Don&rsquo;t</h3><ul><li>Offer discounts, gifts or cashback for reviews</li><li>Ask only happy customers, or ask for 5 stars</li><li>Set review targets for staff</li><li>Post reviews from family, staff or bought accounts</li></ul></div>
+        <div><h3>Don&rsquo;t</h3><ul><li>Offer discounts, gifts or cashback for reviews</li><li>Ask only happy customers, or ask for 5 stars</li><li>Post reviews from family, staff or bought accounts</li></ul></div>
       </div>
       <p class="rq-note">Source: Google&rsquo;s <a class="tlink" href="https://support.google.com/contributionpolicy/answer/7400114?hl=en" target="_blank" rel="noopener">policy on fake engagement</a>. For a full 30-day plan, read <a class="tlink" href="/blog/how-to-get-more-google-reviews">how to get more Google reviews</a>.</p>
+      <p class="rq-note"><strong>My advice</strong> (not a Google rule): don&rsquo;t set review targets for staff.</p>
     </div>
   </section>
 
@@ -729,7 +748,7 @@ def tool_page(ctx, parts, tv):
       <div class="panel on-dark" data-tone="dark">
         
         <div class="cta__copy">
-          <h2 class="sp-cta__title" id="cta-title">Want more customers from Google<span class="dot">.</span></h2>
+          <h2 class="sp-cta__title" id="cta-title">Want more customers from Google<span class="dot">?</span></h2>
           <p class="lead">I check your Google profile, reviews and website for free and send you the five fixes that matter most.</p>
           <div class="cta__btns"><a class="btn btn--go" href="/#contact">Get a free audit <span class="arw" aria-hidden="true"><b>↗</b><b>↗</b></span></a><a class="btn btn--ghost" href="/services/seo-mumbai">Local SEO service</a></div>
         </div>
@@ -780,7 +799,6 @@ def tool_page(ctx, parts, tv):
 {footer}
 {tail}
 <div id="rq-print-sheet" aria-hidden="true"></div>
-<script defer src="https://cdn.jsdelivr.net/npm/lenis@1.3.26/dist/lenis.min.js"></script>
 <script defer src="/script.js?v={v}"></script>
 <script defer src="/assets/vendor/qrcode-generator.min.js?v=1.4.4"></script>
 <script defer src="/tool.js?v={tv}"></script>
@@ -793,8 +811,8 @@ GBP = dict(slug='google-business-profile-checker',
   title='Google Business Profile Checker (Free GMB Audit) | U Scale',
   desc='Free Google Business Profile (Google My Business) checker for Indian shops. Answer 16 quick questions, get a score out of 100, your top fixes and a review goal.',
   h1='Free Google Business Profile checker',
-  lead='See how your shop looks on Google in 3 minutes: your live listing, a score out of 100, a real website speed test, the fixes that bring the most customers, and how many reviews you need to beat the shop next door. Free, no sign-up, English or Hinglish.',
-  faq=[('Is this an official Google score?', 'No. Google doesn’t publish a score. This checker is U Scale’s checklist, built on what Google says improves local ranking (verify your business, keep information complete and accurate, respond to reviews, add photos) and on what we see working for local shops.'),
+  lead='See how your shop looks on Google in about 2 minutes: your live listing, a score out of 100, a real website speed test, the fixes most likely to bring customers, and how many reviews you need to beat the shop next door. Free, no sign-up, English or Hinglish.',
+  faq=[('Is this an official Google score?', 'No. Google doesn’t publish a score. This checker is U Scale’s checklist, built on what Google says improves local ranking (verify your business, keep information complete and accurate, respond to reviews, add photos) and on the gaps I most often find when I check local listings.'),
        ('Do I need to be the owner to use it?', 'No. You can check almost every item by looking at the listing on Google Maps or Google Search. To fix things you need the Google account that manages the profile, or you can claim the profile if nobody has.'),
        ('Is Google My Business the same as Google Business Profile?', 'Yes. Google renamed Google My Business to Google Business Profile in 2021. It is the same listing that shows on Google Search and Google Maps.'),
        ('Why doesn’t my business show up on Google Maps?', 'The usual reasons are: the profile isn’t verified, the main category is too broad or wrong, the person searching is far away (distance matters), nearby competitors have many more reviews, or the profile was suspended for breaking a guideline. Fix the basics first, then build reviews every week.'),
@@ -891,7 +909,7 @@ def gbp_page(ctx, parts, tv):
     <section class="sp-hero gp-hero rq-hero on-dark" data-tone="dark" aria-labelledby="page-title">
       {art}
       <nav class="crumbs" aria-label="Breadcrumb"><ol><li><a href="/">Home</a></li><li><a href="/tools">Free tools</a></li><li aria-current="page">Google profile checker</li></ol></nav>
-      <p class="eyebrow">Free tool &middot; 3 minutes</p>
+      <p class="eyebrow">Free tool &middot; about 2 minutes</p>
       <h1 class="sp-hero__title" id="page-title">{h1}<span class="dot">.</span></h1>
       <p class="sp-hero__lead">{lead}</p>
       <div class="hero__cta"><a class="btn btn--go" href="#gp-start">Check my profile <span class="arw" aria-hidden="true"><b>↓</b><b>↓</b></span></a><a class="btn btn--ghost" href="#gp-how">How Google ranks shops</a></div>
@@ -964,7 +982,7 @@ def gbp_page(ctx, parts, tv):
       <header class="sec-head"><p class="eyebrow">Hinglish mein</p><h2 class="h2" id="hi-title">Google Business Profile ka score kaise badhayein?</h2></header>
       <div class="gp-checklist">
         <article><h3>Pehle yeh 3 kaam</h3><ul><li>Profile claim aur verify kijiye (&ldquo;Own this business?&rdquo; dikhe toh abhi claim kijiye)</li><li>Sabse specific category chuniye, jaise &ldquo;Saree store&rdquo;</li><li>Timing sahi kijiye, Diwali jaisi chhuttiyon ke special hours ke saath</li></ul></article>
-        <article><h3>Phir har hafte</h3><ul><li>2&ndash;3 asli photos aur ek update post kijiye</li><li>Har customer se review maangiye: counter par QR, WhatsApp par link</li><li>Har review ka jawab dijiye, kharab review ka bhi shaanti se</li></ul></article>
+        <article><h3>Phir har hafte</h3><ul><li>Ek update post kijiye, aur mahine mein 2&ndash;3 asli photos</li><li>Har customer se review maangiye: counter par QR, WhatsApp par link</li><li>Har review ka jawab dijiye, kharab review ka bhi shaanti se</li></ul></article>
       </div>
     </div>
   </section>
@@ -990,7 +1008,7 @@ def gbp_page(ctx, parts, tv):
       <div class="panel on-dark" data-tone="dark">
         
         <div class="cta__copy">
-          <h2 class="sp-cta__title" id="cta-title">Want your Google profile fixed for you<span class="dot">.</span></h2>
+          <h2 class="sp-cta__title" id="cta-title">Want your Google profile fixed for you<span class="dot">?</span></h2>
           <p class="lead">I set up and run Google profiles for Mumbai businesses: categories, photos, weekly posts, a review system and a website that matches.</p>
           <div class="cta__btns"><a class="btn btn--go" href="/#contact">Get a free audit <span class="arw" aria-hidden="true"><b>↗</b><b>↗</b></span></a><a class="btn btn--ghost" href="/services/seo-mumbai">Local SEO service</a></div>
         </div>
@@ -1009,7 +1027,6 @@ def gbp_page(ctx, parts, tv):
 <main id="main">{body}</main>
 {footer}
 {tail}
-<script defer src="https://cdn.jsdelivr.net/npm/lenis@1.3.26/dist/lenis.min.js"></script>
 <script defer src="/script.js?v={v}"></script>
 <script defer src="/gbp-art.js?v={tv}"></script>
 <script defer src="/gbp.js?v={tv}"></script>
@@ -1051,7 +1068,7 @@ def tools_hub(ctx, parts, tv):
       <nav class="crumbs" aria-label="Breadcrumb"><ol><li><a href="/">Home</a></li><li aria-current="page">Free tools</li></ol></nav>
       <p class="eyebrow">Free &middot; no sign-up</p>
       <h1 class="sp-hero__title" id="page-title">Free tools for local businesses<span class="dot">.</span></h1>
-      <p class="sp-hero__lead">Simple tools that help shops, clinics, salons and cafes get found on Google and win more reviews. They run in your browser, in English or Hinglish.</p>
+      <p class="sp-hero__lead">Simple tools that help shops, clinics, salons and cafés get found on Google and win more reviews. They run in your browser, in English or Hinglish.</p>
     </section>
   </div>
   <section class="section" aria-labelledby="tools-title">
@@ -1064,7 +1081,6 @@ def tools_hub(ctx, parts, tv):
 </main>
 {footer}
 {tail}
-<script defer src="https://cdn.jsdelivr.net/npm/lenis@1.3.26/dist/lenis.min.js"></script>
 <script defer src="/script.js?v={v}"></script>
 </body>
 </html>
@@ -1153,7 +1169,7 @@ def _count(key):
 def pricing_pillars_html():
     cards = ''
     for p in PD.PILLARS:
-        rows = ''.join(f'<li><span>{e(r)}</span><b>{e(_lookup(r))}</b></li>' for r in p['rows'])
+        rows = ''.join(f'<li><span>{e(PD.label(r))}</span><b>{e(_lookup(r))}</b></li>' for r in p['rows'])
         pop = p.get('pop')
         cards += (f'<li class="plan plan--pillar{" plan--pop" if pop else ""}" data-reveal>'
                   + (f'<span class="plan__badge">Where growth happens</span>' if pop else '')
@@ -1168,7 +1184,7 @@ def pricing_terms_strip_html():
     return ('<div class="pts" data-reveal>'
             '<div class="pts__pay"><p class="pts__k">How payment works</p><div class="pts__bar" aria-hidden="true"><span style="--w:20"><b>20%</b></span><span style="--w:20"><b>20%</b></span><span style="--w:60"><b>60%</b></span></div>'
             '<p class="pts__cap">To start · On design sign-off · At launch</p></div>'
-            '<ul class="pts__facts"><li><b>Free audit</b><span>before every project</span></li><li><b>2–3 revisions</b><span>agreed in writing</span></li><li><b>No lock-ins</b><span>30 days notice on monthly work</span></li><li><b>14 days</b><span>every quote is valid</span></li></ul>'
+            '<ul class="pts__facts"><li><b>Free audit</b><span>before every project</span></li><li><b>2–3 revisions</b><span>agreed in writing</span></li><li><b>No lock-ins</b><span>30 days&rsquo; notice on monthly work</span></li><li><b>14 days</b><span>every quote is valid</span></li></ul>'
             '<a class="btn btn--go pts__btn" href="/pricing#builder" data-magnetic>Open the quote builder <span class="arw" aria-hidden="true"><b>↗</b><b>↗</b></span></a>'
             '</div>')
 
@@ -1177,7 +1193,7 @@ def quote_builder_html(ICON_CHAT):
     for n, pr, v in PD.WEBSITES:
         if n.startswith('Redesign') or n.startswith('Care plan'): continue
         frm = ' data-from="1"' if pr.startswith('from') else ''
-        web += f'<label class="qb__opt"><input type="radio" name="qb-web" data-name="{ea(n)}" data-once="{v}"{frm}><span class="qb__card"><b>{e(n)}</b><em>{e(pr)}</em></span></label>'
+        web += f'<label class="qb__opt"><input type="radio" name="qb-web" data-name="{ea(PD.label(n))}" data-once="{v}"{frm}><span class="qb__card"><b>{e(PD.label(n))}</b><em>{e(pr)}</em></span></label>'
     care = next(x for x in PD.WEBSITES if x[0].startswith('Care plan'))
     adds = ''
     for n, pr, note, v in PD.ADDONS:
@@ -1209,7 +1225,7 @@ def quote_builder_html(ICON_CHAT):
       <p class="qb__fine">{e(PD.WEBSITES_NOTE)}</p>
     </fieldset>
     <fieldset class="qb__step" id="step-2">
-      <legend><span class="qb__num">2</span><span>Monthly growth<small>Combine any of these. A 3-month sprint, then month-to-month with 30 days notice.</small></span></legend>
+      <legend><span class="qb__num">2</span><span>Monthly growth<small>Combine any of these. A 3-month sprint, then month-to-month with 30 days&rsquo; notice.</small></span></legend>
       <div class="qb__opts qb__opts--add">{adds}</div>
     </fieldset>
     <fieldset class="qb__step" id="step-3">
@@ -1258,7 +1274,7 @@ PRICING_ANSWER = ('U Scale publishes every price. Websites are fixed one-time pr
                   'websites is 20% / 20% / 60%.')
 PRICING_FACTS = [('Websites', 'Fixed one-time price, agreed in writing before work starts'),
                  ('Payment', '20% to start, 20% on design sign-off, 60% on launch'),
-                 ('Monthly services', "A 3-month sprint, then month-to-month with 30 days' notice"),
+                 ('Monthly services', 'A 3-month sprint, then month-to-month with 30 days’ notice'),
                  ('One-off work', 'From ₹800 for a social post'),
                  ('Quotes', 'Valid for 14 days, after a free audit')]
 
@@ -1383,7 +1399,6 @@ def pricing_page(ctx, parts):
 </main>
 {footer}
 {tail}
-<script defer src="https://cdn.jsdelivr.net/npm/lenis@1.3.26/dist/lenis.min.js"></script>
 <script defer src="/script.js?v={v}"></script>
 </body>
 </html>

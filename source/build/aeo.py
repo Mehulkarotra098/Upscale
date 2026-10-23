@@ -180,27 +180,33 @@ def offers_ld(site, names):
 
 
 # ---------------------------------------------------------------- service briefs (answer, facts, extra FAQs, offers)
-CONTRACT = 'A 3-month sprint, then month-to-month with 30 days notice'
+CONTRACT = 'A 3-month sprint, then month-to-month with 30 days’ notice'
 BRIEF = {
  'website-design-mumbai': dict(
   answer='U Scale is Mehul Karotra, a freelance website designer and developer in Mumbai. Every site is designed in Figma and hand-coded, '
          'at a fixed price agreed in writing before work starts: a landing page is ₹25,000, a 3–4 page business site ₹55,000 and '
-         'e-commerce starts at ₹95,000. Most business sites go live in 4–8 weeks.',
+         'an online store starts at ₹95,000. Most business sites go live in 4–8 weeks.',
   facts=[('Who does the work', 'Mehul Karotra, personally: he designs and codes every site himself. No templates.'),
          ('Price', 'Landing page ₹25,000 · Portfolio ₹40,000 · Business site, 3–4 pages ₹55,000 · 5–10 pages + blog ₹85,000 · '
-                   'E-commerce from ₹95,000 · Restaurant site + online ordering ₹90,000'),
+                   'Online store from ₹95,000 · Restaurant site + online ordering ₹90,000'),
          ('Timeline', '4–8 weeks for a business site; a landing page can be live in under two weeks'),
          ('Payment', '20% to start, 20% on design sign-off, 60% on launch'),
          ('Included', 'Mobile-first design, enquiry forms, basic SEO, Google Maps, social links, 2–3 revision rounds and a 15–30 day bug-fix window'),
          ('Ownership', 'Your domain, hosting, code and design files belong to you'),
-         ('Where', 'Mumbai, and businesses across India, remotely')],
+         ('Where', 'Mumbai; remote work with businesses across India')],
   faq_replace={'How much does a website cost in Mumbai?':
       'With U Scale, a landing page costs ₹25,000, a 3–4 page business site ₹55,000, a 5–10 page site with a blog ₹85,000 and an '
-      'e-commerce site from ₹95,000. Every price is fixed and agreed in writing before work starts, with no hourly billing.'},
+      'online store from ₹95,000. Every price is fixed and agreed in writing before work starts, with no hourly billing.'},
   faq_more=[('Should I hire a freelance web designer or an agency?',
-             'For most small businesses a freelancer is the better fit: you talk directly to the person designing and coding your site, '
-             'decisions are faster and you are not paying for account managers. An agency makes sense when you need a large team working '
-             'in parallel. U Scale gives you one accountable person with agency-level quality.'),
+             'It depends on the project. A freelancer often suits a small business: you talk directly to the person designing and coding '
+             'your site, and you are not paying for account managers. An agency makes sense when you need a large team working in parallel, '
+             'and a website builder can work if your budget is very small and you are happy to do it yourself. I compare all three, with '
+             'price ranges, in freelancer vs agency vs website builder.'),
+            ('Do I need a website if I already have Instagram?',
+             'Instagram is good for discovery, but you don’t own it. A simple website gives people one place to check prices, timings and '
+             'your work, and it keeps working if your reach drops or your account is restricted. Start small: a ₹25,000 landing page linked '
+             'from your Instagram bio and Google listing is enough for many shops. More on Instagram and search: '
+             'Your Instagram posts now show up on Google.'),
             ('What is included in every website?',
              'Every U Scale website includes a mobile-responsive design, enquiry forms, basic SEO, Google Maps, social links, 2–3 rounds of '
              'revisions and a 15–30 day bug-fix window after launch.'),
@@ -290,7 +296,7 @@ BRIEF = {
             ('How do AI assistants decide which businesses to recommend?',
              'They rely on what they can find and trust: clear facts and structured data on your website, your Google Business Profile, '
              'reviews, directory listings and mentions on other sites. Consistent name, address, phone and service details everywhere make '
-             'a business easier to recommend.'),
+             'a business easier to recommend. Step-by-step guide: How to get your business recommended by ChatGPT and Google AI Mode.'),
             ('What is llms.txt?',
              'llms.txt is an optional plain-text summary that some sites publish for AI tools. Google says its AI features don’t need it, '
              'and other AI companies have not said they rely on it, so treat it as a tidy extra, not a requirement. '
@@ -320,14 +326,23 @@ def byline():
             '<span>Updated <time datetime="__LASTMOD__">__LASTMOD_H__</time></span></p>')
 
 
-def facts_html(facts, caption):
-    rows = ''.join(f'<tr><th scope="row">{e(k)}</th><td>{e(v)}</td></tr>' for k, v in facts)
-    return f'<table class="sp-facts"><caption class="sr-only">{e(caption)}</caption><tbody>{rows}</tbody></table>'
+def facts_html(facts, caption, fold=0, more='All facts', tid=''):
+    """Key-facts table. With fold=N, phones show the first N rows and an "All facts" button (aria-expanded) for the
+    rest; every row stays in the HTML (answer engines read the whole table), only CSS hides them, and only with JS."""
+    if not fold or len(facts) <= fold:
+        rows = ''.join(f'<tr><th scope="row">{e(k)}</th><td>{e(v)}</td></tr>' for k, v in facts)
+        return f'<table class="sp-facts"><caption class="sr-only">{e(caption)}</caption><tbody>{rows}</tbody></table>'
+    x = ' class="sp-facts__x"'
+    rows = ''.join(f'<tr{x if i >= fold else ""}><th scope="row">{e(k)}</th><td>{e(v)}</td></tr>' for i, (k, v) in enumerate(facts))
+    return (f'<div class="sp-facts-wrap"><table class="sp-facts sp-facts--fold" id="{tid}"><caption class="sr-only">{e(caption)}</caption><tbody>{rows}</tbody></table>'
+            f'<button class="sp-facts__more" type="button" aria-expanded="false" aria-controls="{tid}" data-facts-more>'
+            f'<span>{e(more)} ({len(facts)})</span><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M6 9.5l6 6 6-6"/></svg></button></div>')
 
 
-def brief_html(answer, facts, caption, head_id, toc=None, toc_label='On this page'):
+def brief_html(answer, facts, caption, head_id, toc=None, toc_label='On this page', fold=0, more='All facts'):
     """The 'In short' answer card that sits right under the hero: one quotable paragraph + a key-facts table + byline,
-    and optionally an 'On this page' list of jump links (toc = [(anchor id, label)])."""
+    and optionally an 'On this page' list of jump links (toc = [(anchor id, label)]), a swipe row of chips on phones.
+    fold: see facts_html."""
     nav = (f'<nav class="sp-toc" aria-label="{ea(toc_label)}"><p>{e(toc_label)}</p><ol>'
            + ''.join(f'<li><a href="#{ea(a)}">{e(t)}</a></li>' for a, t in toc) + '</ol></nav>') if toc else ''
     return f'''
@@ -339,7 +354,7 @@ def brief_html(answer, facts, caption, head_id, toc=None, toc_label='On this pag
           <p class="sp-brief__text">{e(answer)}</p>
           {byline()}{nav}
         </div>
-        {facts_html(facts, caption)}
+        {facts_html(facts, caption, fold, more, f'{head_id}-facts')}
       </div>
     </div>
   </section>'''
@@ -417,7 +432,6 @@ def _page(ctx, parts, url, title, desc, ld, body, og=None, extra_head=None, lang
 </main>
 {footer}
 {tail}
-<script defer src="https://cdn.jsdelivr.net/npm/lenis@1.3.26/dist/lenis.min.js"></script>
 <script defer src="/script.js?v={v}"></script>
 </body>
 </html>
@@ -465,7 +479,7 @@ ABOUT_ANSWER = ('Mehul Karotra is a UI/UX developer-designer based in Mumbai, In
                 'builds websites and runs SEO, social media, Google and Meta ads and AI search visibility for businesses, on fixed-price '
                 'contracts or monthly plans, with every price published at uscale.in/pricing.')
 HOW = [('Audit', 'I go through your website, Google listing and socials and show you exactly where enquiries are slipping away.'),
-       ('Blueprint', 'You get a written plan: what I will do, by when, and the exact price. No jargon.'),
+       ('Written plan', 'You get a written plan: what I will do, by when, and the exact price. No jargon.'),
        ('Build', 'I design, build and launch it myself, and you see progress every week.'),
        ('Grow', 'Every month I improve what is working, cut what is not, and report in plain English.')]
 
@@ -501,7 +515,7 @@ def about_page(ctx, parts):
         <p class="eyebrow" data-reveal data-scramble>What U Scale is</p>
         <h2 class="h2" id="what-title" data-split>Agency-quality work, without the agency.</h2>
       </header>
-      <p>U Scale is not an agency with account managers. It is me, working as an independent, contract-based partner. Websites and branding are fixed-price contracts: 20% to start, 20% on design sign-off and 60% on launch. Marketing runs as a monthly plan: a 3-month sprint, then month-to-month with 30 days notice. Every price is on the <a class="tlink" href="/pricing">pricing page</a>.</p>
+      <p>U Scale is not an agency with account managers. It is me, working as an independent, contract-based partner. Websites and branding are fixed-price contracts: 20% to start, 20% on design sign-off and 60% on launch. Marketing runs as a monthly plan: a 3-month sprint, then month-to-month with 30 days’ notice. Every price is on the <a class="tlink" href="/pricing">pricing page</a>.</p>
       <p>If a project ever needs a specialist, like a photographer, I bring them in and stay your single point of contact. I reply personally within 24 hours, usually much faster on WhatsApp.</p>
       <p>Websites and marketing are what I do. When a business needs custom software or an AI product built, I point them to U Scale’s sister company, <a class="tlink" href="https://www.apex36tech.com/" target="_blank" rel="noopener">Apex36 Technologies</a><span class="sr-only"> (opens in a new tab)</span>, a separate Mumbai studio for software and AI.</p>
       <h3>What I do</h3>
@@ -544,7 +558,7 @@ HUB_FAQ = [
     ('What services does U Scale offer?', 'Website design and development, SEO, social media management, Google and Meta ads, AI search visibility (GEO), '
      'branding and identity, content and reels production, WhatsApp automation, email marketing, review and reputation management, and writing.'),
     ('Can I combine services?', 'Yes. There are no bundles to squeeze into: you pick only what you need and the quote builder on the pricing page adds it up. '
-     'Monthly services run as a 3-month sprint, then month-to-month with 30 days notice.'),
+     'Monthly services run as a 3-month sprint, then month-to-month with 30 days’ notice.'),
     ('Who does the work?', 'Mehul Karotra, personally. If a project needs a specialist like a photographer, he brings them in and '
      'stays your single point of contact.'),
 ]
@@ -552,7 +566,7 @@ HUB_FAQ = [
 
 def services_hub(ctx, parts):
     site = ctx['SITE_URL']; url = site + 'services'
-    title = 'Services & Prices: Websites, SEO, Social, Ads | U Scale'
+    title = 'Web Design & Digital Marketing Services in Mumbai | U Scale'
     desc = ('Every U Scale service in one place: website design, SEO, social media, Google & Meta ads and AI search visibility in Mumbai, '
             'with published prices.')
     # No Offers here: most of those prices are not on this page. Each service page and /pricing carry the priced Offers.

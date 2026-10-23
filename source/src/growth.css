@@ -80,6 +80,8 @@ html.js:not(.rm) .gs:not(.is-ready) .gs__layer,html.js:not(.rm) .gs:not(.is-read
 .sprog__head{position:absolute;left:50%;top:calc(var(--sp,0) * 100%);width:11px;height:11px;margin:-5.5px 0 0 -5.5px;border-radius:50%;background:var(--green);box-shadow:0 0 0 4px rgba(99,184,73,.22)}
 .sprog__head span{position:absolute;right:20px;top:50%;transform:translate(8px,-50%);opacity:0;white-space:nowrap;font:600 10.5px/1 var(--sans);letter-spacing:.14em;text-transform:uppercase;padding:7px 10px;border-radius:99px;background:var(--violet);color:var(--white);box-shadow:0 10px 22px -12px rgba(8,5,22,.6);transition:opacity .3s ease,transform .35s var(--ease-out)}
 .sprog.is-active .sprog__head span{opacity:1;transform:translate(0,-50%)}
+/* the section-name pill only has a free margin to sit in on very wide screens; below that it would cover the text column */
+@media (max-width:1599px){.sprog__head span{display:none}}
 /* Phones: the header already shows reading progress, so the side line steps aside and gives the content its full width */
 @media (max-width:767px){.sprog{display:none}}
 html.menu-open .sprog{opacity:0}

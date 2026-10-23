@@ -25,7 +25,11 @@ WEBSITES = [  # one-time, fixed price after a free audit
     ('Redesign of your current site', '70% of a fresh build', None),
     ('Care plan: updates, backups, security', '₹3,500/mo', 3500),
 ]
-WEBSITES_NOTE = 'Copywriting (₹2,000/page), photography, premium plugins and payment gateway fees are quoted separately, always before I start.'
+def label(name):
+    """Name shown to visitors. Keys above stay as they are (pages look prices up by them); only the visible wording changes."""
+    return name.replace('E-commerce', 'Online store')
+
+WEBSITES_NOTE ='Copywriting (₹2,000/page), photography, premium plugins and payment gateway fees are quoted separately, always before I start.'
 
 ADDONS = [  # monthly; stack on any plan or buy on their own
     ('Local SEO / Google Business Profile', '₹15,000/mo', None, 15000),
@@ -59,6 +63,6 @@ TERMS = [
     '20% advance to start, 20% on design sign-off, 60% on launch. Final files are released after the final payment.',
     '2–3 revision rounds included on every project, agreed in writing before I start.',
     'Every website includes mobile-responsive design, enquiry forms, basic SEO, Google Maps, social links and a 15–30 day bug-fix window.',
-    'Retainers: free audit first, a 3-month sprint, then month-to-month. 30 days notice to pause or cancel.',
+    'Retainers: free audit first, a 3-month sprint, then month-to-month. 30 days’ notice to pause or cancel.',
     'Quotes are valid for 14 days.',
 ]
