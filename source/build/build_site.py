@@ -184,7 +184,7 @@ FAQ = [
  ('Do you work on contract or monthly retainer?', "Both. Websites and branding are fixed-price contracts: 20% to start, 20% on design sign-off and 60% on launch. Marketing runs as a monthly retainer: a 3-month sprint, then month-to-month with 30 days notice. No long lock-ins."),
  ('How long does SEO take to show results?', 'Honest answer: 3–6 months for meaningful movement. Anyone promising page one in 30 days is selling you something. I show you the trajectory every month.'),
  ('How long does it take to build a website?', 'A business website typically takes 4–8 weeks from kickoff to launch, depending on pages and how ready your content is. A landing page can be live in under two weeks.'),
- ('What is AI search visibility (GEO)?', 'When someone asks ChatGPT or Perplexity for a recommendation in your category, does your business get mentioned? I optimise your presence so AI answers cite you.'),
+ ('What is AI search visibility (GEO)?', "It is how often, and how accurately, AI assistants like ChatGPT, Gemini and Google's AI Overviews mention your business when people ask for a recommendation. I check what they say today, then fix the facts, reviews, listings and pages they rely on. No one can guarantee a mention."),
  ('How do we start?', 'Book a free strategy call or ping me on WhatsApp. I audit your digital presence for free, then send a plan with clear pricing.'),
 ]
 faq = '\n'.join(

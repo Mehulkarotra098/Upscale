@@ -157,8 +157,12 @@ def _price(name):
         if n == name: return pr, v, '/mo' in pr
     for _, items in PD.UNITS:
         for n, pr in items:
-            if n == name: return pr, SP._num(pr), '/mo' in pr or '/page' in pr
+            if n == name: return pr, SP._num(pr), '/mo' in pr
     raise KeyError(name)
+
+
+# A per-page price (website copy): one page is the unit, nothing recurring.
+PER_PAGE = {'unitText': 'page', 'referenceQuantity': {'@type': 'QuantitativeValue', 'value': 1, 'unitText': 'page'}}
 
 
 def offers_ld(site, names):
@@ -168,6 +172,7 @@ def offers_ld(site, names):
         spec = {'@type': 'UnitPriceSpecification', 'priceCurrency': 'INR'}
         spec['minPrice' if pr.startswith('from') else 'price'] = v
         if monthly: spec.update(MONTHLY)
+        elif '/page' in pr: spec.update(PER_PAGE)
         o = {'@type': 'Offer', 'name': n, 'priceCurrency': 'INR', 'priceSpecification': spec, 'url': site + 'pricing'}
         if not pr.startswith('from'): o['price'] = v
         out.append(o)
@@ -339,11 +344,16 @@ def brief_html(answer, facts, caption, head_id, toc=None, toc_label='On this pag
 
 
 # ---------------------------------------------------------------- shared page shell for /about and /services
-def _head(ctx, url, title, desc, ld, og=None, extra_head=None):
+def _head(ctx, url, title, desc, ld, og=None, extra_head=None, lang='en-IN'):
     site, v = ctx['SITE_URL'], ctx['_v']
     og = og or (site + 'og-image.png', 'U Scale by Mehul Karotra: Be found. Be chosen.')
+    # hreflang only for the English pages (one language per URL, no translated twins); a Hinglish page declares its own
+    # language on <html> and in og:locale instead of claiming to be the en-IN version.
+    alt = (f'<link rel="alternate" hreflang="en-IN" href="{url}">\n<link rel="alternate" hreflang="x-default" href="{url}">\n'
+           if lang == 'en-IN' else '')
+    locale = 'hi_IN' if lang.startswith('hi') else 'en_IN'
     return f'''<!doctype html>
-<html lang="en-IN">
+<html lang="{lang}">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
@@ -353,10 +363,8 @@ def _head(ctx, url, title, desc, ld, og=None, extra_head=None):
 <meta name="author" content="Mehul Karotra">
 <meta name="theme-color" content="#FAF9FC">
 <link rel="canonical" href="{url}">
-<link rel="alternate" hreflang="en-IN" href="{url}">
-<link rel="alternate" hreflang="x-default" href="{url}">
-<meta property="og:type" content="{'profile' if url.endswith('/about') else 'website'}">
-<meta property="og:locale" content="en_IN">
+{alt}<meta property="og:type" content="{'profile' if url.endswith('/about') else 'website'}">
+<meta property="og:locale" content="{locale}">
 <meta property="og:site_name" content="U Scale">
 <meta property="og:title" content="{ea(title)}">
 <meta property="og:description" content="{ea(desc)}">
@@ -394,10 +402,10 @@ def _hero(crumb, title, lead, eyebrow=None, cta=True):
   </div>'''
 
 
-def _page(ctx, parts, url, title, desc, ld, body, og=None, extra_head=None):
+def _page(ctx, parts, url, title, desc, ld, body, og=None, extra_head=None, lang='en-IN'):
     header, menu, footer, tail = parts
     v = ctx['_v']
-    return f'''{_head(ctx, url, title, desc, ld, og, extra_head)}
+    return f'''{_head(ctx, url, title, desc, ld, og, extra_head, lang)}
 <body class="page-sub">
 <a class="skip" href="#main">Skip to content</a>
 {header}
@@ -473,7 +481,7 @@ def about_page(ctx, parts):
         {'@type': 'BreadcrumbList', '@id': url + '#breadcrumb', 'itemListElement': [
             {'@type': 'ListItem', 'position': 1, 'name': 'Home', 'item': site}, {'@type': 'ListItem', 'position': 2, 'name': 'About', 'item': url}]},
         _faq_ld(url, ABOUT_FAQ)]}, ensure_ascii=False, separators=(',', ':')).replace('</', '<\\/')
-    work = ''.join(f'<li><a class="tlink" href="{ea(w[5])}" target="_blank" rel="noopener">{e(w[1])}</a> <span>{e(w[2])}</span>'
+    work = ''.join(f'<li><a class="tlink" href="{ea(w[5])}" target="_blank" rel="noopener">{e(w[1])}</a> <span>{e(SP.work_meta(w))}</span>'
                    f'<span class="sr-only"> (opens in a new tab)</span></li>' for w in ctx['WORK'])
     svcs = ''.join(f'<li><a class="tlink" href="/services/{s["slug"]}">{e(s["name"])}</a></li>' for s in SP.SERVICES)
     steps = ''.join(f'<li class="step" data-reveal><span class="step__num" aria-hidden="true" data-n="{i+1}">{i+1:02d}</span><h3><span class="sr-only">Step {i+1}: </span>{e(t)}</h3><p>{e(d)}</p></li>'
@@ -545,15 +553,15 @@ def services_hub(ctx, parts):
     title = 'Services & Prices: Websites, SEO, Social, Ads | U Scale'
     desc = ('Every U Scale service in one place: website design, SEO, social media, Google & Meta ads and AI search visibility in Mumbai, '
             'with published prices.')
+    # No Offers here: most of those prices are not on this page. Each service page and /pricing carry the priced Offers.
     items = []
     for i, s in enumerate(SP.SERVICES):
         items.append({'@type': 'ListItem', 'position': i + 1, 'item': {
             '@type': 'Service', '@id': SP.svc_url(site, s) + '#service', 'name': s['name'], 'url': SP.svc_url(site, s), 'description': s['answer'],
-            'provider': {'@id': site + '#business'}, 'areaServed': [{'@type': 'City', 'name': 'Mumbai'}, {'@type': 'Country', 'name': 'India'}],
-            'offers': offers_ld(site, s['offers'])}})
+            'provider': {'@id': site + '#business'}}})
     for j, (n, d, names) in enumerate(EXTRA_SERVICES):
         items.append({'@type': 'ListItem', 'position': len(SP.SERVICES) + j + 1, 'item': {
-            '@type': 'Service', 'name': n, 'description': d, 'url': site + 'pricing', 'provider': {'@id': site + '#business'}, 'offers': offers_ld(site, names)}})
+            '@type': 'Service', 'name': n, 'description': d, 'url': site + 'pricing', 'provider': {'@id': site + '#business'}}})
     ld = json.dumps({'@context': 'https://schema.org', '@graph': [
         {'@type': 'CollectionPage', '@id': url + '#webpage', 'url': url, 'name': title, 'description': desc, 'inLanguage': 'en-IN',
          'isPartOf': {'@id': site + '#website'}, 'about': {'@id': site + '#business'}, 'author': {'@id': site + '#mehul'},
@@ -586,6 +594,16 @@ def services_hub(ctx, parts):
     </div>
   </section>
 
+  <section class="section" aria-labelledby="by-title">
+    <div class="wrap">
+      <header class="sec-head">
+        <p class="eyebrow" data-reveal data-scramble>Website design</p>
+        <h2 class="h2" id="by-title" data-split>Websites by business type and area.</h2>
+      </header>
+      {__import__('geo_pages').related_html()}
+    </div>
+  </section>
+
   <section class="section" aria-labelledby="also-title">
     <div class="wrap sp-prose">
       <header class="sec-head">
@@ -604,9 +622,15 @@ def services_hub(ctx, parts):
 DATES_FILE = config.REPO / 'source' / 'build' / 'page-dates.json'
 
 
+_FP_PARTS = re.compile(r'<main\b.*?</main>|<title>.*?</title>|<meta name="description"[^>]*>|<script type="application/ld\+json">.*?</script>', re.S)
+
+
 def _fingerprint(html):
-    """Content hash that ignores what changes on every build: dates, asset versions, build stamps."""
-    h = re.sub(r'__LASTMOD(_H)?__', '', html)
+    """Content hash of what the page says: <main>, the title, the meta description and the JSON-LD. Shared chrome
+    (header, nav, footer, scripts) is left out, so a footer tweak does not move every page's "updated" date.
+    Also ignores what changes on every build: dates, asset versions, build stamps."""
+    h = '\n'.join(_FP_PARTS.findall(html)) or html
+    h = re.sub(r'__LASTMOD(_H)?__', '', h)
     h = re.sub(r'\?v=[A-Za-z0-9]+', '', h)
     h = re.sub(r'\d{4}-\d{2}-\d{2}', '', h)
     return hashlib.sha1(h.encode()).hexdigest()[:16]
@@ -643,8 +667,8 @@ AI_BOTS = ['GPTBot', 'OAI-SearchBot', 'ChatGPT-User', 'PerplexityBot', 'Perplexi
 
 
 def robots_txt(site):
-    rules = '\n'.join(f'User-agent: {b}\nAllow: /\nDisallow: /admin\nDisallow: /api/\nDisallow: /_blog/\nDisallow: /*?preview=\n' for b in AI_BOTS)
-    return ('User-agent: *\nAllow: /\nDisallow: /404\nDisallow: /admin\nDisallow: /api/\nDisallow: /_blog/\nDisallow: /*?preview=\n\n'
+    rules = '\n'.join(f'User-agent: {b}\nAllow: /\nDisallow: /admin\nDisallow: /api/\nDisallow: /_blog/\nDisallow: /import-media/\nDisallow: /*?preview=\n' for b in AI_BOTS)
+    return ('User-agent: *\nAllow: /\nDisallow: /404\nDisallow: /admin\nDisallow: /api/\nDisallow: /_blog/\nDisallow: /import-media/\nDisallow: /*?preview=\n\n'
             '# AI assistants and answer engines are welcome to read, quote and cite this site.\n'
             f'# Summary for AI tools: {site}llms.txt (full text: {site}llms-full.txt)\n\n'
             + rules + f'\nSitemap: {site}sitemap.xml\n')

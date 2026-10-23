@@ -54,6 +54,7 @@ SERVICES = [
          ('Grow','Content, local signals and links added month by month.'),
          ('Report','Monthly report and call. Honest about what moved and what did not.')],
   price='Local SEO and Google Business Profile ₹15,000/month, technical + on-page SEO ₹25,000/month, or both together. A deep-dive SEO audit is ₹7,500, free if we work together.',
+  related='<p class="sp-price" data-reveal><strong>Local SEO near you.</strong> Website design and local SEO for businesses in <a class="tlink" href="/services/website-design-mumbai/ghatkopar">Ghatkopar</a> and <a class="tlink" href="/services/website-design-mumbai/andheri-east">Andheri East</a>.</p>',
   work=['tis','antrah','sashe'],
   faq=[('How long does SEO take to show results?','Honest answer: 3 to 6 months for meaningful movement. Anyone promising page one in 30 days is selling you something. I show you the trajectory every month.'),
        ('What is local SEO?','Local SEO helps you appear in Google Maps and "near me" searches in your part of Mumbai. Your Google Business Profile is the heart of it.'),
@@ -129,14 +130,18 @@ SERVICES = [
 
 def svc_url(site, s): return f'{site}services/{s["slug"]}'
 
+def work_meta(w):
+    """Work-card caption. A concept project says so up front, using the same wall_tag the home page shows."""
+    return f'{w[8]} project · {w[2]}' if w[8] == 'Concept' else w[2]
+
 # ---------------------------------------------------------------- JSON-LD
 def offer_catalog(site):
     """Every published price as schema.org Offers, so search engines and AI tools can quote them accurately."""
     def svc(name, slug=None):
-        d = {'@type': 'Service', 'name': name, 'areaServed': {'@type': 'City', 'name': 'Mumbai'}, 'provider': {'@id': site + '#business'}}
+        d = {'@type': 'Service', 'name': name, 'areaServed': __import__('aeo').place('Mumbai'), 'provider': {'@id': site + '#business'}}
         if slug: d['url'] = f'{site}services/{slug}'
         return d
-    def offer(name, price, monthly=False, desc=None, minimum=False, slug=None):
+    def offer(name, price, monthly=False, desc=None, minimum=False, slug=None, per_page=False):
         o = {'@type': 'Offer', 'name': name, 'itemOffered': svc(name, slug), 'priceCurrency': 'INR', 'url': site + 'pricing'}
         if price is not None:
             spec = {'@type': 'UnitPriceSpecification', 'priceCurrency': 'INR'}
@@ -144,13 +149,16 @@ def offer_catalog(site):
             if monthly:
                 import aeo
                 spec.update(aeo.MONTHLY)
+            elif per_page:
+                import aeo
+                spec.update(aeo.PER_PAGE)
             o['priceSpecification'] = spec
             if not minimum: o['price'] = price
         if desc: o['description'] = desc
         return o
     items = [offer(n, v, monthly=('/mo' in pr), minimum=pr.startswith('from'), slug='website-design-mumbai') for n, pr, v in PD.WEBSITES if v]
     items += [offer(n, v, monthly=('/mo' in pr), desc=note) for n, pr, note, v in PD.ADDONS]
-    items += [offer(n, _num(pr), minimum=pr.startswith('from')) for g, its in PD.UNITS for n, pr in its]
+    items += [offer(n, _num(pr), minimum=pr.startswith('from'), per_page='/page' in pr) for g, its in PD.UNITS for n, pr in its]
     return {'@type': 'OfferCatalog', 'name': 'Web design and digital marketing price list', 'url': site + 'pricing', 'itemListElement': items}
 
 def home_jsonld(site, faq):
@@ -161,7 +169,7 @@ def home_jsonld(site, faq):
     desc = re.search(r'<meta name="description" content="([^"]+)"', (config.REPO / 'source' / 'src' / 'index.src.html').read_text(encoding='utf-8')).group(1)
     person = aeo.person_full(site)
     website = dict(aeo.website_ref(site), description=desc)
-    page = {'@type': 'WebPage', '@id': site + '#webpage', 'url': site, 'name': 'Freelance Web Designer & Digital Marketer in Mumbai | U Scale',
+    page = {'@type': 'WebPage', '@id': site + '#webpage', 'url': site, 'name': 'Freelance Web Designer & Digital Marketer, Mumbai | U Scale',
             'description': desc, 'isPartOf': {'@id': site + '#website'}, 'about': {'@id': site + '#business'},
             'primaryImageOfPage': {'@type': 'ImageObject', '@id': site + '#og-image', 'url': site + 'og-image.png', 'contentUrl': site + 'og-image.png',
                                    'width': 1200, 'height': 630, 'caption': 'U Scale by Mehul Karotra: web design and digital marketing in Mumbai'},
@@ -177,7 +185,7 @@ def service_jsonld(site, s):
          'about': {'@id': url + '#service'}, 'mainEntity': {'@id': url + '#service'}, 'author': {'@id': site + '#mehul'},
          'breadcrumb': {'@id': url + '#breadcrumb'}, 'inLanguage': 'en-IN', 'dateModified': '__LASTMOD__'},
         {'@type': 'Service', '@id': url + '#service', 'name': s['name'], 'serviceType': s['name'], 'url': url, 'description': s['answer'],
-         'provider': {'@id': site + '#business'}, 'areaServed': [{'@type': 'City', 'name': 'Mumbai'}, {'@type': 'Country', 'name': 'India'}],
+         'provider': {'@id': site + '#business'}, 'areaServed': aeo.area_served(),
          'offers': aeo.offers_ld(site, s['offers'])},
         aeo.biz_ref(site), aeo.person_ref(site),
         {'@type': 'BreadcrumbList', '@id': url + '#breadcrumb', 'itemListElement': [
@@ -216,7 +224,7 @@ def service_page(ctx, s, parts):
     for k in s['work']:
         w = wmap[k]; lw, lh = ctx['SZ'][k]
         cards.append(f'<li class="rw"><a href="{w[5]}" target="_blank" rel="noopener" data-cursor="view"><span class="rw__img"><img src="/assets/work/{k}-peek.webp" width="768" height="480" alt="{ea(w[1])} website" loading="lazy" decoding="async"></span>'
-                     f'<span class="rw__body"><img class="rw__logo" src="/assets/logos/{k}.webp" width="{lw}" height="{lh}" alt="" loading="lazy" decoding="async"><b>{e(w[1])}</b><small>{e(w[2])}</small></span><span class="sr-only"> (opens in a new tab)</span></a></li>')
+                     f'<span class="rw__body"><img class="rw__logo" src="/assets/logos/{k}.webp" width="{lw}" height="{lh}" alt="" loading="lazy" decoding="async"><b>{e(w[1])}</b><small>{e(work_meta(w))}</small></span><span class="sr-only"> (opens in a new tab)</span></a></li>')
     others = ''.join(f'<li><a href="/services/{o["slug"]}">{e(o["name"])}</a></li>' for o in SERVICES if o is not s)
     items = ''.join(f'<li class="svc" data-reveal><span class="svc__n" aria-hidden="true">{i+1:02d}</span><h3>{e(t)}</h3><p>{e(d)}</p></li>' for i, (t, d) in enumerate(s['items']))
     steps = ''.join(f'<li class="step" data-reveal><span class="step__num" aria-hidden="true" data-n="{i+1}">{i+1:02d}</span><h3><span class="sr-only">Step {i+1}: </span>{e(t)}</h3><p>{e(d)}</p></li>' for i, (t, d) in enumerate(s['steps']))
@@ -298,7 +306,8 @@ def service_page(ctx, s, parts):
     <div class="wrap">
       <header class="sec-head">
         <p class="eyebrow" data-reveal data-scramble>Related work</p>
-        <h2 class="h2" id="work-title" data-split>Sites I designed and built.</h2>
+        {'<h2 class="h2" id="work-title" data-split>Sites I designed and built.</h2>' if s['slug'] == 'website-design-mumbai' else
+         '<h2 class="h2" id="work-title" data-split>Websites I&rsquo;ve built.</h2><p class="lead" data-reveal>U Scale started in 2026. These are the websites I&rsquo;ve designed and built so far.</p>'}
       </header>
       <ul class="rw-grid" data-reveal-group>{''.join(cards)}</ul>
       <p class="sp-price" data-reveal><strong>Pricing.</strong> {e(s['price'])} <a class="tlink" href="/pricing">See every price</a></p>
@@ -407,29 +416,41 @@ def blog_shell(ctx, parts):
 ''')
 
 def llms_txt(site, faq, updated=TODAY):
+    # llmstxt.org shape: H1, blockquote summary, plain details (no headings), then H2 sections that are only lists of
+    # "- [name](url): note" links, with "## Optional" last for what an AI tool can skip. Long prose lives in llms-full.txt.
+    pr_ = site + 'pricing'
     lines = ['# U Scale by Mehul Karotra', '',
              '> Freelance web design, development and digital marketing in Mumbai, India. U Scale is Mehul Karotra, a UI/UX developer-designer who designs and builds websites and runs SEO, social media, Google and Meta ads and AI search visibility for businesses, personally, on fixed-price contracts or monthly plans. An independent alternative to a digital marketing agency.', '',
-             f'- Website: {site}', f'- About Mehul Karotra: {site}about', f'- All services and prices: {site}services',
              f'- Contact: WhatsApp/phone {PHONE_D}, email {EMAIL}', f'- Based in: {ENTITY["base"]}, Maharashtra, India (meets clients across Mumbai, Thane and Navi Mumbai; works with businesses across India remotely)',
-             '- Languages: English and Hindi', f'- Last updated: {updated}', f'- Full text of every page for AI tools: {site}llms-full.txt',
-             f'- Full price list: {site}pricing', f'- Blog (guides on websites, SEO, social media, ads and AI search): {site}blog',
-             f'- Free tool: Google Business Profile checker, a score out of 100 with a fix list and review goal (runs in the browser, no sign-up): {site}tools/google-business-profile-checker',
-             f'- Free tool: Google review QR code and counter standee maker (runs in the browser, no sign-up): {site}tools/google-review-qr-code',
-             f'- All free tools: {site}tools', '',
-             '## Pricing (INR)', '']
-    lines += ['### Websites (one-time, fixed price)'] + [f'- {n}: {pr}' for n, pr, _ in PD.WEBSITES] + [f'- {PD.WEBSITES_NOTE}']
-    lines += ['', '### Monthly services (combine any)'] + [f'- {n}: {pr}' + (f' ({note})' if note else '') for n, pr, note, _ in PD.ADDONS]
-    lines += ['', '### Unit prices'] + [f'- {g}: ' + '; '.join(f'{n} {pr}' for n, pr in items) for g, items in PD.UNITS]
-    lines += ['', '### Terms'] + [f'- {t}' for t in PD.TERMS]
+             '- Languages: the site is in English, with some guides in Hinglish (Hindi written in Roman script); enquiries are answered in English or Hindi',
+             f'- Last updated: {updated}', '',
+             '## Main pages', '',
+             f'- [Home]({site}): U Scale by Mehul Karotra, freelance web design and digital marketing in Mumbai',
+             f'- [About Mehul Karotra]({site}about): UI/UX developer-designer from Mumbai and founder of U Scale, working as an independent, contract-based partner',
+             f'- [All services and prices]({site}services)', f'- [Full price list]({pr_})',
+             f'- [Blog]({site}blog): guides on websites, SEO, social media, ads and AI search',
+             f'- [Full text of every page for AI tools]({site}llms-full.txt)', '',
+             '## Pricing (INR)', '',
+             f'- [Websites (one-time, fixed price)]({pr_}): ' + ' · '.join(f'{n} {pr}' for n, pr, _ in PD.WEBSITES) + f'. {PD.WEBSITES_NOTE}',
+             f'- [Monthly services (combine any)]({pr_}): ' + ' · '.join(f'{n} {pr}' + (f' ({note})' if note else '') for n, pr, note, _ in PD.ADDONS)]
+    lines += [f'- [Unit prices: {g}]({pr_}): ' + ' · '.join(f'{n} {pr}' for n, pr in items) for g, items in PD.UNITS]
+    lines += [f'- [Terms]({pr_}): ' + ' '.join(PD.TERMS)]
     lines += ['', '## Services', '']
     lines += [f'- [{s["name"]}]({svc_url(site, s)}): {s["desc"]}' for s in SERVICES]
     import geo_pages
     lines += geo_pages.llms_lines(site)
-    lines += ['', '## Work', '', '- TIS Admissions (concept), Antrah Wellness, Roar Arena, My Country Mobile (in-house role), Callmama (in-house role), GrowCred, Sashe by Prachi, Vidhi Parmar, BrandGen. Live links are on the home page.', '',
-              '## About Mehul Karotra', '', f'- UI/UX developer-designer from Mumbai and founder of U Scale, working as an independent, contract-based partner. Profile: {site}about. ' + ' · '.join(ENTITY['founder']['sameAs']), '',
-              '## Sister company', '', '- Apex36 Technologies (https://www.apex36tech.com/): a separate software and AI studio in Mumbai, run independently. U Scale does websites and marketing; Apex36 builds custom software and AI products.', '',
+    lines += ['', '## Free tools', '',
+              f'- [Google Business Profile checker]({site}tools/google-business-profile-checker): a score out of 100 with a fix list and review goal (runs in the browser, no sign-up)',
+              f'- [Google review QR code and counter standee maker]({site}tools/google-review-qr-code): runs in the browser, no sign-up',
+              f'- [All free tools]({site}tools)', '',
+              '## Work', '', f'- [Selected work]({site}#work): TIS Admissions (concept), Antrah Wellness, Roar Arena, My Country Mobile (in-house role), Callmama (in-house role), GrowCred, Sashe by Prachi, Vidhi Parmar, BrandGen. Live links are on the home page.', '',
+              '## About Mehul Karotra', '', f'- [Profile]({site}about): UI/UX developer-designer from Mumbai and founder of U Scale, working as an independent, contract-based partner']
+    lines += [f'- [{"LinkedIn" if "linkedin.com" in u else "GitHub" if "github.com" in u else "Portfolio"}]({u}): Mehul Karotra' for u in ENTITY['founder']['sameAs']]
+    lines += ['', '## Sister company', '', '- [Apex36 Technologies](https://www.apex36tech.com/): a separate software and AI studio in Mumbai, run independently. U Scale does websites and marketing; Apex36 builds custom software and AI products.', '',
               '## FAQ', '']
-    lines += [f'- **{q}** {a}' for q, a in faq]
+    lines += [f'- [{q}]({site}#faq): {a}' for q, a in faq]
+    lines += ['', '## Optional', '', f'- [Blog RSS feed]({site}blog/rss.xml): the latest blog posts',
+              f'- [Blog sitemap]({site}sitemap-blog.xml): every published blog URL']
     return '\n'.join(lines) + '\n'
 
 # ---------------------------------------------------------------- free tools
@@ -1238,7 +1259,7 @@ def pricing_page(ctx, parts):
     ld = json.dumps({'@context': 'https://schema.org', '@graph': [
         {'@type': 'WebPage', '@id': url + '#webpage', 'url': url, 'name': title, 'description': desc, 'isPartOf': {'@id': site + '#website'},
          'about': {'@id': site + '#business'}, 'breadcrumb': {'@id': url + '#breadcrumb'}, 'inLanguage': 'en-IN', 'dateModified': '__LASTMOD__'},
-        dict(offer_catalog(site), **{'@id': url + '#prices', 'provider': {'@id': site + '#business'}}), __import__('aeo').biz_ref(site),
+        dict(offer_catalog(site), **{'@id': url + '#prices'}), __import__('aeo').biz_ref(site),  # provider sits on each itemOffered (not valid on an ItemList)
         {'@type': 'BreadcrumbList', '@id': url + '#breadcrumb', 'itemListElement': [
             {'@type': 'ListItem', 'position': 1, 'name': 'Home', 'item': site}, {'@type': 'ListItem', 'position': 2, 'name': 'Pricing', 'item': url}]},
         {'@type': 'FAQPage', '@id': url + '#faq', 'mainEntity': [{'@type': 'Question', 'name': q, 'acceptedAnswer': {'@type': 'Answer', 'text': a}} for q, a in faq]},

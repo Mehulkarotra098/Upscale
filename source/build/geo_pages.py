@@ -1232,7 +1232,7 @@ def page(ctx, parts, p):
         sizes = '(max-width: 559px) 260px, (max-width: 1023px) 300px, 400px' if p['art']['kind'] == 'portrait' else '(max-width: 559px) 82vw, (max-width: 1023px) 600px, 660px'
         preload = (f'<link rel="preload" as="image" type="image/avif" imagesrcset="{i0["file"]}-{i0["small"]}.avif {i0["small"]}w, '
                    f'{i0["file"]}.avif {i0["w"]}w" imagesizes="{sizes}" fetchpriority="high">')
-    return aeo._page(ctx, parts, url, p['title'], p['desc'], _jsonld(site, p), body, og, extra_head=preload)
+    return aeo._page(ctx, parts, url, p['title'], p['desc'], _jsonld(site, p), body, og, extra_head=preload, lang=p.get('lang', 'en-IN'))
 
 
 def build(ctx, parts):
