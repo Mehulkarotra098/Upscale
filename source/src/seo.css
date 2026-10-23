@@ -362,7 +362,6 @@ html.pin-ok .sp-process .step{opacity:1;transform:none}
   color:var(--violet);text-align:left;margin:0;backdrop-filter:blur(6px)}
 .fp-portrait__plate b{font:700 15px/1.2 var(--sans)}
 .fp-portrait__plate span{font:500 12.5px/1.35 var(--sans);color:var(--body)}
-@media (max-width:1023px){.fp-portrait__more{display:none}}
 /* chips sit on the shoulders, never on the face (face is the top half of the 4:5 crop) */
 .fp-art--portrait .fp-chip--1{left:-7%;top:auto;bottom:36%}
 .fp-art--portrait .fp-chip--2{right:-7%;top:auto;bottom:25%}

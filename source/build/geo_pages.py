@@ -937,7 +937,7 @@ def _hero_art(p):
     if k == 'portrait':
         img = IMG['mehul']
         return (f'<figure class="fp-art fp-art--portrait"><div class="fp-portrait">{_pic(img, "(max-width: 559px) 260px, (max-width: 1023px) 300px, 400px", eager=True)}'
-                f'<figcaption class="fp-portrait__plate"><b>Mehul Karotra</b><span>Founder, U Scale<span class="fp-portrait__more"> · designs and builds every site</span></span></figcaption></div>{chips}</figure>')
+                f'<figcaption class="fp-portrait__plate"><b>Mehul Karotra</b><span>Founder of U Scale</span></figcaption></div>{chips}</figure>')
     if k == 'ticket':
         rows = [('Landing page', price('Landing page')), ('Business site, 3–4 pages', price('Business site, 3–4 pages')),
                 ('5–10 pages + blog', price('Business site, 5–10 pages + blog')), ('Online store se', price('E-commerce, under 50 products'))]
