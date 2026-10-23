@@ -212,7 +212,7 @@ def bp(built):
 blueprint = bp(False) + f'<div class="blueprint__built"><div>{bp(True)}</div></div><span class="blueprint__seam"></span>'
 
 src = (SRC / 'index.src.html').read_text()
-css = '\n'.join((SRC / f).read_text() for f in ['styles.css', 'work.css', 'motion.css', 'growth.css', 'seo.css'])
+css = '\n'.join((SRC / f).read_text() for f in ['styles.css', 'work.css', 'motion.css', 'growth.css', 'seo.css', 'home.css'])
 def _rules(block):
     out, i, depth, start = [], 0, 0, 0
     for j, ch in enumerate(block):
@@ -267,6 +267,8 @@ ICONS_HEAD = ('<link rel="icon" href="/favicon.svg" type="image/svg+xml">\n<link
 import seo_pages
 rep = {'{{PRICE_PILLARS}}': seo_pages.pricing_pillars_html(), '{{PRICE_TERMS}}': seo_pages.pricing_terms_strip_html(), '{{ICONS_HEAD}}': ICONS_HEAD, '{{JSONLD}}': seo_pages.home_jsonld(SITE_URL, FAQ), '{{QUOTES}}': quotes_html(),'{{LOGO_WALL}}': logo_wall, '{{WORK_TOTAL}}': f'{len(WORK):02d}', '{{PROJECT_INDEX}}': project_index, '{{LOADER_LOGO}}': loader_logo, '{{HEADER_LOGO}}': logo(), '{{FOOTER_LOGO}}': logo('logo--rev'), '{{FAVICON}}': favicon,
        '{{CHART}}': growth, '{{CTA_BARS}}': cta_bars, '{{WORK_CARDS}}': work_cards, '{{FAQ}}': faq, '{{BLUEPRINT}}': blueprint}
+import home_parts  # hero, In short, services, built-for cards, how it works, founder photo, tools, contact (see home_parts.py)
+rep.update(home_parts.parts(handset))
 rep.update({'{{' + k + '}}': v for k, v in ICONS.items()})
 for k, v in rep.items():
     src = src.replace(k, v)

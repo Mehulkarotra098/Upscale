@@ -158,7 +158,7 @@
     waZones.forEach(function(z){ wio.observe(z); });
   }
   var sprog=$('.sprog'), sprogLbl=$('[data-sprog-label]'), sprogT;
-  var SPROG=[['hero','Home'],['services','Services'],['process','Process'],['work','Work'],['pricing','Pricing'],['audit','Free audit'],['testimonials','Clients'],['about','About'],['faq','FAQ'],['cta',"Let's scale"],['contact','Contact']].map(function(x){ return [document.getElementById(x[0]),x[1]]; });
+  var SPROG=[['hero','Home'],['services','Services'],['work','Work'],['how','How it works'],['pricing','Pricing'],['testimonials','Clients'],['about','About'],['tools','Free tools'],['faq','FAQ'],['contact','Free audit']].map(function(x){ return [document.getElementById(x[0]),x[1]]; });
   if(!SPROG[0][0]){ SPROG=$$('main > section, main > .hero-shell').map(function(sec){ var ey=$('.eyebrow,.crumbs [aria-current]',sec), h=$('h1,h2',sec); var t=(ey&&(ey.dataset.final||ey.textContent)||h&&(h.getAttribute('aria-label')||h.textContent)||'').trim(); return [sec,t.length>22?t.slice(0,21)+'…':t]; }).filter(function(x){ return x[1]; }); if(!SPROG.length) SPROG=[[null,'']]; }
   SPROG=SPROG.filter(function(x){ return x[0]; });
   function markScroll(){ scrollDirty=true; kick(); }
@@ -541,7 +541,8 @@
   var FORM_ENDPOINT='https://formsubmit.co/ajax/uscalewithus@gmail.com';
   var form=$('#enquiry'), done=$('#enquiry-done');
   if(form){
-    var rules={ name:function(v){ return v.trim().length>1; }, phone:function(v){ return /^[+()\d\s-]{8,}$/.test(v.trim())&&v.replace(/\D/g,'').length>=8; }, email:function(v){ return /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(v.trim()); }, need:function(v){ return v.trim().length>2; } };
+    /* Only name and a number are required: every extra field costs enquiries. The rest is checked only if filled in. */
+    var rules={ name:function(v){ return v.trim().length>1; }, phone:function(v){ return /^[+()\d\s-]{8,}$/.test(v.trim())&&v.replace(/\D/g,'').length>=8; }, email:function(v){ return !v.trim()||/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(v.trim()); }, link:function(v){ return !v.trim()||v.trim().length>2; }, need:function(v){ return !v.trim()||v.trim().length>1; } };
     var check=function(i){ var ok=rules[i.name](i.value), f=i.closest('.field'); if(ok){ f.removeAttribute('data-invalid'); i.removeAttribute('aria-invalid'); } else { f.setAttribute('data-invalid',''); i.setAttribute('aria-invalid','true'); } return ok; };
     $$('input:not(.hp),textarea',form).forEach(function(i){ i.addEventListener('blur',function(){ if(i.value) check(i); }); i.addEventListener('input',function(){ if(i.closest('.field').hasAttribute('data-invalid')) check(i); }); });
     form.addEventListener('submit',function(e){
@@ -550,12 +551,12 @@
       if(bad.length){ bad[0].focus(); return; }
       var fd=new FormData(form); if(fd.get('_honey')) return;
       var btn=$('button[type=submit]',form), lbl=btn.innerHTML; btn.disabled=true; btn.setAttribute('aria-busy','true'); btn.firstChild.textContent='Sending… ';
-      var data={name:fd.get('name'),phone:fd.get('phone'),email:fd.get('email'),message:fd.get('need'),_subject:'New enquiry from '+fd.get('name')+' (uscale site)',_replyto:fd.get('email'),_template:'table',_captcha:'false'};
+      var data={name:fd.get('name'),phone:fd.get('phone'),email:fd.get('email')||'',website:fd.get('link')||'',message:fd.get('need')||'Free audit',_subject:'Free audit request from '+fd.get('name')+' (uscale site)',_template:'table',_captcha:'false'}; if(data.email) data._replyto=data.email;
       var show=function(ok){
         btn.disabled=false; btn.removeAttribute('aria-busy'); btn.innerHTML=lbl;
         var h=$('h3',done), wa=$('a',done);
         if(!ok){
-          var txt='Hi Mehul, I\'m '+data.name+' ('+data.phone+', '+data.email+'). '+data.message;
+          var txt='Hi Mehul, I\'m '+data.name+' ('+data.phone+(data.email?', '+data.email:'')+'). '+data.message+(data.website?' My website or Instagram: '+data.website:'');
           if(wa) wa.href='https://wa.me/917977360142?text='+encodeURIComponent(txt);
           if(h) h.textContent='My inbox didn\'t answer just now. Tap below to send the same message on WhatsApp.';
         }
@@ -608,6 +609,9 @@
     safety=setTimeout(endLoader,2600);
     loadT=performance.now(); heroCounters(introMs()+750); if(gs) gsBuild(introMs()+650);
   };
+  /* Live mini scenes: play only while on screen, so off-screen loops cost nothing */
+  var lives=$$('[data-live]');
+  if(lives.length&&'IntersectionObserver' in window){ var lio=new IntersectionObserver(function(es){ es.forEach(function(en){ en.target.classList.toggle('is-live',en.isIntersecting); }); },{threshold:.3}); lives.forEach(function(el){ lio.observe(el); }); }
   /* Commission calculator (restaurant page). The HTML already shows the worked example; this only re-does the sums. */
   $$('[data-calc]').forEach(function(c){
     var f=$('form',c), price=+c.dataset.price, fee=.0236;

@@ -1119,7 +1119,7 @@ def _section(i, s):
     if s['tone'] == 'dark':
         return f'''
   <section class="section fp-sec fp-sec--dark" id="{sid}" aria-labelledby="{sid}-title">
-    <div class="wrap"><div class="panel on-dark fp-panel" data-tone="dark"><span class="grain" aria-hidden="true"></span>{inner}</div></div>
+    <div class="wrap"><div class="panel on-dark fp-panel" data-tone="dark">{inner}</div></div>
   </section>'''
     return f'''
   <section class="section fp-sec{tone}" id="{sid}" aria-labelledby="{sid}-title">
@@ -1174,7 +1174,7 @@ def _cta(p, wa, icons):
   <section class="cta sp-cta" id="contact" aria-labelledby="cta-title">
     <div class="wrap">
       <div class="panel on-dark" data-tone="dark">
-        <span class="grain" aria-hidden="true"></span>
+        
         <div class="cta__copy">
           <h2 class="sp-cta__title" id="cta-title">Get a free audit<span class="dot">.</span></h2>
           <p class="lead">Tell me about your business. I reply within 24 hours, usually much faster on WhatsApp.</p>

@@ -34,15 +34,35 @@ CITIES = {'Mumbai', 'Thane', 'Navi Mumbai'}
 PRICE_RANGE = '₹800 – ₹1,50,000'
 
 
+# Entity links: each topic or place is tied to its Wikipedia article (sameAs), so search engines and AI systems match it to the
+# right thing in their knowledge graphs ("Thane" the city, "GEO" the marketing practice). Only articles checked to exist.
+WIKI = 'https://en.wikipedia.org/wiki/'
+PLACES = {'Mumbai': 'Mumbai', 'Thane': 'Thane', 'Navi Mumbai': 'Navi_Mumbai', 'India': 'India'}
+TOPICS = [('Web design', 'Web_design'), ('Web development', 'Web_development'), ('UI/UX design', 'User_experience_design'),
+          ('Search engine optimisation', 'Search_engine_optimization'), ('Local SEO', 'Local_search_engine_optimisation'),
+          ('Google Business Profile', None), ('Social media marketing', 'Social_media_marketing'), ('Google Ads', 'Google_Ads'),
+          ('Meta Ads', None), ('Digital marketing', 'Digital_marketing'), ('Generative engine optimisation', 'Generative_engine_optimization')]
+
+
+def place(name, kind='City'):
+    d = {'@type': kind, 'name': name}
+    if name in PLACES: d['sameAs'] = WIKI + PLACES[name]
+    return d
+
+
+def topics():
+    return [{'@type': 'Thing', 'name': n, 'sameAs': WIKI + w} if w else n for n, w in TOPICS]
+
+
 def area_served():
-    """Cities as City, Mumbai neighbourhoods as Place ("Ghatkopar, Mumbai"), then India (remote work)."""
-    return ([{'@type': 'City', 'name': n} if n in CITIES else {'@type': 'Place', 'name': f'{n}, Mumbai'} for n in ENTITY['areaServed']]
-            + [{'@type': 'Country', 'name': 'India'}])
+    """Mumbai first, then Thane and Navi Mumbai (met in person), then India (remote work). Matches the footer line on every page."""
+    return [place(n) for n in ENTITY['areaServed']] + [place('India', 'Country')]
 
 
 def biz_ref(site):
     """Compact node for the business, repeated with the same @id on every page so each page's graph is self-contained."""
-    return {'@type': 'ProfessionalService', '@id': site + '#business', 'name': ENTITY['name'], 'alternateName': ENTITY['alternateName'],
+    # LocalBusiness, not ProfessionalService: schema.org marks ProfessionalService as deprecated (confused with Service).
+    return {'@type': 'LocalBusiness', '@id': site + '#business', 'name': ENTITY['name'], 'alternateName': ENTITY['alternateName'],
             'disambiguatingDescription': ENTITY['disambiguatingDescription'],
             'url': site, 'logo': site + 'icon-512.png', 'image': site + 'og-image.png', 'telephone': ENTITY['phone'], 'email': ENTITY['email'],
             'priceRange': PRICE_RANGE, 'address': ADDRESS, 'founder': {'@id': site + '#mehul'}, 'sameAs': ENTITY['sameAs']}
@@ -52,11 +72,12 @@ def biz_full(site, catalog=None):
     """The full business node (home page): the compact node plus description, areas, languages and the price catalogue."""
     b = dict(biz_ref(site), description=ENTITY['description'], slogan=ENTITY['slogan'], foundingDate=ENTITY['foundingDate'],
              areaServed=area_served(), knowsLanguage=ENTITY['languages'],
-             contactPoint={'@type': 'ContactPoint', 'telephone': ENTITY['phone'], 'email': ENTITY['email'], 'contactType': 'sales',
-                           'areaServed': 'IN', 'availableLanguage': ENTITY['languages']},
-             knowsAbout=['Freelance web design', 'Web design', 'Web development', 'Digital marketing', 'UI/UX design',
-                         'Search engine optimisation', 'Local SEO', 'Google Business Profile', 'Social media marketing', 'Google Ads',
-                         'Meta Ads', 'Generative engine optimisation'])
+             contactPoint=[{'@type': 'ContactPoint', 'telephone': ENTITY['phone'], 'email': ENTITY['email'], 'contactType': 'sales',
+                            'areaServed': 'IN', 'availableLanguage': ENTITY['languages']},
+                           {'@type': 'ContactPoint', 'name': 'WhatsApp', 'contactType': 'customer support',
+                            'url': 'https://wa.me/' + ENTITY['whatsapp'], 'telephone': ENTITY['phone'], 'areaServed': 'IN',
+                            'availableLanguage': ENTITY['languages']}],
+             knowsAbout=topics())
     if catalog: b['hasOfferCatalog'] = catalog
     return b
 
@@ -67,13 +88,13 @@ def person_full(site):
             'jobTitle': FOUNDER['jobTitle'], 'url': site + 'about',
             'description': 'Mumbai-based UI/UX developer-designer who personally designs and builds websites and runs SEO, social media, '
                            'Google and Meta ads and AI search visibility for businesses through U Scale.',
-            'worksFor': {'@id': site + '#business'}, 'homeLocation': {'@type': 'City', 'name': 'Mumbai'},
+            'worksFor': [{'@id': site + '#business'},
+                         {'@type': 'Organization', 'name': 'Apex36 Technologies', 'url': 'https://www.apex36tech.com/'}],
+            'homeLocation': place('Mumbai'),
             'knowsLanguage': ENTITY['languages'], 'sameAs': FOUNDER['sameAs'], 'image': person_image(site),
             'hasCredential': {'@type': 'EducationalOccupationalCredential', 'credentialCategory': 'degree',
                               'name': 'Bachelor of Computer Application (Information Technology)'},
-            'knowsAbout': ['Web design', 'Web development', 'UI/UX design', 'Search engine optimisation', 'Local SEO',
-                           'Google Business Profile', 'Social media marketing', 'Google Ads', 'Meta Ads',
-                           'Generative engine optimisation', 'Figma', 'React.js', 'Tailwind CSS', 'WordPress']}
+            'knowsAbout': topics() + ['Figma', 'React.js', 'Tailwind CSS', 'WordPress']}
 
 
 def person_image(site):
@@ -87,7 +108,9 @@ def person_ref(site):
 
 
 def website_ref(site):
-    return {'@type': 'WebSite', '@id': site + '#website', 'url': site, 'name': 'U Scale', 'inLanguage': 'en-IN', 'publisher': {'@id': site + '#business'}}
+    # name + alternateName are what Google reads for the site name shown in results.
+    return {'@type': 'WebSite', '@id': site + '#website', 'url': site, 'name': 'U Scale', 'alternateName': ['Uscale', 'U Scale by Mehul Karotra'],
+            'inLanguage': 'en-IN', 'publisher': {'@id': site + '#business'}}
 
 
 _LD = re.compile(r'(<script type="application/ld\+json">)(.*?)(</script>)', re.S)
@@ -125,6 +148,10 @@ def complete_graph(html, site):
 
 
 # ---------------------------------------------------------------- prices
+# A monthly price: UN/CEFACT unit code MON (month) plus the readable unit, billed every month.
+MONTHLY = {'unitCode': 'MON', 'unitText': 'MONTH', 'referenceQuantity': {'@type': 'QuantitativeValue', 'value': 1, 'unitCode': 'MON'},
+           'billingDuration': 'P1M'}
+
 def _price(name):
     for n, pr, v in PD.WEBSITES:
         if n == name: return pr, v, '/mo' in pr
@@ -142,7 +169,7 @@ def offers_ld(site, names):
         pr, v, monthly = _price(n)
         spec = {'@type': 'UnitPriceSpecification', 'priceCurrency': 'INR'}
         spec['minPrice' if pr.startswith('from') else 'price'] = v
-        if monthly: spec.update({'unitText': 'MONTH', 'billingDuration': 'P1M'})
+        if monthly: spec.update(MONTHLY)
         o = {'@type': 'Offer', 'name': n, 'priceCurrency': 'INR', 'priceSpecification': spec, 'url': site + 'pricing'}
         if not pr.startswith('from'): o['price'] = v
         out.append(o)
@@ -424,7 +451,7 @@ ABOUT_FAQ = [
     ('Is U Scale an agency or a freelancer?', 'A bit of both. U Scale is one person, Mehul Karotra, working as an independent, contract-based partner. '
      'You get agency-quality design, development and marketing, but you sign with him and talk to him directly. If a project needs a specialist, '
      'like a photographer, he brings them in and stays your single point of contact.'),
-    ('Where is U Scale based?', 'U Scale is based in Ghatkopar West, Mumbai. Mehul meets clients across Mumbai, Thane and Navi Mumbai, and works '
+    ('Where is U Scale based?', 'U Scale is based in Mumbai. Mehul meets clients across Mumbai, Thane and Navi Mumbai, and works '
      'with businesses across India remotely.'),
     ('How do I contact Mehul Karotra?', f'WhatsApp or call {SP.PHONE_D}, or email {SP.EMAIL}. He replies personally within 24 hours, usually much faster on WhatsApp.'),
 ]
@@ -459,7 +486,7 @@ def about_page(ctx, parts):
 {brief_html(ABOUT_ANSWER, ABOUT_FACTS, 'Key facts about Mehul Karotra', 'about-brief')}
 
   <section class="section sp-q sp-q--img" aria-label="Photo">
-    <div class="wrap sp-prose"><figure class="sp-fig sp-fig--portrait"><picture><source type="image/avif" srcset="/{FOUNDER['image'].replace('.webp', '')}-480.avif 480w, /{FOUNDER['image'].replace('.webp', '')}-640.avif 640w, /{FOUNDER['image'].replace('.webp', '')}.avif 1200w" sizes="(max-width: 400px) 100vw, 340px"><img src="/{FOUNDER['image']}" srcset="/{FOUNDER['image'].replace('.webp', '')}-480.webp 480w, /{FOUNDER['image'].replace('.webp', '')}-640.webp 640w, /{FOUNDER['image'].replace('.webp', '')}.webp 1200w" sizes="(max-width: 400px) 100vw, 340px" width="1200" height="1200" alt="Mehul Karotra, website designer and founder of U Scale, based in Ghatkopar West, Mumbai" loading="lazy" decoding="async"></picture><figcaption>Mehul Karotra, founder of U Scale.</figcaption></figure></div>
+    <div class="wrap sp-prose"><figure class="sp-fig sp-fig--portrait"><picture><source type="image/avif" srcset="/{FOUNDER['image'].replace('.webp', '')}-480.avif 480w, /{FOUNDER['image'].replace('.webp', '')}-640.avif 640w, /{FOUNDER['image'].replace('.webp', '')}.avif 1200w" sizes="(max-width: 400px) 100vw, 340px"><img src="/{FOUNDER['image']}" srcset="/{FOUNDER['image'].replace('.webp', '')}-480.webp 480w, /{FOUNDER['image'].replace('.webp', '')}-640.webp 640w, /{FOUNDER['image'].replace('.webp', '')}.webp 1200w" sizes="(max-width: 400px) 100vw, 340px" width="1200" height="1200" alt="Mehul Karotra, website designer and founder of U Scale, based in Mumbai" loading="lazy" decoding="async"></picture><figcaption>Mehul Karotra, founder of U Scale.</figcaption></figure></div>
   </section>
 
   <section class="section" aria-labelledby="what-title">

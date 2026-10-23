@@ -18,7 +18,7 @@ export const ICON_CALENDAR =
 
 // Same @id as the static pages (#business), so the blog and the site describe one entity.
 export const ORGANIZATION = {
-  '@type': 'ProfessionalService',
+  '@type': 'LocalBusiness', // not ProfessionalService: schema.org marks that type deprecated
   '@id': abs('#business'),
   name: ENTITY.name,
   alternateName: ENTITY.alternateName,

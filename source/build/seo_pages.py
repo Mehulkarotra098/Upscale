@@ -141,7 +141,9 @@ def offer_catalog(site):
         if price is not None:
             spec = {'@type': 'UnitPriceSpecification', 'priceCurrency': 'INR'}
             spec['minPrice' if minimum else 'price'] = price
-            if monthly: spec.update({'unitText': 'MONTH', 'billingDuration': 'P1M'})
+            if monthly:
+                import aeo
+                spec.update(aeo.MONTHLY)
             o['priceSpecification'] = spec
             if not minimum: o['price'] = price
         if desc: o['description'] = desc
@@ -153,11 +155,17 @@ def offer_catalog(site):
 
 def home_jsonld(site, faq):
     import aeo
-    biz = aeo.biz_full(site, offer_catalog(site))
+    # The full price list is marked up on /pricing, where every price is on screen; the home page only shows some of them,
+    # so the business points at that catalogue by @id instead of repeating 32 offers that aren't visible here.
+    biz = aeo.biz_full(site, {'@id': site + 'pricing#prices'})
+    desc = re.search(r'<meta name="description" content="([^"]+)"', (config.REPO / 'source' / 'src' / 'index.src.html').read_text(encoding='utf-8')).group(1)
     person = aeo.person_full(site)
-    website = {'@type': 'WebSite', '@id': site + '#website', 'url': site, 'name': 'U Scale', 'inLanguage': 'en-IN', 'publisher': {'@id': site + '#business'}}
+    website = dict(aeo.website_ref(site), description=desc)
     page = {'@type': 'WebPage', '@id': site + '#webpage', 'url': site, 'name': 'Freelance Web Designer & Digital Marketer in Mumbai | U Scale',
-            'isPartOf': {'@id': site + '#website'}, 'about': {'@id': site + '#business'}, 'primaryImageOfPage': site + 'og-image.png', 'inLanguage': 'en-IN', 'dateModified': '__LASTMOD__'}
+            'description': desc, 'isPartOf': {'@id': site + '#website'}, 'about': {'@id': site + '#business'},
+            'primaryImageOfPage': {'@type': 'ImageObject', '@id': site + '#og-image', 'url': site + 'og-image.png', 'contentUrl': site + 'og-image.png',
+                                   'width': 1200, 'height': 630, 'caption': 'U Scale by Mehul Karotra: web design and digital marketing in Mumbai'},
+            'inLanguage': 'en-IN', 'dateModified': '__LASTMOD__'}
     faqp = {'@type': 'FAQPage', '@id': site + '#faq', 'mainEntity': [{'@type': 'Question', 'name': q, 'acceptedAnswer': {'@type': 'Answer', 'text': a}} for q, a in faq]}
     return json.dumps({'@context': 'https://schema.org', '@graph': [website, page, biz, person, faqp]}, ensure_ascii=False, separators=(',', ':'))
 
@@ -313,7 +321,7 @@ def service_page(ctx, s, parts):
   <section class="cta sp-cta" id="contact" aria-labelledby="cta-title">
     <div class="wrap">
       <div class="panel on-dark" data-tone="dark">
-        <span class="grain" aria-hidden="true"></span>
+        
         <div class="cta__copy">
           <h2 class="sp-cta__title" id="cta-title">Let's talk about your {e(s['short'].lower())}<span class="dot">.</span></h2>
           <p class="lead">Tell me what you need. I reply within 24 hours, usually much faster on WhatsApp.</p>
@@ -699,7 +707,7 @@ def tool_page(ctx, parts, tv):
   <section class="cta sp-cta" id="contact" aria-labelledby="cta-title">
     <div class="wrap">
       <div class="panel on-dark" data-tone="dark">
-        <span class="grain" aria-hidden="true"></span>
+        
         <div class="cta__copy">
           <h2 class="sp-cta__title" id="cta-title">Want more customers from Google<span class="dot">.</span></h2>
           <p class="lead">I check your Google profile, reviews and website for free and send you the five fixes that matter most.</p>
@@ -964,7 +972,7 @@ def gbp_page(ctx, parts, tv):
   <section class="cta sp-cta" id="contact" aria-labelledby="cta-title">
     <div class="wrap">
       <div class="panel on-dark" data-tone="dark">
-        <span class="grain" aria-hidden="true"></span>
+        
         <div class="cta__copy">
           <h2 class="sp-cta__title" id="cta-title">Want your Google profile fixed for you<span class="dot">.</span></h2>
           <p class="lead">I set up and run Google profiles for Mumbai businesses: categories, photos, weekly posts, a review system and a website that matches.</p>
