@@ -701,7 +701,10 @@ _VER = {}
 def vurl(path):
     """'/assets/x.webp' -> '/assets/x.webp?v=1a2b3c4d' (hash of that exact file in source/static, cached per build)."""
     if path not in _VER:
-        _VER[path] = hashlib.sha1((_STATIC / path.lstrip('/')).read_bytes()).hexdigest()[:8]
+        f = _STATIC / path.lstrip('/')
+        if not f.is_file():
+            return path  # build_site.py's image guard then stops the build with a clear message
+        _VER[path] = hashlib.sha1(f.read_bytes()).hexdigest()[:8]
     return f'{path}?v={_VER[path]}'
 
 
