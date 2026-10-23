@@ -3,8 +3,14 @@
 Why these pages exist (GEO): people now ask ChatGPT, Gemini, Perplexity and Google AI Mode things like "who makes
 restaurant websites with online ordering in Mumbai" or "website designer in Ghatkopar". Answer engines quote pages
 that answer that exact question near the top, back it with hard facts (prices, timelines, sources), and describe the
-same business the same way everywhere. Each page here follows the site's answer-first pattern (aeo.py): an "In short"
+same business the same way everywhere. Each page follows the site's answer-first pattern (aeo.py): an "In short"
 answer, a key-facts table, question-shaped sections, an FAQ, linked sources and a connected schema graph.
+
+Who reads them (design brief): owner-operators of small Mumbai businesses, on a phone, between customers. They
+fear hidden costs, templates sold as custom work and agencies that vanish after the advance. So every page shows a
+real face, a fixed rupee price, "you own the domain and logins" and a one-tap WhatsApp first step, and turns facts
+into things you can scan: cards, a calculator, range charts and checklists, all plain HTML/CSS/SVG (no chart
+libraries, no extra requests). Headings use the words people actually type (Google autocomplete, Oct 2026).
 
 Rules for adding a page:
   * only real work: a business type U Scale sells (with a published price) or an area where Mehul actually is or works,
@@ -27,6 +33,11 @@ def price(name):
     return aeo._price(name)[0]
 
 
+def rupees(name):
+    """Pricing-data price as an int (₹55,000 → 55000)."""
+    return int(re.sub(r'\D', '', price(name).split('/')[0]))
+
+
 def url_of(site, p):
     return f'{site}services/{BASE}/{p["slug"]}'
 
@@ -35,6 +46,49 @@ def _link(href, text):
     ext = href.startswith('http')
     return (f'<a class="tlink" href="{ea(href)}"' + (' target="_blank" rel="noopener"' if ext else '') + f'>{e(text)}</a>'
             + ('<span class="sr-only"> (opens in a new tab)</span>' if ext else ''))
+
+
+# ---------------------------------------------------------------- icons (24px line icons, drawn for this site)
+_IC = {
+    'check': '<path d="M5 12.5l4.2 4.2L19 7"/>',
+    'chat': '<path d="M20 11.5a7.5 7.5 0 01-11 6.6L4 19.5l1.4-4.6A7.5 7.5 0 1120 11.5z"/>',
+    'menu': '<rect x="5" y="3.5" width="14" height="17" rx="2.5"/><path d="M9 8h6M9 12h6M9 16h4"/>',
+    'cart': '<path d="M3.5 4.5h2.2l2.1 10.2a1.5 1.5 0 001.5 1.2h7.9a1.5 1.5 0 001.5-1.2L20 8H6.5"/><circle cx="9.5" cy="19.5" r="1.2"/><circle cx="17" cy="19.5" r="1.2"/>',
+    'pin': '<path d="M12 21s-6.5-6-6.5-11a6.5 6.5 0 0113 0c0 5-6.5 11-6.5 11z"/><circle cx="12" cy="10" r="2.4"/>',
+    'clock': '<circle cx="12" cy="12" r="8.5"/><path d="M12 7.5V12l3 2"/>',
+    'search': '<circle cx="11" cy="11" r="6.5"/><path d="M16 16l4.5 4.5"/>',
+    'card': '<rect x="3" y="5.5" width="18" height="13" rx="2.5"/><path d="M3 10h18M7 15h3"/>',
+    'qr': '<rect x="4" y="4" width="6" height="6" rx="1"/><rect x="14" y="4" width="6" height="6" rx="1"/><rect x="4" y="14" width="6" height="6" rx="1"/><path d="M14 14h2v2h-2zM18 18h2v2h-2zM14 18v2M18 14h2"/>',
+    'camera': '<path d="M4 8.5A2.5 2.5 0 016.5 6h1.8l1.4-2h4.6l1.4 2h1.8A2.5 2.5 0 0120 8.5v9a2.5 2.5 0 01-2.5 2.5h-11A2.5 2.5 0 014 17.5z"/><circle cx="12" cy="12.5" r="3.5"/>',
+    'globe': '<circle cx="12" cy="12" r="8.5"/><path d="M3.5 12h17M12 3.5c2.5 2.6 3.5 5.4 3.5 8.5s-1 5.9-3.5 8.5c-2.5-2.6-3.5-5.4-3.5-8.5s1-5.9 3.5-8.5z"/>',
+    'tag': '<path d="M3.5 12.2V4.5a1 1 0 011-1h7.7l8.3 8.3a1.5 1.5 0 010 2.1l-6.6 6.6a1.5 1.5 0 01-2.1 0z"/><circle cx="8" cy="8" r="1.4"/>',
+    'shield': '<path d="M12 3.5l7 2.8v5.2c0 4.3-3 7.7-7 9-4-1.3-7-4.7-7-9V6.3z"/><path d="M9 12l2.2 2.2L15.5 10"/>',
+    'rupee': '<path d="M7 4.5h10M7 9h10M7 4.5h3.5a4.5 4.5 0 010 9H7l7.5 6"/>',
+    'user': '<circle cx="12" cy="8.5" r="3.8"/><path d="M4.5 20c.9-3.6 3.9-5.8 7.5-5.8s6.6 2.2 7.5 5.8"/>',
+    'layers': '<path d="M12 4l8.5 4.5L12 13 3.5 8.5z"/><path d="M3.5 12.5L12 17l8.5-4.5M3.5 16.5L12 21l8.5-4.5"/>',
+    'pen': '<path d="M4 20l1-4.5L16 4.5a2.1 2.1 0 013 3L8 18.5z"/><path d="M14 6.5l3 3"/>',
+    'bolt': '<path d="M13 3.5L5.5 13.5H12l-1 7 7.5-10H12z"/>',
+    'box': '<path d="M3.5 7.5L12 3.5l8.5 4v9L12 20.5l-8.5-4z"/><path d="M3.5 7.5L12 11.5l8.5-4M12 11.5v9"/>',
+    'phone': '<rect x="7" y="3" width="10" height="18" rx="2.5"/><path d="M11 18h2"/>',
+    'refresh': '<path d="M19.5 12a7.5 7.5 0 11-2.2-5.3M19.5 4.5v4h-4"/>',
+    'alert': '<path d="M12 4l9 15.5H3z"/><path d="M12 10v4M12 17v.01"/>',
+    'unlink': '<path d="M9.5 14.5l-1.8 1.8a3 3 0 01-4.2-4.2l1.8-1.8M14.5 9.5l1.8-1.8a3 3 0 014.2 4.2l-1.8 1.8M8 8L5 5M16 16l3 3"/>',
+    'star': '<path d="M12 3.8l2.5 5.2 5.7.8-4.1 4 1 5.6L12 16.7l-5.1 2.7 1-5.6-4.1-4 5.7-.8z"/>',
+    'store': '<path d="M4 9.5V20h16V9.5M3 9.5l1.6-5h14.8l1.6 5a2.5 2.5 0 01-4.5 1.5 2.5 2.5 0 01-4.5 0 2.5 2.5 0 01-4.5 0A2.5 2.5 0 013 9.5z"/><path d="M10 20v-5h4v5"/>',
+    'truck': '<path d="M3 6.5h11v9H3zM14 10h3.5l3 3v2.5H14"/><circle cx="7" cy="17.5" r="1.8"/><circle cx="17" cy="17.5" r="1.8"/>',
+    'calendar': '<rect x="4" y="5" width="16" height="15" rx="2.5"/><path d="M4 9.5h16M8.5 3v4M15.5 3v4"/>',
+    'photo': '<rect x="3.5" y="5" width="17" height="14" rx="2.5"/><circle cx="9" cy="10" r="1.6"/><path d="M20.5 15.5l-5-5-9 8.5"/>',
+    'key': '<circle cx="8" cy="15" r="3.5"/><path d="M10.5 12.5L19 4M16 7l2.5 2.5M14 9l1.5 1.5"/>',
+    'file': '<path d="M6.5 3.5h7l4 4v13h-11z"/><path d="M13.5 3.5v4h4M9 12.5h6M9 16h6"/>',
+    'arrow': '<path d="M7 17L17 7M9 7h8v8"/>',
+    'map': '<path d="M3.5 6.5l5.5-2.5 6 2.5 5.5-2.5v13.5L15 20l-6-2.5-5.5 2.5z"/><path d="M9 4v13.5M15 6.5V20"/>',
+    'team': '<circle cx="9" cy="9" r="3"/><circle cx="17" cy="10" r="2.4"/><path d="M3.5 19c.6-3 2.8-4.8 5.5-4.8s4.9 1.8 5.5 4.8M15 14.6c2.4-.3 4.6 1.2 5.5 4.4"/>',
+}
+
+
+def icon(k, cls='fp-ic'):
+    return (f'<svg class="{cls}" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" '
+            f'stroke-linejoin="round" aria-hidden="true" focusable="false">{_IC[k]}</svg>')
 
 
 # ---------------------------------------------------------------- sources (linked, dated)
@@ -59,49 +113,83 @@ GUIDES_NOTE = ('Market ranges come from 16 website price guides published by Mum
                'compared by U Scale in October 2026; they overlap rather than agree.')
 
 
-def sources_html(keys):
-    items = ''.join(f'<li>{_link(SRC[k][2], SRC[k][1])} <span>· {e(SRC[k][0])}</span></li>' for k in keys)
-    return f'<h3>Sources</h3><ul class="sp-sources">{items}</ul>'
+def src_chip(k):
+    return f'<a class="fp-src" href="{ea(SRC[k][2])}" target="_blank" rel="noopener">Source: {e(SRC[k][0])}<span class="sr-only"> (opens in a new tab)</span></a>'
 
 
-def bullets(items):
-    return '<ul class="sp-bullets">' + ''.join(f'<li>{x}</li>' for x in items) + '</ul>'
+# ---------------------------------------------------------------- content blocks
+# Each block is a dict with a 't' (type). render(block) → HTML; text(block) → plain text for llms-full.txt.
+def P(*paras):            return dict(t='p', paras=paras)
+def Cards(items, cols=3, numbered=False, tone=''):  # items: (icon or None, title, text html)
+    return dict(t='cards', items=items, cols=cols, numbered=numbered, tone=tone)
+def Stat(big, label, src):  return dict(t='stat', big=big, label=label, src=src)
+def Note(text):           return dict(t='note', text=text)
+def Check(items):         return dict(t='check', items=items)
+def Table(head, rows, caption): return dict(t='table', head=head, rows=rows, caption=caption)
+def Options(items, note=''):    return dict(t='options', items=items, note=note)  # items: dict(name, tag, rows, hi)
+def Range(rows, marks, ticks, unit_note=''): return dict(t='range', rows=rows, marks=marks, ticks=ticks, note=unit_note)
+def Durations(rows, scale, label): return dict(t='dur', rows=rows, scale=scale, label=label)
+def Links(items):         return dict(t='links', items=items)  # (href, icon, title, text, price)
+def Chips(items, label):  return dict(t='chips', items=items, label=label)
+def Svg(key):             return dict(t='svg', key=key)
+def Calc():               return dict(t='calc')
+def Tools(lang='en'):     return dict(t='tools', lang=lang)
 
 
-def table(head, rows, caption):
-    th = ''.join(f'<th scope="col">{e(h)}</th>' for h in head)
-    body = ''.join('<tr><th scope="row">' + e(r[0]) + '</th>' + ''.join(f'<td>{e(c)}</td>' for c in r[1:]) + '</tr>' for r in rows)
-    wide = ' sp-compare--wide' if len(head) > 3 else ''
-    return f'<div class="sp-tablewrap"><table class="sp-compare{wide}"><caption class="sr-only">{e(caption)}</caption><thead><tr>{th}</tr></thead><tbody>{body}</tbody></table></div>'
+def Sec(h, *blocks, eyebrow='', lead='', layout='split', tone='', sid=''):
+    return dict(h=h, blocks=blocks, eyebrow=eyebrow, lead=lead, layout=layout, tone=tone, sid=sid)
 
 
+def _fmt(n):
+    """₹ in Indian digit grouping: 200000 → ₹2,00,000."""
+    s = str(int(round(n)))
+    if len(s) > 3:
+        head, tail = s[:-3], s[-3:]
+        head = re.sub(r'(\d)(?=(\d\d)+$)', r'\1,', head)
+        s = head + ',' + tail
+    return '₹' + s
+
+
+def _short(n):
+    """₹ in Indian shorthand: 25000 → ₹25k, 200000 → ₹2L."""
+    return f'₹{n / 100000:g}L' if n >= 100000 else f'₹{n // 1000}k'
+
+
+# ---------------------------------------------------------------- the pages
 WEB_PRICES = (f'Landing page {price("Landing page")} · Business site, 3–4 pages {price("Business site, 3–4 pages")} · '
               f'5–10 pages + blog {price("Business site, 5–10 pages + blog")} · Online store from {price("E-commerce, under 50 products")}')
 INCLUDED = 'mobile-first design, enquiry forms, basic SEO, Google Maps, social links, 2–3 revision rounds and a 15–30 day bug-fix window'
-SVC_LINKS = bullets([
-    _link('/services/website-design-mumbai', 'Website design and development') + ': designed in Figma, hand-coded, fixed price.',
-    _link('/services/seo-mumbai', 'Google Business Profile and local SEO') + f': {price("Local SEO / Google Business Profile")}.',
-    _link('/services/social-media-management-mumbai', 'Social media management') + ': posts, reels and a monthly calendar.',
-    _link('/services/ai-search-visibility', 'AI search visibility') + ': getting named when people ask ChatGPT or Gemini.',
-])
-TOOLS = bullets([
-    _link('/tools/google-business-profile-checker', 'Free Google Business Profile checker') + ': a score out of 100 and a fix list in about two minutes.',
-    _link('/tools/google-review-qr-code', 'Free Google review QR code maker') + ': a printable counter standee that brings in reviews.',
-])
+
+
+def svc_links(extra=()):
+    return Links([
+        ('/services/website-design-mumbai', 'globe', 'Website design and development', 'Designed in Figma, hand-coded, fixed price.', f'From {price("Landing page")}'),
+        ('/services/seo-mumbai', 'pin', 'Google Business Profile and local SEO', 'Show up in the map pack when people nearby search.', price('Local SEO / Google Business Profile')),
+        ('/services/social-media-management-mumbai', 'camera', 'Social media management', 'Posts, reels and a monthly calendar.', ''),
+        ('/services/ai-search-visibility', 'bolt', 'AI search visibility', 'Getting named when people ask ChatGPT or Gemini.', ''),
+        *extra])
+
+
 MAPS_FAQ = ('Verify your Google Business Profile, choose the most specific primary category, keep hours, phone, photos and services complete, '
             'earn genuine reviews every week and reply to them, and show the same name, phone number and area on your website. Google ranks '
             'local results on relevance, distance and prominence, and nobody can change how far a searcher is from you.')
+RANKING = Cards([
+    ('search', 'Relevance', 'How well your listing and website match the search. <b>You control it:</b> categories, services, the words on your site.'),
+    ('pin', 'Distance', 'How far you are from the person searching. <b>Nobody can change it</b>, which is why the other two matter.'),
+    ('star', 'Prominence', 'How well known you are, judged partly from reviews and from the web. <b>You build it:</b> reviews, replies, links, mentions.'),
+], cols=3)
 
-# ---------------------------------------------------------------- the pages
 _rest_saving = 50000 * 20 // 100 - round(50000 * 0.0236)  # ₹10,000 commission vs ₹1,180 gateway fee on ₹50,000 of direct orders
 PAGES = [
  dict(slug='restaurants-cafes', kind='business', crumb='Restaurants & cafés', service='Restaurant and café website design with online ordering',
+  card='Your own menu and online ordering, so regulars stop paying the apps’ commission.',
   title='Restaurant Website with Online Ordering, Mumbai | U Scale',
-  desc='Your own restaurant or café website with menu and online ordering, so regulars order direct, not through an app that takes 20–25%. '
-       f'Fixed {price("Restaurant site + own online ordering")}, by Mehul Karotra.',
+  desc='Restaurant or café website with your menu and your own online ordering, so regulars order direct, not via an app that takes 20–25%. '
+       f'Fixed {price("Restaurant site + own online ordering")}.',
   h1='Restaurant & café websites with online ordering', eyebrow='Websites by business',
-  lead='Your menu, photos, timings and your own online ordering, on a website you own. Regulars order directly from you instead of through '
-       f'an app that keeps a share of every order. Designed and built by me, Mehul Karotra, for a fixed {price("Restaurant site + own online ordering")}.',
+  lead='Your menu and your own online ordering, on a website you own. Regulars order from you directly, not through an app that keeps a share of every order.',
+  stats=[(price('Restaurant site + own online ordering'), 'Fixed price'), ('0%', 'App commission on direct orders'), ('4–8 wk', 'To go live')],
+  art=dict(kind='img', img='rest', chips=[('cart', 'New order · ₹190 · paid by UPI'), ('check', '0% app commission')]),
   answer='U Scale builds restaurant and café websites in Mumbai with the menu, photos, timings and the restaurant’s own online ordering, for a '
          f'fixed {price("Restaurant site + own online ordering")}. Orders placed on your own website carry no delivery-app commission: you pay only '
          'the payment gateway fee, about 2% plus GST on a standard plan. Most restaurants keep Zomato and Swiggy for new customers and move '
@@ -115,35 +203,34 @@ PAGES = [
          ('Payment', '20% to start, 20% on design sign-off, 60% on launch'),
          ('Care plan', f'Updates, backups and security {price("Care plan: updates, backups, security")}, optional')],
   sections=[
-   ('How much do Zomato and Swiggy really cost a restaurant?',
-    '<p>Restaurants typically pay established delivery platforms a commission of 20–25% of the order value, according to Sagar Daryani, '
-    'president of the National Restaurant Association of India (NRAI), in October 2026. Paid placements on the apps come on top. Newer '
-    'platforms are pitching lower rates: Flipkart has reportedly proposed a base commission of around 10% for its food delivery launch.</p>'
-    '<p>Your own website does not replace the apps. They are where new customers discover you. A website gives the people who already know '
-    'you, your regulars, a way to order from you directly.</p>'),
-   ('What ordering direct can save: a worked example',
-    table(['Example café', 'Amount'], [
-        ('Orders through delivery apps, per month', '₹2,00,000'),
-        ('Regulars who switch to ordering on your website', '25%, so ₹50,000 of orders'),
-        ('App commission on those orders at 20%', '₹10,000 a month'),
-        ('Payment gateway fee on your own site (2% + 18% GST = 2.36%)', '₹1,180 a month'),
-        ('Kept by you every month', f'₹{_rest_saving:,}'),
-        ('Website + ordering, one-time', f'{price("Restaurant site + own online ordering")}, paid back in about 10 months'),
-    ], 'Worked example: commission saved by moving regulars to direct ordering')
-    + '<p class="sp-note">An illustration with round numbers, not a promise: use your own monthly app sales and commission rate. The apps’ '
-      'commission also pays for their riders, so for delivered orders subtract what your own rider or delivery partner costs. For takeaway '
-      'and pre-orders, the saving is the full difference.</p>'),
-   ('What your restaurant website includes',
-    bullets(['Your menu with prices and photos, readable on a phone and kept current.',
-             'Online ordering for takeaway or delivery, with payment by UPI, card or netbanking through a payment gateway.',
-             'Table, party and catering enquiries straight to your WhatsApp.',
-             'Timings, a location map and a one-tap call button.',
-             'Basic SEO and structured data, so Google and AI assistants can read your menu, timings and location correctly.',
-             f'As on every U Scale site: {INCLUDED}.'])),
-   ('How customers find your ordering link',
-    bullets(['Your Google Business Profile: outside the US, restaurants can add their own “Place an order” link, which shows on Google Search and Maps.',
-             'Your Instagram bio and WhatsApp Business profile.',
-             'A QR code on menus, bills and takeaway bags.'])),
+   Sec('How much do Zomato and Swiggy really cost a restaurant?',
+       Stat('20–25%', 'of the order value: what restaurants typically pay established delivery apps in commission', 'nrai'),
+       P('Restaurants typically pay established delivery platforms a commission of 20–25% of the order value, according to Sagar Daryani, '
+         'president of the National Restaurant Association of India (NRAI), in October 2026. Paid placements on the apps come on top. Newer '
+         'platforms are pitching lower rates: Flipkart has reportedly proposed a base commission of around 10% for its food delivery launch.',
+         'Your own website does not replace the apps. They are where new customers discover you. A website gives the people who already know '
+         'you, your regulars, a way to order from you directly.'),
+       eyebrow='The commission'),
+   Sec('Zomato & Swiggy commission calculator: what ordering direct can save',
+       Calc(),
+       Note('An illustration with round numbers, not a promise: use your own monthly app sales and commission rate. The apps’ commission also '
+            'pays for their riders, so for delivered orders subtract what your own rider or delivery partner costs. For takeaway and pre-orders, '
+            'the saving is the full difference.'),
+       eyebrow='Worked example', lead='Move your regulars to your own ordering link and keep the commission. Change the numbers to match your restaurant.',
+       layout='wide', tone='dark', sid='calculator'),
+   Sec('What your restaurant website includes',
+       Cards([('menu', 'Your menu, always current', 'Prices and photos, readable on a phone and easy to update.'),
+              ('cart', 'Online ordering', 'Takeaway or delivery, with payment by UPI, card or netbanking through a payment gateway.'),
+              ('chat', 'Enquiries on WhatsApp', 'Table, party and catering enquiries go straight to your WhatsApp.'),
+              ('clock', 'Timings, map, one-tap call', 'Everything someone needs before they walk in or call.'),
+              ('search', 'Readable by Google and AI', 'Basic SEO and structured data, so Google and AI assistants read your menu, timings and location correctly.'),
+              ('check', 'Everything else, included', f'As on every U Scale site: {INCLUDED}.')], cols=3),
+       eyebrow='Included', layout='wide'),
+   Sec('How customers find your ordering link',
+       Cards([('pin', 'Your Google Business Profile', 'Outside the US, restaurants can add their own “Place an order” link, which shows on Google Search and Maps.'),
+              ('camera', 'Instagram and WhatsApp', 'Your Instagram bio and your WhatsApp Business profile.'),
+              ('qr', 'A QR code', 'On menus, bills and takeaway bags, so the next order comes to you.')], cols=3, numbered=True, tone='band'),
+       eyebrow='Getting orders', layout='wide', tone='band'),
   ],
   faq=[('How much does a restaurant website with online ordering cost in Mumbai?',
         f'With U Scale, a restaurant or café website with its own online ordering is {price("Restaurant site + own online ordering")}, fixed and agreed in '
@@ -170,12 +257,14 @@ PAGES = [
   work=[]),
 
  dict(slug='boutiques-fashion', kind='business', crumb='Boutiques & fashion', service='Website design for boutiques and fashion labels',
-  title='Boutique & Clothing Store Website Design in Mumbai | U Scale',
-  desc='Websites for Mumbai boutiques and fashion labels: a catalogue with WhatsApp orders, or a full online store from '
-       f'{price("E-commerce, under 50 products")}. Designed and hand-coded by Mehul Karotra.',
-  h1='Websites for boutiques and fashion labels', eyebrow='Websites by business',
-  lead='A catalogue your Instagram followers can browse properly, product pages Google can find, and orders on WhatsApp or online. '
-       'Designed in Figma and hand-coded by me, Mehul Karotra, at a fixed price.',
+  card='A catalogue with “Order on WhatsApp” on every product, or a full online store.',
+  title='Boutique & Clothing Store Website Design, Mumbai | U Scale',
+  desc='Websites for Mumbai boutiques and clothing stores: a catalogue with WhatsApp orders, or a full online store from '
+       f'{price("E-commerce, under 50 products")}. Designed by Mehul Karotra.',
+  h1='Boutique & clothing store websites', eyebrow='Websites by business',
+  lead='A catalogue your Instagram followers can browse properly, product pages Google can find, and orders on WhatsApp or online. Fixed price.',
+  stats=[(price('Business site, 3–4 pages'), 'Catalogue site, from'), (price('E-commerce, under 50 products'), 'Online store, under 50 products'), ('1 tap', 'From product to WhatsApp order')],
+  art=dict(kind='img', img='bout', chips=[('chat', 'Order on WhatsApp'), ('tag', 'Size M · ₹3,450')]),
   answer='U Scale designs and builds websites for boutiques, saree shops and fashion labels in Mumbai: a catalogue site with an “Order on WhatsApp” '
          f'button on every product, or a full online store with cart and payments from {price("E-commerce, under 50 products")} for under 50 products. '
          'Every product gets its own page, so it can be found on Google and listed for free across Google Search, Images, Lens and the Shopping tab '
@@ -188,28 +277,40 @@ PAGES = [
          ('Ownership', 'Your domain, product pages, code and customer list stay yours'),
          ('Related work', 'Sashe by Prachi, a bespoke fashion label in Mumbai')],
   sections=[
-   ('Do I need a website if I already sell on Instagram and WhatsApp?',
-    '<p>Instagram is where people discover your designs. A website is where they check you are real, browse everything in one place and find '
-    'you again later. When someone searches Google for a style near them, most of what they see is websites, Google Business Profiles and '
-    'product listings; a few Instagram posts can appear too (' + _link('/blog/instagram-posts-google-search-seo', 'how that works') + '), but your '
-    'whole catalogue does not. A website also keeps your catalogue safe if your account is restricted or reach drops.</p>'),
-   ('List your products on Google for free',
-    '<p>Google Merchant Center lets shops list products for free across Google Search, the Shopping tab, Google Images, Google Lens, Maps and the '
-    'products section of a Business Profile. It needs a product page on your own website for every item, with price and availability, and '
-    'shipping details for India. Google does not promise that every product is shown.</p>'),
-   ('Catalogue with WhatsApp orders, or a full online store?',
-    table(['', 'Catalogue + WhatsApp', 'Online store'], [
-        ('Best for', 'Made-to-order, bespoke and try-before-you-buy', 'Ready stock with fixed sizes and prices'),
-        ('How people order', 'Tap “Order on WhatsApp” on a product, then you confirm size, fit and delivery in the chat', 'Add to cart and pay at checkout'),
-        ('Payments', 'UPI or a payment link once you confirm', 'UPI, cards and netbanking at checkout, with a gateway fee per order'),
-        ('Price with U Scale', f'From {price("Business site, 3–4 pages")}, priced by pages', f'{price("E-commerce, under 50 products")} under 50 products; {price("E-commerce, 50–500 products")} for 50–500'),
-    ], 'Catalogue website compared with an online store')),
-   ('What every boutique website includes',
-    bullets(['A page for every product: photos, fabric, sizes and price.',
-             'WhatsApp and call buttons on every page, for the questions people ask before they buy.',
-             'Store timings and a Google Map, for people who want to visit and try.',
-             'Basic SEO and product structured data, so Google and AI assistants read your catalogue correctly.',
-             f'As on every U Scale site: {INCLUDED}.'])),
+   Sec('Do I need a website if I already sell on Instagram and WhatsApp?',
+       P('Instagram is where people discover your designs. A website is where they check you are real, browse everything in one place and find '
+         'you again later. When someone searches Google for a style near them, most of what they see is websites, Google Business Profiles and '
+         'product listings; a few Instagram posts can appear too (' + _link('/blog/instagram-posts-google-search-seo', 'how that works') + '), but your '
+         'whole catalogue does not. A website also keeps your catalogue safe if your account is restricted or reach drops.'),
+       Cards([('camera', 'Instagram', 'Where people discover your designs.'),
+              ('globe', 'Your website', 'Where they check you are real and browse everything.'),
+              ('search', 'Google', 'Where they find you again, and find your products.')], cols=3, numbered=True),
+       eyebrow='Instagram vs website'),
+   Sec('List your products on Google for free',
+       P('Google Merchant Center lets shops list products for free across Google Search, the Shopping tab, Google Images, Google Lens, Maps and the '
+         'products section of a Business Profile. It needs a product page on your own website for every item, with price and availability, and '
+         'shipping details for India. Google does not promise that every product is shown.'),
+       Chips(['Google Search', 'Shopping tab', 'Google Images', 'Google Lens', 'Google Maps', 'Business Profile'], 'Where free listings can show'),
+       eyebrow='Free listings', tone='band'),
+   Sec('Catalogue with WhatsApp orders, or a full online store?',
+       Options([dict(name='Catalogue + WhatsApp', tag='Made-to-order & bespoke', rows=[
+                    ('Best for', 'Made-to-order, bespoke and try-before-you-buy'),
+                    ('How people order', 'Tap “Order on WhatsApp” on a product, then you confirm size, fit and delivery in the chat'),
+                    ('Payments', 'UPI or a payment link once you confirm'),
+                    ('Price with U Scale', f'From {price("Business site, 3–4 pages")}, priced by pages')]),
+                dict(name='Online store', tag='Ready stock', hi=True, rows=[
+                    ('Best for', 'Ready stock with fixed sizes and prices'),
+                    ('How people order', 'Add to cart and pay at checkout'),
+                    ('Payments', 'UPI, cards and netbanking at checkout, with a gateway fee per order'),
+                    ('Price with U Scale', f'{price("E-commerce, under 50 products")} under 50 products; {price("E-commerce, 50–500 products")} for 50–500')])]),
+       eyebrow='Choose your model', layout='wide'),
+   Sec('What every boutique website includes',
+       Cards([('tag', 'A page for every product', 'Photos, fabric, sizes and price, on its own page Google can find.'),
+              ('chat', 'WhatsApp and call buttons', 'On every page, for the questions people ask before they buy.'),
+              ('pin', 'Store timings and a map', 'For people who want to visit and try.'),
+              ('search', 'Readable by Google and AI', 'Basic SEO and product structured data, so Google and AI assistants read your catalogue correctly.'),
+              ('check', 'Everything else, included', f'As on every U Scale site: {INCLUDED}.')], cols=3),
+       eyebrow='Included', layout='wide'),
   ],
   faq=[('How much does a boutique website cost in Mumbai?',
         f'With U Scale, a catalogue website with WhatsApp ordering starts at {price("Business site, 3–4 pages")} and is priced by pages after a free audit. '
@@ -228,13 +329,15 @@ PAGES = [
   work=['sashe']),
 
  dict(slug='ghatkopar', kind='area', crumb='Ghatkopar', service='Website design and local SEO in Ghatkopar',
+  card='A website designer based in Ghatkopar West, who can meet you at your shop.',
   places=['Ghatkopar', 'Vikhroli', 'Kurla', 'Chembur', 'Powai', 'Mulund'],
-  title='Website Designer in Ghatkopar, Mumbai | U Scale by Mehul',
-  desc='A web designer based in Ghatkopar West: websites from ₹25,000, plus Google Business Profile and local SEO for Ghatkopar businesses, '
-       'by Mehul Karotra. Free audit.',
-  h1='Website designer in Ghatkopar', eyebrow='Near you',
-  lead='I’m Mehul Karotra, a website designer and digital marketer based in Ghatkopar West. I design and build websites, set up Google '
-       'Business Profiles and run local SEO for businesses in Ghatkopar and the areas around it, and I can come to your shop or office to talk it through.',
+  title='Website Designer & Developer in Ghatkopar, Mumbai | U Scale',
+  desc='Website designer and developer based in Ghatkopar West: websites from ₹25,000, plus Google listings and local SEO for Ghatkopar '
+       'businesses. Free audit.',
+  h1='Website designer & developer in Ghatkopar', eyebrow='Near you',
+  lead='I’m Mehul Karotra, based in Ghatkopar West. I design and build websites and run Google listings and local SEO for businesses here, and I can come to your shop to talk it through.',
+  stats=[(price('Landing page'), 'Websites from'), ('₹15,000', 'Local SEO, a month'), ('Free', 'Audit at your shop')],
+  art=dict(kind='portrait', chips=[('pin', 'Ghatkopar West, Mumbai'), ('chat', 'Replies on WhatsApp')]),
   answer='U Scale is Mehul Karotra, a freelance website designer and digital marketer based in Ghatkopar West, Mumbai. He designs and hand-codes '
          f'websites at fixed prices (a landing page {price("Landing page")}, a 3–4 page business site {price("Business site, 3–4 pages")}) and runs '
          'Google Business Profile and local SEO work for businesses in Ghatkopar, Vikhroli, Kurla, Chembur, Powai and Mulund. Every project starts '
@@ -247,13 +350,20 @@ PAGES = [
          ('Free audit', 'Your website, Google listing and Instagram, checked before you pay anything'),
          ('Languages', 'English and Hindi')],
   sections=[
-   ('Why Ghatkopar customers find you, or your competitor, on Google',
-    '<p>When someone nearby searches “saree shop near me” or “clinic in Ghatkopar”, Google shows a map with three businesses first. Google says '
-    'it ranks local results on relevance (how well your listing matches the search), distance (how far you are from the person searching) and '
-    'prominence (how well known you are, judged partly from reviews and from the web). A website that names your area, services and timings, '
-    'and matches your Google listing exactly, helps with relevance and prominence. Distance is the one thing nobody can change.</p>'),
-   ('What I do for businesses in Ghatkopar', SVC_LINKS),
-   ('Check where you stand, free', TOOLS),
+   Sec('Why Ghatkopar customers find you, or your competitor, on Google',
+       P('When someone nearby searches “saree shop near me” or “clinic in Ghatkopar”, Google shows a map with three businesses first. Google says '
+         'it ranks local results on relevance (how well your listing matches the search), distance (how far you are from the person searching) and '
+         'prominence (how well known you are, judged partly from reviews and from the web). A website that names your area, services and timings, '
+         'and matches your Google listing exactly, helps with relevance and prominence. Distance is the one thing nobody can change.'),
+       RANKING,
+       eyebrow='The map pack'),
+   Sec('Where I meet clients around Ghatkopar',
+       Svg('gk-map'),
+       Chips(['Ghatkopar West', 'Ghatkopar East', 'Vikhroli', 'Powai', 'Kurla', 'Chembur', 'Mulund'], 'Areas I visit'),
+       P('Further away? U Scale works with businesses across Mumbai, Thane and Navi Mumbai over WhatsApp and video calls.'),
+       eyebrow='Near you', tone='band', sid='areas'),
+   Sec('What I do for businesses in Ghatkopar', svc_links(), eyebrow='Services', layout='wide'),
+   Sec('Check where you stand, free', Tools(), eyebrow='Free tools', layout='wide'),
   ],
   faq=[('Is there a website designer near me in Ghatkopar?',
         'Yes. Mehul Karotra of U Scale is based in Ghatkopar West and designs and builds websites for businesses across Ghatkopar and nearby areas. '
@@ -270,13 +380,15 @@ PAGES = [
   work=[]),
 
  dict(slug='andheri-east', kind='area', crumb='Andheri East', service='Website design and local SEO in Andheri East',
+  card='Websites and Google listings for shops, cafés and offices in Marol, Chakala and Saki Naka.',
   places=['Andheri East', 'Marol', 'Chakala', 'Saki Naka', 'MIDC Andheri', 'JB Nagar'],
   title='Website Designer for Andheri East Businesses | U Scale',
   desc='Websites, Google listings and local SEO for shops, cafés and offices in Andheri East: Marol, Chakala, Saki Naka and MIDC. Fixed prices '
        'from ₹25,000, free audit.',
   h1='Website design for Andheri East businesses', eyebrow='Near you',
-  lead='Shops, cafés, restaurants and offices in Andheri East compete for the same searches on Google. I’m Mehul Karotra: I design and build '
-       'websites and fix Google listings for businesses here, and in October 2026 I ran a free audit day for local shops in the area.',
+  lead='Shops, cafés and offices in Andheri East compete for the same searches on Google. I design websites and fix Google listings here, and in October 2026 I ran a free audit day for local shops.',
+  stats=[('30+', 'Local listings checked'), (price('Landing page'), 'Websites from'), ('Free', 'Audit, in person')],
+  art=dict(kind='audit'),
   answer='U Scale’s Mehul Karotra designs websites and sets up Google Business Profiles and local SEO for shops, cafés, restaurants and offices in '
          'Andheri East, including Marol, Chakala, Saki Naka, MIDC and JB Nagar. Websites start at ₹25,000 at a fixed price, local SEO is '
          f'{price("Local SEO / Google Business Profile")}, and every project starts with a free audit, which U Scale also runs in person for shops in the area.',
@@ -287,23 +399,31 @@ PAGES = [
          ('Local SEO', f'Google Business Profile and local SEO {price("Local SEO / Google Business Profile")}'),
          ('Free audit', 'In person at your shop or office, or online')],
   sections=[
-   ('What we keep finding on Andheri East Google listings',
-    '<p>In October 2026 U Scale looked at the Google listings of more than 30 clothing shops, cafés and restaurants in Andheri East, and visited '
-    'shops near Gundavali Metro for a free audit day. The same few gaps came up again and again:</p>'
-    + bullets(['Good ratings and hundreds of reviews, but no website on the listing, so people who want the menu or catalogue go to a delivery app, '
-               'a directory or a competitor.',
-               'A website link on the listing that no longer opens.',
-               'A booking-app, marketplace or free-page link where the shop’s own website should be.',
-               'A strong Instagram following but far fewer Google reviews.',
-               'A website with no WhatsApp or call button, so a visitor on a phone has no quick way to ask.'])
-    + '<p>Each of these can be fixed in days, and most cost nothing but time. The free Google Business Profile checker below shows which ones apply to you.</p>'),
-   ('What I do for businesses in Andheri East', SVC_LINKS + '<p>For restaurants and cafés there is a dedicated page on '
-    + _link(f'/services/{BASE}/restaurants-cafes', 'websites with your own online ordering') + '.</p>'),
-   ('Check where you stand, free', TOOLS),
+   Sec('What we keep finding on Andheri East Google listings',
+       P('In October 2026 U Scale looked at the Google listings of more than 30 clothing shops, cafés and restaurants in Andheri East, and visited '
+         'shops near Gundavali Metro for a free audit day. The same few gaps came up again and again:'),
+       Cards([('globe', 'No website on the listing', 'Good ratings and hundreds of reviews, but people who want the menu or catalogue go to a delivery app, a directory or a competitor.'),
+              ('unlink', 'A website link that no longer opens', 'A dead link sends customers away and makes the listing look neglected.'),
+              ('alert', 'Someone else’s link in the website field', 'A booking-app, marketplace or free-page link where the shop’s own website should be.'),
+              ('star', 'Followers, but few reviews', 'A strong Instagram following but far fewer Google reviews.'),
+              ('phone', 'No quick way to ask', 'A website with no WhatsApp or call button, so a visitor on a phone gives up.')], cols=3, numbered=True),
+       P('Each of these can be fixed in days, and most cost nothing but time. The free Google Business Profile checker below shows which ones apply to you.'),
+       eyebrow='Audit findings', layout='wide'),
+   Sec('One Metro line from Ghatkopar',
+       Svg('ae-metro'),
+       P('U Scale is based in Ghatkopar West, at the other end of Metro Line 1 from Andheri East, so a meeting at your shop is a short ride away.'),
+       eyebrow='Getting here', tone='band', sid='metro'),
+   Sec('What I do for businesses in Andheri East',
+       svc_links(extra=[(f'/services/{BASE}/restaurants-cafes', 'cart', 'Restaurant & café websites', 'Your own menu and online ordering, no app commission.', price('Restaurant site + own online ordering'))]),
+       eyebrow='Services', layout='wide'),
+   Sec('Check where you stand, free', Tools(), eyebrow='Free tools', layout='wide'),
   ],
   faq=[('Who designs websites for small businesses in Andheri East?',
         'U Scale’s Mehul Karotra designs and builds websites for shops, cafés, restaurants and offices in Andheri East, at fixed prices from ₹25,000. '
         'He works personally with each client and offers a free audit, in person or online.'),
+       ('Is there a web design company in Andheri East?',
+        'There are several. U Scale is not a company with an office in Andheri: it is Mehul Karotra, a one-person practice based in Ghatkopar West, one '
+        'Metro line away, who works with Andheri East businesses at published, fixed prices and meets clients at their shop or office.'),
        ('How much does a website cost for a shop or café in Andheri East?',
         f'With U Scale, a landing page is {price("Landing page")}, a 3–4 page business website {price("Business site, 3–4 pages")}, a restaurant or café '
         f'website with its own online ordering {price("Restaurant site + own online ordering")} and an online store from {price("E-commerce, under 50 products")}. '
@@ -318,13 +438,15 @@ PAGES = [
   work=[]),
 
  dict(slug='website-banane-ka-kharcha', kind='guide', lang='hi-Latn', crumb='Website banane ka kharcha',
+  card='Market rates, saal ka domain-hosting kharcha aur GST, seedhi bhasha mein.',
   service='Website banane ka kharcha, Mumbai (2026)',
-  title='Website Banane ka Kharcha Mumbai mein (2026) | U Scale',
-  desc='Mumbai mein website banane ka asli kharcha: landing page ₹25,000 se, business website ₹55,000, online store ₹95,000 se. '
-       'Saal ka domain-hosting kharcha aur GST bhi, seedhi bhasha mein.',
-  h1='Website banane ka kharcha kitna hai?', eyebrow='Guide · Hinglish',
-  lead='Main Mehul Karotra hoon, Ghatkopar West se. Main websites khud design aur code karta hoon, aur apne saare prices publicly likhta hoon. '
-       'Yahan seedha hisaab hai: website banane mein kitna lagta hai, har saal kya kharcha aata hai, aur pay karne se pehle kya poochna hai.',
+  title='Website Banane me Kitna Kharcha Aata Hai? (2026) | U Scale',
+  desc='Website banane me kitna kharcha aata hai? Mumbai ke market rates, ₹25,000 se fixed prices, saal ka domain-hosting kharcha aur GST, '
+       'seedhi bhasha mein.',
+  h1='Website banane me kitna kharcha aata hai?', eyebrow='Guide · Hinglish',
+  lead='Main Mehul Karotra hoon, Ghatkopar West se. Main websites khud banata hoon aur apne saare prices publicly likhta hoon. Yahan seedha hisaab hai.',
+  stats=[('₹8k–2L', 'Market range'), (price('Landing page'), 'U Scale se shuru'), ('₹4.4–9.4k', 'Har saal ka kharcha')],
+  art=dict(kind='ticket'),
   answer='Mumbai mein template wali basic business website lagbhag ₹8,000–₹30,000 mein, kisi Mumbai studio se ₹15,000–₹50,000 mein, aur custom '
          'design wali website ₹40,000 se ₹2 lakh tak mein banti hai. U Scale ke fixed prices: landing page ₹25,000, 3–4 page business website '
          '₹55,000 aur online store ₹95,000 se. Iske upar har saal domain aur hosting ka kharcha aata hai: offer khatam hone ke baad lagbhag '
@@ -338,47 +460,62 @@ PAGES = [
          ('Har saal ka kharcha', 'Domain + hosting lagbhag ₹4,400–₹9,400 (offer ke baad, GST se pehle)'),
          ('GST', 'Registered agency 18% GST jodti hai; chhote freelancer aksar nahi')],
   sections=[
-   ('Ek website ₹10,000 ki aur doosri ₹1 lakh ki kyun?',
-    '<p>Price zyada tar time ka hota hai. ₹25,000 se kam mein zyada tar websites ek ready-made theme hoti hain jisme aapka logo, colours aur '
-    'photos daal diye jaate hain. Bahut businesses ke liye yeh theek hai, bas pata hona chahiye ki aap kya khareed rahe ho.</p>'
-    + bullets(['<b>Template ya custom design:</b> custom design mein har page aapke business ke hisaab se banta hai.',
-               '<b>Text kaun likhega:</b> aap khud likhoge toh sasta, designer likhega toh mehenga par aksar behtar.',
-               '<b>Features:</b> booking, online ordering, payments, product catalogue, ya Hindi-Marathi pages, har ek kaam badhata hai.',
-               '<b>Products:</b> 30 products ka store aur 300 ka store alag projects hain.',
-               '<b>Kaun bana raha hai:</b> freelancer projects zyada tar ₹10,000–₹80,000, agency projects ₹50,000–₹3 lakh.'])
-    + '<p class="sp-note">Market ranges 16 website price guides se hain jo Mumbai aur Indian agencies ne 2025–26 mein publish kiye; U Scale ne '
-      'inhe October 2026 mein compare kiya. Yeh ek doosre se poori tarah match nahi karte, isliye ranges diye hain.</p>'),
-   ('Har saal ka kharcha jo quote mein nahi likha hota',
-    table(['Kharcha', 'Offer price', 'Renewal pe'], [
-        ('.in domain', '₹1, 3 saal ki purchase ke saath', '₹899 saal ka (Hostinger, GoDaddy)'),
-        ('.com domain', '₹1, 3 saal ki purchase ke saath', '₹1,499–₹1,599 saal ka'),
-        ('Shared hosting', '₹69–₹199 mahina, 3–4 saal advance', '₹289–₹649 mahina renewal pe (Hostinger)'),
-        ('SSL (padlock)', 'Free', 'Free (Let’s Encrypt ya aapka host)'),
-        ('Online store platform', 'Shopify Basic ₹1,499 mahina, saal ka bill', 'Same'),
-        ('Payment gateway', 'Razorpay 2% har payment pe, fee pe GST', 'Same'),
-    ], 'Website ka saalana kharcha: offer price aur renewal')
-    + '<p class="sp-note">Prices providers ke apne pages se, 21 October 2026. ₹1 domain aur ₹69 hosting wale offers sach hain, par 3–4 saal ki purchase '
-      'chahiye, aur renewal pe hosting offer se chaar guna tak mehengi ho sakti hai. Offer nahi, renewal ke hisaab se plan kariye.</p>'),
-   ('GST: 18%, par hamesha nahi',
-    bullets(['<b>Agency 18% jodti hai:</b> website design pe 18% GST lagta hai, toh ₹40,000 ka quote ₹47,200 ban jaata hai.',
-             '<b>Chhote freelancer aksar GST nahi lete:</b> service provider ko GST registration tab chahiye jab saal ka turnover ₹20 lakh se upar ho '
-             '(CGST Act, section 22), aur jo registered nahi hai woh GST collect nahi kar sakta. Agar freelancer GST jode, toh GSTIN maangiye.',
-             '<b>Aapko wapas mil sakta hai:</b> agar aapka business GST-registered hai, toh apne CA se input tax credit ke baare mein poochiye.'])),
-   ('Pay karne se pehle yeh 6 sawaal poochiye',
-    bullets(['Price GST ke saath hai ya bina?',
-             'Domain kiske naam aur email pe register hoga? (Aapke naam pe hona chahiye.)',
-             'Launch pe website ka admin login aur hosting login milega?',
-             'Offer khatam hone ke baad hosting aur domain ka saal ka kharcha kitna hoga?',
-             'Kitne rounds ke changes included hain?',
-             'Design custom hai ya theme? Theme hai toh kaunsi?'])),
-   ('Website kitne din mein banti hai?',
-    '<p>Landing page 3–7 din, basic business website 1–4 hafte, custom design wali 3–8 hafte, aur online store 4–12 hafte, products ki '
-    'sankhya pe depend karta hai. U Scale se website zyada tar 4–8 hafte mein live hoti hai. Sabse bada delay aksar build nahi hota: photos, '
-    'prices aur text ka intezaar hota hai.</p>'),
+   Sec('Ek website ₹10,000 ki aur doosri ₹1 lakh ki kyun?',
+       Range([('Template wali basic website', 8000, 30000), ('Mumbai studio se business website', 15000, 50000),
+              ('Custom design wali website', 40000, 200000), ('Online store', 25000, 300000)],
+             marks=[(rupees('Landing page'), 'Landing page'), (rupees('Business site, 3–4 pages'), 'Business site'), (rupees('E-commerce, under 50 products'), 'Online store')],
+             ticks=[0, 50000, 100000, 150000, 200000, 250000, 300000], unit_note='U Scale ke fixed prices'),
+       P('Price zyada tar time ka hota hai. ₹25,000 se kam mein zyada tar websites ek ready-made theme hoti hain jisme aapka logo, colours aur '
+         'photos daal diye jaate hain. Bahut businesses ke liye yeh theek hai, bas pata hona chahiye ki aap kya khareed rahe ho.'),
+       Cards([('layers', 'Template ya custom design', 'Custom design mein har page aapke business ke hisaab se banta hai.'),
+              ('pen', 'Text kaun likhega', 'Aap khud likhoge toh sasta, designer likhega toh mehenga par aksar behtar.'),
+              ('bolt', 'Features', 'Booking, online ordering, payments, product catalogue, ya Hindi-Marathi pages, har ek kaam badhata hai.'),
+              ('box', 'Products', '30 products ka store aur 300 ka store alag projects hain.'),
+              ('user', 'Kaun bana raha hai', 'Freelancer projects zyada tar ₹10,000–₹80,000, agency projects ₹50,000–₹3 lakh.')], cols=3),
+       Note('Market ranges 16 website price guides se hain jo Mumbai aur Indian agencies ne 2025–26 mein publish kiye; U Scale ne inhe October 2026 '
+            'mein compare kiya. Yeh ek doosre se poori tarah match nahi karte, isliye ranges diye hain.'),
+       eyebrow='Market rates', layout='wide'),
+   Sec('Har saal ka kharcha jo quote mein nahi likha hota',
+       Table(['Kharcha', 'Offer price', 'Renewal pe'], [
+           ('.in domain', '₹1, 3 saal ki purchase ke saath', '₹899 saal ka (Hostinger, GoDaddy)'),
+           ('.com domain', '₹1, 3 saal ki purchase ke saath', '₹1,499–₹1,599 saal ka'),
+           ('Shared hosting', '₹69–₹199 mahina, 3–4 saal advance', '₹289–₹649 mahina renewal pe (Hostinger)'),
+           ('SSL (padlock)', 'Free', 'Free (Let’s Encrypt ya aapka host)'),
+           ('Online store platform', 'Shopify Basic ₹1,499 mahina, saal ka bill', 'Same'),
+           ('Payment gateway', 'Razorpay 2% har payment pe, fee pe GST', 'Same'),
+       ], 'Website ka saalana kharcha: offer price aur renewal'),
+       Note('Prices providers ke apne pages se, 21 October 2026. ₹1 domain aur ₹69 hosting wale offers sach hain, par 3–4 saal ki purchase '
+            'chahiye, aur renewal pe hosting offer se chaar guna tak mehengi ho sakti hai. Offer nahi, renewal ke hisaab se plan kariye.'),
+       eyebrow='Saal ka kharcha', tone='band'),
+   Sec('GST: 18%, par hamesha nahi',
+       Cards([('rupee', 'Agency 18% jodti hai', 'Website design pe 18% GST lagta hai, toh ₹40,000 ka quote ₹47,200 ban jaata hai.'),
+              ('user', 'Chhote freelancer aksar GST nahi lete', 'Service provider ko GST registration tab chahiye jab saal ka turnover ₹20 lakh se upar ho '
+               '(CGST Act, section 22), aur jo registered nahi hai woh GST collect nahi kar sakta. Agar freelancer GST jode, toh GSTIN maangiye.'),
+              ('refresh', 'Aapko wapas mil sakta hai', 'Agar aapka business GST-registered hai, toh apne CA se input tax credit ke baare mein poochiye.')], cols=3),
+       eyebrow='GST', layout='wide'),
+   Sec('Pay karne se pehle yeh 6 sawaal poochiye',
+       Check(['Price GST ke saath hai ya bina?',
+              'Domain kiske naam aur email pe register hoga? (Aapke naam pe hona chahiye.)',
+              'Launch pe website ka admin login aur hosting login milega?',
+              'Offer khatam hone ke baad hosting aur domain ka saal ka kharcha kitna hoga?',
+              'Kitne rounds ke changes included hain?',
+              'Design custom hai ya theme? Theme hai toh kaunsi?']),
+       eyebrow='Checklist', layout='wide', tone='dark'),
+   Sec('Website kitne din mein banti hai?',
+       Durations([('Landing page', 3 / 7, 1, '3–7 din'), ('Basic business website', 1, 4, '1–4 hafte'),
+                  ('Custom design wali website', 3, 8, '3–8 hafte'), ('Online store', 4, 12, '4–12 hafte')], scale=12, label='hafte'),
+       P('Landing page 3–7 din, basic business website 1–4 hafte, custom design wali 3–8 hafte, aur online store 4–12 hafte, products ki '
+         'sankhya pe depend karta hai. U Scale se website zyada tar 4–8 hafte mein live hoti hai. Sabse bada delay aksar build nahi hota: photos, '
+         'prices aur text ka intezaar hota hai.'),
+       eyebrow='Timeline'),
   ],
-  faq=[('Mumbai mein website banane ka kharcha kitna hai?',
+  faq=[('Mumbai mein website banane me kitna kharcha aata hai?',
         'Template wali basic business website lagbhag ₹8,000–₹30,000, Mumbai studio se ₹15,000–₹50,000, aur custom design ₹40,000 se ₹2 lakh tak. '
         f'U Scale ke fixed prices: landing page {price("Landing page")}, 3–4 page business website {price("Business site, 3–4 pages")}, online store {price("E-commerce, under 50 products")} se.'),
+       ('E-commerce website banane me kitna kharcha aata hai?',
+        'Market mein online store ₹25,000 se ₹3 lakh tak, products aur features pe depend karta hai. U Scale se 50 se kam products ka store '
+        f'{price("E-commerce, under 50 products")} aur 50–500 products ka {price("E-commerce, 50–500 products")}. Iske upar har payment pe gateway fee, '
+        'aur Shopify jaisa platform ho toh uski monthly fee alag.'),
        ('Website ka har saal kya kharcha aata hai?',
         'Domain aur hosting: offer khatam hone ke baad lagbhag ₹4,400–₹9,400 saal ka, GST se pehle. .in domain ka renewal ₹899 saal ka hai. '
         'Online store pe platform fee aur har payment pe gateway fee alag se.'),
@@ -396,13 +533,15 @@ PAGES = [
   work=[]),
 
  dict(slug='freelancer-vs-agency-vs-website-builder', kind='guide', crumb='Freelancer vs agency vs builder',
+  card='Real price ranges, who each suits, and what to watch for, compared honestly.',
   service='Freelancer vs agency vs DIY website builder, Mumbai (2026)',
-  title='Freelancer vs Agency vs Website Builder, Mumbai 2026 | U Scale',
+  title='Freelancer vs Agency vs Website Builder (2026) | U Scale',
   desc='Should a Mumbai business hire a freelancer, an agency or use a DIY website builder? Real price ranges, who each suits, and what to '
        'watch for, compared honestly.',
   h1='Freelancer, agency or DIY builder: which is right for you?', eyebrow='Guide · Compared',
-  lead='Three honest ways to get a business website in Mumbai, plus where U Scale fits. I’m Mehul Karotra; I run U Scale, so I have a side, '
-       'which is why every claim here comes with a price range you can check against other quotes.',
+  lead='Three honest ways to get a business website in Mumbai, plus where U Scale fits. I run U Scale, so I have a side: every claim here comes with a range you can check.',
+  stats=[('₹10–80k', 'Freelancer'), ('₹50k–3L', 'Agency'), ('16', 'Price guides compared')],
+  art=dict(kind='ranges'),
   answer='For most small businesses in Mumbai, a good freelancer or one-person studio gives the best value. Freelancer projects mostly cost '
          '₹10,000–₹80,000 and agency projects ₹50,000–₹3 lakh, according to 16 price guides published by Mumbai and Indian agencies in '
          '2025–26. A DIY builder costs least upfront but takes your time and a monthly fee. Choose an agency when you need a large team '
@@ -413,31 +552,35 @@ PAGES = [
          ('U Scale', f'Fixed: landing page {price("Landing page")}, business site {price("Business site, 3–4 pages")}, online store from {price("E-commerce, under 50 products")}'),
          ('Whatever you choose', 'Domain, admin login and hosting login in your name')],
   sections=[
-   ('Side by side',
-    table(['', 'DIY builder', 'Freelancer', 'Agency', 'U Scale'], [
-        ('Typical cost', 'Monthly plan + your time', '₹10,000–₹80,000', '₹50,000–₹3,00,000', f'Fixed, {price("Landing page")}–{price("E-commerce, under 50 products")} for most sites'),
-        ('Who does the work', 'You', 'One person', 'A team: designer, developer, account manager', 'Mehul Karotra, personally'),
-        ('Design', 'A template', 'Often a theme (ask which)', 'Custom', 'Custom, designed in Figma'),
-        ('Good for', 'Testing an idea on a tiny budget', 'Simple sites with a clear brief', 'Large sites with many people working in parallel',
-         'Small businesses that want custom work and one point of contact'),
-        ('Watch out for', 'Hours of your time; a template look; fees on every sale', 'Who fixes things after launch, and who holds the logins',
-         'You also pay for the team and the office', 'One person, so the start date depends on his queue: ask for it'),
-    ], 'Freelancer, agency, DIY builder and U Scale compared')
-    + f'<p class="sp-note">{e(GUIDES_NOTE)}</p>'),
-   ('When an agency is the better choice',
-    '<p>Pick an agency when the site is large, needs several specialists at once (developers, writers, a photographer, an ads team) or has a hard '
-    'launch date that one person can’t meet. You pay for the team, and for a big project that is worth it.</p>'),
-   ('When a DIY builder is enough',
-    '<p>If you are testing an idea, need a single page for a few weeks, or have more time than budget, a builder like Shopify, Wix or WordPress is a '
-    'fair choice. Count the hours you will spend and the fees on every sale. On Shopify’s Basic plan in India, Shopify adds its own 2% on '
-    'each sale on top of the payment gateway’s fee, because Shopify Payments isn’t available here.</p>'),
-   ('Six checks before you hire anyone',
-    bullets(['The domain is registered in your business’s name, with your email.',
-             'You get the website admin login and the hosting login at launch, in writing.',
-             'You know the hosting and domain renewal prices, not just the offer price.',
-             'You know whether the design is custom or a theme, and which theme.',
-             'Pages, rounds of changes, who writes the text and the timeline are written down before the advance.',
-             'You know who fixes things after launch, for how long, and what edits cost after that.'])),
+   Sec('Freelancer vs agency vs DIY builder, side by side',
+       Options([dict(name='DIY builder', tag='Tiny budget', rows=[('Typical cost', 'Monthly plan + your time'), ('Who does the work', 'You'), ('Design', 'A template'),
+                     ('Good for', 'Testing an idea on a tiny budget'), ('Watch out for', 'Hours of your time; a template look; fees on every sale')]),
+                dict(name='Freelancer', tag='Simple sites', rows=[('Typical cost', '₹10,000–₹80,000'), ('Who does the work', 'One person'), ('Design', 'Often a theme (ask which)'),
+                     ('Good for', 'Simple sites with a clear brief'), ('Watch out for', 'Who fixes things after launch, and who holds the logins')]),
+                dict(name='Agency', tag='Large sites', rows=[('Typical cost', '₹50,000–₹3,00,000'), ('Who does the work', 'A team: designer, developer, account manager'), ('Design', 'Custom'),
+                     ('Good for', 'Large sites with many people working in parallel'), ('Watch out for', 'You also pay for the team and the office')]),
+                dict(name='U Scale', tag='One person, fixed price', hi=True, rows=[('Typical cost', f'Fixed, {price("Landing page")}–{price("E-commerce, under 50 products")} for most sites'),
+                     ('Who does the work', 'Mehul Karotra, personally'), ('Design', 'Custom, designed in Figma'),
+                     ('Good for', 'Small businesses that want custom work and one point of contact'), ('Watch out for', 'One person, so the start date depends on his queue: ask for it')])],
+               note=GUIDES_NOTE),
+       eyebrow='Compared', layout='wide'),
+   Sec('When an agency is the better choice',
+       P('Pick an agency when the site is large, needs several specialists at once (developers, writers, a photographer, an ads team) or has a hard '
+         'launch date that one person can’t meet. You pay for the team, and for a big project that is worth it.'),
+       eyebrow='Agency', layout='half'),
+   Sec('When a DIY builder is enough',
+       P('If you are testing an idea, need a single page for a few weeks, or have more time than budget, a builder like Shopify, Wix or WordPress is a '
+         'fair choice. Count the hours you will spend and the fees on every sale. On Shopify’s Basic plan in India, Shopify adds its own 2% on '
+         'each sale on top of the payment gateway’s fee, because Shopify Payments isn’t available here.'),
+       eyebrow='DIY builder', layout='half'),
+   Sec('Six checks before you hire anyone',
+       Check(['The domain is registered in your business’s name, with your email.',
+              'You get the website admin login and the hosting login at launch, in writing.',
+              'You know the hosting and domain renewal prices, not just the offer price.',
+              'You know whether the design is custom or a theme, and which theme.',
+              'Pages, rounds of changes, who writes the text and the timeline are written down before the advance.',
+              'You know who fixes things after launch, for how long, and what edits cost after that.']),
+       eyebrow='Checklist', layout='wide', tone='dark'),
   ],
   faq=[('Should I hire a freelancer or an agency for my website in Mumbai?',
         'For most small businesses a freelancer or one-person studio is the better value: you talk directly to the person doing the work, decisions '
@@ -458,74 +601,367 @@ PAGES = [
 
 
 # ---------------------------------------------------------------- images
-# All original: mockups for invented demo brands, charts and schematic maps made for these pages, Mehul's own photo
-# and real U Scale work. Never photos copied from Google Maps or other sites (they belong to their owners, and copies
-# don't rank in image search anyway). Files live in source/static/assets/pages/ with descriptive names; each has an
-# 800px version for phones. `at` = index of the section the image opens, or -1 for right after the "In short" card.
+# All original: device mockups for invented demo brands, Mehul's own photo and real U Scale work. Never photos copied
+# from Google Maps or other sites (they belong to their owners, and copies don't rank in image search anyway).
+# Charts, maps and price cards are drawn in HTML/SVG on the page instead: sharp at any size, readable by crawlers and
+# AI, animated with CSS only, and no extra download. Raster files live in source/static/assets/pages/ as AVIF + WebP,
+# each with a phone-sized version; the hero image is the page's primary image (and Largest Contentful Paint), so it
+# loads eagerly with high priority and everything below the fold is lazy.
 A = '/assets/pages/'
-MEHUL = dict(file=A + 'mehul-karotra-website-designer-ghatkopar', w=900, h=900, small=480, portrait=True,
-             alt='Mehul Karotra, website designer and founder of U Scale, based in Ghatkopar West, Mumbai',
-             caption='Mehul Karotra, who designs and builds every U Scale website himself.')
-IMAGES = {
- 'restaurants-cafes': [
-  dict(file=A + 'restaurant-website-online-ordering-mumbai', w=1600, h=1000, at=-1,
-       alt='Demo café website with its own online ordering on a laptop and a phone: menu, cart and checkout with UPI, cards and netbanking',
-       caption='A demo café website with its own online ordering, designed by U Scale. Chai Kona is a sample brand, not a real café.'),
-  dict(file=A + 'delivery-app-commission-vs-own-website', w=1200, h=675, at=1,
-       alt='Bar chart: ₹10,000 a month in delivery-app commission at 20% versus ₹1,180 in payment gateway fees on ₹50,000 of direct orders',
-       caption='The worked example as a chart. Commission rate: NRAI president via Inc42, October 2026; gateway fee: Razorpay standard plan.')],
- 'boutiques-fashion': [
-  dict(file=A + 'boutique-website-whatsapp-ordering-mumbai', w=1600, h=1000, at=-1,
-       alt='Demo boutique product page on a phone with an Order on WhatsApp button, next to the WhatsApp chat it opens with the product and size already filled in',
-       caption='A demo product page and the WhatsApp order it creates. Saanjh is a sample brand.'),
-  dict(file='/assets/work/sashe-peek', w=768, h=480, at=1, ext_small=False,
-       alt='Website for Sashe by Prachi, a bespoke fashion label in Mumbai, designed and built by U Scale',
-       caption='Real work: the website for Sashe by Prachi, a bespoke fashion label in Mumbai.')],
- 'ghatkopar': [
-  dict(MEHUL, at=-1),
-  dict(file=A + 'website-designer-ghatkopar-areas-served', w=1200, h=800, at=0,
-       alt='Schematic map of the areas around Ghatkopar West where U Scale meets clients: Ghatkopar East, Vikhroli, Powai, Mulund, Kurla and Chembur',
-       caption='Areas around Ghatkopar where Mehul meets clients. Schematic, not to scale.')],
- 'andheri-east': [
-  dict(file=A + 'andheri-east-to-ghatkopar-metro-line-1', w=1200, h=700, at=-1,
-       alt='Schematic of Mumbai Metro Line 1 from Western Express Highway through Chakala, Airport Road, Marol Naka and Saki Naka to Ghatkopar, with Andheri East areas marked',
-       caption='Andheri East and Ghatkopar are on the same Metro line. Schematic, not to scale.')],
+IMG = {
+ 'rest': dict(file=A + 'restaurant-website-online-ordering-mumbai', w=1200, h=1000, small=640,
+              alt='Demo café website with its own online ordering on a laptop and a phone: menu, cart and checkout with UPI, cards and netbanking',
+              caption='A demo café website with its own online ordering, designed by U Scale. Chai Kona is a sample brand, not a real café.'),
+ 'bout': dict(file=A + 'boutique-website-whatsapp-ordering-mumbai', w=1200, h=1000, small=640,
+              alt='Demo boutique product page on a phone with an Order on WhatsApp button, next to the WhatsApp chat it opens with the product and size already filled in',
+              caption='A demo product page and the WhatsApp order it creates. Saanjh is a sample brand.'),
+ 'mehul': dict(file=A + 'mehul-karotra-website-designer-ghatkopar', w=1200, h=1200, small=640,
+               alt='Mehul Karotra, website designer and founder of U Scale, based in Ghatkopar West, Mumbai',
+               caption='Mehul Karotra, who designs and builds every U Scale website himself.'),
 }
-IMAGES['website-banane-ka-kharcha'] = [
-  dict(file=A + 'website-banane-ka-kharcha-mumbai-2026', w=1200, h=760, at=-1,
-       alt='Chart of website prices in Mumbai in 2026: template site ₹8,000–₹30,000, Mumbai studio ₹15,000–₹50,000, custom design ₹40,000–₹2 lakh, online store ₹25,000–₹3 lakh, with U Scale fixed prices marked',
-       caption='Website prices in Mumbai, 2026: market ranges from 16 agency price guides, with U Scale’s fixed prices marked.')]
-IMAGES['freelancer-vs-agency-vs-website-builder'] = [
-  dict(file=A + 'freelancer-vs-agency-vs-website-builder-mumbai', w=1200, h=760, at=-1,
-       alt='Comparison of a DIY website builder, a freelancer, an agency and U Scale for a Mumbai business website: typical cost, who does the work and who each suits',
-       caption='DIY builder, freelancer, agency or U Scale: typical cost and who each suits.')]
 OG = {'restaurants-cafes': 'og-restaurant-website-mumbai', 'boutiques-fashion': 'og-boutique-website-mumbai',
       'ghatkopar': 'og-website-designer-ghatkopar', 'andheri-east': 'og-website-design-andheri-east',
       'website-banane-ka-kharcha': 'og-website-banane-ka-kharcha', 'freelancer-vs-agency-vs-website-builder': 'og-freelancer-vs-agency-vs-builder'}
+OG_ALT = {'restaurants-cafes': 'Restaurant and café websites with online ordering, by U Scale',
+          'boutiques-fashion': 'Boutique and clothing store websites, by U Scale',
+          'ghatkopar': 'Website designer and developer in Ghatkopar: Mehul Karotra of U Scale',
+          'andheri-east': 'Website design for Andheri East businesses, by U Scale',
+          'website-banane-ka-kharcha': 'Website banane me kitna kharcha aata hai: Mumbai 2026 guide by U Scale',
+          'freelancer-vs-agency-vs-website-builder': 'Freelancer vs agency vs DIY website builder: Mumbai 2026 guide by U Scale'}
 
 
-def _src(img):
-    return img['file'] + '.webp'
+def page_images(p):
+    """On-page raster images, in order: the hero art first."""
+    keys = []
+    if p['art']['kind'] == 'img': keys.append(p['art']['img'])
+    if p['art']['kind'] == 'portrait': keys.append('mehul')
+    return [IMG[k] for k in keys]
 
 
-def figure(img):
-    small = img.get('small', 800)
-    srcset = '' if img.get('ext_small') is False else f' srcset="{img["file"]}-{small}.webp {small}w, {_src(img)} {img["w"]}w" sizes="(max-width: 900px) 100vw, 860px"'
-    cls = 'sp-fig sp-fig--portrait' if img.get('portrait') else 'sp-fig'
-    return (f'<figure class="{cls}"><img src="{_src(img)}"{srcset} width="{img["w"]}" height="{img["h"]}" alt="{ea(img["alt"])}" '
-            f'loading="lazy" decoding="async"><figcaption>{e(img["caption"])}</figcaption></figure>')
+def _pic(img, sizes, eager=False, cls=''):
+    s = img['small']
+    load = 'fetchpriority="high" decoding="async"' if eager else 'loading="lazy" decoding="async"'
+    return (f'<picture{f" class={chr(34)}{cls}{chr(34)}" if cls else ""}>'
+            f'<source type="image/avif" srcset="{img["file"]}-{s}.avif {s}w, {img["file"]}.avif {img["w"]}w" sizes="{sizes}">'
+            f'<img src="{img["file"]}.webp" srcset="{img["file"]}-{s}.webp {s}w, {img["file"]}.webp {img["w"]}w" sizes="{sizes}" '
+            f'width="{img["w"]}" height="{img["h"]}" alt="{ea(img["alt"])}" {load}></picture>')
 
 
 def image_ld(site, url, p):
-    return [{'@type': 'ImageObject', '@id': f'{url}#image-{i + 1}', 'url': site + _src(img)[1:], 'contentUrl': site + _src(img)[1:],
-             'width': img['w'], 'height': img['h'], 'caption': img['caption'], 'description': img['alt'], 'inLanguage': 'en-IN',
-             'creditText': 'U Scale', 'creator': {'@id': site + '#business'}, 'copyrightNotice': '© 2026 U Scale by Mehul Karotra'}
-            for i, img in enumerate(IMAGES.get(p['slug'], []))]
+    out = []
+    for i, img in enumerate(page_images(p)):
+        out.append({'@type': 'ImageObject', '@id': f'{url}#image-{i + 1}', 'url': site + img['file'][1:] + '.webp',
+                    'contentUrl': site + img['file'][1:] + '.webp', 'width': img['w'], 'height': img['h'], 'caption': img['caption'],
+                    'description': img['alt'], 'inLanguage': 'en-IN', 'encodingFormat': 'image/webp', 'representativeOfPage': i == 0,
+                    'creditText': 'U Scale', 'creator': {'@id': site + '#business'}, 'copyrightHolder': {'@id': site + '#business'},
+                    'copyrightNotice': '© 2026 U Scale by Mehul Karotra'})
+    og = OG[p['slug']]
+    out.append({'@type': 'ImageObject', '@id': f'{url}#og-image', 'url': f'{site}assets/pages/{og}.jpg', 'contentUrl': f'{site}assets/pages/{og}.jpg',
+                'width': 1200, 'height': 630, 'caption': OG_ALT[p['slug']], 'encodingFormat': 'image/jpeg', 'representativeOfPage': not out,
+                'creditText': 'U Scale', 'creator': {'@id': site + '#business'}, 'copyrightHolder': {'@id': site + '#business'},
+                'copyrightNotice': '© 2026 U Scale by Mehul Karotra'})
+    return out
 
 
 def images_by_url(site):
-    """{page URL: [(image URL, caption)]} for the image sitemap."""
-    return {url_of(site, p): [(site + _src(i)[1:], i['caption']) for i in IMAGES.get(p['slug'], [])] for p in PAGES}
+    """{page URL: [(image URL, caption)]} for the image sitemap: only images people see on the page (share images
+    are in the schema as the page's representative image, but Google wants sitemap images to be on the page)."""
+    return {url_of(site, p): [(site + i['file'][1:] + '.webp', i['caption']) for i in page_images(p)] for p in PAGES}
+
+
+# ---------------------------------------------------------------- inline SVG graphics (maps)
+# Schematic, not to scale. Drawn as inline SVG so the labels are real text in the page, they stay sharp on any screen,
+# and the only motion (a pulse on the base, a train along the line) is CSS, switched off for reduced motion.
+def svg_gk_map():
+    # (name, dot x, dot y, label x, label y, anchor)
+    areas = [('Mulund', 452, 66, 468, 74, 'start'), ('Vikhroli', 414, 176, 430, 184, 'start'), ('Powai', 204, 176, 218, 184, 'start'),
+             ('Ghatkopar East', 452, 318, 452, 358, 'middle'), ('Kurla', 236, 474, 220, 482, 'end'), ('Chembur', 420, 500, 436, 508, 'start')]
+    dots = ''.join(f'<g class="fp-map__area"><circle cx="{x}" cy="{y}" r="9"/><text x="{lx}" y="{ly}" text-anchor="{an}">{e(n)}</text></g>'
+                   for n, x, y, lx, ly, an in areas)
+    return f"""<figure class="fp-map" data-reveal>
+  <svg viewBox="0 0 600 600" role="img" aria-labelledby="gkmap-t gkmap-d">
+    <title id="gkmap-t">Areas around Ghatkopar West where U Scale meets clients</title>
+    <desc id="gkmap-d">Schematic map, not to scale: Ghatkopar West in the centre, with Vikhroli and Mulund to the north along the Central line, Powai to the north-west, Ghatkopar East across the tracks, Kurla to the south-west and Chembur to the south-east. Metro Line 1 runs west from Ghatkopar to Andheri.</desc>
+    <defs><radialGradient id="gkg" cx="50%" cy="50%" r="50%"><stop offset="0" stop-color="#C9BCE8" stop-opacity=".6"/><stop offset="1" stop-color="#C9BCE8" stop-opacity="0"/></radialGradient></defs>
+    <rect width="600" height="600" rx="28" class="fp-map__bg"/>
+    <circle cx="300" cy="320" r="260" class="fp-map__ring"/><circle cx="300" cy="320" r="150" class="fp-map__ring"/>
+    <path d="M116 110c-34 14-48 52-22 76s74 20 86-12-30-78-64-64z" class="fp-map__lake"/>
+    <text x="78" y="232" class="fp-map__small">Powai Lake</text>
+    <path d="M472 0 L448 104 L404 206 L344 278 L300 320 L268 392 L234 466 L214 600" class="fp-map__rail"/>
+    <text x="490" y="30" class="fp-map__small fp-map__rail-l">Central line</text>
+    <path d="M300 320 L22 320" class="fp-map__metro"/>
+    <circle r="8" class="fp-map__train"><animateMotion dur="7s" repeatCount="indefinite" path="M300 320 L22 320"/></circle>
+    <text x="30" y="300" class="fp-map__small fp-map__metro-l">Metro Line 1 → Andheri</text>
+    {dots}
+    <circle cx="300" cy="320" r="96" fill="url(#gkg)"/>
+    <circle cx="300" cy="320" r="18" class="fp-map__pulse"/>
+    <circle cx="300" cy="320" r="14" class="fp-map__base"/>
+    <g class="fp-map__tag" transform="translate(40 352)"><rect width="246" height="70" rx="16"/><text x="18" y="31" class="fp-map__tag-t">Ghatkopar West</text><text x="18" y="54" class="fp-map__tag-s">U Scale · Mehul Karotra</text></g>
+  </svg>
+  <figcaption>Areas around Ghatkopar where Mehul meets clients. Schematic, not to scale.</figcaption>
+</figure>"""
+
+
+AE_STATIONS = [('W. E. Highway', 'Gundavali'), ('Chakala', 'Chakala · J.B. Nagar'), ('Airport Road', ''), ('Marol Naka', 'Marol · MIDC'),
+               ('Saki Naka', 'Saki Naka'), ('Asalpha', ''), ('Jagruti Nagar', ''), ('Ghatkopar', '')]
+AE_DESC = ('Schematic, not to scale: Metro Line 1 stations from Western Express Highway through Chakala, Airport Road, Marol Naka, Saki Naka, '
+           'Asalpha and Jagruti Nagar to Ghatkopar, where U Scale is based. Andheri East areas marked: Gundavali, Chakala and J.B. Nagar, '
+           'Marol and MIDC, Saki Naka.')
+
+
+def _ae_wide():
+    st = AE_STATIONS; x0, x1 = 70, 1010
+    xs = [round(x0 + i * (x1 - x0) / (len(st) - 1)) for i in range(len(st))]
+    nodes = ''
+    for i, ((name, area), x) in enumerate(zip(st, xs)):
+        last = i == len(st) - 1
+        nodes += (f'<g class="fp-metro__st{" fp-metro__st--base" if last else ""}"><circle cx="{x}" cy="200" r="{13 if last else 9}"/>'
+                  f'<text x="{x}" y="{246 if i % 2 == 0 else 268}" text-anchor="middle">{e(name)}</text></g>')
+        if area:
+            nodes += f'<g class="fp-metro__area"><rect x="{x - 78}" y="104" width="156" height="40" rx="20"/><text x="{x}" y="129" text-anchor="middle">{e(area)}</text><path d="M{x} 144v40"/></g>'
+    return f"""<svg class="fp-metro--wide" viewBox="0 0 1080 320" role="img" aria-labelledby="aemetro-t aemetro-d">
+    <title id="aemetro-t">Andheri East and Ghatkopar on Mumbai Metro Line 1</title><desc id="aemetro-d">{e(AE_DESC)}</desc>
+    <rect width="1080" height="320" rx="28" class="fp-map__bg"/>
+    <text x="70" y="62" class="fp-metro__h">ANDHERI EAST</text><text x="1010" y="62" text-anchor="end" class="fp-metro__h">GHATKOPAR</text>
+    <rect x="40" y="84" width="680" height="200" rx="22" class="fp-metro__zone"/>
+    <path d="M{x0} 200 H{x1}" class="fp-metro__line"/>
+    <circle r="7" class="fp-map__train"><animateMotion dur="8s" repeatCount="indefinite" path="M{x0} 200 H{x1}"/></circle>
+    {nodes}
+    <circle cx="{x1}" cy="200" r="20" class="fp-map__pulse"/>
+    <text x="{x1}" y="296" text-anchor="middle" class="fp-metro__base-l">U Scale base</text>
+  </svg>"""
+
+
+def _ae_tall():
+    # Phones: the same line, top to bottom, so every label is readable without zooming.
+    st = AE_STATIONS; y0, y1 = 92, 668
+    ys = [round(y0 + i * (y1 - y0) / (len(st) - 1)) for i in range(len(st))]
+    nodes = ''
+    for i, ((name, area), y) in enumerate(zip(st, ys)):
+        last = i == len(st) - 1
+        nodes += (f'<g class="fp-metro__st{" fp-metro__st--base" if last else ""}"><circle cx="64" cy="{y}" r="{14 if last else 10}"/>'
+                  f'<text x="94" y="{y + 7}" class="fp-metro__tl">{e(name)}</text></g>')
+        if area:
+            nodes += f'<g class="fp-metro__area"><rect x="236" y="{y - 20}" width="{min(200, 26 + len(area) * 10)}" height="40" rx="20"/><text x="{236 + min(200, 26 + len(area) * 10) / 2:.0f}" y="{y + 6}" text-anchor="middle">{e(area)}</text></g>'
+    return f"""<svg class="fp-metro--tall" viewBox="0 0 460 740" role="img" aria-labelledby="aemetro2-t aemetro2-d">
+    <title id="aemetro2-t">Andheri East and Ghatkopar on Mumbai Metro Line 1</title><desc id="aemetro2-d">{e(AE_DESC)}</desc>
+    <rect width="460" height="740" rx="28" class="fp-map__bg"/>
+    <rect x="24" y="56" width="412" height="400" rx="22" class="fp-metro__zone"/>
+    <text x="40" y="40" class="fp-metro__h">ANDHERI EAST ↓</text>
+    <path d="M64 {y0} V{y1}" class="fp-metro__line"/>
+    <circle r="8" class="fp-map__train"><animateMotion dur="8s" repeatCount="indefinite" path="M64 {y0} V{y1}"/></circle>
+    {nodes}
+    <circle cx="64" cy="{y1}" r="22" class="fp-map__pulse"/>
+    <text x="94" y="{y1 + 34}" class="fp-metro__base-l">U Scale base, Ghatkopar West</text>
+  </svg>"""
+
+
+def svg_ae_metro():
+    return f"""<figure class="fp-map fp-map--metro" data-reveal>
+  {_ae_wide()}
+  {_ae_tall()}
+  <figcaption>Andheri East and Ghatkopar are on the same Metro line. Schematic, not to scale.</figcaption>
+</figure>"""
+
+
+SVGS = {'gk-map': svg_gk_map, 'ae-metro': svg_ae_metro}
+
+
+# ---------------------------------------------------------------- block renderers
+def _cards(b):
+    out = []
+    for i, (ic, t, d) in enumerate(b['items']):
+        mark = f'<span class="fp-card__n" aria-hidden="true">{i + 1:02d}</span>' if b['numbered'] else ''
+        ico = f'<span class="fp-card__ic">{icon(ic)}</span>' if ic else ''
+        out.append(f'<li class="fp-card" data-reveal>{ico}{mark}<h3>{e(t)}</h3><p>{d}</p></li>')
+    return f'<ul class="fp-cards fp-cards--{b["cols"]}{" fp-cards--n" if b["numbered"] else ""}" data-reveal-group>{"".join(out)}</ul>'
+
+
+def _calc():
+    total = rupees('Restaurant site + own online ordering')
+    sales, rate, share = 200000, 20, 25
+    direct = sales * share / 100; com = direct * rate / 100; fee = direct * 0.0236; kept = com - fee
+    pay = round(total / kept)
+    return f'''<div class="fp-calc" data-calc data-price="{total}" data-reveal>
+  <form class="fp-calc__in" aria-label="Your numbers">
+    <label class="fp-field"><span>Orders through delivery apps, per month</span>
+      <span class="fp-field__money"><b aria-hidden="true">₹</b><input name="sales" type="number" inputmode="numeric" min="0" step="5000" value="{sales}" aria-describedby="calc-hint"></span></label>
+    <label class="fp-field"><span>Commission you pay the apps <output name="rateo">{rate}%</output></span>
+      <input name="rate" type="range" min="10" max="35" step="1" value="{rate}"></label>
+    <label class="fp-field"><span>Regulars who switch to your website <output name="shareo">{share}%</output></span>
+      <input name="share" type="range" min="5" max="60" step="5" value="{share}"></label>
+    <p class="fp-calc__hint" id="calc-hint">Gateway fee: 2% + 18% GST on the fee = 2.36% (Razorpay standard plan).</p>
+  </form>
+  <div class="fp-calc__out" aria-live="polite">
+    <table class="fp-receipt">
+      <caption class="sr-only">Worked example: commission saved by moving regulars to direct ordering</caption>
+      <tbody>
+        <tr><th scope="row">Orders through delivery apps, per month</th><td data-o="sales">{_fmt(sales)}</td></tr>
+        <tr><th scope="row">Regulars who switch to ordering on your website</th><td data-o="direct">{share}%, so {_fmt(direct)} of orders</td></tr>
+        <tr><th scope="row">App commission on those orders at <span data-o="rate">{rate}%</span></th><td data-o="com">{_fmt(com)} a month</td></tr>
+        <tr><th scope="row">Payment gateway fee on your own site (2% + 18% GST = 2.36%)</th><td data-o="fee">{_fmt(fee)} a month</td></tr>
+      </tbody>
+    </table>
+    <div class="fp-bars" aria-hidden="true">
+      <div class="fp-bar"><span>Commission to the app</span><i style="--w:100%" data-o="bar-com"></i><b data-o="com-s">{_fmt(com)}</b></div>
+      <div class="fp-bar fp-bar--go"><span>Gateway fee on your site</span><i style="--w:{fee / com * 100:.1f}%" data-o="bar-fee"></i><b data-o="fee-s">{_fmt(fee)}</b></div>
+    </div>
+    <p class="fp-kept"><span>Kept by you every month</span><b data-o="kept">{_fmt(kept)}</b></p>
+    <p class="fp-payback">Website + ordering, one-time: <b>{_fmt(total)}</b>, paid back in about <b data-o="pay">{pay} months</b></p>
+  </div>
+</div>'''
+
+
+def _calc_text():
+    total = rupees('Restaurant site + own online ordering')
+    return ('Worked example (example café):\n- Orders through delivery apps, per month: ₹2,00,000\n- Regulars who switch to ordering on your website: '
+            '25%, so ₹50,000 of orders\n- App commission on those orders at 20%: ₹10,000 a month\n- Payment gateway fee on your own site '
+            f'(2% + 18% GST = 2.36%): ₹1,180 a month\n- Kept by you every month: {_fmt(_rest_saving)}\n- Website + ordering, one-time: '
+            f'{_fmt(total)}, paid back in about {round(total / _rest_saving)} months')
+
+
+def _options(b):
+    cards = ''
+    for o in b['items']:
+        rows = ''.join(f'<div><dt>{e(k)}</dt><dd>{e(v)}</dd></div>' for k, v in o['rows'])
+        cards += (f'<li class="fp-opt{" fp-opt--hi on-dark" if o.get("hi") else ""}" data-reveal><p class="fp-opt__tag">{e(o["tag"])}</p>'
+                  f'<h3>{e(o["name"])}</h3><dl>{rows}</dl></li>')
+    note = f'<p class="fp-note">{e(b["note"])}</p>' if b['note'] else ''
+    return f'<ul class="fp-opts fp-opts--{len(b["items"])}" data-reveal-group>{cards}</ul>{note}'
+
+
+def _range(b):
+    hi = b['ticks'][-1]
+    pct = lambda v: f'{v / hi * 100:.2f}%'
+    ticks = ''.join(f'<span style="--x:{pct(t)}">{e(_short(t) if t else "₹0")}</span>' for t in b['ticks'])
+    rows = ''.join(f'<li class="fp-range__row"><span class="fp-range__l">{e(l)}</span><span class="fp-range__track"><i style="--a:{pct(a)};--b:{pct(z)}"></i></span>'
+                   f'<span class="fp-range__v">{_short(a)}–{_short(z)}</span></li>' for l, a, z in b['rows'])
+    marks = ''.join(f'<span class="fp-range__mark" style="--x:{pct(v)}"><b>{_short(v)}</b><small>{e(l)}</small></span>' for v, l in b['marks'])
+    return f'''<div class="fp-range" data-reveal>
+  <div class="fp-range__scale" aria-hidden="true">{ticks}</div>
+  <ul class="fp-range__rows">{rows}</ul>
+  <div class="fp-range__marks"><span class="fp-range__ml">{e(b["note"])}</span><div class="fp-range__mtrack">{marks}</div></div>
+</div>'''
+
+
+def _durations(b):
+    pct = lambda v: f'{v / b["scale"] * 100:.2f}%'
+    rows = ''.join(f'<li><span class="fp-dur__l">{e(l)}</span><span class="fp-dur__track"><i style="--a:{pct(a)};--b:{pct(z)}"></i></span><b>{e(t)}</b></li>'
+                   for l, a, z, t in b['rows'])
+    return f'<ul class="fp-dur" data-reveal>{rows}</ul>'
+
+
+def _table(b):
+    th = ''.join(f'<th scope="col">{e(h)}</th>' for h in b['head'])
+    body = ''.join('<tr><th scope="row">' + e(r[0]) + '</th>' + ''.join(f'<td data-l="{ea(b["head"][j + 1])}">{e(c)}</td>' for j, c in enumerate(r[1:])) + '</tr>'
+                   for r in b['rows'])
+    return f'<div class="fp-table" data-reveal><table><caption class="sr-only">{e(b["caption"])}</caption><thead><tr>{th}</tr></thead><tbody>{body}</tbody></table></div>'
+
+
+def _links(b):
+    out = ''
+    for href, ic, t, d, pr in b['items']:
+        out += (f'<li data-reveal><a class="fp-link" href="{ea(href)}"><span class="fp-card__ic">{icon(ic)}</span><span class="fp-link__t">{e(t)}</span>'
+                f'<span class="fp-link__d">{e(d)}</span>{f"<span class={chr(34)}fp-link__p{chr(34)}>{e(pr)}</span>" if pr else ""}'
+                f'<span class="fp-link__go">{icon("arrow")}</span></a></li>')
+    return f'<ul class="fp-links" data-reveal-group>{out}</ul>'
+
+
+def _tools(b):
+    return f'''<ul class="fp-tools" data-reveal-group>
+  <li data-reveal><a class="fp-tool fp-tool--dark on-dark" href="/tools/google-business-profile-checker"><span class="fp-tool__k">Free · about 2 minutes</span><span class="fp-tool__t">Google Business Profile checker</span><span class="fp-tool__d">A score out of 100 and a fix list for your listing.</span><span class="fp-tool__go">Check my listing {icon("arrow")}</span></a></li>
+  <li data-reveal><a class="fp-tool" href="/tools/google-review-qr-code"><span class="fp-tool__k">Free · printable</span><span class="fp-tool__t">Google review QR code maker</span><span class="fp-tool__d">A counter standee that brings in reviews.</span><span class="fp-tool__go">Make my QR code {icon("arrow")}</span></a></li>
+</ul>'''
+
+
+def render(b):
+    t = b['t']
+    if t == 'p': return ''.join(f'<p class="fp-p">{x}</p>' for x in b['paras'])
+    if t == 'cards': return _cards(b)
+    if t == 'stat': return f'<div class="fp-stat" data-reveal><b>{e(b["big"])}</b><p>{e(b["label"])}</p>{src_chip(b["src"])}</div>'
+    if t == 'note': return f'<p class="fp-note">{e(b["text"])}</p>'
+    if t == 'check':
+        return '<ol class="fp-check" data-reveal-group>' + ''.join(f'<li data-reveal><span class="fp-check__ic">{icon("check")}</span><span>{e(x)}</span></li>' for x in b['items']) + '</ol>'
+    if t == 'table': return _table(b)
+    if t == 'options': return _options(b)
+    if t == 'range': return _range(b)
+    if t == 'dur': return _durations(b)
+    if t == 'links': return _links(b)
+    if t == 'chips': return f'<div class="fp-chips" data-reveal><p class="fp-chips__l">{e(b["label"])}</p><ul>' + ''.join(f'<li>{icon("check")}{e(x)}</li>' for x in b['items']) + '</ul></div>'
+    if t == 'svg': return SVGS[b['key']]()
+    if t == 'calc': return _calc()
+    if t == 'tools': return _tools(b)
+    raise ValueError(t)
+
+
+def _text(html):
+    """HTML → plain text for llms-full.txt."""
+    t = re.sub(r'<caption.*?</caption>', '', html, flags=re.S)
+    t = re.sub(r'</t[hd]>\s*<t[hd][^>]*>', ' | ', t)
+    t = re.sub(r'<(?:li|tr)[^>]*>', '\n- ', t)
+    t = re.sub(r'</p>|</table>|</ul>', '\n\n', t)
+    t = re.sub(r'<[^>]+>', '', t)
+    t = re.sub(r'^- +\|\s*', '- Compared: ', t, flags=re.M)
+    t = re.sub(r'[ \t]+', ' ', t)
+    return re.sub(r'\n{3,}', '\n\n', re.sub(r'\n +', '\n', t)).strip()
+
+
+def text(b):
+    t = b['t']
+    if t == 'p': return '\n\n'.join(_text(x) for x in b['paras'])
+    if t == 'cards': return '\n'.join(f'- {tt}: {_text(d)}' for _, tt, d in b['items'])
+    if t == 'stat': return f'{b["big"]} {b["label"]} (source: {SRC[b["src"]][1]}, {SRC[b["src"]][0]})'
+    if t == 'note': return b['text']
+    if t == 'check': return '\n'.join(f'{i + 1}. {x}' for i, x in enumerate(b['items']))
+    if t == 'table': return '\n'.join([' | '.join(b['head'])] + [' | '.join(r) for r in b['rows']])
+    if t == 'options': return '\n'.join(f'- {o["name"]}: ' + '; '.join(f'{k}: {v}' for k, v in o['rows']) for o in b['items']) + (f'\n{b["note"]}' if b['note'] else '')
+    if t == 'range': return '\n'.join(f'- {l}: {_fmt(a)}–{_fmt(z)}' for l, a, z in b['rows']) + '\n' + f'{b["note"]}: ' + ', '.join(f'{l} {_fmt(v)}' for v, l in b['marks'])
+    if t == 'dur': return '\n'.join(f'- {l}: {tt}' for l, a, z, tt in b['rows'])
+    if t == 'links': return '\n'.join(f'- {tt}: {d}' + (f' ({pr})' if pr else '') for _, _, tt, d, pr in b['items'])
+    if t == 'chips': return f'{b["label"]}: ' + ', '.join(b['items'])
+    if t == 'svg': return ''
+    if t == 'calc': return _calc_text()
+    if t == 'tools': return ('- Free Google Business Profile checker: a score out of 100 and a fix list in about two minutes.\n'
+                             '- Free Google review QR code maker: a printable counter standee that brings in reviews.')
+    return ''
+
+
+# ---------------------------------------------------------------- hero art
+def _hero_art(p):
+    a = p['art']; k = a['kind']
+    chips = ''.join(f'<span class="fp-chip fp-chip--{i + 1}">{icon(ic)}{e(t)}</span>' for i, (ic, t) in enumerate(a.get('chips', [])))
+    if k == 'img':
+        img = IMG[a['img']]
+        return (f'<figure class="fp-art fp-art--img">{_pic(img, "(max-width: 559px) 82vw, (max-width: 1023px) 600px, 660px", eager=True)}{chips}'
+                f'<figcaption>{e(img["caption"])}</figcaption></figure>')
+    if k == 'portrait':
+        img = IMG['mehul']
+        return (f'<figure class="fp-art fp-art--portrait"><div class="fp-portrait">{_pic(img, "(max-width: 559px) 260px, (max-width: 1023px) 300px, 400px", eager=True)}'
+                f'<figcaption class="fp-portrait__plate"><b>Mehul Karotra</b><span>Founder of U Scale</span></figcaption></div>{chips}</figure>')
+    if k == 'ticket':
+        rows = [('Landing page', price('Landing page')), ('Business site, 3–4 pages', price('Business site, 3–4 pages')),
+                ('5–10 pages + blog', price('Business site, 5–10 pages + blog')), ('Online store se', price('E-commerce, under 50 products'))]
+        li = ''.join(f'<li><span>{e(n)}</span><i></i><b>{e(v)}</b></li>' for n, v in rows)
+        return (f'<div class="fp-art fp-ticket" aria-label="U Scale ke fixed prices"><p class="fp-ticket__k">U Scale ke fixed prices · 2026</p>'
+                f'<ul>{li}</ul><p class="fp-ticket__f">{icon("shield")}Kaam se pehle likhit mein · 20% / 20% / 60%</p></div>')
+    if k == 'audit':
+        gaps = ['No website on the listing', 'Website link that no longer opens', 'Someone else’s link in the website field',
+                'Followers, but few Google reviews', 'No WhatsApp or call button']
+        li = ''.join(f'<li style="--i:{i}">{icon("alert")}<span>{e(g)}</span></li>' for i, g in enumerate(gaps))
+        return (f'<div class="fp-art fp-audit"><p class="fp-audit__k">{icon("pin")}Free audit day · Andheri East · Oct 2026</p>'
+                f'<p class="fp-audit__n"><b>30+</b><span>Google listings of local shops, cafés and restaurants checked</span></p>'
+                f'<p class="fp-audit__h">Gaps that came up again and again</p><ul>{li}</ul>'
+                f'<p class="fp-audit__f">{icon("check")}Most fixes take days, not months</p></div>')
+    if k == 'ranges':
+        rows = [('DIY builder', None, None, 'Monthly plan + your time'), ('Freelancer', 10000, 80000, '₹10k–₹80k'),
+                ('Agency', 50000, 300000, '₹50k–₹3L'), ('U Scale', rupees('Landing page'), rupees('E-commerce, under 50 products'), f'{_short(rupees("Landing page"))}–{_short(rupees("E-commerce, under 50 products"))}, fixed')]
+        li = ''
+        for n, a0, z, t in rows:
+            bar = (f'<span class="fp-mini__track"><i style="--a:{a0 / 3000:.2f}%;--b:{z / 3000:.2f}%"></i></span>' if a0 else '<span class="fp-mini__track fp-mini__track--na"></span>')
+            li += f'<li class="{"is-us" if n == "U Scale" else ""}"><span class="fp-mini__n">{e(n)}</span>{bar}<b>{e(t)}</b></li>'
+        return (f'<div class="fp-art fp-mini" aria-label="Typical website cost in Mumbai by option"><p class="fp-mini__k">Typical cost of a business website, Mumbai 2026</p>'
+                f'<ul>{li}</ul><p class="fp-mini__s" aria-hidden="true"><span>₹0</span><span>₹1L</span><span>₹2L</span><span>₹3L</span></p></div>')
+    return ''
 
 
 # ---------------------------------------------------------------- page assembly
@@ -535,20 +971,23 @@ def _jsonld(site, p):
     area = ([{'@type': 'Place', 'name': f'{n}, Mumbai'} for n in p['places']] if p['kind'] == 'area'
             else [{'@type': 'City', 'name': 'Mumbai'}, {'@type': 'Country', 'name': 'India'}])
     lang = p.get('lang', 'en-IN')
+    imgs = image_ld(site, url, p)
     service = {'@type': 'Service', '@id': url + '#service', 'name': p['service'], 'serviceType': 'Website design', 'url': url, 'description': p['answer'],
                'provider': {'@id': site + '#business'}, 'areaServed': area, 'offers': aeo.offers_ld(site, p['offers']),
                'isRelatedTo': {'@type': 'Service', '@id': parent + '#service', 'name': PARENT['name'], 'url': parent}}
     if p['kind'] == 'guide':  # a guide is an article by Mehul about the service, not the service itself
         main = {'@type': 'Article', '@id': url + '#article', 'headline': p['h1'], 'description': p['answer'], 'inLanguage': lang,
-                'author': {'@id': site + '#mehul'}, 'publisher': {'@id': site + '#business'}, 'dateModified': '__LASTMOD__',
-                'mainEntityOfPage': {'@id': url + '#webpage'},
+                'author': {'@id': site + '#mehul'}, 'publisher': {'@id': site + '#business'}, 'datePublished': '2026-10-23', 'dateModified': '__LASTMOD__',
+                'mainEntityOfPage': {'@id': url + '#webpage'}, 'image': [{'@id': i['@id']} for i in imgs],
                 'about': {'@type': 'Service', '@id': parent + '#service', 'name': PARENT['name'], 'url': parent}}
     else:
         main = service
+        main['image'] = {'@id': imgs[0]['@id']}
     graph = [
         {'@type': 'WebPage', '@id': url + '#webpage', 'url': url, 'name': p['title'], 'description': p['desc'], 'isPartOf': {'@id': site + '#website'},
          'about': {'@id': main['@id']}, 'mainEntity': {'@id': main['@id']}, 'author': {'@id': site + '#mehul'},
          'breadcrumb': {'@id': url + '#breadcrumb'}, 'inLanguage': lang, 'dateModified': '__LASTMOD__',
+         'primaryImageOfPage': {'@id': imgs[0]['@id']}, 'image': [{'@id': i['@id']} for i in imgs],
          'citation': [SRC[k][2] for k in p['sources']]},
         main,
         aeo.biz_ref(site), aeo.person_ref(site),
@@ -558,40 +997,179 @@ def _jsonld(site, p):
             {'@type': 'ListItem', 'position': 3, 'name': PARENT['short'], 'item': parent},
             {'@type': 'ListItem', 'position': 4, 'name': p['crumb'], 'item': url}]},
         aeo._faq_ld(url, p['faq']),
+        *imgs,
     ]
-    imgs = image_ld(site, url, p)
-    if imgs:
-        graph[0]['primaryImageOfPage'] = {'@id': imgs[0]['@id']}
-        graph[0]['image'] = [{'@id': i['@id']} for i in imgs]
-        graph += imgs
     return json.dumps({'@context': 'https://schema.org', '@graph': graph}, ensure_ascii=False, separators=(',', ':')).replace('</', '<\\/')
 
 
-def _hero(p, wa):
+def _hi(p):
+    return p.get('lang') == 'hi-Latn'
+
+
+def _hero(p, wa, icons):
+    hi = _hi(p)
+    stats = ''.join(f'<li class="stat"><span class="stat__num">{e(n)}</span><span class="stat__label">{e(l)}</span></li>' for n, l in p['stats'])
+    see = 'Prices dekhiye' if hi else 'See prices & facts'
+    talk = 'WhatsApp pe free audit' if hi else 'Free audit on WhatsApp'
     return f'''  <div class="wrap hero-shell">
-    <section class="sp-hero on-dark" data-tone="dark" aria-labelledby="page-title">
-      <nav class="crumbs" aria-label="Breadcrumb"><ol><li><a href="/">Home</a></li><li><a href="/services">Services</a></li><li><a href="/services/{BASE}">{e(PARENT['short'])}</a></li><li aria-current="page">{e(p['crumb'])}</li></ol></nav>
-      <p class="eyebrow">{e(p['eyebrow'])}</p><h1 class="sp-hero__title" id="page-title">{e(p['h1'])}<span class="dot">.</span></h1>
-      <p class="sp-hero__lead">{e(p['lead'])}</p>
-      <div class="hero__cta" data-wa-zone>
-        <a class="btn btn--go" href="#contact" data-magnetic>Get a free audit <span class="arw" aria-hidden="true"><b>↗</b><b>↗</b></span></a>
-        <a class="btn btn--ghost" href="{ea(wa)}" target="_blank" rel="noopener" data-magnetic>Chat on WhatsApp</a>
+    <section class="sp-hero fp-hero on-dark" data-tone="dark" aria-labelledby="page-title">
+      <div class="fp-hero__copy">
+        <nav class="crumbs" aria-label="Breadcrumb"><ol><li><a href="/">Home</a></li><li><a href="/services">Services</a></li><li><a href="/services/{BASE}">{e(PARENT['short'])}</a></li><li aria-current="page">{e(p['crumb'])}</li></ol></nav>
+        <p class="eyebrow">{e(p['eyebrow'])}</p><h1 class="sp-hero__title fp-hero__title" id="page-title">{e(p['h1'])}{'' if p['h1'].endswith('?') else '<span class="dot">.</span>'}</h1>
+        <p class="sp-hero__lead">{e(p['lead'])}</p>
+        <div class="hero__cta" data-wa-zone>
+          <a class="btn btn--go" href="{ea(wa)}" target="_blank" rel="noopener" data-magnetic>{icons['ICON_CHAT']}{talk}</a>
+          <a class="btn btn--ghost" href="#brief-title">{see}</a>
+        </div>
+        <ul class="stats fp-stats">{stats}</ul>
       </div>
+      {_hero_art(p)}
     </section>
   </div>'''
+
+
+def _who(p):
+    hi = _hi(p)
+    img = IMG['mehul']
+    if hi:
+        k, h, d = 'Aap kiske saath kaam karoge', 'Mehul Karotra, khud.', ('Main har website Figma mein design karta hoon aur khud code karta hoon. Ghatkopar West '
+                                                                     'mein based hoon; baat WhatsApp pe seedha mujhse hoti hai, kisi account manager se nahi.')
+        badges = ['Ghatkopar West, Mumbai', 'Figma design, hand-coded', 'English aur Hindi']
+        more = 'Mehul ke baare mein'
+    else:
+        k, h, d = 'Who you’ll work with', 'Mehul Karotra, personally.', ('I design every site in Figma and code it myself. I’m based in Ghatkopar West, '
+                                                                        'and you talk to me directly on WhatsApp, not to an account manager.')
+        badges = ['Based in Ghatkopar West', 'Designs in Figma, hand-codes', 'English and Hindi']
+        more = 'More about Mehul'
+    li = ''.join(f'<li>{icon("check")}{e(x)}</li>' for x in badges)
+    return f'''
+  <section class="section fp-sec fp-sec--who" aria-labelledby="who-title">
+    <div class="wrap">
+      <div class="fp-who" data-reveal>
+        <picture class="fp-who__img"><source type="image/avif" srcset="{img['file']}-480.avif"><img src="{img['file']}-480.webp" width="480" height="480" alt="{ea(img['alt'])}" loading="lazy" decoding="async"></picture>
+        <div class="fp-who__body">
+          <p class="eyebrow">{e(k)}</p>
+          <h2 class="fp-who__h" id="who-title">{e(h)}</h2>
+          <p>{e(d)}</p>
+          <ul class="fp-who__badges">{li}</ul>
+          <a class="tlink" href="/about">{e(more)}</a>
+        </div>
+      </div>
+    </div>
+  </section>'''
+
+
+def _how(p):
+    hi = _hi(p)
+    if hi:
+        head, sub = 'Fixed price. Koi surprise nahi.', 'Free audit se launch tak, chaar steps.'
+        steps = [('Audit', 'Aapki website, Google listing aur Instagram dekhta hoon, goals aur pages tay karte hain.', 'Free'),
+                 ('Design', 'Figma mein asli screens, desktop aur mobile, saath mein refine karte hain.', '20% shuru mein · 20% design approve pe'),
+                 ('Build', 'Approved design ko code karta hoon, forms jodta hoon, phones pe test karta hoon.', ''),
+                 ('Launch', 'Domain, hosting, Search Console aur final check. Phir chhote tweaks do hafte tak free.', '60% launch pe')]
+        promise = [('key', 'Domain, code aur logins aapke naam'), ('file', 'Price kaam se pehle likhit mein'), ('shield', 'Launch ke baad 15–30 din bug-fix')]
+    else:
+        head, sub = 'Fixed price. No surprises.', 'From free audit to launch, in four steps.'
+        steps = [(t, d, tag) for (t, d), tag in zip(PARENT['steps'], ['Free', '20% to start · 20% on design sign-off', '', '60% on launch'])]
+        promise = [('key', 'Your domain, code and logins, in your name'), ('file', 'Price fixed in writing before work starts'), ('shield', '15–30 day bug-fix window after launch')]
+    li = ''.join(f'<li class="fp-step" data-reveal><span class="fp-step__n" aria-hidden="true">{i + 1:02d}</span><h3>{e(t)}</h3><p>{e(d)}</p>'
+                 + (f'<span class="fp-step__tag">{e(tag)}</span>' if tag else '') + '</li>' for i, (t, d, tag) in enumerate(steps))
+    pr = ''.join(f'<li>{icon(ic)}<span>{e(x)}</span></li>' for ic, x in promise)
+    return f'''
+  <section class="section fp-sec fp-sec--how" aria-labelledby="how-title">
+    <div class="wrap">
+      <header class="sec-head fp-head"><p class="eyebrow">{'Kaise kaam hota hai' if hi else 'How it works'}</p><h2 class="h2 fp-h2" id="how-title">{e(head)}</h2><p class="lead">{e(sub)}</p></header>
+      <ol class="fp-steps" data-reveal-group>{li}</ol>
+      <ul class="fp-promise" data-reveal>{pr}</ul>
+    </div>
+  </section>'''
 
 
 def _work(ctx, keys):
     if not keys: return ''
     wmap = {w[0]: w for w in ctx['WORK']}
-    li = ''.join(f'<li>{_link(wmap[k][5], wmap[k][1])} <span>{e(wmap[k][2])}</span></li>' for k in keys)
-    return f'<h3>Related work</h3><ul class="sp-list sp-list--work">{li}</ul>'
+    cards = ''
+    for k in keys:
+        w = wmap[k]; lw, lh = ctx['SZ'][k]
+        cards += (f'<li class="rw"><a href="{w[5]}" target="_blank" rel="noopener" data-cursor="view"><span class="rw__img"><img src="/assets/work/{k}-peek.webp" width="768" height="480" '
+                  f'alt="Website for {ea(w[1])}, designed and built by U Scale" loading="lazy" decoding="async"></span><span class="rw__body"><img class="rw__logo" src="/assets/logos/{k}.webp" '
+                  f'width="{lw}" height="{lh}" alt="" loading="lazy" decoding="async"><b>{e(w[1])}</b><small>{e(w[2])}</small></span><span class="sr-only"> (opens in a new tab)</span></a></li>')
+    return f'''
+  <section class="section fp-sec" aria-labelledby="work-title">
+    <div class="wrap fp-work">
+      <header class="sec-head fp-head"><p class="eyebrow">Real work</p><h2 class="h2 fp-h2" id="work-title">A Mumbai label I designed and built for.</h2>
+        <p class="lead">{e(wmap[keys[0]][4])}</p></header>
+      <ul class="rw-grid fp-work__grid" data-reveal-group>{cards}</ul>
+    </div>
+  </section>'''
 
 
-def _cta(p, wa):
+def _section(i, s):
+    sid = s['sid'] or f's{i}'
+    head_cls = 'sec-head fp-head'
+    eyebrow = f'<p class="eyebrow">{e(s["eyebrow"])}</p>' if s['eyebrow'] else ''
+    lead = f'<p class="lead">{e(s["lead"])}</p>' if s['lead'] else ''
+    head = f'<header class="{head_cls}">{eyebrow}<h2 class="h2 fp-h2" id="{sid}-title">{e(s["h"])}</h2>{lead}</header>'
+    body = ''.join(render(b) for b in s['blocks'])
+    tone = f' fp-sec--{s["tone"]}' if s['tone'] else ''
+    if s['layout'] == 'split':
+        inner = f'<div class="fp-split">{head}<div class="fp-split__body">{body}</div></div>'
+    else:
+        inner = head + f'<div class="fp-wide">{body}</div>'
+    if s['tone'] == 'dark':
+        return f'''
+  <section class="section fp-sec fp-sec--dark" id="{sid}" aria-labelledby="{sid}-title">
+    <div class="wrap"><div class="panel on-dark fp-panel" data-tone="dark"><span class="grain" aria-hidden="true"></span>{inner}</div></div>
+  </section>'''
+    return f'''
+  <section class="section fp-sec{tone}" id="{sid}" aria-labelledby="{sid}-title">
+    <div class="wrap">{inner}</div>
+  </section>'''
+
+
+def _sections(p):
+    out, halves = [], []
+    for i, s in enumerate(p['sections']):
+        if s['layout'] == 'half':
+            halves.append((i, s)); continue
+        if halves:
+            out.append(_halves(halves)); halves = []
+        out.append(_section(i, s))
+    if halves: out.append(_halves(halves))
+    return ''.join(out)
+
+
+def _halves(items):
+    cards = ''.join(f'<article class="fp-half" aria-labelledby="s{i}-title" data-reveal><p class="eyebrow">{e(s["eyebrow"])}</p><h2 class="fp-half__h" id="s{i}-title">{e(s["h"])}</h2>'
+                    + ''.join(render(b) for b in s['blocks']) + '</article>' for i, s in items)
+    return f'''
+  <section class="section fp-sec fp-sec--halves" aria-label="When to choose which">
+    <div class="wrap"><div class="fp-halves" data-reveal-group>{cards}</div></div>
+  </section>'''
+
+
+def _foot(p):
+    hi = _hi(p)
+    li = ''.join(f'<li><a href="{ea(SRC[k][2])}" target="_blank" rel="noopener">{e(SRC[k][1])}<span class="sr-only"> (opens in a new tab)</span></a><span>{e(SRC[k][0])}</span></li>'
+                 for k in p['sources'])
+    return f'''
+  <section class="section fp-sec fp-sec--foot" aria-label="{'Sources aur prices' if hi else 'Sources and prices'}">
+    <div class="wrap fp-foot">
+      <div class="fp-sources"><h2 class="fp-mini-h">Sources</h2><ol>{li}</ol></div>
+      <a class="fp-pricecard" href="/pricing"><span class="fp-pricecard__k">{icon('rupee')}{'Har price published hai' if hi else 'Every price is published'}</span><b>{'Poori price list dekhiye' if hi else 'See the full price list'}</b>{icon('arrow')}</a>
+    </div>
+  </section>'''
+
+
+def _related(p):
+    kinds = {'business': 'By business', 'area': 'Near you', 'guide': 'Guide'}
     others = [q for q in PAGES if q is not p]
-    label = lambda q: q['crumb'] if q['kind'] in ('area', 'guide') else q['h1'].split(' with ')[0]
-    nav = ''.join(f'<li><a href="/services/{BASE}/{q["slug"]}">{e(label(q))}</a></li>' for q in others)
+    li = ''.join(f'<li><a class="fp-rel" href="/services/{BASE}/{q["slug"]}"><span class="fp-rel__k">{kinds[q["kind"]]}</span><b>{e(q["h1"])}</b>'
+                 f'<span class="fp-rel__d">{e(q["card"])}</span>{icon("arrow")}</a></li>' for q in others)
+    return f'<nav class="fp-related" aria-label="More website pages"><p class="eyebrow">Keep reading</p><ul>{li}</ul></nav>'
+
+
+def _cta(p, wa, icons):
     return f'''
   <section class="cta sp-cta" id="contact" aria-labelledby="cta-title">
     <div class="wrap">
@@ -601,48 +1179,39 @@ def _cta(p, wa):
           <h2 class="sp-cta__title" id="cta-title">Get a free audit<span class="dot">.</span></h2>
           <p class="lead">Tell me about your business. I reply within 24 hours, usually much faster on WhatsApp.</p>
           <div class="cta__btns" data-wa-zone>
-            <a class="btn btn--go" href="{ea(wa)}" target="_blank" rel="noopener" data-magnetic>Chat on WhatsApp</a>
+            <a class="btn btn--go" href="{ea(wa)}" target="_blank" rel="noopener" data-magnetic>{icons['ICON_CHAT']}Chat on WhatsApp</a>
             <a class="btn btn--ghost" href="mailto:{SP.EMAIL}">Email {SP.EMAIL}</a>
             <a class="btn btn--ghost" href="tel:+{aeo.ENTITY['whatsapp']}">Call {SP.PHONE_D}</a>
           </div>
         </div>
       </div>
-      <nav class="sp-more" aria-label="More website pages"><p class="eyebrow">More</p><ul><li><a href="/services/{BASE}">All website design</a></li>{nav}<li><a href="/pricing">Full price list</a></li></ul></nav>
+      {_related(p)}
+      <p class="fp-all"><a class="tlink" href="/services/{BASE}">All website design</a> · <a class="tlink" href="/pricing">Full price list</a></p>
     </div>
   </section>'''
 
 
 def page(ctx, parts, p):
     site = ctx['SITE_URL']; url = url_of(site, p)
-    msg = ("Hi Mehul, I read your guide on uscale.in. I'd like a quote for my website." if p['kind'] == 'guide'
-           else f"Hi Mehul, I found your page on {p['crumb'].lower()} websites. I'd like to talk about my business.")
+    icons = ctx['ICONS']
+    msg = ("Hi Mehul, I read your guide on uscale.in. I'd like a free audit and a price for my website." if p['kind'] == 'guide'
+           else f"Hi Mehul, I found your page on {p['crumb'].lower()} websites. I'd like a free audit for my business.")
     wa = f'https://wa.me/{aeo.ENTITY["whatsapp"]}?text=' + urllib.parse.quote(msg)
-    imgs = IMAGES.get(p['slug'], [])
-    at = lambda i: ''.join(figure(x) for x in imgs if x['at'] == i)
-    lead_img = f'''
-  <section class="section sp-q sp-q--img" aria-label="Example">
-    <div class="wrap sp-prose">{at(-1)}</div>
-  </section>''' if at(-1) else ''
-    secs = lead_img + ''.join(f'''
-  <section class="section sp-q" aria-labelledby="s{i}-title">
-    <div class="wrap sp-prose">
-      <h2 class="h2 sp-h2" id="s{i}-title">{e(h)}</h2>
-      {at(i)}{body}
-    </div>
-  </section>''' for i, (h, body) in enumerate(p['sections']))
-    tail = f'''
-  <section class="section sp-tight" aria-label="Related work and sources">
-    <div class="wrap sp-prose">
-      {_work(ctx, p['work'])}
-      {sources_html(p['sources'])}
-      <p class="sp-price"><strong>Prices.</strong> Every U Scale price is published. {_link('/pricing', 'See the full price list')}</p>
-    </div>
-  </section>'''
-    content = (_hero(p, wa) + aeo.brief_html(p['answer'], p['facts'], 'Key facts: ' + p['service'], 'brief-title') + secs + tail
-               + aeo._faq_section(p['faq'], 'Sawaal-jawaab.' if p.get('lang') == 'hi-Latn' else 'Questions, answered.'))
-    body = (f'<div lang="{p["lang"]}">{content}</div>' if p.get('lang') else content) + _cta(p, wa)
-    og = (f'{site}assets/pages/{OG[p["slug"]]}.jpg', p['h1'] + ' · U Scale by Mehul Karotra')
-    return aeo._page(ctx, parts, url, p['title'], p['desc'], _jsonld(site, p), body, og)
+    toc = [((s['sid'] or f's{i}') + '-title', s['h']) for i, s in enumerate(p['sections'])]
+    toc += [('how-title', 'Kaise kaam hota hai' if _hi(p) else 'How it works'), ('faq-title', 'Sawaal-jawaab' if _hi(p) else 'Questions')]
+    content = (_hero(p, wa, icons) + aeo.brief_html(p['answer'], p['facts'], 'Key facts: ' + p['service'], 'brief-title', toc, 'Is page pe' if _hi(p) else 'On this page')
+               + _sections(p) + _work(ctx, p['work']) + ('' if p['art']['kind'] == 'portrait' else _who(p)) + _how(p)
+               + aeo._faq_section(p['faq'], 'Sawaal-jawaab.' if _hi(p) else 'Questions, answered.') + _foot(p))
+    body = (f'<div lang="{p["lang"]}">{content}</div>' if p.get('lang') else content) + _cta(p, wa, icons)
+    og = (f'{site}assets/pages/{OG[p["slug"]]}.jpg', OG_ALT[p['slug']])
+    imgs = page_images(p)
+    preload = None
+    if imgs:
+        i0 = imgs[0]
+        sizes = '(max-width: 559px) 260px, (max-width: 1023px) 300px, 400px' if p['art']['kind'] == 'portrait' else '(max-width: 559px) 82vw, (max-width: 1023px) 600px, 660px'
+        preload = (f'<link rel="preload" as="image" type="image/avif" imagesrcset="{i0["file"]}-{i0["small"]}.avif {i0["small"]}w, '
+                   f'{i0["file"]}.avif {i0["w"]}w" imagesizes="{sizes}" fetchpriority="high">')
+    return aeo._page(ctx, parts, url, p['title'], p['desc'], _jsonld(site, p), body, og, extra_head=preload)
 
 
 def build(ctx, parts):
@@ -662,34 +1231,22 @@ def llms_lines(site):
             + ['', '## Guides', ''] + [f'- [{p["h1"]}]({url_of(site, p)}): {p["desc"]}' for p in PAGES if p['kind'] == 'guide'])
 
 
-def _text(html):
-    """Section HTML → plain text for llms-full.txt: paragraphs, "- " bullets and "a | b" table rows."""
-    t = re.sub(r'<caption.*?</caption>', '', html, flags=re.S)
-    t = re.sub(r'</t[hd]>\s*<t[hd][^>]*>', ' | ', t)
-    t = re.sub(r'<(?:li|tr)[^>]*>', '\n- ', t)
-    t = re.sub(r'</p>|</table>|</ul>', '\n\n', t)
-    t = re.sub(r'<[^>]+>', '', t)
-    t = re.sub(r'^- +\|\s*', '- Compared: ', t, flags=re.M)  # header row with an empty first cell
-    t = re.sub(r'[ \t]+', ' ', t)
-    return re.sub(r'\n{3,}', '\n\n', re.sub(r'\n +', '\n', t)).strip()
-
-
 def llms_full(site):
     L = []
     for p in PAGES:
         L += [f'## {p["h1"]}', '', f'URL: {url_of(site, p)}', '', p['answer'], ''] + [f'- {k}: {v}' for k, v in p['facts']] + ['']
-        for h, body in p['sections']:
-            L += [f'### {h}', '', _text(body), '']
+        for s in p['sections']:
+            body = '\n\n'.join(x for x in (text(b) for b in s['blocks']) if x)
+            L += [f'### {s["h"]}', '', body, '']
         L += ['### Questions', ''] + [f'**{q}**\n{a}\n' for q, a in p['faq']]
         L += ['Sources: ' + '; '.join(f'{SRC[k][1]} ({SRC[k][0]}) {SRC[k][2]}' for k in p['sources']), '']
     return L
 
 
 def related_html():
-    """Links block for the main website-design page: by business, by area."""
-    biz = ''.join(f'<li><a href="/services/{BASE}/{p["slug"]}">{e(p["h1"])}</a></li>' for p in PAGES if p['kind'] == 'business')
-    area = ''.join(f'<li><a href="/services/{BASE}/{p["slug"]}">{e(p["h1"])}</a></li>' for p in PAGES if p['kind'] == 'area')
-    guide = ''.join(f'<li><a href="/services/{BASE}/{p["slug"]}">{e(p["crumb"])}</a></li>' for p in PAGES if p['kind'] == 'guide')
-    return (f'<nav class="sp-more" aria-label="Websites by business"><p class="eyebrow">By business</p><ul>{biz}</ul></nav>'
-            f'<nav class="sp-more" aria-label="Websites near you"><p class="eyebrow">Near you</p><ul>{area}</ul></nav>'
-            f'<nav class="sp-more" aria-label="Website guides"><p class="eyebrow">Guides</p><ul>{guide}</ul></nav>')
+    """Link cards for the main website-design page: by business, near you, guides."""
+    kinds = [('business', 'By business'), ('area', 'Near you'), ('guide', 'Guides')]
+    li = ''.join(f'<li><a class="fp-rel" href="/services/{BASE}/{p["slug"]}"><span class="fp-rel__k">{label}</span><b>{e(p["h1"])}</b>'
+                 f'<span class="fp-rel__d">{e(p["card"])}</span>{icon("arrow")}</a></li>'
+                 for kind, label in kinds for p in PAGES if p['kind'] == kind)
+    return f'<nav class="fp-related fp-related--parent" aria-label="Website design by business, area and guide"><p class="eyebrow">By business, near you, and guides</p><ul>{li}</ul></nav>'
