@@ -571,7 +571,7 @@ PAGES = [
   h1='Freelancer, agency or website builder?', eyebrow='Guide · Compared',
   lead='Should a Mumbai business hire a freelancer, an agency or build its website on a DIY builder? I run U Scale, so I have a side: the price ranges here come from 16 published price guides (2025–26), listed below, not from my own prices.',
   stats=[('₹10k–₹80k', 'Freelancer'), ('₹50k–₹3L', 'Agency'), ('16', 'Price guides, listed below')],
-  art=dict(kind='ranges'),
+  art=dict(kind='img', img='paths'),
   answer='For a small Mumbai business with a simple site, a freelancer or one-person studio is often enough, and usually costs less than an agency. Freelancer projects mostly cost '
          '₹10,000–₹80,000 and agency projects ₹50,000–₹3 lakh, according to 16 website price guides published in 2025–26 '
          '(listed below). A DIY builder costs least upfront but takes your time and a monthly fee. Choose an agency when you need a large team '
@@ -668,6 +668,10 @@ IMG = {
                alt='The free Google Business Profile checker with a sample salon scored 86 out of 100: its listing marked with three problems, and a score card listing the three fixes and a review goal'),
  'tool-qr': dict(file=A + 'google-review-qr-code-standee', w=1200, h=800, small=640,
                alt='A printed review QR standee on a sample café counter beside a glass of chai, with a phone camera scanning the code and offering to open the review page'),
+ 'paths': dict(file=A + 'freelancer-agency-website-builder-quote-comparison', w=1200, h=1000, small=640,
+               alt='Three ways to get a website side by side: a DIY site builder\'s template picker on a ₹1,499 a month plan, a freelancer\'s chat saying hosting costs extra, '
+                   'an agency proposal with a four-person team and a ₹2,50,000 total, and in front a U Scale fixed quote of ₹55,000 split 20%, 20% and 60%, stamped accepted',
+               caption='Sample screens showing the three routes and a U Scale fixed quote. All names and figures are illustrative.'),
  'mehul': dict(file=A + 'mehul-karotra-website-designer-ghatkopar', w=1200, h=1200, small=640,
                alt='Mehul Karotra, website designer and founder of U Scale, based in Mumbai',
                caption='Mehul Karotra, who designs and builds every U Scale website himself.'),
