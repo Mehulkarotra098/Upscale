@@ -4,7 +4,10 @@
 //   /blog/rss.xml                 → view=rss            /sitemap-blog.xml       → view=sitemap
 //   /indexnow-key.txt             → view=indexnow       daily cron              → view=ping (keeps the DB warm, IndexNow-pings newly live posts)
 // The read counter beacon posts to view=hit.
-import { CRON_SECRET, INDEXNOW_KEY, OUTREACH, SITE_URL } from '../config.js';
+import { timingSafeEqual } from 'node:crypto';
+import { AI_LOG_KEY, CRON_SECRET, INDEXNOW_KEY, OUTREACH, SITE_URL } from '../config.js';
+import { cleanHit } from '../ai/agents.js';
+import * as aiHits from '../repos/aihits.js';
 import { pingIndexNow } from '../lib/indexnow.js';
 import * as sitePages from '../repos/sitepages.js';
 import { changedPages, staticPages } from './sitepages.js';
@@ -14,7 +17,7 @@ import { checkSite } from '../lib/sitecheck.js';
 import { verify } from '../auth/tokens.js';
 import { hasDb, one } from '../db/client.js';
 import { toDbId } from '../lib/ids.js';
-import { CACHE, clientIp, html, json, query, redirect, send, text } from '../lib/http.js';
+import { CACHE, clientIp, html, json, query, readJSON, redirect, send, text } from '../lib/http.js';
 import { log } from '../lib/log.js';
 import * as categories from '../repos/categories.js';
 import * as posts from '../repos/posts.js';
@@ -45,7 +48,24 @@ function previewAllowed(token, slug) {
   return Boolean(claims?.pv && claims.slug === slug);
 }
 
+/** Constant-time check of the key middleware.js sends with each AI hit. */
+function aiKeyOk(got) {
+  if (!AI_LOG_KEY || typeof got !== 'string') return false;
+  const a = Buffer.from(got);
+  const b = Buffer.from(AI_LOG_KEY);
+  return a.length === b.length && timingSafeEqual(a, b);
+}
+
 const VIEWS = {
+  /** AI assistants, AI crawlers and AI-answer visitors, reported by middleware.js (see server/ai/agents.js). */
+  async ai(req, res) {
+    if (req.method !== 'POST' || !aiKeyOk(req.headers['x-ai-key'])) return text(res, 404, 'Not found', 'text/plain', CACHE.none);
+    const hit = cleanHit(await readJSON(req).catch(() => null));
+    if (!hit) return text(res, 400, 'Bad hit', 'text/plain', CACHE.none);
+    await aiHits.add(hit).catch((err) => log.warn('ai', 'hit not saved', { err }));
+    return send(res, 204, '', { 'Cache-Control': CACHE.none });
+  },
+
   async hit(req, res, p) {
     const postId = toDbId(p.id);
     if (req.method === 'POST' && postId && !BOTS.test(req.headers['user-agent'] || '')) {
@@ -64,6 +84,7 @@ const VIEWS = {
     if (CRON_SECRET && req.headers.authorization !== `Bearer ${CRON_SECRET}`)
       return text(res, 401, 'Unauthorized', 'text/plain', CACHE.none);
     await one('SELECT 1');
+    await aiHits.prune().catch((err) => log.warn('ai', 'prune failed', { err }));
     // Scheduled posts go live on their own, with no save to trigger a ping, so the daily cron (09:42 IST, just after
     // the usual 09:30 slot) announces live posts IndexNow hasn't heard about. Each post is announced once, so repeat
     // calls to this URL do nothing.
@@ -194,8 +215,8 @@ const VIEWS = {
   },
 };
 
-const NEEDS_DB = new Set(['ping', 'rss', 'sitemap', 'latest', 'post', 'index', 'report', 'check']);
-const MACHINE = new Set(['ping', 'rss', 'sitemap', 'latest']);
+const NEEDS_DB = new Set(['ping', 'rss', 'sitemap', 'latest', 'post', 'index', 'report', 'check', 'ai']);
+const MACHINE = new Set(['ping', 'rss', 'sitemap', 'latest', 'ai']);
 
 export default async function blogHandler(req, res) {
   const p = query(req);

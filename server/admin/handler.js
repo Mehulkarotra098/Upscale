@@ -16,8 +16,9 @@ import session from './actions/session.js';
 import team from './actions/team.js';
 import leads from './actions/leads.js';
 import outreach from './actions/outreach.js';
+import aisearch from './actions/aisearch.js';
 
-const ACTIONS = { ...session, ...dashboard, ...posts, ...media, ...categories, ...team, ...leads, ...outreach };
+const ACTIONS = { ...session, ...dashboard, ...posts, ...media, ...categories, ...team, ...leads, ...outreach, ...aisearch };
 
 function checkSameOrigin(req) {
   if (req.headers['x-us-admin'] !== '1') throw forbidden('Missing admin header');

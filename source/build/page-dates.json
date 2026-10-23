@@ -1,50 +1,66 @@
 {
  "https://uscale.in/": {
-  "fp": "0f46aa523211283b",
-  "date": "2026-10-20"
+  "fp": "ea0b7046c5ca9b95",
+  "date": "2026-10-23"
  },
  "https://uscale.in/about": {
-  "fp": "8bcd2462c8679c6e",
-  "date": "2026-10-20"
+  "fp": "1f00aa76503bb9ed",
+  "date": "2026-10-23"
  },
  "https://uscale.in/pricing": {
-  "fp": "1d66d4d0e025f572",
-  "date": "2026-10-20"
+  "fp": "fe71962f0ac202d4",
+  "date": "2026-10-23"
  },
  "https://uscale.in/services": {
-  "fp": "e160387f3c337b1c",
-  "date": "2026-10-20"
+  "fp": "bd2bcdfacd55d8ea",
+  "date": "2026-10-23"
  },
  "https://uscale.in/services/ai-search-visibility": {
-  "fp": "960b19e743c49cee",
-  "date": "2026-10-20"
+  "fp": "84a751a797e07895",
+  "date": "2026-10-23"
  },
  "https://uscale.in/services/google-meta-ads-mumbai": {
-  "fp": "8e6c17ccc7805f90",
-  "date": "2026-10-20"
+  "fp": "f296e5d955dbe9f5",
+  "date": "2026-10-23"
  },
  "https://uscale.in/services/seo-mumbai": {
-  "fp": "bf69311973628448",
-  "date": "2026-10-20"
+  "fp": "732135f10a7ba8ff",
+  "date": "2026-10-23"
  },
  "https://uscale.in/services/social-media-management-mumbai": {
-  "fp": "a1498da8440073cd",
-  "date": "2026-10-20"
+  "fp": "c382eece7743c6b9",
+  "date": "2026-10-23"
  },
  "https://uscale.in/services/website-design-mumbai": {
-  "fp": "121137d1ff2f8fa5",
-  "date": "2026-10-20"
+  "fp": "185eb03cfa4e3723",
+  "date": "2026-10-23"
+ },
+ "https://uscale.in/services/website-design-mumbai/andheri-east": {
+  "fp": "915ff1bcb74d2ad4",
+  "date": "2026-10-23"
+ },
+ "https://uscale.in/services/website-design-mumbai/boutiques-fashion": {
+  "fp": "5f23599be929c423",
+  "date": "2026-10-23"
+ },
+ "https://uscale.in/services/website-design-mumbai/ghatkopar": {
+  "fp": "6b8efe96bdfe04ca",
+  "date": "2026-10-23"
+ },
+ "https://uscale.in/services/website-design-mumbai/restaurants-cafes": {
+  "fp": "65843880a3266300",
+  "date": "2026-10-23"
  },
  "https://uscale.in/tools": {
-  "fp": "c9b227485e537239",
-  "date": "2026-10-20"
+  "fp": "e892e8b04971bc2d",
+  "date": "2026-10-23"
  },
  "https://uscale.in/tools/google-business-profile-checker": {
-  "fp": "bf1c4b623f6ed7bb",
-  "date": "2026-10-22"
+  "fp": "417a3ae81f481997",
+  "date": "2026-10-23"
  },
  "https://uscale.in/tools/google-review-qr-code": {
-  "fp": "f8f3c7486f28cb7b",
-  "date": "2026-10-20"
+  "fp": "52ca4411e462037e",
+  "date": "2026-10-23"
  }
 }

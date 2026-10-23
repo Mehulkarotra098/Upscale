@@ -1,5 +1,5 @@
 // Building blocks shared by the blog pages: <head> tags, breadcrumbs, cards, CTAs and structured data.
-import { BRAND, ROBOTS, SITE_URL } from '../../config.js';
+import { BRAND, ENTITY, ROBOTS, SITE_URL } from '../../config.js';
 import { esc, fmtDate, isoDate } from '../../lib/text.js';
 import { mediaUrl } from '../../media/urls.js';
 
@@ -20,13 +20,16 @@ export const ICON_CALENDAR =
 export const ORGANIZATION = {
   '@type': 'ProfessionalService',
   '@id': abs('#business'),
-  name: 'U Scale by Mehul Karotra',
-  alternateName: BRAND.name,
+  name: ENTITY.name,
+  alternateName: ENTITY.alternateName,
+  disambiguatingDescription: ENTITY.disambiguatingDescription,
   url: SITE_URL,
   logo: { '@type': 'ImageObject', url: abs('icon-512.png'), width: 512, height: 512 },
-  address: { '@type': 'PostalAddress', addressLocality: 'Mumbai', addressRegion: 'Maharashtra', addressCountry: 'IN' },
+  telephone: ENTITY.phone,
+  email: ENTITY.email,
+  address: { '@type': 'PostalAddress', ...ENTITY.address },
   founder: { '@id': abs('#mehul') },
-  sameAs: BRAND.sameAs,
+  sameAs: ENTITY.sameAs,
 };
 
 /** JSON-LD script. "<" is escaped so content can never close the script tag. */

@@ -218,4 +218,19 @@ export const MIGRATIONS = [
       ALTER TABLE outreach_shops ENABLE ROW LEVEL SECURITY;
       ALTER TABLE check_days ENABLE ROW LEVEL SECURITY;`,
   },
+  {
+    name: 'ai_hits: AI assistants and crawlers reading the site, and visits from AI answers (daily counts, no personal data)',
+    sql: `
+      CREATE TABLE IF NOT EXISTS ai_hits (
+        day DATE NOT NULL,
+        type TEXT NOT NULL CHECK (type IN ('bot','ref')),
+        name TEXT NOT NULL,
+        kind TEXT NOT NULL CHECK (kind IN ('live','index','search','train','ref')),
+        path TEXT NOT NULL,
+        n INT NOT NULL DEFAULT 1,
+        PRIMARY KEY (day, name, path)
+      );
+      CREATE INDEX IF NOT EXISTS ai_hits_kind_day ON ai_hits (kind, day DESC);
+      ALTER TABLE ai_hits ENABLE ROW LEVEL SECURITY;`,
+  },
 ];

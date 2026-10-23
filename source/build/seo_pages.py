@@ -8,9 +8,9 @@ TODAY = config.BUILD_DATE
 e = lambda t: html.escape(t, quote=False)
 ea = lambda t: html.escape(t, quote=True)
 
-PHONE, PHONE_D, EMAIL = '+91-79773-60142', '+91 79773 60142', 'uscalewithus@gmail.com'
+ENTITY = json.loads((config.REPO / 'source' / 'entity.json').read_text())  # who U Scale is: see source/entity.json
+PHONE, PHONE_D, EMAIL = ENTITY['phone'], ENTITY['phoneDisplay'], ENTITY['email']
 WA = 'https://wa.me/917977360142?text=Hi%20Mehul%2C%20I%27d%20like%20to%20talk%20about%20my%20business.'
-SAME = ['https://www.instagram.com/uscalewithus/', 'https://www.linkedin.com/in/mehulkarotra/', 'https://github.com/Mehulkarotra098']
 
 # ---------------------------------------------------------------- service pages
 SERVICES = [
@@ -152,17 +152,8 @@ def offer_catalog(site):
     return {'@type': 'OfferCatalog', 'name': 'Web design and digital marketing price list', 'url': site + 'pricing', 'itemListElement': items}
 
 def home_jsonld(site, faq):
-    biz = {'@type': 'ProfessionalService', '@id': site + '#business', 'name': 'U Scale by Mehul Karotra', 'alternateName': 'U Scale',
-           'url': site, 'logo': site + 'icon-512.png', 'image': site + 'og-image.png',
-           'description': 'Freelance web design, development and digital marketing in Mumbai by Mehul Karotra: an independent, contract-based alternative to a digital marketing agency. Websites, SEO, social media, Google and Meta ads and AI search visibility, with every price published.', 'slogan': 'Agency-quality work, without the agency.',
-           'telephone': PHONE, 'email': EMAIL, 'priceRange': '₹800 – ₹1,50,000',
-           'address': {'@type': 'PostalAddress', 'addressLocality': 'Mumbai', 'addressRegion': 'Maharashtra', 'addressCountry': 'IN'},
-           'areaServed': [{'@type': 'City', 'name': 'Mumbai'}, {'@type': 'Country', 'name': 'India'}],
-           'founder': {'@id': site + '#mehul'}, 'sameAs': SAME[:2],
-           'contactPoint': {'@type': 'ContactPoint', 'telephone': PHONE, 'email': EMAIL, 'contactType': 'sales', 'areaServed': 'IN', 'availableLanguage': ['English', 'Hindi']},
-           'knowsAbout': ['Freelance web design', 'Web design', 'Web development', 'Digital marketing', 'UI/UX design', 'Search engine optimisation', 'Local SEO', 'Social media marketing', 'Google Ads', 'Meta Ads', 'Generative engine optimisation'],
-           'hasOfferCatalog': offer_catalog(site)}
     import aeo
+    biz = aeo.biz_full(site, offer_catalog(site))
     person = aeo.person_full(site)
     website = {'@type': 'WebSite', '@id': site + '#website', 'url': site, 'name': 'U Scale', 'inLanguage': 'en-IN', 'publisher': {'@id': site + '#business'}}
     page = {'@type': 'WebPage', '@id': site + '#webpage', 'url': site, 'name': 'Freelance Web Designer & Digital Marketer in Mumbai | U Scale',
@@ -303,6 +294,7 @@ def service_page(ctx, s, parts):
       </header>
       <ul class="rw-grid" data-reveal-group>{''.join(cards)}</ul>
       <p class="sp-price" data-reveal><strong>Pricing.</strong> {e(s['price'])} <a class="tlink" href="/pricing">See every price</a></p>
+      {s.get('related', '')}
     </div>
   </section>
 
@@ -410,7 +402,7 @@ def llms_txt(site, faq, updated=TODAY):
     lines = ['# U Scale by Mehul Karotra', '',
              '> Freelance web design, development and digital marketing in Mumbai, India. U Scale is Mehul Karotra, a UI/UX developer-designer who designs and builds websites and runs SEO, social media, Google and Meta ads and AI search visibility for businesses, personally, on fixed-price contracts or monthly plans. An independent alternative to a digital marketing agency.', '',
              f'- Website: {site}', f'- About Mehul Karotra: {site}about', f'- All services and prices: {site}services',
-             f'- Contact: WhatsApp/phone {PHONE_D}, email {EMAIL}', '- Based in: Mumbai, Maharashtra, India (serves clients across India)',
+             f'- Contact: WhatsApp/phone {PHONE_D}, email {EMAIL}', f'- Based in: {ENTITY["base"]}, Maharashtra, India (meets clients across Mumbai, Thane and Navi Mumbai; works with businesses across India remotely)',
              '- Languages: English and Hindi', f'- Last updated: {updated}', f'- Full text of every page for AI tools: {site}llms-full.txt',
              f'- Full price list: {site}pricing', f'- Blog (guides on websites, SEO, social media, ads and AI search): {site}blog',
              f'- Free tool: Google Business Profile checker, a score out of 100 with a fix list and review goal (runs in the browser, no sign-up): {site}tools/google-business-profile-checker',
@@ -423,8 +415,10 @@ def llms_txt(site, faq, updated=TODAY):
     lines += ['', '### Terms'] + [f'- {t}' for t in PD.TERMS]
     lines += ['', '## Services', '']
     lines += [f'- [{s["name"]}]({svc_url(site, s)}): {s["desc"]}' for s in SERVICES]
+    import geo_pages
+    lines += geo_pages.llms_lines(site)
     lines += ['', '## Work', '', '- TIS Admissions (concept), Antrah Wellness, Roar Arena, My Country Mobile (in-house role), Callmama (in-house role), GrowCred, Sashe by Prachi, Vidhi Parmar, BrandGen. Live links are on the home page.', '',
-              '## About Mehul Karotra', '', f'- UI/UX developer-designer from Mumbai and founder of U Scale, working as an independent, contract-based partner. Profile: {site}about. LinkedIn: {SAME[1]}. GitHub: {SAME[2]}', '',
+              '## About Mehul Karotra', '', f'- UI/UX developer-designer from Mumbai and founder of U Scale, working as an independent, contract-based partner. Profile: {site}about. ' + ' · '.join(ENTITY['founder']['sameAs']), '',
               '## Sister company', '', '- Apex36 Technologies (https://www.apex36tech.com/): a separate software and AI studio in Mumbai, run independently. U Scale does websites and marketing; Apex36 builds custom software and AI products.', '',
               '## FAQ', '']
     lines += [f'- **{q}** {a}' for q, a in faq]
@@ -1059,7 +1053,9 @@ def build(ctx):
     home = (out / 'index.html').read_text()
     parts = chrome_parts(home)
     (out / 'services').mkdir(exist_ok=True)
+    import geo_pages
     for s in SERVICES:
+        if s['slug'] == geo_pages.BASE: s['related'] = geo_pages.related_html()
         (out / 'services' / f'{s["slug"]}.html').write_text(service_page(ctx, s, parts))
     (out / '404.html').write_text(page_404(ctx, parts))
     (out / 'pricing.html').write_text(pricing_page(ctx, parts))
@@ -1077,7 +1073,9 @@ def build(ctx):
     (out / 'tools' / 'index.html').write_text(tools_hub(ctx, parts, tv))
     (out / 'about.html').write_text(aeo.about_page(ctx, parts))
     (out / 'services.html').write_text(aeo.services_hub(ctx, parts))
-    rels = (['index.html', 'about.html', 'services.html', 'pricing.html'] + [f'services/{x["slug"]}.html' for x in SERVICES]
+    import geo_pages  # websites by business type and by area (/services/website-design-mumbai/<slug>)
+    geo_rels = geo_pages.build(ctx, parts)
+    rels = (['index.html', 'about.html', 'services.html', 'pricing.html'] + [f'services/{x["slug"]}.html' for x in SERVICES] + geo_rels
             + ['tools/index.html', f'tools/{GBP["slug"]}.html', f'tools/{TOOL["slug"]}.html'])
     dates = aeo.stamp_pages(out, site, rels)  # each page's date moves only when its content changes
     prio = {site: '1.0', site + 'pricing': '0.9', site + 'services': '0.9', site + 'about': '0.8', site + 'tools': '0.7'}
@@ -1228,7 +1226,7 @@ def pricing_page(ctx, parts):
     ld = json.dumps({'@context': 'https://schema.org', '@graph': [
         {'@type': 'WebPage', '@id': url + '#webpage', 'url': url, 'name': title, 'description': desc, 'isPartOf': {'@id': site + '#website'},
          'about': {'@id': site + '#business'}, 'breadcrumb': {'@id': url + '#breadcrumb'}, 'inLanguage': 'en-IN', 'dateModified': '__LASTMOD__'},
-        dict(offer_catalog(site), **{'@id': url + '#prices', 'provider': {'@type': 'ProfessionalService', '@id': site + '#business', 'name': 'U Scale by Mehul Karotra', 'url': site, 'telephone': PHONE}}),
+        dict(offer_catalog(site), **{'@id': url + '#prices', 'provider': {'@id': site + '#business'}}), __import__('aeo').biz_ref(site),
         {'@type': 'BreadcrumbList', '@id': url + '#breadcrumb', 'itemListElement': [
             {'@type': 'ListItem', 'position': 1, 'name': 'Home', 'item': site}, {'@type': 'ListItem', 'position': 2, 'name': 'Pricing', 'item': url}]},
         {'@type': 'FAQPage', '@id': url + '#faq', 'mainEntity': [{'@type': 'Question', 'name': q, 'acceptedAnswer': {'@type': 'Answer', 'text': a}} for q, a in faq]},

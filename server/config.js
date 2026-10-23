@@ -1,5 +1,6 @@
 // Runtime configuration for the blog and admin functions. Read once from the environment (Vercel → Settings →
 // Environment Variables, or .env.local for `npm run dev`). See README → "Environment variables".
+import ENTITY from './entity.js';
 
 const env = process.env;
 
@@ -26,6 +27,8 @@ export const SESSION_SECRET = env.SESSION_SECRET || '';
 // IndexNow keys are public by design (served at /indexnow-key.txt to prove domain ownership), so a default lives here.
 export const INDEXNOW_KEY = (env.INDEXNOW_KEY || '438167be6e90a125783a393266a7650e').trim();
 export const CRON_SECRET = env.CRON_SECRET || '';
+// Shared secret between middleware.js and /api/blog?view=ai (AI crawler and AI referral log). Unset = no logging.
+export const AI_LOG_KEY = (env.AI_LOG_KEY || '').trim();
 /** Google Places API (New) key for shop reports and outreach. Server-side only: restrict it to the Places API. */
 export const PLACES_KEY = (env.GOOGLE_PLACES_KEY || '').trim();
 /** SerpApi key (Google Maps engine): the no-Google-Cloud alternative for shop data, used when PLACES_KEY is empty. */
@@ -76,6 +79,9 @@ export const LIMITS = Object.freeze({
   previewDays: 3,
 });
 
+/** Who U Scale is (name, phone, area, profiles): see server/entity.js. */
+export { ENTITY };
+
 export const BRAND = Object.freeze({
   name: 'U Scale',
   blogName: 'The U Scale Blog',
@@ -83,10 +89,11 @@ export const BRAND = Object.freeze({
   authorTitle: 'Founder, U Scale',
   authorBio:
     'Mehul Karotra is a UI/UX developer-designer in Mumbai. Through U Scale he personally builds websites and runs SEO, social media, ads and AI search visibility for Indian businesses.',
-  email: 'uscalewithus@gmail.com',
-  phone: '+91 79773 60142',
+  email: ENTITY.email,
+  phone: ENTITY.phoneDisplay,
   wa: `https://wa.me/917977360142?text=${encodeURIComponent("Hi Mehul, I read your blog and I'd like to talk about my business.")}`,
-  sameAs: ['https://www.instagram.com/uscalewithus/', 'https://www.linkedin.com/in/mehulkarotra/', 'https://github.com/Mehulkarotra098'],
+  sameAs: ENTITY.sameAs, // the business's own profiles
+  authorSameAs: ENTITY.founder.sameAs, // Mehul's profiles (LinkedIn, GitHub, portfolio)
 });
 
 /** Service landing pages: internal-link targets and the CTA shown under related posts. */
@@ -127,4 +134,10 @@ export const STATIC_PAGES = Object.freeze([
   { url: '/#contact', title: 'Free audit / contact form' },
   { url: '/blog', title: 'Blog: all articles' },
   ...SERVICES.map((s) => ({ url: `/services/${s.slug}`, title: s.name })),
+  { url: '/services/website-design-mumbai/restaurants-cafes', title: 'Restaurant & café websites with online ordering' },
+  { url: '/services/website-design-mumbai/boutiques-fashion', title: 'Websites for boutiques and fashion labels' },
+  { url: '/services/website-design-mumbai/ghatkopar', title: 'Website designer in Ghatkopar' },
+  { url: '/services/website-design-mumbai/andheri-east', title: 'Website design for Andheri East businesses' },
+  { url: '/about', title: 'About Mehul Karotra' },
+  { url: '/tools/google-business-profile-checker', title: 'Free Google Business Profile checker' },
 ]);
