@@ -608,4 +608,22 @@
     safety=setTimeout(endLoader,2600);
     loadT=performance.now(); heroCounters(introMs()+750); if(gs) gsBuild(introMs()+650);
   };
+  /* Commission calculator (restaurant page). The HTML already shows the worked example; this only re-does the sums. */
+  $$('[data-calc]').forEach(function(c){
+    var f=$('form',c), price=+c.dataset.price, fee=.0236;
+    var inr=function(n){ return '₹'+Math.round(n).toLocaleString('en-IN'); };
+    var o=function(k){ return $('[data-o="'+k+'"]',c); };
+    var fill=function(r){ r.style.setProperty('--p',((r.value-r.min)/(r.max-r.min)*100)+'%'); };
+    function run(){
+      var s=Math.max(0,+f.sales.value||0), r=+f.rate.value, sh=+f.share.value;
+      var dir=s*sh/100, com=dir*r/100, g=dir*fee, k=com-g, n=k>0?Math.max(1,Math.round(price/k)):0;
+      f.rateo.value=r+'%'; f.shareo.value=sh+'%'; fill(f.rate); fill(f.share);
+      o('sales').textContent=inr(s); o('direct').textContent=sh+'%, so '+inr(dir)+' of orders'; o('rate').textContent=r+'%';
+      o('com').textContent=inr(com)+' a month'; o('fee').textContent=inr(g)+' a month';
+      o('com-s').textContent=inr(com); o('fee-s').textContent=inr(g);
+      o('bar-fee').style.setProperty('--w',(com>0?g/com*100:0)+'%');
+      o('kept').textContent=inr(Math.max(0,k)); o('pay').textContent=n?n+(n===1?' month':' months'):'—';
+    }
+    f.addEventListener('input',run); f.addEventListener('submit',function(e){ e.preventDefault(); }); run();
+  });
 })();

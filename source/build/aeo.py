@@ -293,8 +293,11 @@ def facts_html(facts, caption):
     return f'<table class="sp-facts"><caption class="sr-only">{e(caption)}</caption><tbody>{rows}</tbody></table>'
 
 
-def brief_html(answer, facts, caption, head_id):
-    """The 'In short' answer card that sits right under the hero: one quotable paragraph + a key-facts table + byline."""
+def brief_html(answer, facts, caption, head_id, toc=None, toc_label='On this page'):
+    """The 'In short' answer card that sits right under the hero: one quotable paragraph + a key-facts table + byline,
+    and optionally an 'On this page' list of jump links (toc = [(anchor id, label)])."""
+    nav = (f'<nav class="sp-toc" aria-label="{ea(toc_label)}"><p>{e(toc_label)}</p><ol>'
+           + ''.join(f'<li><a href="#{ea(a)}">{e(t)}</a></li>' for a, t in toc) + '</ol></nav>') if toc else ''
     return f'''
   <section class="section sp-brief-wrap" aria-labelledby="{head_id}">
     <div class="wrap">
@@ -302,7 +305,7 @@ def brief_html(answer, facts, caption, head_id):
         <div class="sp-brief__answer">
           <h2 class="eyebrow" id="{head_id}">In short</h2>
           <p class="sp-brief__text">{e(answer)}</p>
-          {byline()}
+          {byline()}{nav}
         </div>
         {facts_html(facts, caption)}
       </div>
@@ -311,7 +314,7 @@ def brief_html(answer, facts, caption, head_id):
 
 
 # ---------------------------------------------------------------- shared page shell for /about and /services
-def _head(ctx, url, title, desc, ld, og=None):
+def _head(ctx, url, title, desc, ld, og=None, extra_head=None):
     site, v = ctx['SITE_URL'], ctx['_v']
     og = og or (site + 'og-image.png', 'U Scale by Mehul Karotra: Be found. Be chosen.')
     return f'''<!doctype html>
@@ -343,7 +346,7 @@ def _head(ctx, url, title, desc, ld, og=None):
 <meta name="twitter:image" content="{og[0]}">
 {ctx['ICONS_HEAD']}
 <link rel="preload" href="/assets/fonts/anton-latin.woff2" as="font" type="font/woff2" crossorigin><link rel="preload" href="/assets/fonts/inter-latin.woff2" as="font" type="font/woff2" crossorigin>
-<script type="application/ld+json">{ld}</script>
+{extra_head + chr(10) if extra_head else ''}<script type="application/ld+json">{ld}</script>
 <script>(function(){{var d=document.documentElement;d.classList.add('js','intro-skip');var m=null;try{{m=localStorage.getItem('us-motion');}}catch(e){{}}if(m==='off')d.classList.add('rm');if(navigator.webdriver)d.classList.add('agent','rm','intro-skip');}})();</script>
 <link rel="stylesheet" href="/styles.css?v={v}">
 </head>'''
@@ -366,10 +369,10 @@ def _hero(crumb, title, lead, eyebrow=None, cta=True):
   </div>'''
 
 
-def _page(ctx, parts, url, title, desc, ld, body, og=None):
+def _page(ctx, parts, url, title, desc, ld, body, og=None, extra_head=None):
     header, menu, footer, tail = parts
     v = ctx['_v']
-    return f'''{_head(ctx, url, title, desc, ld, og)}
+    return f'''{_head(ctx, url, title, desc, ld, og, extra_head)}
 <body class="page-sub">
 <a class="skip" href="#main">Skip to content</a>
 {header}
