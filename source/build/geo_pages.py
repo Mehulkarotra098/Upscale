@@ -413,7 +413,7 @@ PAGES = [
   h1='Website design for Andheri East businesses', eyebrow='Near you',
   lead='Shops, cafés and offices in Andheri East compete for the same searches on Google. I design websites and fix Google listings here, and in October 2026 I ran a free audit day for local shops.',
   stats=[('30+', 'Local listings checked'), (price('Landing page'), 'Websites from'), ('Free', 'Audit, in person')],
-  art=dict(kind='img', img='step-audit'),
+  art=dict(kind='img', img='found'),
   answer='U Scale’s Mehul Karotra designs websites and sets up Google Business Profiles and local SEO for shops, cafés, restaurants and offices in '
          f'Andheri East, including Marol, Chakala, Saki Naka, MIDC and JB Nagar. Websites start at {price("Landing page")} at a fixed price, local SEO is '
          f'{price("Local SEO / Google Business Profile")}, and every project starts with a free audit, which U Scale also runs in person for shops in the area.',
@@ -473,7 +473,7 @@ PAGES = [
   h1='Website banane me kitna kharcha aata hai?', eyebrow='Guide · Hinglish',
   lead='Main Mehul Karotra hoon, Mumbai se. Main websites khud banata hoon aur apne saare prices publicly likhta hoon. Yahan seedha hisaab hai.',
   stats=[('₹8k–₹2L', 'Market range, 2025–26 guides'), (price('Landing page'), 'U Scale se shuru'), ('₹4.4k–₹9.4k', 'Har saal ka kharcha')],
-  art=dict(kind='img', img='step-plan', caption='U Scale ka ek sample fixed-price quote. Saanjh Studio ek sample brand hai, asli client nahi.'),
+  art=dict(kind='img', img='paths', caption='DIY builder, freelancer, agency aur U Scale ka fixed quote: sample screens. Saare naam aur figures sirf example hain.'),
   answer='Mumbai mein template wali basic business website lagbhag ₹8,000–₹30,000 mein, kisi Mumbai studio se ₹15,000–₹50,000 mein, aur custom '
          'design wali website ₹40,000 se ₹2 lakh tak mein banti hai. U Scale ke fixed prices: landing page ₹25,000, 3–4 page business website '
          '₹55,000 aur online store ₹95,000 se. Iske upar har saal domain aur hosting ka kharcha aata hai: offer khatam hone ke baad lagbhag '
