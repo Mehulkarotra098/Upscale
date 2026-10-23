@@ -92,9 +92,7 @@ def person_full(site):
                          {'@type': 'Organization', 'name': 'Apex36 Technologies', 'url': 'https://www.apex36tech.com/'}],
             'homeLocation': place('Mumbai'),
             'knowsLanguage': ENTITY['languages'], 'sameAs': FOUNDER['sameAs'], 'image': person_image(site),
-            'hasCredential': {'@type': 'EducationalOccupationalCredential', 'credentialCategory': 'degree',
-                              'name': 'Bachelor of Computer Application (Information Technology)'},
-            'knowsAbout': topics() + ['Figma', 'React.js', 'Tailwind CSS', 'WordPress']}
+            'knowsAbout': topics()}
 
 
 def person_image(site):
@@ -440,8 +438,6 @@ def _faq_ld(url, items):
 ABOUT_FACTS = [('Name', 'Mehul Karotra'), ('Role', 'Founder of U Scale; UI/UX developer-designer'),
                ('Based in', ENTITY['base'] + ', Maharashtra, India'), ('Now', 'UI/UX Developer, Apex36 Technologies'),
                ('Formerly', 'My Country Mobile · ApplQ Innovations · Threepin Info Tec.'),
-               ('Education', 'Bachelor of Computer Application, Information Technology'),
-               ('Toolkit', 'Figma, React.js, Tailwind CSS, WordPress, Illustrator, Photoshop, Git'),
                ('Languages', 'English and Hindi'), ('Contact', f'WhatsApp or call {SP.PHONE_D} · {SP.EMAIL}')]
 ABOUT_FAQ = [
     ('Who is Mehul Karotra?', 'Mehul Karotra is a UI/UX developer-designer based in Mumbai, India, and the founder of U Scale. He personally designs '

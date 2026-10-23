@@ -47,13 +47,18 @@ def brief():
              ('Timeline', 'Most websites go live in 4–8 weeks; a landing page in under two weeks'),
              ('Payment', '20% to start, 20% on design sign-off, 60% on launch; monthly work is month-to-month after a 3-month sprint'),
              ('First step', 'A free audit of your website, Google listing and Instagram')]
-    return aeo.brief_html(answer, facts, 'Key facts: U Scale by Mehul Karotra', 'brief-title')
+    proof = [('check', '12+ projects shipped'), ('tag', 'Every price published'), ('chat', 'WhatsApp replies within 24 hours'), ('key', 'Domain and code in your name')]
+    chips = '<ul class="brief-proof">' + ''.join(f'<li>{icon(ic)}<span>{e(t)}</span></li>' for ic, t in proof) + '</ul>'
+    html = aeo.brief_html(answer, facts, 'Key facts: U Scale by Mehul Karotra', 'brief-title')
+    i = html.index('<table class="sp-facts"')
+    j = html.rindex('</div>', 0, i)
+    return html[:j] + chips + html[j:]
 
 
 # ---------------------------------------------------------------- service images
 # Rendered product shots of one sample café (Chai Kona) across the three services, so a shop owner sees the result, not
-# a diagram: its own ordering site, its place at the top of maps and AI answers, and an ad turning into WhatsApp orders.
-SVC_IMG = {'web': 'rest', 'found': 'found', 'customers': 'social'}
+# a diagram: a salon site taking WhatsApp bookings, a café at the top of maps and AI answers, an ad turning into orders.
+SVC_IMG = {'web': 'salon', 'found': 'found', 'customers': 'social'}
 
 
 def svc_media(key, wide=False):
@@ -93,12 +98,17 @@ def services3():
 
 
 def for_cards():
-    # Mumbai-wide: business types and guides only. The neighbourhood pages stay linked from /services/website-design-mumbai.
-    kinds = [('business', 'By business'), ('guide', 'Guide')]
-    li = ''.join(f'<li data-reveal><a class="fp-rel" href="/services/{GP.BASE}/{p["slug"]}"><span class="fp-rel__k">{label}</span><b>{e(p["h1"])}</b>'
-                 f'<span class="fp-rel__d">{e(p["card"])}</span>{icon("arrow")}</a></li>'
-                 for kind, label in kinds for p in GP.PAGES if p['kind'] == kind)
-    return f'      <div class="fp-related home-for__list"><ul data-reveal-group>{li}</ul></div>'
+    """Two picture cards (cafés, boutiques: the demo sites people can picture as theirs) and two guide cards."""
+    by = {p['slug']: p for p in GP.PAGES}
+    pics = [('restaurants-cafes', 'rest', 'Restaurants & cafés', 'See café websites'), ('boutiques-fashion', 'bout', 'Boutiques & fashion', 'See boutique websites')]
+    big = ''.join(f'<li data-reveal><a class="mf" href="/services/{GP.BASE}/{slug}"><figure class="mf__media">'
+                  f'{_pic(GP.IMG[img], "(max-width: 759px) 92vw, 560px")}</figure><span class="mf__body"><span class="mf__k">{e(k)}</span>'
+                  f'<b class="mf__t">{e(by[slug]["h1"])}</b><span class="mf__d">{e(by[slug]["card"])}</span>'
+                  f'<span class="mf__go">{e(go)} {icon("arrow")}</span></span></a></li>' for slug, img, k, go in pics)
+    guides = ''.join(f'<li data-reveal><a class="fp-rel" href="/services/{GP.BASE}/{p["slug"]}"><span class="fp-rel__k">Guide</span><b>{e(p["h1"])}</b>'
+                     f'<span class="fp-rel__d">{e(p["card"])}</span>{icon("arrow")}</a></li>' for p in GP.PAGES if p['kind'] == 'guide')
+    return (f'      <ul class="mf-list" data-reveal-group>{big}</ul>\n'
+            f'      <div class="fp-related home-for__list"><ul data-reveal-group>{guides}</ul></div>')
 
 
 def how():
@@ -108,8 +118,10 @@ def how():
              ('Launch & grow', 'Launch, then monthly SEO, social or ads only if you want them, with a plain-English report.', '60% on launch')]
     promise = [('key', 'Your domain, code and logins, in your name'), ('file', 'Every price published and fixed in writing'),
                ('shield', '15–30 day bug-fix window after launch')]
-    li = ''.join(f'<li class="fp-step" data-reveal><span class="fp-step__n" aria-hidden="true">{i + 1:02d}</span><h3>{e(t)}</h3><p>{e(d)}</p>'
-                 f'<span class="fp-step__tag">{e(tag)}</span></li>' for i, (t, d, tag) in enumerate(steps))
+    shots = ['step-audit', 'step-plan', 'step-design', 'step-launch']
+    li = ''.join(f'<li class="fp-step" data-reveal><figure class="fp-step__media">{_pic(GP.IMG[shots[i]], "(max-width: 759px) 92vw, (max-width: 1099px) 46vw, 290px")}</figure>'
+                 f'<div class="fp-step__body"><span class="fp-step__n" aria-hidden="true">{i + 1:02d}</span><h3>{e(t)}</h3><p>{e(d)}</p>'
+                 f'<span class="fp-step__tag">{e(tag)}</span></div></li>' for i, (t, d, tag) in enumerate(steps))
     pr = ''.join(f'<li>{icon(ic)}<span>{e(x)}</span></li>' for ic, x in promise)
     return f'''  <!-- HOW IT WORKS: risk removed up front -->
   <section class="section home-how" id="how" aria-labelledby="how-title">
@@ -119,7 +131,7 @@ def how():
         <h2 class="h2" id="how-title" data-split>Fixed price. No surprises.</h2>
         <p class="lead" data-reveal>From a free audit to launch in four steps. Monthly work runs as a 3-month sprint, then month-to-month with 30 days notice.</p>
       </header>
-      <ol class="fp-steps" data-reveal-group data-live>{li}</ol>
+      <ol class="fp-steps" data-reveal-group>{li}</ol>
       <ul class="fp-promise" data-reveal>{pr}</ul>
     </div>
   </section>'''
@@ -132,23 +144,11 @@ def founder_photo():
       </figure>'''
 
 
-def _qr():
-    """A decorative QR-style pattern (not a working code): finder squares plus a fixed scatter of modules."""
-    import random
-    rnd = random.Random(7); cells = []
-    for y in range(21):
-        for x in range(21):
-            finder = (x < 7 and y < 7) or (x > 13 and y < 7) or (x < 7 and y > 13)
-            if not finder and rnd.random() < .47:
-                cells.append(f'<rect x="{x}" y="{y}" width="1" height="1" style="--d:{(x + y) * 18}ms"/>')
-    fz = ''.join(f'<rect x="{x}" y="{y}" width="7" height="7" rx="1.6" class="q-f"/><rect x="{x + 2}" y="{y + 2}" width="3" height="3" rx=".6"/>' for x, y in ((0, 0), (14, 0), (0, 14)))
-    return f'<svg class="vq" viewBox="-1 -1 23 23" aria-hidden="true">{fz}<g class="q-m">{"".join(cells)}</g></svg>'
-
-
 def tools():
+    sz = '(max-width: 759px) 92vw, 560px'
     return f'''      <ul class="fp-tools home-tools__list" data-reveal-group>
-  <li data-reveal><a class="fp-tool fp-tool--dark on-dark" href="/tools/google-business-profile-checker"><span class="vs" data-live aria-hidden="true"><svg viewBox="0 0 120 120"><circle class="vs__track" cx="60" cy="60" r="50"/><circle class="vs__fill" cx="60" cy="60" r="50" pathLength="100"/></svg><b>86<small>/100</small></b></span><span class="fp-tool__k">Free · about 2 minutes</span><span class="fp-tool__t">Google Business Profile checker</span><span class="fp-tool__d">A score out of 100 and a fix list for your listing.</span><span class="fp-tool__go">Check my listing {icon("arrow")}</span></a></li>
-  <li data-reveal><a class="fp-tool" href="/tools/google-review-qr-code"><span class="vqw" data-live aria-hidden="true">{_qr()}<span class="vqw__l">{icon("star")}Scan to review</span></span><span class="fp-tool__k">Free · printable</span><span class="fp-tool__t">Google review QR code maker</span><span class="fp-tool__d">A counter standee that brings in reviews.</span><span class="fp-tool__go">Make my QR code {icon("arrow")}</span></a></li>
+  <li data-reveal><a class="fp-tool fp-tool--dark" href="/tools/google-business-profile-checker"><figure class="fp-tool__media">{_pic(GP.IMG['tool-checker'], sz)}</figure><span class="fp-tool__k">Free · about 2 minutes</span><span class="fp-tool__t">Google Business Profile checker</span><span class="fp-tool__d">A score out of 100, a fix list for your listing and a review goal.</span><span class="fp-tool__go">Check my listing {icon("arrow")}</span></a></li>
+  <li data-reveal><a class="fp-tool" href="/tools/google-review-qr-code"><figure class="fp-tool__media">{_pic(GP.IMG['tool-qr'], sz)}</figure><span class="fp-tool__k">Free · printable</span><span class="fp-tool__t">Google review QR code maker</span><span class="fp-tool__d">A counter standee that turns happy customers into Google reviews.</span><span class="fp-tool__go">Make my QR code {icon("arrow")}</span></a></li>
 </ul>'''
 
 

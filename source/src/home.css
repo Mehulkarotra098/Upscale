@@ -62,13 +62,47 @@
 @media (min-width:1100px){.svc3{grid-template-columns:repeat(3,minmax(0,1fr))}.svc3__card--web{grid-column:auto}
   .svc3__also{grid-template-columns:auto minmax(0,1fr) auto;align-items:center;gap:20px}}
 
-/* ---------- Built for ---------- */
+/* ---------- Built for: two picture cards + two guides ---------- */
 .home-for{background:var(--lav-tint)}
 .home-for .fp-rel{border-color:transparent}
-.home-for__list{margin-top:0}
+.home-for__list{margin-top:14px}
+.mf-list{list-style:none;margin:0;padding:0;display:grid;gap:14px}
+.mf{display:grid;height:100%;border-radius:var(--radius-card);overflow:hidden;background:var(--white);color:var(--violet);text-decoration:none;
+  box-shadow:0 30px 60px -44px rgba(37,30,69,.5);transition:transform .5s var(--ease-out),box-shadow .5s var(--ease-out)}
+.mf:hover{transform:translateY(-4px);box-shadow:0 40px 70px -40px rgba(37,30,69,.55)}
+.mf__media{margin:0;aspect-ratio:6 / 5;overflow:hidden;background:radial-gradient(90% 80% at 88% 0%,rgba(99,184,73,.18),rgba(99,184,73,0) 60%),radial-gradient(80% 80% at 0% 100%,rgba(201,188,232,.18),rgba(201,188,232,0) 60%),#2B2350}
+.mf__media picture,.mf__media img{display:block;width:100%;height:100%}
+.mf__media img{object-fit:contain;transition:transform 1.2s var(--ease-out)}
+.mf:hover .mf__media img{transform:scale(1.035)}
+.mf__body{display:grid;gap:8px;align-content:start;padding:clamp(20px,2.6vw,30px)}
+.mf__k{font:700 11.5px/1.2 var(--sans);letter-spacing:.16em;text-transform:uppercase;color:#2E7A1F}
+.mf__t{font:400 clamp(26px,2.6vw,34px)/1 var(--display);text-transform:uppercase;letter-spacing:.005em}
+.mf__d{font-size:15.5px;line-height:1.55;color:var(--body)}
+.mf__go{display:inline-flex;align-items:center;gap:8px;margin-top:6px;font:700 15px/1.2 var(--sans)}
+.mf__go .fp-ic{width:16px;height:16px;transition:transform .35s var(--ease-out)}
+.mf:hover .mf__go .fp-ic{transform:translate(2px,-2px)}
+@media (min-width:760px){.mf-list{grid-template-columns:repeat(2,minmax(0,1fr));gap:16px}}
 
-/* ---------- How it works ---------- */
+/* ---------- How it works: a product shot per step ---------- */
 .home-how .sec-head{max-width:820px}
+.home-how .fp-step,.home-how .fp-step{padding:0;gap:0;overflow:hidden;align-content:start}
+.fp-step__media{margin:0;aspect-ratio:4 / 3;overflow:hidden;border-bottom:1px solid var(--line-light);background:radial-gradient(90% 80% at 88% 0%,rgba(99,184,73,.18),rgba(99,184,73,0) 60%),radial-gradient(80% 80% at 0% 100%,rgba(201,188,232,.18),rgba(201,188,232,0) 60%),#2B2350}
+.fp-step__media picture,.fp-step__media img{display:block;width:100%;height:100%;object-fit:contain}
+.fp-step__body{display:grid;gap:6px;align-content:start;padding:18px 20px 20px}
+.home-how .fp-step__n{position:static;width:auto;height:auto;justify-self:start;padding:5px 9px;border-radius:99px;font-size:14px;line-height:1}
+.home-how .fp-step h3{padding-top:4px}
+@media (min-width:1100px){.home-how .fp-step{padding:0}.home-how .fp-step__n{width:auto;height:auto}}
+
+/* ---------- Brand logos: full colour, white tiles ---------- */
+.trust .lw__cell{background:var(--white);box-shadow:0 14px 30px -24px rgba(37,30,69,.45)}
+.trust .lw__cell img{filter:none;opacity:.92}
+.trust .lw__cell:hover img{opacity:1}
+
+/* ---------- In short: proof points under the answer ---------- */
+.brief-proof{list-style:none;margin:6px 0 0;padding:0;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
+.brief-proof li{display:flex;align-items:center;gap:10px;padding:12px 14px;border-radius:14px;background:var(--space);border:1px solid var(--line-light);font:600 14px/1.35 var(--sans);color:var(--violet)}
+.brief-proof .fp-ic{flex:none;width:20px;height:20px;color:#2E7A1F}
+@media (max-width:420px){.brief-proof{grid-template-columns:1fr}}
 
 /* ---------- Founder with a real photo ---------- */
 .founder__photo{position:relative;margin:0;width:100%;max-width:min(460px,100%);aspect-ratio:4 / 5;border-radius:var(--radius-panel);overflow:hidden;background:var(--lav-tint);
@@ -83,8 +117,15 @@
 @media (max-width:899px){.founder__photo{max-width:380px}}
 @media (min-width:900px){.founder__photo{justify-self:start}}
 
-/* ---------- Free tools ---------- */
+/* ---------- Free tools: the real tool screens ---------- */
 .home-tools .sec-head{max-width:760px}
+.home-tools .fp-tool{padding:0;overflow:hidden;gap:8px;align-content:start}
+.fp-tool__media{margin:0 0 10px;aspect-ratio:3 / 2;overflow:hidden;background:radial-gradient(90% 80% at 88% 0%,rgba(99,184,73,.18),rgba(99,184,73,0) 60%),radial-gradient(80% 80% at 0% 100%,rgba(201,188,232,.18),rgba(201,188,232,0) 60%),#2B2350;border-bottom:1px solid var(--line-light)}
+.fp-tool--dark .fp-tool__media{border-bottom-color:var(--line-dark)}
+.fp-tool__media picture,.fp-tool__media img{display:block;width:100%;height:100%;object-fit:contain;transition:transform 1.2s var(--ease-out)}
+.fp-tool:hover .fp-tool__media img{transform:scale(1.03)}
+.home-tools .fp-tool>span{margin-inline:clamp(20px,2.8vw,32px)}
+.home-tools .fp-tool__go{margin-bottom:clamp(20px,2.8vw,32px)}
 
 /* ---------- Free audit + contact: one card, two panes of equal height ---------- */
 .cx{display:grid;border-radius:var(--radius-panel);overflow:hidden;background:var(--white);border:1px solid var(--line-light);box-shadow:0 50px 100px -60px rgba(37,30,69,.55)}
@@ -124,10 +165,7 @@
 }
 
 
-/* =====================================================================
-   Live mini scenes. Base rules are the final frame (what you see with motion off or without JS);
-   the keyframes play only while the scene is on screen (.is-live), inside the motion-on block.
-   ===================================================================== */
+/* ---------- Service cards ---------- */
 .svc3__k{display:flex;align-items:center;gap:8px}
 .svc3__k .fp-ic{width:16px;height:16px}
 .svc3__ic{display:none}
@@ -141,53 +179,24 @@
 .svc3__card:hover .svc3__media img{transform:scale(1.035)}
 @media (min-width:760px) and (max-width:1099px){.svc3__card--web .svc3__media{aspect-ratio:16 / 8}}
 
-/* -- free tools: a score ring and a QR code -- */
-.vs{position:relative;display:grid;place-items:center;width:96px;height:96px;margin-bottom:6px}
-.vs svg{position:absolute;inset:0;width:100%;height:100%;transform:rotate(-90deg)}
-.vs__track{fill:none;stroke:rgba(201,188,232,.2);stroke-width:10}
-.vs__fill{fill:none;stroke:var(--green);stroke-width:10;stroke-linecap:round;stroke-dasharray:86 100}
-.vs b{font:400 28px/1 var(--display);color:var(--white)}
-.vs small{font:600 11px/1 var(--sans);color:var(--lavender);margin-left:1px}
-.vqw{position:relative;display:flex;align-items:center;gap:12px;margin-bottom:6px}
-.vq{width:96px;height:96px;padding:6px;border-radius:12px;background:var(--white);border:1px solid var(--line-light)}
-.vq rect{fill:var(--violet)}
-.vq .q-f{fill:none;stroke:var(--violet);stroke-width:1.4}
-.vqw__l{display:inline-flex;align-items:center;gap:6px;padding:7px 10px;border-radius:99px;background:var(--lav-tint);font:700 12px/1 var(--sans);color:var(--violet)}
-.vqw__l .fp-ic{width:14px;height:14px;color:#F2B544;fill:#F2B544}
-
-/* -- how it works: a line runs through the steps -- */
-.home-how .fp-steps{position:relative}
-@media (min-width:1100px){
-  .home-how .fp-steps::before{content:"";position:absolute;left:44px;right:44px;top:45px;height:2px;border-radius:2px;background:linear-gradient(90deg,var(--green),var(--lavender));z-index:0;transform-origin:left}
-  .home-how .fp-step{z-index:1}
-}
-
 /* -- free audit: a live "online" mark -- */
 .cx__badge{position:relative;flex:none;width:52px;height:52px;border-radius:16px;display:grid;place-items:center;background:var(--green);color:var(--violet)}
 .cx__badge .fp-ic{width:26px;height:26px}
 .cx__badge i{position:absolute;right:-3px;top:-3px;width:14px;height:14px;border-radius:50%;background:#7CE05C;border:3px solid var(--violet)}
 
 @media (prefers-reduced-motion:no-preference){
-  .js .svc3__media img,.js .vs__fill,.js .vq .q-m rect,.js .home-how .fp-steps::before,.js .cx__checks li svg{animation-play-state:paused!important}
-  .js .is-live *,.js .svc3__media.is-live img,.js .vs.is-live .vs__fill,.js .vqw.is-live .q-m rect,.js .home-how .fp-steps.is-live::before,.js .cx__checks.is-live li svg{animation-play-state:running!important}
+  .js .svc3__media img,.js .cx__checks li svg{animation-play-state:paused!important}
+  .js .is-live *,.js .svc3__media.is-live img,.js .cx__checks.is-live li svg{animation-play-state:running!important}
 
   /* service images drift a few pixels while on screen, so the stage feels alive without competing with the copy */
   .js .svc3__media img{animation:svcFloat 7s ease-in-out infinite both}
   .js .svc3__card:nth-child(2) .svc3__media img{animation-delay:-2.3s}.js .svc3__card:nth-child(3) .svc3__media img{animation-delay:-4.6s}
 
-  /* tools: ring fills, QR modules draw in, once per visit to the screen */
-  .js .vs__fill{animation:vsFill 1.8s var(--ease-out) .2s both}
-  .js .vq .q-m rect{animation:vqIn .5s var(--ease-out) both;animation-delay:var(--d)}
-
-  /* how: the line draws once; checks tick in turn */
-  .js .home-how .fp-steps::before{animation:howLine 1.6s var(--ease-out) .2s both}
+  /* free audit: the checks tick in turn */
   .js .cx__checks li svg{animation:ckPop .6s var(--ease-spring) both}
   .js .cx__checks li:nth-child(2) svg{animation-delay:.45s}.js .cx__checks li:nth-child(3) svg{animation-delay:.9s}
   .js .cx__badge i{animation:onl 2.4s ease-out infinite}
 }
-@keyframes vsFill{from{stroke-dasharray:0 100}}
-@keyframes vqIn{from{opacity:0;transform:scale(.2);transform-box:fill-box;transform-origin:center}}
-@keyframes howLine{from{transform:scaleX(0)}}
 @keyframes ckPop{from{transform:scale(0) rotate(-30deg);opacity:0}}
 @keyframes onl{0%{box-shadow:0 0 0 0 rgba(124,224,92,.6)}100%{box-shadow:0 0 0 10px rgba(124,224,92,0)}}
 

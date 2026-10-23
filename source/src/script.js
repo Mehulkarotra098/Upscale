@@ -260,18 +260,18 @@
     window.addEventListener('pointermove',function(e){
       if(e.pointerType!=='mouse'||!motion) return;
       var dx=e.clientX-ptr.x, dy=e.clientY-ptr.y; ptr.x=e.clientX; ptr.y=e.clientY;
-      if(!ptr.on){ ptr.cx=ptr.x; ptr.cy=ptr.y; ptr.on=true; cur.classList.add('is-on'); }
+      if(!ptr.on){ ptr.cx=ptr.x; ptr.cy=ptr.y; ptr.on=true; cur&&cur.classList.add('is-on'); }
       var t=e.target;
-      cur.classList.toggle('is-view',!!(t.closest&&t.closest('.wk')));
-      cur.classList.toggle('is-hover',!!(t.closest&&t.closest('a,button,.svc,.plan,.quote,input,textarea,label,.lw__cell')));
+      cur&&cur.classList.toggle('is-view',!!(t.closest&&t.closest('.wk')));
+      cur&&cur.classList.toggle('is-hover',!!(t.closest&&t.closest('a,button,.svc,.plan,.quote,input,textarea,label,.lw__cell')));
       spawn(e.clientX,e.clientY,Math.hypot(dx,dy));
       if(ppvOn){ ppvP.x=e.clientX; ppvP.y=e.clientY; }
       kick();
     },{passive:true});
-    document.addEventListener('pointerleave',function(){ ptr.on=false; cur.classList.remove('is-on'); });
-    window.addEventListener('blur',function(){ ptr.on=false; cur.classList.remove('is-on'); });
-    window.addEventListener('pointerdown',function(e){ if(!motion||e.pointerType!=='mouse') return; cur.classList.add('is-down'); burst(e.clientX,e.clientY); });
-    window.addEventListener('pointerup',function(){ cur.classList.remove('is-down'); });
+    document.addEventListener('pointerleave',function(){ ptr.on=false; cur&&cur.classList.remove('is-on'); });
+    window.addEventListener('blur',function(){ ptr.on=false; cur&&cur.classList.remove('is-on'); });
+    window.addEventListener('pointerdown',function(e){ if(!motion||e.pointerType!=='mouse') return; cur&&cur.classList.add('is-down'); burst(e.clientX,e.clientY); });
+    window.addEventListener('pointerup',function(){ cur&&cur.classList.remove('is-down'); });
     if(hero){
       hero.addEventListener('pointermove',function(e){ if(!motion) return; var r=hero.getBoundingClientRect(); heroT.x=((e.clientX-r.left)/r.width-.5)*2; heroT.y=((e.clientY-r.top)/r.height-.5)*2; spot.x=e.clientX-r.left; spot.y=e.clientY-r.top; hero.classList.add('is-lit'); kick(); });
       hero.addEventListener('pointerleave',function(){ heroT.x=0; heroT.y=0; hero.classList.remove('is-lit'); kick(); });
