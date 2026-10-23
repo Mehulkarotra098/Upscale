@@ -78,7 +78,7 @@ def person_full(site):
 
 def person_image(site):
     return {'@type': 'ImageObject', '@id': site + '#mehul-photo', 'url': site + FOUNDER['image'], 'contentUrl': site + FOUNDER['image'],
-            'width': 900, 'height': 900, 'caption': 'Mehul Karotra, founder of U Scale', 'creditText': 'U Scale'}
+            'width': 1200, 'height': 1200, 'caption': 'Mehul Karotra, founder of U Scale', 'creditText': 'U Scale'}
 
 
 def person_ref(site):
@@ -459,7 +459,7 @@ def about_page(ctx, parts):
 {brief_html(ABOUT_ANSWER, ABOUT_FACTS, 'Key facts about Mehul Karotra', 'about-brief')}
 
   <section class="section sp-q sp-q--img" aria-label="Photo">
-    <div class="wrap sp-prose"><figure class="sp-fig sp-fig--portrait"><img src="/{FOUNDER['image']}" srcset="/{FOUNDER['image'].replace('.webp', '-480.webp')} 480w, /{FOUNDER['image']} 900w" sizes="340px" width="900" height="900" alt="Mehul Karotra, website designer and founder of U Scale, based in Ghatkopar West, Mumbai" loading="lazy" decoding="async"><figcaption>Mehul Karotra, founder of U Scale.</figcaption></figure></div>
+    <div class="wrap sp-prose"><figure class="sp-fig sp-fig--portrait"><picture><source type="image/avif" srcset="/{FOUNDER['image'].replace('.webp', '')}-480.avif 480w, /{FOUNDER['image'].replace('.webp', '')}-640.avif 640w, /{FOUNDER['image'].replace('.webp', '')}.avif 1200w" sizes="(max-width: 400px) 100vw, 340px"><img src="/{FOUNDER['image']}" srcset="/{FOUNDER['image'].replace('.webp', '')}-480.webp 480w, /{FOUNDER['image'].replace('.webp', '')}-640.webp 640w, /{FOUNDER['image'].replace('.webp', '')}.webp 1200w" sizes="(max-width: 400px) 100vw, 340px" width="1200" height="1200" alt="Mehul Karotra, website designer and founder of U Scale, based in Ghatkopar West, Mumbai" loading="lazy" decoding="async"></picture><figcaption>Mehul Karotra, founder of U Scale.</figcaption></figure></div>
   </section>
 
   <section class="section" aria-labelledby="what-title">

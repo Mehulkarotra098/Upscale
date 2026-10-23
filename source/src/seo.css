@@ -362,10 +362,12 @@ html.pin-ok .sp-process .step{opacity:1;transform:none}
   color:var(--violet);text-align:left;margin:0;backdrop-filter:blur(6px)}
 .fp-portrait__plate b{font:700 15px/1.2 var(--sans)}
 .fp-portrait__plate span{font:500 12.5px/1.35 var(--sans);color:var(--body)}
-.fp-art--portrait .fp-chip--1{left:-6%;top:10%}
-.fp-art--portrait .fp-chip--2{right:-6%;top:42%;bottom:auto}
+@media (max-width:1023px){.fp-portrait__more{display:none}}
+/* chips sit on the shoulders, never on the face (face is the top half of the 4:5 crop) */
+.fp-art--portrait .fp-chip--1{left:-7%;top:auto;bottom:36%}
+.fp-art--portrait .fp-chip--2{right:-7%;top:auto;bottom:25%}
 @media (max-width:1023px){.fp-art--portrait{max-width:300px}}
-@media (max-width:559px){.fp-art--portrait{max-width:260px}.fp-art--portrait .fp-chip--1{left:-10%}.fp-art--portrait .fp-chip--2{right:-10%}}
+@media (max-width:559px){.fp-art--portrait{max-width:260px}.fp-art--portrait .fp-chip--1{left:-12%;bottom:38%}.fp-art--portrait .fp-chip--2{right:-12%;bottom:26%}}
 
 /* white info cards in the hero (ticket, audit, mini ranges) */
 .fp-ticket,.fp-audit,.fp-mini{max-width:460px;padding:clamp(20px,2.6vw,30px);border-radius:var(--radius-card);background:var(--white);color:var(--violet);

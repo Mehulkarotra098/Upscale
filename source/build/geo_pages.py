@@ -615,7 +615,7 @@ IMG = {
  'bout': dict(file=A + 'boutique-website-whatsapp-ordering-mumbai', w=1200, h=1000, small=640,
               alt='Demo boutique product page on a phone with an Order on WhatsApp button, next to the WhatsApp chat it opens with the product and size already filled in',
               caption='A demo product page and the WhatsApp order it creates. Saanjh is a sample brand.'),
- 'mehul': dict(file=A + 'mehul-karotra-website-designer-ghatkopar', w=900, h=900, small=480,
+ 'mehul': dict(file=A + 'mehul-karotra-website-designer-ghatkopar', w=1200, h=1200, small=640,
                alt='Mehul Karotra, website designer and founder of U Scale, based in Ghatkopar West, Mumbai',
                caption='Mehul Karotra, who designs and builds every U Scale website himself.'),
 }
@@ -937,7 +937,7 @@ def _hero_art(p):
     if k == 'portrait':
         img = IMG['mehul']
         return (f'<figure class="fp-art fp-art--portrait"><div class="fp-portrait">{_pic(img, "(max-width: 559px) 260px, (max-width: 1023px) 300px, 400px", eager=True)}'
-                f'<figcaption class="fp-portrait__plate"><b>Mehul Karotra</b><span>Founder, U Scale · designs and builds every site</span></figcaption></div>{chips}</figure>')
+                f'<figcaption class="fp-portrait__plate"><b>Mehul Karotra</b><span>Founder, U Scale<span class="fp-portrait__more"> · designs and builds every site</span></span></figcaption></div>{chips}</figure>')
     if k == 'ticket':
         rows = [('Landing page', price('Landing page')), ('Business site, 3–4 pages', price('Business site, 3–4 pages')),
                 ('5–10 pages + blog', price('Business site, 5–10 pages + blog')), ('Online store se', price('E-commerce, under 50 products'))]
@@ -1046,7 +1046,7 @@ def _who(p):
   <section class="section fp-sec fp-sec--who" aria-labelledby="who-title">
     <div class="wrap">
       <div class="fp-who" data-reveal>
-        <picture class="fp-who__img"><source type="image/avif" srcset="{img['file']}-{img['small']}.avif"><img src="{img['file']}-{img['small']}.webp" width="{img['small']}" height="{img['small']}" alt="{ea(img['alt'])}" loading="lazy" decoding="async"></picture>
+        <picture class="fp-who__img"><source type="image/avif" srcset="{img['file']}-480.avif"><img src="{img['file']}-480.webp" width="480" height="480" alt="{ea(img['alt'])}" loading="lazy" decoding="async"></picture>
         <div class="fp-who__body">
           <p class="eyebrow">{e(k)}</p>
           <h2 class="fp-who__h" id="who-title">{e(h)}</h2>
