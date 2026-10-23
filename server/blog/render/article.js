@@ -1,5 +1,5 @@
 // /blog/<slug>: the article page.
-import { BRAND, ROBOTS, SERVICES } from '../../config.js';
+import { BRAND, ENTITY, ROBOTS, SERVICES } from '../../config.js';
 import { esc, excerpt, fmtDate, isoDate } from '../../lib/text.js';
 import { mediaUrl } from '../../media/urls.js';
 import {
@@ -98,6 +98,7 @@ export function renderArticle({ post, related, preview = false }) {
         url: abs('about'),
         jobTitle: authorTitle,
         sameAs: BRAND.authorSameAs,
+        image: abs(ENTITY.founder.image),
       },
       publisher: { '@id': ORGANIZATION['@id'] },
     },

@@ -300,3 +300,8 @@ html.pin-ok .sp-process .step{opacity:1;transform:none}
 .sp-sources span{color:var(--body)}
 .footer__nap{margin:0;font-style:normal;color:rgba(255,255,255,.66)}
 .footer__nap a{color:inherit;text-decoration:underline;text-underline-offset:3px;text-decoration-thickness:1px}
+.sp-fig{margin:0 0 24px;max-width:860px}
+.sp-fig img{display:block;width:100%;height:auto;border-radius:var(--radius-card);border:1px solid var(--line-light);background:var(--white)}
+.sp-fig figcaption{margin-top:10px;font:500 14px/1.5 var(--sans);color:var(--body)}
+.sp-fig--portrait{max-width:340px}
+.page-sub .section.sp-q--img{padding-top:0}

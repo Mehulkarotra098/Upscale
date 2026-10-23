@@ -68,7 +68,7 @@ def person_full(site):
             'description': 'Mumbai-based UI/UX developer-designer who personally designs and builds websites and runs SEO, social media, '
                            'Google and Meta ads and AI search visibility for businesses through U Scale.',
             'worksFor': {'@id': site + '#business'}, 'homeLocation': {'@type': 'City', 'name': 'Mumbai'},
-            'knowsLanguage': ENTITY['languages'], 'sameAs': FOUNDER['sameAs'],
+            'knowsLanguage': ENTITY['languages'], 'sameAs': FOUNDER['sameAs'], 'image': person_image(site),
             'hasCredential': {'@type': 'EducationalOccupationalCredential', 'credentialCategory': 'degree',
                               'name': 'Bachelor of Computer Application (Information Technology)'},
             'knowsAbout': ['Web design', 'Web development', 'UI/UX design', 'Search engine optimisation', 'Local SEO',
@@ -76,8 +76,14 @@ def person_full(site):
                            'Generative engine optimisation', 'Figma', 'React.js', 'Tailwind CSS', 'WordPress']}
 
 
+def person_image(site):
+    return {'@type': 'ImageObject', '@id': site + '#mehul-photo', 'url': site + FOUNDER['image'], 'contentUrl': site + FOUNDER['image'],
+            'width': 900, 'height': 900, 'caption': 'Mehul Karotra, founder of U Scale', 'creditText': 'U Scale'}
+
+
 def person_ref(site):
-    return {'@type': 'Person', '@id': site + '#mehul', 'name': FOUNDER['name'], 'url': site + 'about', 'sameAs': FOUNDER['sameAs']}
+    return {'@type': 'Person', '@id': site + '#mehul', 'name': FOUNDER['name'], 'url': site + 'about', 'sameAs': FOUNDER['sameAs'],
+            'image': site + FOUNDER['image']}
 
 
 def website_ref(site):
@@ -305,8 +311,9 @@ def brief_html(answer, facts, caption, head_id):
 
 
 # ---------------------------------------------------------------- shared page shell for /about and /services
-def _head(ctx, url, title, desc, ld):
+def _head(ctx, url, title, desc, ld, og=None):
     site, v = ctx['SITE_URL'], ctx['_v']
+    og = og or (site + 'og-image.png', 'U Scale by Mehul Karotra: Be found. Be chosen.')
     return f'''<!doctype html>
 <html lang="en-IN">
 <head>
@@ -326,14 +333,14 @@ def _head(ctx, url, title, desc, ld):
 <meta property="og:title" content="{ea(title)}">
 <meta property="og:description" content="{ea(desc)}">
 <meta property="og:url" content="{url}">
-<meta property="og:image" content="{site}og-image.png">
+<meta property="og:image" content="{og[0]}">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
-<meta property="og:image:alt" content="U Scale by Mehul Karotra: Be found. Be chosen.">
+<meta property="og:image:alt" content="{ea(og[1])}">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="{ea(title)}">
 <meta name="twitter:description" content="{ea(desc)}">
-<meta name="twitter:image" content="{site}og-image.png">
+<meta name="twitter:image" content="{og[0]}">
 {ctx['ICONS_HEAD']}
 <link rel="preload" href="/assets/fonts/anton-latin.woff2" as="font" type="font/woff2" crossorigin><link rel="preload" href="/assets/fonts/inter-latin.woff2" as="font" type="font/woff2" crossorigin>
 <script type="application/ld+json">{ld}</script>
@@ -359,10 +366,10 @@ def _hero(crumb, title, lead, eyebrow=None, cta=True):
   </div>'''
 
 
-def _page(ctx, parts, url, title, desc, ld, body):
+def _page(ctx, parts, url, title, desc, ld, body, og=None):
     header, menu, footer, tail = parts
     v = ctx['_v']
-    return f'''{_head(ctx, url, title, desc, ld)}
+    return f'''{_head(ctx, url, title, desc, ld, og)}
 <body class="page-sub">
 <a class="skip" href="#main">Skip to content</a>
 {header}
@@ -447,6 +454,10 @@ def about_page(ctx, parts):
                     for i, (t, d) in enumerate(HOW))
     body = f'''{_hero('About', 'About Mehul Karotra', 'I’m Mehul, a UI/UX developer-designer from Mumbai and the person behind U Scale. I started U Scale because small businesses deserve agency-quality work without paying for account managers and hand-offs. When you work with U Scale, you work with me: I design it, build it, market it, and answer your WhatsApp myself.', eyebrow='The person doing your work')}
 {brief_html(ABOUT_ANSWER, ABOUT_FACTS, 'Key facts about Mehul Karotra', 'about-brief')}
+
+  <section class="section sp-q sp-q--img" aria-label="Photo">
+    <div class="wrap sp-prose"><figure class="sp-fig sp-fig--portrait"><img src="/{FOUNDER['image']}" srcset="/{FOUNDER['image'].replace('.webp', '-480.webp')} 480w, /{FOUNDER['image']} 900w" sizes="340px" width="900" height="900" alt="Mehul Karotra, website designer and founder of U Scale, based in Ghatkopar West, Mumbai" loading="lazy" decoding="async"><figcaption>Mehul Karotra, founder of U Scale.</figcaption></figure></div>
+  </section>
 
   <section class="section" aria-labelledby="what-title">
     <div class="wrap sp-prose">

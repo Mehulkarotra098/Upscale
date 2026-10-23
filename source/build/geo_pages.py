@@ -310,6 +310,68 @@ PAGES = [
 ]
 
 
+# ---------------------------------------------------------------- images
+# All original: mockups for invented demo brands, charts and schematic maps made for these pages, Mehul's own photo
+# and real U Scale work. Never photos copied from Google Maps or other sites (they belong to their owners, and copies
+# don't rank in image search anyway). Files live in source/static/assets/pages/ with descriptive names; each has an
+# 800px version for phones. `at` = index of the section the image opens, or -1 for right after the "In short" card.
+A = '/assets/pages/'
+MEHUL = dict(file=A + 'mehul-karotra-website-designer-ghatkopar', w=900, h=900, small=480, portrait=True,
+             alt='Mehul Karotra, website designer and founder of U Scale, based in Ghatkopar West, Mumbai',
+             caption='Mehul Karotra, who designs and builds every U Scale website himself.')
+IMAGES = {
+ 'restaurants-cafes': [
+  dict(file=A + 'restaurant-website-online-ordering-mumbai', w=1600, h=1000, at=-1,
+       alt='Demo café website with its own online ordering on a laptop and a phone: menu, cart and checkout with UPI, cards and netbanking',
+       caption='A demo café website with its own online ordering, designed by U Scale. Chai Kona is a sample brand, not a real café.'),
+  dict(file=A + 'delivery-app-commission-vs-own-website', w=1200, h=675, at=1,
+       alt='Bar chart: ₹10,000 a month in delivery-app commission at 20% versus ₹1,180 in payment gateway fees on ₹50,000 of direct orders',
+       caption='The worked example as a chart. Commission rate: NRAI president via Inc42, October 2026; gateway fee: Razorpay standard plan.')],
+ 'boutiques-fashion': [
+  dict(file=A + 'boutique-website-whatsapp-ordering-mumbai', w=1600, h=1000, at=-1,
+       alt='Demo boutique product page on a phone with an Order on WhatsApp button, next to the WhatsApp chat it opens with the product and size already filled in',
+       caption='A demo product page and the WhatsApp order it creates. Saanjh is a sample brand.'),
+  dict(file='/assets/work/sashe-peek', w=768, h=480, at=1, ext_small=False,
+       alt='Website for Sashe by Prachi, a bespoke fashion label in Mumbai, designed and built by U Scale',
+       caption='Real work: the website for Sashe by Prachi, a bespoke fashion label in Mumbai.')],
+ 'ghatkopar': [
+  dict(MEHUL, at=-1),
+  dict(file=A + 'website-designer-ghatkopar-areas-served', w=1200, h=800, at=0,
+       alt='Schematic map of the areas around Ghatkopar West where U Scale meets clients: Ghatkopar East, Vikhroli, Powai, Mulund, Kurla and Chembur',
+       caption='Areas around Ghatkopar where Mehul meets clients. Schematic, not to scale.')],
+ 'andheri-east': [
+  dict(file=A + 'andheri-east-to-ghatkopar-metro-line-1', w=1200, h=700, at=-1,
+       alt='Schematic of Mumbai Metro Line 1 from Western Express Highway through Chakala, Airport Road, Marol Naka and Saki Naka to Ghatkopar, with Andheri East areas marked',
+       caption='Andheri East and Ghatkopar are on the same Metro line. Schematic, not to scale.')],
+}
+OG = {'restaurants-cafes': 'og-restaurant-website-mumbai', 'boutiques-fashion': 'og-boutique-website-mumbai',
+      'ghatkopar': 'og-website-designer-ghatkopar', 'andheri-east': 'og-website-design-andheri-east'}
+
+
+def _src(img):
+    return img['file'] + '.webp'
+
+
+def figure(img):
+    small = img.get('small', 800)
+    srcset = '' if img.get('ext_small') is False else f' srcset="{img["file"]}-{small}.webp {small}w, {_src(img)} {img["w"]}w" sizes="(max-width: 900px) 100vw, 860px"'
+    cls = 'sp-fig sp-fig--portrait' if img.get('portrait') else 'sp-fig'
+    return (f'<figure class="{cls}"><img src="{_src(img)}"{srcset} width="{img["w"]}" height="{img["h"]}" alt="{ea(img["alt"])}" '
+            f'loading="lazy" decoding="async"><figcaption>{e(img["caption"])}</figcaption></figure>')
+
+
+def image_ld(site, url, p):
+    return [{'@type': 'ImageObject', '@id': f'{url}#image-{i + 1}', 'url': site + _src(img)[1:], 'contentUrl': site + _src(img)[1:],
+             'width': img['w'], 'height': img['h'], 'caption': img['caption'], 'description': img['alt'], 'inLanguage': 'en-IN',
+             'creditText': 'U Scale', 'creator': {'@id': site + '#business'}, 'copyrightNotice': '© 2026 U Scale by Mehul Karotra'}
+            for i, img in enumerate(IMAGES.get(p['slug'], []))]
+
+
+def images_by_url(site):
+    """{page URL: [(image URL, caption)]} for the image sitemap."""
+    return {url_of(site, p): [(site + _src(i)[1:], i['caption']) for i in IMAGES.get(p['slug'], [])] for p in PAGES}
+
+
 # ---------------------------------------------------------------- page assembly
 def _jsonld(site, p):
     url = url_of(site, p)
@@ -332,6 +394,11 @@ def _jsonld(site, p):
             {'@type': 'ListItem', 'position': 4, 'name': p['crumb'], 'item': url}]},
         aeo._faq_ld(url, p['faq']),
     ]
+    imgs = image_ld(site, url, p)
+    if imgs:
+        graph[0]['primaryImageOfPage'] = {'@id': imgs[0]['@id']}
+        graph[0]['image'] = [{'@id': i['@id']} for i in imgs]
+        graph += imgs
     return json.dumps({'@context': 'https://schema.org', '@graph': graph}, ensure_ascii=False, separators=(',', ':')).replace('</', '<\\/')
 
 
@@ -382,11 +449,17 @@ def _cta(p, wa):
 def page(ctx, parts, p):
     site = ctx['SITE_URL']; url = url_of(site, p)
     wa = f'https://wa.me/{aeo.ENTITY["whatsapp"]}?text=' + urllib.parse.quote(f"Hi Mehul, I found your page on {p['crumb'].lower()} websites. I'd like to talk about my business.")
-    secs = ''.join(f'''
+    imgs = IMAGES.get(p['slug'], [])
+    at = lambda i: ''.join(figure(x) for x in imgs if x['at'] == i)
+    lead_img = f'''
+  <section class="section sp-q sp-q--img" aria-label="Example">
+    <div class="wrap sp-prose">{at(-1)}</div>
+  </section>''' if at(-1) else ''
+    secs = lead_img + ''.join(f'''
   <section class="section sp-q" aria-labelledby="s{i}-title">
     <div class="wrap sp-prose">
       <h2 class="h2 sp-h2" id="s{i}-title">{e(h)}</h2>
-      {body}
+      {at(i)}{body}
     </div>
   </section>''' for i, (h, body) in enumerate(p['sections']))
     tail = f'''
@@ -399,7 +472,8 @@ def page(ctx, parts, p):
   </section>'''
     body = (_hero(p, wa) + aeo.brief_html(p['answer'], p['facts'], 'Key facts: ' + p['service'], 'brief-title') + secs + tail
             + aeo._faq_section(p['faq'], 'Questions, answered.') + _cta(p, wa))
-    return aeo._page(ctx, parts, url, p['title'], p['desc'], _jsonld(site, p), body)
+    og = (f'{site}assets/pages/{OG[p["slug"]]}.jpg', p['h1'] + ' · U Scale by Mehul Karotra')
+    return aeo._page(ctx, parts, url, p['title'], p['desc'], _jsonld(site, p), body, og)
 
 
 def build(ctx, parts):

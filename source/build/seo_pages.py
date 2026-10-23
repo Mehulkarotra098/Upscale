@@ -1080,8 +1080,12 @@ def build(ctx):
     dates = aeo.stamp_pages(out, site, rels)  # each page's date moves only when its content changes
     prio = {site: '1.0', site + 'pricing': '0.9', site + 'services': '0.9', site + 'about': '0.8', site + 'tools': '0.7'}
     # Sitemap index: static pages here, blog posts from the live database at /sitemap-blog.xml (server-rendered).
-    (out / 'sitemap-pages.xml').write_text('<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n'
-        + ''.join(f'  <url><loc>{u}</loc><lastmod>{d}</lastmod><priority>{prio.get(u, "0.8")}</priority></url>\n' for u, d in dates.items()) + '</urlset>\n')
+    pics = geo_pages.images_by_url(site)
+    pics[site + 'about'] = [(site + aeo.FOUNDER['image'], 'Mehul Karotra, founder of U Scale')]
+    img_tags = lambda u: ''.join(f'<image:image><image:loc>{ea(i)}</image:loc></image:image>' for i, _ in pics.get(u, []))
+    (out / 'sitemap-pages.xml').write_text('<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" '
+        'xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">\n'
+        + ''.join(f'  <url><loc>{u}</loc><lastmod>{d}</lastmod><priority>{prio.get(u, "0.8")}</priority>{img_tags(u)}</url>\n' for u, d in dates.items()) + '</urlset>\n')
     (out / 'sitemap.xml').write_text('<?xml version="1.0" encoding="UTF-8"?>\n<sitemapindex xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n'
         f'  <sitemap><loc>{site}sitemap-pages.xml</loc><lastmod>{max(dates.values())}</lastmod></sitemap>\n'
         f'  <sitemap><loc>{site}sitemap-blog.xml</loc></sitemap>\n</sitemapindex>\n')
