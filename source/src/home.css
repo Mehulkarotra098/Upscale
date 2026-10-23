@@ -128,110 +128,18 @@
    Live mini scenes. Base rules are the final frame (what you see with motion off or without JS);
    the keyframes play only while the scene is on screen (.is-live), inside the motion-on block.
    ===================================================================== */
-.viz{position:relative;overflow:hidden;isolation:isolate;display:grid;place-items:center;margin:calc(var(--pad) * -1) calc(var(--pad) * -1) 4px;
-  padding:clamp(14px,2.2vw,20px) clamp(14px,2.2vw,20px) clamp(12px,1.8vw,16px);border-bottom:1px solid var(--line-light);
-  background:radial-gradient(110% 90% at 100% 0%,#EDE6FB 0%,rgba(237,230,251,0) 62%),linear-gradient(180deg,#F9F7FD 0%,#F1EDF8 100%)}
-.vz{position:relative;width:100%;max-width:430px;aspect-ratio:340 / 236;container-type:inline-size;--u:calc(100cqw / 340);font-family:var(--sans);
-  --lift:0 calc(1 * var(--u)) 0 rgba(37,30,69,.05),0 calc(16 * var(--u)) calc(30 * var(--u)) calc(-14 * var(--u)) rgba(37,30,69,.42)}
-.vz p{margin:0}
-.vz svg{display:block;flex:none}
 .svc3__k{display:flex;align-items:center;gap:8px}
 .svc3__k .fp-ic{width:16px;height:16px}
 .svc3__ic{display:none}
 
-/* -- 1. their own site takes an order on WhatsApp -- */
-.viz--build{border-bottom-color:var(--line-dark);
-  background:radial-gradient(80% 90% at 92% 0%,rgba(99,184,73,.2),rgba(99,184,73,0) 60%),radial-gradient(70% 80% at 0% 100%,rgba(201,188,232,.18),rgba(201,188,232,0) 60%),#2B2350}
-.vb-win{position:absolute;left:0;top:calc(10*var(--u));width:calc(262*var(--u));height:calc(196*var(--u));border-radius:calc(12*var(--u));background:var(--space);overflow:hidden;
-  box-shadow:0 calc(24*var(--u)) calc(44*var(--u)) calc(-18*var(--u)) rgba(5,3,15,.75),0 0 0 1px rgba(255,255,255,.06)}
-.vb-win__bar{display:flex;align-items:center;gap:calc(5*var(--u));height:calc(26*var(--u));padding:0 calc(10*var(--u));background:var(--lav-tint)}
-.vb-win__bar i{width:calc(7*var(--u));height:calc(7*var(--u));border-radius:50%;background:var(--lavender)}
-.vb-url{display:inline-flex;align-items:center;gap:calc(4*var(--u));margin-left:calc(8*var(--u));padding:calc(4*var(--u)) calc(9*var(--u));border-radius:calc(6*var(--u));background:var(--white);font:600 calc(9.5*var(--u))/1 var(--sans);color:var(--body)}
-.vb-url svg{width:calc(9*var(--u));height:calc(9*var(--u));color:#2E7A1F}
-.vb-site{padding:calc(10*var(--u)) calc(14*var(--u))}
-.vb-nav{display:flex;align-items:center;gap:calc(10*var(--u));padding-right:calc(34*var(--u));font:600 calc(8.5*var(--u))/1 var(--sans);color:var(--body)}
-.vb-nav b{margin-right:auto;font:400 calc(13*var(--u))/1 var(--display);text-transform:uppercase;letter-spacing:.02em;color:var(--violet)}
-.vb-hero{display:grid;grid-template-columns:1.3fr 1fr;gap:calc(10*var(--u));align-items:center;margin-top:calc(14*var(--u))}
-.vb-h{font:400 calc(25*var(--u))/.94 var(--display);text-transform:uppercase;color:var(--violet)}
-.vb-s{margin:calc(7*var(--u)) 0 calc(10*var(--u)) !important;font:500 calc(8.5*var(--u))/1.35 var(--sans);color:var(--body)}
-.vb-cta{display:inline-flex;align-items:center;gap:calc(5*var(--u));padding:calc(7*var(--u)) calc(10*var(--u));border-radius:calc(8*var(--u));background:var(--green);color:var(--violet);font:700 calc(9*var(--u))/1 var(--sans);white-space:nowrap}
-.vb-cta svg{width:calc(11*var(--u));height:calc(11*var(--u))}
-.vb-art{aspect-ratio:1;border-radius:calc(16*var(--u));display:grid;place-items:center;background:radial-gradient(circle at 30% 22%,#9384D6,var(--violet) 74%)}
-.vb-art svg{width:64%;height:auto}
-.vb-phone{position:absolute;right:calc(4*var(--u));bottom:0;width:calc(104*var(--u));height:calc(206*var(--u));padding:calc(5*var(--u));border-radius:calc(20*var(--u));background:#120E26;
-  box-shadow:0 calc(26*var(--u)) calc(40*var(--u)) calc(-14*var(--u)) rgba(5,3,15,.85),inset 0 0 0 1px rgba(255,255,255,.1)}
-.vb-phone__scr{height:100%;display:flex;flex-direction:column;gap:calc(7*var(--u));padding:calc(14*var(--u)) calc(8*var(--u)) calc(8*var(--u));border-radius:calc(16*var(--u));background:var(--space);overflow:hidden}
-.vb-ph-h{font:400 calc(15*var(--u))/.95 var(--display);text-transform:uppercase;color:var(--violet)}
-.vb-menu{list-style:none;margin:0;padding:0;display:grid;gap:calc(4*var(--u))}
-.vb-menu li{display:flex;justify-content:space-between;gap:calc(4*var(--u));padding:calc(6*var(--u));border-radius:calc(7*var(--u));background:var(--white);border:1px solid rgba(37,30,69,.08);font:600 calc(7.5*var(--u))/1 var(--sans);color:var(--violet);white-space:nowrap}
-.vb-menu b{color:#2E7A1F}
-.vb-ph-cta{position:relative;margin-top:auto;display:flex;align-items:center;justify-content:center;gap:calc(4*var(--u));padding:calc(8*var(--u)) 0;border-radius:calc(8*var(--u));background:var(--green);color:var(--violet);font:700 calc(8*var(--u))/1 var(--sans);white-space:nowrap}
-.vb-ph-cta svg{width:calc(10*var(--u));height:calc(10*var(--u))}
-.vb-tap{position:absolute;left:50%;top:50%;width:calc(26*var(--u));height:calc(26*var(--u));margin:calc(-13*var(--u)) 0 0 calc(-13*var(--u));border-radius:50%;background:rgba(255,255,255,.6);opacity:0}
-.vb-toast{position:absolute;left:calc(150*var(--u));top:calc(0*var(--u));width:calc(184*var(--u));display:flex;align-items:center;gap:calc(8*var(--u));padding:calc(8*var(--u)) calc(10*var(--u));border-radius:calc(12*var(--u));background:var(--white);box-shadow:var(--lift)}
-.vb-toast__ic{width:calc(24*var(--u));height:calc(24*var(--u));flex:none;border-radius:calc(7*var(--u));display:grid;place-items:center;background:var(--green);color:var(--violet)}
-.vb-toast__ic svg{width:calc(13*var(--u));height:calc(13*var(--u))}
-.vb-toast b{display:block;font:700 calc(9.5*var(--u))/1.2 var(--sans);color:var(--violet)}
-.vb-toast em{display:block;font:500 calc(8.5*var(--u))/1.3 var(--sans);font-style:normal;color:var(--body);white-space:nowrap}
-.vb-toast time{align-self:flex-start;margin-left:auto;font:600 calc(7.5*var(--u))/1 var(--sans);color:var(--body)}
-
-/* -- 2. "cafe near me": their name rises to the top, on the map and in an AI answer -- */
-.vf-map{position:absolute;left:calc(40*var(--u));right:0;top:0;bottom:calc(16*var(--u));border-radius:calc(14*var(--u));overflow:hidden;box-shadow:inset 0 0 0 1px rgba(37,30,69,.08)}
-.vf-map__svg{width:100%;height:100%}
-.vf-pin{position:absolute;width:calc(13*var(--u));height:calc(13*var(--u));border-radius:50% 50% 50% 0;transform:rotate(-45deg);background:#8E80B8;box-shadow:0 calc(3*var(--u)) calc(6*var(--u)) rgba(37,30,69,.3)}
-.vf-pin::after{content:"";position:absolute;inset:30%;border-radius:50%;background:var(--white)}
-.vf-pin--a{left:74%;top:14%}.vf-pin--b{left:90%;top:34%}
-.vf-pin--you{left:80%;top:47%;width:calc(20*var(--u));height:calc(20*var(--u));background:var(--green);z-index:1}
-.vf-pin--you::before{content:"";position:absolute;inset:-35%;border-radius:50%;background:rgba(99,184,73,.35);z-index:-1;opacity:0}
-.vf-card{position:absolute;left:0;top:calc(10*var(--u));width:calc(214*var(--u));padding:calc(9*var(--u));border-radius:calc(14*var(--u));background:var(--white);box-shadow:var(--lift)}
-.vf-q{display:flex;align-items:center;gap:calc(6*var(--u));height:calc(28*var(--u));padding:0 calc(10*var(--u));border-radius:99px;background:#F3F0F9;font:600 calc(10*var(--u))/1 var(--sans);color:var(--violet)}
-.vf-q svg{width:calc(11*var(--u));height:calc(11*var(--u));color:var(--body)}
-.vf-q__t{display:inline-block;overflow:hidden;white-space:nowrap;max-width:14ch}
-.vf-caret{width:1.5px;height:calc(12*var(--u));background:var(--violet);opacity:0}
-.vf-list{list-style:none;margin:calc(7*var(--u)) 0 0;padding:0;position:relative;height:calc(116*var(--u))}
-.vf-r{position:absolute;left:0;right:0;height:calc(36*var(--u));display:grid;grid-template-columns:minmax(0,1fr) auto;align-content:center;column-gap:calc(6*var(--u));padding:0 calc(9*var(--u));
-  border-radius:calc(10*var(--u));border:1px solid rgba(37,30,69,.08);background:var(--white)}
-.vf-r--you{top:0;z-index:2;border-color:rgba(99,184,73,.75);background:#F5FBF2;box-shadow:0 calc(10*var(--u)) calc(18*var(--u)) calc(-12*var(--u)) rgba(37,30,69,.5)}
-.vf-r--a{top:calc(40*var(--u))}.vf-r--b{top:calc(80*var(--u))}
-.vf-r__n{font:700 calc(10*var(--u))/1.1 var(--sans);color:var(--violet);white-space:nowrap}
-.vf-r__m{grid-column:1;display:flex;align-items:center;gap:calc(4*var(--u));margin-top:calc(3*var(--u));font:500 calc(8*var(--u))/1 var(--sans);color:var(--body);white-space:nowrap}
-.vf-r__m b{color:var(--violet)}
-.vf-star{font-style:normal;color:#F2B544}
-.vf-r em{grid-column:2;grid-row:1 / span 2;align-self:center;padding:calc(4*var(--u)) calc(6*var(--u));border-radius:calc(6*var(--u));background:var(--green);font:400 calc(14*var(--u))/1 var(--display);font-style:normal;color:var(--violet)}
-.vf-stars{position:relative;display:block;width:calc(44*var(--u));height:calc(7*var(--u));background:#E4DEEF;
-  -webkit-mask:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 56 9'%3E%3Cg fill='%23000'%3E%3Cpath id='s' d='M4.5 0l1.4 2.9 3.1.4-2.3 2.2.6 3.1-2.8-1.5-2.8 1.5.6-3.1L0 3.3l3.1-.4z'/%3E%3Cuse href='%23s' x='11.5'/%3E%3Cuse href='%23s' x='23'/%3E%3Cuse href='%23s' x='34.5'/%3E%3Cuse href='%23s' x='46'/%3E%3C/g%3E%3C/svg%3E") 0 0/100% 100%;
-  mask:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 56 9'%3E%3Cg fill='%23000'%3E%3Cpath id='s' d='M4.5 0l1.4 2.9 3.1.4-2.3 2.2.6 3.1-2.8-1.5-2.8 1.5.6-3.1L0 3.3l3.1-.4z'/%3E%3Cuse href='%23s' x='11.5'/%3E%3Cuse href='%23s' x='23'/%3E%3Cuse href='%23s' x='34.5'/%3E%3Cuse href='%23s' x='46'/%3E%3C/g%3E%3C/svg%3E") 0 0/100% 100%}
-.vf-stars i{position:absolute;inset:0;background:#F2B544;transform-origin:left}
-.vf-ai{position:absolute;right:0;bottom:0;width:calc(190*var(--u));padding:calc(9*var(--u)) calc(11*var(--u));border-radius:calc(12*var(--u));background:var(--violet);box-shadow:0 calc(16*var(--u)) calc(30*var(--u)) calc(-14*var(--u)) rgba(37,30,69,.6)}
-.vf-ai__k{display:inline-flex;align-items:center;gap:calc(4*var(--u));font:700 calc(8*var(--u))/1 var(--sans);letter-spacing:.04em;color:var(--green)}
-.vf-ai__k svg{width:calc(10*var(--u));height:calc(10*var(--u))}
-.vf-ai p{margin-top:calc(4*var(--u));font:500 calc(9*var(--u))/1.35 var(--sans);color:#E9E4F7}
-.vf-ai b{color:var(--white)}
-
-/* -- 3. a post turns into messages and calls -- */
-.vl-post{position:absolute;left:0;top:0;bottom:0;width:calc(140*var(--u));display:flex;flex-direction:column;border-radius:calc(14*var(--u));background:var(--white);overflow:hidden;box-shadow:var(--lift)}
-.vl-post__hd{display:flex;align-items:center;gap:calc(6*var(--u));padding:calc(8*var(--u))}
-.vl-av{width:calc(22*var(--u));height:calc(22*var(--u));flex:none;border-radius:50%;display:grid;place-items:center;background:linear-gradient(135deg,var(--green),var(--violet));
-  box-shadow:0 0 0 calc(2*var(--u)) var(--white),0 0 0 calc(3*var(--u)) var(--lavender);font:700 calc(7*var(--u))/1 var(--sans);font-style:normal;color:var(--white)}
-.vl-post__hd b{display:block;font:700 calc(9*var(--u))/1.15 var(--sans);color:var(--violet)}
-.vl-post__hd small{display:block;font:500 calc(7.5*var(--u))/1.2 var(--sans);color:var(--body)}
-.vl-post__img{position:relative;flex:1;margin:0 calc(8*var(--u));border-radius:calc(10*var(--u));display:grid;place-items:center;text-align:center;overflow:hidden;
-  background:radial-gradient(circle at 78% 18%,#4E4190,var(--violet) 72%)}
-.vl-post__img p{font:400 calc(16*var(--u))/.95 var(--display);text-transform:uppercase;color:var(--white)}
-.vl-post__img p b{display:block;margin-top:calc(2*var(--u));font-weight:400;font-size:calc(36*var(--u));color:var(--green)}
-.vl-stk{position:absolute;right:calc(6*var(--u));top:calc(6*var(--u));padding:calc(3*var(--u)) calc(6*var(--u));border-radius:99px;background:var(--lavender);font:700 calc(7*var(--u))/1 var(--sans);color:var(--violet);transform:rotate(6deg)}
-.vl-big{position:absolute;left:50%;top:50%;width:calc(46*var(--u));height:calc(46*var(--u));margin:calc(-23*var(--u)) 0 0 calc(-23*var(--u));color:var(--white);opacity:0;filter:drop-shadow(0 calc(4*var(--u)) calc(10*var(--u)) rgba(0,0,0,.35))}
-.vl-big svg{width:100%;height:100%}
-.vl-post__ft{display:flex;align-items:center;gap:calc(9*var(--u));padding:calc(8*var(--u));color:var(--violet)}
-.vl-post__ft svg{width:calc(13*var(--u));height:calc(13*var(--u))}
-.vl-like{display:block;color:#E5484D}
-.vl-msgs{list-style:none;margin:0;padding:0;position:absolute;right:0;top:calc(44*var(--u));width:calc(214*var(--u));display:grid;gap:calc(8*var(--u))}
-.vl-msgs li{display:flex;align-items:center;gap:calc(8*var(--u));padding:calc(8*var(--u)) calc(10*var(--u));border-radius:calc(12*var(--u));background:var(--white);box-shadow:var(--lift)}
-.vl-ic{width:calc(26*var(--u));height:calc(26*var(--u));flex:none;border-radius:calc(8*var(--u));display:grid;place-items:center;background:var(--lav-tint);color:var(--violet)}
-.vl-ic svg{width:calc(13*var(--u));height:calc(13*var(--u))}
-.vl-ic--wa{background:var(--green)}
-.vl-msgs b{display:block;font:600 calc(7.5*var(--u))/1.2 var(--sans);color:var(--body)}
-.vl-msgs em{display:block;font:600 calc(9.5*var(--u))/1.3 var(--sans);font-style:normal;color:var(--violet);white-space:nowrap}
+/* -- service images: product shots on a violet stage, edge to edge at the top of each card -- */
+.svc3__media{position:relative;margin:calc(var(--pad) * -1) calc(var(--pad) * -1) 4px;aspect-ratio:6 / 5;overflow:hidden;border-bottom:1px solid var(--line-light);
+  background:radial-gradient(90% 80% at 88% 0%,rgba(99,184,73,.18),rgba(99,184,73,0) 60%),radial-gradient(80% 80% at 0% 100%,rgba(201,188,232,.18),rgba(201,188,232,0) 60%),#2B2350}
+.svc3__card--web .svc3__media{border-bottom-color:var(--line-dark)}
+.svc3__media picture,.svc3__media img{display:block;width:100%;height:100%}
+.svc3__media img{object-fit:contain;transition:transform 1.2s var(--ease-out)}
+.svc3__card:hover .svc3__media img{transform:scale(1.035)}
+@media (min-width:760px) and (max-width:1099px){.svc3__card--web .svc3__media{aspect-ratio:16 / 8}}
 
 /* -- free tools: a score ring and a QR code -- */
 .vs{position:relative;display:grid;place-items:center;width:96px;height:96px;margin-bottom:6px}
@@ -260,38 +168,12 @@
 .cx__badge i{position:absolute;right:-3px;top:-3px;width:14px;height:14px;border-radius:50%;background:#7CE05C;border:3px solid var(--violet)}
 
 @media (prefers-reduced-motion:no-preference){
-  .js .viz *,.js .viz *::before,.js .vs__fill,.js .vq .q-m rect,.js .home-how .fp-steps::before,.js .cx__checks li svg{animation-play-state:paused!important}
-  .js .is-live *,.js .is-live *::before,.js .vs.is-live .vs__fill,.js .vqw.is-live .q-m rect,.js .home-how .fp-steps.is-live::before,.js .cx__checks.is-live li svg{animation-play-state:running!important}
+  .js .svc3__media img,.js .vs__fill,.js .vq .q-m rect,.js .home-how .fp-steps::before,.js .cx__checks li svg{animation-play-state:paused!important}
+  .js .is-live *,.js .svc3__media.is-live img,.js .vs.is-live .vs__fill,.js .vqw.is-live .q-m rect,.js .home-how .fp-steps.is-live::before,.js .cx__checks.is-live li svg{animation-play-state:running!important}
 
-  /* 1. site + order: 9s loop */
-  .js .viz--build .vb-win{animation:vbWin 9s var(--ease-out) infinite both}
-  .js .viz--build .vb-nav,.js .viz--build .vb-h,.js .viz--build .vb-s,.js .viz--build .vb-cta,.js .viz--build .vb-art{animation:vbUp 9s var(--ease-out) infinite both}
-  .js .viz--build .vb-nav{animation-delay:.1s}.js .viz--build .vb-h{animation-delay:.25s}.js .viz--build .vb-s{animation-delay:.4s}
-  .js .viz--build .vb-art{animation-delay:.45s}.js .viz--build .vb-cta{animation-delay:.55s}
-  .js .viz--build .vb-phone{animation:vbPhone 9s var(--ease-out) infinite both}
-  .js .viz--build .vb-ph-cta{animation:vbPress 9s ease infinite both}
-  .js .viz--build .vb-tap{animation:vbTap 9s ease-out infinite both}
-  .js .viz--build .vb-toast{animation:vbToast 9s var(--ease-spring) infinite both}
-  .js .viz--build .vb-steam{animation:vbSteam 2.4s ease-in-out infinite}
-
-  /* 2. near me: 9s loop */
-  .js .viz--found .vf-q__t{animation:vfType 9s steps(12,end) infinite both}
-  .js .viz--found .vf-caret{animation:vfCaret 9s linear infinite both}
-  .js .viz--found .vf-r--a,.js .viz--found .vf-r--b{animation:vfShift 9s var(--ease-out) infinite both}
-  .js .viz--found .vf-r--b{animation-delay:.08s}
-  .js .viz--found .vf-r--you{animation:vfClimb 9s var(--ease-spring) infinite both}
-  .js .viz--found .vf-stars i{animation:vfStars 9s var(--ease-out) infinite both}
-  .js .viz--found .vf-r em{animation:vfBadge 9s var(--ease-spring) infinite both}
-  .js .viz--found .vf-pin--you{animation:vfPin 9s var(--ease-spring) infinite both}
-  .js .viz--found .vf-pin--you::before{animation:vfPulse 1.8s ease-out infinite}
-  .js .viz--found .vf-ai{animation:vfAi 9s var(--ease-spring) infinite both}
-
-  /* 3. post → messages: 9s loop */
-  .js .viz--leads .vl-post{animation:vlPost 9s var(--ease-out) infinite both}
-  .js .viz--leads .vl-big{animation:vlBig 9s var(--ease-spring) infinite both}
-  .js .viz--leads .vl-like{animation:vlLike 9s var(--ease-spring) infinite both}
-  .js .viz--leads .vl-msgs li{animation:vlMsg 9s var(--ease-spring) infinite both}
-  .js .viz--leads .vl-msgs li:nth-child(2){animation-delay:.8s}.js .viz--leads .vl-msgs li:nth-child(3){animation-delay:1.6s}
+  /* service images drift a few pixels while on screen, so the stage feels alive without competing with the copy */
+  .js .svc3__media img{animation:svcFloat 7s ease-in-out infinite both}
+  .js .svc3__card:nth-child(2) .svc3__media img{animation-delay:-2.3s}.js .svc3__card:nth-child(3) .svc3__media img{animation-delay:-4.6s}
 
   /* tools: ring fills, QR modules draw in, once per visit to the screen */
   .js .vs__fill{animation:vsFill 1.8s var(--ease-out) .2s both}
@@ -309,24 +191,5 @@
 @keyframes ckPop{from{transform:scale(0) rotate(-30deg);opacity:0}}
 @keyframes onl{0%{box-shadow:0 0 0 0 rgba(124,224,92,.6)}100%{box-shadow:0 0 0 10px rgba(124,224,92,0)}}
 
-@keyframes vbWin{0%{opacity:0;transform:translateY(calc(10*var(--u)))}7%,92%{opacity:1;transform:none}98%,100%{opacity:0}}
-@keyframes vbUp{0%,6%{opacity:0;transform:translateY(calc(6*var(--u)))}16%,92%{opacity:1;transform:none}98%,100%{opacity:0}}
-@keyframes vbPhone{0%,16%{opacity:0;transform:translateY(calc(40*var(--u)))}28%,92%{opacity:1;transform:none}98%,100%{opacity:0}}
-@keyframes vbTap{0%,38%{opacity:0;transform:scale(.2)}40%{opacity:.9;transform:scale(.6)}48%,100%{opacity:0;transform:scale(2.4)}}
-@keyframes vbPress{0%,39%{transform:none}41%{transform:scale(.93)}45%,100%{transform:none}}
-@keyframes vbToast{0%,44%{opacity:0;transform:translateY(calc(-14*var(--u))) scale(.94)}50%,90%{opacity:1;transform:none}96%,100%{opacity:0;transform:translateY(calc(-6*var(--u)))}}
-@keyframes vbSteam{0%,100%{opacity:.35;transform:none}50%{opacity:1;transform:translateY(-2px)}}
-@keyframes vfType{0%{max-width:0}16%,94%{max-width:14ch}100%{max-width:0}}
-@keyframes vfCaret{0%,18%{opacity:1}19%,100%{opacity:0}}
-@keyframes vfShift{0%,18%{opacity:0;transform:translateY(calc(-32*var(--u)))}26%,34%{opacity:1;transform:translateY(calc(-40*var(--u)))}46%,93%{opacity:1;transform:none}100%{opacity:0}}
-@keyframes vfClimb{0%,18%{opacity:0;transform:translateY(calc(88*var(--u)))}26%,34%{opacity:1;transform:translateY(calc(80*var(--u)))}46%,93%{opacity:1;transform:none}100%{opacity:0}}
-@keyframes vfStars{0%,46%{transform:scaleX(0)}58%,93%{transform:scaleX(1)}100%{transform:scaleX(0)}}
-@keyframes vfBadge{0%,50%{opacity:0;transform:scale(.3)}57%,93%{opacity:1;transform:none}100%{opacity:0}}
-@keyframes vfPin{0%,44%{transform:rotate(-45deg) scale(.6)}50%{transform:rotate(-45deg) scale(1.25)}56%,100%{transform:rotate(-45deg)}}
-@keyframes vfPulse{0%{transform:scale(.6);opacity:.8}100%{transform:scale(2.4);opacity:0}}
-@keyframes vfAi{0%,58%{opacity:0;transform:translateY(calc(14*var(--u)))}66%,93%{opacity:1;transform:none}100%{opacity:0}}
-@keyframes vlPost{0%{opacity:0;transform:translateY(calc(10*var(--u)))}8%,93%{opacity:1;transform:none}99%,100%{opacity:0}}
-@keyframes vlBig{0%,14%{opacity:0;transform:scale(.2)}19%{opacity:1;transform:scale(1.15)}23%{transform:scale(.95)}27%{opacity:1;transform:none}34%,100%{opacity:0;transform:scale(1.05)}}
-@keyframes vlLike{0%,18%{color:var(--violet);transform:none}22%{transform:scale(1.3)}26%,93%{color:#E5484D;transform:none}100%{color:var(--violet)}}
-@keyframes vlMsg{0%,30%{opacity:0;transform:translateX(calc(24*var(--u)))}38%,92%{opacity:1;transform:none}98%,100%{opacity:0}}
 @media (min-width:760px){.home-for__list ul{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@keyframes svcFloat{0%,100%{translate:0 0}50%{translate:0 -6px}}
