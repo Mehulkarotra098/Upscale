@@ -212,7 +212,7 @@ PAGES = [
        f'Fixed {price("Restaurant site + own online ordering")}.',
   h1='Restaurant & café websites with online ordering', eyebrow='Websites by business',
   lead='Your menu and your own online ordering, on a website you own. Regulars order from you directly, not through an app that keeps a share of every order.',
-  stats=[(price('Restaurant site + own online ordering'), 'Fixed price'), ('0%', 'App commission on direct orders'), ('4–8 weeks', 'To go live')],
+  stats=[(price('Restaurant site + own online ordering'), 'Fixed price'), ('0%', 'App commission on direct orders'), ('3–4 weeks', 'To go live')],
   art=dict(kind='img', img='rest', chips=[('cart', 'New order · ₹190 · paid by UPI'), ('check', '0% app commission')]),
   answer='U Scale builds restaurant and café websites in Mumbai with the menu, photos, timings and the restaurant’s own online ordering, for a '
          f'fixed {price("Restaurant site + own online ordering")}. Orders placed on your own website carry no delivery-app commission: you pay only '
@@ -223,7 +223,7 @@ PAGES = [
          ('Who builds it', 'Mehul Karotra, personally: designed in Figma, then hand-coded'),
          ('Commission on direct orders', 'None. Only the payment gateway fee, for example 2% + GST on Razorpay’s standard plan'),
          ('Delivery', 'Your choice: your own riders, takeaway pickup, or a delivery partner you book'),
-         ('Timeline', 'Most sites go live in 4–8 weeks'),
+         ('Timeline', 'Most sites go live in 3–4 weeks'),
          ('Payment', '20% to start, 20% on design sign-off, 60% on launch'),
          ('Care plan', f'Updates, backups and security {price("Care plan: updates, backups, security")}, optional')],
   sections=[
@@ -297,7 +297,7 @@ PAGES = [
          ('Online store', f'Under 50 products {price("E-commerce, under 50 products")} · 50–500 products {price("E-commerce, 50–500 products")}'),
          ('Who builds it', 'Mehul Karotra, personally: designed in Figma, then hand-coded'),
          ('Payments', 'UPI, cards and netbanking through a payment gateway; gateway fees are separate'),
-         ('Timeline', 'Most sites go live in 4–8 weeks'),
+         ('Timeline', 'Most sites go live in 3–4 weeks'),
          ('Ownership', 'Your domain, product pages, code and customer list stay yours'),
          ('Related work', 'Sashe by Prachi, a bespoke fashion label in Mumbai')],
   sections=[
@@ -485,7 +485,8 @@ PAGES = [
          ('U Scale ke fixed prices', f'Landing page {price("Landing page")} · Business site {price("Business site, 3–4 pages")} · '
                                      f'Blog ke saath {price("Business site, 5–10 pages + blog")} · Online store {price("E-commerce, under 50 products")} se'),
          ('Har saal ka kharcha', 'Domain + hosting lagbhag ₹4,400–₹9,400 (offer ke baad, GST se pehle)'),
-         ('GST', 'Registered agency 18% GST jodti hai; chhote freelancer aksar nahi')],
+         ('GST', 'Registered agency 18% GST jodti hai; chhote freelancer aksar nahi'),
+         ('U Scale aur GST', 'U Scale abhi GST charge nahi karta')],
   sections=[
    Sec('Ek website ₹10,000 ki aur doosri ₹1 lakh ki kyun?',
        Range([('Template wali basic website', 8000, 30000), ('Mumbai ke kisi studio se business website', 15000, 50000),
@@ -535,7 +536,7 @@ PAGES = [
        Durations([('Landing page', 3 / 7, 1, '3–7 din'), ('Basic business website', 1, 4, '1–4 hafte'),
                   ('Custom design wali website', 3, 8, '3–8 hafte'), ('Online store', 4, 12, '4–12 hafte')], scale=12, label='hafte'),
        P('Yeh timelines price guides se hain. Online store mein kitna time lagega, yeh is pe depend karta hai ki '
-         'kitne products hain. U Scale se website zyada tar 4–8 hafte mein live hoti hai. Sabse bada delay aksar build nahi hota: photos, '
+         'kitne products hain. U Scale se website zyada tar 3–4 hafte mein live hoti hai. Sabse bada delay aksar build nahi hota: photos, '
          'prices aur text ka intezaar hota hai.'),
        eyebrow='Timeline'),
   ],
@@ -551,7 +552,7 @@ PAGES = [
         'Online store pe platform fee aur har payment pe gateway fee alag se.'),
        ('Kya website banane pe GST lagta hai?',
         'Haan, website design pe 18% GST lagta hai jab registered agency ya freelancer bill karta hai. Jiska turnover ₹20 lakh se kam hai aur jo '
-        'registered nahi hai, woh GST nahi le sakta.'),
+        'registered nahi hai, woh GST nahi le sakta. U Scale abhi apne prices pe GST charge nahi karta.'),
        ('₹5,000–₹10,000 wali sasti website lena theek hai?',
         'Agar aapko pata hai ki yeh ek theme hai aur domain aur logins aapke naam pe honge, toh chhote kaam ke liye theek ho sakta hai. Theme ka naam, '
         'renewal price aur launch ke baad support ke baare mein likhit mein poochiye.'),

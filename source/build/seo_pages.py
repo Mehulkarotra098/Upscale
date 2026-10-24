@@ -16,7 +16,7 @@ WA = 'https://wa.me/917977360142?text=Hi%20Mehul%2C%20I%27d%20like%20to%20talk%2
 SERVICES = [
  dict(slug='website-design-mumbai', short='Website design', cta='website', name='Website Design & Development',
   title='Website Design in Mumbai from ₹25,000, Fixed Price | U Scale',
-  desc='Websites for Mumbai businesses, designed in Figma and hand-coded by Mehul Karotra. Landing page ₹25,000 in under 2 weeks; business site ₹55,000 in 4–8 weeks.',
+  desc='Websites for Mumbai businesses, designed in Figma and hand-coded by Mehul Karotra. Landing page ₹25,000 in under 2 weeks; business site ₹55,000 in 3–4 weeks.',
   h1='Website design & development in Mumbai',
   lead='I am a freelance web designer and developer in Mumbai. I design every page in Figma and build it by hand, so what you approve is exactly what goes live, at a fixed price agreed before I start.',
   who='For cafés, restaurants, salons, boutiques, clinics, schools, studios and founders who need a site that looks premium, loads fast on a phone and turns visitors into WhatsApp chats, calls and enquiries.',
@@ -33,7 +33,7 @@ SERVICES = [
   price='Landing pages ₹25,000, business sites from ₹55,000, restaurant sites with online ordering ₹90,000 and online stores from ₹95,000. A redesign of your current site costs 70% of a fresh build, and a care plan (updates, backups and security) is ₹3,500/month.',
   work=['tis','antrah','roar','sashe','vidhi','growcred'],
   faq=[('How much does a website cost in Mumbai?','It depends on the number of pages and features. I quote a fixed price after a free audit, so there are no surprises and no hourly billing.'),
-       ('How long does it take to build a website?','A typical business website takes 4 to 8 weeks from kickoff to launch. A landing page can be live in under two weeks.'),
+       ('How long does it take to build a website?','A typical business website goes live in 3 to 4 weeks from kickoff. A landing page can be live in under two weeks.'),
        ('Do you use WordPress or templates?','I build custom sites with modern code, and use WordPress when you need to edit content often yourself. Either way the design is made for you, never a template.'),
        ('Will I own my website?','Yes. The domain, hosting account, code and design files are yours.'),
        ('Can you redesign my existing website?','Yes. I start with an audit of what works and what leaks enquiries, then redesign around that.')]),
@@ -1301,7 +1301,8 @@ PRICING_FACTS = [('Websites', 'Fixed one-time price, agreed in writing before wo
                  ('Payment', '20% to start, 20% on design sign-off, 60% on launch'),
                  ('Monthly services', '3 months minimum, then month-to-month with 30 days’ notice'),
                  ('One-off work', 'From ₹800 for a social post'),
-                 ('Quotes', 'Valid for 14 days, after a free audit')]
+                 ('Quotes', 'Valid for 14 days, after a free audit'),
+                 ('GST', 'None charged right now')]
 
 def pricing_page(ctx, parts):
     site, v = ctx['SITE_URL'], ctx['_v']

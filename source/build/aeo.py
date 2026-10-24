@@ -185,12 +185,12 @@ BRIEF = {
  'website-design-mumbai': dict(
   answer='U Scale is Mehul Karotra, a freelance website designer and developer in Mumbai. Every site is designed in Figma and hand-coded, '
          'at a fixed price agreed in writing before work starts: a landing page is ₹25,000, a 3–4 page business site ₹55,000 and '
-         'an online store starts at ₹95,000. Most business sites go live in 4–8 weeks.',
+         'an online store starts at ₹95,000. Most business sites go live in 3–4 weeks.',
   facts=[('Who does the work', 'Mehul Karotra designs and codes every site himself. No templates.'),
          ('Price', 'Landing page ₹25,000 · Portfolio ₹40,000 · Business site, 3–4 pages ₹55,000 · 5–10 pages + blog ₹85,000 · '
                    'Restaurant site + online ordering ₹90,000 · Online store from ₹95,000'),
-         ('Timeline', '4–8 weeks for a business site; a landing page can be live in under two weeks'),
-         ('Payment', '20% to start, 20% on design sign-off, 60% on launch'),
+         ('Timeline', '3–4 weeks for a business site; a landing page can be live in under two weeks'),
+         ('Payment', '20% to start, 20% on design sign-off, 60% on launch; no GST charged right now'),
          ('Included', 'Mobile-first design, enquiry forms, basic SEO, Google Maps, social links, 2–3 revision rounds and a 15–30 day bug-fix window'),
          ('Ownership', 'Your domain, hosting, code and design files belong to you'),
          ('Where', 'Mumbai; remote work with businesses across India')],

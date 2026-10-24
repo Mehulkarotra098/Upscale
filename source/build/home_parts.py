@@ -42,7 +42,7 @@ def brief():
                           f'Online store from {price("E-commerce, under 50 products")}, all fixed'),
              ('Monthly growth', f'Local SEO {price("Local SEO / Google Business Profile")} · Ads management {price("Ads management")} · '
                                 f'AI search visibility {price("AI search visibility (GEO)")}'),
-             ('Timeline', 'Most websites go live in 4–8 weeks; a landing page in under two weeks'),
+             ('Timeline', 'Most websites go live in 3–4 weeks; a landing page in under two weeks'),
              ('Payment', '20% to start, 20% on design sign-off, 60% on launch; monthly work is 3 months minimum, then month-to-month'),
              ('First step', 'A free audit of your website, Google listing and Instagram')]
     chips = ''  # the hero already shows these proof points; repeating them here read as filler

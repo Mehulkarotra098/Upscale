@@ -179,11 +179,11 @@ logo_wall = (f'<ul class="sr-only">{names}</ul>'
 
 FAQ = [
  ('Is U Scale an agency or a freelancer?', "A bit of both. U Scale is me, Mehul Karotra, working as an independent, contract-based partner. You get the design, development and marketing an agency offers, but you sign with me directly and talk to me directly. If a project ever needs a specialist, like a photographer, I bring them in and stay your single point of contact."),
- ('How much does a website cost in Mumbai?', "With me, a landing page is ₹25,000, a 3–4 page business site ₹55,000, a 5–10 page site with a blog ₹85,000, and an online store starts at ₹95,000. Every price is fixed and agreed in writing before I start."),
+ ('How much does a website cost in Mumbai?', "With me, a landing page is ₹25,000, a 3–4 page business site ₹55,000, a 5–10 page site with a blog ₹85,000, and an online store starts at ₹95,000. Every price is fixed and agreed in writing before I start, and no GST is charged right now."),
  ('How much does digital marketing cost in Mumbai?', "There are no fixed packages: you pay only for what you need. Local SEO is ₹15,000/month, technical SEO ₹25,000/month, ads management ₹20,000/month (plus a ₹10,000 setup), AI search visibility ₹12,000/month, and one-off work starts at ₹800 for a social post. The quote builder adds it all up for you."),
  ('Do you work on contract or monthly retainer?', "Both. Websites and branding are fixed-price contracts: 20% to start, 20% on design sign-off and 60% on launch. Marketing runs as a monthly plan: 3 months minimum, then month-to-month with 30 days’ notice. No long lock-ins."),
  ('How long does SEO take to show results?', 'Honest answer: 3–6 months for meaningful movement. Be careful of anyone who promises page one in 30 days. I show you what has moved every month.'),
- ('How long does it take to build a website?', 'A business website typically takes 4–8 weeks from kickoff to launch, depending on pages and how ready your content is. A landing page can be live in under two weeks.'),
+ ('How long does it take to build a website?', 'A business website usually goes live in 3–4 weeks from kickoff, depending on pages and how ready your content is. A landing page can be live in under two weeks.'),
  ('What is AI search visibility (GEO)?', "It is how often, and how accurately, AI assistants like ChatGPT, Gemini and Google's AI Overviews mention your business when people ask for a recommendation. I check what they say today, then correct the facts, listings and pages they rely on, and help you earn genuine reviews. No one can guarantee a mention."),
  ('How do we start?', 'Send me your website, Google listing or Instagram on WhatsApp. I check them for free, then send you a written plan with the price.'),
 ]

@@ -65,4 +65,5 @@ TERMS = [
     'Every website includes mobile-responsive design, enquiry forms, basic SEO, Google Maps, social links and a 15–30 day bug-fix window.',
     'Free audit first, 3 months minimum, then month-to-month. 30 days’ notice to pause or cancel.',
     'Quotes are valid for 14 days.',
+    'No GST is charged on these prices right now.',
 ]
