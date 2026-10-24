@@ -70,7 +70,7 @@ GS = [('web', 'Website', 'Website: the base everything stands on.'),
       ('seo', 'SEO', 'SEO: slow start, then it compounds.'),
       ('social', 'Social', 'Social: steady trust, week after week.'),
       ('ads', 'Ads', 'Ads: in front of buyers from day one.'),
-      ('ai', 'AI search', 'AI search: named when people ask AI.')]
+      ('ai', 'AI search', 'AI search: the right facts when people ask AI.')]
 def gs_f(k, t):
     if k == 'web': return .12 + .16 * t
     if k == 'seo': return .36 * t ** 2.2
@@ -184,7 +184,7 @@ FAQ = [
  ('Do you work on contract or monthly retainer?', "Both. Websites and branding are fixed-price contracts: 20% to start, 20% on design sign-off and 60% on launch. Marketing runs as a monthly plan: 3 months minimum, then month-to-month with 30 days’ notice. No long lock-ins."),
  ('How long does SEO take to show results?', 'Honest answer: 3–6 months for meaningful movement. Be careful of anyone who promises page one in 30 days. I show you what has moved every month.'),
  ('How long does it take to build a website?', 'A business website typically takes 4–8 weeks from kickoff to launch, depending on pages and how ready your content is. A landing page can be live in under two weeks.'),
- ('What is AI search visibility (GEO)?', "It is how often, and how accurately, AI assistants like ChatGPT, Gemini and Google's AI Overviews mention your business when people ask for a recommendation. I check what they say today, then fix the facts, reviews, listings and pages they rely on. No one can guarantee a mention."),
+ ('What is AI search visibility (GEO)?', "It is how often, and how accurately, AI assistants like ChatGPT, Gemini and Google's AI Overviews mention your business when people ask for a recommendation. I check what they say today, then correct the facts, listings and pages they rely on, and help you earn genuine reviews. No one can guarantee a mention."),
  ('How do we start?', 'Send me your website, Google listing or Instagram on WhatsApp. I check them for free, then send you a written plan with the price.'),
 ]
 faq = '\n'.join(

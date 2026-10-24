@@ -287,7 +287,7 @@ PAGES = [
        f'{price("E-commerce, under 50 products")}. Designed by Mehul Karotra.',
   h1='Boutique & clothing store websites', eyebrow='Websites by business',
   lead='A catalogue your Instagram followers can browse properly, product pages Google can find, and orders on WhatsApp or online. Fixed price.',
-  stats=[(price('Business site, 3–4 pages'), 'Catalogue website'), (price('E-commerce, under 50 products'), 'Online store, under 50 products'), ('1 tap', 'To order on WhatsApp')],
+  stats=[(price('Business site, 3–4 pages'), 'Catalogue site, starting price'), (price('E-commerce, under 50 products'), 'Online store, under 50 products'), ('1 tap', 'To order on WhatsApp')],
   art=dict(kind='img', img='bout', chips=[('chat', 'Order on WhatsApp'), ('tag', 'Size M · ₹3,450')]),
   answer='U Scale designs and builds websites for boutiques, saree shops and fashion labels in Mumbai: a catalogue site with an “Order on WhatsApp” '
          f'button on every product, or a full online store with cart and payments from {price("E-commerce, under 50 products")} for under 50 products. '
@@ -499,7 +499,7 @@ PAGES = [
               ('bolt', 'Features', 'Booking, online ordering, payments, product catalogue, ya Hindi-Marathi pages: har ek se kaam aur kharcha badhta hai.'),
               ('box', 'Products', '30 products ka store aur 300 ka store alag projects hain.'),
               ('user', 'Kaun bana raha hai', 'Freelancer projects zyada tar ₹10,000–₹80,000, agency projects ₹50,000–₹3 lakh.')], cols=3),
-       Note('Market ranges 16 website price guides se hain jo Mumbai aur baaki India ki web companies, ek hosting company aur ek directory ne 2025–26 mein publish kiye; U Scale ne inhe October 2026 '
+       Note('Market ranges 16 website price guides se hain jo Mumbai aur baaki India ki web companies, ek hosting company aur ek directory ne haal hi mein publish kiye; U Scale ne inhe October 2026 '
             'mein compare kiya. Yeh ek doosre se poori tarah match nahi karte, isliye ranges di hain.'),
        P('Saare 16 guides ki list (publisher, date aur link) '
          '<a href="/services/website-design-mumbai/freelancer-vs-agency-vs-website-builder#sources">freelancer vs agency guide ke Sources mein</a> hai.'),
@@ -573,7 +573,7 @@ PAGES = [
   stats=[('₹10k–₹80k', 'Freelancer'), ('₹50k–₹3L', 'Agency'), ('16', 'Price guides, listed below')],
   art=dict(kind='img', img='paths'),
   answer='For a small Mumbai business with a simple site, a freelancer or one-person studio is often enough, and usually costs less than an agency. Freelancer projects mostly cost '
-         '₹10,000–₹80,000 and agency projects ₹50,000–₹3 lakh, according to 16 website price guides published in 2025–26 '
+         '₹10,000–₹80,000 and agency projects ₹50,000–₹3 lakh, according to 16 recent website price guides '
          '(listed below). A DIY builder costs least upfront but takes your time and a monthly fee. Choose an agency when you need a large team '
          'working in parallel. U Scale sits in between: one person doing the work, with written scope and a fixed price.',
   facts=[('DIY website builder', 'A monthly plan (Shopify Basic ₹1,499/month billed yearly) plus your own time'),
@@ -1306,7 +1306,7 @@ def _cta(p, wa, icons):
       <div class="panel on-dark" data-tone="dark">
         
         <div class="cta__copy">
-          <h2 class="sp-cta__title" id="cta-title">{'Free audit lijiye' if _hi(p) else 'Get a free audit'}<span class="dot">.</span></h2>
+          <h2 class="sp-cta__title" id="cta-title">{'Free audit karwaiye' if _hi(p) else 'Get a free audit'}<span class="dot">.</span></h2>
           <p class="lead">{'Apne business ke baare mein bataiye. Main 24 ghante ke andar reply karta hoon, WhatsApp pe aksar usse kaafi pehle.' if _hi(p) else 'Tell me about your business. I reply within 24 hours, usually much faster on WhatsApp.'}</p>
           <div class="cta__btns" data-wa-zone>
             <a class="btn btn--go" href="{ea(wa)}" target="_blank" rel="noopener" data-magnetic>{icons['ICON_CHAT']}Chat on WhatsApp</a>

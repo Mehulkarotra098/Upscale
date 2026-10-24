@@ -145,7 +145,7 @@ def tools():
     sz = '(max-width: 759px) 92vw, 560px'
     return f'''      <ul class="fp-tools home-tools__list" data-reveal-group>
   <li data-reveal><a class="fp-tool fp-tool--dark" href="/tools/google-business-profile-checker"><figure class="fp-tool__media">{_pic(GP.IMG['tool-checker'], sz)}</figure><span class="fp-tool__k">Free · about 2 minutes</span><span class="fp-tool__t">Google Business Profile checker</span><span class="fp-tool__d">A score out of 100, a fix list for your listing and a review goal.</span><span class="fp-tool__go">Check my listing {icon("arrow")}</span></a></li>
-  <li data-reveal><a class="fp-tool" href="/tools/google-review-qr-code"><figure class="fp-tool__media">{_pic(GP.IMG['tool-qr'], sz)}</figure><span class="fp-tool__k">Free · printable</span><span class="fp-tool__t">Google review QR code maker</span><span class="fp-tool__d">A counter standee that turns happy customers into Google reviews.</span><span class="fp-tool__go">Make my QR code {icon("arrow")}</span></a></li>
+  <li data-reveal><a class="fp-tool" href="/tools/google-review-qr-code"><figure class="fp-tool__media">{_pic(GP.IMG['tool-qr'], sz)}</figure><span class="fp-tool__k">Free · printable</span><span class="fp-tool__t">Google review QR code maker</span><span class="fp-tool__d">A printable counter standee that makes leaving a review easy.</span><span class="fp-tool__go">Make my QR code {icon("arrow")}</span></a></li>
 </ul>'''
 
 

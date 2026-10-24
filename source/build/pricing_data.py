@@ -6,7 +6,7 @@ PILLARS = [
     dict(key='web', kick='One-time', name='Websites', lead='Designed in Figma, hand-built, fixed price agreed before I start.',
          start='25,000', unit='', noun='website prices', step='step-1', cta='Price my website',
          rows=['Landing page', 'Business site, 3–4 pages', 'E-commerce, under 50 products']),
-    dict(key='add', kick='Monthly', name='Growth', lead='SEO, ads, social, email and more, month-to-month. Combine only what you need.', pop=True,
+    dict(key='add', kick='Monthly', name='Growth', lead='SEO, ads, social, email and more, paid monthly. Combine only what you need.', pop=True,
          start='8,000', unit='/mo', noun='monthly services', step='step-2', cta='Build my monthly mix',
          rows=['Local SEO / Google Business Profile', 'Ads management', 'AI search visibility (GEO)']),
     dict(key='unit', kick='One-off', name='Single pieces', lead='Need just one thing? A post, a reel, a logo, a blog.',

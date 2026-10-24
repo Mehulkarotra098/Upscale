@@ -22,7 +22,7 @@ SERVICES = [
   who='For cafés, restaurants, salons, boutiques, clinics, schools, studios and founders who need a site that looks premium, loads fast on a phone and turns visitors into WhatsApp chats, calls and enquiries.',
   items=[('Custom design, not templates','Your brand, your layout. Designed screen by screen in Figma before a line of code is written.'),
          ('Mobile-first build','Most of your visitors are on a phone, so the mobile version is designed first and tested on real devices.'),
-         ('Fast on every phone','Lean code and compressed images, so pages load quickly even on a slow mobile connection and pass Google’s speed checks (Core Web Vitals).'),
+         ('Fast on every phone','Lean code and compressed images, so pages load quickly even on a slow mobile connection and are built to pass Google’s speed checks (Core Web Vitals).'),
          ('Ready for Google from day one','Clear headings, page titles and descriptions, your business details marked up for Google, a sitemap, and Google Search Console (Google’s free report on how people find you) set up at launch.'),
          ('Easy ways to reach you','WhatsApp buttons, tap-to-call links and short forms placed right where people are ready to contact you, with form enquiries sent straight to your email.'),
          ('Hosting, domain and handover','I set up hosting and your domain, then hand over everything you own: code, logins and a short guide.')],
@@ -108,7 +108,7 @@ SERVICES = [
   title='AI Search Visibility (GEO) for Indian Businesses | U Scale',
   desc='See what ChatGPT, Gemini and Google AI say about your business, then fix the facts and pages they draw on. ₹12,000 a month or a ₹2,500 audit. No guarantees.',
   h1='AI search visibility (GEO)',
-  lead="When someone asks ChatGPT, Gemini or Google’s AI for a recommendation for a business like yours, is your business mentioned, and is what they say correct? I check what AI tools say about you today, then correct the facts, listings and pages they draw on, and help you earn genuine reviews. No one can guarantee a mention; I show you what changed every month.",
+  lead="When someone asks ChatGPT, Gemini or Google’s AI to recommend a business like yours, are you mentioned, and is what they say correct? I check what AI tools say about you today, then correct the facts, listings and pages they draw on, and help you earn genuine reviews. No one can guarantee a mention; I show you what changed every month.",
   who='For local businesses whose customers already ask AI assistants for recommendations, and who want those answers to get their name, services, prices and area right.',
   items=[('AI visibility audit','I test how ChatGPT, Gemini, Perplexity and Google’s AI answers describe your business and your competitors today.'),
          ('Facts that match everywhere','Your name, area, services, prices and timings written plainly on your website and kept identical on your Google Business Profile and directories. I also add them to your site’s code in a format Google and AI tools read easily (called schema markup).'),
@@ -327,7 +327,7 @@ def service_page(ctx, s, parts):
       <header class="sec-head">
         <p class="eyebrow" data-reveal data-scramble>Selected work</p>
         {'<h2 class="h2" id="work-title" data-split>Sites I designed and built.</h2>' if s['slug'] == 'website-design-mumbai' else
-         '<h2 class="h2" id="work-title" data-split>Recent work.</h2><p class="lead" data-reveal>U Scale started in 2026, so most of my work so far is websites. Here are a few.</p>'}
+         '<h2 class="h2" id="work-title" data-split>Websites I&rsquo;ve built.</h2><p class="lead" data-reveal>U Scale started in 2026, so most of my work so far is websites. Here are a few.</p>'}
       </header>
       <ul class="rw-grid" data-reveal-group>{''.join(cards)}</ul>
       <p class="sp-price" data-reveal><strong>Pricing.</strong> {e(s['price'])} <a class="tlink" href="/pricing">See every price</a></p>
@@ -481,7 +481,7 @@ TOOL = dict(slug='google-review-qr-code',
   faq=[('What is a Google review link?','It is a link that opens the "write a review" box for your business on Google, so customers can leave a review in one tap instead of searching for you first.'),
        ('How do I get my Google review link if I don\u2019t manage the Google profile?','Open Google Maps, search your business, tap Share and then Copy link. Paste that link into this tool. It finds your business and turns it into a direct review link, no owner access needed. This works for staff, family members and agencies too.'),
        ('Where do business owners find the review link?','On a computer, open business.google.com (or search your business name on Google while signed in), click Read reviews, then Get more reviews, and copy the link. It looks like g.page/r/\u2026/review.'),
-       ('Is this tool really free?','Yes. There is no sign-up and nothing to pay to remove. Your business name, logo and wording stay in your browser. Only a short Google Maps link is checked once by the tool to find your business, and nothing is stored.'),
+       ('Is this tool really free?','Yes. There is no sign-up and nothing to pay to remove. Your business name, logo and wording stay in your browser. Only a short Google Maps link is checked once on the U Scale server to find your business, and nothing is stored.'),
        ('Can I offer a discount or gift for a Google review?','No. Google does not allow rewards, discounts or gifts in exchange for reviews, or asking only happy customers. Ask every customer for an honest review instead. This tool warns you if your wording looks like an incentive.'),
        ('What size should I print the QR code?','Keep the QR code at least 3 cm wide. The A6 standee prints with the QR code about 4 cm wide (4 per A4 sheet), the square table sticker prints 6 per A4 sheet, and the WhatsApp Status size is for sharing on your phone.'),
        ('Will the QR code stop working?','No. It is a plain QR code of your Google review link, with no redirect through uscale.in, so it keeps working as long as your business is on Google.'),
@@ -822,7 +822,7 @@ GBP = dict(slug='google-business-profile-checker',
        ('Can I pay Google to rank higher on Maps?', 'No. Google says there is no way to request or pay for a better local ranking. Google Ads can show your business as a sponsored result, but that is separate from the free listing.'),
        ('How many Google reviews do I need?', 'There is no fixed number. What matters is having more genuine, recent reviews than the businesses around you, with a good rating. The review goal calculator in your report shows how many 5-star reviews you need for your target rating and how long it takes to catch a competitor.'),
        ('How long before I see results?', 'Edits like hours, category and description usually appear within a few days once Google checks them. The effect of more reviews, photos and posts builds over weeks and months, so keep at it every week.'),
-       ('Are my answers saved anywhere?', 'Your answers stay in your browser on this device, so you can come back and check again later. If you check your website, the tool opens your home page once to read it, and your browser runs Google\u2019s free PageSpeed test; nothing is stored. Nothing is sent to U Scale unless you tap \u201cSend my report\u201d, which opens WhatsApp with your summary for you to send.'),
+       ('Are my answers saved anywhere?', 'Your answers stay in your browser on this device, so you can come back and check again later. If you check your website, the U Scale server opens your home page once to read it, and your browser runs Google\u2019s free PageSpeed test; nothing is stored. Nothing is sent to U Scale unless you tap \u201cSend my report\u201d, which opens WhatsApp with your summary for you to send.'),
        ('Is the website check real?', 'Yes. Your browser runs Google\u2019s own PageSpeed Insights test on your home page as a phone would load it, so the speed, SEO, accessibility and best-practice scores are Google\u2019s numbers. The tool also reads the page for what local customers need: a tap-to-call button, WhatsApp, your address and map, and business details (schema) Google can match to your profile.'),
        ('How often should I check my profile?', 'Once a month, and every time something changes: new phone number, new address, new timings or a festival holiday.')])
 
@@ -1061,10 +1061,10 @@ GBP_ANSWER = ('The free Google Business Profile checker from U Scale scores your
 GBP_FACTS = [('What you get', 'A score out of 100, a fix list and a review goal'), ('Time', 'About 2 minutes'),
              ('Cost', 'Free, no sign-up'), ('Languages', 'English and Hinglish'), ('Made by', 'Mehul Karotra, U Scale, Mumbai')]
 QR_ANSWER = ('The free Google review QR code maker from U Scale finds your Google review link and turns it into a QR code and a printable '
-             'counter standee, plus a ready WhatsApp message to ask customers for a review. No sign-up, and your business name, logo and '
+             'counter standee, plus ready WhatsApp messages to ask customers for a review. No sign-up, and your business name, logo and '
              'wording stay in your browser.')
 QR_FACTS = [('What you get', 'Your Google review link, a QR code and a printable counter standee'),
-            ('Extra', 'A ready WhatsApp message to ask customers for a review'), ('Cost', 'Free, no sign-up'),
+            ('Extra', 'Ready WhatsApp messages to ask customers for a review'), ('Cost', 'Free, no sign-up'),
             ('Privacy', 'Your name, logo and wording stay in your browser'), ('Made by', 'Mehul Karotra, U Scale, Mumbai')]
 
 def tools_hub(ctx, parts, tv):

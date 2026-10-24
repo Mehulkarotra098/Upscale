@@ -217,7 +217,7 @@ BRIEF = {
  'seo-mumbai': dict(
   answer='U Scale offers SEO in Mumbai done personally by Mehul Karotra: local SEO and Google Business Profile, technical and on-page SEO, '
          'and content. Local SEO costs ₹15,000 a month and technical + on-page SEO ₹25,000 a month. SEO usually takes '
-         '3–6 months to show real progress, with a clear report every month.',
+         '3–6 months to show real progress, and you get a clear report every month.',
   facts=[('Who does the work', 'Mehul Karotra, personally'),
          ('Price', 'Local SEO / Google Business Profile ₹15,000/month · Technical + on-page SEO ₹25,000/month'),
          ('SEO audit', 'First check free; full deep-dive audit ₹7,500, free if we go on to work together'),
@@ -285,7 +285,7 @@ BRIEF = {
          ('Price', '₹12,000/month, on its own or with other services'),
          ('AI visibility audit', 'First check free; full audit ₹2,500, free if we go on to work together'),
          ('AI tools covered', 'ChatGPT, Gemini, Perplexity, and Google’s AI Overviews and AI Mode'),
-         ('Work includes', 'Matching facts everywhere, clear pages and FAQs, making sure AI tools can read your site, listings and genuine reviews, monthly checks'),
+         ('Work includes', 'Matching facts everywhere; clear pages and FAQs; making sure AI tools can read your site; listings and genuine reviews; monthly checks'),
          ('Contract', CONTRACT)],
   faq_more=[('How much does AI search optimisation (GEO) cost in India?',
              'With U Scale, AI search visibility costs ₹12,000 a month, on its own or alongside SEO. A one-off AI visibility audit is '
@@ -295,7 +295,7 @@ BRIEF = {
              'and cited inside AI-generated answers. Both rest on the same foundations, like pages Google can read, accurate business details and genuine reviews, but GEO puts '
              'more weight on clear, quotable facts and consistent mentions across the web.'),
             ('How do AI assistants decide which businesses to recommend?',
-             'They rely on what they can find and trust: clear facts on your website (and the same facts in its code), your Google Business Profile, '
+             'They rely on what they can find and trust: clear facts on your website, written so both people and AI tools can read them, your Google Business Profile, '
              'reviews, directory listings and mentions on other sites. Consistent name, address, phone and service details everywhere make '
              'a business easier to recommend. Step-by-step guide: How to get your business recommended by ChatGPT and Google AI Mode.'),
             ('What is llms.txt?',

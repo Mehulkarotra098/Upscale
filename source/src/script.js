@@ -369,7 +369,7 @@
     ads:function(t){ return .13*(1-Math.exp(-14*t))+.02*t; },
     ai:function(t){ var s=clamp((t-.25)/.75,0,1); return .17*s*s*(3-2*s); }
   };
-  var GTIP={web:'Website: the base everything stands on.',seo:'SEO: slow start, then it keeps building.',social:'Social: steady trust, week after week.',ads:'Ads: in front of buyers from day one.',ai:'AI search: named when people ask AI.'};
+  var GTIP={web:'Website: the base everything stands on.',seo:'SEO: slow start, then it keeps building.',social:'Social: steady trust, week after week.',ads:'Ads: in front of buyers from day one.',ai:'AI search: the right facts when people ask AI.'};
   var GSTAT=['Invisible','Online','Findable','Noticed','Trusted','Chosen'];
   var gW={}, gV={}, gT={}, gEl={}, gChip={};
   if(gs){
