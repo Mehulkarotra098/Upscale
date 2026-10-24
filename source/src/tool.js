@@ -38,7 +38,7 @@
       msgs: [
         ['After a visit or purchase', 'Hi! Thank you for choosing {b}. If you have a minute, could you share your honest experience on Google? It really helps a small business like ours: {l}'],
         ['After a service or appointment', 'Hi, thank you for coming to {b} today. We would really value your feedback on Google, good or bad. It takes a minute: {l}'],
-        ['One gentle reminder', 'Hi, a gentle reminder from {b}: if you get a moment, we would love your honest review on Google: {l} Thank you!'],
+        ['One gentle reminder', 'Hi, a gentle reminder from {b}. If you get a moment, we would love your honest review on Google: {l} Thank you!'],
       ],
     },
     hi: {
@@ -49,7 +49,7 @@
       msgs: [
         ['Purchase ke baad', 'Namaste! {b} se shopping karne ke liye dhanyavaad. Agar 1 minute ho, toh Google par apna honest review zaroor dijiye. Isse humein bahut madad milti hai: {l}'],
         ['Service ya appointment ke baad', 'Namaste, aaj {b} aane ke liye shukriya. Google par aapka feedback humare liye bahut important hai, achha ho ya bura: {l}'],
-        ['Ek gentle reminder', 'Namaste, {b} se ek chhota sa reminder: time mile toh Google par apna honest review dijiye: {l} Dhanyavaad!'],
+        ['Ek gentle reminder', 'Namaste, {b} se ek chhota sa reminder. Time mile toh Google par apna honest review dijiye: {l} Dhanyavaad!'],
       ],
     },
   };
@@ -188,7 +188,7 @@
   function credit(P, color, align, x, fromBottom) {
     if (!state.credit) return;
     var ctx = P.ctx; ctx.save(); ctx.fillStyle = color; ctx.font = '500 ' + Math.round(26 * P.u) + 'px Inter'; ctx.textAlign = align || 'center';
-    ctx.fillText('Made free at uscale.in/tools', x == null ? P.W / 2 : x, P.H - (fromBottom || 58) * P.u); ctx.restore();
+    ctx.fillText('Made with uscale.in/tools', x == null ? P.W / 2 : x, P.H - (fromBottom || 58) * P.u); ctx.restore();
   }
   /* reusable blocks */
   function bLogo(P, x, align) {
@@ -312,7 +312,7 @@
     var ink = dark ? '#FFFFFF' : '#1D1930', soft = dark ? 'rgba(255,255,255,.9)' : '#4A4458', nameC = readable(acc, th.bg[1]);
     stack([bLogo(P, W / 2), bName(P, nameC, W / 2, 'center', 0.92), bHead(P, ink, W / 2, 'center', { size: 140, maxW: W * 0.74 }), bText(P, P.c.sub, soft, 48, 600, W / 2), bQr(P, 560 * u, { shadow: !dark, border: dark ? null : 'rgba(29,25,48,.12)' }),
       bStars(P, '#FBBC04', W / 2), bText(P, P.c.foot, soft, 42, 600, W / 2, 'center', 0)], m2 + 60 * u, H - m2 - (state.credit ? 70 : 40) * u);
-    if (state.credit) { ctx.save(); ctx.fillStyle = dark ? 'rgba(255,255,255,.6)' : 'rgba(29,25,48,.5)'; ctx.font = '500 ' + Math.round(24 * u) + 'px Inter'; ctx.textAlign = 'center'; ctx.fillText('Made free at uscale.in/tools', W / 2, H - m2 - 26 * u); ctx.restore(); }
+    if (state.credit) { ctx.save(); ctx.fillStyle = dark ? 'rgba(255,255,255,.6)' : 'rgba(29,25,48,.5)'; ctx.font = '500 ' + Math.round(24 * u) + 'px Inter'; ctx.textAlign = 'center'; ctx.fillText('Made with uscale.in/tools', W / 2, H - m2 - 26 * u); ctx.restore(); }
   }
   function tMinimal(P) {
     var ctx = P.ctx, W = P.W, H = P.H, u = P.u, acc = readable(P.acc0, '#FFFFFF');

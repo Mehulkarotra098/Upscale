@@ -132,7 +132,7 @@ SRC = {
 }
 GUIDES = ['g-pac', 'g-webbird', 'g-mwd', 'g-five', 'g-green', 'g-wgi', 'g-rds', 'g-jimmy',
           'g-hostinger', 'g-esc', 'g-zethic', 'g-htbg', 'g-orange', 'g-secuod', 'g-devg', 'g-goodfirms']
-GUIDES_NOTE = ('Market ranges come from 16 website price guides published in 2025–26 by Mumbai and Indian web firms, a hosting company '
+GUIDES_NOTE = ('Market ranges come from 16 website price guides (15 dated 2025–26, one undated) by Mumbai and Indian web firms, a hosting company '
                'and a directory, compared by U Scale in October 2026 and listed under Sources below; they overlap rather than agree.')
 
 
@@ -188,9 +188,9 @@ INCLUDED = 'mobile-first design, enquiry forms, basic SEO, Google Maps, social l
 def svc_links(extra=()):
     return Links([
         ('/services/website-design-mumbai', 'globe', 'Website design and development', 'Designed in Figma, hand-coded, fixed price.', f'From {price("Landing page")}'),
-        ('/services/seo-mumbai', 'pin', 'Google Business Profile and local SEO', 'Show up in the map pack when people nearby search.', price('Local SEO / Google Business Profile')),
+        ('/services/seo-mumbai', 'pin', 'Google Business Profile and local SEO', 'A complete, active Google listing, so people nearby can find you on Maps.', price('Local SEO / Google Business Profile')),
         ('/services/social-media-management-mumbai', 'camera', 'Social media management', 'Posts, reels and a monthly calendar.', ''),
-        ('/services/ai-search-visibility', 'bolt', 'AI search visibility', 'Getting named when people ask ChatGPT or Gemini.', ''),
+        ('/services/ai-search-visibility', 'bolt', 'AI search visibility', 'Giving ChatGPT and Gemini the right facts about your business.', ''),
         *extra])
 
 
@@ -206,13 +206,13 @@ RANKING = Cards([
 _rest_saving = 50000 * 20 // 100 - round(50000 * 0.0236)  # ₹10,000 commission vs ₹1,180 gateway fee on ₹50,000 of direct orders
 PAGES = [
  dict(slug='restaurants-cafes', kind='business', crumb='Restaurants & cafés', service='Restaurant and café website design with online ordering',
-  card='Your own menu and online ordering, so regulars stop paying the apps’ commission.',
+  card='Your own menu and online ordering, so you stop paying app commission on your regulars’ orders.',
   title='Restaurant Website with Online Ordering, Mumbai | U Scale',
   desc='Restaurant or café website with your menu and your own online ordering, so regulars order direct, not via an app that takes 20–25%. '
        f'Fixed {price("Restaurant site + own online ordering")}.',
   h1='Restaurant & café websites with online ordering', eyebrow='Websites by business',
   lead='Your menu and your own online ordering, on a website you own. Regulars order from you directly, not through an app that keeps a share of every order.',
-  stats=[(price('Restaurant site + own online ordering'), 'Fixed price'), ('0%', 'App commission on direct orders'), ('4–8 wk', 'To go live')],
+  stats=[(price('Restaurant site + own online ordering'), 'Fixed price'), ('0%', 'App commission on direct orders'), ('4–8 weeks', 'To go live')],
   art=dict(kind='img', img='rest', chips=[('cart', 'New order · ₹190 · paid by UPI'), ('check', '0% app commission')]),
   answer='U Scale builds restaurant and café websites in Mumbai with the menu, photos, timings and the restaurant’s own online ordering, for a '
          f'fixed {price("Restaurant site + own online ordering")}. Orders placed on your own website carry no delivery-app commission: you pay only '
@@ -251,7 +251,7 @@ PAGES = [
               ('check', 'Everything else, included', f'As on every U Scale site: {INCLUDED}.')], cols=3),
        eyebrow='Included', layout='wide'),
    Sec('How customers find your ordering link',
-       Cards([('pin', 'Your Google Business Profile', 'Outside the US, restaurants can add their own “Place an order” link, which shows on Google Search and Maps.'),
+       Cards([('pin', 'Your Google Business Profile', 'In India, restaurants can add their own “Place an order” link to their Google listing. It shows on Google Search and Maps.'),
               ('camera', 'Instagram and WhatsApp', 'Your Instagram bio and your WhatsApp Business profile.'),
               ('qr', 'A QR code', 'On menus, bills and takeaway bags, so the next order comes to you.')], cols=3, numbered=True, tone='band'),
        eyebrow='Getting orders', layout='wide', tone='band'),
@@ -287,7 +287,7 @@ PAGES = [
        f'{price("E-commerce, under 50 products")}. Designed by Mehul Karotra.',
   h1='Boutique & clothing store websites', eyebrow='Websites by business',
   lead='A catalogue your Instagram followers can browse properly, product pages Google can find, and orders on WhatsApp or online. Fixed price.',
-  stats=[(price('Business site, 3–4 pages'), 'Catalogue sites from'), (price('E-commerce, under 50 products'), 'Online store, under 50 products'), ('1 tap', 'To order on WhatsApp')],
+  stats=[(price('Business site, 3–4 pages'), 'Catalogue website'), (price('E-commerce, under 50 products'), 'Online store, under 50 products'), ('1 tap', 'To order on WhatsApp')],
   art=dict(kind='img', img='bout', chips=[('chat', 'Order on WhatsApp'), ('tag', 'Size M · ₹3,450')]),
   answer='U Scale designs and builds websites for boutiques, saree shops and fashion labels in Mumbai: a catalogue site with an “Order on WhatsApp” '
          f'button on every product, or a full online store with cart and payments from {price("E-commerce, under 50 products")} for under 50 products. '
@@ -308,7 +308,7 @@ PAGES = [
          'whole catalogue does not. A website also keeps your catalogue safe if your account is restricted or reach drops.'),
        Cards([('camera', 'Instagram', 'Where people discover your designs.'),
               ('globe', 'Your website', 'Where they check you are real and browse everything.'),
-              ('search', 'Google', 'Where they find you again, and find your products.')], cols=3, numbered=True),
+              ('search', 'Google', 'Where new customers search for a style or a shop near them.')], cols=3, numbered=True),
        eyebrow='Instagram vs website'),
    Sec('List your products on Google for free',
        P('Google Merchant Center lets shops list products for free across Google Search, the Shopping tab, Google Images, Google Lens, Maps and the '
@@ -353,14 +353,14 @@ PAGES = [
   work=['sashe']),
 
  dict(slug='ghatkopar', kind='area', crumb='Ghatkopar', service='Website design and local SEO in Ghatkopar',
-  card='A website designer based in Ghatkopar West, who can meet you at your shop.',
+  card='Websites, Google listings and local SEO for businesses in Ghatkopar, Vikhroli, Kurla and nearby.',
   places=['Ghatkopar', 'Vikhroli', 'Kurla', 'Chembur', 'Powai', 'Mulund'],
   title='Website Designer & Developer in Ghatkopar, Mumbai | U Scale',
   desc=f'Website designer and developer based in Ghatkopar West: websites from {price("Landing page")}, plus Google listings and local SEO for Ghatkopar '
        'businesses. Free audit.',
   h1='Website designer & developer in Ghatkopar', eyebrow='Near you',
   lead='I’m Mehul Karotra, based in Ghatkopar West. I design and build websites and run Google listings and local SEO for businesses here, and I can come to your shop to talk it through.',
-  stats=[(price('Landing page'), 'Websites from'), (_fmt(rupees('Local SEO / Google Business Profile')), 'Local SEO, a month'), ('Free', 'Audit at your shop')],
+  stats=[(price('Landing page'), 'Websites from'), (_fmt(rupees('Local SEO / Google Business Profile')), 'Local SEO, per month'), ('Free', 'Audit at your shop')],
   art=dict(kind='portrait', chips=[('pin', 'Ghatkopar West, Mumbai'), ('chat', 'Replies on WhatsApp')]),
   answer='U Scale is Mehul Karotra, a freelance website designer and digital marketer based in Ghatkopar West, Mumbai. He designs and hand-codes '
          f'websites at fixed prices (a landing page {price("Landing page")}, a 3–4 page business site {price("Business site, 3–4 pages")}) and runs '
@@ -378,10 +378,10 @@ PAGES = [
        P('When someone nearby searches “saree shop near me” or “clinic in Ghatkopar”, Google often shows a map with a few local businesses first. Google says '
          'it ranks local results on relevance (how well your listing matches the search), distance (how far you are from the person searching) and '
          'prominence (how well known you are, judged partly from reviews and from the web). A website that names your area, services and timings, '
-         'and matches your Google listing exactly, helps with relevance; reviews and mentions across the web build prominence. Distance is the one thing nobody can change.'),
+         'and matches your Google listing exactly, helps with relevance; reviews and mentions across the web build prominence.'),
        Img('found'),
        RANKING,
-       eyebrow='The map pack'),
+       eyebrow='Google Maps'),
    Sec('Where I meet clients around Ghatkopar',
        Svg('gk-map'),
        Chips(['Ghatkopar West', 'Ghatkopar East', 'Vikhroli', 'Powai', 'Kurla', 'Chembur', 'Mulund'], 'Areas I visit'),
@@ -415,7 +415,7 @@ PAGES = [
   stats=[('30+', 'Local listings checked'), (price('Landing page'), 'Websites from'), ('Free', 'Audit, in person')],
   art=dict(kind='img', img='found'),
   answer='U Scale’s Mehul Karotra designs websites and sets up Google Business Profiles and local SEO for shops, cafés, restaurants and offices in '
-         f'Andheri East, including Marol, Chakala, Saki Naka, MIDC and JB Nagar. Websites start at {price("Landing page")} at a fixed price, local SEO is '
+         f'Andheri East, including Marol, Chakala, Saki Naka, MIDC and JB Nagar. Websites have fixed prices from {price("Landing page")}, local SEO is '
          f'{price("Local SEO / Google Business Profile")}, and every project starts with a free audit, which U Scale also runs in person for shops in the area.',
   facts=[('Areas', 'Marol, Chakala, Saki Naka, MIDC, JB Nagar, Gundavali and the rest of Andheri East'),
          ('Who', 'Mehul Karotra, personally; based in Ghatkopar West, on the same Metro line'),
@@ -425,19 +425,19 @@ PAGES = [
          ('Free audit', 'In person at your shop or office, or online')],
   sections=[
    Sec('What I found on Andheri East Google listings',
-       P('In October 2026 U Scale looked at the Google listings of more than 30 clothing shops, cafés and restaurants in Andheri East, and visited '
+       P('In October 2026 I looked at the Google listings of more than 30 clothing shops, cafés and restaurants in Andheri East, and visited '
          'shops near Gundavali Metro for a free audit day. The same few gaps came up again and again:'),
        Cards([('globe', 'No website on the listing', 'Good ratings and hundreds of reviews, but people who want the menu or catalogue go to a delivery app, a directory or a competitor.'),
               ('unlink', 'A website link that no longer opens', 'A dead link sends customers away and makes the listing look neglected.'),
               ('alert', 'Someone else’s link in the website field', 'A booking-app, marketplace or free-page link where the shop’s own website should be.'),
               ('star', 'Followers, but few reviews', 'A strong Instagram following but far fewer Google reviews.'),
               ('phone', 'No quick way to ask', 'A website with no WhatsApp or call button, so a visitor on a phone gives up.')], cols=3, numbered=True,
-             cta=('/tools/google-business-profile-checker', 'search', 'Check your listing free', 'A score out of 100 and a fix list in about two minutes, so you see which of these apply to you.', 'Check my listing')),
-       P('A dead or wrong link can be fixed the same day and asking for reviews costs only time; a missing website takes a few weeks. The free Google Business Profile checker below shows which ones apply to you.'),
+             cta=('/tools/google-business-profile-checker', 'search', 'Check your listing free', 'A score out of 100 and a fix list in about 2 minutes, so you see which of these apply to you.', 'Check my listing')),
+       P('A dead or wrong link can be fixed the same day and asking for reviews costs only time; a missing website takes a few weeks.'),
        eyebrow='Audit findings', layout='wide'),
    Sec('Meetings at your shop in Andheri East',
        Svg('ae-metro'),
-       P('My office is in Ghatkopar West, at the eastern end of Metro Line 1. The line stops in Andheri East at WEH, Chakala (J.B. Nagar), '
+       P('My office is in Ghatkopar West, at the eastern end of Metro Line 1. The line stops in Andheri East at Western Express Highway, Chakala (J.B. Nagar), '
          'Airport Road, Marol Naka and Saki Naka, so a meeting at your shop is a short ride away.'),
        eyebrow='Getting here', tone='band', sid='metro'),
    Sec('What I do for businesses in Andheri East',
@@ -465,21 +465,21 @@ PAGES = [
   work=[]),
 
  dict(slug='website-banane-ka-kharcha', kind='guide', lang='hi-Latn', crumb='Website banane ka kharcha',
-  card='Market rates, saal ka domain-hosting kharcha aur GST, seedhi bhasha mein.',
+  card='Market rates, saal ka domain-hosting kharcha aur GST: poora hisaab.',
   service='Website banane ka kharcha, Mumbai (2026)',
   title='Website Banane me Kitna Kharcha Aata Hai? (2026) | U Scale',
   desc='Website banane me kitna kharcha aata hai? Mumbai ke market rates, ₹25,000 se fixed prices, saal ka domain-hosting kharcha aur GST, '
-       'seedhi bhasha mein.',
+       'sab ek jagah.',
   h1='Website banane me kitna kharcha aata hai?', eyebrow='Guide · Hinglish',
-  lead='Main Mehul Karotra hoon, Mumbai se. Main websites khud banata hoon aur apne saare prices publicly likhta hoon. Yahan seedha hisaab hai.',
-  stats=[('₹8k–₹2L', 'Market range, 2025–26 guides'), (price('Landing page'), 'U Scale se shuru'), ('₹4.4k–₹9.4k', 'Har saal ka kharcha')],
+  lead='Main Mehul Karotra hoon, Mumbai se. Main websites khud banata hoon, aur mere saare prices website pe khule mein likhe hain. Yahan seedha hisaab hai.',
+  stats=[('₹8k–₹3L', 'Market range, 2025–26 guides'), (price('Landing page'), 'U Scale se shuru'), ('₹4.4k–₹9.4k', 'Har saal ka kharcha')],
   art=dict(kind='img', img='paths', caption='DIY builder, freelancer, agency aur U Scale ka fixed quote: sample screens. Saare naam aur figures sirf example hain.'),
   answer='Mumbai mein template wali basic business website lagbhag ₹8,000–₹30,000 mein, kisi Mumbai studio se ₹15,000–₹50,000 mein, aur custom '
          'design wali website ₹40,000 se ₹2 lakh tak mein banti hai. U Scale ke fixed prices: landing page ₹25,000, 3–4 page business website '
          '₹55,000 aur online store ₹95,000 se. Iske upar har saal domain aur hosting ka kharcha aata hai: offer khatam hone ke baad lagbhag '
          '₹4,400–₹9,400 saal ka, GST alag.',
   facts=[('Template wali basic website', '₹8,000–₹30,000'),
-         ('Mumbai studio se business website', '₹15,000–₹50,000'),
+         ('Mumbai ke kisi studio se business website', '₹15,000–₹50,000'),
          ('Custom design wali website', '₹40,000–₹2,00,000'),
          ('Online store', '₹25,000–₹3,00,000, products aur features pe depend karta hai'),
          ('U Scale ke fixed prices', f'Landing page {price("Landing page")} · Business site {price("Business site, 3–4 pages")} · '
@@ -488,21 +488,21 @@ PAGES = [
          ('GST', 'Registered agency 18% GST jodti hai; chhote freelancer aksar nahi')],
   sections=[
    Sec('Ek website ₹10,000 ki aur doosri ₹1 lakh ki kyun?',
-       Range([('Template wali basic website', 8000, 30000), ('Mumbai studio se business website', 15000, 50000),
+       Range([('Template wali basic website', 8000, 30000), ('Mumbai ke kisi studio se business website', 15000, 50000),
               ('Custom design wali website', 40000, 200000), ('Online store', 25000, 300000)],
              marks=[(rupees('Landing page'), 'Landing page'), (rupees('Business site, 3–4 pages'), 'Business site'), (rupees('E-commerce, under 50 products'), 'Online store')],
              ticks=[0, 50000, 100000, 150000, 200000, 250000, 300000], unit_note='U Scale ke fixed prices'),
-       P('Price zyada tar time ka hota hai. Sasti websites aksar ek ready-made theme hoti hain jisme aapka logo, colours aur '
+       P('Price ka bada hissa kaam ke time ka hota hai. Sasti websites aksar ek ready-made theme hoti hain jisme aapka logo, colours aur '
          'photos daal diye jaate hain. Bahut businesses ke liye yeh theek hai, bas pata hona chahiye ki aap kya khareed rahe hain.'),
        Cards([('layers', 'Template ya custom design', 'Custom design mein har page aapke business ke hisaab se banta hai.'),
               ('pen', 'Text kaun likhega', 'Aap khud likhenge toh sasta padega; designer ya copywriter likhega toh kharcha badhega.'),
-              ('bolt', 'Features', 'Booking, online ordering, payments, product catalogue, ya Hindi-Marathi pages, har ek kaam badhata hai.'),
+              ('bolt', 'Features', 'Booking, online ordering, payments, product catalogue, ya Hindi-Marathi pages: har ek se kaam aur kharcha badhta hai.'),
               ('box', 'Products', '30 products ka store aur 300 ka store alag projects hain.'),
               ('user', 'Kaun bana raha hai', 'Freelancer projects zyada tar ₹10,000–₹80,000, agency projects ₹50,000–₹3 lakh.')], cols=3),
-       Note('Market ranges 16 website price guides se hain jo Mumbai aur Indian agencies ne 2025–26 mein publish kiye; U Scale ne inhe October 2026 '
-            'mein compare kiya. Yeh ek doosre se poori tarah match nahi karte, isliye ranges diye hain.'),
+       Note('Market ranges 16 website price guides se hain jo Mumbai aur baaki India ki web companies, ek hosting company aur ek directory ne 2025–26 mein publish kiye; U Scale ne inhe October 2026 '
+            'mein compare kiya. Yeh ek doosre se poori tarah match nahi karte, isliye ranges di hain.'),
        P('Saare 16 guides ki list (publisher, date aur link) '
-         '<a href="/services/website-design-mumbai/freelancer-vs-agency-vs-website-builder#sources">yahan dekhiye</a>.'),
+         '<a href="/services/website-design-mumbai/freelancer-vs-agency-vs-website-builder#sources">freelancer vs agency guide ke Sources mein</a> hai.'),
        eyebrow='Market rates', layout='wide'),
    Sec('Har saal ka kharcha jo quote mein nahi likha hota',
        Table(['Kharcha', 'Offer price', 'Renewal pe'], [
@@ -534,8 +534,8 @@ PAGES = [
    Sec('Website kitne din mein banti hai?',
        Durations([('Landing page', 3 / 7, 1, '3–7 din'), ('Basic business website', 1, 4, '1–4 hafte'),
                   ('Custom design wali website', 3, 8, '3–8 hafte'), ('Online store', 4, 12, '4–12 hafte')], scale=12, label='hafte'),
-       P('Price guides ke hisaab se landing page 3–7 din, basic business website 1–4 hafte, custom design wali 3–8 hafte, aur online store 4–12 hafte, products ki '
-         'sankhya pe depend karta hai. U Scale se website zyada tar 4–8 hafte mein live hoti hai. Sabse bada delay aksar build nahi hota: photos, '
+       P('Yeh timelines price guides se hain. Online store mein kitna time lagega, yeh is pe depend karta hai ki '
+         'kitne products hain. U Scale se website zyada tar 4–8 hafte mein live hoti hai. Sabse bada delay aksar build nahi hota: photos, '
          'prices aur text ka intezaar hota hai.'),
        eyebrow='Timeline'),
   ],
@@ -563,13 +563,13 @@ PAGES = [
   work=[]),
 
  dict(slug='freelancer-vs-agency-vs-website-builder', kind='guide', crumb='Freelancer vs agency vs builder',
-  card='Price ranges from 16 published guides, who each option suits, and what to watch for.',
+  card='Typical prices from 16 published sources, who each option suits and what to watch out for.',
   service='Freelancer vs agency vs DIY website builder, Mumbai (2026)',
   title='Freelancer vs Agency vs Website Builder (2026) | U Scale',
   desc='Freelancer, agency or DIY website builder for a Mumbai business? Price ranges from 16 published guides (2025–26), '
        'who each one suits and what to watch for.',
   h1='Freelancer, agency or website builder?', eyebrow='Guide · Compared',
-  lead='Should a Mumbai business hire a freelancer, an agency or build its website on a DIY builder? I run U Scale, so I have a side: the price ranges here come from 16 published price guides (2025–26), listed below, not from my own prices.',
+  lead='Should a Mumbai business hire a freelancer or an agency, or build its own website on a DIY builder? I run U Scale, so I am not neutral: the price ranges here come from 16 published price guides (2025–26), listed below, not from my own prices.',
   stats=[('₹10k–₹80k', 'Freelancer'), ('₹50k–₹3L', 'Agency'), ('16', 'Price guides, listed below')],
   art=dict(kind='img', img='paths'),
   answer='For a small Mumbai business with a simple site, a freelancer or one-person studio is often enough, and usually costs less than an agency. Freelancer projects mostly cost '
@@ -591,7 +591,7 @@ PAGES = [
                      ('Good for', 'Large sites with many people working in parallel'), ('Watch out for', 'Part of the price pays for the team around the work; you may deal with an account manager, not the designer')]),
                 dict(name='U Scale', tag='One person, fixed price', hi=True, rows=[('Typical cost', f'Fixed, {price("Landing page")}–{price("E-commerce, under 50 products")} for most sites'),
                      ('Who does the work', 'Mehul Karotra, personally'), ('Design', 'Custom, designed in Figma'),
-                     ('Good for', 'Small businesses that want custom work and one point of contact'), ('Watch out for', 'One person, so the start date depends on his queue: ask for it')])],
+                     ('Good for', 'Small businesses that want custom work and one point of contact'), ('Watch out for', 'One person, so the start date depends on how busy he is: ask when he can start')])],
                note=GUIDES_NOTE),
        eyebrow='Compared', layout='wide'),
    Sec('When an agency is the better choice',
@@ -617,7 +617,7 @@ PAGES = [
         'are faster, and you don’t pay for account managers. Choose an agency for large sites that need a team working in parallel.'),
        ('Is a website builder like Wix or Shopify good enough?',
         'For testing an idea on a small budget, yes. You pay a monthly plan and spend your own time, the design is a template, and online stores pay '
-        'fees on every sale. A designed site makes sense once the website has to win customers on its own.'),
+        'fees on every sale. A custom site makes sense once your website is where most new customers first see you.'),
        ('Is U Scale a freelancer or an agency?',
         'A bit of both. U Scale is one person, Mehul Karotra, working with an agency’s process: a written scope, a fixed price agreed before work '
         'starts, and design approval before the build.'),
@@ -640,19 +640,19 @@ PAGES = [
 A = '/assets/pages/'
 IMG = {
  'rest': dict(file=A + 'restaurant-website-online-ordering-mumbai', w=1200, h=1000, small=640,
-              alt='Demo café website with its own online ordering on a laptop and a phone: menu, cart and checkout with UPI, cards and netbanking',
+              alt='Demo café website with its own online ordering in a browser and on a phone: menu, cart and checkout with UPI, cards and netbanking, plus its Google listing with an Order online button',
               caption='A demo café website with its own online ordering, designed by U Scale. Chai Kona is a sample brand, not a real café.'),
  'bout': dict(file=A + 'boutique-website-whatsapp-ordering-mumbai', w=1200, h=1000, small=640,
               alt='Demo boutique product page on a phone with an Order on WhatsApp button, next to the WhatsApp chat it opens with the product and size already filled in',
-              caption='A demo product page and the WhatsApp order it creates. Saanjh is a sample brand.'),
+              caption='A demo product page and the WhatsApp order it creates. Saanjh Studio is a sample brand, not a real shop.'),
  'found': dict(file=A + 'google-maps-ai-answer-local-seo-mumbai', w=1200, h=1000, small=640,
                alt='Demo café ranked first in a "cafe near me" map search with a 4.9 rating, a review with the owner\'s reply, and an AI answer on a phone recommending the café with its website and reviews as sources',
-               caption='A demo café found on maps, in reviews and in an AI answer. Chai Kona is a sample brand, not a real café.'),
+               caption='A demo café on Google Maps, with a review reply and an AI answer that names it. Chai Kona is a sample brand, not a real café.'),
  'social': dict(file=A + 'social-media-ads-whatsapp-enquiries-mumbai', w=1200, h=1000, small=640,
-                alt='Demo sponsored post for a ₹99 café combo on a phone, the WhatsApp chat it starts ending in a paid UPI order, and a list of the day\'s enquiries from Instagram, a Google ad call and WhatsApp',
+                alt='Demo sponsored post for a ₹89 café combo on a phone, the WhatsApp chat it starts ending in a paid UPI order, and a list of the day\'s enquiries from Instagram, a Google ad call and WhatsApp',
                 caption='A demo ad turning into WhatsApp orders and enquiries. Chai Kona is a sample brand, not a real café.'),
  'salon': dict(file=A + 'salon-website-whatsapp-booking-mumbai', w=1200, h=1000, small=640,
-               alt='Demo salon website on a phone and a laptop: a booking screen with stylist, day and time slots and a Confirm on WhatsApp button, the salon\'s services with prices, and its map listing with a booking link',
+               alt='Demo salon website on a phone and in a browser window: a booking screen with stylist, day and time slots and a Confirm on WhatsApp button, the salon\'s services with prices, and its map listing with a booking link',
                caption='A demo salon website that takes bookings on WhatsApp. Mira Studio is a sample brand.'),
  'step-audit': dict(file=A + 'free-website-audit-report-mumbai', w=1200, h=900, small=640,
                alt='Sample free audit for a Mumbai boutique: an overall score of 58 out of 100 with scores for the website, Google listing and Instagram, the old site marked with three problems, and a WhatsApp message with three fixes to get more orders',
@@ -871,7 +871,7 @@ def _calc():
     pay = round(total / kept)
     return f'''<div class="fp-calc" data-calc data-price="{total}" data-reveal>
   <form class="fp-calc__in" aria-label="Your numbers">
-    <label class="fp-field"><span>Orders through delivery apps, per month</span>
+    <label class="fp-field"><span>Your sales on delivery apps, per month</span>
       <span class="fp-field__money"><b aria-hidden="true">₹</b><input name="sales" type="number" inputmode="numeric" min="0" step="5000" value="{sales}" aria-describedby="calc-hint"></span></label>
     <label class="fp-field"><span>Commission you pay the apps <output name="rateo">{rate}%</output></span>
       <input name="rate" type="range" min="10" max="35" step="1" value="{rate}"></label>
@@ -883,7 +883,7 @@ def _calc():
     <table class="fp-receipt">
       <caption class="sr-only">Worked example: commission saved by moving regulars to direct ordering</caption>
       <tbody>
-        <tr><th scope="row">Orders through delivery apps, per month</th><td data-o="sales">{_fmt(sales)}</td></tr>
+        <tr><th scope="row">Sales on delivery apps, per month</th><td data-o="sales">{_fmt(sales)}</td></tr>
         <tr><th scope="row">Regulars who switch to ordering on your website</th><td data-o="direct">{share}%, so {_fmt(direct)} of orders</td></tr>
         <tr><th scope="row">App commission on those orders at <span data-o="rate">{rate}%</span></th><td data-o="com">{_fmt(com)} a month</td></tr>
         <tr><th scope="row">Payment gateway fee on your own site (2% + 18% GST = 2.36%)</th><td data-o="fee">{_fmt(fee)} a month</td></tr>
@@ -901,7 +901,7 @@ def _calc():
 
 def _calc_text():
     total = rupees('Restaurant site + own online ordering')
-    return ('Worked example (example café):\n- Orders through delivery apps, per month: ₹2,00,000\n- Regulars who switch to ordering on your website: '
+    return ('Worked example (example café):\n- Sales on delivery apps, per month: ₹2,00,000\n- Regulars who switch to ordering on your website: '
             '25%, so ₹50,000 of orders\n- App commission on those orders at 20%: ₹10,000 a month\n- Payment gateway fee on your own site '
             f'(2% + 18% GST = 2.36%): ₹1,180 a month\n- Kept by you every month: {_fmt(_rest_saving)}\n- Website + ordering, one-time: '
             f'{_fmt(total)}, paid back in about {round(total / _rest_saving)} months')
@@ -968,7 +968,7 @@ def _tools(b):
     sz = '(max-width: 759px) 92vw, 560px'
     return f'''<ul class="fp-tools fp-tools--media" data-reveal-group>
   <li data-reveal><a class="fp-tool fp-tool--dark on-dark" href="/tools/google-business-profile-checker">{_shot('tool-checker', sz, 'fp-tool__media')}<span class="fp-tool__k">Free · about 2 minutes</span><span class="fp-tool__t">Google Business Profile checker</span><span class="fp-tool__d">A score out of 100 and a fix list for your listing.</span><span class="fp-tool__go">Check my listing {icon("arrow")}</span></a></li>
-  <li data-reveal><a class="fp-tool" href="/tools/google-review-qr-code">{_shot('tool-qr', sz, 'fp-tool__media')}<span class="fp-tool__k">Free · printable</span><span class="fp-tool__t">Google review QR code maker</span><span class="fp-tool__d">A counter standee that brings in reviews.</span><span class="fp-tool__go">Make my QR code {icon("arrow")}</span></a></li>
+  <li data-reveal><a class="fp-tool" href="/tools/google-review-qr-code">{_shot('tool-qr', sz, 'fp-tool__media')}<span class="fp-tool__k">Free · printable</span><span class="fp-tool__t">Google review QR code maker</span><span class="fp-tool__d">A printable counter standee that makes leaving a review easy.</span><span class="fp-tool__go">Make my QR code {icon("arrow")}</span></a></li>
 </ul>'''
 
 
@@ -1024,7 +1024,7 @@ def text(b):
     if t == 'chips': return f'{b["label"]}: ' + ', '.join(b['items'])
     if t in ('svg', 'img'): return ''
     if t == 'calc': return _calc_text()
-    if t == 'tools': return ('- Free Google Business Profile checker: a score out of 100 and a fix list in about two minutes.\n'
+    if t == 'tools': return ('- Free Google Business Profile checker: a score out of 100 and a fix list in about 2 minutes.\n'
                              '- Free Google review QR code maker: a printable counter standee that brings in reviews.')
     return ''
 
@@ -1189,9 +1189,9 @@ def _how(p):
     if hi:
         head, sub = 'Fixed price. Koi surprise nahi.', 'Free audit se launch tak, chaar steps.'
         steps = [('Free audit', 'Aapki website, Google listing aur Instagram dekhta hoon, goals aur pages tay karte hain.', 'Free'),
-                 ('Likhit plan', 'Kaun se pages, kab tak, aur exact price, kuch bhi pay karne se pehle likhit mein.', 'Fixed price'),
-                 ('Design aur build', 'Figma mein asli screens, desktop aur mobile. Aap approve karte ho, phir main code karke phones pe test karta hoon.', '20% shuru mein · 20% design approve pe'),
-                 ('Launch', 'Domain, hosting, Search Console aur final check. Phir 15–30 din ki bug-fix window mein fixes free.', '60% launch pe')]
+                 ('Written plan', 'Kaun se pages, kab tak, aur exact price, kuch bhi pay karne se pehle likhit mein.', 'Fixed price'),
+                 ('Design aur build', 'Figma mein asli screens, desktop aur mobile. Aap approve karte hain, phir main code karke phone pe test karta hoon.', '20% shuru mein · 20% design approve pe'),
+                 ('Launch', 'Domain, hosting, Google Search Console aur real phones pe final check. Phir saare logins aapko de deta hoon.', '60% launch pe')]
         promise = [('key', 'Domain, code aur logins aapke naam'), ('file', 'Price kaam se pehle likhit mein'), ('shield', 'Launch ke baad 15–30 din bug-fix')]
     else:
         head, sub = 'Fixed price. No surprises.', 'From free audit to launch, in four steps.'
@@ -1199,7 +1199,7 @@ def _how(p):
         steps = [('Free audit', 'I check your website, Google listing and Instagram, and we agree the goals, pages and must-haves.', 'Free'),
                  ('Written plan', 'What I will build, by when, and the exact price, in writing before you pay anything.', 'Fixed price'),
                  ('Design & build', 'You approve real screens in Figma, desktop and mobile, before I code them and test on phones.', '20% to start · 20% on design sign-off'),
-                 ('Launch', 'Domain, hosting, Search Console and a final check. Then bug fixes are free in the 15–30 day bug-fix window.', '60% on launch')]
+                 ('Launch', 'Domain, hosting, Google Search Console and a final check on real phones. Then I hand over every login.', '60% on launch')]
         promise = [('key', 'Your domain, code and logins, in your name'), ('file', 'Price fixed in writing before work starts'), ('shield', '15–30 day bug-fix window after launch')]
     shots, sz = ['step-audit', 'step-plan', 'step-design', 'step-launch'], '(max-width: 759px) 82vw, (max-width: 1099px) 46vw, 290px'
     li = ''.join(f'<li class="fp-step" data-reveal>{_shot(shots[i], sz, "fp-step__media")}<div class="fp-step__body"><span class="fp-step__n" aria-hidden="true">{i + 1:02d}</span><h3>{e(t)}</h3><p>{e(d)}</p>'
@@ -1227,7 +1227,7 @@ def _work(ctx, keys):
     return f'''
   <section class="section fp-sec" aria-labelledby="work-title">
     <div class="wrap fp-work">
-      <header class="sec-head fp-head"><p class="eyebrow">Real work</p><h2 class="h2 fp-h2" id="work-title">A Mumbai label I designed and built for.</h2>
+      <header class="sec-head fp-head"><p class="eyebrow">Real work</p><h2 class="h2 fp-h2" id="work-title">A website I designed and built for a Mumbai label.</h2>
         <p class="lead">{e(wmap[keys[0]][4])}</p></header>
       <ul class="rw-grid fp-work__grid" data-reveal-group>{cards}</ul>
     </div>
@@ -1306,7 +1306,7 @@ def _cta(p, wa, icons):
       <div class="panel on-dark" data-tone="dark">
         
         <div class="cta__copy">
-          <h2 class="sp-cta__title" id="cta-title">Get a free audit<span class="dot">.</span></h2>
+          <h2 class="sp-cta__title" id="cta-title">{'Free audit lijiye' if _hi(p) else 'Get a free audit'}<span class="dot">.</span></h2>
           <p class="lead">{'Apne business ke baare mein bataiye. Main 24 ghante ke andar reply karta hoon, WhatsApp pe aksar usse kaafi pehle.' if _hi(p) else 'Tell me about your business. I reply within 24 hours, usually much faster on WhatsApp.'}</p>
           <div class="cta__btns" data-wa-zone>
             <a class="btn btn--go" href="{ea(wa)}" target="_blank" rel="noopener" data-magnetic>{icons['ICON_CHAT']}Chat on WhatsApp</a>

@@ -28,7 +28,7 @@ export default Object.freeze({
     name: 'Mehul Karotra',
     givenName: 'Mehul',
     familyName: 'Karotra',
-    jobTitle: 'Founder of U Scale; freelance UI/UX developer-designer and digital marketer',
+    jobTitle: 'Founder of U Scale; freelance website designer, developer and digital marketer',
     sameAs: ['https://www.linkedin.com/in/mehulkarotra/', 'https://github.com/Mehulkarotra098', 'https://mehulpatel.vercel.app/'],
     image: 'assets/pages/mehul-karotra-website-designer-ghatkopar.webp',
   },

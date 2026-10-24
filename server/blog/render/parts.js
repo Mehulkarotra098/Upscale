@@ -8,7 +8,7 @@ export const abs = (path) => SITE_URL + String(path).replace(/^\//, '');
 
 export const BLOG_TITLE = 'Blog: website, SEO & growth tips for Indian businesses | U Scale';
 export const BLOG_DESC =
-  'Practical guides on websites, Google rankings, social media, ads and AI search for Mumbai and Indian businesses, from Mehul Karotra at U Scale.';
+  'Practical guides on websites, Google rankings, social media, ads and AI search for businesses in Mumbai and across India, from Mehul Karotra at U Scale.';
 export const DEFAULT_OG = abs('og-image.png');
 /** A category page with fewer live posts than this is thin: it stays crawlable (noindex, follow) but out of the sitemap. */
 export const MIN_CATEGORY_POSTS = 3;

@@ -6,7 +6,7 @@ PILLARS = [
     dict(key='web', kick='One-time', name='Websites', lead='Designed in Figma, hand-built, fixed price agreed before I start.',
          start='25,000', unit='', noun='website prices', step='step-1', cta='Price my website',
          rows=['Landing page', 'Business site, 3–4 pages', 'E-commerce, under 50 products']),
-    dict(key='add', kick='Monthly', name='Growth', lead='SEO, ads and social, month-to-month. Combine only what you need.', pop=True,
+    dict(key='add', kick='Monthly', name='Growth', lead='SEO, ads, social, email and more, month-to-month. Combine only what you need.', pop=True,
          start='8,000', unit='/mo', noun='monthly services', step='step-2', cta='Build my monthly mix',
          rows=['Local SEO / Google Business Profile', 'Ads management', 'AI search visibility (GEO)']),
     dict(key='unit', kick='One-off', name='Single pieces', lead='Need just one thing? A post, a reel, a logo, a blog.',
@@ -33,8 +33,8 @@ WEBSITES_NOTE ='Copywriting (₹2,000/page), photography, premium plugins and pa
 
 ADDONS = [  # monthly; stack on any plan or buy on their own
     ('Local SEO / Google Business Profile', '₹15,000/mo', None, 15000),
-    ('Technical + on-page SEO', '₹25,000/mo', None, 25000),
-    ('AI search visibility (GEO)', '₹12,000/mo', None, 12000),
+    ('Technical + on-page SEO', '₹25,000/mo', 'Speed, page titles and fixes so Google can read your website properly.', 25000),
+    ('AI search visibility (GEO)', '₹12,000/mo', 'How ChatGPT, Gemini and Google’s AI describe your business. No one can guarantee a mention.', 12000),
     ('Ads management', '₹20,000/mo', 'Flat up to ₹1.5 lakh monthly ad spend, then 12% of spend. Setup ₹10,000 one-time; ad spend paid to Google/Meta directly.', 20000),
     ('Email marketing', '₹8,000/mo', None, 8000),
     ('Review & reputation management', '₹10,000/mo', None, 10000),
@@ -44,7 +44,7 @@ ADDONS = [  # monthly; stack on any plan or buy on their own
 
 UNITS = [  # pick exactly what you need
     ('Social design', [('Social post', '₹800'), ('Carousel', '₹1,500'), ('Designed story', '₹800'), ('Infographic', '₹4,000')]),
-    ('Reel editing', [('Reel edit (your footage)', '₹2,500'), ('Premium edit (grading, motion graphics)', '₹5,000')]),
+    ('Reel editing', [('Reel edit (your footage)', '₹2,500'), ('Premium edit (colour grading, motion graphics)', '₹5,000')]),
     ('Reel production', [('Half-day shoot + 3 reels', '₹15,000'), ('Full-day shoot + 6 reels', '₹25,000')]),
     ('Writing', [('SEO blog (~1,000 words)', '₹2,000'), ('Website copy', '₹2,000/page'), ('LinkedIn article', '₹2,500')]),
     ('Brand identity', [('Logo', '₹5,000'), ('Identity kit', '₹20,000'), ('Full identity system', 'from ₹45,000')]),
@@ -63,6 +63,6 @@ TERMS = [
     '20% advance to start, 20% on design sign-off, 60% on launch. Final files are released after the final payment.',
     '2–3 revision rounds included on every project, agreed in writing before I start.',
     'Every website includes mobile-responsive design, enquiry forms, basic SEO, Google Maps, social links and a 15–30 day bug-fix window.',
-    'Retainers: free audit first, a 3-month sprint, then month-to-month. 30 days’ notice to pause or cancel.',
+    'Free audit first, 3 months minimum, then month-to-month. 30 days’ notice to pause or cancel.',
     'Quotes are valid for 14 days.',
 ]

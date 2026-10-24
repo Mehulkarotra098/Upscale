@@ -369,7 +369,7 @@
     ads:function(t){ return .13*(1-Math.exp(-14*t))+.02*t; },
     ai:function(t){ var s=clamp((t-.25)/.75,0,1); return .17*s*s*(3-2*s); }
   };
-  var GTIP={web:'Website: the base everything stands on.',seo:'SEO: slow start, then it compounds.',social:'Social: steady trust, week after week.',ads:'Ads: in front of buyers from day one.',ai:'AI search: named when people ask AI.'};
+  var GTIP={web:'Website: the base everything stands on.',seo:'SEO: slow start, then it keeps building.',social:'Social: steady trust, week after week.',ads:'Ads: in front of buyers from day one.',ai:'AI search: named when people ask AI.'};
   var GSTAT=['Invisible','Online','Findable','Noticed','Trusted','Chosen'];
   var gW={}, gV={}, gT={}, gEl={}, gChip={};
   if(gs){
@@ -417,7 +417,7 @@
       gsTimers.forEach(clearTimeout); gsTimers=[]; gsBuilding=false; gTip.removeAttribute('aria-live');
       if(!motion){ GK.forEach(function(k){ gW[k]=gT[k]=1; gChip[k].setAttribute('aria-pressed','true'); }); gsDraw(); gsStatus(); gs.classList.add('is-ready'); gTip.setAttribute('aria-live','polite'); return; }
       GK.forEach(function(k){ gW[k]=gT[k]=0; gV[k]=0; gChip[k].setAttribute('aria-pressed','false'); });
-      gsDraw(); gsStatus(); gs.classList.add('is-ready'); gTip.textContent='Building your stack…'; gsBuilding=true;
+      gsDraw(); gsStatus(); gs.classList.add('is-ready'); gTip.textContent='Building your plan…'; gsBuilding=true;
       GK.forEach(function(k,i){ gsTimers.push(setTimeout(function(){ gsSet(k,true); },delay+i*520)); });
       gsTimers.push(setTimeout(function(){ gsBuilding=false; gTip.textContent='Five channels, one plan. Tap any to switch it off.'; gTip.setAttribute('aria-live','polite'); },delay+GK.length*520+900));
     };
@@ -560,7 +560,7 @@
       if(bad.length){ bad[0].focus(); return; }
       var fd=new FormData(form); if(hp&&hp.value) return;
       var btn=$('button[type=submit]',form), lbl=btn.innerHTML; btn.disabled=true; btn.setAttribute('aria-busy','true'); btn.firstChild.textContent='Sending… ';
-      var data={name:fd.get('name'),phone:fd.get('phone'),email:fd.get('email')||'',website:fd.get('link')||'',message:fd.get('need')||'Free audit',_subject:'Free audit request from '+fd.get('name')+' (uscale site)',_template:'table',_captcha:'false'}; if(data.email) data._replyto=data.email;
+      var data={name:fd.get('name'),phone:fd.get('phone'),email:fd.get('email')||'',website:fd.get('link')||'',message:fd.get('need')||'I’d like a free audit.',_subject:'Free audit request from '+fd.get('name')+' (uscale site)',_template:'table',_captcha:'false'}; if(data.email) data._replyto=data.email;
       var show=function(ok){
         btn.disabled=false; btn.removeAttribute('aria-busy'); btn.innerHTML=lbl;
         var h=$('h3',done), wa=$('a',done);

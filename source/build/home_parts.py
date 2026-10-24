@@ -43,10 +43,9 @@ def brief():
              ('Monthly growth', f'Local SEO {price("Local SEO / Google Business Profile")} · Ads management {price("Ads management")} · '
                                 f'AI search visibility {price("AI search visibility (GEO)")}'),
              ('Timeline', 'Most websites go live in 4–8 weeks; a landing page in under two weeks'),
-             ('Payment', '20% to start, 20% on design sign-off, 60% on launch; monthly work is month-to-month after a 3-month sprint'),
+             ('Payment', '20% to start, 20% on design sign-off, 60% on launch; monthly work is 3 months minimum, then month-to-month'),
              ('First step', 'A free audit of your website, Google listing and Instagram')]
-    proof = [('check', '12+ projects shipped'), ('tag', 'Every price published'), ('chat', 'WhatsApp replies within 24 hours'), ('key', 'Domain and code in your name')]
-    chips = '<ul class="brief-proof">' + ''.join(f'<li>{icon(ic)}<span>{e(t)}</span></li>' for ic, t in proof) + '</ul>'
+    chips = ''  # the hero already shows these proof points; repeating them here read as filler
     html = aeo.brief_html(answer, facts, 'Key facts: U Scale by Mehul Karotra', 'brief-title')
     i = html.index('<table class="sp-facts"')
     j = html.rindex('</div>', 0, i)
@@ -67,12 +66,12 @@ def svc_media(key, wide=False):
 def services3():
     cards = [
         dict(cls=' svc3__card--web on-dark', viz='web', ic='globe', k='Get a website', h='A website that brings you enquiries',
-             p='Designed in Figma and hand-coded, mobile first, with WhatsApp and call buttons where people decide.',
+             p='Designed in Figma and hand-coded, mobile first, with WhatsApp and call buttons right where people are ready to contact you.',
              chips=['Landing pages', 'Business sites', 'Online stores', 'Restaurant ordering'],
              price=f'From {price("Landing page")}, fixed',
              links=[('/services/website-design-mumbai', 'Website design in Mumbai')]),
         dict(cls='', viz='found', ic='pin', k='Get found', h='Show up on Google, Maps and AI answers',
-             p='Your Google Business Profile, local and technical SEO, and getting named when people ask ChatGPT or Gemini.',
+             p='Your Google Business Profile (your listing on Google and Maps), local and technical SEO, and working to get you named when people ask ChatGPT or Gemini.',
              chips=['Google Business Profile', 'Local SEO', 'Technical SEO', 'AI search (GEO)'],
              price=f'Local SEO {price("Local SEO / Google Business Profile")} · AI search {price("AI search visibility (GEO)")}',
              links=[('/services/seo-mumbai', 'SEO services in Mumbai'), ('/services/ai-search-visibility', 'AI search visibility')]),
@@ -110,7 +109,7 @@ def for_cards():
 
 
 def how():
-    steps = [('Free audit', 'I check your website, Google listing and Instagram, and show you where enquiries slip away.', 'Free'),
+    steps = [('Free audit', 'I check your website, Google listing and Instagram, and show you where you are losing enquiries.', 'Free'),
              ('Written plan', 'What I will do, by when, and the exact price, in writing before you pay anything.', 'Fixed price'),
              ('Design & build', 'You see real screens in Figma and approve them before I build. You see progress every week.', '20% to start · 20% on design sign-off'),
              ('Launch & grow', 'Launch, then monthly SEO, social or ads only if you want them, with a clear report every month.', '60% on launch')]
@@ -127,7 +126,7 @@ def how():
       <header class="sec-head">
         <p class="eyebrow" data-reveal data-scramble>How it works</p>
         <h2 class="h2" id="how-title" data-split>Fixed price. No surprises.</h2>
-        <p class="lead" data-reveal>From a free audit to launch in four steps. Monthly work runs as a 3-month sprint, then month-to-month with 30 days&rsquo; notice.</p>
+        <p class="lead" data-reveal>From a free audit to launch in four steps. Monthly work runs for 3 months minimum, then month-to-month with 30 days&rsquo; notice.</p>
       </header>
       <ol class="fp-steps" data-reveal-group>{li}</ol>
       <ul class="fp-promise" data-reveal>{pr}</ul>
