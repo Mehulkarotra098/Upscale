@@ -968,8 +968,8 @@ def _shot(key, sizes, cls):
 def _tools(b):
     sz = '(max-width: 759px) 92vw, 560px'
     return f'''<ul class="fp-tools fp-tools--media" data-reveal-group>
-  <li data-reveal><a class="fp-tool fp-tool--dark on-dark" href="/tools/google-business-profile-checker">{_shot('tool-checker', sz, 'fp-tool__media')}<span class="fp-tool__k">Free · about 2 minutes</span><span class="fp-tool__t">Google Business Profile checker</span><span class="fp-tool__d">A score out of 100 and a fix list for your listing.</span><span class="fp-tool__go">Check my listing {icon("arrow")}</span></a></li>
-  <li data-reveal><a class="fp-tool" href="/tools/google-review-qr-code">{_shot('tool-qr', sz, 'fp-tool__media')}<span class="fp-tool__k">Free · printable</span><span class="fp-tool__t">Google review QR code maker</span><span class="fp-tool__d">A printable counter standee that makes leaving a review easy.</span><span class="fp-tool__go">Make my QR code {icon("arrow")}</span></a></li>
+  <li data-reveal><a class="fp-tool fp-tool--dark on-dark" href="/tools/google-business-profile-checker">{_shot('tool-checker', sz, 'fp-tool__media')}<span class="fp-tool__k">Free · no sign-up · 2 min</span><span class="fp-tool__t">Google Business Profile checker</span><span class="fp-tool__d">A score out of 100 and a fix list for your listing.</span><span class="fp-tool__go">Check my listing {icon("arrow")}</span></a></li>
+  <li data-reveal><a class="fp-tool" href="/tools/google-review-qr-code">{_shot('tool-qr', sz, 'fp-tool__media')}<span class="fp-tool__k">Free · no sign-up · printable</span><span class="fp-tool__t">Google review QR code maker</span><span class="fp-tool__d">A printable counter standee that makes leaving a review easy.</span><span class="fp-tool__go">Make my QR code {icon("arrow")}</span></a></li>
 </ul>'''
 
 
