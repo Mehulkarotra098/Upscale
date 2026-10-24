@@ -474,8 +474,8 @@ def llms_txt(site, faq, updated=TODAY):
 
 # ---------------------------------------------------------------- free tools
 TOOL = dict(slug='google-review-qr-code',
-  title='Google Review Link & QR Code Generator (Free) | U Scale',
-  desc='Get your Google review link from Google Maps, even without owner access, then make a QR code, print-ready standee and WhatsApp messages. Free.',
+  title='Free Google Review Link & QR Code Maker, No Sign-up | U Scale',
+  desc='100% free, no sign-up. Get your Google review link from Google Maps, even without owner access, plus a QR code, printable standee and WhatsApp messages.',
   h1='Free Google review link & QR code maker',
   lead='Find your Google review link in 30 seconds, even if you don\u2019t manage the Google profile. Then download a QR code, a counter standee in 6 designs and ready WhatsApp messages in English or Hinglish. Free, no sign-up.',
   faq=[('What is a Google review link?','It is a link that opens the "write a review" box for your business on Google, so customers can leave a review in one tap instead of searching for you first.'),
@@ -811,8 +811,8 @@ def tool_page(ctx, parts, tv):
 
 # ---------------------------------------------------------------- Google Business Profile checker + /tools hub
 GBP = dict(slug='google-business-profile-checker',
-  title='Google Business Profile Checker (Free GMB Audit) | U Scale',
-  desc='Free Google Business Profile (Google My Business) checker for Indian shops. Answer 16 quick questions, get a score out of 100, your top fixes and a review goal.',
+  title='Free Google Business Profile (GMB) Checker | U Scale',
+  desc='100% free, no sign-up. Check your Google Business Profile (GMB) in 2 minutes: a score out of 100, your top fixes and a review goal. English or Hinglish.',
   h1='Free Google Business Profile checker',
   lead='See how your shop looks on Google in about 2 minutes: your live listing, a score out of 100, a real website speed test, the fixes most likely to bring customers, and how many reviews you need to beat the shop next door. Free, no sign-up, English or Hinglish.',
   faq=[('Is this an official Google score?', 'No. Google doesn’t publish a score. This checker is U Scale’s checklist, built on what Google says improves local ranking (verify your business, keep information complete and accurate, respond to reviews, add photos) and on the gaps I most often find when I check local listings.'),
@@ -1071,8 +1071,8 @@ def tools_hub(ctx, parts, tv):
     site, v = ctx['SITE_URL'], ctx['_v']
     header, menu, footer, tail = parts
     url = f'{site}tools'
-    title = 'Free Tools for Local Businesses in India | U Scale'
-    desc = 'Free tools for Indian shops, clinics and salons: check your Google Business Profile score and make a Google review QR code standee. No sign-up.'
+    title = 'Free Tools for Local Businesses, No Sign-up | U Scale'
+    desc = '100% free, no sign-up tools for Indian shops, clinics and salons: check your Google Business Profile score and make a Google review QR code standee.'
     ld = json.dumps({'@context': 'https://schema.org', '@graph': [
         {'@type': 'CollectionPage', '@id': url + '#webpage', 'url': url, 'name': title, 'description': desc, 'inLanguage': 'en-IN', 'isPartOf': {'@id': site + '#website'},
          'about': {'@id': site + '#business'}, 'breadcrumb': {'@id': url + '#breadcrumb'},
