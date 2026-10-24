@@ -2,7 +2,7 @@
 import { BRAND, SITE_URL } from '../../config.js';
 import { esc, isoDate } from '../../lib/text.js';
 import { mediaUrl } from '../../media/urls.js';
-import { abs, BLOG_DESC } from './parts.js';
+import { abs, BLOG_DESC, MIN_CATEGORY_POSTS } from './parts.js';
 
 /** Root-relative links and images become absolute, so feed readers can load them. */
 const absolutize = (html) =>
@@ -46,7 +46,8 @@ export function renderSitemap(rows, categories) {
   const newest = rows[0]?.lastmod;
   const urls = [
     `<url><loc>${abs('blog')}</loc>${newest ? `<lastmod>${isoDate(newest)}</lastmod>` : ''}</url>`,
-    ...categories.filter((c) => c.n > 0).map((c) => `<url><loc>${abs(`blog/category/${c.slug}`)}</loc></url>`),
+    // Only categories with enough posts to be indexable (thin ones render noindex, follow).
+    ...categories.filter((c) => c.n >= MIN_CATEGORY_POSTS).map((c) => `<url><loc>${abs(`blog/category/${c.slug}`)}</loc></url>`),
     ...rows.map(
       (r) =>
         `<url><loc>${abs(`blog/${r.slug}`)}</loc><lastmod>${isoDate(r.lastmod)}</lastmod>${

@@ -2,10 +2,22 @@
 import { BRAND } from '../../config.js';
 import { esc, isoDate } from '../../lib/text.js';
 import { mediaUrl } from '../../media/urls.js';
-import { abs, ARROW, auditCta, BLOG_DESC, BLOG_TITLE, breadcrumbLd, breadcrumbs, head, ORGANIZATION, postCard } from './parts.js';
+import {
+  abs,
+  ARROW,
+  auditCta,
+  BLOG_DESC,
+  BLOG_TITLE,
+  breadcrumbLd,
+  breadcrumbs,
+  head,
+  MIN_CATEGORY_POSTS,
+  ORGANIZATION,
+  postCard,
+} from './parts.js';
 
 const INTRO =
-  'Plain-English guides to getting found on Google, winning on social media and turning visitors into customers. Written for Indian business owners, from real client work.';
+  'Simple, practical guides to getting found on Google, growing on social media and turning visitors into customers. Written for Indian business owners, from real client work.';
 
 function categoryNav(categories, activeSlug) {
   const withPosts = categories.filter((c) => c.n > 0);
@@ -106,5 +118,17 @@ export function renderListing({ posts, page, pages, total, categories, category 
 </section>
 ${auditCta()}`;
 
-  return { head: head({ title, desc, url, extra, graph: [pageNode, ORGANIZATION, breadcrumbLd(trail)] }), main };
+  // Thin category pages (under MIN_CATEGORY_POSTS live posts) are kept out of the index but their links are still followed.
+  const thin = Boolean(category) && total < MIN_CATEGORY_POSTS;
+  return {
+    head: head({
+      title,
+      desc,
+      url,
+      extra,
+      ...(thin ? { robots: 'noindex, follow' } : {}),
+      graph: [pageNode, ORGANIZATION, breadcrumbLd(trail)],
+    }),
+    main,
+  };
 }

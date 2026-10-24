@@ -155,7 +155,9 @@ test('public pages: article, listing, category, feeds, sitemap, read counter', a
   const index = await invoke(blog, { url: '/api/blog' });
   assert.equal(index.status, 200);
   assert.match(index.text, /1 article/);
-  assert.equal((await invoke(blog, { url: '/api/blog?category=local-seo' })).status, 200);
+  const cat = await invoke(blog, { url: '/api/blog?category=local-seo' });
+  assert.equal(cat.status, 200);
+  assert.match(cat.text, /noindex, follow/, 'a category with fewer than 3 posts is kept out of the index');
   assert.equal((await invoke(blog, { url: '/api/blog?category=nope' })).status, 404);
   assert.equal((await invoke(blog, { url: '/api/blog?page=9' })).status, 404);
   const p1 = await invoke(blog, { url: '/api/blog?page=1' });
@@ -166,7 +168,7 @@ test('public pages: article, listing, category, feeds, sitemap, read counter', a
   assert.match(rss.headers['content-type'], /rss\+xml/);
   assert.match(rss.text, /<link>https:\/\/uscale\.test\/blog\/why-your-shop-is-invisible-on-google-maps<\/link>/);
   const map = await invoke(blog, { url: '/api/blog?view=sitemap' });
-  assert.match(map.text, /blog\/category\/local-seo/);
+  assert.doesNotMatch(map.text, /blog\/category\/local-seo/, 'thin categories stay out of the sitemap');
 
   assert.equal(
     (await invoke(blog, { method: 'POST', url: `/api/blog?view=hit&id=${postId}`, headers: { 'user-agent': 'Mozilla/5.0' } })).status,

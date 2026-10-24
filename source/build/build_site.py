@@ -70,7 +70,7 @@ GS = [('web', 'Website', 'Website: the base everything stands on.'),
       ('seo', 'SEO', 'SEO: slow start, then it compounds.'),
       ('social', 'Social', 'Social: steady trust, week after week.'),
       ('ads', 'Ads', 'Ads: in front of buyers from day one.'),
-      ('ai', 'AI search', 'AI search: named when people ask AI.')]
+      ('ai', 'AI search', 'AI search: the right facts when people ask AI.')]
 def gs_f(k, t):
     if k == 'web': return .12 + .16 * t
     if k == 'seo': return .36 * t ** 2.2
@@ -110,7 +110,7 @@ growth = (
     '<span class="gs__badge" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M7 17 17 7M9 7h8v8"/></svg></span>'
     '</div>'
     '<div class="hf hf--search" aria-hidden="true"><div class="hf__bar"><svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="6.5"/><path d="m16 16 4 4"/></svg><span data-hf-q>web designer in mumbai</span><i class="hf__caret"></i></div>'
-    '<div class="hf__res"><span class="hf__fav"></span><span><b>Your business</b><small>Found, first page</small></span></div></div>'
+    '<div class="hf__res"><span class="hf__fav"></span><span><b>Your business</b><small>Found on Google</small></span></div></div>'
     '<div class="hf hf--toast" aria-hidden="true"><span class="hf__wa"><svg viewBox="0 0 24 24"><path d="M5 19l1.2-3.6A7.5 7.5 0 1 1 9 18.6z"/></svg></span><span><b>New enquiry</b><small>WhatsApp · just now</small></span></div>')
 
 cta_bars = ('<svg viewBox="0 0 400 320" preserveAspectRatio="xMaxYMax meet" aria-hidden="true" focusable="false">'
@@ -119,20 +119,20 @@ cta_bars = ('<svg viewBox="0 0 400 320" preserveAspectRatio="xMaxYMax meet" aria
 
 # ---------- v3 content: real screenshots, real logos ----------
 SITE_URL = config.SITE_URL  # from the SITE_URL env var (see config.py)
-BOOK = 'https://wa.me/917977360142?text=' + urllib.parse.quote("Hi Mehul, I'd like to book a free strategy call. A good time for me is: ")
+BOOK = 'https://wa.me/917977360142?text=' + urllib.parse.quote("Hi Mehul, I'd like a free audit. My business is: ")
 SZ = json.load(open(ROOT / 'asset_sizes.json'))
 ARW = '<span class="arw" aria-hidden="true"><b>↗</b><b>↗</b></span>'
 e = lambda t: html.escape(t, quote=False)
 # slug, name, meta, tag, description, url, accent, has_mobile, wall_tag, page alt detail
 WORK = [
- ('tis', 'TIS Admissions 2026–27', 'Education · Kandivali West, Mumbai', 'Concept · Web Development', 'A concept admissions experience: programs, campus life and a friction-free enquiry flow for an ICSE school.', 'https://tis-school-admissions-2026.vercel.app', '#FCC513', True, 'Concept', 'admissions hero, learning stages and campus sections'),
+ ('tis', 'TIS Admissions 2026–27', 'Education · Kandivali West, Mumbai', 'Concept · Web Development', 'A concept admissions website for an ICSE school: programmes, campus life and a simple enquiry form.', 'https://tis-school-admissions-2026.vercel.app', '#FCC513', True, 'Concept', 'admissions hero, learning stages and campus sections'),
  ('antrah', 'Antrah Wellness', 'Wellness · Mumbai', 'Web Development', 'Launch site for a two-day wellness gathering: five paths to wellbeing, one calm digital home.', 'https://antrah-wellness.vercel.app', '#6B2F0A', True, '', 'hero with the five paths and the story section'),
- ('roar', 'Roar Arena', 'Sports · India', 'Web Development', "A live match center and fan community platform for India's sports watch-party culture.", 'https://roararenaindia.vercel.app', '#FF5428', True, '', 'matchday board hero and what we are building'),
- ('mcm', 'My Country Mobile', 'Telecom · In-house role', 'UI/UX + Web', 'Interface design and web development for an AI-first cloud phone and contact center platform, built during an in-house role.', 'https://mycountrymobile.com', '#3B82F6', False, 'In-house', 'AI contact center hero, platform and core tools sections'),
+ ('roar', 'Roar Arena', 'Sports · India', 'Web Development', "A live match centre and fan community platform for India's sports watch-party culture.", 'https://roararenaindia.vercel.app', '#FF5428', True, '', 'matchday board hero and what we are building'),
+ ('mcm', 'My Country Mobile', 'Telecom · In-house role', 'UI/UX + Web', 'Interface design and web development for an AI-first cloud phone and contact centre platform, built during an in-house role.', 'https://mycountrymobile.com', '#3B82F6', False, 'In-house', 'AI contact center hero, platform and core tools sections'),
  ('callmama', 'Callmama', 'Telecom · In-house role', 'UI/UX + Web', 'Product design and web experience for an international calling brand, built during an in-house role.', 'https://www.callmama.com', '#1B99F9', False, 'In-house', 'calling app hero, country numbers and products'),
  ('growcred', 'GrowCred', 'Climate Tech · Founder project', 'Product Build', 'Founder-built climate-tech platform: plant trees, upload proof, earn TreeCoin.', 'https://greencred.vercel.app', '#22C55E', True, '', 'hero and the plant, prove, protect loop'),
- ('sashe', 'Sashe by Prachi', 'Fashion · Mumbai', 'Web Development', "Digital flagship for a bespoke fashion label: editorial hero, signature looks, studio forms, founder story. Built mobile-first to the founder's pixel-level bar.", 'https://sashebyprachi.vercel.app', '#641F2A', True, '', 'editorial hero, signature looks and studio forms'),
- ('vidhi', 'Vidhi Parmar', 'Creative · Mumbai', 'Web Development', 'Personal hire-me portfolio for a Mumbai AI visual artist: selected AI ad films, four-step process, services, FAQ.', 'https://www.vidhiparmar.me', '#F0457F', True, '', 'showreel hero and about section'),
+ ('sashe', 'Sashe by Prachi', 'Fashion · Mumbai', 'Web Development', "Digital home for a bespoke fashion label: a magazine-style front page, signature looks, studio enquiry forms and the founder’s story. Built mobile-first, to the founder’s high standards.", 'https://sashebyprachi.vercel.app', '#641F2A', True, '', 'editorial hero, signature looks and studio forms'),
+ ('vidhi', 'Vidhi Parmar', 'Creative · Mumbai', 'Web Development', 'Portfolio website for a Mumbai AI visual artist: selected AI ad films, a four-step process, services and FAQs.', 'https://www.vidhiparmar.me', '#F0457F', True, '', 'showreel hero and about section'),
  ('brandgen', 'BrandGen', 'AI SaaS · Marketing visuals', 'Social Media + Site', 'Website and social media for an AI tool that turns one brand reference into on-brand marketing visuals.', 'https://www.getbrandgen.com', '#F97015', False, '', 'models and voice prompt sections'),
 ]
 def dom(u): return u.split('//')[1].rstrip('/')
@@ -178,14 +178,14 @@ logo_wall = (f'<ul class="sr-only">{names}</ul>'
              f'<div class="lw__row r2"><div class="lw__track">{"".join(wall_cell(w) for w in r2)}{"".join(wall_cell(w, True) for w in r2)}</div></div></div>')
 
 FAQ = [
- ('Is U Scale an agency or a freelancer?', "A bit of both, in the best way. U Scale is me, Mehul Karotra, working as an independent, contract-based partner. You get agency-quality design, development and marketing, but you sign with me directly and talk to me directly. If a project ever needs a specialist, like a photographer, I bring them in and stay your single point of contact."),
- ('How much does a website cost in Mumbai?', "With me, a landing page is ₹25,000, a 3–4 page business site ₹55,000, a 5–10 page site with a blog ₹85,000, and e-commerce starts at ₹95,000. Every price is fixed and agreed in writing before I start. Every price is listed on the pricing page."),
- ('How much does digital marketing cost in Mumbai?', "There are no bundles to squeeze into: you pay only for what you need. Local SEO is ₹15,000/month, technical SEO ₹25,000/month, ads management ₹20,000/month (plus a ₹10,000 setup), AI search visibility ₹12,000/month, and one-off work starts at ₹800 for a social post. The quote builder on the pricing page adds it up for you."),
- ('Do you work on contract or monthly retainer?', "Both. Websites and branding are fixed-price contracts: 20% to start, 20% on design sign-off and 60% on launch. Marketing runs as a monthly retainer: a 3-month sprint, then month-to-month with 30 days notice. No long lock-ins."),
- ('How long does SEO take to show results?', 'Honest answer: 3–6 months for meaningful movement. Anyone promising page one in 30 days is selling you something. I show you the trajectory every month.'),
- ('How long does it take to build a website?', 'A business website typically takes 4–8 weeks from kickoff to launch, depending on pages and how ready your content is. A landing page can be live in under two weeks.'),
- ('What is AI search visibility (GEO)?', 'When someone asks ChatGPT or Perplexity for a recommendation in your category, does your business get mentioned? I optimise your presence so AI answers cite you.'),
- ('How do we start?', 'Book a free strategy call or ping me on WhatsApp. I audit your digital presence for free, then send a plan with clear pricing.'),
+ ('Is U Scale an agency or a freelancer?', "A bit of both. U Scale is me, Mehul Karotra, working as an independent, contract-based partner. You get the design, development and marketing an agency offers, but you sign with me directly and talk to me directly. If a project ever needs a specialist, like a photographer, I bring them in and stay your single point of contact."),
+ ('How much does a website cost in Mumbai?', "With me, a landing page is ₹25,000, a 3–4 page business site ₹55,000, a 5–10 page site with a blog ₹85,000, and an online store starts at ₹95,000. Every price is fixed and agreed in writing before I start, and no GST is charged right now."),
+ ('How much does digital marketing cost in Mumbai?', "There are no fixed packages: you pay only for what you need. Local SEO is ₹15,000/month, technical SEO ₹25,000/month, ads management ₹20,000/month (plus a ₹10,000 setup), AI search visibility ₹12,000/month, and one-off work starts at ₹800 for a social post. The quote builder adds it all up for you."),
+ ('Do you work on contract or monthly retainer?', "Both. Websites and branding are fixed-price contracts: 20% to start, 20% on design sign-off and 60% on launch. Marketing runs as a monthly plan: 3 months minimum, then month-to-month with 30 days’ notice. No long lock-ins."),
+ ('How long does SEO take to show results?', 'Honest answer: 3–6 months for meaningful movement. Be careful of anyone who promises page one in 30 days. I show you what has moved every month.'),
+ ('How long does it take to build a website?', 'A business website usually goes live in 3–4 weeks from kickoff, depending on pages and how ready your content is. A landing page can be live in under two weeks.'),
+ ('What is AI search visibility (GEO)?', "It is how often, and how accurately, AI assistants like ChatGPT, Gemini and Google's AI Overviews mention your business when people ask for a recommendation. I check what they say today, then correct the facts, listings and pages they rely on, and help you earn genuine reviews. No one can guarantee a mention."),
+ ('How do we start?', 'Send me your website, Google listing or Instagram on WhatsApp. I check them for free, then send you a written plan with the price.'),
 ]
 faq = '\n'.join(
     (f'        <div class="qa{" is-open" if i == 0 else ""}"><h3><button class="qa__btn" type="button" id="q{i}" aria-expanded="{"true" if i == 0 else "false"}" aria-controls="a{i}">'
@@ -193,7 +193,7 @@ faq = '\n'.join(
      f'<div class="qa__panel" id="a{i}" role="region" aria-labelledby="q{i}"><div><p>{e(a)}</p></div></div></div>'
      )
     for i, (q, a) in enumerate(FAQ))
-faq = faq.replace('<p>Book a free strategy call', f'<p><a class="tlink" href="{e(BOOK)}" target="_blank" rel="noopener">Book a free strategy call</a>',1)
+faq = faq.replace('<p>Get your free audit', f'<p><a class="tlink" href="{e(BOOK)}" target="_blank" rel="noopener">Get your free audit</a>',1)
 
 # Founder blueprint: wireframe (design) underneath, filled build revealed by scroll
 def bp(built):
@@ -212,7 +212,7 @@ def bp(built):
 blueprint = bp(False) + f'<div class="blueprint__built"><div>{bp(True)}</div></div><span class="blueprint__seam"></span>'
 
 src = (SRC / 'index.src.html').read_text()
-css = '\n'.join((SRC / f).read_text() for f in ['styles.css', 'work.css', 'motion.css', 'growth.css', 'seo.css'])
+css = '\n'.join((SRC / f).read_text() for f in ['styles.css', 'work.css', 'motion.css', 'growth.css', 'seo.css', 'home.css'])
 def _rules(block):
     out, i, depth, start = [], 0, 0, 0
     for j, ch in enumerate(block):
@@ -263,10 +263,13 @@ def quotes_html():
         out.append(f'      <li class="quote quote--real" style="--q:{i%3}" data-reveal>{dash}<blockquote><p>{e(t["quote"])}</p></blockquote><p class="quote__by"><span class="quote__av" aria-hidden="true">{ini}</span><span><strong>{e(t["name"])}</strong><br>{e(t["role"])}</span>{logo}</p></li>')
     return '\n'.join(out)
 ICONS_HEAD = ('<link rel="icon" href="/favicon.svg" type="image/svg+xml">\n<link rel="icon" href="/favicon-32.png" sizes="32x32" type="image/png">\n'
+              '<link rel="icon" href="/icon-192.png" sizes="192x192" type="image/png">\n'
               '<link rel="apple-touch-icon" href="/apple-touch-icon.png">\n<link rel="manifest" href="/site.webmanifest">')
 import seo_pages
 rep = {'{{PRICE_PILLARS}}': seo_pages.pricing_pillars_html(), '{{PRICE_TERMS}}': seo_pages.pricing_terms_strip_html(), '{{ICONS_HEAD}}': ICONS_HEAD, '{{JSONLD}}': seo_pages.home_jsonld(SITE_URL, FAQ), '{{QUOTES}}': quotes_html(),'{{LOGO_WALL}}': logo_wall, '{{WORK_TOTAL}}': f'{len(WORK):02d}', '{{PROJECT_INDEX}}': project_index, '{{LOADER_LOGO}}': loader_logo, '{{HEADER_LOGO}}': logo(), '{{FOOTER_LOGO}}': logo('logo--rev'), '{{FAVICON}}': favicon,
        '{{CHART}}': growth, '{{CTA_BARS}}': cta_bars, '{{WORK_CARDS}}': work_cards, '{{FAQ}}': faq, '{{BLUEPRINT}}': blueprint}
+import home_parts  # hero, In short, services, built-for cards, how it works, founder photo, tools, contact (see home_parts.py)
+rep.update(home_parts.parts(handset))
 rep.update({'{{' + k + '}}': v for k, v in ICONS.items()})
 for k, v in rep.items():
     src = src.replace(k, v)
@@ -278,6 +281,51 @@ assert not left, left
 # Deployable folder: start clean, copy static files (images, icons), then write the generated pages
 site = config.OUT
 STATIC = REPO / 'source' / 'static'
+
+# Image guard: every product shot in geo_pages.IMG must exist at both widths in both formats, be non-empty and decode
+# at the width the pages declare. A missing, 0-byte or half-written AVIF shows alt text instead of the picture
+# (browsers do not fall back to the WebP), so the build stops here instead of shipping it. Pillow decodes the file
+# when it is installed; without it (Vercel's build image) the width is read from the WebP/AVIF header.
+import geo_pages as GP
+def _img_width(p):
+    try:
+        from PIL import Image, features
+        if p.suffix != '.avif' or features.check('avif'):
+            with Image.open(p) as im:
+                im.load()
+                return im.size[0]
+    except ImportError:
+        pass
+    b = p.read_bytes()
+    if p.suffix == '.webp' and b[:4] == b'RIFF' and b[8:12] == b'WEBP' and int.from_bytes(b[4:8], 'little') + 8 <= len(b):
+        c = b[12:16]
+        if c == b'VP8 ': return int.from_bytes(b[26:28], 'little') & 0x3fff
+        if c == b'VP8L': return (int.from_bytes(b[21:25], 'little') & 0x3fff) + 1
+        if c == b'VP8X': return int.from_bytes(b[24:27], 'little') + 1
+    if p.suffix == '.avif' and b[4:8] == b'ftyp' and b'avif' in b[8:int.from_bytes(b[:4], 'big')]:
+        j = 0  # top-level boxes must add up to the file: a half-written file ends inside a box
+        while j < len(b):
+            n = int.from_bytes(b[j:j + 4], 'big')
+            n = int.from_bytes(b[j + 8:j + 16], 'big') if n == 1 else (len(b) - j if n == 0 else n)
+            if n < 8 or j + n > len(b): return None
+            j += n
+        i = b.find(b'ispe')
+        if i > 0: return int.from_bytes(b[i + 8:i + 12], 'big')
+    return None
+_bad = []
+for _k, _im in GP.IMG.items():
+    for _w, _stem in ((_im['w'], _im['file']), (_im['small'], f"{_im['file']}-{_im['small']}")):
+        for _ext in ('avif', 'webp'):
+            _p = STATIC / f'{_stem.lstrip("/")}.{_ext}'
+            try:
+                _got = (_img_width(_p) or 'an unreadable or truncated file') if _p.is_file() and _p.stat().st_size > 0 else 'missing or 0 bytes'
+            except Exception as _ex:
+                _got = f'does not decode ({_ex})'
+            if _got != _w:
+                _bad.append(f'{_p.relative_to(REPO)} [{_k}]: expected {_w}px wide, got {_got}')
+if _bad:
+    sys.exit('Image check failed, nothing was built:\n  ' + '\n  '.join(_bad))
+
 if site.exists():
     shutil.rmtree(site)
 shutil.copytree(STATIC, site)
@@ -312,9 +360,19 @@ print('service pages:', ', '.join(_slugs))
 _SKIP = re.compile(r'(<script\b.*?</script>|<style\b.*?</style>|<title\b.*?</title>|<textarea\b.*?</textarea>|<[^>]+>)', re.S | re.I)
 def _brand_nbsp(markup):
     return ''.join(part if part.startswith('<') else part.replace('U Scale', 'U&nbsp;Scale') for part in _SKIP.split(markup))
+# Cache busting for the image URLs not built by geo_pages._pic (work screenshots, logos, the About portrait, tool
+# art): /assets is cached for 30 days, so each src/srcset/imagesrcset/data-peek image URL gets ?v=<sha1 of the file>,
+# exactly as geo_pages.vurl does. Share images (og:image, JSON-LD, sitemaps) keep their plain URLs.
+_IMG_ATTR = re.compile(r'\b(src|srcset|imagesrcset|data-peek)="([^"]*)"')
+_IMG_URL = re.compile(r'(?<![\w/.-])(/?assets/[\w./@-]+\.(?:webp|avif|png|jpe?g|gif|svg))(?![?\w])')
+def _img_v(m):
+    p = m.group(1); a = '/' + p.lstrip('/')
+    return p + GP.vurl(a)[len(a):] if (STATIC / a[1:]).is_file() else p
+def _asset_v(markup):
+    return _IMG_ATTR.sub(lambda m: f'{m.group(1)}="{_IMG_URL.sub(_img_v, m.group(2))}"', markup)
 for _page in site.rglob('*.html'):
     if 'admin' in _page.relative_to(site).parts: continue
-    _page.write_text(_brand_nbsp(_page.read_text()))
+    _page.write_text(_brand_nbsp(_asset_v(_page.read_text())))
 
 # Preview: one file; the artifact skeleton supplies doctype/head/body
 pv = src.replace('{{STYLES}}', '<style>\n' + css + '\n.pv-replay{position:fixed;left:calc(16px + env(safe-area-inset-left,0px));bottom:calc(16px + env(safe-area-inset-bottom,0px));z-index:1001;display:inline-flex;align-items:center;gap:8px;font:600 14px/1 var(--sans);background:var(--violet);color:var(--white);border:1px solid var(--line-dark);border-radius:999px;padding:13px 18px;cursor:pointer;box-shadow:0 12px 24px -14px rgba(37,30,69,.6)}\n</style>')

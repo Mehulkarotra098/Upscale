@@ -19,10 +19,15 @@
   if(d.classList.contains('intro-skip')) endLoader();
   else if(usl){ usl.addEventListener('animationend',function(e){ if(e.target===usl) endLoader(); }); safety=setTimeout(endLoader,2600); }
 
-  /* ---------- Smooth scroll (Lenis on desktop pointers; native on touch) ---------- */
-  var lenis=null;
+  /* ---------- Smooth scroll (Lenis on desktop pointers; native on touch) ----------
+     Lenis is self-hosted and fetched only when it will be used (fine pointer, motion on), so phones never download it. */
+  var lenis=null, lenisReq=false;
   function startLenis(){
-    if(lenis||!motion||!fine||!window.Lenis) return;
+    if(lenis||!motion||!fine) return;
+    if(!window.Lenis){
+      if(!lenisReq){ lenisReq=true; var ls=document.createElement('script'); ls.src='/assets/vendor/lenis.min.js?v=1.3.26'; ls.async=true; ls.onload=startLenis; document.head.appendChild(ls); }
+      return;
+    }
     try{ lenis=new window.Lenis({lerp:.09,smoothWheel:true,autoRaf:false}); lenis.on('scroll',markScroll); }catch(e){ lenis=null; }
     kick();
   }
@@ -101,7 +106,7 @@
   var rio=null;
   if('IntersectionObserver' in window){
     rio=new IntersectionObserver(function(es){ es.forEach(function(e){ if(e.isIntersecting){
-      var el=e.target, grp=el.closest('.sec-head,.quotes,.work__track');
+      var el=e.target, grp=el.closest('.sec-head,.quotes,.work__track,[data-snap]');
       el.classList.add('is-in'); if(el.hasAttribute('data-scramble')) scramble(el); rio.unobserve(el);
       if(grp) $$('[data-reveal],[data-split]',grp).forEach(function(x){ if(!x.classList.contains('is-in')){ x.classList.add('is-in'); if(x.hasAttribute('data-scramble')) scramble(x); rio.unobserve(x); } });
     } }); },{rootMargin:'0px 0px -8% 0px',threshold:.12});
@@ -158,7 +163,7 @@
     waZones.forEach(function(z){ wio.observe(z); });
   }
   var sprog=$('.sprog'), sprogLbl=$('[data-sprog-label]'), sprogT;
-  var SPROG=[['hero','Home'],['services','Services'],['process','Process'],['work','Work'],['pricing','Pricing'],['audit','Free audit'],['testimonials','Clients'],['about','About'],['faq','FAQ'],['cta',"Let's scale"],['contact','Contact']].map(function(x){ return [document.getElementById(x[0]),x[1]]; });
+  var SPROG=[['hero','Home'],['services','Services'],['work','Work'],['how','How it works'],['pricing','Pricing'],['testimonials','Clients'],['about','About'],['tools','Free tools'],['faq','FAQ'],['contact','Free audit']].map(function(x){ return [document.getElementById(x[0]),x[1]]; });
   if(!SPROG[0][0]){ SPROG=$$('main > section, main > .hero-shell').map(function(sec){ var ey=$('.eyebrow,.crumbs [aria-current]',sec), h=$('h1,h2',sec); var t=(ey&&(ey.dataset.final||ey.textContent)||h&&(h.getAttribute('aria-label')||h.textContent)||'').trim(); return [sec,t.length>22?t.slice(0,21)+'…':t]; }).filter(function(x){ return x[1]; }); if(!SPROG.length) SPROG=[[null,'']]; }
   SPROG=SPROG.filter(function(x){ return x[0]; });
   function markScroll(){ scrollDirty=true; kick(); }
@@ -260,18 +265,18 @@
     window.addEventListener('pointermove',function(e){
       if(e.pointerType!=='mouse'||!motion) return;
       var dx=e.clientX-ptr.x, dy=e.clientY-ptr.y; ptr.x=e.clientX; ptr.y=e.clientY;
-      if(!ptr.on){ ptr.cx=ptr.x; ptr.cy=ptr.y; ptr.on=true; cur.classList.add('is-on'); }
+      if(!ptr.on){ ptr.cx=ptr.x; ptr.cy=ptr.y; ptr.on=true; cur&&cur.classList.add('is-on'); }
       var t=e.target;
-      cur.classList.toggle('is-view',!!(t.closest&&t.closest('.wk')));
-      cur.classList.toggle('is-hover',!!(t.closest&&t.closest('a,button,.svc,.plan,.quote,input,textarea,label,.lw__cell')));
+      cur&&cur.classList.toggle('is-view',!!(t.closest&&t.closest('.wk')));
+      cur&&cur.classList.toggle('is-hover',!!(t.closest&&t.closest('a,button,.svc,.plan,.quote,input,textarea,label,.lw__cell')));
       spawn(e.clientX,e.clientY,Math.hypot(dx,dy));
       if(ppvOn){ ppvP.x=e.clientX; ppvP.y=e.clientY; }
       kick();
     },{passive:true});
-    document.addEventListener('pointerleave',function(){ ptr.on=false; cur.classList.remove('is-on'); });
-    window.addEventListener('blur',function(){ ptr.on=false; cur.classList.remove('is-on'); });
-    window.addEventListener('pointerdown',function(e){ if(!motion||e.pointerType!=='mouse') return; cur.classList.add('is-down'); burst(e.clientX,e.clientY); });
-    window.addEventListener('pointerup',function(){ cur.classList.remove('is-down'); });
+    document.addEventListener('pointerleave',function(){ ptr.on=false; cur&&cur.classList.remove('is-on'); });
+    window.addEventListener('blur',function(){ ptr.on=false; cur&&cur.classList.remove('is-on'); });
+    window.addEventListener('pointerdown',function(e){ if(!motion||e.pointerType!=='mouse') return; cur&&cur.classList.add('is-down'); burst(e.clientX,e.clientY); });
+    window.addEventListener('pointerup',function(){ cur&&cur.classList.remove('is-down'); });
     if(hero){
       hero.addEventListener('pointermove',function(e){ if(!motion) return; var r=hero.getBoundingClientRect(); heroT.x=((e.clientX-r.left)/r.width-.5)*2; heroT.y=((e.clientY-r.top)/r.height-.5)*2; spot.x=e.clientX-r.left; spot.y=e.clientY-r.top; hero.classList.add('is-lit'); kick(); });
       hero.addEventListener('pointerleave',function(){ heroT.x=0; heroT.y=0; hero.classList.remove('is-lit'); kick(); });
@@ -364,7 +369,7 @@
     ads:function(t){ return .13*(1-Math.exp(-14*t))+.02*t; },
     ai:function(t){ var s=clamp((t-.25)/.75,0,1); return .17*s*s*(3-2*s); }
   };
-  var GTIP={web:'Website: the base everything stands on.',seo:'SEO: slow start, then it compounds.',social:'Social: steady trust, week after week.',ads:'Ads: in front of buyers from day one.',ai:'AI search: named when people ask AI.'};
+  var GTIP={web:'Website: the base everything stands on.',seo:'SEO: slow start, then it keeps building.',social:'Social: steady trust, week after week.',ads:'Ads: in front of buyers from day one.',ai:'AI search: the right facts when people ask AI.'};
   var GSTAT=['Invisible','Online','Findable','Noticed','Trusted','Chosen'];
   var gW={}, gV={}, gT={}, gEl={}, gChip={};
   if(gs){
@@ -412,7 +417,7 @@
       gsTimers.forEach(clearTimeout); gsTimers=[]; gsBuilding=false; gTip.removeAttribute('aria-live');
       if(!motion){ GK.forEach(function(k){ gW[k]=gT[k]=1; gChip[k].setAttribute('aria-pressed','true'); }); gsDraw(); gsStatus(); gs.classList.add('is-ready'); gTip.setAttribute('aria-live','polite'); return; }
       GK.forEach(function(k){ gW[k]=gT[k]=0; gV[k]=0; gChip[k].setAttribute('aria-pressed','false'); });
-      gsDraw(); gsStatus(); gs.classList.add('is-ready'); gTip.textContent='Building your stack…'; gsBuilding=true;
+      gsDraw(); gsStatus(); gs.classList.add('is-ready'); gTip.textContent='Building your plan…'; gsBuilding=true;
       GK.forEach(function(k,i){ gsTimers.push(setTimeout(function(){ gsSet(k,true); },delay+i*520)); });
       gsTimers.push(setTimeout(function(){ gsBuilding=false; gTip.textContent='Five channels, one plan. Tap any to switch it off.'; gTip.setAttribute('aria-live','polite'); },delay+GK.length*520+900));
     };
@@ -541,21 +546,26 @@
   var FORM_ENDPOINT='https://formsubmit.co/ajax/uscalewithus@gmail.com';
   var form=$('#enquiry'), done=$('#enquiry-done');
   if(form){
-    var rules={ name:function(v){ return v.trim().length>1; }, phone:function(v){ return /^[+()\d\s-]{8,}$/.test(v.trim())&&v.replace(/\D/g,'').length>=8; }, email:function(v){ return /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(v.trim()); }, need:function(v){ return v.trim().length>2; } };
-    var check=function(i){ var ok=rules[i.name](i.value), f=i.closest('.field'); if(ok){ f.removeAttribute('data-invalid'); i.removeAttribute('aria-invalid'); } else { f.setAttribute('data-invalid',''); i.setAttribute('aria-invalid','true'); } return ok; };
+    /* Only name and a number are required: every extra field costs enquiries. The rest is checked only if filled in. */
+    var rules={ name:function(v){ return v.trim().length>1; }, phone:function(v){ return /^[+()\d\s-]{8,}$/.test(v.trim())&&v.replace(/\D/g,'').length>=8; }, email:function(v){ return !v.trim()||/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(v.trim()); }, link:function(v){ return !v.trim()||v.trim().length>2; }, need:function(v){ return !v.trim()||v.trim().length>1; } };
+    /* The error text is linked (aria-describedby) only while it shows, so screen readers don't read it out up front. */
+    var check=function(i){ var ok=rules[i.name](i.value), f=i.closest('.field'); if(ok){ f.removeAttribute('data-invalid'); i.removeAttribute('aria-invalid'); i.removeAttribute('aria-describedby'); } else { f.setAttribute('data-invalid',''); i.setAttribute('aria-invalid','true'); i.setAttribute('aria-describedby','e-'+i.name); } return ok; };
+    /* Honeypot: the name="_honey" stays in the HTML for the no-JS post to FormSubmit; with JS this script sends the
+       form itself, so the name comes off (browser agents don't see it as a form parameter) and it is read by class. */
+    var hp=$('.hp',form); if(hp) hp.removeAttribute('name');
     $$('input:not(.hp),textarea',form).forEach(function(i){ i.addEventListener('blur',function(){ if(i.value) check(i); }); i.addEventListener('input',function(){ if(i.closest('.field').hasAttribute('data-invalid')) check(i); }); });
     form.addEventListener('submit',function(e){
       e.preventDefault();
       var bad=$$('input:not(.hp),textarea',form).filter(function(i){ return !check(i); });
       if(bad.length){ bad[0].focus(); return; }
-      var fd=new FormData(form); if(fd.get('_honey')) return;
+      var fd=new FormData(form); if(hp&&hp.value) return;
       var btn=$('button[type=submit]',form), lbl=btn.innerHTML; btn.disabled=true; btn.setAttribute('aria-busy','true'); btn.firstChild.textContent='Sending… ';
-      var data={name:fd.get('name'),phone:fd.get('phone'),email:fd.get('email'),message:fd.get('need'),_subject:'New enquiry from '+fd.get('name')+' (uscale site)',_replyto:fd.get('email'),_template:'table',_captcha:'false'};
+      var data={name:fd.get('name'),phone:fd.get('phone'),email:fd.get('email')||'',website:fd.get('link')||'',message:fd.get('need')||'I’d like a free audit.',_subject:'Free audit request from '+fd.get('name')+' (uscale site)',_template:'table',_captcha:'false'}; if(data.email) data._replyto=data.email;
       var show=function(ok){
         btn.disabled=false; btn.removeAttribute('aria-busy'); btn.innerHTML=lbl;
         var h=$('h3',done), wa=$('a',done);
         if(!ok){
-          var txt='Hi Mehul, I\'m '+data.name+' ('+data.phone+', '+data.email+'). '+data.message;
+          var txt='Hi Mehul, I\'m '+data.name+' ('+data.phone+(data.email?', '+data.email:'')+'). '+data.message+(data.website?' My website or Instagram: '+data.website:'');
           if(wa) wa.href='https://wa.me/917977360142?text='+encodeURIComponent(txt);
           if(h) h.textContent='My inbox didn\'t answer just now. Tap below to send the same message on WhatsApp.';
         }
@@ -608,6 +618,9 @@
     safety=setTimeout(endLoader,2600);
     loadT=performance.now(); heroCounters(introMs()+750); if(gs) gsBuild(introMs()+650);
   };
+  /* Live mini scenes: play only while on screen, so off-screen loops cost nothing */
+  var lives=$$('[data-live]');
+  if(lives.length&&'IntersectionObserver' in window){ var lio=new IntersectionObserver(function(es){ es.forEach(function(en){ en.target.classList.toggle('is-live',en.isIntersecting); }); },{threshold:.3}); lives.forEach(function(el){ lio.observe(el); }); }
   /* Commission calculator (restaurant page). The HTML already shows the worked example; this only re-does the sums. */
   $$('[data-calc]').forEach(function(c){
     var f=$('form',c), price=+c.dataset.price, fee=.0236;
@@ -626,4 +639,13 @@
     }
     f.addEventListener('input',run); f.addEventListener('submit',function(e){ e.preventDefault(); }); run();
   });
+  /* Key facts on phones: the first rows show, "All facts" opens the rest (all rows are always in the HTML) */
+  $$('[data-facts-more]').forEach(function(b){
+    var t=document.getElementById(b.getAttribute('aria-controls'));
+    b.addEventListener('click',function(){ var on=b.getAttribute('aria-expanded')!=='true'; b.setAttribute('aria-expanded',on?'true':'false'); if(t) t.classList.toggle('is-open',on); });
+  });
+  /* Swipe rows (phones): a row that scrolls sideways and has no links of its own gets a tab stop, so arrow keys scroll it */
+  var snaps=$$('[data-snap]');
+  function snapTabs(){ snaps.forEach(function(s){ var over=s.scrollWidth>s.clientWidth+2&&!$('a,button',s); if(over) s.setAttribute('tabindex','0'); else s.removeAttribute('tabindex'); }); }
+  if(snaps.length){ snapTabs(); window.addEventListener('resize',snapTabs,{passive:true}); }
 })();

@@ -104,7 +104,12 @@ export const SERVICES = Object.freeze([
     short: 'Website design',
     pitch: 'Fast, custom websites that turn visitors into enquiries.',
   },
-  { slug: 'seo-mumbai', name: 'SEO services in Mumbai', short: 'SEO', pitch: 'Rank on Google for the searches your customers make.' },
+  {
+    slug: 'seo-mumbai',
+    name: 'SEO services in Mumbai',
+    short: 'SEO',
+    pitch: 'Help customers find you on Google when they search for what you sell.',
+  },
   {
     slug: 'social-media-management-mumbai',
     name: 'Social media management',
@@ -115,13 +120,13 @@ export const SERVICES = Object.freeze([
     slug: 'google-meta-ads-mumbai',
     name: 'Google & Meta ads',
     short: 'Google & Meta ads',
-    pitch: 'Ads that bring leads, not just clicks.',
+    pitch: 'Ads set up to bring enquiries, not just clicks.',
   },
   {
     slug: 'ai-search-visibility',
     name: 'AI search visibility',
     short: 'AI search',
-    pitch: 'Get recommended by ChatGPT, Gemini and Google AI answers.',
+    pitch: 'Help ChatGPT, Gemini and Google’s AI describe your business accurately.',
   },
 ]);
 

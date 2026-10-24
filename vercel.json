@@ -112,7 +112,7 @@
       ]
     },
     {
-      "source": "/(styles.css|script.js|blog.css|blog.js)",
+      "source": "/(styles.css|script.js|blog.css|blog.js|tool.css|tool.js|gbp.js|gbp-art.js)",
       "headers": [
         {
           "key": "Cache-Control",
