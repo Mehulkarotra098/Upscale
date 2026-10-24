@@ -17,7 +17,7 @@ import {
 } from './parts.js';
 
 const INTRO =
-  'Plain-English guides to getting found on Google, winning on social media and turning visitors into customers. Written for Indian business owners, from real client work.';
+  'Simple, practical guides to getting found on Google, winning on social media and turning visitors into customers. Written for Indian business owners, from real client work.';
 
 function categoryNav(categories, activeSlug) {
   const withPosts = categories.filter((c) => c.n > 0);

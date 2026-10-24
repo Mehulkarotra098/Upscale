@@ -663,7 +663,7 @@ IMG = {
  'step-design': dict(file=A + 'website-design-review-approval', w=1200, h=900, small=640,
                alt='Sample design review in a design tool: desktop and mobile versions of a boutique product page, with the owner\'s comment approving it'),
  'step-launch': dict(file=A + 'website-launch-monthly-report', w=1200, h=900, small=640,
-               alt='Sample launched boutique website on a phone with a new-order notification, next to a plain-English monthly report showing website orders rising from May to October'),
+               alt='Sample launched boutique website on a phone with a new-order notification, next to a monthly report showing website orders rising from May to October'),
  'tool-checker': dict(file=A + 'google-business-profile-checker-score', w=1200, h=800, small=640,
                alt='The free Google Business Profile checker with a sample salon scored 86 out of 100: its listing marked with three problems, and a score card listing the three fixes and a review goal'),
  'tool-qr': dict(file=A + 'google-review-qr-code-standee', w=1200, h=800, small=640,

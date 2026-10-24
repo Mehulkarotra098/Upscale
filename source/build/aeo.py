@@ -217,7 +217,7 @@ BRIEF = {
  'seo-mumbai': dict(
   answer='U Scale offers SEO in Mumbai done personally by Mehul Karotra: local SEO and Google Business Profile, technical and on-page SEO, '
          'and content. Local SEO costs ₹15,000 a month and technical + on-page SEO ₹25,000 a month. Expect meaningful movement in '
-         '3–6 months, with a plain-English report every month.',
+         '3–6 months, with a clear report every month.',
   facts=[('Who does the work', 'Mehul Karotra, personally'),
          ('Price', 'Local SEO / Google Business Profile ₹15,000/month · Technical + on-page SEO ₹25,000/month'),
          ('SEO audit', '₹7,500, free if we work together'),
@@ -481,7 +481,7 @@ ABOUT_ANSWER = ('Mehul Karotra is a UI/UX developer-designer based in Mumbai, In
 HOW = [('Audit', 'I go through your website, Google listing and socials and show you exactly where enquiries are slipping away.'),
        ('Written plan', 'You get a written plan: what I will do, by when, and the exact price. No jargon.'),
        ('Build', 'I design, build and launch it myself, and you see progress every week.'),
-       ('Grow', 'Every month I improve what is working, cut what is not, and report in plain English.')]
+       ('Grow', 'Every month I improve what is working, cut what is not, and send you a clear report.')]
 
 
 def about_page(ctx, parts):

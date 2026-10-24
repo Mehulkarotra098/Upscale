@@ -77,7 +77,7 @@ def services3():
              price=f'Local SEO {price("Local SEO / Google Business Profile")} · AI search {price("AI search visibility (GEO)")}',
              links=[('/services/seo-mumbai', 'SEO services in Mumbai'), ('/services/ai-search-visibility', 'AI search visibility')]),
         dict(cls='', viz='customers', ic='camera', k='Get customers', h='More customers from social media and ads',
-             p='A monthly calendar of posts and reels, and Google and Meta ads that send people to WhatsApp, with a plain-English report.',
+             p='A monthly calendar of posts and reels, and Google and Meta ads that send people to WhatsApp, with a clear report every month.',
              chips=['Instagram & Facebook', 'Reels', 'Google & Meta ads', 'WhatsApp follow-ups'],
              price=f'Ads management {price("Ads management")} · posts from ₹800',
              links=[('/services/social-media-management-mumbai', 'Social media management'), ('/services/google-meta-ads-mumbai', 'Google & Meta ads')]),
@@ -113,7 +113,7 @@ def how():
     steps = [('Free audit', 'I check your website, Google listing and Instagram, and show you where enquiries slip away.', 'Free'),
              ('Written plan', 'What I will do, by when, and the exact price, in writing before you pay anything.', 'Fixed price'),
              ('Design & build', 'You see real screens in Figma and approve them before I build. You see progress every week.', '20% to start · 20% on design sign-off'),
-             ('Launch & grow', 'Launch, then monthly SEO, social or ads only if you want them, with a plain-English report.', '60% on launch')]
+             ('Launch & grow', 'Launch, then monthly SEO, social or ads only if you want them, with a clear report every month.', '60% on launch')]
     promise = [('key', 'Your domain, code and logins, in your name'), ('file', 'Every price published and fixed in writing'),
                ('shield', '15–30 day bug-fix window after launch')]
     shots = ['step-audit', 'step-plan', 'step-design', 'step-launch']
