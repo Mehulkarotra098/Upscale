@@ -81,7 +81,7 @@ export function renderArticle({ post, related, preview = false }) {
     {
       '@type': 'BlogPosting',
       '@id': `${url}#article`,
-      mainEntityOfPage: { '@type': 'WebPage', '@id': url },
+      mainEntityOfPage: { '@type': 'WebPage', '@id': url, url },
       headline: post.title.slice(0, 110),
       description: desc,
       image: cover
