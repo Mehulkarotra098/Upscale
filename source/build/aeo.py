@@ -118,7 +118,9 @@ COPYRIGHT = '© 2026 U Scale by Mehul Karotra. All rights reserved.'
 
 def image_rights(site):
     """Rights fields Google's image metadata report asks for: creator, credit, copyright notice, licence and where to ask for one."""
-    return {'creator': {'@type': 'Organization', '@id': site + '#business', 'name': ENTITY['name'], 'url': site},
+    # creator is a standalone Organization (no @id): Google merges same-@id nodes, and the business node is a LocalBusiness,
+    # which the image metadata report flags as an invalid type for creator (it accepts Organization or Person).
+    return {'creator': {'@type': 'Organization', 'name': ENTITY['name'], 'url': site},
             'creditText': 'U Scale', 'copyrightHolder': {'@id': site + '#business'}, 'copyrightNotice': COPYRIGHT,
             'license': site + LICENSE_SLUG, 'acquireLicensePage': site + LICENSE_SLUG}
 

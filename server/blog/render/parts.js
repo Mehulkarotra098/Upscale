@@ -20,7 +20,8 @@ export const ICON_CALENDAR =
 
 /** Rights fields for Google's image metadata (same values as the static pages; see source/build/aeo.py image_rights). */
 export const IMAGE_RIGHTS = {
-  creator: { '@type': 'Organization', '@id': abs('#business'), name: ENTITY.name, url: SITE_URL },
+  // Standalone Organization (no @id): sharing #business would merge it with the LocalBusiness node, an invalid creator type.
+  creator: { '@type': 'Organization', name: ENTITY.name, url: SITE_URL },
   creditText: 'U Scale',
   copyrightHolder: { '@id': abs('#business') },
   copyrightNotice: '© 2026 U Scale by Mehul Karotra. All rights reserved.',
