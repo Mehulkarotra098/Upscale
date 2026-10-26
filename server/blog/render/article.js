@@ -12,6 +12,7 @@ import {
   head,
   ICON_CALENDAR,
   ICON_CLOCK,
+  IMAGE_RIGHTS,
   ORGANIZATION,
   postCard,
 } from './parts.js';
@@ -83,7 +84,9 @@ export function renderArticle({ post, related, preview = false }) {
       mainEntityOfPage: { '@type': 'WebPage', '@id': url },
       headline: post.title.slice(0, 110),
       description: desc,
-      image: cover ? [{ '@type': 'ImageObject', url: coverUrl, width: post.cover_w, height: post.cover_h }] : [DEFAULT_OG],
+      image: cover
+        ? [{ '@type': 'ImageObject', url: coverUrl, contentUrl: coverUrl, width: post.cover_w, height: post.cover_h, ...IMAGE_RIGHTS }]
+        : [DEFAULT_OG],
       datePublished: isoDate(published),
       dateModified: isoDate(modified),
       inLanguage: 'en-IN',

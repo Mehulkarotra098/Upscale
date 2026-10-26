@@ -112,6 +112,29 @@ def website_ref(site):
 
 
 _LD = re.compile(r'(<script type="application/ld\+json">)(.*?)(</script>)', re.S)
+LICENSE_SLUG = 'image-license'
+COPYRIGHT = '© 2026 U Scale by Mehul Karotra. All rights reserved.'
+
+
+def image_rights(site):
+    """Rights fields Google's image metadata report asks for: creator, credit, copyright notice, licence and where to ask for one."""
+    return {'creator': {'@type': 'Organization', '@id': site + '#business', 'name': ENTITY['name'], 'url': site},
+            'creditText': 'U Scale', 'copyrightHolder': {'@id': site + '#business'}, 'copyrightNotice': COPYRIGHT,
+            'license': site + LICENSE_SLUG, 'acquireLicensePage': site + LICENSE_SLUG}
+
+
+def _is_image(x):
+    t = x.get('@type')
+    return (t == 'ImageObject' or (isinstance(t, list) and 'ImageObject' in t)) and ('contentUrl' in x or 'url' in x)
+
+
+def _add_rights(x, rights):
+    if isinstance(x, dict):
+        if _is_image(x):
+            for k, v in rights.items(): x[k] = v  # one consistent set on every image in the graph
+        for v in x.values(): _add_rights(v, rights)
+    elif isinstance(x, list):
+        for v in x: _add_rights(v, rights)
 
 
 def _refs(x, out):
@@ -141,6 +164,7 @@ def complete_graph(html, site):
             missing = [i for i in sorted(_refs(g, set()) - have) if i in nodes]
             if not missing: break
             g += [nodes[i](site) for i in missing]
+        _add_rights(g, image_rights(site))
         return m.group(1) + json.dumps(d, ensure_ascii=False, separators=(',', ':')).replace('</', '<\\/') + m.group(3)
     return _LD.sub(fix, html)
 
@@ -541,6 +565,34 @@ def about_page(ctx, parts):
     return _page(ctx, parts, url, title, desc, ld, body)
 
 
+# ---------------------------------------------------------------- /image-license
+def image_license_page(ctx, parts):
+    site = ctx['SITE_URL']; url = site + LICENSE_SLUG
+    title = 'Image Use and Licensing | U Scale'
+    desc = ('Photos, graphics and mockups on uscale.in are © U Scale by Mehul Karotra. Who owns them and how to ask before you reuse one.')
+    ld = json.dumps({'@context': 'https://schema.org', '@graph': [
+        {'@type': 'WebPage', '@id': url + '#webpage', 'url': url, 'name': title, 'description': desc, 'inLanguage': 'en-IN',
+         'isPartOf': {'@id': site + '#website'}, 'about': {'@id': site + '#business'}, 'publisher': {'@id': site + '#business'},
+         'breadcrumb': {'@id': url + '#breadcrumb'}, 'dateModified': '__LASTMOD__'},
+        {'@type': 'BreadcrumbList', '@id': url + '#breadcrumb', 'itemListElement': [
+            {'@type': 'ListItem', 'position': 1, 'name': 'Home', 'item': site},
+            {'@type': 'ListItem', 'position': 2, 'name': 'Image use and licensing', 'item': url}]}]},
+        ensure_ascii=False, separators=(',', ':')).replace('</', '<\\/')
+    body = f'''{_hero('Image use', 'Image use and licensing', 'The photos, graphics and mockups on this site are made for U Scale. Here is who owns them and how to ask before you use one.', cta=False)}
+
+  <section class="section" aria-labelledby="own-title">
+    <div class="wrap sp-prose">
+      <h3 id="own-title">Who owns the images</h3>
+      <p>Unless a caption says otherwise, every photo, illustration, mockup and graphic on uscale.in is {e(COPYRIGHT)}</p>
+      <p>Brands shown in demo images, such as Chai Kona or Saanjh Studio, are made-up samples, not real businesses. Screenshots of client websites show work U Scale did; those websites, their names and their logos belong to the businesses that own them.</p>
+      <h3 id="use-title">Using an image</h3>
+      <p>You are welcome to link to any page on this site. To reuse an image anywhere else, in an article, a presentation, a listing or a social post, please ask first.</p>
+      <p>Email <a class="tlink" href="mailto:{ea(SP.EMAIL)}">{e(SP.EMAIL)}</a> or WhatsApp {e(SP.PHONE_D)} with a link to the image and where you would like to use it. I reply personally within 24 hours. If I say yes, credit it as “Image: U Scale (uscale.in)”.</p>
+    </div>
+  </section>'''
+    return _page(ctx, parts, url, title, desc, ld, body)
+
+
 # ---------------------------------------------------------------- /services (hub)
 EXTRA_SERVICES = [  # offered on the price list, without a page of their own
     ('Branding & identity', 'Logos, visual identity and messaging.', ['Logo', 'Identity kit', 'Full identity system']),
@@ -653,6 +705,11 @@ def _fingerprint(html):
     return hashlib.sha1(h.encode()).hexdigest()[:16]
 
 
+def ld_datetime(day):
+    """YYYY-MM-DD -> ISO 8601 datetime in India time. Visible <time> tags and sitemaps keep the plain date."""
+    return f'{day}T00:00:00+05:30'
+
+
 def stamp_pages(out, site, rels):
     """For each built page: keep its last-changed date while its content is unchanged, else set it to today.
     Writes the dates into the page (__LASTMOD__ placeholders) and returns {url: date} for the sitemap and IndexNow.
@@ -671,6 +728,7 @@ def stamp_pages(out, site, rels):
         if not k or k.get('fp') != fp:
             k = {'fp': fp, 'date': TODAY}; known[url] = k; changed = True
         dates[url] = k['date']
+        html = html.replace('"dateModified":"__LASTMOD__"', f'"dateModified":"{ld_datetime(k["date"])}"')
         p.write_text(html.replace('__LASTMOD_H__', human(k['date'])).replace('__LASTMOD__', k['date']))
     if changed and not os.environ.get('VERCEL'):
         DATES_FILE.write_text(json.dumps(dict(sorted(known.items())), indent=1) + '\n')

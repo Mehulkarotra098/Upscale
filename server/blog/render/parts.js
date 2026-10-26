@@ -18,6 +18,16 @@ export const ICON_CLOCK =
 export const ICON_CALENDAR =
   '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" aria-hidden="true"><rect x="3.5" y="5" width="17" height="15" rx="3"/><path d="M8 3v4M16 3v4M3.5 10h17"/></svg>';
 
+/** Rights fields for Google's image metadata (same values as the static pages; see source/build/aeo.py image_rights). */
+export const IMAGE_RIGHTS = {
+  creator: { '@type': 'Organization', '@id': abs('#business'), name: ENTITY.name, url: SITE_URL },
+  creditText: 'U Scale',
+  copyrightHolder: { '@id': abs('#business') },
+  copyrightNotice: '© 2026 U Scale by Mehul Karotra. All rights reserved.',
+  license: abs('image-license'),
+  acquireLicensePage: abs('image-license'),
+};
+
 // Same @id as the static pages (#business), so the blog and the site describe one entity.
 export const ORGANIZATION = {
   '@type': 'LocalBusiness', // not ProfessionalService: schema.org marks that type deprecated
