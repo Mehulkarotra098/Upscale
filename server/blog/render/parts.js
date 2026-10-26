@@ -37,11 +37,13 @@ export const ORGANIZATION = {
   alternateName: ENTITY.alternateName,
   disambiguatingDescription: ENTITY.disambiguatingDescription,
   url: SITE_URL,
-  logo: { '@type': 'ImageObject', url: abs('icon-512.png'), width: 512, height: 512 },
+  logo: abs('icon-512.png'), // a plain URL, as on the static pages (an ImageObject here is read as image metadata)
+  image: abs('og-image.png'),
+  priceRange: ENTITY.priceRange,
   telephone: ENTITY.phone,
   email: ENTITY.email,
   address: { '@type': 'PostalAddress', ...ENTITY.address },
-  founder: { '@id': abs('#mehul') },
+  founder: { '@type': 'Person', '@id': abs('#mehul'), name: ENTITY.founder.name, url: abs('about') },
   sameAs: ENTITY.sameAs,
 };
 

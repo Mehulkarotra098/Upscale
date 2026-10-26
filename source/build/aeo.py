@@ -31,7 +31,7 @@ INSTAGRAM = _pick(ENTITY['sameAs'], 'instagram.com')
 LINKEDIN, GITHUB = _pick(FOUNDER['sameAs'], 'linkedin.com'), _pick(FOUNDER['sameAs'], 'github.com')
 ADDRESS = {'@type': 'PostalAddress', **ENTITY['address']}
 CITIES = {'Mumbai', 'Thane', 'Navi Mumbai'}
-PRICE_RANGE = '₹800 – ₹1,50,000'
+PRICE_RANGE = ENTITY['priceRange']
 
 
 # Entity links: each topic or place is tied to its Wikipedia article (sameAs), so search engines and AI systems match it to the
@@ -519,7 +519,7 @@ def about_page(ctx, parts):
     ld = json.dumps({'@context': 'https://schema.org', '@graph': [
         {'@type': ['AboutPage', 'ProfilePage'], '@id': url + '#webpage', 'url': url, 'name': title, 'description': desc, 'inLanguage': 'en-IN',
          'isPartOf': {'@id': site + '#website'}, 'mainEntity': {'@id': site + '#mehul'}, 'about': {'@id': site + '#business'},
-         'breadcrumb': {'@id': url + '#breadcrumb'}, 'dateModified': '__LASTMOD__'},
+         'breadcrumb': {'@id': url + '#breadcrumb'}, 'dateCreated': '2026-10-19T20:42:57+05:30', 'dateModified': '__LASTMOD__'},
         person_full(site), biz_ref(site),
         {'@type': 'BreadcrumbList', '@id': url + '#breadcrumb', 'itemListElement': [
             {'@type': 'ListItem', 'position': 1, 'name': 'Home', 'item': site}, {'@type': 'ListItem', 'position': 2, 'name': 'About', 'item': url}]},

@@ -165,7 +165,7 @@ def home_jsonld(site, faq):
     import aeo
     # The full price list is marked up on /pricing, where every price is on screen; the home page only shows some of them,
     # so the business points at that catalogue by @id instead of repeating 32 offers that aren't visible here.
-    biz = aeo.biz_full(site, {'@id': site + 'pricing#prices'})
+    biz = aeo.biz_full(site, {'@type': 'OfferCatalog', '@id': site + 'pricing#prices', 'name': 'U Scale price list', 'url': site + 'pricing'})
     desc = re.search(r'<meta name="description" content="([^"]+)"', (config.REPO / 'source' / 'src' / 'index.src.html').read_text(encoding='utf-8')).group(1)
     person = aeo.person_full(site)
     website = dict(aeo.website_ref(site), description=desc)
@@ -489,10 +489,11 @@ TOOL = dict(slug='google-review-qr-code',
 
 def tool_jsonld(site, t):
     url = f'{site}tools/{t["slug"]}'
-    g = [{'@type': 'WebApplication', '@id': url + '#app', 'name': 'Google Review Link & QR Code Maker', 'url': url, 'description': t['desc'],
-          'applicationCategory': 'BusinessApplication', 'operatingSystem': 'Any (runs in the browser)', 'isAccessibleForFree': True, 'inLanguage': 'en-IN',
-          'offers': {'@type': 'Offer', 'price': '0', 'priceCurrency': 'INR'},
-          'publisher': {'@id': site + '#business'}, 'creator': {'@id': site + '#mehul'}},
+    # Service, not WebApplication: Google's Software App result wants ratings or reviews, which a free tool doesn't have.
+    g = [{'@type': 'Service', '@id': url + '#app', 'name': 'Google Review Link & QR Code Maker', 'url': url, 'description': t['desc'],
+          'serviceType': 'Free online tool', 'category': 'Local SEO tools', 'provider': {'@id': site + '#business'}, 'areaServed': {'@type': 'Country', 'name': 'India'},
+          'availableChannel': {'@type': 'ServiceChannel', 'serviceUrl': url, 'availableLanguage': 'English'},
+          'offers': {'@type': 'Offer', 'price': '0', 'priceCurrency': 'INR', 'url': url}},
          {'@type': 'WebPage', '@id': url + '#webpage', 'url': url, 'name': t['title'], 'description': t['desc'], 'isPartOf': {'@id': site + '#website'},
           'mainEntity': {'@id': url + '#app'}, 'author': {'@id': site + '#mehul'}, 'inLanguage': 'en-IN', 'dateModified': '__LASTMOD__'},
          __import__('aeo').biz_ref(site), __import__('aeo').person_ref(site),
@@ -890,10 +891,11 @@ def _crumbs_ld(site, items):
 
 def gbp_jsonld(site, t):
     url = f'{site}tools/{t["slug"]}'
-    g = [{'@type': 'WebApplication', '@id': url + '#app', 'name': 'Google Business Profile Checker', 'url': url, 'description': t['desc'],
-          'applicationCategory': 'BusinessApplication', 'operatingSystem': 'Any (runs in the browser)', 'isAccessibleForFree': True, 'inLanguage': ['en-IN', 'hi-Latn'],
-          'offers': {'@type': 'Offer', 'price': '0', 'priceCurrency': 'INR'},
-          'publisher': {'@id': site + '#business'}, 'creator': {'@id': site + '#mehul'}},
+    # Service, not WebApplication: Google's Software App result wants ratings or reviews, which a free tool doesn't have.
+    g = [{'@type': 'Service', '@id': url + '#app', 'name': 'Google Business Profile Checker', 'url': url, 'description': t['desc'],
+          'serviceType': 'Free online tool', 'category': 'Local SEO tools', 'provider': {'@id': site + '#business'}, 'areaServed': {'@type': 'Country', 'name': 'India'},
+          'availableChannel': {'@type': 'ServiceChannel', 'serviceUrl': url, 'availableLanguage': ['English', 'Hindi']},
+          'offers': {'@type': 'Offer', 'price': '0', 'priceCurrency': 'INR', 'url': url}},
          {'@type': 'WebPage', '@id': url + '#webpage', 'url': url, 'name': t['title'], 'description': t['desc'], 'isPartOf': {'@id': site + '#website'},
           'mainEntity': {'@id': url + '#app'}, 'author': {'@id': site + '#mehul'}, 'inLanguage': 'en-IN', 'dateModified': '__LASTMOD__'},
          __import__('aeo').biz_ref(site), __import__('aeo').person_ref(site),

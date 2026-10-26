@@ -16,6 +16,7 @@ export default Object.freeze({
   whatsapp: '917977360142',
   email: 'uscalewithus@gmail.com',
   base: 'Mumbai',
+  priceRange: '₹800 – ₹1,50,000',
   address: {
     addressLocality: 'Mumbai',
     addressRegion: 'Maharashtra',
