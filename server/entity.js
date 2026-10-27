@@ -18,8 +18,10 @@ export default Object.freeze({
   base: 'Mumbai',
   priceRange: '₹800 – ₹1,50,000',
   address: {
+    streetAddress: 'Silver Point, Ghatkopar West',
     addressLocality: 'Mumbai',
     addressRegion: 'Maharashtra',
+    postalCode: '400086',
     addressCountry: 'IN',
   },
   areaServed: ['Mumbai', 'Thane', 'Navi Mumbai'],
