@@ -6,7 +6,7 @@
     "node": ">=20"
   },
   "scripts": {
-    "build": "python3 source/build/build_site.py && node admin/build.mjs && node scripts/check-functions.mjs",
+    "build": "python3 source/build/build_site.py && node admin/build.mjs && node card/build.mjs && node scripts/check-functions.mjs",
     "dev": "node dev/server.mjs",
     "lint": "eslint . && prettier --check .",
     "format": "prettier --write .",
@@ -33,9 +33,17 @@
     "esbuild": "^0.28.2",
     "eslint": "9.39.5",
     "eslint-plugin-react": "7.37.5",
+    "fabric": "^7.4.0",
     "globals": "15.15.0",
+    "harfbuzzjs": "^1.6.4",
+    "jspdf": "^4.2.1",
+    "jsqr": "^1.4.0",
+    "lucide-static": "^1.66.0",
+    "pdf-lib": "^1.17.1",
     "preact": "^10.29.8",
-    "prettier": "3.9.10"
+    "prettier": "3.9.10",
+    "qrcode-generator": "^2.0.4",
+    "svg2pdf.js": "^2.9.0"
   },
   "overrides": {
     "sanitize-html": {

@@ -1,0 +1,482 @@
+[
+ {
+  "id": "quadrant-cross",
+  "name": "Quadrant",
+  "category": "health",
+  "orientation": "horizontal"
+ },
+ {
+  "id": "arch-wire",
+  "name": "Arch Wire",
+  "category": "health",
+  "orientation": "vertical"
+ },
+ {
+  "id": "growth-chart",
+  "name": "Growth Chart",
+  "category": "health",
+  "orientation": "horizontal"
+ },
+ {
+  "id": "double-rule",
+  "name": "Double Rule",
+  "category": "professional",
+  "orientation": "horizontal"
+ },
+ {
+  "id": "compound-lines",
+  "name": "Compound",
+  "category": "luxury",
+  "orientation": "horizontal"
+ },
+ {
+  "id": "fluted-column",
+  "name": "Colonnade",
+  "category": "professional",
+  "orientation": "horizontal"
+ },
+ {
+  "id": "vanishing-point",
+  "name": "Vanishing Point",
+  "category": "creative",
+  "orientation": "horizontal"
+ },
+ {
+  "id": "golden-section",
+  "name": "Golden Section",
+  "category": "creative",
+  "orientation": "vertical"
+ },
+ {
+  "id": "lit-facade",
+  "name": "Lit Facade",
+  "category": "professional",
+  "orientation": "vertical"
+ },
+ {
+  "id": "survey-plot",
+  "name": "Survey Plot",
+  "category": "professional",
+  "orientation": "horizontal"
+ },
+ {
+  "id": "swiss-poster",
+  "name": "Swiss Poster",
+  "category": "bold",
+  "orientation": "horizontal"
+ },
+ {
+  "id": "signet-ring",
+  "name": "Signet",
+  "category": "luxury",
+  "orientation": "horizontal"
+ },
+ {
+  "id": "bezel-dial",
+  "name": "Bezel",
+  "category": "professional",
+  "orientation": "horizontal"
+ },
+ {
+  "id": "open-pages",
+  "name": "Open Pages",
+  "category": "professional",
+  "orientation": "vertical"
+ },
+ {
+  "id": "shamiana-edge",
+  "name": "Shamiana",
+  "category": "hindi",
+  "orientation": "horizontal"
+ },
+ {
+  "id": "athangudi-floor",
+  "name": "Athangudi",
+  "category": "food",
+  "orientation": "vertical"
+ },
+ {
+  "id": "pulli-kolam",
+  "name": "Pulli Kolam",
+  "category": "food",
+  "orientation": "horizontal"
+ },
+ {
+  "id": "mehndi-corner",
+  "name": "Mehndi Corner",
+  "category": "beauty",
+  "orientation": "horizontal"
+ },
+ {
+  "id": "bindi-disc",
+  "name": "Bindi",
+  "category": "hindi",
+  "orientation": "vertical"
+ },
+ {
+  "id": "bagru-block",
+  "name": "Bagru Block",
+  "category": "retail",
+  "orientation": "horizontal"
+ },
+ {
+  "id": "masala-dabba",
+  "name": "Masala Dabba",
+  "category": "retail",
+  "orientation": "horizontal"
+ },
+ {
+  "id": "bahi-khata",
+  "name": "Bahi Khata",
+  "category": "hindi",
+  "orientation": "vertical"
+ },
+ {
+  "id": "three-phase",
+  "name": "Three Phase",
+  "category": "trades",
+  "orientation": "horizontal"
+ },
+ {
+  "id": "wall-paint",
+  "name": "Wall Paint",
+  "category": "hindi",
+  "orientation": "horizontal"
+ },
+ {
+  "id": "copy-label",
+  "name": "Copy Label",
+  "category": "marathi",
+  "orientation": "horizontal"
+ },
+ {
+  "id": "jaali-screen",
+  "name": "Jaali Screen",
+  "category": "luxury",
+  "orientation": "horizontal"
+ },
+ {
+  "id": "iris-rosette",
+  "name": "Iris",
+  "category": "creative",
+  "orientation": "horizontal"
+ },
+ {
+  "id": "patang-string",
+  "name": "Patang",
+  "category": "marathi",
+  "orientation": "vertical"
+ },
+ {
+  "id": "monolith",
+  "name": "Monolith",
+  "category": "bold",
+  "orientation": "horizontal"
+ },
+ {
+  "id": "jharokha",
+  "name": "Jharokha",
+  "category": "traditional",
+  "orientation": "horizontal"
+ },
+ {
+  "id": "bandhani",
+  "name": "Bandhani",
+  "category": "traditional",
+  "orientation": "horizontal"
+ },
+ {
+  "id": "clinic",
+  "name": "Clinic",
+  "category": "health",
+  "orientation": "horizontal"
+ },
+ {
+  "id": "ledger",
+  "name": "Ledger",
+  "category": "professional",
+  "orientation": "horizontal"
+ },
+ {
+  "id": "blueprint",
+  "name": "Blueprint",
+  "category": "trades",
+  "orientation": "horizontal"
+ },
+ {
+  "id": "ticket",
+  "name": "Ticket",
+  "category": "food",
+  "orientation": "horizontal"
+ },
+ {
+  "id": "contour",
+  "name": "Contour",
+  "category": "professional",
+  "orientation": "horizontal"
+ },
+ {
+  "id": "terminal",
+  "name": "Terminal",
+  "category": "tech",
+  "orientation": "horizontal"
+ },
+ {
+  "id": "rangoli",
+  "name": "Rangoli",
+  "category": "traditional",
+  "orientation": "horizontal"
+ },
+ {
+  "id": "editorial",
+  "name": "Editorial",
+  "category": "creative",
+  "orientation": "vertical"
+ },
+ {
+  "id": "shirorekha",
+  "name": "Shirorekha",
+  "category": "hindi",
+  "orientation": "horizontal"
+ },
+ {
+  "id": "side-panel",
+  "name": "Side Panel",
+  "category": "professional",
+  "orientation": "horizontal"
+ },
+ {
+  "id": "quiet-arc",
+  "name": "Quiet Arc",
+  "category": "minimal",
+  "orientation": "horizontal"
+ },
+ {
+  "id": "shop-sign",
+  "name": "Shop Sign",
+  "category": "retail",
+  "orientation": "horizontal"
+ },
+ {
+  "id": "brilliant-cut",
+  "name": "Brilliant Cut",
+  "category": "retail",
+  "orientation": "horizontal"
+ },
+ {
+  "id": "kaju-katli",
+  "name": "Kaju Katli",
+  "category": "food",
+  "orientation": "horizontal"
+ },
+ {
+  "id": "cracked-screen",
+  "name": "Cracked Screen",
+  "category": "retail",
+  "orientation": "vertical"
+ },
+ {
+  "id": "genda-toran",
+  "name": "Genda Toran",
+  "category": "retail",
+  "orientation": "horizontal"
+ },
+ {
+  "id": "lapel",
+  "name": "Lapel",
+  "category": "retail",
+  "orientation": "vertical"
+ },
+ {
+  "id": "thali",
+  "name": "Thali",
+  "category": "food",
+  "orientation": "horizontal"
+ },
+ {
+  "id": "tiffin-stack",
+  "name": "Tiffin Stack",
+  "category": "food",
+  "orientation": "vertical"
+ },
+ {
+  "id": "ganache-drip",
+  "name": "Ganache Drip",
+  "category": "food",
+  "orientation": "horizontal"
+ },
+ {
+  "id": "banana-leaf",
+  "name": "Banana Leaf",
+  "category": "food",
+  "orientation": "horizontal"
+ },
+ {
+  "id": "citrus-sun",
+  "name": "Citrus Sun",
+  "category": "food",
+  "orientation": "horizontal"
+ },
+ {
+  "id": "gunny-sack",
+  "name": "Gunny Sack",
+  "category": "retail",
+  "orientation": "horizontal"
+ },
+ {
+  "id": "full-smile",
+  "name": "Full Smile",
+  "category": "health",
+  "orientation": "horizontal"
+ },
+ {
+  "id": "herbarium",
+  "name": "Herbarium",
+  "category": "health",
+  "orientation": "vertical"
+ },
+ {
+  "id": "skin-fade",
+  "name": "Skin Fade",
+  "category": "beauty",
+  "orientation": "horizontal"
+ },
+ {
+  "id": "lipstick-bullet",
+  "name": "Bullet",
+  "category": "beauty",
+  "orientation": "vertical"
+ },
+ {
+  "id": "towel-fold",
+  "name": "Towel Fold",
+  "category": "beauty",
+  "orientation": "horizontal"
+ },
+ {
+  "id": "twelve-poses",
+  "name": "Twelve Poses",
+  "category": "health",
+  "orientation": "horizontal"
+ },
+ {
+  "id": "loaded-bar",
+  "name": "Loaded Bar",
+  "category": "health",
+  "orientation": "horizontal"
+ },
+ {
+  "id": "ambi-paisley",
+  "name": "Ambi",
+  "category": "beauty",
+  "orientation": "horizontal"
+ },
+ {
+  "id": "monsoon-cover",
+  "name": "Monsoon",
+  "category": "professional",
+  "orientation": "horizontal"
+ },
+ {
+  "id": "switch-plate",
+  "name": "Switch Plate",
+  "category": "trades",
+  "orientation": "horizontal"
+ },
+ {
+  "id": "tap-tap",
+  "name": "Tap Tap",
+  "category": "trades",
+  "orientation": "vertical"
+ },
+ {
+  "id": "room-view",
+  "name": "Room View",
+  "category": "professional",
+  "orientation": "horizontal"
+ },
+ {
+  "id": "speedo-dial",
+  "name": "Speedo",
+  "category": "trades",
+  "orientation": "horizontal"
+ },
+ {
+  "id": "horn-ok",
+  "name": "Truck Art",
+  "category": "trades",
+  "orientation": "horizontal"
+ },
+ {
+  "id": "press-sheet",
+  "name": "Press Sheet",
+  "category": "trades",
+  "orientation": "horizontal"
+ },
+ {
+  "id": "crop-mark",
+  "name": "Off Register",
+  "category": "creative",
+  "orientation": "horizontal"
+ },
+ {
+  "id": "film-strip",
+  "name": "Film Strip",
+  "category": "creative",
+  "orientation": "vertical"
+ },
+ {
+  "id": "profile-screen",
+  "name": "Profile Screen",
+  "category": "tech",
+  "orientation": "vertical"
+ },
+ {
+  "id": "stave",
+  "name": "Stave",
+  "category": "creative",
+  "orientation": "horizontal"
+ },
+ {
+  "id": "marigold",
+  "name": "Marigold",
+  "category": "traditional",
+  "orientation": "horizontal"
+ },
+ {
+  "id": "mix-desk",
+  "name": "Mix Desk",
+  "category": "bold",
+  "orientation": "horizontal"
+ },
+ {
+  "id": "paper-chain",
+  "name": "Paper Chain",
+  "category": "professional",
+  "orientation": "horizontal"
+ },
+ {
+  "id": "engraved",
+  "name": "Engraved",
+  "category": "luxury",
+  "orientation": "vertical"
+ },
+ {
+  "id": "peekaboo",
+  "name": "Peekaboo",
+  "category": "playful",
+  "orientation": "horizontal"
+ },
+ {
+  "id": "station-board",
+  "name": "Station Board",
+  "category": "hindi",
+  "orientation": "horizontal"
+ },
+ {
+  "id": "pati",
+  "name": "Pati",
+  "category": "marathi",
+  "orientation": "horizontal"
+ }
+]

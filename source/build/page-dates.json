@@ -1,6 +1,6 @@
 {
  "https://uscale.in/": {
-  "fp": "934186b29a27b9c6",
+  "fp": "662792aa98038c93",
   "date": "2026-11-01"
  },
  "https://uscale.in/about": {
@@ -64,8 +64,8 @@
   "date": "2026-11-01"
  },
  "https://uscale.in/tools": {
-  "fp": "8762c26197e509a4",
-  "date": "2026-10-26"
+  "fp": "d5886d11d926a2fa",
+  "date": "2026-11-01"
  },
  "https://uscale.in/tools/google-business-profile-checker": {
   "fp": "25391274eb1f680a",
@@ -74,5 +74,13 @@
  "https://uscale.in/tools/google-review-qr-code": {
   "fp": "e38938fbf7348063",
   "date": "2026-10-26"
+ },
+ "https://uscale.in/tools/qr-code-generator": {
+  "fp": "1f2b6ea1524ffc3e",
+  "date": "2026-11-01"
+ },
+ "https://uscale.in/tools/visiting-card-maker": {
+  "fp": "a5c52113f51e6b34",
+  "date": "2026-11-01"
  }
 }

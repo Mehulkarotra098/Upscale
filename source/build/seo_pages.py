@@ -1,7 +1,7 @@
 """SEO layer for the U Scale site: home JSON-LD, service landing pages, sitemap, robots, llms.txt, 404, icons.
 Called from build_site.py after the home page is assembled. Pure static output (standard library only).
 URLs come from ctx['SITE_URL'], which build_site.py reads from the SITE_URL environment variable (config.py)."""
-import json, re, html
+import json, re, html, sys
 import config
 
 TODAY = config.BUILD_DATE
@@ -461,6 +461,8 @@ def llms_txt(site, faq, updated=TODAY):
     lines += ['', '## Free tools', '',
               f'- [Google Business Profile checker]({site}tools/google-business-profile-checker): a score out of 100 with a fix list and review goal (runs in the browser, no sign-up)',
               f'- [Google review QR code and counter standee maker]({site}tools/google-review-qr-code): runs in the browser, no sign-up',
+              f'- [Free visiting card and business card maker]({site}tools/visiting-card-maker): editable designs, with PNG, SVG and print PDF downloads, in English, Hindi or Marathi (runs in the browser, no sign-up, no watermark)',
+              f'- [Free QR code generator]({site}tools/qr-code-generator): links, contacts, WhatsApp, UPI and Wi-Fi, with your own shapes, colours and logo, and PNG, SVG and PDF downloads. Codes never expire (runs in the browser, no sign-up)',
               f'- [All free tools]({site}tools)', '',
               '## Work', '', f'- [Selected work]({site}#work): TIS Admissions (concept), Antrah Wellness, Roar Arena, My Country Mobile (in-house role), Callmama (in-house role), GrowCred, Sashe by Prachi, Vidhi Parmar, BrandGen. Live links are on the home page.', '',
               '## About Mehul Karotra', '', f'- [Profile]({site}about): website designer and developer from Mumbai and founder of U Scale, working as an independent, contract-based partner']
@@ -1042,6 +1044,16 @@ def gbp_page(ctx, parts, tv):
 '''
 
 def _tool_card(which):
+    if which == 'qrgen':
+        return ('<a class="th-card" href="/tools/qr-code-generator"><span class="th-card__art th-card__art--cm" aria-hidden="true"><img class="th-cm" src="/assets/tools/qr-tool-tile.webp" alt="" width="1200" height="800" loading="lazy" decoding="async"></span>'
+                '<h3>QR code generator</h3><p>Make a QR code for a link, contact, WhatsApp, UPI or Wi-Fi. Choose its shapes and colours, add your logo, and download it. Codes never expire.</p>'
+                '<ul><li>Your logo</li><li>No expiry</li><li>PNG, SVG, PDF</li></ul><span class="btn btn--go">Make my QR code <span class="arw" aria-hidden="true"><b>→</b><b>→</b></span></span></a>')
+    if which == 'card':
+        import card_page
+        n = len(card_page.templates())
+        return ('<a class="th-card" href="/tools/visiting-card-maker"><span class="th-card__art th-card__art--cm" aria-hidden="true"><img class="th-cm" src="/assets/card/thumbs/rangoli.webp" alt="" width="480" height="274" loading="lazy" decoding="async"></span>'
+                '<h3>Visiting card maker</h3><p>Pick a design, type your details and edit anything. Download a PNG, a vector SVG and a print-ready PDF, in English, Hindi or Marathi.</p>'
+                f'<ul><li>{n} designs</li><li>No watermark</li><li>PNG, SVG, PDF</li></ul><span class="btn btn--go">Make my card <span class="arw" aria-hidden="true"><b>→</b><b>→</b></span></span></a>')
     if which == 'qr':
         return ('<a class="th-card" href="/tools/google-review-qr-code"><span class="th-card__art th-card__art--gp" aria-hidden="true"><img class="th-qr" src="/assets/tools/standee-sample.webp" alt="" width="600" height="846" loading="lazy" decoding="async"></span>'
                 '<h3>Google review link &amp; QR code maker</h3><p>Find your Google review link from any Maps link, no owner access needed. Download a QR code, a print-ready counter standee and WhatsApp messages.</p>'
@@ -1050,12 +1062,16 @@ def _tool_card(which):
             '<h3>Google Business Profile checker</h3><p>Answer 16 quick questions about your Google listing. Get a score out of 100, your top fixes with step-by-step help, and a review goal.</p>'
             '<ul><li>Score out of 100</li><li>Top fixes</li><li>Review calculator</li></ul><span class="btn btn--go">Check my profile <span class="arw" aria-hidden="true"><b>→</b><b>→</b></span></span></a>')
 
-# Answer-first "In short" blocks for the three tools pages (visible text; AI tools and Google quote these).
-TOOLS_ANSWER = ('U Scale has two free tools for local businesses in India. The Google Business Profile checker scores your Google listing '
+# Answer-first "In short" blocks for the tools pages (visible text; AI tools and Google quote these).
+TOOLS_ANSWER = ('U Scale has four free tools for local businesses in India. The Google Business Profile checker scores your Google listing '
                 'out of 100 in about 2 minutes and gives you a fix list and a review goal. The Google review QR code maker finds your review '
-                'link and turns it into a QR code and a printable counter standee. Both are free, need no sign-up and work in English or Hinglish.')
+                'link and turns it into a QR code and a printable counter standee. The visiting card maker lets you edit a design and download a PNG, SVG and print PDF. '
+                'The QR code generator makes codes for links, contacts, UPI and Wi-Fi, with your own style and logo. '
+                'All four are free, need no sign-up and work in English or Hinglish.')
 TOOLS_FACTS = [('Google Business Profile checker', 'A score out of 100, a fix list and a review goal, in about 2 minutes'),
                ('Google review QR code maker', 'Your review link, a QR code and a printable counter standee'),
+               ('Visiting card maker', 'Editable designs, with PNG, SVG and print PDF downloads'),
+               ('QR code generator', 'Your own style and logo, for links, contacts, UPI and Wi-Fi'),
                ('Cost', 'Free, no sign-up'), ('Languages', 'English and Hinglish'), ('Made by', 'Mehul Karotra, U Scale, Mumbai')]
 GBP_ANSWER = ('The free Google Business Profile checker from U Scale scores your Google listing out of 100 in about 2 minutes. It looks at '
               'your category, photos, hours, reviews and replies, and your website if you have one, then gives you a fix list in order of '
@@ -1074,16 +1090,19 @@ def tools_hub(ctx, parts, tv):
     header, menu, footer, tail = parts
     url = f'{site}tools'
     title = 'Free Tools for Local Businesses, No Sign-up | U Scale'
-    desc = '100% free, no sign-up tools for Indian shops, clinics and salons: check your Google Business Profile score and make a Google review QR code standee.'
+    desc = '100% free, no sign-up tools for Indian shops, clinics and salons: check your Google Business Profile score, make a Google review QR code standee, design a visiting card and make a QR code.'
     ld = json.dumps({'@context': 'https://schema.org', '@graph': [
         {'@type': 'CollectionPage', '@id': url + '#webpage', 'url': url, 'name': title, 'description': desc, 'inLanguage': 'en-IN', 'isPartOf': {'@id': site + '#website'},
          'about': {'@id': site + '#business'}, 'breadcrumb': {'@id': url + '#breadcrumb'},
          'publisher': {'@id': site + '#business'}, 'dateModified': '__LASTMOD__',
          'mainEntity': {'@type': 'ItemList', 'itemListElement': [
             {'@type': 'ListItem', 'position': 1, 'url': f'{site}tools/google-business-profile-checker', 'name': 'Google Business Profile checker'},
-            {'@type': 'ListItem', 'position': 2, 'url': f'{site}tools/google-review-qr-code', 'name': 'Google review link & QR code maker'}]}},
+            {'@type': 'ListItem', 'position': 2, 'url': f'{site}tools/google-review-qr-code', 'name': 'Google review link & QR code maker'},
+            {'@type': 'ListItem', 'position': 3, 'url': f'{site}tools/visiting-card-maker', 'name': 'Visiting card maker'},
+            {'@type': 'ListItem', 'position': 4, 'url': f'{site}tools/qr-code-generator', 'name': 'QR code generator'}]}},
         __import__('aeo').biz_ref(site), _crumbs_ld(site, [('Home', site), ('Free tools', url)])]}, ensure_ascii=False).replace('</', '<\\/')
     head = _tool_head(ctx, url, title, desc, f'{site}assets/tools/gbp-checker-og.png', 'Free tools for local businesses by U Scale', ld, tv)
+    head = head.replace('</head>', f'<link rel="stylesheet" href="/card.css?v={tv}">\n</head>')
     return f'''{head}
 <body class="page-sub page-tool page-hub">
 <a class="skip" href="#main">Skip to content</a>
@@ -1102,7 +1121,7 @@ def tools_hub(ctx, parts, tv):
   <section class="section" aria-labelledby="tools-title">
     <div class="wrap">
       <h2 class="sr-only" id="tools-title">All free tools</h2>
-      <div class="th-grid">{_tool_card('gp')}{_tool_card('qr')}</div>
+      <div class="th-grid th-grid--4">{_tool_card('gp')}{_tool_card('qr')}{_tool_card('card')}{_tool_card('qrgen')}</div>
       <p class="th-more">Want something done for you instead? See <a class="tlink" href="/services/seo-mumbai">local SEO</a>, <a class="tlink" href="/services/website-design-mumbai">website design</a> or <a class="tlink" href="/pricing">the full price list</a>.</p>
     </div>
   </section>
@@ -1130,14 +1149,20 @@ def build(ctx):
     import hashlib
     src = config.REPO / 'source' / 'src'
     tcss, tjs, gjs, gart = (src / 'tool.css').read_text(), (src / 'tool.js').read_text(), (src / 'gbp.js').read_text(), (src / 'gbp-art.js').read_text()
-    tv = hashlib.sha1((tcss + tjs + gjs + gart).encode()).hexdigest()[:8]
+    ccss = (src / 'card.css').read_text()
+    tv = hashlib.sha1((tcss + tjs + gjs + gart + ccss).encode()).hexdigest()[:8]
     (out / 'tool.css').write_text(tcss)
+    (out / 'card.css').write_text(ccss)
     (out / 'tool.js').write_text(tjs)
     (out / 'gbp.js').write_text(gjs)
     (out / 'gbp-art.js').write_text(gart)
     (out / 'tools').mkdir(exist_ok=True)
     (out / 'tools' / f'{TOOL["slug"]}.html').write_text(tool_page(ctx, parts, tv))
     (out / 'tools' / f'{GBP["slug"]}.html').write_text(gbp_page(ctx, parts, tv))
+    import card_page
+    (out / 'tools' / f'{card_page.SLUG}.html').write_text(card_page.page(ctx, parts, tv, sys.modules[__name__]))
+    import qr_page
+    (out / 'tools' / f'{qr_page.SLUG}.html').write_text(qr_page.page(ctx, parts, tv, sys.modules[__name__]))
     (out / 'tools' / 'index.html').write_text(tools_hub(ctx, parts, tv))
     (out / 'about.html').write_text(aeo.about_page(ctx, parts))
     (out / f'{aeo.LICENSE_SLUG}.html').write_text(aeo.image_license_page(ctx, parts))
@@ -1145,7 +1170,7 @@ def build(ctx):
     import geo_pages  # websites by business type and by area (/services/website-design-mumbai/<slug>)
     geo_rels = geo_pages.build(ctx, parts)
     rels = (['index.html', 'about.html', 'services.html', 'pricing.html'] + [f'services/{x["slug"]}.html' for x in SERVICES] + geo_rels
-            + ['tools/index.html', f'tools/{GBP["slug"]}.html', f'tools/{TOOL["slug"]}.html', f'{aeo.LICENSE_SLUG}.html'])
+            + ['tools/index.html', f'tools/{GBP["slug"]}.html', f'tools/{TOOL["slug"]}.html', f'tools/{card_page.SLUG}.html', f'tools/{qr_page.SLUG}.html', f'{aeo.LICENSE_SLUG}.html'])
     dates = aeo.stamp_pages(out, site, rels)  # each page's date moves only when its content changes
     prio = {site: '1.0', site + 'pricing': '0.9', site + 'services': '0.9', site + 'about': '0.8', site + 'tools': '0.7', site + aeo.LICENSE_SLUG: '0.2'}
     # Sitemap index: static pages here, blog posts from the live database at /sitemap-blog.xml (server-rendered).
@@ -1153,7 +1178,7 @@ def build(ctx):
     pics[site + 'about'] = [(site + aeo.FOUNDER['image'], 'Mehul Karotra, founder of U Scale')]
     # Home and tool pages: the product shots and tool images shown in <main>, read from the built page so the image
     # sitemap lists exactly what people see there (work thumbnails and logos are left out).
-    for rel in ['index.html', 'tools/index.html', f'tools/{GBP["slug"]}.html', f'tools/{TOOL["slug"]}.html']:
+    for rel in ['index.html', 'tools/index.html', f'tools/{GBP["slug"]}.html', f'tools/{TOOL["slug"]}.html', f'tools/{card_page.SLUG}.html', f'tools/{qr_page.SLUG}.html']:
         u = site + ('' if rel == 'index.html' else rel[:-5].replace('/index', ''))
         main = re.search(r'<main\b.*?</main>', (out / rel).read_text(), re.S)
         srcs = re.findall(r'<img\b[^>]*?\ssrc="/(assets/(?:pages|tools)/[^"?]+)(?:\?[^"]*)?"', main.group(0) if main else '')
@@ -1175,7 +1200,7 @@ def build(ctx):
     (out / '_blog' / 'pages.json').write_text(json.dumps([{'url': u, 'lastmod': d} for u, d in dates.items()]))
     (out / 'site.webmanifest').write_text(json.dumps({'name': 'U Scale by Mehul Karotra', 'short_name': 'U Scale', 'start_url': '/', 'display': 'standalone',
         'background_color': '#FAF9FC', 'theme_color': '#251E45', 'icons': [{'src': '/icon-192.png', 'sizes': '192x192', 'type': 'image/png'}, {'src': '/icon-512.png', 'sizes': '512x512', 'type': 'image/png'}]}, indent=1))
-    return ['about', 'services', 'pricing', 'blog-shell', 'tools', 'tools/' + TOOL['slug'], 'tools/' + GBP['slug']] + [s['slug'] for s in SERVICES]
+    return ['about', 'services', 'pricing', 'blog-shell', 'tools', 'tools/' + TOOL['slug'], 'tools/' + GBP['slug'], 'tools/' + card_page.SLUG, 'tools/qr-code-generator'] + [s['slug'] for s in SERVICES]
 
 # ---------------------------------------------------------------- pricing: home teaser, quote builder, terms tiles
 import pricing_data as PD
