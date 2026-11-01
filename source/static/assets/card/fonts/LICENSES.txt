@@ -1,0 +1,26 @@
+These fonts are from Google Fonts (github.com/google/fonts) under the SIL Open Font License 1.1: https://openfontlicense.org
+
+Inter: ofl/inter/Inter[opsz,wght].ttf
+Manrope: ofl/manrope/Manrope[wght].ttf
+Outfit: ofl/outfit/Outfit[wght].ttf
+Montserrat: ofl/montserrat/Montserrat[wght].ttf
+DM Sans: ofl/dmsans/DMSans[opsz,wght].ttf
+Space Grotesk: ofl/spacegrotesk/SpaceGrotesk[wght].ttf
+Bricolage Grotesque: ofl/bricolagegrotesque/BricolageGrotesque[opsz,wdth,wght].ttf
+Syne: ofl/syne/Syne[wght].ttf
+Anton: ofl/anton/Anton-Regular.ttf
+Bebas Neue: ofl/bebasneue/BebasNeue-Regular.ttf
+Playfair Display: ofl/playfairdisplay/PlayfairDisplay[wght].ttf
+Fraunces: ofl/fraunces/Fraunces[SOFT,WONK,opsz,wght].ttf
+Cormorant Garamond: ofl/cormorantgaramond/CormorantGaramond[wght].ttf
+Lora: ofl/lora/Lora[wght].ttf
+DM Serif Display: ofl/dmserifdisplay/DMSerifDisplay-Regular.ttf
+Marcellus: ofl/marcellus/Marcellus-Regular.ttf
+JetBrains Mono: ofl/jetbrainsmono/JetBrainsMono[wght].ttf
+Caveat: ofl/caveat/Caveat[wght].ttf
+Noto Sans Devanagari: ofl/notosansdevanagari/NotoSansDevanagari[wdth,wght].ttf
+Noto Serif Devanagari: ofl/notoserifdevanagari/NotoSerifDevanagari[wdth,wght].ttf
+Baloo 2: ofl/baloo2/Baloo2[wght].ttf
+Rozha One: ofl/rozhaone/RozhaOne-Regular.ttf
+Tiro Devanagari Hindi: ofl/tirodevanagarihindi/TiroDevanagariHindi-Regular.ttf
+Yatra One: ofl/yatraone/YatraOne-Regular.ttf

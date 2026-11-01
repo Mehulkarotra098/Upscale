@@ -53,6 +53,8 @@ const MIME = {
   '.webmanifest': 'application/manifest+json',
   '.ico': 'image/x-icon',
   '.woff2': 'font/woff2',
+  '.ttf': 'font/ttf',
+  '.wasm': 'application/wasm',
 };
 
 function staticFile(p) {

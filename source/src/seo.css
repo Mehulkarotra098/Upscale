@@ -658,7 +658,7 @@ html.pin-ok .sp-process .step{opacity:1;transform:none}
 .fp-tool__go{display:inline-flex;align-items:center;justify-self:start;gap:8px;margin-top:8px;padding:0 18px;min-height:48px;border-radius:12px;background:var(--violet);color:var(--white);font:700 15px/1 var(--sans)}
 .fp-tool--dark .fp-tool__go{background:var(--green);color:var(--violet)}
 .fp-tool__go .fp-ic{width:16px;height:16px}
-@media (min-width:760px){.fp-tools{grid-template-columns:repeat(2,minmax(0,1fr));gap:16px}}
+@media (min-width:760px){.fp-tools{grid-template-columns:repeat(2,minmax(0,1fr));gap:16px}.home-tools__list>li:nth-child(3):last-child{grid-column:1/-1}}
 
 /* ---- halves (two short sections side by side) ---- */
 .fp-halves{display:grid;gap:12px}

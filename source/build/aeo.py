@@ -345,7 +345,8 @@ def enrich(services):
 
 
 def human(d):
-    return date.fromisoformat(d).strftime('%-d %b %Y')
+    when = date.fromisoformat(d)
+    return f'{when.day} {when:%b %Y}'  # %-d only works on Linux
 
 
 def byline():
@@ -765,5 +766,7 @@ def llms_full(site, faq):
     L += geo_pages.llms_full(site)
     L += ['## Free tools', '',
           f'- Google Business Profile checker: {site}tools/google-business-profile-checker. {SP.GBP["lead"]}',
-          f'- Google review link & QR code maker: {site}tools/google-review-qr-code. {SP.TOOL["lead"]}', '']
+          f'- Google review link & QR code maker: {site}tools/google-review-qr-code. {SP.TOOL["lead"]}',
+          f'- Visiting card maker: {site}tools/visiting-card-maker. Free, with editable designs and PNG, SVG and print PDF downloads, in English, Hindi or Marathi. No sign-up and no watermark.',
+          f'- QR code generator: {site}tools/qr-code-generator. Free codes for links, contacts, WhatsApp, UPI, Wi-Fi and more, with your own shapes, colours and logo, and PNG, SVG and PDF downloads. Codes never expire. No sign-up and no watermark.', '']
     return '\n'.join(L) + '\n'

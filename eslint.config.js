@@ -29,9 +29,21 @@ export default [
   },
   {
     // Preact app: JSX components count as used. JSX compiles with the automatic runtime, so no `h` import is needed.
-    files: ['admin/src/**/*.{js,jsx}'],
+    files: ['admin/src/**/*.{js,jsx}', 'card/src/**/*.{js,jsx}'],
     plugins: { react },
     languageOptions: { globals: { ...globals.browser } },
     rules: { 'react/jsx-uses-vars': 'error' },
+  },
+  {
+    // Card maker: the core runs in the browser and in tests.
+    files: ['card/src/**/*.{js,jsx}'],
+    languageOptions: { globals: { ...globals.browser } },
+  },
+  {
+    // Check tools run page code inside a headless browser, so they also see its globals.
+    files: ['card/tools/**/*.mjs'],
+    languageOptions: {
+      globals: { ...globals.browser, lab: 'readonly', pdfjs: 'writable', diff: 'readonly', toB64: 'readonly', touchObj: 'readonly' },
+    },
   },
 ];
