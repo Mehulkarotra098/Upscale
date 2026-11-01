@@ -24,7 +24,7 @@ import { FloatBar, InlineText } from './floatbar.jsx';
 import { translate } from './i18n.js';
 import { AddPanel, ColoursPanel, DetailsPanel, LayersPanel, PropertiesPanel, TemplatesPanel } from './panels.jsx';
 import { applyTransform, Stage } from './stage.js';
-import { commit, endTyping, loadSaved, redo, replaceDoc, setUi, state, subscribe, undo } from './store.js';
+import { commit, endTyping, loadSaved, redo, replaceDoc, setUi, state, subscribe, typingDetails, undo } from './store.js';
 
 const engine = new TextEngine(async (file) => {
   const res = await fetch(`/assets/card/fonts/${file}`);
@@ -278,9 +278,12 @@ function App({ templates, instantiate }) {
     let live = true;
     const doc = state.doc;
     const need = fontsUsed(doc);
+    let settle = null;
     const paint = () => {
       if (!live || !stageRef.current) return;
-      stageRef.current.sync(doc, state.side, state.selection);
+      const holdQr = typingDetails();
+      stageRef.current.sync(doc, state.side, state.selection, { holdQr });
+      if (holdQr) settle = setTimeout(() => live && stageRef.current?.sync(doc, state.side, state.selection), 700);
     };
     const missing = need.filter((id) => !engine.faces.has(id));
     if (missing.length) {
@@ -292,6 +295,7 @@ function App({ templates, instantiate }) {
     } else paint();
     return () => {
       live = false;
+      clearTimeout(settle);
     };
   }, [state.doc, state.side, state.selection]);
 
@@ -522,6 +526,8 @@ async function start() {
     state.sheet = pick ? 'details' : 'templates';
     state.sheetOpen = true;
     pendingQr = readQrFromTool();
+    // A design link starts a design once. Left in the address, reloading would throw away everything done since.
+    if (location.search) history.replaceState(null, '', location.pathname);
     root.textContent = '';
     render(<App templates={TEMPLATES} instantiate={instantiate} />, root);
   } catch (e) {

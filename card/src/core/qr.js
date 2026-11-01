@@ -22,7 +22,7 @@ export function kindPayload(kind, input = {}, fields = {}) {
   const v = (k) => String(input[k] ?? '').trim();
   switch (kind) {
     case 'link': {
-      const u = v('value');
+      const u = v('value') || String(fields.website ?? '').trim();
       if (!u) return '';
       return /^[a-z][a-z0-9+.-]*:/i.test(u) ? u : normaliseUrl(u);
     }

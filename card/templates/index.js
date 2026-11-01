@@ -17,6 +17,18 @@ function lockArt(sides) {
   for (const side of Object.values(sides)) {
     for (const el of side.elements) {
       if (!FREE_TYPES.has(el.type) && el.locked == null) el.locked = true;
+      // A QR code opens a link people paste: their website, Instagram or anything else. It uses the card's website until then.
+      if (el.type === 'qr' && ['vcard', 'website'].includes(el.data ?? 'vcard')) {
+        el.data = '';
+        el.qrKind = 'link';
+        el.qrIn = {};
+      }
+      // A QR code opens a link people paste: their website, Instagram or anything else. It uses the card's website until then.
+      if (el.type === 'qr' && ['vcard', 'website'].includes(el.data ?? 'vcard')) {
+        el.data = '';
+        el.qrKind = 'link';
+        el.qrIn = {};
+      }
     }
   }
   return sides;

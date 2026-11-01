@@ -60,6 +60,7 @@ test('a type with nothing filled in warns and stays selectable', async () => {
   const r = await resolve(doc({ qrKind: 'upi', qrIn: {} }));
   assert.deepEqual(codes(r), ['qr-empty']);
   assert.ok(r.boxes.qr ?? r.boxes.get?.('qr'));
+  assert.ok(r.ops.find((o) => o.id === 'qr').editorOnly, 'the blank square never prints');
   assert.ok(!r.ops.some((o) => o.qr));
 });
 

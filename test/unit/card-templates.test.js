@@ -69,7 +69,7 @@ for (const t of TEMPLATES) {
           assert.ok(!/<text\b|<script/i.test(svg), 'all outlines, no scripts');
           assert.ok(svg.length < 900000, `${side} SVG is small enough (${svg.length} bytes)`);
           if (i === 0) {
-            const problems = checkLayout(doc, side, engine);
+            const problems = checkLayout(doc, side, engine).filter((w) => w.code !== 'qr-empty');
             assert.deepEqual(
               problems.map((w) => w.message),
               [],
@@ -102,6 +102,32 @@ test('front and back use different gradient ids, so a PDF back keeps its own col
   const back = ids('back');
   assert.ok(front.length && back.length);
   assert.equal(front.filter((id) => back.includes(id)).length, 0);
+});
+
+test('every design starts with a code that opens a link, so typing a name never changes it', async () => {
+  for (const t of TEMPLATES) {
+    const doc = instantiate(t, { fields: { ...t.sample, website: 'shop.example', name: 'Asha' } });
+    const codes = [...doc.sides.front.elements, ...doc.sides.back.elements].filter((e) => e.type === 'qr');
+    for (const q of codes) assert.ok(q.qrKind === 'link' || q.data === 'whatsapp', `${t.id}: ${q.data}`);
+    await engine.ensure(fontsUsed(doc));
+    const side = doc.sides.back.elements.some((e) => e.type === 'qr') ? 'back' : 'front';
+    const before = sideToSvg(doc, side, engine).svg.match(/shape-rendering="crispEdges" d="[^"]+"/)?.[0];
+    doc.fields.name = 'A much longer name than before';
+    doc.fields.company = 'Another Business Name';
+    assert.equal(sideToSvg(doc, side, engine).svg.match(/shape-rendering="crispEdges" d="[^"]+"/)?.[0], before, t.id);
+  }
+});
+
+test('a code with no link prints nothing, not a blank white square', async () => {
+  const t = TEMPLATES.find((x) => x.id === 'side-panel');
+  const doc = instantiate(t, { fields: { name: 'Sam' } });
+  await engine.ensure(fontsUsed(doc));
+  const blank = sideToSvg(doc, 'back', engine).svg;
+  doc.fields.website = 'sam.example';
+  const full = sideToSvg(doc, 'back', engine).svg;
+  assert.ok(full.length > blank.length + 500, 'the code appears once there is a link');
+  const whites = (svg) => (svg.match(/fill="#FFFFFF"/g) ?? []).length;
+  assert.ok(whites(full) > whites(blank), 'its white background only prints with the code');
 });
 
 test('every template has a home for a logo, and a QR code', () => {

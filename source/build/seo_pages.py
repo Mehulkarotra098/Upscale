@@ -1090,7 +1090,7 @@ def tools_hub(ctx, parts, tv):
     header, menu, footer, tail = parts
     url = f'{site}tools'
     title = 'Free Tools for Local Businesses, No Sign-up | U Scale'
-    desc = '100% free, no sign-up tools for Indian shops, clinics and salons: check your Google Business Profile score, make a Google review QR code standee, design a visiting card and make a QR code.'
+    desc = '100% free tools with no sign-up for Indian shops, clinics and salons: a Google profile checker, review QR maker, visiting card maker and QR code generator.'
     ld = json.dumps({'@context': 'https://schema.org', '@graph': [
         {'@type': 'CollectionPage', '@id': url + '#webpage', 'url': url, 'name': title, 'description': desc, 'inLanguage': 'en-IN', 'isPartOf': {'@id': site + '#website'},
          'about': {'@id': site + '#business'}, 'breadcrumb': {'@id': url + '#breadcrumb'},
@@ -1181,7 +1181,7 @@ def build(ctx):
     for rel in ['index.html', 'tools/index.html', f'tools/{GBP["slug"]}.html', f'tools/{TOOL["slug"]}.html', f'tools/{card_page.SLUG}.html', f'tools/{qr_page.SLUG}.html']:
         u = site + ('' if rel == 'index.html' else rel[:-5].replace('/index', ''))
         main = re.search(r'<main\b.*?</main>', (out / rel).read_text(), re.S)
-        srcs = re.findall(r'<img\b[^>]*?\ssrc="/(assets/(?:pages|tools)/[^"?]+)(?:\?[^"]*)?"', main.group(0) if main else '')
+        srcs = re.findall(r'<img\b[^>]*?\ssrc="/(assets/(?:pages|tools|card/thumbs)/[^"?]+)(?:\?[^"]*)?"', main.group(0) if main else '')
         have = {i for i, _ in pics.get(u, [])}
         pics[u] = pics.get(u, []) + [(site + s, '') for s in dict.fromkeys(srcs) if site + s not in have]
     img_tags = lambda u: ''.join(f'<image:image><image:loc>{ea(i)}</image:loc></image:image>' for i, _ in pics.get(u, []))

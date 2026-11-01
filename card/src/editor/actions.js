@@ -46,9 +46,47 @@ export function clearSample(templates) {
   });
 }
 
+// What someone chose for their QR code, which should follow them to a new design. Fixed colours come too; a design's
+// named colours don't, because the new design has its own.
+const QR_CHOICES = [
+  'data',
+  'qrKind',
+  'qrIn',
+  'keepBlank',
+  'body',
+  'frame',
+  'ball',
+  'qrLogo',
+  'qrSrc',
+  'qrIcon',
+  'qrLogoSize',
+  'imgW',
+  'imgH',
+];
+const fixedColour = (p) => typeof p === 'string' && p[0] === '#';
+function carryQr(old, next) {
+  const mine = Object.values(old?.sides ?? {})
+    .flatMap((s) => s.elements)
+    .find(
+      (e) => e.type === 'qr' && (e.qrIn?.value || (e.qrKind && e.qrKind !== 'link') || e.data || e.body || e.frame || e.ball || e.qrLogo),
+    );
+  if (!mine) return;
+  for (const side of Object.values(next.sides)) {
+    for (const e of side.elements) {
+      if (e.type !== 'qr') continue;
+      for (const k of QR_CHOICES) {
+        if (mine[k] !== undefined) e[k] = structuredClone(mine[k]);
+        else delete e[k];
+      }
+      for (const k of ['frameColor', 'ballColor']) if (fixedColour(mine[k])) e[k] = mine[k];
+    }
+  }
+}
+
 export function applyTemplate(template, instantiate, paletteIndex = 0) {
   const old = state.doc;
   const next = instantiate(template, { palette: paletteIndex });
+  carryQr(old, next);
   next.user = old?.user ?? {};
   next.fields = { ...next.fields };
   if (old?.fields?.logo) {
@@ -152,7 +190,7 @@ export function addElement(partial) {
       ellipse: { x: w / 2 - 8, y: h / 2 - 8, w: 16, h: 16, fill: ink },
       line: { x: w * 0.25, y: h / 2, w: w * 0.5, h: 0, stroke: ink, sw: 0.35 },
       icon: { x: w / 2 - 5, y: h / 2 - 5, w: 10, stroke: ink, sw: 2 },
-      qr: { x: w - 26, y: h - 26, w: 22, data: 'vcard', light: '#FFFFFF', dark: '#111111', quiet: 2 },
+      qr: { x: w - 26, y: h - 26, w: 22, data: '', qrKind: 'link', qrIn: {}, light: '#FFFFFF', dark: '#111111', quiet: 2 },
       image: { x: w * 0.3, y: h * 0.2, w: 24, h: 24, fit: 'contain' },
       list: {
         x: 6,

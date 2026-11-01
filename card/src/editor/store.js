@@ -91,6 +91,8 @@ export function commitTyping(key, mutate) {
   scheduleSave();
   emit();
 }
+/** True while someone is typing in the Details boxes. */
+export const typingDetails = () => lastTypingKey.startsWith('field:');
 export const endTyping = () => {
   lastTypingKey = '';
 };

@@ -242,7 +242,7 @@ export class Stage {
   }
 
   /** Match the canvas to the design: reuse objects by id, so a selected element stays selected through edits. */
-  sync(doc, sideName, selection = []) {
+  sync(doc, sideName, selection = [], { holdQr = false } = {}) {
     // Objects come and go here, and that must not read as the person clearing their selection.
     this.silent = true;
     const first = !this.doc;
@@ -301,7 +301,8 @@ export class Stage {
       }
       const bw = Math.max(box.w, 0.5);
       const bh = Math.max(box.h, 0.5);
-      obj.ops = byId.get(id);
+      // A QR pattern is its data, so it changes with every letter of a contact. On screen it waits for a pause.
+      if (!(holdQr && el.type === 'qr' && obj.ops)) obj.ops = byId.get(id);
       obj.boxCx = box.x + box.w / 2;
       obj.boxCy = box.y + box.h / 2;
       obj.set({ left: obj.boxCx, top: obj.boxCy, width: bw, height: bh, scaleX: 1, scaleY: 1, angle: el.rot || 0 });

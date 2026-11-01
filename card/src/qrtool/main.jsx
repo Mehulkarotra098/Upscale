@@ -97,6 +97,8 @@ const HL = {
   'Making…': 'Ban raha hai…',
   'Put this on a visiting card →': 'Ise visiting card par lagayein →',
   'Test it with your own phone before you print a lot of copies.': 'Zyada copies print karne se pehle apne phone se test karein.',
+  'The pattern changes as you type, because the code holds what you type.':
+    'Likhne par pattern badalta hai, kyunki code me wahi likha hota hai.',
 };
 
 const KINDS = [
@@ -837,7 +839,10 @@ function App() {
           {t('Put this on a visiting card →')}
         </button>
         {note ? <p class="qt-warn">{note}</p> : null}
-        <p class="qt-fine">{t('Test it with your own phone before you print a lot of copies.')}</p>
+        <p class="qt-fine">
+          {t('The pattern changes as you type, because the code holds what you type.')}{' '}
+          {t('Test it with your own phone before you print a lot of copies.')}
+        </p>
       </aside>
     </div>
   );

@@ -392,13 +392,14 @@ export function resolveSide(doc, sideName, engine) {
       pushBox(el.id, box);
     } else if (el.type === 'qr') {
       const payload = qrPayload(el, fields);
-      if (!payload && !el.qrKind) continue;
+      // A code someone is setting up stays as a blank square. A template's optional code just steps aside.
+      if (!payload && !el.qrKind && !el.keepBlank) continue;
       const box = { x: el.x, y: el.y, w: el.w, h: el.w };
       const lightPaint = el.light === 'none' ? 'none' : paint(el.light ?? '#FFFFFF', box, palette);
-      if (el.light !== 'none') ops.push({ ...common, kind: 'path', d: rectPath(el.x, el.y, el.w, el.w, el.r), fill: lightPaint });
       if (!payload) {
-        // A chosen type with nothing filled in yet: keep the blank square so it can still be selected.
-        warnings.push({ id: el.id, code: 'qr-empty', message: 'Fill in what this QR code should open' });
+        // Nothing to open yet. The blank square shows in the editor so it can be selected, but it's never printed.
+        ops.push({ ...common, kind: 'path', d: rectPath(el.x, el.y, el.w, el.w, el.r), fill: '#FFFFFF', editorOnly: true });
+        warnings.push({ id: el.id, code: 'qr-empty', message: 'Paste the link this QR code should open' });
         pushBox(el.id, box);
         continue;
       }
@@ -414,6 +415,7 @@ export function resolveSide(doc, sideName, engine) {
         pushBox(el.id, box);
         continue;
       }
+      if (el.light !== 'none') ops.push({ ...common, kind: 'path', d: rectPath(el.x, el.y, el.w, el.w, el.r), fill: lightPaint });
       const darkPaint = paint(el.dark ?? '#000000', box, palette);
       const framePaint = el.frameColor ? paint(el.frameColor, box, palette) : darkPaint;
       const ballPaint = el.ballColor ? paint(el.ballColor, box, palette) : darkPaint;
@@ -634,7 +636,7 @@ export function opsToMarkup(ops, prefix = 'c') {
   };
   let body = '';
   for (const op of ops) {
-    if (op.kind === 'path' && !op.d) continue;
+    if ((op.kind === 'path' && !op.d) || op.editorOnly) continue;
     let a = '';
     if (op.opacity != null && op.opacity !== 1) a += ` opacity="${op.opacity}"`;
     if (op.rot) a += ` transform="rotate(${fmt(op.rot.deg)} ${fmt(op.rot.cx)} ${fmt(op.rot.cy)})"`;

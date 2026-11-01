@@ -949,3 +949,19 @@ input[type='color'] {
     min-height: 36px;
   }
 }
+
+.ce-qropens {
+  margin: 8px 0 0;
+  font-size: 12.5px;
+  line-height: 1.4;
+  overflow-wrap: anywhere;
+}
+.ce-qrsample {
+  margin: 10px 0 0;
+  padding: 8px 10px;
+  border-radius: 8px;
+  background: #fff4dc;
+  color: #5b4200;
+  font-size: 13px;
+  line-height: 1.4;
+}

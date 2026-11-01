@@ -1,5 +1,26 @@
 // Tool wording in English and Hinglish. The card's own text is whatever the user types, in any supported language.
 const HL = {
+  'Open a link (website, Instagram…)': 'Link khole (website, Instagram…)',
+  'Paste your link': 'Apna link paste karein',
+  'Your website, Instagram, Facebook, YouTube, Google Maps or any page.':
+    'Aapki website, Instagram, Facebook, YouTube, Google Maps ya koi bhi page.',
+  'Paste your website or social media link. Choose its style, colours and logo.':
+    'Apni website ya social media ka link paste karein. Style, colours aur logo chunein.',
+  'This code still goes to the design’s sample website. Paste your link above.':
+    'Ye code abhi design ki sample website par jata hai. Upar apna link paste karein.',
+  'Add this to make your code. Until then, nothing prints here.': 'Code banane ke liye ye bharein. Tab tak yahan kuch print nahi hoga.',
+  'Your website link': 'Aapki website ka link',
+  'Your WhatsApp number': 'Aapka WhatsApp number',
+  'Type yours here': 'Apna yahan likhein',
+  'This updates your card too.': 'Isse aapka card bhi update hoga.',
+  'This code still holds the sample details from the design. Add yours before you print it.':
+    'Is code me abhi design ki sample details hain. Print se pehle apni details daalein.',
+  'Saves the details on your card to their phone. The pattern changes when your details change, because the code holds them.':
+    'Aapke card ki details unke phone me save hongi. Details badalne par pattern badalta hai, kyunki code me wahi details hain.',
+  'Your QR code updates when you pause typing, because it holds your details.':
+    'Typing rukne par QR code update hota hai, kyunki usme aapki details hain.',
+  'Edit your contact details': 'Apni contact details badlein',
+  Opens: 'Khulega',
   Gradient: 'Gradient',
   'This design has no place for': 'Is design me jagah nahi hai:',
   'A contact QR code still carries it. Pick another design, or add it as text.':

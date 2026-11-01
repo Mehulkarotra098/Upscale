@@ -163,6 +163,28 @@ async function open(context) {
   await page.locator('.ce-seg button', { hasText: 'Icon' }).click();
   await scanned.waitFor({ timeout: 15000 });
   check(true, 'a QR code with a centre icon still scans');
+  // Every kind of code shows where its content comes from, and says so if it's still the design's sample
+  const kindSelect = page.locator('label.ce-field', { hasText: 'What the code opens' }).locator('select');
+  await kindSelect.selectOption('link');
+  await page.waitForTimeout(250);
+  const site = page.getByLabel('Paste your link');
+  check((await site.count()) === 1, 'a new code has a box to paste a link');
+  check((await page.locator('[data-qrsample="yes"]').count()) === 1, 'a code still on the sample website says so');
+  await site.fill('instagram.com/zoyakapoor');
+  await page.waitForTimeout(250);
+  check(
+    (await page.locator('[data-qropens="https://instagram.com/zoyakapoor"]').count()) === 1 &&
+      (await page.locator('[data-qrsample="yes"]').count()) === 0,
+    'pasting a link shows exactly where the code goes',
+  );
+  await scanned.waitFor({ timeout: 15000 });
+  check(true, 'and it scans');
+  await kindSelect.selectOption('whatsapp');
+  await page.waitForTimeout(250);
+  check((await page.getByLabel('Your WhatsApp number').count()) === 1, 'Open WhatsApp has a box for the number');
+  await kindSelect.selectOption('vcard');
+  await page.waitForTimeout(250);
+  check((await page.getByRole('button', { name: 'Edit your contact details' }).count()) === 1, 'Save my contact leads to the details');
   await page.locator('label.ce-field', { hasText: 'What the code opens' }).locator('select').selectOption('upi');
   await page.waitForTimeout(200);
   check((await page.locator('[data-qrscan="ok"]').count()) === 0, 'a UPI code with no ID is not reported as working');
