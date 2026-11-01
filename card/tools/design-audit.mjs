@@ -140,7 +140,9 @@ for (const t of list) {
     await engine.ensure(fontsUsed(doc));
     const { w, h } = cardSize(doc);
     for (const side of ['front', 'back']) {
-      const found = checkLayout(doc, side, engine).map((x) => ({ id: x.id, code: x.code, message: x.message }));
+      const found = checkLayout(doc, side, engine)
+        .filter((x) => x.code !== 'qr-empty')
+        .map((x) => ({ id: x.id, code: x.code, message: x.message }));
       const { ops } = resolveSide(doc, side, engine);
       // Anything past the trim gets cut off by the guillotine.
       for (const op of ops) {

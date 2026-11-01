@@ -55,7 +55,7 @@ function QrShortcut({ t, doc }) {
       const side = front ? 'front' : 'back';
       return setUi({ side, selection: [(front ?? back).id], sheet: 'edit', sheetOpen: true });
     }
-    addElement({ type: 'qr', data: 'vcard' });
+    addElement({ type: 'qr' });
   };
   const has = find('front') || find('back');
   return (
@@ -75,7 +75,13 @@ function QrShortcut({ t, doc }) {
       </svg>
       <span>
         <b>{t(has ? 'Customise your QR code' : 'Add a QR code')}</b>
-        <em>{t('Your style, colours and logo. Contact, UPI, Wi-Fi, WhatsApp and more.')}</em>
+        <em>
+          {t(
+            has
+              ? 'Paste your website or social media link. Choose its style, colours and logo.'
+              : 'Paste your website or social media link. Choose its style, colours and logo.',
+          )}
+        </em>
       </span>
     </button>
   );
@@ -101,6 +107,7 @@ export function DetailsPanel({ t, templates }) {
   };
   return (
     <div class="ce-panel">
+      <QrShortcut t={t} doc={doc} />
       <h2>{t('Your details')}</h2>
       <p class="ce-sub">{t('Type once. They stay when you switch design.')}</p>
       {FIELD_ROWS.map(([key, label, ph, type]) => (
@@ -133,7 +140,6 @@ export function DetailsPanel({ t, templates }) {
           . {t('A contact QR code still carries it. Pick another design, or add it as text.')}
         </p>
       ) : null}
-      <QrShortcut t={t} doc={doc} />
       <div class="ce-field">
         <span>{t('Logo')}</span>
         <div class="ce-row">
@@ -376,7 +382,7 @@ export function AddPanel({ t }) {
   };
   return (
     <div class="ce-panel">
-      <button class="ce-qrcta" onClick={() => addElement({ type: 'qr', data: 'vcard' })}>
+      <button class="ce-qrcta" onClick={() => addElement({ type: 'qr' })}>
         <svg
           viewBox="0 0 24 24"
           width="22"
@@ -392,7 +398,7 @@ export function AddPanel({ t }) {
         </svg>
         <span>
           <b>{t('Add a QR code')}</b>
-          <em>{t('Your style, colours and logo. Contact, UPI, Wi-Fi, WhatsApp and more.')}</em>
+          <em>{t('Paste your website or social media link. Choose its style, colours and logo.')}</em>
         </span>
       </button>
       <div class="ce-addgrid">
@@ -784,7 +790,7 @@ export function PropertiesPanel({ t, templates, engine }) {
       {!multi && el.type === 'rect' ? (
         <Slider label={t('Corners')} value={el.r ?? 0} min={0} max={20} step={0.1} onChange={(v) => set({ r: v }, 'r')} />
       ) : null}
-      {!multi && el.type === 'qr' ? <LazyQrStudio t={t} el={el} doc={doc} set={set} engine={engine} /> : null}
+      {!multi && el.type === 'qr' ? <LazyQrStudio t={t} el={el} doc={doc} set={set} engine={engine} templates={templates} /> : null}
       {!multi && el.type === 'logo' ? (
         <PaintPicker label="Initials colour" value={el.fill} doc={doc} onChange={(v) => set({ fill: v })} />
       ) : null}

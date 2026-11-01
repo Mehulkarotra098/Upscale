@@ -33,7 +33,7 @@ const NUMBERS = [
   'imgH',
   'qrLogoSize',
 ];
-const BOOLS = ['noWrap', 'upper', 'hang', 'evenodd', 'locked', 'hidden', 'optional'];
+const BOOLS = ['noWrap', 'upper', 'hang', 'evenodd', 'locked', 'hidden', 'optional', 'keepBlank'];
 const ENUMS = {
   align: ['left', 'center', 'right'],
   valign: ['top', 'middle', 'bottom'],

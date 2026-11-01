@@ -200,7 +200,7 @@ console.log('Desktop');
   await page.waitForURL(/addqr=1/, { timeout: 15000 });
   await page.locator('[data-qrscan="ok"]').waitFor({ timeout: 25000 });
   check(true, 'the code opens on a card in the editor, selected, and scans');
-  check((await page.getByLabel('Your own link', { exact: true }).inputValue()).length > 0, 'the editor shows the link it came with');
+  check((await page.getByLabel('Paste your link').inputValue()).length > 0, 'the editor shows the link it came with');
   await page.waitForTimeout(400);
   await page.screenshot({ path: join(outDir, 'desktop-4-card.png') });
   check(errors.length === 0, `no page errors ${errors.slice(0, 2).join(' | ')}`);

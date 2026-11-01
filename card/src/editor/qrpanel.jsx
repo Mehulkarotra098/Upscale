@@ -1,25 +1,24 @@
 // The QR controls: what the code opens, its colours, a logo in the centre and its shapes.
 // Every change is checked by scanning the real render, because shapes, colours and logos can all break a code.
 import { useEffect, useMemo, useState } from 'preact/hooks';
-import { resolveSide, sideToSvg } from '../core/render.js';
+import { qrPayload, resolveSide, sideToSvg } from '../core/render.js';
 import { ICONS } from '../core/icons.js';
 import { svgToCanvas } from '../core/export.js';
 import { BALL_SHAPES, ballPath, BODY_SHAPES, bodyPath, FRAME_SHAPES, framePath, logoShare } from '../core/qr.js';
-import { readImage } from './actions.js';
-import { endTyping, state } from './store.js';
+import { readImage, setField } from './actions.js';
+import { endTyping, setUi, state } from './store.js';
 import { PaintPicker, Slider } from './panels.jsx';
 
 const KINDS = [
+  ['link', 'Open a link (website, Instagram…)'],
   ['vcard', 'Save my contact'],
-  ['website', 'Open my website'],
   ['whatsapp', 'Open WhatsApp chat'],
+  ['upi', 'UPI payment'],
+  ['maps', 'Open my location'],
+  ['wifi', 'Join my Wi-Fi'],
   ['phone', 'Call my number'],
   ['sms', 'Send me an SMS'],
   ['email', 'Send me an email'],
-  ['upi', 'UPI payment'],
-  ['wifi', 'Join my Wi-Fi'],
-  ['maps', 'Open my location'],
-  ['link', 'Your own link'],
   ['text', 'Plain text'],
 ];
 const CENTRE_ICONS = [
@@ -37,9 +36,9 @@ const CENTRE_ICONS = [
   'user',
 ].filter((n) => Object.hasOwn(ICONS, n));
 
-const kindOf = (el) => el.qrKind ?? (['vcard', 'website', 'whatsapp'].includes(el.data) ? el.data : 'link');
+const kindOf = (el) => el.qrKind ?? (['vcard', 'whatsapp'].includes(el.data) ? el.data : 'link');
 // A link is held either way: older designs and templates keep it in `data`, and the QR tool sends `qrKind: 'link'`.
-const linkValue = (el) => (el.qrKind === 'link' ? (el.qrIn?.value ?? '') : el.data);
+const linkValue = (el) => (el.qrKind === 'link' ? (el.qrIn?.value ?? '') : el.data === 'website' ? '' : el.data);
 
 // A little corner of code, so each shape shows how neighbouring modules behave.
 const SAMPLE = ['10110', '11101', '01011', '11010', '10111'];
@@ -122,26 +121,89 @@ function ScanStatus({ t, el, doc, engine }) {
   );
 }
 
-function Input({ label, value, onChange, hint, type = 'text' }) {
+function Input({ label, value, onChange, hint, type = 'text', placeholder }) {
   return (
     <label class="ce-field">
       <span>{label}</span>
-      <input type={type} value={value ?? ''} maxLength={600} onInput={(e) => onChange(e.target.value)} onBlur={endTyping} />
+      <input
+        type={type}
+        value={value ?? ''}
+        placeholder={placeholder}
+        maxLength={600}
+        onInput={(e) => onChange(e.target.value)}
+        onBlur={endTyping}
+      />
       {hint ? <em>{hint}</em> : null}
     </label>
   );
 }
 
-function ContentFields({ t, el, set, kind }) {
+/** A code that reads the card's own details gets its box right here, and typing updates the card too. */
+function DetailField({ t, doc, templates, field, label }) {
+  return (
+    <Input
+      label={t(label)}
+      value={doc.user?.[field] ?? ''}
+      placeholder={t('Type yours here')}
+      onChange={(v) => setField(field, v, templates)}
+      hint={t('This updates your card too.')}
+    />
+  );
+}
+
+/** Says exactly where the code goes, and whether it's still the design's sample details. */
+function WhatItOpens({ t, el, doc, kind }) {
+  const payload = qrPayload(el, doc.fields ?? {});
+  if (!payload) return <p class="ce-qrsample">{t('Add this to make your code. Until then, nothing prints here.')}</p>;
+  const typedSite = String(doc.user?.website ?? '').trim();
+  const usesSite = kind === 'link' && !String(el.qrIn?.value ?? '').trim() && (el.qrKind === 'link' || el.data === 'website');
+  const usesContact = kind === 'vcard' && !['name', 'phone', 'email', 'company', 'website'].some((k) => String(doc.user?.[k] ?? '').trim());
+  const usesWa = kind === 'whatsapp' && !el.qrKind && !['whatsapp', 'phone'].some((k) => String(doc.user?.[k] ?? '').trim());
+  if ((usesSite && !typedSite) || usesContact || usesWa) {
+    return (
+      <p class="ce-qrsample" data-qrsample="yes">
+        {t(
+          kind === 'link'
+            ? 'This code still goes to the design’s sample website. Paste your link above.'
+            : 'This code still holds the sample details from the design. Add yours before you print it.',
+        )}
+      </p>
+    );
+  }
+  if (kind === 'vcard')
+    return (
+      <p class="ce-qropens">
+        {t('Saves the details on your card to their phone. The pattern changes when your details change, because the code holds them.')}
+      </p>
+    );
+  return (
+    <p class="ce-qropens" data-qropens={payload}>
+      <span>{t('Opens')}:</span> <b>{payload.length > 70 ? `${payload.slice(0, 70)}…` : payload}</b>
+    </p>
+  );
+}
+
+function ContentFields({ t, el, set, kind, doc, templates }) {
   const input = el.qrIn ?? {};
   const put = (k) => (v) => set({ qrIn: { ...input, [k]: v } }, 'qrin');
+  if (!el.qrKind && kind === 'whatsapp')
+    return <DetailField t={t} doc={doc} templates={templates} field="whatsapp" label="Your WhatsApp number" />;
+  if (kind === 'vcard') {
+    return (
+      <button type="button" class="ce-btn ce-btn--plain" onClick={() => setUi({ sheet: 'details', sheetOpen: true })}>
+        {t('Edit your contact details')}
+      </button>
+    );
+  }
   switch (kind) {
     case 'link':
       return (
         <Input
-          label={t('Your own link')}
+          label={t('Paste your link')}
           value={linkValue(el)}
-          onChange={(v) => set(el.qrKind === 'link' ? { qrIn: { ...input, value: v } } : { data: v }, 'qrdata')}
+          placeholder="https://instagram.com/yourshop"
+          hint={t('Your website, Instagram, Facebook, YouTube, Google Maps or any page.')}
+          onChange={(v) => set({ qrKind: 'link', data: '', qrIn: { ...input, value: v } }, 'qrdata')}
         />
       );
     case 'whatsapp':
@@ -229,12 +291,12 @@ function ColourOverride({ t, label, value, doc, onChange }) {
   );
 }
 
-export function QrStudio({ t, el, doc, set, engine }) {
+export function QrStudio({ t, el, doc, set, engine, templates }) {
   const [notice, setNotice] = useState('');
   const kind = kindOf(el);
   const pickKind = (k) => {
-    if (k === 'vcard' || k === 'website' || k === 'whatsapp') set({ qrKind: undefined, data: k });
-    else if (k === 'link') set({ qrKind: 'link', qrIn: el.qrKind === 'link' ? el.qrIn : {} });
+    if (k === 'vcard' || k === 'whatsapp') set({ qrKind: undefined, data: k, keepBlank: true });
+    else if (k === 'link') set({ qrKind: 'link', data: '', qrIn: el.qrKind === 'link' ? el.qrIn : {} });
     else set({ qrKind: k, qrIn: el.qrKind === k ? el.qrIn : {} });
   };
   const onLogo = async (e) => {
@@ -270,7 +332,8 @@ export function QrStudio({ t, el, doc, set, engine }) {
           ))}
         </select>
       </label>
-      <ContentFields t={t} el={el} set={set} kind={kind} />
+      <ContentFields t={t} el={el} set={set} kind={kind} doc={doc} templates={templates} />
+      <WhatItOpens t={t} el={el} doc={doc} kind={kind} />
       <ScanStatus t={t} el={el} doc={doc} engine={engine} />
 
       <div class="ce-qrhead">{t('QR shapes')}</div>
