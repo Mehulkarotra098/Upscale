@@ -267,7 +267,7 @@
       var dx=e.clientX-ptr.x, dy=e.clientY-ptr.y; ptr.x=e.clientX; ptr.y=e.clientY;
       if(!ptr.on){ ptr.cx=ptr.x; ptr.cy=ptr.y; ptr.on=true; cur&&cur.classList.add('is-on'); }
       var t=e.target;
-      cur&&cur.classList.toggle('is-view',!!(t.closest&&t.closest('.wk')));
+      cur&&cur.classList.toggle('is-view',!!(t.closest&&t.closest('.wk,[data-cursor="view"]')));
       cur&&cur.classList.toggle('is-hover',!!(t.closest&&t.closest('a,button,.svc,.plan,.quote,input,textarea,label,.lw__cell')));
       spawn(e.clientX,e.clientY,Math.hypot(dx,dy));
       if(ppvOn){ ppvP.x=e.clientX; ppvP.y=e.clientY; }
