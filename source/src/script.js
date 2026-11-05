@@ -287,6 +287,14 @@
       p.addEventListener('pointermove',function(e){ if(!motion) return; var r=p.getBoundingClientRect(); p.style.setProperty('--ry',(((e.clientX-r.left)/r.width-.5)*6).toFixed(2)+'deg'); p.style.setProperty('--rx',(-((e.clientY-r.top)/r.height-.5)*5).toFixed(2)+'deg'); });
       p.addEventListener('pointerleave',function(){ p.style.setProperty('--rx','0deg'); p.style.setProperty('--ry','0deg'); });
     });
+    /* Depth graphics: the pointer tilts the stage a few degrees and floats the labels above it (mouse only, motion on) */
+    $$('[data-depth]').forEach(function(el){
+      var raf=0,tx=0,ty=0;
+      el.addEventListener('pointermove',function(e){ if(!motion||e.pointerType!=='mouse') return; var r=el.getBoundingClientRect(); tx=((e.clientX-r.left)/r.width-.5)*2; ty=((e.clientY-r.top)/r.height-.5)*2;
+        if(!raf) raf=requestAnimationFrame(function(){ raf=0; el.style.setProperty('--px',tx.toFixed(3)); el.style.setProperty('--py',ty.toFixed(3)); }); });
+      el.addEventListener('pointerleave',function(){ el.style.setProperty('--px','0'); el.style.setProperty('--py','0'); });
+    });
+    if(!motion) $$('.dm__svg').forEach(function(s){ try{ s.pauseAnimations(); }catch(_){} });
     $$('[data-magnetic]').forEach(function(el){
       el.addEventListener('pointermove',function(e){ if(!motion) return; var r=el.getBoundingClientRect(); el.style.setProperty('--mx',((e.clientX-r.left)/r.width-.5)*10+'px'); el.style.setProperty('--my',((e.clientY-r.top)/r.height-.5)*8+'px'); });
       el.addEventListener('pointerleave',function(){ el.style.setProperty('--mx','0px'); el.style.setProperty('--my','0px'); });
@@ -586,7 +594,7 @@
   var toggles=$$('[data-motion-toggle]');
   function paintToggles(){ toggles.forEach(function(b){ b.setAttribute('aria-pressed',String(motion)); $('span',b).textContent= motion?'Motion on':'Motion off'; }); }
   function setMotion(on){
-    motion=on; d.classList.toggle('rm',!on);
+    motion=on; d.classList.toggle('rm',!on); $$('.dm__svg').forEach(function(s){ try{ on?s.unpauseAnimations():s.pauseAnimations(); }catch(_){} });
     try{ localStorage.setItem('us-motion',on?'on':'off'); }catch(e){}
     paintToggles();
     if(!on){ stopLenis(); revealAll(); parts.length=0; if(ctx) ctx.clearRect(0,0,innerWidth,innerHeight); if(cur) cur.classList.remove('is-on'); if(ppv) ppv.classList.remove('is-on');

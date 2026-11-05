@@ -125,6 +125,7 @@ ARW = '<span class="arw" aria-hidden="true"><b>↗</b><b>↗</b></span>'
 e = lambda t: html.escape(t, quote=False)
 # slug, name, meta, tag, description, url, accent, has_mobile, wall_tag, page alt detail
 WORK = [
+ ('spacestudio', 'Space Studio Chennai', 'Architecture · Chennai', 'Web Development + SEO', 'Rebuilt website for an office architecture practice in Chennai: 86 hand-coded pages, a live 3D building model on every service page, and every old WordPress link kept for search.', 'https://spacestudiochennai.com', '#A48064', True, '', 'hero film, featured projects and concepts sections'),
  ('tis', 'TIS Admissions 2026–27', 'Education · Kandivali West, Mumbai', 'Concept · Web Development', 'A concept admissions website for an ICSE school: programmes, campus life and a simple enquiry form.', 'https://tis-school-admissions-2026.vercel.app', '#FCC513', True, 'Concept', 'admissions hero, learning stages and campus sections'),
  ('antrah', 'Antrah Wellness', 'Wellness · Mumbai', 'Web Development', 'Launch site for a two-day wellness gathering: five paths to wellbeing, one calm digital home.', 'https://antrah-wellness.vercel.app', '#6B2F0A', True, '', 'hero with the five paths and the story section'),
  ('roar', 'Roar Arena', 'Sports · India', 'Web Development', "A live match centre and fan community platform for India's sports watch-party culture.", 'https://roararenaindia.vercel.app', '#FF5428', True, '', 'matchday board hero and what we are building'),
@@ -138,7 +139,7 @@ WORK = [
 def dom(u): return u.split('//')[1].rstrip('/')
 # Phone mockup for the work cards: titanium edge, glass bezel, Dynamic Island, side keys,
 # a status bar tinted like the site's own header, and the home indicator. Sized by --hw in CSS.
-STATUS = {'vidhi': ('#212121', 'light'), 'sashe': ('#f5efe8', 'dark'), 'tis': ('#fffaf0', 'dark'),
+STATUS = {'spacestudio': ('#4e4631', 'light'), 'vidhi': ('#212121', 'light'), 'sashe': ('#f5efe8', 'dark'), 'tis': ('#fffaf0', 'dark'),
           'antrah': ('#f4f2e3', 'dark'), 'roar': ('#060606', 'light'), 'growcred': ('#f6fcf3', 'dark')}
 STATUS_ICONS = ('<svg class="hs__icons" viewBox="0 0 66 12" aria-hidden="true"><g fill="currentColor">'
     '<rect x="0" y="8" width="3" height="4" rx="1"/><rect x="5" y="6" width="3" height="6" rx="1"/><rect x="10" y="3.5" width="3" height="8.5" rx="1"/><rect x="15" y="1" width="3" height="11" rx="1"/>'
@@ -156,7 +157,7 @@ def work_card(w, i):
     pw, ph = SZ[k + '-page']; lw, lh = SZ[k]
     phone = handset(k, name) if mob else ''
     return (f'            <!-- TODO (optional): swap {e(name)} captures for fresh 1440x900 screenshots if the site changes -->\n'
-            f'            <li class="wk" style="--acc:{acc}" data-i="{i}" data-cursor="view"><a class="wk__a" href="{url}" target="_blank" rel="noopener">'
+            f'            <li class="wk{" wk--feature" if i == 0 and len(WORK) % 3 == 1 else ""}" style="--acc:{acc}" data-i="{i}" data-cursor="view"><a class="wk__a" href="{url}" target="_blank" rel="noopener">'
             f'<div class="wk__media"><div class="wk__frame"><div class="wk__bar" aria-hidden="true"><i></i><i></i><i></i><span>{dom(url)}</span></div>'
             f'<div class="wk__view"><img class="wk__page" src="assets/work/{k}-page.webp" width="{pw}" height="{ph}" alt="{e(name)} live site: {alt}" loading="lazy" decoding="async"></div></div>{phone}</div>'
             f'<div class="wk__body"><div class="wk__top"><img class="wk__logo" src="assets/logos/{k}.webp" width="{lw}" height="{lh}" alt="" loading="lazy" decoding="async"><span class="wk__meta">{e(meta)}</span></div>'
@@ -172,7 +173,7 @@ def wall_cell(w, dup=False):
 names = ''.join(f'<li>{e(w[1])}{" (concept project)" if w[8]=="Concept" else " (in-house role)" if w[8]=="In-house" else ""}</li>' for w in WORK)
 r1, r2 = WORK[:5], WORK[5:]
 logo_wall = (f'<ul class="sr-only">{names}</ul>'
-             f'<div class="wrap"><div class="lw__grid" aria-hidden="true">{"".join(wall_cell(w) for w in WORK)}</div></div>'
+             f'<div class="wrap"><div class="lw__grid" aria-hidden="true" style="--cols:{next((c for c in (3, 5, 4) if len(WORK) % c == 0), 3)}">{"".join(wall_cell(w) for w in WORK)}</div></div>'
              '<div class="lw__marq" aria-hidden="true">'
              f'<div class="lw__row r1"><div class="lw__track">{"".join(wall_cell(w) for w in r1)}{"".join(wall_cell(w, True) for w in r1)}</div></div>'
              f'<div class="lw__row r2"><div class="lw__track">{"".join(wall_cell(w) for w in r2)}{"".join(wall_cell(w, True) for w in r2)}</div></div></div>')
@@ -212,7 +213,7 @@ def bp(built):
 blueprint = bp(False) + f'<div class="blueprint__built"><div>{bp(True)}</div></div><span class="blueprint__seam"></span>'
 
 src = (SRC / 'index.src.html').read_text()
-css = '\n'.join((SRC / f).read_text() for f in ['styles.css', 'work.css', 'motion.css', 'growth.css', 'seo.css', 'home.css'])
+css = '\n'.join((SRC / f).read_text() for f in ['styles.css', 'work.css', 'motion.css', 'growth.css', 'seo.css', 'depth.css', 'home.css'])
 def _rules(block):
     out, i, depth, start = [], 0, 0, 0
     for j, ch in enumerate(block):
