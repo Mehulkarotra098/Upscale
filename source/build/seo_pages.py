@@ -15,7 +15,7 @@ WA = 'https://wa.me/917977360142?text=Hi%20Mehul%2C%20I%27d%20like%20to%20talk%2
 # ---------------------------------------------------------------- service pages
 SERVICES = [
  dict(slug='website-design-mumbai', short='Website design', cta='website', name='Website Design & Development',
-  title='Website Design in Mumbai from ₹25,000, Fixed Price | U Scale',
+  title='Freelance Website Designer in Mumbai from ₹25,000 | U Scale',
   desc='Websites for Mumbai businesses, designed in Figma and hand-coded by Mehul Karotra. Landing page ₹25,000 in under 2 weeks; business site ₹55,000 in 3–4 weeks.',
   h1='Website design & development in Mumbai',
   lead='I am a freelance web designer and developer in Mumbai. I design every page in Figma and build it by hand, so what you approve is exactly what goes live, at a fixed price agreed before I start.',
@@ -180,13 +180,22 @@ def home_jsonld(site, faq):
 def service_jsonld(site, s):
     import aeo
     url = svc_url(site, s)
-    return json.dumps({'@context': 'https://schema.org', '@graph': [
+    imgs = []
+    if s['slug'] == 'website-design-mumbai':
+        GP = __import__('geo_pages')
+        for i, k in enumerate(['salon', 'step-audit', 'step-plan', 'step-design', 'step-launch', 'mehul']):
+            img = GP.IMG[k]
+            imgs.append({'@type': 'ImageObject', '@id': f'{url}#image-{i + 1}', 'url': site + img['file'][1:] + '.webp', 'contentUrl': site + img['file'][1:] + '.webp',
+                         'width': img['w'], 'height': img['h'], 'caption': img['caption'], 'description': img['alt'], 'inLanguage': 'en-IN',
+                         'encodingFormat': 'image/webp', 'representativeOfPage': i == 0})
+    pic = {'primaryImageOfPage': {'@id': imgs[0]['@id']}} if imgs else {}
+    return json.dumps({'@context': 'https://schema.org', '@graph': imgs + [
         {'@type': 'WebPage', '@id': url + '#webpage', 'url': url, 'name': s['title'], 'description': s['desc'], 'isPartOf': {'@id': site + '#website'},
          'about': {'@id': url + '#service'}, 'mainEntity': {'@id': url + '#service'}, 'author': {'@id': site + '#mehul'},
-         'breadcrumb': {'@id': url + '#breadcrumb'}, 'inLanguage': 'en-IN', 'dateModified': '__LASTMOD__'},
+         'breadcrumb': {'@id': url + '#breadcrumb'}, 'inLanguage': 'en-IN', 'dateModified': '__LASTMOD__', **pic},
         {'@type': 'Service', '@id': url + '#service', 'name': s['name'], 'serviceType': s['name'], 'url': url, 'description': s['answer'],
          'provider': {'@id': site + '#business'}, 'areaServed': aeo.area_served(),
-         'offers': aeo.offers_ld(site, s['offers'])},
+         'offers': aeo.offers_ld(site, s['offers']), **({'image': {'@id': imgs[0]['@id']}} if imgs else {})},
         aeo.biz_ref(site), aeo.person_ref(site),
         {'@type': 'BreadcrumbList', '@id': url + '#breadcrumb', 'itemListElement': [
             {'@type': 'ListItem', 'position': 1, 'name': 'Home', 'item': site},
@@ -249,6 +258,16 @@ def service_page(ctx, s, parts):
     # Website design: the hero gets a product shot (demo salon site) like its focus pages; other services stay text-only.
     GP = __import__('geo_pages') if s['slug'] == 'website-design-mumbai' else None
     art = GP.hero_img('salon') if GP else ''
+    # Website design: the area pages' process with pictures, then who you'll work with, instead of a repeated list of steps.
+    how_html = (GP._how({}) + GP._who(dict(kind='parent'))) if GP else f'''  <section class="section process sp-process" aria-labelledby="how-title">
+    <div class="wrap">
+      <header class="proc__head">
+        <p class="eyebrow" data-reveal data-scramble>How it works</p>
+        <h2 class="h2" id="how-title" data-split>Four clear steps.</h2>
+      </header>
+      <ol class="steps" data-progress="steps" data-reveal-group>{steps}</ol>
+    </div>
+  </section>'''
     return f'''<!doctype html>
 <html lang="en-IN">
 <head>
@@ -312,15 +331,7 @@ def service_page(ctx, s, parts):
     </div>
   </section>
 
-  <section class="section process sp-process" aria-labelledby="how-title">
-    <div class="wrap">
-      <header class="proc__head">
-        <p class="eyebrow" data-reveal data-scramble>How it works</p>
-        <h2 class="h2" id="how-title" data-split>Four clear steps.</h2>
-      </header>
-      <ol class="steps" data-progress="steps" data-reveal-group>{steps}</ol>
-    </div>
-  </section>
+{how_html}
 
   <section class="section" aria-labelledby="work-title">
     <div class="wrap">
@@ -476,7 +487,7 @@ def llms_txt(site, faq, updated=TODAY):
 
 # ---------------------------------------------------------------- free tools
 TOOL = dict(slug='google-review-qr-code',
-  title='Free Google Review Link & QR Code Maker, No Sign-up | U Scale',
+  title='Free Google Review QR Code Generator, No Sign-up | U Scale',
   desc='100% free, no sign-up. Get your Google review link from Google Maps, even without owner access, plus a QR code, printable standee and WhatsApp messages.',
   h1='Free Google review link & QR code maker',
   lead='Find your Google review link in 30 seconds, even if you don\u2019t manage the Google profile. Then download a QR code, a counter standee in 6 designs and ready WhatsApp messages in English or Hinglish. Free, no sign-up.',
@@ -492,12 +503,16 @@ TOOL = dict(slug='google-review-qr-code',
 def tool_jsonld(site, t):
     url = f'{site}tools/{t["slug"]}'
     # Service, not WebApplication: Google's Software App result wants ratings or reviews, which a free tool doesn't have.
-    g = [{'@type': 'Service', '@id': url + '#app', 'name': 'Google Review Link & QR Code Maker', 'url': url, 'description': t['desc'],
+    g = [{'@type': 'ImageObject', '@id': url + '#image-1', 'url': site + 'assets/tools/standee-sample.webp', 'contentUrl': site + 'assets/tools/standee-sample.webp',
+          'width': 600, 'height': 846, 'caption': 'A sample Google review QR code standee made with the free U Scale tool', 'description': 'Sample Google review standee made with this free tool: Sharma Sarees, Loved shopping with us? Scan to leave a Google review, with the QR code and five stars',
+          'inLanguage': 'en-IN', 'encodingFormat': 'image/webp', 'representativeOfPage': True},
+         {'@type': 'Service', '@id': url + '#app', 'name': 'Google Review Link & QR Code Maker', 'url': url, 'description': t['desc'], 'image': {'@id': url + '#image-1'},
           'serviceType': 'Free online tool', 'category': 'Local SEO tools', 'provider': {'@id': site + '#business'}, 'areaServed': {'@type': 'Country', 'name': 'India'},
           'availableChannel': {'@type': 'ServiceChannel', 'serviceUrl': url, 'availableLanguage': 'English'},
           'offers': {'@type': 'Offer', 'price': '0', 'priceCurrency': 'INR', 'url': url}},
          {'@type': 'WebPage', '@id': url + '#webpage', 'url': url, 'name': t['title'], 'description': t['desc'], 'isPartOf': {'@id': site + '#website'},
-          'mainEntity': {'@id': url + '#app'}, 'author': {'@id': site + '#mehul'}, 'inLanguage': 'en-IN', 'dateModified': '__LASTMOD__'},
+          'mainEntity': {'@id': url + '#app'}, 'author': {'@id': site + '#mehul'}, 'inLanguage': 'en-IN', 'dateModified': '__LASTMOD__',
+          'primaryImageOfPage': {'@id': url + '#image-1'}},
          __import__('aeo').biz_ref(site), __import__('aeo').person_ref(site),
          {'@type': 'HowTo', 'name': 'How to get your Google review link without owner access', 'totalTime': 'PT1M',
           'step': [{'@type': 'HowToStep', 'position': i + 1, 'name': n, 'text': re.sub(r'<[^>]+>', '', x)} for i, (n, x) in enumerate(RQ_STEPS)]},
@@ -615,7 +630,7 @@ def tool_page(ctx, parts, tv):
     body = '''
   <div class="wrap hero-shell">
     <section class="sp-hero rq-hero on-dark" data-tone="dark" aria-labelledby="page-title">
-      <img class="rq-hero__art" src="/assets/tools/standee-sample.webp" width="600" height="846" alt="" decoding="async" fetchpriority="low">
+      <img class="rq-hero__art" src="/assets/tools/standee-sample.webp" width="600" height="846" alt="Sample Google review standee made with this free tool: Sharma Sarees, Loved shopping with us? Scan to leave a Google review, with the QR code and five stars" decoding="async" fetchpriority="low">
       <nav class="crumbs" aria-label="Breadcrumb"><ol><li><a href="/">Home</a></li><li><a href="/tools">Free tools</a></li><li aria-current="page">Google review link &amp; QR code maker</li></ol></nav>
       <p class="eyebrow">Free tool</p>
       <h1 class="sp-hero__title" id="page-title">{h1}<span class="dot">.</span></h1>
@@ -1141,9 +1156,12 @@ def build(ctx):
     parts = chrome_parts(home)
     (out / 'services').mkdir(exist_ok=True)
     import geo_pages
+    import svc_pages  # SEO, social media, ads and AI search pages run on the focus-page system; website design keeps this template
+    rebuilt = {p['slug']: p for p in svc_pages.SERVICE_PAGES}
     for s in SERVICES:
         if s['slug'] == geo_pages.BASE: s['related'] = geo_pages.related_html()
-        (out / 'services' / f'{s["slug"]}.html').write_text(service_page(ctx, s, parts))
+        html = svc_pages.service_page(ctx, parts, rebuilt[s['slug']]) if s['slug'] in rebuilt else service_page(ctx, s, parts)
+        (out / 'services' / f'{s["slug"]}.html').write_text(html)
     (out / '404.html').write_text(page_404(ctx, parts))
     (out / 'pricing.html').write_text(pricing_page(ctx, parts))
     import hashlib
@@ -1164,7 +1182,7 @@ def build(ctx):
     import qr_page
     (out / 'tools' / f'{qr_page.SLUG}.html').write_text(qr_page.page(ctx, parts, tv, sys.modules[__name__]))
     (out / 'tools' / 'index.html').write_text(tools_hub(ctx, parts, tv))
-    (out / 'about.html').write_text(aeo.about_page(ctx, parts))
+    (out / 'about.html').write_text(svc_pages.about_page(ctx, parts))
     (out / f'{aeo.LICENSE_SLUG}.html').write_text(aeo.image_license_page(ctx, parts))
     (out / 'services.html').write_text(aeo.services_hub(ctx, parts))
     import geo_pages  # websites by business type and by area (/services/website-design-mumbai/<slug>)
@@ -1175,7 +1193,7 @@ def build(ctx):
     prio = {site: '1.0', site + 'pricing': '0.9', site + 'services': '0.9', site + 'about': '0.8', site + 'tools': '0.7', site + aeo.LICENSE_SLUG: '0.2'}
     # Sitemap index: static pages here, blog posts from the live database at /sitemap-blog.xml (server-rendered).
     pics = geo_pages.images_by_url(site)
-    pics[site + 'about'] = [(site + aeo.FOUNDER['image'], 'Mehul Karotra, founder of U Scale')]
+    pics.update(svc_pages.images_by_url(site))
     # Home and tool pages: the product shots and tool images shown in <main>, read from the built page so the image
     # sitemap lists exactly what people see there (work thumbnails and logos are left out).
     for rel in ['index.html', 'tools/index.html', f'tools/{GBP["slug"]}.html', f'tools/{TOOL["slug"]}.html', f'tools/{card_page.SLUG}.html', f'tools/{qr_page.SLUG}.html']:
@@ -1387,15 +1405,18 @@ def pricing_page(ctx, parts):
 {menu}
 <main id="main">
   <div class="wrap hero-shell">
-    <section class="sp-hero on-dark" data-tone="dark" aria-labelledby="page-title">
+    <section class="sp-hero fp-hero on-dark" data-tone="dark" aria-labelledby="page-title">
+      <div class="fp-hero__copy">
       <nav class="crumbs" aria-label="Breadcrumb"><ol><li><a href="/">Home</a></li><li aria-current="page">Pricing</li></ol></nav>
-      <h1 class="sp-hero__title" id="page-title">Pricing, published openly<span class="dot">.</span></h1>
+      <h1 class="sp-hero__title fp-hero__title" id="page-title">Pricing, published openly<span class="dot">.</span></h1>
       <p class="sp-hero__lead">Most agencies hide their prices behind a contact form. Here is everything I charge for web design and digital marketing in Mumbai, on one page: fixed-price websites, monthly growth services and single pieces of work.</p>
       <div class="hero__cta" data-wa-zone>
         <a class="btn btn--go" href="{ea(WA)}" target="_blank" rel="noopener" data-magnetic>{ctx['ICONS']['ICON_CHAT']}Ask me for a quote</a>
         <a class="btn btn--ghost" href="#builder">Build your quote</a>
       </div>
       <p class="sp-hero__who">Quotes are valid for 14 days. Every website and every monthly service starts with a free audit, so you know exactly what you are paying for before you spend a rupee.</p>
+      </div>
+      {__import__('svc_pages').art_prices()}
     </section>
   </div>
 {__import__('aeo').brief_html(PRICING_ANSWER, PRICING_FACTS, 'Key facts: U Scale prices', 'pricing-brief')}

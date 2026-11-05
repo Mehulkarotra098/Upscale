@@ -857,3 +857,75 @@ html.pin-ok .sp-process .step{opacity:1;transform:none}
 
 /* ---- contact: "Email me" button, the address in small type under the buttons ---- */
 .sp-cta__mail{margin:-6px 0 0;font:500 13.5px/1.4 var(--sans);color:rgba(201,188,232,.85);letter-spacing:.01em}
+
+/* ---------------------------------------------------------------- service & about pages (svc_pages.py)
+   Hero cards drawn in HTML/CSS, in the same white-card language as the area pages' price ticket and audit card. */
+.sv-card{max-width:460px;padding:clamp(20px,2.6vw,30px);border-radius:var(--radius-card);background:var(--white);color:var(--violet);
+  box-shadow:0 40px 80px -40px rgba(10,6,30,.85)}
+.sv-card__k{display:flex;align-items:center;gap:8px;margin:0 0 14px;font:700 11.5px/1.3 var(--sans);letter-spacing:.14em;text-transform:uppercase;color:var(--body)}
+.sv-card__k .fp-ic{width:16px;height:16px;color:var(--green)}
+.sv-card__h{margin:16px 0 8px;font:700 13px/1.3 var(--sans);color:var(--violet)}
+.sv-card ul{list-style:none;margin:0;padding:0;display:grid;gap:8px}
+.sv-card__f{display:flex;align-items:center;gap:8px;margin:14px 0 0;font:700 13.5px/1.3 var(--sans);color:var(--violet)}
+.sv-card__f .fp-ic{flex:none;width:18px;height:18px;color:var(--green)}
+/* SEO: a local search, its map and what Google weighs */
+.sv-pack__q{display:flex;align-items:center;gap:6px;margin:0 0 10px;padding:11px 16px;border-radius:99px;border:1.5px solid var(--line-light);background:var(--space);font:600 14.5px/1.2 var(--sans)}
+.sv-pack__q i{width:2px;height:17px;background:var(--violet)}
+@media (prefers-reduced-motion:no-preference){.js .sv-pack__q i{animation:svBlink 1.1s steps(1) infinite}}
+@keyframes svBlink{50%{opacity:0}}
+.sv-pack__map{position:relative;height:92px;border-radius:14px;overflow:hidden;background:
+  linear-gradient(103deg,transparent 47%,#fff 47% 50%,transparent 50%),linear-gradient(12deg,transparent 58%,#fff 58% 61%,transparent 61%),
+  repeating-linear-gradient(0deg,rgba(37,30,69,.05) 0 1px,transparent 1px 18px),repeating-linear-gradient(90deg,rgba(37,30,69,.05) 0 1px,transparent 1px 18px),var(--lav-tint)}
+.sv-pin{position:absolute;width:16px;height:16px;border-radius:50% 50% 50% 0;transform:rotate(-45deg);background:var(--lavender);border:2px solid #fff}
+.sv-pin--1{left:22%;top:30%;background:var(--green);width:20px;height:20px}
+.sv-pin--2{left:58%;top:22%}.sv-pin--3{left:74%;top:56%}
+.sv-pack__you{position:absolute;left:calc(22% + 26px);top:calc(30% - 2px);padding:4px 9px;border-radius:99px;background:var(--violet);color:#fff;font:700 11px/1.2 var(--sans)}
+.sv-pack li{display:grid;grid-template-columns:30px minmax(0,1fr) 90px;align-items:center;gap:10px;padding:9px 10px;border-radius:12px;background:var(--space);border:1px solid var(--line-light)}
+.sv-pack__ic{display:grid;place-items:center;width:30px;height:30px;border-radius:9px;background:var(--white);color:var(--violet)}
+.sv-pack__ic .fp-ic{width:17px;height:17px}
+.sv-pack__l{display:grid;gap:1px;min-width:0}.sv-pack__l b{font:700 13.5px/1.2 var(--sans)}.sv-pack__l small{font:500 12px/1.3 var(--sans);color:var(--body)}
+.sv-pack__bar{height:8px;border-radius:99px;background:var(--lav-tint);overflow:hidden}
+.sv-pack__bar i{display:block;height:100%;width:var(--w);border-radius:99px;background:var(--green);transform-origin:left}
+.sv-pack__bar--fixed{background:repeating-linear-gradient(90deg,var(--lavender) 0 6px,transparent 6px 11px)}
+@media (prefers-reduced-motion:no-preference){.js .sv-pack__bar i{animation:fpGrow 1.1s var(--ease-out) both;animation-delay:calc(.5s + var(--i,0) * .15s)}
+  .js .sv-pack li{animation:fpIn .7s var(--ease-out) both;animation-delay:calc(.4s + var(--i) * .12s)}}
+/* Social media: a four-week content calendar */
+.sv-cal__wd,.sv-cal__g{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(7,minmax(0,1fr));gap:6px}
+.sv-cal__wd{margin-bottom:6px}.sv-cal__wd li{text-align:center;font:700 11px/1 var(--sans);color:var(--body)}
+.sv-cal__d{position:relative;aspect-ratio:1;border-radius:9px;background:var(--space);border:1px solid var(--line-light);display:grid;place-items:center}
+.sv-cal__d span{font:600 12px/1 var(--sans);color:rgba(37,30,69,.55)}
+.sv-cal__d i{display:none}
+.sv-cal__d--p{background:var(--lavender);border-color:transparent}.sv-cal__d--p span{color:var(--violet)}
+.sv-cal__d--r{background:var(--violet);border-color:transparent}.sv-cal__d--r span{color:#fff}
+.sv-cal__d--c{background:var(--green);border-color:transparent}.sv-cal__d--c span{color:var(--violet)}
+@media (prefers-reduced-motion:no-preference){.js .sv-cal__d--p,.js .sv-cal__d--r,.js .sv-cal__d--c{animation:svPop .5s var(--ease-spring) both;animation-delay:calc(.35s + var(--i) * .035s)}}
+@keyframes svPop{from{transform:scale(.6);opacity:0}}
+.sv-cal__key{display:flex;flex-wrap:wrap;gap:14px;margin:12px 0 0}
+.sv-k{display:inline-flex;align-items:center;gap:7px;font:600 12.5px/1 var(--sans);color:var(--body)}
+.sv-k::before{content:"";width:12px;height:12px;border-radius:4px}
+.sv-k--p::before{background:var(--lavender)}.sv-k--r::before{background:var(--violet)}.sv-k--c::before{background:var(--green)}
+/* AI search: a question, an answer and where it came from */
+.sv-ans__q{margin:0 0 10px auto;max-width:88%;padding:12px 15px;border-radius:16px 16px 4px 16px;background:var(--violet);color:#fff;font:600 14px/1.4 var(--sans)}
+.sv-ans__a{display:grid;gap:7px;max-width:88%;padding:14px 15px;border-radius:16px 16px 16px 4px;background:var(--space);border:1px solid var(--line-light)}
+.sv-ans__a i{height:8px;border-radius:99px;background:linear-gradient(90deg,var(--lavender),var(--lav-tint))}
+.sv-ans__a i:nth-child(2){width:92%}.sv-ans__a .sv-ans__short{width:58%}
+@media (prefers-reduced-motion:no-preference){.js .sv-ans__a i{transform-origin:left;animation:fpGrow 1s var(--ease-out) both}.js .sv-ans__a i:nth-child(2){animation-delay:.15s}.js .sv-ans__a i:nth-child(3){animation-delay:.3s}}
+.sv-ans li{display:grid;grid-template-columns:20px minmax(0,1fr) 20px;align-items:center;gap:10px;padding:9px 12px;border-radius:12px;background:var(--space);border:1px solid var(--line-light);font:600 13.5px/1.3 var(--sans)}
+.sv-ans li .fp-ic{width:18px;height:18px;color:var(--violet)}
+.sv-ans li .sv-ok{color:var(--green)}
+@media (prefers-reduced-motion:no-preference){.js .sv-ans li{animation:fpIn .7s var(--ease-out) both;animation-delay:calc(.6s + var(--i) * .12s)}}
+/* Rate cards (services hub, pricing): the area pages' ticket, with longer labels */
+.sv-ticket li span{min-width:0}
+.sv-ticket li b{white-space:nowrap}
+/* Process steps with an icon instead of a product shot */
+.sv-step{padding-top:70px}
+.sv-step__ic{position:absolute;right:18px;top:18px;display:grid;place-items:center;width:38px;height:38px;border-radius:12px;background:var(--lav-tint);color:var(--violet)}
+.sv-step__ic .fp-ic{width:20px;height:20px}
+@media (max-width:1099px){.sv-step{padding-top:18px}.sv-step__ic{display:none}}
+@media (min-width:1100px){.sv-step{padding-top:80px}.sv-step__ic{right:24px;top:24px;width:42px;height:42px}}
+@media (max-width:559px){.sv-card{max-width:none}.sv-pack li{grid-template-columns:30px minmax(0,1fr) 64px}}
+.sv-from{display:flex;flex-wrap:wrap;align-items:center;gap:6px 14px;margin-top:12px;font:500 13.5px/1.45 var(--sans);color:var(--body)}
+.sv-from b{font-weight:700;color:var(--violet)}
+.sv-from--list{display:grid;gap:4px;justify-items:start}
+.sv-from--list>span{display:flex;flex-wrap:wrap;gap:0 10px;align-items:baseline}
+.rm .sv-card *,.rm .sv-card{animation:none!important}

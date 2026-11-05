@@ -6,7 +6,7 @@ import { mediaUrl } from '../../media/urls.js';
 /** Absolute URL for a site path ("/blog" or "blog" → "https://uscale.in/blog"). */
 export const abs = (path) => SITE_URL + String(path).replace(/^\//, '');
 
-export const BLOG_TITLE = 'Blog: website, SEO & growth tips for Indian businesses | U Scale';
+export const BLOG_TITLE = 'Blog: Website & SEO Tips for Indian Businesses | U Scale';
 export const BLOG_DESC =
   'Practical guides on websites, Google rankings, social media, ads and AI search for businesses in Mumbai and across India, from Mehul Karotra at U Scale.';
 export const DEFAULT_OG = abs('og-image.png');

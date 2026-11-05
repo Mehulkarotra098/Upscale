@@ -643,14 +643,20 @@ def services_hub(ctx, parts):
         {'@type': 'BreadcrumbList', '@id': url + '#breadcrumb', 'itemListElement': [
             {'@type': 'ListItem', 'position': 1, 'name': 'Home', 'item': site}, {'@type': 'ListItem', 'position': 2, 'name': 'Services', 'item': url}]},
         _faq_ld(url, HUB_FAQ)]}, ensure_ascii=False, separators=(',', ':')).replace('</', '<\\/')
-    cards = ''.join(
-        f'''<li class="svc" data-reveal><span class="svc__n" aria-hidden="true">{i+1:02d}</span><h3><a href="/services/{s['slug']}">{e(s['name'])}</a></h3>
-          <p>{e(s['answer'])}</p><p class="sp-from"><strong>{e(SVC_FROM[s['slug']])}</strong></p>
-          <a class="svc__more" href="/services/{s['slug']}">{e(s['name'])} details <span aria-hidden="true">→</span></a></li>'''
-        for i, s in enumerate(SP.SERVICES))
-    extra = ''.join(f'<tr><th scope="row">{e(n)}</th><td>{e(d)} ' + ' · '.join(f'{e(x)} {e(_price(x)[0])}' for x in names) + '</td></tr>'
-                    for n, d, names in EXTRA_SERVICES)
-    body = f'''{_hero('Services', 'Services and prices', 'Web design, SEO and digital marketing for Mumbai businesses, done by me, Mehul Karotra. No account managers, nothing comes out of a template, and every price is published.')}
+    import geo_pages as GP, svc_pages as SVP
+    SVC_ICON = {'website-design-mumbai': 'globe', 'seo-mumbai': 'pin', 'social-media-management-mumbai': 'camera', 'google-meta-ads-mumbai': 'bolt', 'ai-search-visibility': 'chat'}
+    cards = GP._cards(dict(cols=3, numbered=False, items=[
+        (SVC_ICON[s['slug']], s['name'], f'{e(s["answer"])}<span class="sv-from"><b>{e(SVC_FROM[s["slug"]])}</b><a class="tlink" href="/services/{s["slug"]}">{e(s["short"])} details<span class="sr-only">: {e(s["name"])}</span></a></span>')
+        for s in SP.SERVICES], cta=('/#contact', 'chat', 'Not sure where to start?', 'Tell me about your business and I’ll suggest the smallest useful first step. The first check is free.', 'Get a free audit')))
+    EXTRA_ICON = {'Branding & identity': 'pen', 'Content & reels production': 'camera', 'WhatsApp automation': 'chat', 'Email marketing': 'file',
+                  'Review & reputation management': 'star', 'Writing': 'layers'}
+    extra = GP._cards(dict(cols=3, numbered=False, items=[
+        (EXTRA_ICON[n], n, f'{e(d)}<span class="sv-from sv-from--list">' + ''.join(f'<span>{"" if x == n else e(x) + " "}<b>{e(_price(x)[0])}</b></span>' for x in names) + '</span>') for n, d, names in EXTRA_SERVICES]))
+    hub = dict(crumbs=[], crumb='Services', eyebrow='Web design and digital marketing', h1='Services and prices',
+               lead='Web design, SEO and digital marketing for Mumbai businesses, done by me, Mehul Karotra. No account managers, nothing comes out of a template, and every price is published.',
+               art=dict(kind='menu'), stats=[('5', 'Core services'), ('₹800', 'Single pieces from'), ('Free', 'First audit')])
+    hero = SVP._hero(hub, 'https://wa.me/' + ENTITY['whatsapp'] + '?text=' + urllib.parse.quote("Hi Mehul, I'd like to talk about my business."), ctx['ICONS'])
+    body = f'''{hero}
 {brief_html(HUB_ANSWER, [('Who does the work', 'Mehul Karotra, personally'), ('Where', 'Mumbai, and businesses across India'),
                          ('Websites', 'Fixed price: 20% to start, 20% on design sign-off, 60% on launch'), ('Monthly services', CONTRACT),
                          ('Free audit', 'Every project starts with a free audit of your website, Google listing and social media')],
@@ -662,7 +668,7 @@ def services_hub(ctx, parts):
         <p class="eyebrow" data-reveal data-scramble>Core services</p>
         <h2 class="h2" id="svc-title" data-split>Five ways I can help your business grow.</h2>
       </header>
-      <ul class="bento sp-grid" data-reveal-group>{cards}</ul>
+      {cards}
     </div>
   </section>
 
@@ -677,13 +683,13 @@ def services_hub(ctx, parts):
   </section>
 
   <section class="section" aria-labelledby="also-title">
-    <div class="wrap sp-prose">
+    <div class="wrap">
       <header class="sec-head">
         <p class="eyebrow" data-reveal data-scramble>Also available</p>
         <h2 class="h2" id="also-title" data-split>Single pieces and add-ons.</h2>
       </header>
-      <table class="sp-facts sp-facts--wide"><caption class="sr-only">More U Scale services and prices</caption><tbody>{extra}</tbody></table>
-      <p><a class="tlink" href="/pricing">See the full price list and quote builder</a></p>
+      {extra}
+      <p class="fp-all"><a class="tlink" href="/pricing">See the full price list and quote builder</a></p>
     </div>
   </section>
 {_faq_section(HUB_FAQ, 'Services questions.')}'''
@@ -740,8 +746,11 @@ def stamp_pages(out, site, rels):
 
 # ---------------------------------------------------------------- crawlers
 AI_BOTS = ['GPTBot', 'OAI-SearchBot', 'ChatGPT-User', 'PerplexityBot', 'Perplexity-User', 'ClaudeBot', 'Claude-SearchBot', 'Claude-User',
-           'Google-Extended', 'Applebot-Extended', 'Bingbot', 'meta-externalagent', 'Amazonbot', 'DuckAssistBot', 'MistralAI-User',
-           'cohere-ai', 'CCBot']
+           'Google-Extended', 'GoogleOther', 'Google-CloudVertexBot', 'Applebot', 'Applebot-Extended', 'Bingbot',
+           # Meta AI (including Muse) reads the web through Meta's own crawlers
+           'meta-externalagent', 'meta-externalfetcher', 'FacebookBot', 'facebookexternalhit',
+           'Amazonbot', 'DuckAssistBot', 'MistralAI-User', 'cohere-ai', 'YouBot', 'PhindBot', 'AI2Bot', 'Diffbot', 'DeepSeekBot',
+           'Bytespider', 'TikTokSpider', 'PetalBot', 'CCBot']
 
 
 def robots_txt(site):
@@ -756,12 +765,16 @@ def llms_full(site, faq):
     """Everything an AI assistant needs to describe U Scale accurately, in one plain-text file."""
     L = [SP.llms_txt(site, faq).rstrip(), '', '---', '', '# Full detail', '']
     L += ['## About Mehul Karotra', '', ABOUT_ANSWER, ''] + [f'- {k}: {v}' for k, v in ABOUT_FACTS] + ['', f'Profile: {site}about', '']
+    import svc_pages
+    rebuilt = {p['slug'] for p in svc_pages.SERVICE_PAGES}
     for s in SP.SERVICES:
+        if s['slug'] in rebuilt: continue
         L += [f'## {s["name"]}', '', f'URL: {SP.svc_url(site, s)}', '', s['answer'], '']
         L += [f'- {k}: {v}' for k, v in s['facts']] + ['', '### What is included', '']
         L += [f'- {t}: {d}' for t, d in s['items']] + ['', '### How it works', '']
         L += [f'{i+1}. {t}: {d}' for i, (t, d) in enumerate(s['steps'])] + ['', '### Questions', '']
         L += [f'**{q}**\n{a}\n' for q, a in s['faq']]
+    L += svc_pages.llms_full(site)
     import geo_pages
     L += geo_pages.llms_full(site)
     L += ['## Free tools', '',

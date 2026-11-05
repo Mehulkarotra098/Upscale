@@ -957,9 +957,10 @@ def _table(b):
 def _links(b):
     out = ''
     for href, ic, t, d, pr in b['items']:
-        out += (f'<li data-reveal><a class="fp-link" href="{ea(href)}"><span class="fp-card__ic">{icon(ic)}</span><span class="fp-link__t">{e(t)}</span>'
+        ext = href.startswith('http')  # outside links (profiles) open in a new tab, and say so to screen readers
+        out += (f'<li data-reveal><a class="fp-link" href="{ea(href)}"' + (' target="_blank" rel="noopener me"' if ext else '') + f'><span class="fp-card__ic">{icon(ic)}</span><span class="fp-link__t">{e(t)}</span>'
                 f'<span class="fp-link__d">{e(d)}</span>{f"<span class={chr(34)}fp-link__p{chr(34)}>{e(pr)}</span>" if pr else ""}'
-                f'<span class="fp-link__go">{icon("arrow")}</span></a></li>')
+                f'<span class="fp-link__go">{icon("arrow")}</span>' + ('<span class="sr-only"> (opens in a new tab)</span>' if ext else '') + '</a></li>')
     return f'<ul class="fp-links" data-reveal-group>{out}</ul>'
 
 
