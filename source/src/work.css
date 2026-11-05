@@ -12,10 +12,11 @@
 .lw__tag{position:absolute;top:8px;right:8px;font:700 9px/1 var(--sans);letter-spacing:.14em;text-transform:uppercase;padding:4px 7px;border-radius:99px;background:var(--lav-tint);color:var(--body)}
 @media (min-width:900px){
   .lw__marq{display:none}
-  .lw__grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));border-top:1px solid var(--line-light);border-left:1px solid var(--line-light)}
+  .lw__grid{display:grid;grid-template-columns:repeat(var(--cols,3),minmax(0,1fr));border-top:1px solid var(--line-light);border-left:1px solid var(--line-light)}
   .lw__grid .lw__cell{width:auto;height:clamp(124px,11vw,156px);border:0;border-radius:0;border-right:1px solid var(--line-light);border-bottom:1px solid var(--line-light);padding:28px 40px}
   .lw__grid .lw__cell img{max-height:58px}
   .lw__grid .lw__tag{top:14px;right:14px}
+  .lw__grid[style*="--cols:5"] .lw__cell{padding:24px clamp(18px,2.2vw,32px)}
 }
 
 /* ---------- 5.5 Work: real screenshots in browser + phone frames ---------- */
@@ -78,6 +79,16 @@
   .work__track{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:clamp(16px,1.8vw,24px);width:auto}
   .wk{width:auto}
   .work__progress,.work__hint{display:none}
+}
+/* Grid mode with a count that would leave one card alone: the newest card spans the first row, browser left, story right */
+@media (min-width:1024px){
+  html:not(.pin-ok) .wk--feature{grid-column:1 / -1}
+  html:not(.pin-ok) .wk--feature .wk__a{display:grid;grid-template-columns:minmax(0,1.5fr) minmax(0,1fr)}
+  html:not(.pin-ok) .wk--feature .wk__media{display:flex;flex-direction:column;justify-content:flex-end;padding:24px 24px 0}
+  html:not(.pin-ok) .wk--feature .wk__phone.hs{--hw:min(26cqw,170px);bottom:24px;right:max(20px,5cqw)}
+  html:not(.pin-ok) .wk--feature .wk__body{align-content:center;gap:12px;padding:clamp(28px,3vw,48px)}
+  html:not(.pin-ok) .wk--feature h3{font-size:clamp(24px,2.2vw,32px)}
+  html:not(.pin-ok) .wk--feature p{font-size:16px}
 }
 /* Desktop pinned horizontal gallery */
 @media (min-width:1024px){

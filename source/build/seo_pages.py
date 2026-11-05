@@ -31,7 +31,7 @@ SERVICES = [
          ('Build','I code the approved design, connect forms and analytics, and test on phones and browsers.'),
          ('Launch','Domain, hosting, Google Search Console and a final check. After launch, I fix any bugs free for 15–30 days.')],
   price='Landing pages ₹25,000, business sites from ₹55,000, restaurant sites with online ordering ₹90,000 and online stores from ₹95,000. A redesign of your current site costs 70% of a fresh build, and a care plan (updates, backups and security) is ₹3,500/month.',
-  work=['tis','antrah','roar','sashe','vidhi','growcred'],
+  work=['spacestudio','tis','antrah','roar','sashe','vidhi'],
   faq=[('How much does a website cost in Mumbai?','It depends on the number of pages and features. I quote a fixed price after a free audit, so there are no surprises and no hourly billing.'),
        ('How long does it take to build a website?','A typical business website goes live in 3 to 4 weeks from kickoff. A landing page can be live in under two weeks.'),
        ('Do you use WordPress or templates?','I build custom sites with modern code, and use WordPress when you need to edit content often yourself. Either way the design is made for you, never a template.'),
@@ -1125,11 +1125,14 @@ def tools_hub(ctx, parts, tv):
 {menu}
 <main id="main">
   <div class="wrap hero-shell">
-    <section class="sp-hero on-dark" data-tone="dark" aria-labelledby="page-title">
+    <section class="sp-hero fp-hero on-dark" data-tone="dark" aria-labelledby="page-title">
+      <div class="fp-hero__copy">
       <nav class="crumbs" aria-label="Breadcrumb"><ol><li><a href="/">Home</a></li><li aria-current="page">Free tools</li></ol></nav>
       <p class="eyebrow">Free &middot; no sign-up</p>
-      <h1 class="sp-hero__title" id="page-title">Free tools for local businesses<span class="dot">.</span></h1>
+      <h1 class="sp-hero__title fp-hero__title" id="page-title">Free tools for local businesses<span class="dot">.</span></h1>
       <p class="sp-hero__lead">Simple tools that help shops, clinics, salons and cafés get found on Google and win more reviews. They run in your browser, in English or Hinglish.</p>
+      </div>
+      {__import__('depth_art').card_tools()}
     </section>
   </div>
 {__import__('aeo').brief_html(TOOLS_ANSWER, TOOLS_FACTS, 'Key facts: free tools by U Scale', 'tools-brief')}
@@ -1416,7 +1419,7 @@ def pricing_page(ctx, parts):
       </div>
       <p class="sp-hero__who">Quotes are valid for 14 days. Every website and every monthly service starts with a free audit, so you know exactly what you are paying for before you spend a rupee.</p>
       </div>
-      {__import__('svc_pages').art_prices()}
+      {__import__('depth_art').card_prices()}
     </section>
   </div>
 {__import__('aeo').brief_html(PRICING_ANSWER, PRICING_FACTS, 'Key facts: U Scale prices', 'pricing-brief')}

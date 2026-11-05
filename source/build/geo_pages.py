@@ -752,106 +752,14 @@ def images_by_url(site):
     return {url_of(site, p): [(site + i['file'][1:] + '.webp', i['caption']) for i in page_images(p)] for p in PAGES}
 
 
-# ---------------------------------------------------------------- inline SVG graphics (maps)
-# Schematic, not to scale. Drawn as inline SVG so the labels are real text in the page, they stay sharp on any screen,
-# and the only motion (a pulse on the base, a train along the line) is CSS, switched off for reduced motion.
-def svg_gk_map():
-    # (name, dot x, dot y, label x, label y, anchor)
-    areas = [('Mulund', 452, 66, 468, 74, 'start'), ('Vikhroli', 414, 176, 430, 184, 'start'), ('Powai', 204, 176, 218, 184, 'start'),
-             ('Ghatkopar East', 452, 318, 452, 358, 'middle'), ('Kurla', 236, 474, 220, 482, 'end'), ('Chembur', 420, 500, 436, 508, 'start')]
-    dots = ''.join(f'<g class="fp-map__area"><circle cx="{x}" cy="{y}" r="9"/><text x="{lx}" y="{ly}" text-anchor="{an}">{e(n)}</text></g>'
-                   for n, x, y, lx, ly, an in areas)
-    return f"""<figure class="fp-map" data-reveal>
-  <svg viewBox="0 0 600 600" role="img" aria-labelledby="gkmap-t gkmap-d">
-    <title id="gkmap-t">Areas around Ghatkopar West where U Scale meets clients</title>
-    <desc id="gkmap-d">Schematic map, not to scale: Ghatkopar West in the centre, with Vikhroli and Mulund to the north along the Central line, Powai to the north-west, Ghatkopar East across the tracks, Kurla to the south-west and Chembur to the south-east. Metro Line 1 runs west from Ghatkopar to Andheri.</desc>
-    <defs><radialGradient id="gkg" cx="50%" cy="50%" r="50%"><stop offset="0" stop-color="#C9BCE8" stop-opacity=".6"/><stop offset="1" stop-color="#C9BCE8" stop-opacity="0"/></radialGradient></defs>
-    <rect width="600" height="600" rx="28" class="fp-map__bg"/>
-    <circle cx="300" cy="320" r="260" class="fp-map__ring"/><circle cx="300" cy="320" r="150" class="fp-map__ring"/>
-    <path d="M116 110c-34 14-48 52-22 76s74 20 86-12-30-78-64-64z" class="fp-map__lake"/>
-    <text x="78" y="232" class="fp-map__small">Powai Lake</text>
-    <path d="M472 0 L448 104 L404 206 L344 278 L300 320 L268 392 L234 466 L214 600" class="fp-map__rail"/>
-    <text x="490" y="30" class="fp-map__small fp-map__rail-l">Central line</text>
-    <path d="M300 320 L22 320" class="fp-map__metro"/>
-    <circle r="8" class="fp-map__train"><animateMotion dur="7s" repeatCount="indefinite" path="M300 320 L22 320"/></circle>
-    <text x="30" y="300" class="fp-map__small fp-map__metro-l">Metro Line 1 → Andheri</text>
-    {dots}
-    <circle cx="300" cy="320" r="96" fill="url(#gkg)"/>
-    <circle cx="300" cy="320" r="18" class="fp-map__pulse"/>
-    <circle cx="300" cy="320" r="14" class="fp-map__base"/>
-    <g class="fp-map__tag" transform="translate(40 352)"><rect width="246" height="70" rx="16"/><text x="18" y="31" class="fp-map__tag-t">Ghatkopar West</text><text x="18" y="54" class="fp-map__tag-s">U Scale · Mehul Karotra</text></g>
-  </svg>
-  <figcaption>Areas around Ghatkopar where Mehul meets clients. Schematic, not to scale.</figcaption>
-</figure>"""
-
-
-AE_STATIONS = [('W. E. Highway', 'Gundavali'), ('Chakala', 'Chakala · J.B. Nagar'), ('Airport Road', ''), ('Marol Naka', 'Marol · MIDC'),
-               ('Saki Naka', 'Saki Naka'), ('Asalpha', ''), ('Jagruti Nagar', ''), ('Ghatkopar', '')]
+# ---------------------------------------------------------------- maps (drawn as dioramas in depth_art.py)
 AE_DESC = ('Schematic, not to scale: Metro Line 1 stations from Western Express Highway through Chakala, Airport Road, Marol Naka, Saki Naka, '
            'Asalpha and Jagruti Nagar to Ghatkopar, where U Scale is based. Andheri East areas marked: Gundavali, Chakala and J.B. Nagar, '
            'Marol and MIDC, Saki Naka.')
 
 
-def _ae_wide():
-    st = AE_STATIONS; x0, x1 = 70, 1010
-    xs = [round(x0 + i * (x1 - x0) / (len(st) - 1)) for i in range(len(st))]
-    nodes = ''
-    for i, ((name, area), x) in enumerate(zip(st, xs)):
-        last = i == len(st) - 1
-        nodes += (f'<g class="fp-metro__st{" fp-metro__st--base" if last else ""}"><circle cx="{x}" cy="200" r="{13 if last else 9}"/>'
-                  f'<text x="{x}" y="{246 if i % 2 == 0 else 268}" text-anchor="middle">{e(name)}</text></g>')
-        if area:  # pills sized to their text, alternating two rows so neighbours never overlap, kept inside the zone (x 40–720)
-            n = sum(1 for _, a in st[:i] if a); w = 24 + len(area) * 8.6; top = 96 if n % 2 == 0 else 142
-            px = min(max(x - w / 2, 50), 710 - w)
-            nodes += (f'<g class="fp-metro__area"><rect x="{px:.0f}" y="{top}" width="{w:.0f}" height="36" rx="18"/><text x="{px + w / 2:.0f}" y="{top + 23}" text-anchor="middle">{e(area)}</text>'
-                      f'<path d="M{x} {top + 36}V{188}"/></g>')
-    return f"""<svg class="fp-metro--wide" viewBox="0 0 1080 320" role="img" aria-labelledby="aemetro-t aemetro-d">
-    <title id="aemetro-t">Andheri East and Ghatkopar on Mumbai Metro Line 1</title><desc id="aemetro-d">{e(AE_DESC)}</desc>
-    <rect width="1080" height="320" rx="28" class="fp-map__bg"/>
-    <text x="70" y="62" class="fp-metro__h">ANDHERI EAST</text><text x="1010" y="62" text-anchor="end" class="fp-metro__h">GHATKOPAR</text>
-    <rect x="40" y="84" width="680" height="200" rx="22" class="fp-metro__zone"/>
-    <path d="M{x0} 200 H{x1}" class="fp-metro__line"/>
-    <circle r="7" class="fp-map__train"><animateMotion dur="8s" repeatCount="indefinite" path="M{x0} 200 H{x1}"/></circle>
-    {nodes}
-    <circle cx="{x1}" cy="200" r="20" class="fp-map__pulse"/>
-    <text x="{x1}" y="296" text-anchor="middle" class="fp-metro__base-l">U Scale base</text>
-  </svg>"""
-
-
-def _ae_tall():
-    # Phones: the same line, top to bottom, so every label is readable without zooming.
-    st = AE_STATIONS; y0, y1 = 92, 668
-    ys = [round(y0 + i * (y1 - y0) / (len(st) - 1)) for i in range(len(st))]
-    nodes = ''
-    for i, ((name, area), y) in enumerate(zip(st, ys)):
-        last = i == len(st) - 1
-        nodes += (f'<g class="fp-metro__st{" fp-metro__st--base" if last else ""}"><circle cx="64" cy="{y}" r="{14 if last else 10}"/>'
-                  f'<text x="94" y="{y + 7}" class="fp-metro__tl">{e(name)}</text></g>')
-        if area:
-            w = min(190, 26 + len(area) * 10)  # capped so the longest pill keeps clear of the zone border (x 436)
-            nodes += f'<g class="fp-metro__area"><rect x="236" y="{y - 20}" width="{w}" height="40" rx="20"/><text x="{236 + w / 2:.0f}" y="{y + 6}" text-anchor="middle">{e(area)}</text></g>'
-    return f"""<svg class="fp-metro--tall" viewBox="0 0 460 740" role="img" aria-labelledby="aemetro2-t aemetro2-d">
-    <title id="aemetro2-t">Andheri East and Ghatkopar on Mumbai Metro Line 1</title><desc id="aemetro2-d">{e(AE_DESC)}</desc>
-    <rect width="460" height="740" rx="28" class="fp-map__bg"/>
-    <rect x="24" y="56" width="412" height="400" rx="22" class="fp-metro__zone"/>
-    <text x="40" y="40" class="fp-metro__h">ANDHERI EAST ↓</text>
-    <path d="M64 {y0} V{y1}" class="fp-metro__line"/>
-    <circle r="8" class="fp-map__train"><animateMotion dur="8s" repeatCount="indefinite" path="M64 {y0} V{y1}"/></circle>
-    {nodes}
-    <circle cx="64" cy="{y1}" r="22" class="fp-map__pulse"/>
-    <text x="94" y="{y1 + 34}" class="fp-metro__base-l">U Scale base, Ghatkopar West</text>
-  </svg>"""
-
-
-def svg_ae_metro():
-    return f"""<figure class="fp-map fp-map--metro" data-reveal>
-  {_ae_wide()}
-  {_ae_tall()}
-  <figcaption>Andheri East and Ghatkopar are on the same Metro line. Schematic, not to scale.</figcaption>
-</figure>"""
-
-
-SVGS = {'gk-map': svg_gk_map, 'ae-metro': svg_ae_metro}
+SVGS = {'gk-map': lambda: __import__('depth_art').gk_map(), 'ae-metro': lambda: __import__('depth_art').metro_map(),
+        'about-map': lambda: __import__('depth_art').about_map()}
 
 
 # ---------------------------------------------------------------- block renderers

@@ -63,67 +63,8 @@ def faq_of(slug, extra=()):
     return out
 
 
-# ---------------------------------------------------------------- hero graphics, one per page, drawn in HTML/CSS
-def art_pack():
-    """SEO: what Google weighs for a local search, as a card. Illustrative: no real business, no promised position."""
-    rows = [('search', 'Relevance', 'You control it', 86), ('pin', 'Distance', 'Nobody can change it', 0), ('star', 'Prominence', 'You build it', 64)]
-    li = ''.join(f'<li style="--i:{i}"><span class="sv-pack__ic">{icon(ic)}</span><span class="sv-pack__l"><b>{e(n)}</b><small>{e(t)}</small></span>'
-                 + (f'<span class="sv-pack__bar"><i style="--w:{w}%"></i></span>' if w else '<span class="sv-pack__bar sv-pack__bar--fixed" aria-hidden="true"></span>')
-                 + '</li>' for i, (ic, n, t, w) in enumerate(rows))
-    return (f'<div class="fp-art sv-card sv-pack" aria-label="What Google weighs in local map results: relevance, distance and prominence">'
-            f'<p class="sv-card__k">{icon("search")}Local search · Mumbai</p>'
-            f'<p class="sv-pack__q"><span>dentist near me</span><i aria-hidden="true"></i></p>'
-            f'<div class="sv-pack__map" aria-hidden="true"><b class="sv-pin sv-pin--1"></b><b class="sv-pin sv-pin--2"></b><b class="sv-pin sv-pin--3"></b><span class="sv-pack__you">Your listing</span></div>'
-            f'<p class="sv-card__h">What Google weighs</p><ul>{li}</ul>'
-            f'<p class="sv-card__f">{icon("check")}Monthly report: calls, directions, website taps</p></div>')
-
-
-def art_calendar():
-    """Social media: a month's content calendar. Illustrative plan, not a real client's."""
-    plan = {2: 'p', 4: 'r', 6: 'c', 9: 'p', 11: 'r', 13: 'p', 16: 'c', 18: 'p', 20: 'r', 23: 'p', 25: 'c', 27: 'r'}
-    names = {'p': 'Post', 'r': 'Reel', 'c': 'Carousel'}
-    cells = ''.join(f'<li class="sv-cal__d{" sv-cal__d--" + plan[d] if d in plan else ""}" style="--i:{d}">'
-                    f'<span>{d}</span>{f"<i>{names[plan[d]]}</i>" if d in plan else ""}</li>' for d in range(1, 29))
-    days = ''.join(f'<li>{x}</li>' for x in 'MTWTFSS')
-    return (f'<div class="fp-art sv-card sv-cal" aria-label="A sample month of social media content: posts, reels and carousels across four weeks">'
-            f'<p class="sv-card__k">{icon("calendar")}Your content plan · 4 weeks</p>'
-            f'<ul class="sv-cal__wd" aria-hidden="true">{days}</ul><ol class="sv-cal__g" aria-hidden="true">{cells}</ol>'
-            f'<p class="sv-cal__key" aria-hidden="true"><span class="sv-k sv-k--p">Post</span><span class="sv-k sv-k--r">Reel</span><span class="sv-k sv-k--c">Carousel</span></p>'
-            f'<p class="sv-card__f">{icon("check")}You approve the calendar before anything goes live</p></div>')
-
-
-def art_answer():
-    """AI search: a question to an AI assistant and an answer that cites its sources. Illustrative example."""
-    src = [('globe', 'Your website'), ('pin', 'Google Business Profile'), ('star', 'Reviews'), ('file', 'Directories')]
-    li = ''.join(f'<li style="--i:{i}">{icon(ic)}<span>{e(t)}</span>{icon("check", "fp-ic sv-ok")}</li>' for i, (ic, t) in enumerate(src))
-    return (f'<div class="fp-art sv-card sv-ans" aria-label="Illustration: an AI assistant answers a local question and cites the business’s website, Google listing, reviews and directories">'
-            f'<p class="sv-card__k">{icon("bolt")}Asked an AI assistant</p>'
-            f'<p class="sv-ans__q">Who makes restaurant websites with online ordering in Mumbai?</p>'
-            f'<div class="sv-ans__a"><i></i><i></i><i class="sv-ans__short"></i></div>'
-            f'<p class="sv-card__h">Where the answer comes from</p><ul>{li}</ul>'
-            f'<p class="sv-card__f">{icon("refresh")}Re-checked every month · illustration</p></div>')
-
-
-def art_menu():
-    """Services hub: every service with its published price, like a printed rate card."""
-    rows = [('Websites', f'from {price("Landing page")}'), ('Local SEO', price('Local SEO / Google Business Profile')),
-            ('Social media', price('Community & inbox management')), ('Google & Meta ads', price('Ads management')),
-            ('AI search (GEO)', price('AI search visibility (GEO)'))]
-    li = ''.join(f'<li><span>{e(n)}</span><i></i><b>{e(v)}</b></li>' for n, v in rows)
-    return (f'<div class="fp-art fp-ticket sv-ticket" aria-label="U Scale services and prices"><p class="fp-ticket__k">U Scale rate card · 2026</p>'
-            f'<ul>{li}</ul><p class="fp-ticket__f">{icon("shield")}Every price published. No GST charged right now.</p></div>')
-
-
-def art_prices():
-    """Pricing: fixed website prices, as on the price list."""
-    rows = [('Landing page', price('Landing page')), ('Business site, 3–4 pages', price('Business site, 3–4 pages')),
-            ('5–10 pages + blog', price('Business site, 5–10 pages + blog')), ('Online store', 'from ' + price('E-commerce, under 50 products'))]
-    li = ''.join(f'<li><span>{e(n)}</span><i></i><b>{e(v)}</b></li>' for n, v in rows)
-    return (f'<div class="fp-art fp-ticket sv-ticket" aria-label="U Scale fixed website prices"><p class="fp-ticket__k">Fixed website prices · 2026</p>'
-            f'<ul>{li}</ul><p class="fp-ticket__f">{icon("file")}In writing before work starts · 20% / 20% / 60%</p></div>')
-
-
-ARTS = {'pack': art_pack, 'calendar': art_calendar, 'answer': art_answer, 'menu': art_menu, 'prices': art_prices}
+# ---------------------------------------------------------------- hero graphics, one per page, drawn with depth in depth_art.py
+ARTS = {k: __import__('depth_art').CARDS[k] for k in ('pack', 'calendar', 'answer', 'menu', 'prices')}  # the cards with depth
 
 
 def hero_art(p):
@@ -464,9 +405,36 @@ def _work(ctx, p):
     <div class="wrap fp-work">
       <header class="sec-head fp-head"><p class="eyebrow">Real work</p><h2 class="h2 fp-h2" id="work-title">{e(p['work_h'])}</h2>
         <p class="lead">{e(p['work_lead'])}</p></header>
+      {_feature(ctx, p['work_feature']) if p.get('work_feature') else ''}
       <ul class="rw-grid{' fp-work__grid' if len(keys) < 3 else ''}" data-reveal-group>{cards}</ul>
     </div>
   </section>'''
+
+
+def _feature(ctx, k):
+    """The latest project, large: its live site in a browser frame with the phone version in front, and the story beside it."""
+    w = {x[0]: x for x in ctx['WORK']}[k]
+    lw, lh = ctx['SZ'][k]
+    dom = w[5].split('//')[1].rstrip('/')
+    vu = GP.vurl
+    return f'''<article class="rwf" data-reveal aria-labelledby="rwf-{k}">
+        <a class="rwf__stage" href="{w[5]}" target="_blank" rel="noopener" data-cursor="view" tabindex="-1" aria-hidden="true">
+          <span class="rwf__glow"></span>
+          <span class="rwf__browser"><span class="rwf__bar"><i></i><i></i><i></i><b>{e(dom)}</b></span>
+            <img src="{vu(f'/assets/work/{k}-feature.webp')}" srcset="{vu(f'/assets/work/{k}-feature-960.webp')} 960w, {vu(f'/assets/work/{k}-feature.webp')} 1536w"
+              sizes="(max-width: 899px) 92vw, 640px" width="1536" height="960" alt="" loading="lazy" decoding="async"></span>
+          <span class="rwf__phone"><img src="{vu(f'/assets/work/{k}-mobile.webp')}" srcset="{vu(f'/assets/work/{k}-mobile.webp')} 1x, {vu(f'/assets/work/{k}-mobile@2x.webp')} 2x"
+              width="360" height="805" alt="" loading="lazy" decoding="async"></span>
+        </a>
+        <div class="rwf__copy">
+          <p class="rwf__k"><span class="rwf__dot" aria-hidden="true"></span>Latest project · live</p>
+          <img class="rwf__logo" src="{vu(f'/assets/logos/{k}.webp')}" width="{lw}" height="{lh}" alt="" loading="lazy" decoding="async">
+          <h3 class="rwf__h" id="rwf-{k}">{e(w[1])}</h3>
+          <p class="rwf__meta">{e(w[2])} · {e(w[3])}</p>
+          <p class="rwf__d">{e(w[4])}</p>
+          <a class="tlink rwf__go" href="{w[5]}" target="_blank" rel="noopener">Visit {e(dom)}<span class="sr-only"> (opens in a new tab)</span> <span aria-hidden="true">↗</span></a>
+        </div>
+      </article>'''
 
 
 def _foot(p):
@@ -604,7 +572,7 @@ def about_page(ctx, parts):
                             ('team', 'Specialists when needed', 'A photographer for a shoot, a developer friend for a tricky build. I stay your single point of contact.')], cols=3),
                      eyebrow='Principles', layout='wide'),
                  Sec('Where I meet clients',
-                     Svg('gk-map'),
+                     Svg('about-map'),
                      Chips(['Ghatkopar', 'Vikhroli', 'Powai', 'Kurla', 'Chembur', 'Mulund', 'Andheri East'], 'Areas I visit'),
                      P('I’m based in Ghatkopar West. I meet clients across Mumbai, Thane and Navi Mumbai, and work with businesses across India over WhatsApp and video calls.'),
                      eyebrow='Mumbai', tone='band', sid='areas'),
@@ -622,7 +590,7 @@ def about_page(ctx, parts):
                      eyebrow='Find me', layout='wide'),
              ])
     work_keys = [w[0] for w in ctx['WORK']]
-    p.update(work=work_keys, work_h='Work I’ve designed and built.',
+    p.update(work=work_keys[1:], work_feature=work_keys[0], work_h='Work I’ve designed and built.',
              work_lead='Client websites, in-house product work and my own projects. Each card opens the live site.')
     faq = list(aeo.ABOUT_FAQ) + [('Who owns U Scale?', 'Mehul Karotra owns U Scale. Apex36 Technologies is a separate sister company for custom software and AI.')]
     body = (_hero(p, wa, icons) + aeo.brief_html(aeo.ABOUT_ANSWER, aeo.ABOUT_FACTS, 'Key facts about Mehul Karotra', 'brief-title',
