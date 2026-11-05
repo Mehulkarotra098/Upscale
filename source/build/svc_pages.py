@@ -423,7 +423,7 @@ def _feature(ctx, k):
           <span class="rwf__browser"><span class="rwf__bar"><i></i><i></i><i></i><b>{e(dom)}</b></span>
             <img src="{vu(f'/assets/work/{k}-feature.webp')}" srcset="{vu(f'/assets/work/{k}-feature-960.webp')} 960w, {vu(f'/assets/work/{k}-feature.webp')} 1536w"
               sizes="(max-width: 899px) 92vw, 640px" width="1536" height="960" alt="" loading="lazy" decoding="async"></span>
-          <span class="rwf__phone"><img src="{vu(f'/assets/work/{k}-mobile.webp')}" srcset="{vu(f'/assets/work/{k}-mobile.webp')} 1x, {vu(f'/assets/work/{k}-mobile@2x.webp')} 2x"
+          <span class="rwf__phone"><span class="rwf__status"><b>9:41</b></span><img src="{vu(f'/assets/work/{k}-mobile.webp')}" srcset="{vu(f'/assets/work/{k}-mobile.webp')} 1x, {vu(f'/assets/work/{k}-mobile@2x.webp')} 2x"
               width="360" height="805" alt="" loading="lazy" decoding="async"></span>
         </a>
         <div class="rwf__copy">

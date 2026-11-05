@@ -157,7 +157,22 @@ def box(P, x, y, w, d, h, z0=0.0, tone='', cls='dm-b', windows=True):
                 (ax, ay), (bx, by) = base[a], base[b]
                 ln += f'M{_f(ax + (bx - ax) * .14)} {_f(ay + (by - ay) * .14 - z)}L{_f(ax + (bx - ax) * .86)} {_f(ay + (by - ay) * .86 - z)}'
             out += f'<path class="dm-win dm-win--{side}" d="{ln}"/>'
-    return out + f'<path class="{cls}__t{tone}" d="{poly(top)}"/>'
+    out += f'<path class="{cls}__t{tone}" d="{poly(top)}"/>'
+    if windows and h >= 20 and w >= 15 and d >= 13 and int(abs(x * 7 + y * 13)) % 3 == 0:
+        tw = min(7, w * .32)
+        out += box(P, x + w * .22, y + d * .24, tw, tw, 5 + h * .05, z0=z0 + h, cls='dm-r', windows=False)
+    return out
+
+
+def _tree(P, kind, x, y):
+    """A tree: a soft shadow, a crown in one of three greens with a lit side. Size and colour vary by position."""
+    k = int(abs(x * 3.1 + y * 1.7))
+    r = (4.6 + (k % 5) * .85) if kind == 't' else (3.6 + (k % 3) * .5)
+    tone = 'abc'[k % 3] if kind == 't' else 'm'
+    X, Y = P(x, y); Xt, Yt = P(x, y, r + 2.5)
+    return (f'<ellipse class="dm-tree-s" cx="{_f(X + r * .7)}" cy="{_f(Y + 1.5)}" rx="{_f(r + 1.5)}" ry="{_f(r * .5)}"/>'
+            f'<circle class="dm-tree dm-tree--{tone}" cx="{_f(Xt)}" cy="{_f(Yt)}" r="{_f(r)}"/>'
+            f'<circle class="dm-tree-h" cx="{_f(Xt - r * .32)}" cy="{_f(Yt - r * .38)}" r="{_f(r * .45)}"/>')
 
 
 def _stage(sp, var):
@@ -171,7 +186,7 @@ def _stage(sp, var):
     proj = [P(x, y) for x, y in outline]
     lift = sp.get('lift', 150)  # head room for pins and the Metro above the slab
     minx = min(p[0] for p in proj); maxx = max(p[0] for p in proj)
-    miny = min(p[1] for p in proj) - lift; maxy = max(p[1] for p in proj) + T + 48
+    miny = min(p[1] for p in proj) - lift; maxy = max(p[1] for p in proj) + T + sp.get('floor', 48)  # floor: room for the slab's shadow
     pad = 14
     P.ox, P.oy = -minx + pad, -miny + pad
     W, H = maxx - minx + 2 * pad, maxy - miny + 2 * pad
@@ -189,6 +204,8 @@ def _stage(sp, var):
         g += f'<path class="dm-{kind}" d="{smooth(pts, True)}"/>'
         if kind == 'water':
             g += f'<path class="dm-shoreline" d="{smooth(pts, True)}"/>'
+    for ax, ay, bx2, by2 in sp.get('plots', []):
+        g += f'<rect class="dm-plot" x="{ax}" y="{ay}" width="{bx2 - ax}" height="{by2 - ay}" rx="16"/>'
     for cx, cy, rx, ry in sp.get('ripples', []):
         g += f'<path class="dm-ripple" d="M{cx - rx} {cy}q{rx / 2} {-ry} {rx} 0t{rx} 0"/>'
     for kind, pts, label in sp.get('roads', []):
@@ -203,7 +220,8 @@ def _stage(sp, var):
     for i, (kind, pts, label) in enumerate(sp.get('roads', [])):
         at = sp.get('road_label_at', {}).get(i)
         if label and at:
-            defs_paths += f'<path id="{uid}-r{i}" d="{smooth(pts)}"/>'
+            lp = pts if P(*pts[-1])[0] >= P(*pts[0])[0] else pts[::-1]  # text runs left to right on screen
+            defs_paths += f'<path id="{uid}-r{i}" d="{smooth(lp)}"/>'
             g += f'<text class="dm-paint dm-paint--road"><textPath href="#{uid}-r{i}" startOffset="{at}" text-anchor="middle">{e(label)}</textPath></text>'
     for text, x, y, rot, cls in sp.get('paint', []):
         g += f'<text class="dm-paint {cls}" x="{x}" y="{y}" transform="rotate({rot} {x} {y})" text-anchor="middle">{e(text)}</text>'
@@ -211,6 +229,11 @@ def _stage(sp, var):
         cx, cy = sp['compass']
         g += (f'<g class="dm-compass"><circle cx="{cx}" cy="{cy}" r="26"/><path d="M{cx} {cy - 19} L{cx + 8} {cy + 5} L{cx} {cy + 1} L{cx - 8} {cy + 5}Z"/>'
               f'<text x="{cx}" y="{cy - 33}" text-anchor="middle">N</text></g>')
+    if sp.get('route'):
+        g += f'<path class="dm-route-c" d="{smooth(sp["route"])}"/><path class="dm-route" d="{smooth(sp["route"])}"/>'
+    if sp.get('me'):
+        mx, my = sp['me']
+        g += f'<circle class="dm-me-ring" cx="{mx}" cy="{my}" r="26"/><circle class="dm-me" cx="{mx}" cy="{my}" r="11"/>'
     bx, by = sp['base']
     g += f'<circle cx="{bx}" cy="{by}" r="130" fill="url(#{uid}-glow)"/>'
     g += ''.join(f'<circle class="dm-pulse dm-pulse--{i}" cx="{bx}" cy="{by}" r="34"/>' for i in range(3))
@@ -220,12 +243,10 @@ def _stage(sp, var):
     for (x, y, w, d, h, tone) in sp.get('buildings', []):
         if inside_slab(x, y) and inside_slab(x + w, y + d):
             items.append((P(x + w / 2, y + d)[1], box(P, x, y, w, d, h, tone=tone)))
+    keep_clear = sp.get('clear', [])  # (x, y, half-width, half-height) zones where painted labels sit
     for kind, x, y in sp.get('trees', []):
-        if not inside_slab(x, y): continue
-        X, Y = P(x, y); r = 7 if kind == 't' else 4.5
-        Xt, Yt = P(x, y, r + 2)
-        items.append((Y, f'<ellipse class="dm-tree-s" cx="{_f(X + r * .6)}" cy="{_f(Y + 1.5)}" rx="{r + 1}" ry="{_f(r * .45)}"/>'
-                         f'<circle class="dm-tree dm-tree--{kind}" cx="{_f(Xt)}" cy="{_f(Yt)}" r="{r}"/><circle class="dm-tree-h" cx="{_f(Xt - r * .3)}" cy="{_f(Yt - r * .35)}" r="{_f(r * .42)}"/>'))
+        if not inside_slab(x, y) or any(abs(x - cx) < hw and abs(y - cy) < hh for cx, cy, hw, hh in keep_clear): continue
+        items.append((P(x, y)[1], _tree(P, kind, x, y)))
     metro = sp.get('metro')
     if metro:
         h = metro['h']
@@ -311,7 +332,8 @@ def _blocks(rnd, clusters, avoid):
     for (ax, ay, bx, by), n, h0, h1 in clusters:
         for (x, y) in _scatter(rnd, n, [(ax, ay), (bx, ay), (bx, by), (ax, by)], avoid, 20, 30):
             w, d, h = rnd.uniform(14, 26), rnd.uniform(14, 24), rnd.uniform(h0, h1)
-            tone = '--v' if h > 52 and rnd.random() < .45 else '--g' if rnd.random() < .12 else ''
+            q = rnd.random()
+            tone = '--v' if h > 52 and q < .45 else '--g' if q < .12 else '--w' if q < .36 else ''
             out.append((x - w / 2, y - d / 2, w, d, h, tone))
     return out
 
@@ -330,11 +352,13 @@ def gk_spec():
     mangrove = [(318, -660), (296, -330), (306, -40), (340, 230), (392, 470), (480, 470), (430, 230), (392, -40), (380, -330), (408, -660)]
     lines = [central, harbour, metro, lbs, eeh, jvlr]
     rnd = random.Random(11)
-    blds = _blocks(rnd, [((-150, -100, -60, 90), 10, 14, 48), ((60, -60, 140, 110), 9, 12, 40), ((-200, 140, -110, 260), 7, 12, 34),
-                         ((40, 200, 200, 330), 8, 12, 36), ((40, -300, 140, -170), 7, 12, 44), ((110, -540, 220, -400), 6, 12, 40),
-                         ((-246, -236, -120, -140), 7, 30, 92), ((-420, -130, -280, 60), 7, 10, 32), ((-300, 110, -220, 300), 6, 10, 30),
-                         ((-60, -200, 20, -130), 4, 10, 26), ((-120, 300, 40, 400), 6, 10, 30)], lines)
-    trees = ([('t', x, y) for x, y in _scatter(rnd, 46, park, [], 0, 21)]
+    clusters = [((-150, -100, -60, 90), 10, 14, 48), ((60, -60, 140, 110), 9, 12, 40), ((-200, 140, -110, 260), 7, 12, 34),
+                ((40, 200, 200, 330), 8, 12, 36), ((40, -300, 140, -170), 7, 12, 44), ((110, -540, 220, -400), 6, 12, 40),
+                ((-246, -236, -120, -140), 7, 30, 92), ((-420, -130, -280, 60), 7, 10, 32), ((-300, 110, -220, 300), 6, 10, 30),
+                ((-60, -200, 20, -130), 4, 10, 26), ((-120, 300, 40, 400), 6, 10, 30)]
+    blds = _blocks(rnd, clusters, lines)
+    plots = [(ax - 14, ay - 14, bx + 14, by + 14) for (ax, ay, bx, by), *_ in clusters]
+    trees = ([('t', x, y) for x, y in _scatter(rnd, 90, park, [], 0, 15)]
              + [('t', x, y) for x, y in _scatter(rnd, 12, [(-390, -430), (-200, -440), (-140, -400), (-170, -362), (-390, -392)], [], 0, 19)]
              + [('m', x, y) for x, y in _scatter(rnd, 46, mangrove, [], 0, 15)])
     pins_wide = [('Mulund', 170, -470, 'r', ''), ('Vikhroli', 88, -230, 'r', ''), ('Powai', -166, -340, 'r', ''),
@@ -351,8 +375,7 @@ def gk_spec():
         ripples=[(-262, -330, 30, 7), (-228, -300, 24, 6), (-292, -296, 18, 5)],
         roads=[('hwy', eeh, 'EASTERN EXPRESS HIGHWAY'), ('road', lbs, 'LBS MARG'), ('road', jvlr, 'JVLR')],
         rails=[('central', central), ('harbour', harbour)],
-        paint=[('THANE CREEK', 488, -150, 82, 'dm-paint--water'),
-               ('CENTRAL LINE', 222, -560, -74, 'dm-paint--rail')],
+        paint=[('THANE CREEK', 488, -150, 82, 'dm-paint--water')], plots=plots,
         base=(-40, 18),
         metro=dict(pts=metro, h=34, stations=[(28, -5), (-62, -16), (-152, -30), (-250, -46), (-360, -60)], dur=10),
         buildings=blds, trees=trees, pins=pins_wide)
@@ -361,11 +384,10 @@ def gk_spec():
 def gk_map():
     sp = gk_spec()
     return diorama(sp, [
-        dict(name='wide', theta=-17, k=.6, slab=(-470, -560, 470, 420), lift=170, compass=(412, 362),
+        dict(name='wide', theta=-17, k=.6, slab=(-470, -560, 470, 420), lift=52, compass=(412, 362),
              road_label_at={0: '30%', 1: '27%', 2: '62%'},
-             paint=sp['paint'] + [('POWAI LAKE', -252, -268, 0, 'dm-paint--water'), ('NATIONAL PARK', -372, -500, 0, 'dm-paint--park')],
              notes=[('Metro Line 1 → Andheri', -440, -70, 'm-l')]),
-        dict(name='tall', theta=-9, k=.76, slab=(-250, -560, 430, 420), lift=150, compass=(376, 372), radius=40,
+        dict(name='tall', theta=-9, k=.76, slab=(-250, -560, 430, 420), lift=62, compass=(376, 372), radius=40,
              road_label_at={0: '30%', 1: '30%'},
              pins=[(n, x, y, {'Kurla': 'r'}.get(n, s), t) for n, x, y, s, t in sp['pins']],
              notes=[('Metro → Andheri', -236, -50, 'm-b')]),
@@ -385,12 +407,11 @@ def about_map():
               caption='Ghatkopar, the areas around it, and the way on to Andheri East, Thane and Navi Mumbai. Schematic, not to scale.')
     beyond = [('Thane ↑', 262, -536, 'g'), ('Navi Mumbai →', 470, 250, 'g')]
     return diorama(sp, [
-        dict(name='wide', theta=16, k=.6, slab=(-470, -560, 470, 420), lift=170, compass=(-410, 362),
+        dict(name='wide', theta=16, k=.6, slab=(-470, -560, 470, 420), lift=52, compass=(-410, 362),
              road_label_at={0: '22%', 1: '70%', 2: '40%'},
-             paint=sp['paint'] + [('POWAI LAKE', -252, -268, 0, 'dm-paint--water'), ('NATIONAL PARK', -372, -500, 0, 'dm-paint--park')],
-             pins=[(n, x, y, {'Kurla': 'r', 'Powai': 'l', 'Mulund': 'l'}.get(n, s_), t) for n, x, y, s_, t in sp['pins']],
-             notes=[('Metro 1 → Andheri East', -440, -70, 'm-r')] + beyond),
-        dict(name='tall', theta=6, k=.76, slab=(-250, -560, 430, 420), lift=150, compass=(-196, 372), radius=40,
+             pins=[(n, x, y, {'Kurla': 'r', 'Mulund': 'l'}.get(n, s_), t) for n, x, y, s_, t in sp['pins']],
+             notes=[('Metro 1 → Andheri East', -352, -59, 'm')] + beyond),
+        dict(name='tall', theta=6, k=.76, slab=(-250, -560, 430, 420), lift=62, compass=(-196, 372), radius=40,
              road_label_at={0: '30%', 1: '30%'},
              pins=[(n, x, y, {'Kurla': 'r', 'Mulund': 'l'}.get(n, s_), t) for n, x, y, s_, t in sp['pins']],
              notes=[('Metro → Andheri East', -236, -50, 'm-b'), ('Thane ↑', 262, -536, 'g'), ('Navi Mumbai →', 388, 300, 'g-l')]),
@@ -412,7 +433,7 @@ def metro_map():
                          ((-60, 40, 120, 140), 8, 10, 36), ((160, -140, 330, -40), 6, 10, 28), ((180, 40, 340, 140), 6, 10, 28),
                          ((370, -140, 520, -30), 6, 12, 40), ((370, 40, 520, 140), 6, 12, 36), ((-560, -140, -420, -40), 5, 10, 34)],
                    [line, weh, lbs, runway])
-    trees = [('t', x, y) for x, y in _scatter(rnd, 18, [(-420, 150), (100, 150), (100, 205), (-420, 205)], [line, weh, lbs], 18, 26)]
+    trees = [('t', x, y) for x, y in _scatter(rnd, 22, [(-420, 150), (100, 150), (100, 205), (-420, 205)], [line, weh, lbs], 18, 24)]
     sp = dict(
         id='aemap', seed=9,
         title='Andheri East and Ghatkopar on Mumbai Metro Line 1',
@@ -426,11 +447,12 @@ def metro_map():
         pins=[('Ghatkopar West', xs[-1], ys[-1], 'base', 'U Scale base')])
     stations = list(zip(st[:-1], xs[:-1], ys[:-1]))
     return diorama(sp, [
-        dict(name='wide', theta=-10, k=.5, slab=(-570, -220, 560, 210), lift=190, radius=36, road_label_at={0: '22%', 1: '78%'},
-             paint=[('ANDHERI EAST', -220, -186, 10, 'dm-paint--zone'), ('AIRPORT', -208, -150, -2, 'dm-paint--rail'), ('GHATKOPAR', 440, -186, 10, 'dm-paint--zone')],
+        dict(name='wide', theta=-10, k=.5, slab=(-570, -220, 560, 210), lift=150, radius=36, road_label_at={0: '22%', 1: '78%'},
+             paint=[('ANDHERI EAST', -250, 182, 10, 'dm-paint--zone'), ('AIRPORT', -208, -150, -2, 'dm-paint--rail'), ('GHATKOPAR', 446, 182, 10, 'dm-paint--zone')],
+             clear=[(-250, 178, 160, 30)],
              notes=[(n, x, y, 'm' if i % 2 == 0 else 'm2') for i, (n, x, y) in enumerate(stations)]),
         dict(name='tall', theta=78, k=.86, slab=(-570, -220, 560, 210), lift=120, radius=36, road_label_at={},
-             paint=[('ANDHERI EAST', -160, -168, -78, 'dm-paint--zone'), ('GHATKOPAR', 440, -168, -78, 'dm-paint--zone')],
+             paint=[('ANDHERI EAST', -400, -176, -78, 'dm-paint--zone'), ('GHATKOPAR', 300, -176, -78, 'dm-paint--zone')],
              pins=[('Ghatkopar West', xs[-1], ys[-1], 'base-l', 'U Scale base')],
              notes=[(n, x, y, 'm-s') for n, x, y in stations]),
     ])
@@ -452,28 +474,27 @@ def _float(cls, html, z, i=0):
 
 
 def card_pack():
-    """SEO: a local search. A tiny diorama (same engine as the area maps) with your listing standing out, what Google weighs, and the
-    search itself floating above the card. Illustrative: no real business, no promised position."""
+    """SEO: a local search. The search field sits on the card, the map shows your listing as the beacon with the way to it
+    from where the searcher is (Distance), and the rows say what Google weighs. Illustrative: no real business, no position promised."""
     rnd = random.Random(4)
     roads = [('road', [(-260, 40), (-80, 20), (80, -10), (260, -30)], ''), ('road', [(40, -200), (20, 0), (-10, 200)], '')]
-    blds = _blocks(rnd, [((-240, -170, -60, -40), 6, 10, 34), ((80, -170, 240, -60), 5, 10, 30), ((-240, 70, -40, 170), 5, 10, 28), ((70, 40, 240, 170), 5, 10, 34)],
+    blds = _blocks(rnd, [((-240, -170, -60, -40), 6, 10, 32), ((80, -170, 240, -70), 5, 10, 28), ((-240, 70, -60, 170), 5, 10, 26), ((90, 40, 240, 170), 5, 10, 30)],
                    [r[1] for r in roads])
-    sp = dict(id='packmap', name='mini', title='Illustration: a local map search with your listing and two others nearby',
-              desc='Three pins on a small map: your listing in green, two other businesses in white. Illustrative only.',
-              theta=-16, k=.56, slab=(-260, -190, 260, 190), lift=70, radius=26, thick=12, grid=40, roads=roads, road_label_at={},
-              buildings=blds, base=(-10, 60), pins=[('Your listing', -10, 60, 'r', ''), ('', 150, -90, 'r', ''), ('', -170, -110, 'r', '')])
+    sp = dict(id='packmap', name='mini', title='Illustration: a local map search, with your listing, two others and the way to you',
+              desc='Your listing in green with a tag, two other businesses nearby, and a dotted route from where the person searching is. Illustrative only.',
+              theta=-16, k=.56, slab=(-260, -190, 260, 190), lift=58, floor=18, radius=26, thick=12, grid=40, roads=roads, road_label_at={},
+              buildings=blds, base=(-6, 58), me=(-200, 150), route=[(-200, 150), (-140, 112), (-70, 30), (-24, 26), (-6, 58)],
+              pins=[('Your listing', -6, 58, 'base', 'Open now · Directions'), ('', 160, -96, 'r', ''), ('', -168, -116, 'r', '')])
     stage = _stage(sp, {})
     rows = [('search', 'Relevance', 'You control it', 86), ('pin', 'Distance', 'Nobody can change it', 0), ('star', 'Prominence', 'You build it', 64)]
     li = ''.join(f'<li style="--i:{i}"><span class="sv-pack__ic">{icon(ic)}</span><span class="sv-pack__l"><b>{e(n)}</b><small>{e(t)}</small></span>'
                  + (f'<span class="dk-bar"><i style="--w:{w}%"></i></span>' if w else '<span class="dk-bar dk-bar--fixed"></span>')
                  + '</li>' for i, (ic, n, t, w) in enumerate(rows))
-    card = (f'<div class="dk__card sv-card sv-pack"><p class="sv-card__k">{icon("search")}Local search · Mumbai</p>'
+    card = (f'<div class="dk__card sv-card sv-pack"><p class="dk-q">{icon("search")}<span>dentist near me</span><i aria-hidden="true"></i><b>{icon("pin")}Mumbai</b></p>'
             f'<div class="dk-mini" aria-hidden="true">{stage}</div>'
             f'<p class="sv-card__h">What Google weighs</p><ul>{li}</ul>'
             f'<p class="sv-card__f">{icon("check")}Monthly report: calls, directions, website taps</p></div>')
-    floats = (_float('dk-q', f'{icon("search")}<span>dentist near me</span><i></i>', 90, 0)
-              + _float('dk-chip dk-chip--pack', f'{icon("pin")}Near you · Open now', 60, 1))
-    return _dk('pack', card, floats, label='What Google weighs in local map results: relevance, distance and prominence')
+    return _dk('pack', card, '', label='What Google weighs in local map results: relevance, distance and prominence')
 
 
 def card_calendar():
@@ -494,15 +515,15 @@ def card_calendar():
 def card_answer():
     """AI search: a chat window. The answer cites four sources, and each source card rises off the card at its own depth."""
     src = [('globe', 'Your website'), ('pin', 'Google Business Profile'), ('star', 'Reviews'), ('file', 'Directories')]
-    li = ''.join(f'<li style="--i:{i};--z:{14 + i * 14}px"><span class="dk-n">{i + 1}</span>{icon(ic)}<span>{e(t)}</span>{icon("check", "fp-ic sv-ok")}</li>'
+    li = ''.join(f'<li style="--i:{i}"><span class="dk-n">{i + 1}</span>{icon(ic)}<span>{e(t)}</span>{icon("check", "fp-ic sv-ok")}</li>'
                  for i, (ic, t) in enumerate(src))
     card = (f'<div class="dk__card sv-card sv-ans"><p class="dk-win" aria-hidden="true"><i></i><i></i><i></i><span>AI assistant</span></p>'
             f'<p class="sv-ans__q">Who makes restaurant websites with online ordering in Mumbai?</p>'
-            f'<div class="sv-ans__a dk-ans"><i></i><i></i><i class="sv-ans__short"></i><span class="dk-cites" aria-hidden="true"><b>1</b><b>2</b><b>3</b><b>4</b></span></div>'
+            f'<div class="sv-ans__a dk-ans"><p>A few Mumbai studios build these. Compare published prices, past restaurant sites, and whether ordering is commission-free.</p>'
+            f'<span class="dk-cites" aria-hidden="true"><b>1</b><b>2</b><b>3</b><b>4</b></span></div>'
             f'<p class="sv-card__h">Where the answer comes from</p><ul class="dk-src">{li}</ul>'
             f'<p class="sv-card__f">{icon("refresh")}Re-checked every month · illustration</p></div>')
-    floats = _float('dk-chip dk-chip--ai', f'{icon("bolt")}Asked an AI assistant', 90, 0)
-    return _dk('ans', card, floats, label='Illustration: an AI assistant answers a local question and cites the business’s website, Google listing, reviews and directories')
+    return _dk('ans', card, '', label='Illustration: an AI assistant answers a local question and cites the business’s website, Google listing, reviews and directories')
 
 
 def card_menu():
@@ -513,7 +534,9 @@ def card_menu():
     li = ''.join(f'<li style="--i:{i}"><span class="dk-tile">{icon(ic)}</span><span>{e(n)}</span><i></i><b>{e(v)}</b></li>' for i, (ic, n, v) in enumerate(rows))
     card = (f'<div class="dk__card fp-ticket sv-ticket dk-menu"><p class="fp-ticket__k">U Scale rate card · 2026</p>'
             f'<ul>{li}</ul><p class="fp-ticket__f">{icon("shield")}Every price published. No GST charged right now.</p></div>')
-    floats = _float('dk-clip', '<i></i>', 40, 0) + _float('dk-stamp dk-stamp--audit', '<b>Free</b><small>first audit</small>', 100, 1)
+    stamp = ('<svg viewBox="0 0 124 66"><rect x="3" y="3" width="118" height="60" rx="9" class="o"/><rect x="9" y="9" width="106" height="48" rx="5" class="i"/>'
+             '<text x="62" y="36" class="big">FREE</text><text x="62" y="50" class="small">FIRST AUDIT</text></svg>')
+    floats = _float('dk-clip', '<i></i><s></s><s></s>', 40, 0) + _float('dk-ink', stamp, 24, 1)
     return _dk('menu', card, floats, sheets=1, label='U Scale services and prices')
 
 
@@ -529,7 +552,7 @@ def card_prices():
             f'<p class="fp-ticket__f">{icon("file")}In writing before work starts</p></div>')
     floats = _float('dk-seal', '<svg viewBox="0 0 120 120"><defs><path id="dkseal" d="M60 60m-42 0a42 42 0 1 1 84 0a42 42 0 1 1-84 0"/></defs>'
                     '<circle cx="60" cy="60" r="56"/><circle cx="60" cy="60" r="34" class="in"/>'
-                    '<text><textPath href="#dkseal" startOffset="0">FIXED PRICE · IN WRITING · FIXED PRICE · </textPath></text>'
+                    '<text><textPath href="#dkseal" startOffset="0" textLength="262" lengthAdjust="spacingAndGlyphs">FIXED PRICE · IN WRITING · </textPath></text>'
                     '<text x="60" y="68" text-anchor="middle" class="big">₹</text></svg>', 110, 0)
     return _dk('quote', card, floats, sheets=2, label='U Scale fixed website prices')
 
