@@ -54,14 +54,21 @@ def page_copy(count):
         ])
 
 
-def jsonld(site, c):
+def jsonld(site, c, items=()):
     url = f'{site}tools/{SLUG}'
     strip = lambda s: re.sub(r'<[^>]+>', '', s)
-    g = [{'@type': 'Service', '@id': url + '#app', 'name': 'Free Visiting Card Maker', 'alternateName': ['Free Business Card Maker', 'Online Visiting Card Maker'], 'url': url, 'description': c['desc'], 'serviceType': 'Free online tool',
+    by_id = {t['id']: t for t in items}
+    imgs = [{'@type': 'ImageObject', '@id': f'{url}#image-{n + 1}', 'url': f'{site}assets/card/thumbs/{i}.webp', 'contentUrl': f'{site}assets/card/thumbs/{i}.webp',
+             'width': 480, 'height': 274, 'caption': f'{by_id[i]["name"]} visiting card design from the free U Scale card maker',
+             'description': f'{by_id[i]["name"]} visiting card design, {by_id[i]["category"]}', 'inLanguage': 'en-IN', 'encodingFormat': 'image/webp',
+             'representativeOfPage': n == 0} for n, i in enumerate(i for i in HERO_IDS if i in by_id)]
+    g = imgs + [{'@type': 'Service', '@id': url + '#app', 'name': 'Free Visiting Card Maker', 'alternateName': ['Free Business Card Maker', 'Online Visiting Card Maker'], 'url': url, 'description': c['desc'], 'serviceType': 'Free online tool',
+          **({'image': [{'@id': x['@id']} for x in imgs]} if imgs else {}),
           'category': 'Design tools', 'provider': {'@id': site + '#business'}, 'areaServed': {'@type': 'Country', 'name': 'India'},
           'availableChannel': {'@type': 'ServiceChannel', 'serviceUrl': url, 'availableLanguage': 'English'}, 'offers': {'@type': 'Offer', 'price': '0', 'priceCurrency': 'INR', 'url': url}},
          {'@type': 'WebPage', '@id': url + '#webpage', 'url': url, 'name': c['title'], 'description': c['desc'], 'isPartOf': {'@id': site + '#website'},
           'mainEntity': {'@id': url + '#app'}, 'author': {'@id': site + '#mehul'}, 'inLanguage': 'en-IN', 'dateModified': '__LASTMOD__', 'isAccessibleForFree': True,
+          **({'primaryImageOfPage': {'@id': imgs[0]['@id']}} if imgs else {}),
           'keywords': 'visiting card maker, free visiting card maker online, business card maker, visiting card design, Hindi visiting card, Marathi visiting card'},
          __import__('aeo').biz_ref(site), __import__('aeo').person_ref(site),
          {'@type': 'HowTo', 'name': 'How to make a visiting card for free', 'totalTime': 'PT3M',
@@ -70,6 +77,9 @@ def jsonld(site, c):
             {'@type': 'ListItem', 'position': 2, 'name': 'Free tools', 'item': site + 'tools'}, {'@type': 'ListItem', 'position': 3, 'name': 'Visiting card maker', 'item': url}]},
          {'@type': 'FAQPage', '@id': url + '#faq', 'mainEntity': [{'@type': 'Question', 'name': q, 'acceptedAnswer': {'@type': 'Answer', 'text': a}} for q, a in c['faq']]}]
     return json.dumps({'@context': 'https://schema.org', '@graph': g}, ensure_ascii=False).replace('</', '<\\/')
+
+
+HERO_IDS = ('double-rule', 'mehndi-corner', 'shamiana-edge')  # the three cards fanned in the hero
 
 
 # Who it's for, with a real design to open for each. Written for how people search: "visiting card for doctors" and so on.
@@ -107,7 +117,7 @@ def page(ctx, parts, tv, sp):
     items = templates()
     c = page_copy(len(items))
     og = f'{site}assets/tools/card-maker-og.png'
-    head = sp._tool_head(ctx, url, c['title'], c['desc'], og, 'Visiting cards made with the free U Scale card maker', jsonld(site, c), tv)
+    head = sp._tool_head(ctx, url, c['title'], c['desc'], og, 'Visiting cards made with the free U Scale card maker', jsonld(site, c, items), tv)
     head = head.replace('</head>', f'<link rel="stylesheet" href="/card.css?v={tv}">\n</head>')
     editor = f'/tools/{SLUG}/editor'
 
@@ -120,7 +130,7 @@ def page(ctx, parts, tv, sp):
     steps = ''.join(f'<li><b>{e(n)}</b><span>{e(t)}</span></li>' for n, t in STEPS)
     sizes = ''.join(f'<tr><th scope="row">{e(k)}</th><td>{e(val)}</td></tr>' for k, val in SIZES)
     content = ''.join(f'<li><b>{e(n)}</b> {e(t)}</li>' for n, t in CARD_CONTENT)
-    hero_ids = [i for i in ('double-rule', 'mehndi-corner', 'shamiana-edge') if any(t['id'] == i for t in items)]
+    hero_ids = [i for i in HERO_IDS if any(t['id'] == i for t in items)]
     hero_art = ''.join(f'<img class="cm-fan cm-fan--{n}" src="/assets/card/thumbs/{i}.webp" width="480" height="274" alt="" decoding="async" fetchpriority="{"high" if n == 0 else "low"}">' for n, i in enumerate(hero_ids))
     known = {t['id'] for t in items}
     businesses = ''.join(
