@@ -218,23 +218,26 @@
 .dk-seal text{font:800 10.5px var(--sans);letter-spacing:.14em;fill:var(--violet)}
 .dk-seal text.big{font:400 30px var(--display);letter-spacing:0}
 @media (max-width:559px){.dk-seal{right:-6px;top:-46px;width:84px;height:84px}.dk--quote{padding-top:36px}}
-
-/* Tools hub: four tools as raised tiles on a tray */
-.dk-tools{list-style:none;margin:16px 0 22px;padding:0;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;transform-style:preserve-3d}
-.dk--tools .dk__card,.dk--tools .dk-tray{transform-style:preserve-3d}
-.dk-tool{display:grid;gap:8px;justify-items:center;padding:12px 10px 10px;border-radius:16px;background:linear-gradient(160deg,#fff,#F6F3FC);transform:translateZ(var(--z));
-  box-shadow:inset 0 1px 0 #fff,0 0 0 1px rgba(37,30,69,.06),0 18px 26px -16px rgba(10,6,30,.7)}
-.dk-tool b{font:700 12.5px/1.2 var(--sans);color:var(--violet)}
-.dk-tool__art{display:grid;place-items:center;width:100%;height:108px;border-radius:11px;background:linear-gradient(160deg,#ECE7F5,#DCD4EE);overflow:hidden}
-.dk-tool--standee .dk-tool__art img{height:96px;width:auto;border-radius:3px;box-shadow:0 10px 14px -8px rgba(10,6,30,.6)}
-.dk-tool--card .dk-tool__art img{width:86%;height:auto;border-radius:4px;rotate:-4deg;box-shadow:0 12px 16px -8px rgba(10,6,30,.6)}
-.dk-tool--qr .dk-tool__art svg{width:78px;height:78px;padding:6px;border-radius:8px;background:#fff;box-shadow:0 10px 14px -8px rgba(10,6,30,.5)}
-.dk-tool--qr path{fill:var(--violet)}
-.dk-ring{position:relative;display:grid;place-items:center;align-content:center;width:84px;height:84px;border-radius:50%;
-  background:conic-gradient(#63B849 0 72%,rgba(37,30,69,.1) 72% 100%);box-shadow:0 10px 16px -10px rgba(10,6,30,.6)}
-.dk-ring::before{content:"";position:absolute;inset:9px;border-radius:50%;background:#fff}
+/* Tools hub: what the tools make, as objects on a desk at their own depth. Sizes follow the card's width (cqw). */
+.dk--tools{container-type:inline-size;padding:10px 0 18px}
+.dk-desk{aspect-ratio:470 / 420}
+.dk-o{position:absolute;display:block;transform:translateZ(var(--z));border-radius:max(8px,2.4cqw)}
+.dk-o img{display:block;width:100%;height:auto;border-radius:inherit}
+.dk-o--card{left:2%;top:7%;width:60%;rotate:-8deg;box-shadow:0 2px 0 rgba(255,255,255,.18),0 26px 40px -18px rgba(8,5,24,.9)}
+.dk-o--standee{right:3%;top:0;width:35%;rotate:5deg;border-radius:max(4px,1cqw);background:#fff;box-shadow:inset 0 0 0 1px rgba(37,30,69,.08),0 34px 46px -20px rgba(8,5,24,.95)}
+.dk-o--standee img{border-radius:max(4px,1cqw)}
+.dk-o--score,.dk-o--qr{display:grid;justify-items:center;gap:max(6px,1.8cqw);background:linear-gradient(160deg,#fff 0%,#fff 55%,#F4F1FB 100%);color:var(--violet);
+  box-shadow:inset 0 1px 0 #fff,0 0 0 1px rgba(37,30,69,.06),0 30px 44px -18px rgba(8,5,24,.95)}
+.dk-o--score{left:6%;top:45%;width:40%;padding:max(10px,3cqw) max(8px,2.4cqw) max(10px,2.8cqw);rotate:-2deg}
+.dk-o--qr{left:53%;top:56%;width:29%;padding:max(8px,2.4cqw) max(8px,2.4cqw) max(8px,2.2cqw);rotate:3deg}
+.dk-o--qr svg{width:100%;height:auto;display:block}
+.dk-o--qr path{fill:var(--violet)}
+.dk-o__k{display:inline-flex;align-items:center;gap:max(4px,1cqw);font:700 max(10.5px,2.7cqw)/1.1 var(--sans);letter-spacing:.02em;white-space:nowrap}
+.dk-o__k .fp-ic{width:max(12px,3.2cqw);height:max(12px,3.2cqw);color:var(--green)}
+.dk-o__pill{padding:max(4px,1cqw) max(8px,2cqw);border-radius:99px;background:rgba(99,184,73,.14);color:#2E6E1F;font:700 max(10px,2.5cqw)/1 var(--sans);white-space:nowrap}
+.dk-ring{position:relative;display:grid;place-items:center;align-content:center;width:72%;aspect-ratio:1;border-radius:50%;
+  background:conic-gradient(from -90deg,#63B849 0 72%,rgba(37,30,69,.1) 72% 100%);box-shadow:0 10px 16px -10px rgba(8,5,24,.5)}
+.dk-ring::before{content:"";position:absolute;inset:11%;border-radius:50%;background:#fff;box-shadow:inset 0 2px 4px rgba(37,30,69,.12)}
 .dk-ring b,.dk-ring small{position:relative}
-.dk-ring b{font:400 28px/1 var(--display);color:var(--violet)}
-.dk-ring small{font:700 10px/1 var(--sans);color:var(--body)}
-.dk-chip--free{right:-30px;top:6px}
-@media (max-width:559px){.dk-tool__art{height:88px}.dk-tool--standee .dk-tool__art img{height:78px}.dk-ring{width:70px;height:70px}.dk-chip--free{right:-4px;top:-8px}}
+.dk-ring b{font:400 max(26px,8cqw)/1 var(--display);color:var(--violet)}
+.dk-ring small{font:700 max(9.5px,2.3cqw)/1 var(--sans);color:var(--body)}

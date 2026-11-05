@@ -555,21 +555,18 @@ def _qr_path(n=21, seed=21):
 
 
 def card_tools():
-    """Tools hub: the four free tools as tiles on a tray: a live score ring, the review standee, a visiting card, a QR code."""
+    """Tools hub: what the four free tools make, as objects on a desk at their own depth: a visiting card lying behind,
+    the printed review standee standing up, a profile score card and a QR code card in front. Same images the tools use."""
     vu = GP.vurl
-    tiles = [
-        ('ring', 'Profile checker', '<span class="dk-ring"><b>72</b><small>/100</small></span>', 26),
-        ('standee', 'Review QR', f'<img src="{vu("/assets/tools/standee-sample.webp")}" width="600" height="846" alt="" loading="eager" decoding="async">', 58),
-        ('card', 'Visiting card', f'<img src="{vu("/assets/card/thumbs/rangoli.webp")}" width="480" height="274" alt="" loading="eager" decoding="async">', 44),
-        ('qr', 'QR generator', f'<svg viewBox="-1 -1 23 23" aria-hidden="true"><path d="{_qr_path()}"/></svg>', 34),
-    ]
-    li = ''.join(f'<li class="dk-tool dk-tool--{k}" style="--z:{z}px;--i:{i}"><span class="dk-tool__art">{art}</span><b>{e(name)}</b></li>'
-                 for i, (k, name, art, z) in enumerate(tiles))
-    card = (f'<div class="dk__card dk-tray"><p class="sv-card__k">{icon("bolt")}Free tools · no sign-up</p>'
-            f'<ul class="dk-tools" aria-hidden="true">{li}</ul>'
-            f'<p class="sv-card__f">{icon("check")}English or Hinglish · runs in your browser</p></div>')
-    floats = _float('dk-chip dk-chip--free', f'{icon("shield")}Free, no sign-up', 100, 0)
-    return _dk('tools', card, floats, sheets=1, label='Four free tools: Google Business Profile checker, review QR code maker, visiting card maker and QR code generator')
+    objs = (
+        f'<span class="dk-o dk-o--card" style="--z:0px"><img src="{vu("/assets/card/thumbs/rangoli.webp")}" width="480" height="274" alt="" decoding="async"></span>'
+        f'<span class="dk-o dk-o--standee" style="--z:34px"><img src="{vu("/assets/tools/standee-sample.webp")}" width="600" height="846" alt="" decoding="async"></span>'
+        f'<span class="dk-o dk-o--score" style="--z:70px"><span class="dk-o__k">{icon("pin")}Profile check</span>'
+        f'<span class="dk-ring"><b>72</b><small>/100</small></span><span class="dk-o__pill">Good, a few gaps</span></span>'
+        f'<span class="dk-o dk-o--qr" style="--z:96px"><svg viewBox="-1 -1 23 23" aria-hidden="true"><path d="{_qr_path()}"/></svg><span class="dk-o__k">{icon("qr")}Your link</span></span>'
+    )
+    return (f'<div class="fp-art dk dk--tools" data-depth role="group" aria-label="What the free tools make: a Google profile score, a review QR standee, '
+            f'a visiting card and a QR code"><div class="dk__tilt dk-desk" aria-hidden="true">{objs}</div></div>')
 
 
 CARDS['tools'] = card_tools
