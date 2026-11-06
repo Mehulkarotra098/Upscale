@@ -19,6 +19,38 @@ import {
 
 const DAY_MS = 24 * 60 * 60 * 1000;
 
+const attr = (tag, name) => {
+  const m = tag.match(new RegExp(`\\s${name}="([^"]*)"`));
+  return m
+    ? m[1]
+        .replace(/&quot;/g, '"')
+        .replace(/&lt;/g, '<')
+        .replace(/&gt;/g, '>')
+        .replace(/&amp;/g, '&')
+    : '';
+};
+
+/**
+ * The article's own images (from the media library) as ImageObjects with the same licence details as the cover, so
+ * Google can show every image as licensable. External images aren't ours to license and are left out.
+ */
+function articleImages(html, skipUrl) {
+  const seen = new Set([skipUrl]);
+  const out = [];
+  for (const tag of String(html || '').match(/<img\b[^>]*>/g) || []) {
+    const src = attr(tag, 'src');
+    if (!src.startsWith('/media/')) continue;
+    const url = abs(src);
+    if (seen.has(url)) continue;
+    seen.add(url);
+    const width = Number(attr(tag, 'width')) || undefined;
+    const height = Number(attr(tag, 'height')) || undefined;
+    const alt = attr(tag, 'alt');
+    out.push({ '@type': 'ImageObject', url, contentUrl: url, width, height, description: alt || undefined, ...IMAGE_RIGHTS });
+  }
+  return out;
+}
+
 function tableOfContents(toc, hasFaq) {
   const items = (toc || []).filter((t) => t.level === 2 || t.level === 3);
   if (items.length < 2) return '';
@@ -84,9 +116,20 @@ export function renderArticle({ post, related, preview = false }) {
       mainEntityOfPage: { '@type': 'WebPage', '@id': url, url },
       headline: post.title.slice(0, 110),
       description: desc,
-      image: cover
-        ? [{ '@type': 'ImageObject', url: coverUrl, contentUrl: coverUrl, width: post.cover_w, height: post.cover_h, ...IMAGE_RIGHTS }]
-        : [DEFAULT_OG],
+      image: [
+        cover
+          ? {
+              '@type': 'ImageObject',
+              url: coverUrl,
+              contentUrl: coverUrl,
+              width: post.cover_w,
+              height: post.cover_h,
+              description: post.cover_alt || undefined,
+              ...IMAGE_RIGHTS,
+            }
+          : DEFAULT_OG,
+        ...articleImages(post.content_html, coverUrl),
+      ],
       datePublished: isoDate(published),
       dateModified: isoDate(modified),
       inLanguage: 'en-IN',
