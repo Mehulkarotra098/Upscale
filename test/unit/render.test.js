@@ -34,6 +34,28 @@ test('article: title and JSON-LD cannot break out of their context', () => {
   assert.match(main, /Updated <time/);
 });
 
+test('article: every library image is an ImageObject with licence details; external images are not', () => {
+  const html =
+    '<figure class="bp-fig"><img src="/media/7-chart.webp" alt="A &quot;chart&quot; &amp; notes" width="2000" height="1300" loading="lazy"></figure>' +
+    '<img src="/media/7-chart.webp" alt="dup" width="2000" height="1300"><img src="https://example.com/x.png" alt="ext">';
+  const { head } = renderArticle({
+    post: { ...post, content_html: html, cover_id: 3, cover_name: 'Cover', cover_w: 2400, cover_h: 1260, cover_alt: 'The cover' },
+    related: [],
+  });
+  const graph = JSON.parse(head.match(/<script type="application\/ld\+json">([\s\S]*?)<\/script>/)[1])['@graph'];
+  const images = graph[0].image;
+  assert.equal(images.length, 2, 'cover + one inline image (duplicate and external left out)');
+  assert.equal(images[0].url, 'https://uscale.in/media/3-cover.webp');
+  assert.equal(images[1].url, 'https://uscale.in/media/7-chart.webp');
+  assert.equal(images[1].width, 2000);
+  assert.equal(images[1].description, 'A "chart" & notes');
+  for (const im of images) {
+    assert.equal(im.license, 'https://uscale.in/image-license');
+    assert.equal(im.acquireLicensePage, 'https://uscale.in/image-license');
+    assert.equal(im.creditText, 'U Scale');
+  }
+});
+
 test('article: preview pages are never indexable', () => {
   assert.match(renderArticle({ post, related: [], preview: true }).head, /<meta name="robots" content="noindex, nofollow">/);
 });
