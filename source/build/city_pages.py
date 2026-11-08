@@ -366,7 +366,7 @@ PROJECTS = 21  # Mehul, 9 Nov 2026 (the home page stat says the same)
 LOCK = '<svg viewBox="0 0 24 24" aria-hidden="true"><rect x="5" y="10.5" width="14" height="10" rx="2.5"/><path d="M8 10.5V8a4 4 0 018 0v2.5"/></svg>'
 
 
-def trust_bento():
+def trust_bento(keys=('pay', 'own', 'fix', 'me')):
     img = GP.IMG['mehul']
     me = (f'<picture class="tb-me__img"><source type="image/avif" srcset="{GP.vurl(img["file"] + "-480.avif")}">'
           f'<img src="{GP.vurl(img["file"] + "-480.webp")}" width="480" height="480" alt="" loading="lazy" decoding="async"></picture>')
@@ -386,7 +386,9 @@ def trust_bento():
                '<span class="tb-me__chat"><span class="tb-me__typing"><i></i><i></i><i></i></span><span class="tb-me__msg">Your design is ready. Have a look!</span></span></div>',
          'You talk to me.', 'Mehul, directly. Never an account manager.'),
     ]
-    li = ''.join(f'<li class="tb__c tb__c--{k}" data-reveal>{g}<h3>{e(h)}</h3><p>{e(t)}</p></li>' for k, g, h, t in tiles)
+    tiles += EXTRA_TILES
+    by = {k: (k, g, h, x) for k, g, h, x in tiles}
+    li = ''.join(f'<li class="tb__c tb__c--{k}" data-reveal>{g}<h3>{e(h)}</h3><p>{e(x)}</p></li>' for k, g, h, x in (by[k] for k in keys))
     return f'<ul class="tb" data-reveal-group>{li}</ul>'
 
 
@@ -450,6 +452,84 @@ def page_v2(ctx, parts, p):
     body += (aeo.brief_html(p['answer'], p['facts'], 'Key facts: ' + p['service'], 'brief-title', None, fold=2).replace('class="section sp-brief-wrap"', 'class="section sp-brief-wrap sp-brief-wrap--fold"', 1)
              + aeo._faq_section(p['faq'], f'{p["city"]} questions.') + SVP._foot(p) + _cta(p, wa, icons))
     return aeo._page(ctx, parts, url, p['title'], p['desc'], _jsonld(site, url, p), body)
+
+
+# ---------------------------------------------------------------- Bengaluru and Chennai (v2)
+# Bengaluru: founders and owners who move fast and buy online. The page leads with speed of launch, hand-coded build and UPI.
+# Chennai: trust first. The page leads with real Chennai work (Space Studio), long-term care and the Tamil-first name board.
+CARE = price('Care plan: updates, backups, security')
+CODE_LINES = ['<span class="k">&lt;section</span> <span class="a">class</span>=<span class="s">"hero"</span><span class="k">&gt;</span>',
+              '  <span class="k">&lt;h1&gt;</span>Millet snacks, baked<span class="k">&lt;/h1&gt;</span>',
+              '  <span class="k">&lt;a</span> <span class="a">href</span>=<span class="s">"/shop"</span><span class="k">&gt;</span>Shop now<span class="k">&lt;/a&gt;</span>',
+              '<span class="k">&lt;/section&gt;</span>']
+EXTRA_TILES = [
+    ('code', '<div class="tb__g tb-code" aria-hidden="true"><span class="tb-code__tag">No page builder</span><pre>'
+             + ''.join(f'<span class="tb-code__l" style="--i:{i}">{l}</span>' for i, l in enumerate(CODE_LINES)) + '<i class="tb-code__cur"></i></pre></div>',
+     'Hand-coded. No bloat.', 'Light pages, without a page builder or a pile of plugins.'),
+    ('care', f'<div class="tb__g tb-care" aria-hidden="true"><span class="tb-care__shield">{icon("shield")}</span><ul>'
+             + ''.join(f'<li style="--i:{i}">{icon("check")}{x}</li>' for i, x in enumerate(['Updates', 'Backups', 'Security'])) + '</ul></div>',
+     'Looked after, later too.', f'Optional care plan: updates, backups and security, {CARE}.'),
+]
+
+
+def launch_card(p):
+    # Bengaluru hero: a launch checklist that ticks itself off, a bar that fills, and the site going live.
+    items = ['Brief and audit on WhatsApp', 'Design approved in Figma', 'Hand-coded and tested on phones', 'UPI checkout connected', 'Domain and logins handed over']
+    li = ''.join(f'<li style="--i:{i}"><span class="lc__box">{icon("check")}</span><span>{e(x)}</span></li>' for i, x in enumerate(items))
+    card = (f'<div class="dk__card fp-ticket sv-ticket lc"><p class="dk-quote__head"><span class="dk-quote__mark">{icon("bolt")}</span>'
+            f'<span><b>Your launch checklist</b><small>Landing page · under 2 weeks</small></span></p>'
+            f'<span class="lc__bar" aria-hidden="true"><i></i></span><ul>{li}</ul><p class="lc__live"><i></i>Live · yourbrand.in</p></div>')
+    floats = (DA._float('dk-seal', SEAL, 110, 0)
+              + DA._float('dk-chip dk-route', f'{icon("chat")}Mumbai ⇄ {e(p["city"])} · WhatsApp &amp; video', 90, 1))
+    return DA._dk('launch', card, floats, sheets=2, label='A launch checklist: brief, design, build, UPI checkout and handover, ending with the site live')
+
+
+def proof_card(p):
+    # Chennai hero: the real Space Studio Chennai site, desktop and phone, with what was built.
+    vu = GP.vurl
+    card = (f'<div class="dk__card pf__win"><p class="pf__bar"><i></i><i></i><i></i><b>spacestudiochennai.com</b></p>'
+            f'<img src="{vu("/assets/work/spacestudio-feature-960.webp")}" width="960" height="600" alt="" decoding="async" fetchpriority="high"></div>')
+    floats = (DA._float('pf__phone', f'<img src="{vu("/assets/work/spacestudio-mobile.webp")}" width="360" height="805" alt="" decoding="async">', 120, 0)
+              + DA._float('dk-chip pf__chip', f'{icon("check")}Live · a Chennai client', 90, 1)
+              + DA._float('dk-chip pf__chip pf__chip--b', f'{icon("file")}86 hand-coded pages', 140, 2))
+    return DA._dk('proof', card, floats, sheets=1, label='The Space Studio Chennai website, built by U Scale: 86 hand-coded pages')
+
+
+ART.update({'launch': launch_card, 'proof': proof_card})
+
+
+def case_study():
+    # Chennai: what was built for Space Studio, three facts, each with its own picture.
+    pages = ''.join(f'<i style="--i:{i}"></i>' for i in range(86))
+    links = ''.join(f'<span class="cs-links__r" style="--i:{i}"><s>/{a}</s>{icon("arrow")}<b>/{b}</b>{icon("check")}</span>'
+                    for i, (a, b) in enumerate([('?p=214', 'projects/…'), ('services-2', 'services/…'), ('contact-us', 'contact')]))
+    tiles = [(f'<div class="cs__g cs-pages" aria-hidden="true">{pages}</div>', '<b data-countto="86">86</b>', 'hand-coded pages, each one designed'),
+             ('<div class="cs__g cs-cube" aria-hidden="true"><span class="cs-cube__c"><i></i><i></i><i></i><i></i><i></i><i></i></span></div>',
+              '<b>3D</b>', 'a live building model on every service page'),
+             (f'<div class="cs__g cs-links" aria-hidden="true">{links}</div>', '<b>Every</b>', 'old WordPress link kept, so search traffic stayed')]
+    li = ''.join(f'<li class="cs__c" data-reveal>{g}<p class="cs__n">{n}</p><p class="cs__d">{e(d)}</p></li>' for g, n, d in tiles)
+    return (f'<ul class="cs" data-reveal-group>{li}</ul><p class="cs__go"><a class="tlink" href="https://spacestudiochennai.com" target="_blank" rel="noopener">'
+            f'Visit spacestudiochennai.com<span class="sr-only"> (opens in a new tab)</span> ↗</a></p>')
+
+
+def name_board(local, en, lang, stat, stat_label, src):
+    # A shop board with the local-language name on top and English below, next to a donut of the city's first-language share.
+    r = 52
+    circ = 2 * 3.14159 * r
+    donut = (f'<svg viewBox="0 0 140 140" aria-hidden="true"><circle cx="70" cy="70" r="{r}" class="nb-d__bg"/>'
+             f'<circle cx="70" cy="70" r="{r}" class="nb-d__v" style="--c:{circ:.1f};--v:{stat / 100 * circ:.1f}"/></svg>')
+    html = (f'<div class="nb"><div class="nb__board" data-reveal><span class="nb__screws" aria-hidden="true"><i></i><i></i></span>'
+            f'<span class="nb__l" lang="{lang}">{e(local)}</span><span class="nb__en">{e(en)}</span><span class="nb__rule">Tamil on top, then English</span></div>'
+            f'<div class="nb__stat" data-reveal><span class="nb-d">{donut}<b>{round(stat)}%</b></span><p>{e(stat_label)}</p>{chips(src)}</div></div>')
+    return Html(html, text=f'{stat_label}: {stat:g}%.')
+
+
+def dot_stat(n, per, label, src):
+    # A big number with a field of dots under it, one dot per `per`.
+    dots = ''.join(f'<i style="--i:{i}"></i>' for i in range(round(n / per)))
+    return Html(f'<div class="sd" data-reveal><p class="sd__n"><b data-countto="{n}">{n:,}</b><span>{e(label)}</span></p>'
+                f'<div class="sd__dots" aria-hidden="true">{dots}</div><p class="sd__k">Each dot is about {per} startups. {chips(src)}</p></div>',
+                text=f'{label}: {n:,}.')
 
 # ---------------------------------------------------------------- the cities
 CITIES = [
@@ -556,17 +636,18 @@ CITIES = [
   title='Website Design in Bengaluru (Bangalore), from ₹25,000',
   desc=f'Websites for Bengaluru startups, cafés and shops, hand-coded by Mehul Karotra: landing page {LANDING}, business site {BIZ}, fixed in writing.',
   h1='Website design & development in Bengaluru', eyebrow='For Bengaluru businesses',
-  lead='I’m Mehul Karotra, a website designer and developer in Mumbai. Bengaluru founders and shop owners hire me for hand-coded websites at a fixed '
-       'price, and we work over WhatsApp and video calls.',
-  stats=[(LANDING, 'Websites from'), ('3–4 wk', 'Business site, live in'), ('Free', 'Audit before you pay')],
+  lead='Hand-coded websites at a fixed price. A landing page goes live in under 2 weeks, and you pay most of it after launch.',
+  stats=[(LANDING, 'Websites from'), ('<2 wk', 'Landing page live'), ('60%', 'Paid after launch')],
+  art='launch', imgs=['city-bengaluru'], hero_btn='Free audit on WhatsApp', hero_more=('#prices', 'See prices'),
+  wa="Hi Mehul, I'm building something in Bengaluru. I'd like a free audit and a price for my website.",
+  cta_h='Get a free audit', cta_lead='Tell me what you’re building in Bengaluru. I reply within 24 hours, usually much faster on WhatsApp.',
   cost=dict(scale=100000, ticks=[0, 25000, 50000, 75000, 100000], when='Nov 2026', foot='From 3 Bengaluru studios’ own price pages, seen 8 Nov 2026',
             rows=[('Basic site', 'Ready-made design, about 5 pages', 8750, 22750, '₹9k–₹23k'),
                   ('Premium design', 'Up to 10 pages', 19999, 75900, '₹20k–₹76k'),
                   ('Online store', 'Starting prices', 25000, 35000, 'from ₹25k–₹35k')]),
-  answer='U Scale is Mehul Karotra, a Mumbai-based freelance website designer and developer who builds websites for Bengaluru startups and small '
-         f'businesses remotely, over WhatsApp and video calls. Every site is designed in Figma and hand-coded at a fixed price: a landing page {LANDING}, '
-         f'a 5–10 page business site {BIZ} and an online store from {STORE}. For comparison, Bengaluru studios’ own price pages start basic sites at '
-         'about ₹8,750–₹22,750 and premium designs at ₹23,350–₹75,900. Every project starts with a free audit.',
+  answer='U Scale is Mehul Karotra, a Mumbai web designer who builds hand-coded websites for Bengaluru startups and small businesses over WhatsApp and '
+         f'video calls. Prices are fixed in writing: {LANDING} for one page, {BIZ} for 5–10 pages and from {STORE} for an online store with UPI '
+         'checkout, and you pay 60% only after launch.',
   facts=[('Who builds it', 'Mehul Karotra, personally: designed in Figma, then hand-coded'),
          ('Based in', 'Mumbai (Ghatkopar West). No Bengaluru office: the work happens over WhatsApp and video calls'),
          ('Website prices', GP.WEB_PRICES + '. The same prices as in Mumbai'),
@@ -580,46 +661,37 @@ CITIES = [
    Sec('Website prices for Bengaluru businesses',
        price_cards('For comparison, Bengaluru studios’ package pages start a basic five-page site at ₹8,750–₹22,750 and premium designs at ₹23,350–₹75,900, usually plus GST (seen 8 November 2026).',
                    ['blr-p1', 'blr-p2', 'blr-p3']),
-       eyebrow='Bengaluru prices', lead='Four prices, fixed in writing before any work starts. The same as in Mumbai.',
-       layout='wide', sid='prices'),
-   Sec('What Bengaluru’s businesses need from a website',
-       Stat('13,649', 'startups in Bengaluru district recognised by DPIIT (as of 31 October 2024, from a Lok Sabha answer)', 'blr-startups'),
-       P('Bengaluru has more recognised startups than most countries have, and they set what customers expect: a fast site, clear prices and paying '
-         'online without a phone call. A café, clinic or salon competes for attention with the same polish. ' + chips('blr-startups')),
-       Cards([('bolt', 'Startups and D2C brands', 'A landing page that explains the product in one screen, a waitlist or checkout, and pages investors and '
-                'customers can share. Speed matters more than effects.'),
-              ('menu', 'Cafés and restaurants', 'Menu, photos and your own ordering link, so regulars order from you instead of paying app commission. '
-                '<a class="tlink" href="/services/website-design-mumbai/restaurants-cafes">How that works</a>.'),
-              ('card', 'Clinics, salons and studios', 'Services with prices, timings, your team and a booking or WhatsApp button. Reviews and a clear '
-                'location do most of the selling.'),
-              ('box', 'Manufacturers and wholesalers', 'A catalogue with specifications, an enquiry form that asks the right questions and a link to your '
-                'IndiaMART listing, for the buyers who check you out before they call.')], cols=2),
-       Img('city-bengaluru'),
-       eyebrow='Bengaluru’s businesses'),
-   Sec('Kannada, English or both?',
-       P('Bengaluru is the most mixed of the three cities on this site. In the 2011 Census, 44.47% of Bangalore Urban district spoke Kannada as their '
-         'first language, with Tamil, Telugu and Urdu next. So English usually carries the website, and Kannada shows you belong. ' + chips('blr-lang')),
-       Cards([('tag', 'Your name, the same everywhere', 'Since 2024 Karnataka law requires business name boards to be 60% in Kannada. Use the same Kannada and '
-                'English name on your board, your Google listing and your website, so customers and Google match them. ' + chips('ka-boards')),
-              ('chat', 'English first, Kannada where it counts', 'Services, prices and FAQs in English; your name, address and key lines in Kannada. A full '
-                f'Kannada version is possible from your own text; writing the copy is {COPY}.')], cols=2),
-       eyebrow='Language', tone='band'),
-   Sec('Is a Mumbai designer right for your Bengaluru business?',
-       Options([dict(name='A good fit', tag='Founders and owners', hi=True, rows=[
-                    ('You want', 'One person who designs and builds the site, at a price fixed in writing'),
-                    ('You’re happy with', 'WhatsApp, video calls and reviewing designs on your phone'),
-                    ('You care about', 'Owning your domain, code and logins'),
-                    ('Typical projects', 'Landing pages, business sites and small online stores')]),
-                dict(name='Choose a Bengaluru team', tag='Be honest about it', rows=[
-                    ('You want', 'Engineers in the room, or someone at your office every week'),
-                    ('You need', 'A product team for an app, dashboard or platform'),
-                    ('You’d like', 'Shoots at your premises by the same people'),
-                    ('Then', 'A local agency is the better choice')])],
-               note=FIT_NOTE),
-       Img('remote-review'),
-       eyebrow='Honest fit', layout='wide'),
-   Sec('Check where you stand, free', Tools(), eyebrow='Free tools', layout='wide'),
+       eyebrow='Bengaluru prices', lead='Four prices. Fixed in writing. The same as in Mumbai.', layout='wide', sid='prices'),
+   Sec('What does your Bengaluru business need?',
+       dot_stat(13649, 500, 'DPIIT-recognised startups in Bengaluru district, to 31 October 2024', 'blr-startups'),
+       picker([
+        ('startup', 'bolt', 'Startup or D2C brand', 'Startups and D2C brands', 'Say what it is in one screen, then let people buy or sign up.',
+         ['A landing page that explains the product in one screen', 'Checkout with UPI and cards, or a waitlist',
+          'Pages investors and customers can share', 'Fast on mobile data, with nothing extra loading'],
+         f'Usually a landing page ({LANDING}), or an online store from {STORE}.', GP.render(Img('city-bengaluru'))),
+        ('cafe', 'menu', 'Café or restaurant', 'Cafés and restaurants', 'Regulars should order from you, not through an app.',
+         ['A menu with prices you update yourself', 'Your own ordering link, without app commission',
+          'Timings, map and a one-tap call button', 'Table and party enquiries on WhatsApp'],
+         f'A restaurant site with your own ordering: {REST}, fixed. <a class="tlink" href="/services/website-design-mumbai/restaurants-cafes">How that works</a>.', ''),
+        ('clinic', 'card', 'Clinic, salon or studio', 'Clinics, salons and studios', 'People choose on reviews, prices and how easy it is to book.',
+         ['Services with prices and timings', 'Your team, with real photos', 'Book on WhatsApp from every page', 'Reviews and a clear location'],
+         f'Usually a 5–10 page business site: {BIZ}, fixed.', ''),
+        ('maker', 'box', 'Manufacturer or wholesaler', 'Manufacturers and wholesalers', 'Buyers check your website before they call.',
+         ['A catalogue with specifications and PDF downloads', 'An enquiry form that asks the right questions',
+          'Certifications on the first screen', 'A link to your IndiaMART listing'],
+         f'Usually a 10–20 page site with a blog: {BLOG}, fixed.', ''),
+       ], 'Your kind of business'),
+       lang_demo('Kannada and English? Tap to switch.', 'ಕನ್ನಡ', 'kn',
+                 ('Order online', 'Free delivery across Bengaluru'), ('ಆನ್‌ಲೈನ್‌ನಲ್ಲಿ ಆರ್ಡರ್ ಮಾಡಿ', 'ಬೆಂಗಳೂರಿನಾದ್ಯಂತ ಉಚಿತ ಡೆಲಿವರಿ')),
+       eyebrow='Bengaluru’s businesses', layout='wide', sid='business'),
   ],
+  v2=[lambda ctx: _custom_sec('trust', 'Built like a product', 'Fast to launch. Safe to pay.', '', trust_bento(('code', 'pay', 'own', 'me'))),
+      lambda ctx: _custom_sec('work', 'Real work', 'Real websites. Live right now.', 'Tap any card to open the live site.',
+                              work_rail(ctx, ['spacestudio', 'brandgen', 'roar', 'sashe', 'vidhi', 'antrah']), tone='dark'),
+      'prices',
+      lambda ctx: _custom_sec('process', 'How it works', 'Landing page in under 2 weeks. Bigger sites in 3–4.', '', timeline('remote-review'), tone='band'),
+      'business'],
+  related=3,
   work=['spacestudio', 'sashe', 'vidhi'], work_h='Websites I designed and built, live today.',
   work_lead='Space Studio is an architecture practice in Chennai; Sashe by Prachi and Vidhi Parmar are Mumbai clients.',
   who='I design and code every site myself, from Mumbai. Bengaluru clients talk to me directly on WhatsApp and video calls, never to an account manager.',
@@ -630,6 +702,9 @@ CITIES = [
        ('Can a web designer in Mumbai build a website for my Bengaluru startup?',
         'Yes. With U Scale you get a free audit on WhatsApp, a written plan agreed on a video call, designs to review in Figma and a hand-coded site with '
         'every login in your name. For an app or a product with a large engineering team, a Bengaluru agency is the better fit.'),
+       ('Is it safe to pay a web designer in another city?',
+        'With U Scale the price is fixed in writing before work starts, and you pay in three parts: 20% to start, 20% when you approve the design and 60% '
+        'only when the site is live. Your domain is registered in your name, and every login is handed to you at launch.'),
        ('Should my Bengaluru website be in Kannada?',
         'For most businesses, English should carry the site, with your name, address and key lines in Kannada too: in the 2011 Census, 44.47% of Bangalore '
         'Urban district spoke Kannada as their first language, and Tamil, Telugu and Urdu were next. Since 2024, name boards must be 60% in Kannada, so '
@@ -646,17 +721,18 @@ CITIES = [
   title='Website Design & Development in Chennai, from ₹25,000',
   desc=f'Websites for Chennai businesses by Mehul Karotra, who built Space Studio Chennai’s site. Landing page {LANDING}, business site {BIZ}, fixed in writing.',
   h1='Website design & development in Chennai', eyebrow='For Chennai businesses',
-  lead='I’m Mehul Karotra, a website designer and developer in Mumbai. I rebuilt the website of Space Studio, a Chennai architecture practice, and I '
-       'build hand-coded websites for Chennai businesses at fixed prices, over WhatsApp and video calls.',
-  stats=[(LANDING, 'Websites from'), ('86', 'Pages built for Space Studio, Chennai'), ('Free', 'Audit before you pay')],
+  lead='I rebuilt the website of Space Studio, a Chennai architecture practice. Your business gets the same care, at a fixed price, over WhatsApp.',
+  stats=[(LANDING, 'Websites from'), ('3–4 wk', 'Live in'), ('60%', 'Paid after launch')],
+  art='proof', imgs=['city-chennai'], hero_btn='Free audit on WhatsApp', hero_more=('#case', 'See the Chennai work'),
+  wa="Hi Mehul, I run a business in Chennai. I'd like a free audit for my website.",
+  cta_h='Get a free audit', cta_lead='Tell me about your Chennai business. I reply within 24 hours, usually much faster on WhatsApp.',
   cost=dict(scale=150000, ticks=[0, 50000, 100000, 150000], when='Nov 2026', foot='From 3 Chennai studios’ own price pages, seen 8 Nov 2026',
             rows=[('Template or static site', 'About 5–6 pages', 5000, 30000, '₹5k–₹30k'),
                   ('Custom business site', 'Up to 10 pages', 20000, 100000, '₹20k–₹1L'),
                   ('Online store', 'Most quotes', 40000, 120000, '₹40k–₹1.2L')]),
-  answer='U Scale is Mehul Karotra, a Mumbai-based freelance website designer and developer who works with Chennai businesses remotely, over WhatsApp '
-         'and video calls. He rebuilt the website of Space Studio, a Chennai office-architecture practice: 86 hand-coded pages. Every U Scale site is '
-         f'designed in Figma and hand-coded at a fixed price: a landing page {LANDING}, a 5–10 page business site {BIZ} and an online store from {STORE}. '
-         'For comparison, Chennai studios’ own price pages put a template or static site at ₹5,000–₹30,000 and a custom business site at ₹20,000–₹1 lakh.',
+  answer='U Scale is Mehul Karotra, a Mumbai web designer who rebuilt the website of Space Studio, a Chennai architecture practice: 86 hand-coded pages. '
+         f'He builds websites for Chennai businesses over WhatsApp and video calls, at fixed prices: {LANDING} for one page, {BIZ} for 5–10 pages '
+         f'and from {STORE} for an online store.',
   facts=[('Who builds it', 'Mehul Karotra, personally: designed in Figma, then hand-coded'),
          ('Chennai work', 'Space Studio, an office-architecture practice: a rebuilt website with 86 hand-coded pages, live at spacestudiochennai.com'),
          ('Based in', 'Mumbai (Ghatkopar West). No Chennai office: the work happens over WhatsApp and video calls'),
@@ -667,51 +743,42 @@ CITIES = [
          ('Languages', 'English and Hindi; Tamil pages built from your own Tamil text'),
          ('Ownership', 'Your domain, code and logins, in your name')],
   sections=[
+   Sec('Tamil first, then English',
+       name_board('நலம் பல் மருத்துவமனை', 'NALAM DENTAL CARE', 'ta', 78.34, 'of Chennai district has Tamil as its first language (Census 2011)', 'chn-lang'),
+       lang_demo('Tamil and English? Tap to switch.', 'தமிழ்', 'ta',
+                 ('Book your visit now', 'Open Monday to Saturday'), ('இப்போதே முன்பதிவு செய்யுங்கள்', 'திங்கள் முதல் சனி வரை திறந்திருக்கும்')),
+       eyebrow='Language', lead='Chennai asks for shop names in Tamil on top. Your website and Google listing should match your board.',
+       layout='wide', tone='band', sid='tamil'),
    Sec('Website prices for Chennai businesses',
        price_cards('For comparison, Chennai studios’ own price pages put a template or static site at ₹5,000–₹30,000 and a custom business site at ₹20,000–₹1 lakh (seen 8 November 2026).',
                    ['chn-p1', 'chn-p2', 'chn-p3']),
-       eyebrow='Chennai prices', lead='Four prices, fixed in writing before any work starts. The same as in Mumbai.',
-       layout='wide', sid='prices'),
-   Sec('Tamil first, then English',
-       Stat('78.34%', 'of Chennai district has Tamil as its first language (Census 2011)', 'chn-lang'),
-       P('Chennai is the most single-language of these cities: in the 2011 Census, 78.34% of the district spoke Tamil as their first language. And the '
-         'city now enforces it on the street: the Greater Chennai Corporation requires shop names in Tamil on top, then English, with a ₹2,000 penalty, '
-         'and the Madras High Court gave retailers until 1 November 2026 to comply. ' + chips('chn-lang', 'chn-boards')),
-       Cards([('tag', 'One name, everywhere', 'Use the same Tamil and English name on your board, your Google listing and your website, so customers and '
-                'Google match them.'),
-              ('chat', 'Tamil where it sells', 'Shops, clinics and services that serve neighbourhoods do better with Tamil pages; B2B suppliers and '
-                f'exporters usually lead in English. I build Tamil pages from your own text; writing the copy is {COPY}.'),
-              ('globe', 'English for visitors', 'If patients, students or buyers come from other states, give them a full English version too, with '
-                'directions and prices they can read.')], cols=3),
-       eyebrow='Language', tone='band'),
-   Sec('What Chennai’s businesses need from a website',
-       P('Tamil Nadu had 33.6 lakh MSMEs registered on the Udyam portal by 31 March 2025, and Chennai is one of the districts with the most. '
-         + chips('tn-msme')),
-       Cards([('truck', 'Auto and engineering suppliers', 'A catalogue with specifications, certifications and an enquiry form that asks for drawings and '
-                'quantities. Buyers from outside the city judge you by it.'),
-              ('tag', 'Textile, apparel and retail', 'Collections with prices, an “Order on WhatsApp” button and store timings. '
-                '<a class="tlink" href="/services/website-design-mumbai/boutiques-fashion">How boutique sites work</a>.'),
-              ('card', 'Clinics and healthcare', 'Doctors, timings, fees and directions, in Tamil and English, with booking on WhatsApp.'),
-              ('layers', 'Architects, consultants and B2B services', 'Projects as proof, services explained plainly and a way to start a conversation. This '
-                'is the kind of site I built for Space Studio.')], cols=2),
-       Img('city-chennai'),
-       eyebrow='Chennai’s businesses'),
-   Sec('Is a Mumbai designer right for your Chennai business?',
-       Options([dict(name='A good fit', tag='Most small businesses', hi=True, rows=[
-                    ('You want', 'One person who designs and builds the site, at a price fixed in writing'),
-                    ('You’re happy with', 'WhatsApp, video calls and reviewing designs on your phone'),
-                    ('You care about', 'Owning your domain, code and logins'),
-                    ('Typical projects', 'Business sites, portfolios, catalogues and small online stores')]),
-                dict(name='Choose a Chennai studio', tag='Be honest about it', rows=[
-                    ('You want', 'Someone at your premises every week'),
-                    ('You need', 'A Tamil copywriter and designer in one team'),
-                    ('You’d like', 'Photos and videos shot locally by the same people'),
-                    ('Then', 'A local studio is the better choice')])],
-               note=FIT_NOTE),
-       Img('remote-review'),
-       eyebrow='Honest fit', layout='wide'),
-   Sec('Check where you stand, free', Tools(), eyebrow='Free tools', layout='wide'),
+       eyebrow='Chennai prices', lead='Four prices. Fixed in writing. The same as in Mumbai.', layout='wide', sid='prices'),
+   Sec('What does your Chennai business need?',
+       picker([
+        ('auto', 'truck', 'Auto or engineering', 'Auto and engineering suppliers', 'Buyers from other states judge you by your website.',
+         ['A catalogue with specifications and certifications', 'An enquiry form that asks for drawings and quantities',
+          'The industries you supply, on the first screen', 'A link to your IndiaMART listing'],
+         f'Usually a 10–20 page site with a blog: {BLOG}, fixed.', ''),
+        ('retail', 'tag', 'Textile or retail', 'Textile and retail', 'Show the collection and take orders on WhatsApp.',
+         ['Collections with prices', '“Order on WhatsApp” on every product', 'Store timings and a map', 'Tamil and English'],
+         f'A catalogue site from {BIZ}, or an online store from {STORE}.', ''),
+        ('clinic', 'card', 'Clinic or hospital', 'Clinics and healthcare', 'Patients compare doctors, timings and fees on their phones.',
+         ['Doctors, timings and fees on one page', 'Booking on WhatsApp', 'Directions in Tamil and English', 'An English version for patients from other states'],
+         f'Usually a 5–10 page business site: {BIZ}, fixed.', GP.render(Img('city-chennai'))),
+        ('b2b', 'layers', 'Architect or consultant', 'Architects and consultants', 'Your work is the proof. Show it properly.',
+         ['Projects as case studies', 'Services explained plainly', 'A clear way to start a conversation', 'Every old link kept when you leave WordPress'],
+         f'The kind of site I built for Space Studio: priced after a free audit, from {BIZ}.', ''),
+       ], 'Your kind of business'),
+       eyebrow='Chennai’s businesses', layout='wide', sid='business'),
   ],
+  v2=[lambda ctx: _custom_sec('case', 'Real Chennai work', 'Space Studio, Chennai.', 'What I built for an office-architecture practice.', case_study()),
+      lambda ctx: _custom_sec('trust', 'Why it’s safe', 'Looked after at every step.', '', trust_bento(('pay', 'own', 'care', 'me'))),
+      'tamil', 'prices',
+      lambda ctx: _custom_sec('process', 'How it works', 'Live in 3–4 weeks. All from your phone.', '', timeline('remote-review'), tone='band'),
+      'business',
+      lambda ctx: _custom_sec('work', 'More work', 'More websites, live right now.', 'Tap any card to open the live site.',
+                              work_rail(ctx, ['sashe', 'vidhi', 'brandgen', 'roar', 'antrah']), tone='dark')],
+  related=3,
   work=['sashe', 'vidhi'], work_feature='spacestudio', work_h='A Chennai website I designed and built.',
   work_lead='Space Studio designs offices in Chennai. Their new site has 86 hand-coded pages and kept every old link working.',
   who='I design and code every site myself, from Mumbai. Chennai clients talk to me directly on WhatsApp and video calls, never to an account manager.',
@@ -721,6 +788,9 @@ CITIES = [
         f'{LANDING}, a 5–10 page business site {BIZ} and an online store from {STORE}, fixed in writing before work starts.'),
        ('Have you built websites for Chennai businesses?',
         'Yes. U Scale rebuilt the website of Space Studio, an office-architecture practice in Chennai: 86 hand-coded pages, live at spacestudiochennai.com.'),
+       ('Is it safe to pay a web designer in another city?',
+        'With U Scale the price is fixed in writing before work starts, and you pay in three parts: 20% to start, 20% when you approve the design and 60% '
+        'only when the site is live. Your domain is registered in your name, and every login is handed to you at launch.'),
        ('Should my Chennai website be in Tamil?',
         'If your customers are local, yes: in the 2011 Census, 78.34% of Chennai district spoke Tamil as their first language. Keep the same Tamil and '
         'English name on your shop board, Google listing and website. Suppliers and exporters selling outside the state usually lead in English.'),

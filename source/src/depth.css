@@ -533,6 +533,135 @@
   border:1px solid var(--line-light);border-radius:12px;background:var(--lav-tint);color:var(--violet);font:700 15px/1 var(--sans);cursor:pointer}
 .sp-brief-wrap--fold .sp-facts__more svg{width:18px;height:18px;flex:none;fill:none;stroke:currentColor;stroke-width:2.2;stroke-linecap:round;stroke-linejoin:round;transition:transform .3s var(--ease-out)}
 .sp-brief-wrap--fold .sp-facts__more[aria-expanded="true"] svg{transform:rotate(180deg)}
+/* ---------- Bengaluru: launch checklist hero ---------- */
+.dk--launch .dk__card.lc{padding:26px 26px 22px}
+.lc__bar{display:block;position:relative;height:8px;margin:2px 0 14px;border-radius:99px;background:var(--lav-tint);overflow:hidden}
+.lc__bar i{position:absolute;inset:0;border-radius:99px;background:linear-gradient(90deg,#8ED474,#58AC3F);transform-origin:left}
+.lc ul{list-style:none;margin:0;padding:0;display:grid;gap:9px}
+.lc li{display:grid;grid-template-columns:24px minmax(0,1fr);gap:10px;align-items:center;padding:0;background:none;box-shadow:none;font:600 14.5px/1.35 var(--sans);color:var(--violet)}
+.lc__box{display:grid;place-items:center;width:24px;height:24px;border-radius:7px;background:var(--green);color:#fff;box-shadow:0 4px 8px -4px rgba(63,138,43,.7)}
+.lc__box .fp-ic{width:15px;height:15px}
+.lc__live{display:inline-flex;align-items:center;gap:8px;margin:16px 0 0;padding:9px 14px;border-radius:99px;background:var(--violet);color:#fff;font:700 13.5px/1 var(--sans)}
+.lc__live i{width:8px;height:8px;border-radius:50%;background:#8ED474;box-shadow:0 0 0 4px rgba(142,212,116,.25)}
+@media (prefers-reduced-motion:no-preference){
+  .js .lc__bar i{animation:cvGrowX 3.2s cubic-bezier(.6,0,.4,1) .5s both}
+  .js .lc__box{animation:lcTick .45s var(--ease-spring) both;animation-delay:calc(.75s + var(--i) * .6s)}
+  .js .lc__live{animation:cvPop .6s var(--ease-spring) 3.8s both}
+}
+@keyframes lcTick{from{background:#fff;box-shadow:inset 0 0 0 2px #CFC5EA;color:transparent;scale:.85}}
+.rm .lc__bar i,.rm .lc__box,.rm .lc__live{animation:none!important}
+.dk--launch .dk-route{bottom:-30px;left:-12px}
+@media (max-width:559px){.dk--launch{padding-top:64px}.dk--launch .dk__card.lc{padding:22px 18px 18px}}
+
+/* ---------- Chennai: the real site as the hero ---------- */
+.dk--proof{max-width:560px;padding:30px 30px 40px 0}
+.dk--proof .dk__card.pf__win{padding:0;overflow:hidden;border-radius:16px;background:#fff}
+.pf__bar{display:flex;align-items:center;gap:6px;margin:0;padding:10px 12px;background:#EFEAF8;font:600 12px/1 var(--sans);color:var(--body)}
+.pf__bar i{width:9px;height:9px;border-radius:50%;background:#E7E2F2}
+.pf__bar i:first-child{background:#F0A4A0}.pf__bar i:nth-child(2){background:#F3D38C}.pf__bar i:nth-child(3){background:#A9D99B}
+.pf__bar b{margin-left:10px;padding:5px 10px;border-radius:7px;background:#fff;font-weight:600}
+.pf__win img{display:block;width:100%;height:auto}
+.pf__phone{right:-22px;bottom:-10px;width:28%;padding:5px;border-radius:20px;background:#1C1730;box-shadow:0 30px 40px -18px rgba(10,6,30,.85)}
+.pf__phone img{display:block;width:100%;height:auto;border-radius:15px}
+.pf__chip{left:-18px;top:-6px}
+.pf__chip--b{left:auto;right:16%;top:auto;bottom:-22px}
+@media (max-width:559px){.dk--proof{padding:26px 6px 34px 0}.pf__chip:not(.pf__chip--b){left:2px;top:-10px}.pf__phone{right:-4px}.pf__chip--b{left:auto;top:auto;right:30%;bottom:-24px}}
+
+/* ---------- Trust tiles added for these cities ---------- */
+.tb-code{display:grid;align-content:center;padding:0 14px}
+.tb-code pre{position:relative;margin:0;padding:14px 14px 14px 16px;border-radius:12px;background:#1E1838;color:#E9E4F7;font:500 11.5px/1.65 'Consolas','SFMono-Regular',monospace;
+  white-space:pre;overflow:hidden;box-shadow:0 14px 22px -14px rgba(10,6,30,.8)}
+.tb-code__l{display:block}
+.tb-code .k{color:#C9BCE8}.tb-code .a{color:#8ED474}.tb-code .s{color:#FFD45C}
+.tb-code__cur{display:inline-block;width:7px;height:13px;margin-left:2px;vertical-align:-2px;background:#8ED474}
+.tb-code__tag{position:absolute;right:14px;top:10px;z-index:1;padding:5px 9px;border-radius:99px;background:#fff;color:var(--violet);font:700 11px/1 var(--sans);box-shadow:0 6px 12px -8px rgba(37,30,69,.6)}
+.tb-care{display:flex;align-items:center;justify-content:center;gap:16px}
+.tb-care__shield{display:grid;place-items:center;width:70px;height:70px;border-radius:22px;background:var(--violet);color:#8ED474;box-shadow:0 16px 24px -14px rgba(10,6,30,.85)}
+.tb-care__shield .fp-ic{width:34px;height:34px}
+.tb-care ul{list-style:none;margin:0;padding:0;display:grid;gap:8px}
+.tb-care li{display:flex;align-items:center;gap:8px;padding:7px 12px 7px 9px;border-radius:10px;background:#fff;font:700 13px/1 var(--sans);color:var(--violet);box-shadow:0 0 0 1px rgba(37,30,69,.06),0 8px 14px -10px rgba(37,30,69,.5)}
+.tb-care li .fp-ic{width:15px;height:15px;color:#3F8A2B}
+@media (prefers-reduced-motion:no-preference){
+  .js .tb__c.is-in .tb-code__l{animation:tbType .5s steps(18) both;animation-delay:calc(.3s + var(--i) * .45s)}
+  .js .tb__c.is-in .tb-code__cur{animation:svBlink 1.1s steps(1) infinite}
+  .js .tb__c.is-in .tb-code__tag{animation:cvPop .5s var(--ease-spring) 2.2s both}
+  .js .tb__c.is-in .tb-care__shield{animation:cvPop .6s var(--ease-spring) .3s both}
+  .js .tb__c.is-in .tb-care li{animation:cvRise .5s var(--ease-out) both;animation-delay:calc(.7s + var(--i) * .25s)}
+}
+@keyframes tbType{from{clip-path:inset(0 100% 0 0)}to{clip-path:inset(0 0 0 0)}}
+
+/* ---------- Chennai: Space Studio case study ---------- */
+.cs{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px}
+.cs__c{display:grid;align-content:start;gap:4px;padding:12px 12px 22px;border-radius:var(--radius-card);background:var(--white);box-shadow:0 0 0 1px var(--line-light),0 18px 36px -26px rgba(37,30,69,.45)}
+.cs__g{position:relative;height:170px;margin:0 0 14px;border-radius:14px;background:linear-gradient(160deg,#F7F4FD,#ECE6F8);overflow:hidden}
+.cs__n{margin:0 8px;font:400 clamp(44px,4.4vw,60px)/.9 var(--display);color:var(--violet)}
+.cs__n b{font:inherit}
+.cs__d{margin:4px 8px 0;font:600 15px/1.45 var(--sans);color:var(--body)}
+.cs-pages{display:grid;grid-template-columns:repeat(13,minmax(0,1fr));gap:4px;align-content:center;padding:14px}
+.cs-pages i{aspect-ratio:3 / 4;border-radius:2.5px;background:#fff;box-shadow:0 0 0 1px rgba(37,30,69,.08)}
+.cs-pages i:nth-child(7n+3){background:#C9BCE8}
+.cs-cube{display:grid;place-items:center;perspective:600px}
+.cs-cube__c{position:relative;width:70px;height:70px;transform-style:preserve-3d;transform:rotateX(-22deg) rotateY(38deg)}
+.cs-cube__c i{position:absolute;inset:0;border-radius:6px;background:rgba(201,188,232,.55);box-shadow:inset 0 0 0 2px #5B4F96}
+.cs-cube__c i:nth-child(1){transform:translateZ(35px)}.cs-cube__c i:nth-child(2){transform:rotateY(180deg) translateZ(35px)}
+.cs-cube__c i:nth-child(3){transform:rotateY(90deg) translateZ(35px)}.cs-cube__c i:nth-child(4){transform:rotateY(-90deg) translateZ(35px)}
+.cs-cube__c i:nth-child(5){transform:rotateX(90deg) translateZ(35px);background:rgba(142,212,116,.6);box-shadow:inset 0 0 0 2px #3F8A2B}
+.cs-cube__c i:nth-child(6){transform:rotateX(-90deg) translateZ(35px)}
+.cs-links{display:grid;align-content:center;gap:8px;padding:14px}
+.cs-links__r{display:flex;align-items:center;gap:6px;padding:7px 10px;border-radius:9px;background:#fff;font:600 12px/1 var(--sans);color:var(--violet);box-shadow:0 0 0 1px rgba(37,30,69,.06)}
+.cs-links__r s{color:var(--body);text-decoration-color:rgba(74,68,88,.4)}
+.cs-links__r .fp-ic{width:13px;height:13px;color:var(--body)}
+.cs-links__r .fp-ic:last-child{margin-left:auto;color:#3F8A2B}
+.cs__go{margin:18px 0 0}
+@media (prefers-reduced-motion:no-preference){
+  .js .cs__c.is-in .cs-pages i{animation:cvLight .35s ease both;animation-delay:calc(.2s + var(--i) * 18ms)}
+  .js .cs__c.is-in .cs-cube__c{animation:csSpin 9s linear infinite}
+  .js .cs__c.is-in .cs-links__r{animation:cvRise .5s var(--ease-out) both;animation-delay:calc(.3s + var(--i) * .3s)}
+}
+@keyframes csSpin{to{transform:rotateX(-22deg) rotateY(398deg)}}
+.rm .cs-pages i,.rm .cs-cube__c,.rm .cs-links__r{animation:none!important}
+@media (max-width:1023px){.cs{grid-template-columns:minmax(0,1fr)}.cs__g{height:150px}}
+
+/* ---------- Chennai: Tamil-first name board and the language donut ---------- */
+.nb{display:grid;grid-template-columns:minmax(0,1.2fr) minmax(0,1fr);gap:clamp(16px,3vw,36px);align-items:center;margin:0 0 8px}
+.nb__board{position:relative;display:grid;justify-items:center;gap:6px;padding:30px 22px 22px;border-radius:14px;background:linear-gradient(180deg,#123B6D,#0D2E57);color:#fff;text-align:center;
+  box-shadow:inset 0 0 0 5px #E7C766,inset 0 0 0 7px #0D2E57,0 26px 40px -24px rgba(10,6,30,.8)}
+.nb__screws i{position:absolute;top:14px;width:10px;height:10px;border-radius:50%;background:radial-gradient(circle at 35% 35%,#FFF7D6,#B89A3E)}
+.nb__screws i:first-child{left:16px}.nb__screws i:last-child{right:16px}
+.nb__l{font:800 clamp(24px,3vw,36px)/1.25 'Nirmala UI','Latha','Noto Sans Tamil',var(--sans);color:#FFE38A}
+.nb__en{font:400 clamp(26px,3vw,38px)/1 var(--display);letter-spacing:.06em;color:#fff}
+.nb__rule{margin-top:8px;padding:5px 10px;border-radius:99px;background:rgba(255,255,255,.12);font:700 11px/1 var(--sans);letter-spacing:.1em;text-transform:uppercase;color:#E7DFC2}
+.nb__stat{display:grid;grid-template-columns:auto minmax(0,1fr);gap:8px 18px;align-items:center}
+.nb__stat p{margin:0;font:600 15.5px/1.45 var(--sans);color:var(--violet)}
+.nb__stat .fp-src{grid-column:2;justify-self:start}
+.nb-d{position:relative;grid-row:span 2;display:grid;place-items:center;width:140px;height:140px}
+.nb-d svg{position:absolute;inset:0;width:100%;height:100%;rotate:-90deg}
+.nb-d circle{fill:none;stroke-width:16}
+.nb-d__bg{stroke:#fff}
+.nb-d__v{stroke:var(--green);stroke-linecap:round;stroke-dasharray:var(--v) var(--c)}
+.nb-d b{font:400 32px/1 var(--display);color:var(--violet)}
+@media (prefers-reduced-motion:no-preference){
+  .js .nb__board.is-in .nb__l{animation:tbType 1s steps(20) .3s both}
+  .js .nb__board.is-in .nb__en{animation:cvRise .6s var(--ease-out) 1.3s both}
+  .js .nb__board.is-in .nb__rule{animation:cvPop .5s var(--ease-spring) 1.8s both}
+  .js .nb__stat.is-in .nb-d__v{animation:nbDraw 1.6s cubic-bezier(.6,0,.3,1) .3s both}
+}
+@keyframes nbDraw{from{stroke-dasharray:0 var(--c)}}
+.rm .nb__l,.rm .nb__en,.rm .nb__rule,.rm .nb-d__v{animation:none!important}
+@media (max-width:899px){.nb{grid-template-columns:minmax(0,1fr)}}
+@media (max-width:559px){.nb-d{width:112px;height:112px}.nb-d b{font-size:26px}}
+
+/* ---------- Bengaluru: startups as a field of dots ---------- */
+.sd{display:grid;gap:12px;max-width:760px;margin:0 0 22px;padding:18px 20px;border-radius:16px;background:var(--white);box-shadow:0 0 0 1px var(--line-light),0 14px 28px -22px rgba(37,30,69,.5)}
+.sd__n{display:flex;align-items:baseline;gap:14px;flex-wrap:wrap;margin:0}
+.sd__n b{font:400 clamp(44px,4.6vw,62px)/.9 var(--display);color:var(--violet);font-variant-numeric:tabular-nums}
+.sd__n span{max-width:34ch;font:600 14.5px/1.4 var(--sans);color:var(--body)}
+.sd__dots{display:grid;grid-template-columns:repeat(27,minmax(0,1fr));gap:5px}
+.sd__dots i{aspect-ratio:1;border-radius:50%;background:linear-gradient(140deg,#8ED474,#58AC3F)}
+.sd__k{display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin:0;font:600 12.5px/1.4 var(--sans);color:var(--body)}
+@media (prefers-reduced-motion:no-preference){.js .sd.is-in .sd__dots i{animation:cvPop .4s var(--ease-spring) both;animation-delay:calc(.2s + var(--i) * 45ms)}}
+.rm .sd__dots i{animation:none!important}
+@media (max-width:559px){.sd__dots{grid-template-columns:repeat(14,minmax(0,1fr))}}
 /* Tools hub: what the tools make, as objects on a desk at their own depth. Sizes follow the card's width (cqw). */
 .dk--tools{container-type:inline-size;padding:10px 0 18px}
 .dk-desk{aspect-ratio:470 / 420}
