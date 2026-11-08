@@ -422,7 +422,8 @@ def timeline(img_key):
 
 
 def mix_bars(rows, label, src):
-    li = ''.join(f'<li style="--v:{v};--i:{i}"><span>{e(t)}</span><i aria-hidden="true"></i><b>{v}%</b></li>' for i, (t, v) in enumerate(rows))
+    mx = max(v for _, v in rows)
+    li = ''.join(f'<li style="--v:{v};--w:{v / mx * 96:.1f};--i:{i}"><span>{e(t)}</span><i aria-hidden="true"></i><b>{v:g}%</b></li>' for i, (t, v) in enumerate(rows))
     return Html(f'<div class="mix" data-reveal><p class="mix__k">{e(label)}</p><ul>{li}</ul>{chips(src)}</div>',
                 text=label + ': ' + ', '.join(f'{t} {v}%' for t, v in rows) + '.')
 
@@ -524,12 +525,149 @@ def name_board(local, en, lang, stat, stat_label, src):
     return Html(html, text=f'{stat_label}: {stat:g}%.')
 
 
-def dot_stat(n, per, label, src):
+def dot_stat(n, per, label, src, unit='startups'):
     # A big number with a field of dots under it, one dot per `per`.
     dots = ''.join(f'<i style="--i:{i}"></i>' for i in range(round(n / per)))
     return Html(f'<div class="sd" data-reveal><p class="sd__n"><b data-countto="{n}">{n:,}</b><span>{e(label)}</span></p>'
-                f'<div class="sd__dots" aria-hidden="true">{dots}</div><p class="sd__k">Each dot is about {per} startups. {chips(src)}</p></div>',
+                f'<div class="sd__dots" aria-hidden="true">{dots}</div><p class="sd__k">Each dot is about {per:,} {unit}. {chips(src)}</p></div>',
                 text=f'{label}: {n:,}.')
+
+
+# ---------------------------------------------------------------- wave 2 sources (read 8–9 Nov 2026; price pages are the studios' own)
+GP.SRC.update({
+    'gbp-areas': ('Google Business Profile Help', 'Manage your service areas (up to 20)', 'https://support.google.com/business/answer/9157481'),
+    'dl-ec': ('Delhi Government, 14 Mar 2016', 'Sixth Economic Census, Delhi: 8.75 lakh establishments in 2013',
+              'https://publicity.delhi.gov.in/publicity/deputy-chief-minister-releases-sixth-economic-census-delhi-14th-march-2016'),
+    'dl-lang': ('Wikipedia, from Census of India 2011', 'Languages in NCT of Delhi', 'https://en.wikipedia.org/wiki/Delhi'),
+    'dl-p1': ('Ahmad Web Solutions, New Delhi, seen 9 Nov 2026', 'Affordable web designing company in Delhi', 'https://www.ahmadwebsolutions.com/affordable-web-designing-company.html'),
+    'dl-p2': ('Aanve, Delhi, seen 9 Nov 2026', 'Website design pricing', 'https://www.aanve.com/website-design-pricing/'),
+    'dl-p3': ('DigiStreet Media, Noida and Delhi, seen 9 Nov 2026', 'Website design agency, Delhi NCR', 'https://digistreetmedia.com/website-design-agency-delhi-ncr/'),
+    'hy-corp': ('ThePrint, Feb 2026', 'Telangana reorganises GHMC into three municipal corporations',
+                'https://theprint.in/india/telangana-govt-reorganises-ghmc-into-three-separate-municipal-corporations/2851596'),
+    'hy-lang': ('Census of India 2011, table C-16', 'Hyderabad district: population by mother tongue',
+                'https://censusindia.gov.in/nada/index.php/catalog/10193/download/13305/DDW-C16-STMT-MDDS-2800.XLSX'),
+    'hy-pharma': ('Business Today, 19 Feb 2026', 'What is driving global life sciences investment into Telangana',
+                  'https://www.businesstoday.in/industry/pharma/story/what-is-driving-global-life-sciences-investment-into-telangana-516967-2026-02-19'),
+    'hy-p1': ('EasyQuickWeb, Hyderabad, seen 9 Nov 2026', 'Website packages in Hyderabad', 'https://easyquickweb.com/pricing/'),
+    'hy-p2': ('VS Techno Solutions, Hyderabad, seen 9 Nov 2026', 'Website development packages, Hyderabad', 'https://www.vstechnosolutions.com/website-development-packages-hyderabad.php'),
+    'hy-p3': ('Hyderabad Graphics, seen 9 Nov 2026', 'Website design packages', 'https://hyderabadgraphics.com/'),
+    'kol-lang': ('Wikipedia, from Census of India 2011', 'Kolkata district: languages', 'https://en.wikipedia.org/wiki/Kolkata_district'),
+    'kol-boards': ('Outlook, Sep 2025', 'Bengali now mandatory on all signboards in Kolkata',
+                   'https://www.outlookindia.com/national/bengali-now-mandatory-on-all-signboards-in-kolkata-civic-body-orders'),
+    'kol-p1': ('WebAdis, Kolkata, seen 9 Nov 2026', 'Website design company in Kolkata', 'https://webadis.com/website-design-company-kolkata'),
+    'kol-p2': ('AS Webmarketings, Kolkata, seen 9 Nov 2026', 'Website design company in Kolkata', 'https://aswebmarketings.com/website-design-company-kolkata'),
+    'kol-p3': ('RedX Studios, Kolkata, seen 9 Nov 2026', 'Web development services in Kolkata', 'https://redxstudios.in/web-development-services-in-kolkata'),
+    'ahd-msme': ('NewKerala, 9 Mar 2026', 'MSME units in Ahmedabad district (Gujarat Assembly answer)',
+                 'https://www.newkerala.com/news/a/3283-msme-units-ahmedabad-granted-rs-6283-crore-960.htm'),
+    'ahd-lang': ('Census of India 2011, table C-16', 'Ahmedabad district: population by mother tongue',
+                 'https://censusindia.gov.in/nada/index.php/catalog/10203/download/13315/DDW-C16-STMT-MDDS-2400.XLSX'),
+    'ahd-heritage': ('Ahmedabad Municipal Corporation', 'Manek Chowk heritage site', 'https://heritage.ahmedabadcity.gov.in/details/97/heritage_site/en'),
+    'ahd-p1': ('DC Technolabs, Ahmedabad, seen 9 Nov 2026', 'Web design company in Ahmedabad', 'https://dctechnolabs.in/services/web-design/'),
+    'ahd-p2': ('Clients Now, Ahmedabad, seen 9 Nov 2026', 'Website development pricing in Ahmedabad', 'https://www.clientsnow.in/website-development-pricing-in-ahmedabad-india'),
+    'srt-tex': ('DeshGujarat, 27 Apr 2026', 'Textile industry in Surat and South Gujarat contributes over 25% to state GDP',
+                'https://deshgujarat.com/2026/04/27/textile-industry-in-surat-and-south-gujarat-contributes-over-25-to-state-gdp-govt/'),
+    'srt-dia': ('Scroll, Apr 2026', 'How the Iran war has plunged India’s diamond industry into a deeper crisis',
+                'https://scroll.in/article/1092358/how-the-iran-war-has-plunged-indias-diamond-industry-into-a-deeper-crisis'),
+    'srt-lang': ('Wikipedia, from Census of India 2011', 'Surat district: languages', 'https://en.wikipedia.org/wiki/Surat_district'),
+    'srt-p1': ('Karasa Infotech, Surat, seen 9 Nov 2026', 'Website packages', 'https://karasa.co.in/'),
+    'srt-p2': ('Agentic Digital Marketing, Surat, seen 9 Nov 2026', 'Website development company in Adajan, Surat',
+               'https://agenticdigitalmarketing.in/website-development-company-adajan-surat/'),
+    'srt-p3': ('Tejas Suthar, Surat, seen 9 Nov 2026', 'Website design plans', 'https://tejassuthar.in/'),
+    'jpr-tour': ('Travel Trade Journal, 2026', 'Rajasthan records 10.92 crore tourist visits in H1 2026',
+                 'https://traveltradejournal.com/rajasthan-records-10-92-crore-tourist-visits-in-h1-2026-sikar-leads-domestic-jaipur-foreign-arrivals/'),
+    'jpr-lang': ('Wikipedia, from Census of India 2011', 'Jaipur district: languages', 'https://en.wikipedia.org/wiki/Jaipur_district'),
+    'jpr-p1': ('Web Design Company Jaipur, seen 9 Nov 2026', 'Web development packages', 'https://www.webdesigncompanyjaipur.com/web-development-packages'),
+    'jpr-p2': ('PashGen, Jaipur, seen 9 Nov 2026', 'Pricing', 'https://www.pashgen.com/pricing'),
+    'jpr-p3': ('Web Seasoning, Jaipur, seen 9 Nov 2026', 'Web development in Jaipur', 'https://webseasoning.com/services/web-development-jaipur'),
+})
+
+
+# ---------------------------------------------------------------- wave 2 cities: heroes built from each city's own fact
+def _hero_card(kind, head, small, body, label, ic='pin'):
+    card = (f'<div class="dk__card fp-ticket sv-ticket h2c h2c--{kind}"><p class="dk-quote__head"><span class="dk-quote__mark">{icon(ic)}</span>'
+            f'<span><b>{e(head)}</b><small>{e(small)}</small></span></p>{body}</div>')
+    floats = (DA._float('dk-seal', SEAL, 110, 0))
+    return DA._dk(kind, card, floats, sheets=2, label=label)
+
+
+def ncr_card(p):
+    # Delhi: one Google listing serving the NCR cities as service areas (Google allows up to 20).
+    cities = [('Delhi', 46, 42, 1), ('Gurugram', 22, 74, 0), ('Noida', 72, 56, 0), ('Ghaziabad', 78, 22, 0), ('Faridabad', 52, 84, 0)]
+    lines = ''.join(f'<line x1="46" y1="42" x2="{x}" y2="{y}" style="--i:{i}"/>' for i, (_, x, y, hub) in enumerate(cities) if not hub)
+    nodes = ''.join(f'<span class="ncr__n{" ncr__n--hub" if hub else ""}" style="left:{x}%;top:{y}%;--i:{i}"><i></i><b>{e(n)}</b></span>'
+                    for i, (n, x, y, hub) in enumerate(cities))
+    body = (f'<div class="ncr" aria-hidden="true"><svg viewBox="0 0 100 100" preserveAspectRatio="none">{lines}</svg><span class="ncr__ring"></span>'
+            f'<span class="ncr__ring ncr__ring--2"></span>{nodes}</div><p class="h2c__f">{icon("check")}One Google listing, up to 20 service areas</p>')
+    return _hero_card('ncr', 'One listing. Every NCR city.', 'Delhi · Gurugram · Noida · Ghaziabad · Faridabad', body,
+                      'One Google listing that serves Delhi, Gurugram, Noida, Ghaziabad and Faridabad as service areas')
+
+
+def zones_card(p):
+    # Hyderabad: three municipal corporations since 11 Feb 2026; name your locality, not just "Hyderabad".
+    zones = [('Greater Hyderabad', 'Old City · Secunderabad', 0), ('Cyberabad', 'Serilingampally · Kukatpally · Qutbullapur', 1), ('Malkajgiri', 'North and east', 0)]
+    li = ''.join(f'<li class="{"is-you" if you else ""}" style="--i:{i}"><b>{e(n)}</b><small>{e(d)}</small>'
+                 + (f'<span class="zn__pin">{icon("pin")}Your locality: Kukatpally</span>' if you else '') + '</li>' for i, (n, d, you) in enumerate(zones))
+    body = f'<ul class="zn" aria-hidden="true">{li}</ul><p class="h2c__f">{icon("check")}Name your locality on your site and Google listing</p>'
+    return _hero_card('zones', 'Hyderabad is three cities now', 'Three municipal corporations since 11 Feb 2026', body,
+                      'Hyderabad is now three municipal corporations: Greater Hyderabad, Cyberabad and Malkajgiri. Name your locality.')
+
+
+def bengali_board(p):
+    # Kolkata: Bengali on top of the shop board (KMC, 2025), the same name on Google and the website.
+    body = ('<div class="bb" aria-hidden="true"><span class="bb__l" lang="bn">মিষ্টি মহল</span><span class="bb__en">MISHTI MAHAL</span>'
+            '<span class="bb__s">Sweets · since morning</span></div>'
+            f'<ul class="bb__m" aria-hidden="true"><li style="--i:0">{icon("check")}Shop board</li><li style="--i:1">{icon("check")}Google listing</li><li style="--i:2">{icon("check")}Website</li></ul>')
+    return _hero_card('bboard', 'Bengali on top. Same name everywhere.', 'Kolkata signboard rule, 2025', body,
+                      'A Kolkata shop board with the Bengali name on top and English below, and the same name on Google and the website', ic='tag')
+
+
+def pin_card(p):
+    # Ahmedabad: old-city lanes (pols) need an exact pin, a landmark and the right opening hours.
+    lanes = ''.join(f'<i style="--x:{x}%;--y:{y}%;--w:{w}%;--r:{r}deg"></i>' for x, y, w, r in
+                    [(4, 30, 60, 0), (30, 62, 66, 0), (20, 12, 4, 0), (50, 8, 4, 90), (14, 45, 40, 90), (60, 40, 34, 90), (8, 82, 80, 0)])
+    body = (f'<div class="pn" aria-hidden="true"><span class="pn__map">{lanes}</span><span class="pn__pin">{icon("pin")}</span><span class="pn__tag">Sabarmati Fabrics</span></div>'
+            '<ul class="pn__rows" aria-hidden="true"><li>' + icon('pin') + 'Landmark: near Manek Chowk</li><li>' + icon('clock') + 'Open 10 am to 8 pm</li></ul>'
+            f'<p class="h2c__f">{icon("check")}An exact pin, so buyers find you in the lanes</p>')
+    return _hero_card('pin', 'Old-city lanes need an exact pin', 'Directions, landmark and hours that match', body,
+                      'A Google listing for an old-city shop with an exact map pin, a landmark and opening hours')
+
+
+def market_card(p):
+    # Surat: 240 markets and 70,000+ traders. The address must name the market, floor and shop number.
+    floors = [('3', '301–360', True), ('2', '201–260', False), ('1', '101–160', False), ('G', '1–40', False)]
+    li = ''.join(f'<li class="{"is-you" if you else ""}" style="--i:{i}"><b>{e(f)}</b><span>Shops {e(r)}</span>'
+                 + ('<em>Shop 314 · you</em>' if you else '') + '</li>' for i, (f, r, you) in enumerate(floors))
+    body = (f'<p class="mk__t" aria-hidden="true">Textile Market · Ring Road</p><ul class="mk" aria-hidden="true">{li}</ul>'
+            f'<p class="h2c__f">{icon("check")}Market, floor and shop number on your site and listing</p>')
+    return _hero_card('market', 'Which market? Which floor?', '240 markets, 70,000+ traders', body,
+                      'A market directory board: floor 3, shop 314. Your address should name the market, floor and shop number', ic='store')
+
+
+def booking_card(p):
+    # Jaipur: tourists search in English and want to book direct.
+    body = ('<p class="bk__q" aria-hidden="true">' + icon('search') + '<span>heritage haveli stay jaipur</span></p>'
+            '<div class="bk__r" aria-hidden="true"><b>Haveli Neel</b><small>Heritage stay · Old city, Jaipur</small>'
+            '<span class="bk__chips"><i>English</i><i>हिंदी</i><i>Breakfast</i></span>'
+            f'<span class="bk__btn">{icon("chat")}Check availability</span></div>'
+            f'<p class="h2c__f">{icon("check")}Guests book direct, on WhatsApp</p>')
+    return _hero_card('book', 'Tourists search in English', 'Then they book the place that answers', body,
+                      'A tourist searches for a heritage stay in Jaipur and books direct on WhatsApp', ic='search')
+
+
+ART.update({'ncr': ncr_card, 'zones': zones_card, 'bboard': bengali_board, 'pin': pin_card, 'market': market_card, 'book': booking_card})
+
+
+def stat_trio(rows, src):
+    # Three big numbers, each with a small picture.
+    li = ''.join(f'<li data-reveal><span class="st3__ic">{icon(ic)}</span><b>{e(n)}</b><span>{e(t)}</span></li>' for ic, n, t in rows)
+    return Html(f'<div class="st3-wrap"><ul class="st3" data-reveal-group>{li}</ul><p class="st3__src">{chips(*src)}</p></div>', text='; '.join(f'{n} {t}' for _, n, t in rows) + '.')
+
+
+def hundred(n, big, label, src):
+    # 100 dots, n of them lit: "98 of every 100".
+    dots = ''.join(f'<i class="{"on" if k < n else ""}" style="--i:{k}"></i>' for k in range(100))
+    return Html(f'<div class="hd" data-reveal><div class="hd__dots" aria-hidden="true">{dots}</div><div><p class="hd__n">{e(big)}</p><p class="hd__t">{e(label)}</p>{chips(src)}</div></div>',
+                text=f'{big}: {label}.')
 
 # ---------------------------------------------------------------- the cities
 CITIES = [
@@ -800,4 +938,267 @@ CITIES = [
         'website keeps everything consistent.'),
        ('How do I get my Chennai business on Google Maps?', GP.MAPS_FAQ)],
   sources=['chn-p1', 'chn-p2', 'chn-p3', 'chn-lang', 'chn-boards', 'tn-msme', 'local-rank']),
+]
+
+
+# ---------------------------------------------------------------- wave 2: six more cities, each tailored to how it buys
+SAFE_Q = ('Is it safe to pay a web designer in another city?',
+          'With U Scale the price is fixed in writing before work starts, and you pay in three parts: 20% to start, 20% when you approve the design and 60% '
+          'only when the site is live. Your domain is registered in your name, and every login is handed to you at launch.')
+
+
+def _facts(city, market, langs):
+    return [('Who builds it', 'Mehul Karotra, personally: designed in Figma, then hand-coded'),
+            ('Based in', f'Mumbai (Ghatkopar West). No {city} office: the work happens over WhatsApp and video calls'),
+            ('Website prices', GP.WEB_PRICES + '. The same prices as in Mumbai'),
+            (f'{city} market, for comparison', market),
+            ('Timeline', 'Landing page in under 2 weeks; business site in 3–4 weeks'),
+            ('Payment', '20% to start, 20% on design sign-off, 60% on launch'),
+            ('Languages', langs),
+            ('Ownership', 'Your domain, code and logins, in your name')]
+
+
+def _answer(city, who):
+    return (f'U Scale is Mehul Karotra, a Mumbai web designer who builds hand-coded websites for {who} over WhatsApp and video calls. '
+            f'Prices are fixed in writing: {LANDING} for one page, {BIZ} for 5–10 pages and from {STORE} for an online store, and you pay 60% only after launch.')
+
+
+def _city(slug, city, state, wiki, eyebrow, lead, who, art, img, wa, cta_lead, trust_h, trust_keys, market_line, market_src, market_fact,
+          langs, sections_mid, picker_items, lang_demo_args, faq_mid, sources, extra_v2=None, wiki_state=None):
+    sec_prices = Sec(f'Website prices for {city} businesses', price_cards(market_line, market_src),
+                     eyebrow=f'{city} prices', lead='Four prices. Fixed in writing. The same as in Mumbai.', layout='wide', sid='prices')
+    biz_blocks = list(sections_mid) + [picker(picker_items, 'Your kind of business')] + ([lang_demo(*lang_demo_args)] if lang_demo_args else [])
+    sec_biz = Sec(f'What does your {city} business need?', *biz_blocks, eyebrow=f'{city}’s businesses', layout='wide', sid='business')
+    v2 = [lambda ctx: _custom_sec('trust', 'Why it’s safe', trust_h, '', trust_bento(trust_keys)),
+          lambda ctx: _custom_sec('work', 'Real work', 'Real websites. Live right now.', 'Tap any card to open the live site.',
+                                  work_rail(ctx, ['spacestudio', 'sashe', 'vidhi', 'antrah', 'roar', 'brandgen']), tone='dark'),
+          'prices',
+          lambda ctx: _custom_sec('process', 'How it works', 'Live in 3–4 weeks. All from your phone.', '', timeline('remote-review'), tone='band'),
+          'business'] + (extra_v2 or [])
+    faq = [(f'How much does a website cost in {city}?', faq_mid[0]), SAFE_Q,
+           (f'Will my website rank in {city} if my designer is in Mumbai?',
+            'Yes. Google ranks local results on relevance, distance and prominence, and distance is measured from your business to the person searching, '
+            'not from your designer. What matters is that your website and Google Business Profile name your area, services and timings, and match each other.'),
+           *faq_mid[1:],
+           (f'How do I get my {city} business on Google Maps?', GP.MAPS_FAQ)]
+    return dict(slug=slug, path=f'services/website-design-{slug}', city=city, state=state, wiki=wiki,
+                crumb=f'Website design in {city}', service=f'Website design and development for {city} businesses',
+                card=f'Fixed-price websites for {city} businesses, built from Mumbai over WhatsApp and video calls.',
+                title=f'Website Design & Development in {city}, from ₹25,000',
+                desc=f'Websites for {city} businesses, designed and hand-coded by Mehul Karotra: landing page {LANDING}, business site {BIZ}, fixed in writing. Over WhatsApp.',
+                h1=f'Website design & development in {city}', eyebrow=eyebrow, lead=lead,
+                stats=[(LANDING, 'Websites from'), ('3–4 wk', 'Live in'), ('60%', 'Paid after launch')],
+                art=art, imgs=[img], hero_btn='Free audit on WhatsApp', hero_more=('#prices', 'See prices'), wa=wa,
+                cta_h='Get a free audit', cta_lead=cta_lead,
+                answer=_answer(city, who), facts=_facts(city, market_fact, langs),
+                sections=[sec_prices, sec_biz], v2=v2, faq=faq, sources=sources, related=3, work=[], work_h='', work_lead='', who='')
+
+
+def _p(k, ic, tab, title, lead, musts, fit, extra=''):
+    return (k, ic, tab, title, lead, musts, fit, extra)
+
+
+CITIES += [
+ _city('delhi-ncr', 'Delhi NCR', 'Delhi', 'https://en.wikipedia.org/wiki/National_Capital_Region_(India)', 'For Delhi NCR businesses',
+       'Hand-coded websites at a price fixed in writing, for businesses across Delhi NCR. You pay most of it after launch.',
+       'businesses across Delhi NCR', 'ncr', 'city-delhi', "Hi Mehul, I run a business in Delhi NCR. I'd like a free audit for my website.",
+       'Tell me about your Delhi NCR business. I reply within 24 hours, usually much faster on WhatsApp.',
+       'Fixed in writing. Safe to pay.', ('fix', 'pay', 'own', 'me'),
+       'For comparison, Delhi studios’ own pages list a starter site from ₹9,999, a 1–5 page WordPress site at ₹15,000–₹35,000 and agency CMS sites from ₹1,00,000 plus GST (seen 9 November 2026).',
+       ['dl-p1', 'dl-p2', 'dl-p3'],
+       'Starter site from ₹9,999 · 1–5 page WordPress site ₹15,000–₹35,000 · agency CMS sites from ₹1,00,000 + GST (studios’ own pages, seen 9 Nov 2026)',
+       'English and Hindi',
+       [mix_bars([('Trade', 42.3), ('Manufacturing', 17.8), ('Transport & storage', 8.3), ('Food & stays', 5.5)],
+                 'What Delhi’s 8.75 lakh establishments do (Sixth Economic Census, 2013)', 'dl-ec')],
+       [_p('trade', 'store', 'Wholesale trader', 'Wholesale traders', 'Retailers check you online before they visit the market.',
+           ['Your product range, with photos', 'Minimum order and prices on request, on WhatsApp', 'Market, lane and shop number, exactly', 'The same name on your board, Google and IndiaMART'],
+           f'Usually a 5–10 page catalogue site: {BIZ}, fixed.'),
+        _p('retail', 'tag', 'Retail shop', 'Retail shops', 'Customers find you on Google Maps first. Your site backs it up.',
+           ['Timings, a map pin and one-tap directions', 'What’s in stock, easy to update', '“Order on WhatsApp” on every product', 'Hindi and English, if your customers read both'],
+           f'Usually a landing page ({LANDING}) with local SEO ({LSEO}).'),
+        _p('pro', 'file', 'CA or consultant', 'CAs, lawyers and consultants', 'Clients compare fees and trust before they call.',
+           ['Services with fixed fees', 'Who you are, with real photos', 'Book a call on WhatsApp', 'Your office, and the NCR cities you serve'],
+           f'Usually a 5–10 page business site: {BIZ}, fixed.', GP.render(Img('city-delhi'))),
+        _p('make', 'box', 'Small manufacturer', 'Small manufacturers', 'Buyers check your website before they ask for a quote.',
+           ['A catalogue with specifications', 'An enquiry form for quantity and drawings', 'Certifications on the first screen', 'A link to your IndiaMART listing'],
+           f'Usually a 10–20 page site with a blog: {BLOG}, fixed.'),
+        _p('food', 'menu', 'Restaurant or café', 'Restaurants and cafés', 'Let regulars order from you directly, not through an app.',
+           ['A menu you update yourself', 'Your own ordering link', 'Timings, map and one-tap call', 'Party orders on WhatsApp'],
+           f'A restaurant site with your own ordering: {REST}, fixed.')],
+       ('Hindi and English? Tap to switch.', 'हिंदी', 'hi', ('File your ITR on time', 'Fixed fees, written up front'), ('अपना ITR समय पर फ़ाइल करें', 'तय फ़ीस, पहले से लिखित में')),
+       ['Delhi studios’ own pages (seen November 2026) list a starter site from ₹9,999, a 1–5 page WordPress site at ₹15,000–₹35,000 and agency CMS sites '
+        f'from ₹1,00,000 plus GST. With U Scale, a landing page is {LANDING}, a 5–10 page business site {BIZ} and an online store from {STORE}, fixed in writing.',
+        ('Can one Google listing cover Gurugram, Noida and the rest of NCR?',
+         'If you visit customers or deliver to them, yes: Google lets a business list up to 20 service areas, so a Delhi business can add Gurugram, Noida, '
+         'Ghaziabad and Faridabad. If customers come to you, keep your exact address instead, and name the NCR cities you serve on your website.'),
+        ('Should my Delhi website be in Hindi?',
+         'Hindi is the first language of about 81% of Delhi (Census 2011), so Hindi pages help if your customers search in Hindi. Most business sites lead in '
+         f'English and add Hindi for key pages. I build them from your own Hindi text; writing the copy is {COPY}.')],
+       ['dl-p1', 'dl-p2', 'dl-p3', 'dl-ec', 'dl-lang', 'gbp-areas', 'local-rank']),
+
+ _city('hyderabad', 'Hyderabad', 'Telangana', 'https://en.wikipedia.org/wiki/Hyderabad', 'For Hyderabad businesses',
+       'Hand-coded websites at a fixed price, for everyone from Old City shops to Cyberabad firms. Over WhatsApp.',
+       'Hyderabad businesses', 'zones', 'city-hyderabad', "Hi Mehul, I run a business in Hyderabad. I'd like a free audit for my website.",
+       'Tell me about your Hyderabad business. I reply within 24 hours, usually much faster on WhatsApp.',
+       'Built clean. Safe to pay.', ('code', 'pay', 'own', 'me'),
+       'For comparison, Hyderabad studios’ own pages list 5-page static sites at ₹6,999–₹9,900 and 10-page sites at ₹12,999–₹15,000 (seen 9 November 2026).',
+       ['hy-p1', 'hy-p2', 'hy-p3'],
+       '5-page static site ₹6,999–₹9,900 · 10-page site ₹12,999–₹15,000 (studios’ own pages, seen 9 Nov 2026)',
+       'English and Hindi; Telugu or Urdu pages built from your own text',
+       [mix_bars([('Telugu', 43.35), ('Urdu', 43.24), ('Hindi', 5.86)], 'First languages in Hyderabad district (Census 2011)', 'hy-lang')],
+       [_p('food', 'menu', 'Restaurant', 'Restaurants and caterers', 'Hyderabad is a UNESCO City of Gastronomy. Let regulars order from you directly.',
+           ['A menu with prices you update yourself', 'Your own ordering link, without app commission', 'Timings, map and one-tap call', 'Catering and party orders on WhatsApp'],
+           f'A restaurant site with your own ordering: {REST}, fixed.'),
+        _p('lab', 'search', 'Lab or clinic', 'Labs, clinics and pharmacies', 'People book tests and visits on their phones. Make it one tap.',
+           ['Tests and packages with prices', 'Book a home visit or slot on WhatsApp', 'Reports sent on WhatsApp', 'Your locality named clearly'],
+           f'Usually a 5–10 page business site: {BIZ}, fixed.', GP.render(Img('city-hyderabad'))),
+        _p('pharma', 'box', 'Pharma or supplier', 'Pharma and life-science suppliers', 'Hyderabad has more than 800 pharma and life-science companies. Buyers check you first.',
+           ['Products and certifications, clearly listed', 'An enquiry form for quantities and specs', 'Who you supply, on the first screen', 'English first, for buyers across India'],
+           f'Usually a 10–20 page site with a blog: {BLOG}, fixed.'),
+        _p('jewel', 'tag', 'Jeweller', 'Jewellers and bangle shops', 'Show the collection, and take enquiries on WhatsApp.',
+           ['Collections with photos and prices', '“Ask on WhatsApp” on every piece', 'Your bazaar, lane and timings', 'Telugu, Urdu and English, as your customers read'],
+           f'A catalogue site from {BIZ}, or an online store from {STORE}.')],
+       None,
+       ['Hyderabad studios’ own pages (seen November 2026) list 5-page static sites at ₹6,999–₹9,900 and 10-page sites at ₹12,999–₹15,000. With U Scale, '
+        f'a landing page is {LANDING}, a 5–10 page business site {BIZ} and an online store from {STORE}, fixed in writing.',
+        ('Should my listing say Hyderabad or Cyberabad?',
+         'Since 11 February 2026 the old GHMC area is three municipal corporations: Greater Hyderabad, Cyberabad and Malkajgiri. Customers still search '
+         '“Hyderabad”, so keep it, and also name your locality (Kukatpally, Gachibowli, Secunderabad and so on) on your website and Google listing.'),
+        ('Should my website be in Telugu or Urdu?',
+         'In the 2011 Census, Telugu and Urdu were each the first language of about 43% of Hyderabad district. Most business sites lead in English; '
+         f'add Telugu or Urdu pages if your customers are local. I build them from your own text; writing the copy is {COPY}.')],
+       ['hy-p1', 'hy-p2', 'hy-p3', 'hy-corp', 'hy-lang', 'hy-pharma', 'local-rank']),
+
+ _city('kolkata', 'Kolkata', 'West Bengal', 'https://en.wikipedia.org/wiki/Kolkata', 'For Kolkata businesses',
+       'Websites for Kolkata businesses, in Bengali and English, at a fixed price. You talk to me directly, on WhatsApp.',
+       'Kolkata businesses', 'bboard', 'city-kolkata', "Hi Mehul, I run a business in Kolkata. I'd like a free audit for my website.",
+       'Tell me about your Kolkata business. I reply within 24 hours, usually much faster on WhatsApp.',
+       'A person you can talk to.', ('me', 'pay', 'own', 'care'),
+       'For comparison, Kolkata studios’ own pages list one-page sites from ₹2,499–₹2,999 and 8–15 page sites at ₹9,999–₹19,999 (seen 9 November 2026).',
+       ['kol-p1', 'kol-p2', 'kol-p3'],
+       'One-page site ₹2,499–₹2,999 · 8–15 page site ₹9,999–₹19,999 (studios’ own pages, seen 9 Nov 2026)',
+       'English and Hindi; Bengali pages built from your own text',
+       [mix_bars([('Bengali', 61.45), ('Hindi', 22.19), ('Urdu', 13.04)], 'First languages in Kolkata district (Census 2011)', 'kol-lang')],
+       [_p('sweets', 'menu', 'Sweet shop or caterer', 'Sweet shops and caterers', 'Festive orders come in on phones. Make ordering one tap.',
+           ['Sweets and gift boxes with prices', '“Order on WhatsApp” on every item', 'Delivery areas and timings', 'Bengali and English'],
+           f'Usually a 5–10 page site: {BIZ}, or an online store from {STORE}.', GP.render(Img('city-kolkata'))),
+        _p('sari', 'tag', 'Sari or clothing', 'Sari and clothing stores', 'Puja shopping starts online. Show the collection early.',
+           ['Collections with prices', '“Order on WhatsApp” on every piece', 'Store timings and a map', 'Bengali and English'],
+           f'A catalogue site from {BIZ}, or an online store from {STORE}.'),
+        _p('leather', 'box', 'Leather goods', 'Leather goods makers', 'West Bengal has 26.6% of India’s tanneries. Buyers check you before they order.',
+           ['A catalogue with materials and finishes', 'An enquiry form for quantities', 'Export and certification details', 'English first, for buyers abroad'],
+           f'Usually a 10–20 page site with a blog: {BLOG}, fixed.'),
+        _p('events', 'calendar', 'Decor or events', 'Decor, lighting and events', 'People book you months ahead of the season. Show past work.',
+           ['Past work as photo galleries', 'Packages and what they include', 'Enquiry on WhatsApp', 'Your areas and dates'],
+           f'Usually a 5–10 page business site: {BIZ}, fixed.')],
+       ('Bengali and English? Tap to switch.', 'বাংলা', 'bn', ('Fresh sweets every morning', 'Order on WhatsApp'), ('প্রতিদিন সকালে টাটকা মিষ্টি', 'হোয়াটসঅ্যাপে অর্ডার করুন')),
+       ['Kolkata studios’ own pages (seen November 2026) list one-page sites from ₹2,499–₹2,999 and 8–15 page sites at ₹9,999–₹19,999. With U Scale, '
+        f'a landing page is {LANDING}, a 5–10 page business site {BIZ} and an online store from {STORE}, fixed in writing.',
+        ('Do I have to show my shop name in Bengali?',
+         'On your shop board in Kolkata, yes: in 2025 the civic body ordered signboards to show Bengali prominently at the top. Google asks that your listing '
+         'name matches the name on your storefront, so use the same Bengali and English name on your board, Google listing and website.'),
+        ('Should my Kolkata website be in Bengali?',
+         'Bengali is the first language of about 61% of Kolkata district (Census 2011), with Hindi and Urdu next. Lead in the language your customers search in, '
+         f'and add the other for key pages. I build Bengali pages from your own text; writing the copy is {COPY}.')],
+       ['kol-p1', 'kol-p2', 'kol-p3', 'kol-lang', 'kol-boards', 'gbp-guidelines', 'local-rank']),
+
+ _city('ahmedabad', 'Ahmedabad', 'Gujarat', 'https://en.wikipedia.org/wiki/Ahmedabad', 'For Ahmedabad businesses',
+       'Websites for Ahmedabad businesses at a price fixed in writing. You pay most of it after launch, and you own everything.',
+       'Ahmedabad businesses', 'pin', 'city-ahmedabad', "Hi Mehul, I run a business in Ahmedabad. I'd like a free audit for my website.",
+       'Tell me about your Ahmedabad business. I reply within 24 hours, usually much faster on WhatsApp.',
+       'Value for money, in writing.', ('fix', 'pay', 'own', 'care'),
+       'For comparison, Ahmedabad studios’ own pages list a starter site from ₹24,999–₹25,000 and a 10-page CMS site at ₹50,000 (seen 9 November 2026).',
+       ['ahd-p1', 'ahd-p2'],
+       'Starter site from ₹24,999–₹25,000 · 10-page CMS site ₹50,000 (studios’ own pages, seen 9 Nov 2026)',
+       'English and Hindi; Gujarati pages built from your own text',
+       [hundred(98, '5.99 lakh', 'registered MSMEs in Ahmedabad district, and 98 of every 100 are micro businesses (March 2026)', 'ahd-msme')],
+       [_p('textile', 'tag', 'Textile or cloth trader', 'Textile and cloth traders', 'Buyers across India check your range before they call.',
+           ['A catalogue with fabric, width and minimum order', '“Get price on WhatsApp” on every product', 'Market address and shop number', 'Gujarati and English'],
+           f'Usually a 5–10 page catalogue site: {BIZ}, fixed.', GP.render(Img('city-ahmedabad'))),
+        _p('jewel', 'star', 'Jeweller', 'Jewellers', 'Manek Chowk’s jewellery market is one of India’s largest. Stand out online.',
+           ['Collections with photos', '“Ask on WhatsApp” on every piece', 'Exact pin and landmark in the old city', 'Opening hours that match the market'],
+           f'A catalogue site from {BIZ}, or an online store from {STORE}.'),
+        _p('food', 'menu', 'Eatery', 'Eateries and caterers', 'Evening crowds decide on their phones. Be the one they find.',
+           ['Menu and prices', 'Timings, including late hours', 'An exact map pin', 'Orders on WhatsApp'],
+           f'Usually a landing page ({LANDING}) with local SEO ({LSEO}).'),
+        _p('make', 'box', 'Manufacturer or pharma', 'Manufacturers and pharma firms', 'Buyers judge you by your website before they ask for a quote.',
+           ['A catalogue with specifications', 'Certifications on the first screen', 'An enquiry form for quantities', 'A link to your IndiaMART listing'],
+           f'Usually a 10–20 page site with a blog: {BLOG}, fixed.')],
+       ('Gujarati and English? Tap to switch.', 'ગુજરાતી', 'gu', ('Wholesale fabrics from Ahmedabad', 'Get price on WhatsApp'), ('અમદાવાદથી હોલસેલ કાપડ', 'WhatsApp પર ભાવ મેળવો')),
+       ['Ahmedabad studios’ own pages (seen November 2026) list a starter site from ₹24,999–₹25,000 and a 10-page CMS site at ₹50,000. With U Scale, a '
+        f'landing page is {LANDING}, a 5–10 page business site {BIZ} and an online store from {STORE}, fixed in writing.',
+        ('My shop is in the old city. How do customers find it?',
+         'Set an exact pin on your Google listing, add a landmark people know (Manek Chowk, a pol name, a gate) to your directions, and keep your hours '
+         'exact: in the old city, some markets change trade through the day. Put the same address and landmark on your website.'),
+        ('Should my Ahmedabad website be in Gujarati?',
+         'Gujarati is the first language of about 75% of Ahmedabad district (Census 2011), with Hindi next. Lead in English or Gujarati, whichever your '
+         f'customers use, and add the other for key pages. I build Gujarati pages from your own text; writing the copy is {COPY}.')],
+       ['ahd-p1', 'ahd-p2', 'ahd-msme', 'ahd-lang', 'ahd-heritage', 'local-rank']),
+
+ _city('surat', 'Surat', 'Gujarat', 'https://en.wikipedia.org/wiki/Surat', 'For Surat traders and makers',
+       'Websites for Surat traders and makers at a fixed price, built so buyers across India find your shop and your stock.',
+       'Surat traders and businesses', 'market', 'city-surat', "Hi Mehul, I run a business in Surat. I'd like a free audit for my website.",
+       'Tell me about your Surat business. I reply within 24 hours, usually much faster on WhatsApp.',
+       'Pay most after launch.', ('pay', 'fix', 'own', 'me'),
+       'For comparison, Surat studios list a one-page site from ₹2,999, a basic business site from about ₹15,000 and a 5-page WordPress site at ₹20,000 (seen 9 November 2026).',
+       ['srt-p1', 'srt-p2', 'srt-p3'],
+       'One-page site from ₹2,999 · basic business site from about ₹15,000 · 5-page WordPress site ₹20,000 (studios’ own pages, seen 9 Nov 2026)',
+       'English and Hindi; Gujarati pages built from your own text',
+       [stat_trio([('layers', '65%', 'of India’s man-made fibre segment is in Surat'), ('store', '70,000+', 'traders in 240 large textile markets'),
+                   ('star', '8–10 lakh', 'people work in diamond cutting and polishing')], ['srt-tex', 'srt-dia'])],
+       [_p('trader', 'store', 'Textile trader', 'Textile traders', 'Buyers across India search for your range before they call.',
+           ['A catalogue with fabric, design and minimum order', '“Get price on WhatsApp” on every design', 'Market, floor and shop number', 'Hindi, Gujarati and English'],
+           f'Usually a 5–10 page catalogue site: {BIZ}, fixed.'),
+        _p('unit', 'box', 'Processing or powerloom unit', 'Processing and powerloom units', 'Traders compare capacity and quality before they send work.',
+           ['What you process, with photos', 'Capacity and turnaround', 'An enquiry form for job work', 'Your unit’s exact location'],
+           f'Usually a 5–10 page business site: {BIZ}, fixed.'),
+        _p('diamond', 'star', 'Diamond or jewellery', 'Diamond and jewellery businesses', 'Buyers want proof: certificates, photos and a real address.',
+           ['Pieces with certificates and photos', '“Ask on WhatsApp” on every piece', 'Your office or showroom address', 'English first, for buyers everywhere'],
+           f'A catalogue site from {BIZ}, or an online store from {STORE}.', GP.render(Img('city-surat'))),
+        _p('food', 'menu', 'Restaurant or farsan', 'Restaurants and farsan shops', 'Let regulars order from you directly.',
+           ['A menu you update yourself', 'Your own ordering link', 'Timings and a map pin', 'Orders on WhatsApp'],
+           f'A restaurant site with your own ordering: {REST}, fixed.')],
+       ('Gujarati and English? Tap to switch.', 'ગુજરાતી', 'gu', ('Certified diamonds', 'Visit our showroom'), ('પ્રમાણિત હીરા', 'અમારા શોરૂમની મુલાકાત લો')),
+       ['Surat studios’ own pages (seen November 2026) list a one-page site from ₹2,999, a basic business site from about ₹15,000 and a 5-page WordPress '
+        f'site at ₹20,000. With U Scale, a landing page is {LANDING}, a 5–10 page business site {BIZ} and an online store from {STORE}, fixed in writing.',
+        ('My shop is in a big textile market. How do buyers find it?',
+         'Put the market name, floor and shop number in your address. Google allows suite, floor and building numbers in a business address, and with 240 '
+         'markets in Surat, buyers need all three. Use exactly the same address on your website, Google listing and IndiaMART.'),
+        ('Should my Surat website be in Gujarati?',
+         'Gujarati is the first language of about 60% of Surat district (Census 2011), with Hindi and Marathi next. Traders selling across India usually '
+         f'lead in English or Hindi; shops serving Surat add Gujarati. I build the pages from your own text; writing the copy is {COPY}.')],
+       ['srt-p1', 'srt-p2', 'srt-p3', 'srt-tex', 'srt-dia', 'srt-lang', 'gbp-guidelines', 'local-rank']),
+
+ _city('jaipur', 'Jaipur', 'Rajasthan', 'https://en.wikipedia.org/wiki/Jaipur', 'For Jaipur stays, shops and makers',
+       'Websites for Jaipur stays, shops and makers: English for tourists, Hindi for locals. Fixed price, over WhatsApp.',
+       'Jaipur stays, shops and makers', 'book', 'city-jaipur', "Hi Mehul, I run a business in Jaipur. I'd like a free audit for my website.",
+       'Tell me about your Jaipur business. I reply within 24 hours, usually much faster on WhatsApp.',
+       'Safe to pay. Yours to keep.', ('pay', 'own', 'me', 'care'),
+       'For comparison, Jaipur studios list a 5-page site at ₹9,000 and custom sites from ₹22,000–₹25,000 (seen 9 November 2026).',
+       ['jpr-p1', 'jpr-p2', 'jpr-p3'],
+       '5-page site ₹9,000 · custom sites from ₹22,000–₹25,000 (studios’ own pages, seen 9 Nov 2026)',
+       'English and Hindi',
+       [dot_stat(256293, 10000, 'foreign tourist visits to Jaipur, January to June 2026: the most of any city in Rajasthan', 'jpr-tour', unit='visits')],
+       [_p('stay', 'pin', 'Hotel or homestay', 'Hotels, havelis and homestays', 'Guests compare on their phones, then book the place that answers.',
+           ['Rooms with photos and nightly prices', '“Check availability” on WhatsApp', 'English first, with Hindi', 'Exact location and directions'],
+           f'Usually a 5–10 page business site: {BIZ}, fixed.', GP.render(Img('city-jaipur'))),
+        _p('gems', 'star', 'Gems or jewellery', 'Gems and jewellery', 'Tourists and buyers want proof before they visit.',
+           ['Pieces with photos and certificates', '“Ask on WhatsApp” on every piece', 'Showroom address and timings', 'English for visitors'],
+           f'A catalogue site from {BIZ}, or an online store from {STORE}.'),
+        _p('craft', 'tag', 'Blue pottery or handicrafts', 'Blue pottery and handicrafts', 'Visitors want to take a piece home, or order it later.',
+           ['A catalogue with sizes and prices', 'Shipping across India and abroad', 'Workshop visits, with directions', 'English and Hindi'],
+           f'An online store from {STORE}, or a catalogue site from {BIZ}.'),
+        _p('tours', 'truck', 'Tours or taxi', 'Tours and taxis', 'Tourists book in a hurry, on a phone, in English.',
+           ['Routes and prices in plain words', 'One-tap WhatsApp and call', 'Reviews up front', 'Fast on mobile data'],
+           f'Usually a landing page: {LANDING}, live in under 2 weeks.')],
+       ('Hindi and English? Tap to switch.', 'हिंदी', 'hi', ('Book your stay directly', 'Breakfast on the rooftop'), ('सीधे अपना कमरा बुक करें', 'छत पर नाश्ता')),
+       ['Jaipur studios’ own pages (seen November 2026) list a 5-page site at ₹9,000 and custom sites from ₹22,000–₹25,000. With U Scale, a landing page '
+        f'is {LANDING}, a 5–10 page business site {BIZ} and an online store from {STORE}, fixed in writing.',
+        ('My guests are tourists. What should my website do?',
+         'Answer in English first: rooms or products, prices, location and how to book. Jaipur recorded 2,56,293 foreign tourist visits from January to '
+         'June 2026, the most of any city in Rajasthan, and visitors book the place that answers quickly. A “Check availability on WhatsApp” button helps.'),
+        ('Should my Jaipur website be in Hindi?',
+         'Hindi was the first language of about 46% of Jaipur district in the 2011 Census, with Rajasthani next. Lead in English if you serve tourists, '
+         f'and add Hindi for local customers. I build Hindi pages from your own text; writing the copy is {COPY}.')],
+       ['jpr-p1', 'jpr-p2', 'jpr-p3', 'jpr-tour', 'jpr-lang', 'local-rank']),
 ]
