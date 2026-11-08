@@ -362,6 +362,7 @@ def _sheets(n, cls=''):
 
 PAGE_STACK = [_sheets(1), _sheets(3), _sheets(5),
               '<span class="pg pg--store" aria-hidden="true"><i style="--k:0;--m:1"></i><i style="--k:1;--m:1"></i><i style="--k:2;--m:1"></i><b></b></span>']
+PROJECTS = 21  # Mehul, 9 Nov 2026 (the home page stat says the same)
 LOCK = '<svg viewBox="0 0 24 24" aria-hidden="true"><rect x="5" y="10.5" width="14" height="10" rx="2.5"/><path d="M8 10.5V8a4 4 0 018 0v2.5"/></svg>'
 
 
@@ -370,13 +371,14 @@ def trust_bento():
     me = (f'<picture class="tb-me__img"><source type="image/avif" srcset="{GP.vurl(img["file"] + "-480.avif")}">'
           f'<img src="{GP.vurl(img["file"] + "-480.webp")}" width="480" height="480" alt="" loading="lazy" decoding="async"></picture>')
     tiles = [
-        ('pay', '<div class="tb__g tb-pay" aria-hidden="true"><span class="tb-pay__tag">after launch</span>'
-                '<div class="tb-pay__track"><span style="--w:20;--i:0"><b>20%</b><small>Start</small></span><span style="--w:20;--i:1"><b>20%</b><small>Design</small></span>'
-                '<span style="--w:60;--i:2"><b>60%</b><small>Launch</small></span></div><span class="tb-pay__run"><i>₹</i></span></div>',
-         'Pay most after it’s live.', 'You pay 60% only when your site launches.'),
+        ('pay', '<div class="tb__g tb-pay" aria-hidden="true">'
+                + ''.join(f'<span class="tb-pay__col" style="--w:{w};--i:{i}"><b>{w}%</b><i>{coin}</i><small>{n}</small></span>'
+                          for i, (w, n, coin) in enumerate([(20, 'Start', ''), (20, 'Design', ''), (60, 'Launch', '<span class="tb-pay__coin">₹</span>')]))
+                + '</div>',
+         'Pay most after launch.', 'You pay 60% only when your site is live.'),
         ('own', f'<div class="tb__g tb-own" aria-hidden="true"><span class="tb-own__bar">{LOCK}<span>yourbusiness.in</span></span>'
                 f'<span class="tb-own__tag">{icon("key")}<span>Owner</span><b>You</b></span></div>',
-         'Everything in your name.', 'Domain, code and every login. Yours, always.'),
+         'All in your name.', 'Domain, code and every login. Yours, always.'),
         ('fix', '<div class="tb__g tb-doc" aria-hidden="true"><span class="tb-doc__paper"><i style="--i:0;--w:88%"></i><i style="--i:1;--w:64%"></i>'
                 f'<i style="--i:2;--w:76%"></i><span class="tb-doc__total"><small>Total</small><b>{e(BIZ)}</b></span></span><span class="tb-doc__stamp">Fixed</span></div>',
          'Price fixed in writing.', 'Agreed before work starts. No surprise bills.'),
@@ -397,8 +399,8 @@ def work_rail(ctx, keys):
                f'width="768" height="480" alt="{ea("Website for " + w[1] + ", designed and built by U Scale")}" loading="lazy" decoding="async"></span>'
                f'<span class="wr__meta"><span class="wr__logo"><img src="{GP.vurl(f"/assets/logos/{k}.webp")}" width="{lw}" height="{lh}" alt="" loading="lazy" decoding="async"></span>'
                f'<span class="wr__name"><b>{e(w[1])}</b><small>{e(w[2])}</small></span></span><span class="wr__go">Visit live ↗<span class="sr-only"> (opens in a new tab)</span></span></a></li>')
-    dots = ''.join(f'<i style="--i:{i}"></i>' for i in range(11))
-    return (f'<div class="wr-top"><div class="wr-count" data-reveal><b data-countto="11" data-suf="+">11+</b><span>projects shipped</span>'
+    dots = ''.join(f'<i style="--i:{i}"></i>' for i in range(PROJECTS))
+    return (f'<div class="wr-top"><div class="wr-count" data-reveal><b data-countto="{PROJECTS}" data-suf="+">{PROJECTS}+</b><span>projects shipped</span>'
             f'<span class="wr-dots" aria-hidden="true">{dots}</span></div>'
             f'<div class="wr-nav"><button type="button" data-rail-go="-1" aria-label="Previous projects">←</button><button type="button" data-rail-go="1" aria-label="Next projects">→</button></div></div>'
             f'<ul class="wr fp-snap" data-snap>{li}</ul>')
@@ -409,8 +411,8 @@ def timeline(img_key):
              ('file', 'Written plan & fixed price', 'Week 1, on a video call', '20%'),
              ('pen', 'Design on your phone', 'Week 2, approve in Figma', '20%'),
              ('check', 'Launch & every login to you', 'Weeks 3–4', '60%')]
-    li = ''.join(f'<li style="--i:{i}"><span class="tl__dot">{icon(ic)}</span><span class="tl__t"><b>{e(t)}</b><small>{e(w)}</small></span><em>{e(pay)}</em></li>'
-                 for i, (ic, t, w, pay) in enumerate(steps))
+    li = ''.join(f'<li style="--i:{i}"><span class="tl__dot">{icon(ic)}</span><span class="tl__t"><b>{e(t)}</b><small>{e(w)}</small></span>'
+                 f'<em><small>Pay</small>{e(pay)}</em></li>' for i, (ic, t, w, pay) in enumerate(steps))
     img = GP.IMG[img_key]
     pic = (f'<figure class="tlw__img fp-shot" data-reveal><div class="fp-shot__stage">{GP._pic(img, "(max-width: 899px) 92vw, 560px")}</div>'
            f'<figcaption>{e(img["caption"])}</figcaption></figure>')
@@ -459,17 +461,16 @@ CITIES = [
   h1='Website design & development in Pune', eyebrow='For Pune businesses',
   lead='Hand-coded websites at a fixed price, over WhatsApp. You pay most after launch, and you own everything.',
   stats=[(LANDING, 'Websites from'), ('3–4 wk', 'Live in'), ('60%', 'Paid after launch')],
-  art='patya', imgs=['city-pune'], hero_btn='Free quote check', hero_more=('#prices', 'See prices'), wa="Hi Mehul, I run a business in Pune. Can you check my website quote, or give me one?",
-  cta_h='Send me your quote',
-  cta_lead='Got a quote from a Pune studio, or none yet? Send it on WhatsApp and I’ll tell you honestly what’s fair. I reply within 24 hours, usually much faster.',
+  art='patya', imgs=['city-pune'], hero_btn='Free audit on WhatsApp', hero_more=('#prices', 'See prices'), wa="Hi Mehul, I run a business in Pune. I'd like a free audit for my website.",
+  cta_h='Get a free audit',
+  cta_lead='Tell me about your Pune business. Got a quote from another studio? Send that too, and I’ll tell you honestly if it’s fair. I reply within 24 hours.',
   cost=dict(scale=150000, ticks=[0, 50000, 100000, 150000], when='Nov 2026', foot='From 4 Pune studios’ own price pages, seen 8 Nov 2026',
             rows=[('Template site', 'Ready-made WordPress or Wix theme', 5000, 18000, '₹5k–₹18k'),
                   ('Business site, 5–10 pages', 'Pune studios', 20000, 60000, '₹20k–₹60k'),
                   ('Custom-designed site', 'Pune studios', 60000, 150000, '₹60k–₹1.5L')]),
-  answer='U Scale is Mehul Karotra, a Mumbai-based freelance website designer and developer who builds websites for Pune businesses remotely, over '
-         f'WhatsApp and video calls. Every site is designed in Figma and hand-coded at a fixed price: a landing page {LANDING}, a 5–10 page business '
-         f'site {BIZ} and an online store from {STORE}. For comparison, Pune studios’ own price pages put a template site at ₹5,000–₹18,000 and a '
-         'custom-designed site at ₹60,000–₹1.5 lakh. Every project starts with a free audit.',
+  answer='U Scale is Mehul Karotra, a Mumbai web designer who builds hand-coded websites for Pune businesses over WhatsApp and video calls. '
+         f'Prices are fixed in writing: {LANDING} for one page, {BIZ} for 5–10 pages and from {STORE} for an online store, '
+         'and you pay 60% only after launch.',
   facts=[('Who builds it', 'Mehul Karotra, personally: designed in Figma, then hand-coded'),
          ('Based in', 'Mumbai (Ghatkopar West). No Pune office: the work happens over WhatsApp and video calls'),
          ('Website prices', GP.WEB_PRICES + '. The same prices as in Mumbai'),
@@ -485,12 +486,6 @@ CITIES = [
                    ['pune-p1', 'pune-p2', 'pune-p3', 'pune-p4']),
        eyebrow='Pune prices', lead='Four prices. Fixed in writing. The same as in Mumbai.',
        layout='wide', sid='prices'),
-   Sec('Got a quote from a Pune studio? Check it here',
-       quote_checker(dict(city='Pune'), [(19000, 'in Pune’s template range (₹5k–₹18k). Usually a ready-made theme with your logo on it.'),
-                                         (60000, 'in the range Pune studios charge for a 5–10 page business site (₹20k–₹60k).'),
-                                         (0, 'in Pune’s custom-design range (₹60k–₹1.5L) and above.')]),
-       eyebrow='Quote checker', lead='Tick what it includes. See what’s missing before you pay anyone, me included.',
-       layout='wide', sid='quote-check'),
    Sec('What does your Pune business need?',
        mix_bars([('Manufacturing & trade', 40), ('Food & stays', 9), ('Cabs & travel', 7)],
                 'What Pune runs on: share of 9.1 lakh Udyam registrations, March 2026', 'pune-udyam'),
@@ -528,7 +523,7 @@ CITIES = [
   v2=[lambda ctx: _custom_sec('trust', 'Why it’s safe', 'You’re protected at every step.', '', trust_bento()),
       lambda ctx: _custom_sec('work', 'Real work', 'Real websites. Live right now.', 'Tap any card to open the live site.',
                               work_rail(ctx, ['spacestudio', 'sashe', 'vidhi', 'antrah', 'roar', 'brandgen']), tone='dark'),
-      'prices', 'quote-check',
+      'prices',
       lambda ctx: _custom_sec('process', 'How it works', 'Live in 3–4 weeks. All from your phone.', '', timeline('remote-review'), tone='band'),
       'business'],
   work=['spacestudio', 'sashe', 'vidhi'], work_h='Websites I designed and built, live today.',
