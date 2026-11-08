@@ -1351,8 +1351,8 @@ def terms_html():
 </div>'''
 
 PRICING_FAQ_IDX = [1, 2, 3]  # website cost, marketing cost, contract vs retainer (indexes into the home FAQ)
-PRICING_ANSWER = ('U Scale publishes every price. Websites are fixed one-time prices: landing page ₹25,000, business site (3–4 pages) ₹55,000, '
-                  '5–10 pages with blog ₹85,000, restaurant site with online ordering ₹90,000, online store from ₹95,000. Monthly services run '
+PRICING_ANSWER = ('U Scale publishes every price. Websites are fixed one-time prices: landing page ₹25,000, business site (5–10 pages) ₹55,000, '
+                  '10–20 pages with blog ₹85,000, restaurant site with online ordering ₹90,000, online store from ₹95,000. Monthly services run '
                   'for 3 months minimum, then month-to-month: local SEO ₹15,000, technical SEO ₹25,000, AI search visibility ₹12,000, ads '
                   'management ₹20,000 (+₹10,000 setup), community and inbox management ₹12,000, with social posts from ₹800. Payment for '
                   'websites is 20% / 20% / 60%.')

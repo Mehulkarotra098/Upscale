@@ -181,8 +181,8 @@ def _short(n):
 
 
 # ---------------------------------------------------------------- the pages
-WEB_PRICES = (f'Landing page {price("Landing page")} · Business site, 3–4 pages {price("Business site, 3–4 pages")} · '
-              f'5–10 pages + blog {price("Business site, 5–10 pages + blog")} · Online store from {price("E-commerce, under 50 products")}')
+WEB_PRICES = (f'Landing page {price("Landing page")} · Business site, 5–10 pages {price("Business site, 5–10 pages")} · '
+              f'10–20 pages + blog {price("Business site, 10–20 pages + blog")} · Online store from {price("E-commerce, under 50 products")}')
 INCLUDED = 'mobile-first design, enquiry forms, basic SEO, Google Maps, social links, 2–3 revision rounds and a 15–30 day bug-fix window'
 
 
@@ -220,7 +220,7 @@ PAGES = [
          'the payment gateway fee, about 2% plus GST on a standard plan. You can keep Zomato and Swiggy for new customers and give your '
          'regulars a way to order direct.',
   facts=[('Price', f'Website + own online ordering {price("Restaurant site + own online ordering")}, fixed. Without ordering (menu, photos, '
-                   f'timings, contact), the business-site price applies: {price("Business site, 3–4 pages")} for 3–4 pages'),
+                   f'timings, contact), the business-site price applies: {price("Business site, 5–10 pages")} for 5–10 pages'),
          ('Who builds it', 'Mehul Karotra, personally: designed in Figma, then hand-coded'),
          ('Commission on direct orders', 'None. Only the payment gateway fee, for example 2% + GST on Razorpay’s standard plan'),
          ('Delivery', 'Your choice: your own riders, takeaway pickup, or a delivery partner you book'),
@@ -259,7 +259,7 @@ PAGES = [
   ],
   faq=[('How much does a restaurant website with online ordering cost in Mumbai?',
         f'With U Scale, a restaurant or café website with its own online ordering is {price("Restaurant site + own online ordering")}, fixed and agreed in '
-        f'writing before work starts. A website without ordering (menu, photos, timings and contact) is {price("Business site, 3–4 pages")} for 3–4 pages. '
+        f'writing before work starts. A website without ordering (menu, photos, timings and contact) is {price("Business site, 5–10 pages")} for 5–10 pages. '
         'Payment gateway fees and photography are separate and quoted up front.'),
        ('Should I stop using Zomato and Swiggy?',
         'No. The apps are where new customers discover you. Your own website is for the customers who already know you: give them a reason and a '
@@ -278,7 +278,7 @@ PAGES = [
         'Google and AI assistants to describe your restaurant correctly. Nobody can guarantee a mention, but a menu locked inside a PDF or a photo '
         'is far harder for them to read.')],
   sources=['nrai', 'gbp-order', 'razorpay'],
-  offers=['Restaurant site + own online ordering', 'Business site, 3–4 pages', 'Care plan: updates, backups, security'],
+  offers=['Restaurant site + own online ordering', 'Business site, 5–10 pages', 'Care plan: updates, backups, security'],
   work=[]),
 
  dict(slug='boutiques-fashion', kind='business', crumb='Boutiques & fashion', service='Website design for boutiques and fashion labels',
@@ -288,13 +288,13 @@ PAGES = [
        f'{price("E-commerce, under 50 products")}. Designed by Mehul Karotra.',
   h1='Boutique & clothing store websites', eyebrow='Websites by business',
   lead='A catalogue your Instagram followers can browse properly, product pages Google can find, and orders on WhatsApp or online. Fixed price.',
-  stats=[(price('Business site, 3–4 pages'), 'Catalogue site, starting price'), (price('E-commerce, under 50 products'), 'Online store, under 50 products'), ('1 tap', 'To order on WhatsApp')],
+  stats=[(price('Business site, 5–10 pages'), 'Catalogue site, starting price'), (price('E-commerce, under 50 products'), 'Online store, under 50 products'), ('1 tap', 'To order on WhatsApp')],
   art=dict(kind='img', img='bout', chips=[('chat', 'Order on WhatsApp'), ('tag', 'Size M · ₹3,450')]),
   answer='U Scale designs and builds websites for boutiques, saree shops and fashion labels in Mumbai: a catalogue site with an “Order on WhatsApp” '
          f'button on every product, or a full online store with cart and payments from {price("E-commerce, under 50 products")} for under 50 products. '
          'Every product gets its own page that Google can find. Product pages that show the price, availability and a way to buy can also be '
          'submitted to Google Merchant Center for free listings on Google Search, Images, Lens and the Shopping tab.',
-  facts=[('Catalogue site', f'Products, lookbook and “Order on WhatsApp” buttons, priced by pages after a free audit, from {price("Business site, 3–4 pages")}'),
+  facts=[('Catalogue site', f'Products, lookbook and “Order on WhatsApp” buttons, priced by pages after a free audit, from {price("Business site, 5–10 pages")}'),
          ('Online store', f'Under 50 products {price("E-commerce, under 50 products")} · 50–500 products {price("E-commerce, 50–500 products")}'),
          ('Who builds it', 'Mehul Karotra, personally: designed in Figma, then hand-coded'),
          ('Payments', 'UPI, cards and netbanking through a payment gateway; gateway fees are separate'),
@@ -322,7 +322,7 @@ PAGES = [
                     ('Best for', 'Made-to-order, bespoke and try-before-you-buy'),
                     ('How people order', 'Tap “Order on WhatsApp” on a product, then you confirm size, fit and delivery in the chat'),
                     ('Payments', 'UPI or a payment link once you confirm'),
-                    ('Price with U Scale', f'From {price("Business site, 3–4 pages")}, priced by pages')]),
+                    ('Price with U Scale', f'From {price("Business site, 5–10 pages")}, priced by pages')]),
                 dict(name='Online store', tag='Ready stock', hi=True, rows=[
                     ('Best for', 'Ready stock with fixed sizes and prices'),
                     ('How people order', 'Add to cart and pay at checkout'),
@@ -338,7 +338,7 @@ PAGES = [
        eyebrow='Included', layout='wide'),
   ],
   faq=[('How much does a boutique website cost in Mumbai?',
-        f'With U Scale, a catalogue website with WhatsApp ordering starts at {price("Business site, 3–4 pages")} and is priced by pages after a free audit. '
+        f'With U Scale, a catalogue website with WhatsApp ordering starts at {price("Business site, 5–10 pages")} and is priced by pages after a free audit. '
         f'A full online store is {price("E-commerce, under 50 products")} for under 50 products and {price("E-commerce, 50–500 products")} for 50–500 '
         'products. Prices are fixed and agreed in writing before work starts.'),
        ('Can customers order on WhatsApp from my website?',
@@ -350,7 +350,7 @@ PAGES = [
        ('Who takes the product photos?',
         'You can use your own photos. If you need a shoot, photography is quoted separately, always before work starts.')],
   sources=['free-listings', 'merchant-lp', 'razorpay'],
-  offers=['E-commerce, under 50 products', 'E-commerce, 50–500 products', 'Business site, 3–4 pages'],
+  offers=['E-commerce, under 50 products', 'E-commerce, 50–500 products', 'Business site, 5–10 pages'],
   work=['sashe']),
 
  dict(slug='ghatkopar', kind='area', crumb='Ghatkopar', service='Website design and local SEO in Ghatkopar',
@@ -364,7 +364,7 @@ PAGES = [
   stats=[(price('Landing page'), 'Websites from'), (_fmt(rupees('Local SEO / Google Business Profile')), 'Local SEO, per month'), ('Free', 'Audit at your shop')],
   art=dict(kind='portrait', chips=[('pin', 'Ghatkopar West, Mumbai'), ('chat', 'Replies on WhatsApp')]),
   answer='U Scale is Mehul Karotra, a freelance website designer and digital marketer based in Ghatkopar West, Mumbai. He designs and hand-codes '
-         f'websites at fixed prices (a landing page {price("Landing page")}, a 3–4 page business site {price("Business site, 3–4 pages")}) and runs '
+         f'websites at fixed prices (a landing page {price("Landing page")}, a 5–10 page business site {price("Business site, 5–10 pages")}) and runs '
          'Google Business Profile and local SEO work for businesses in Ghatkopar, Vikhroli, Kurla, Chembur, Powai and Mulund. Every project starts '
          'with a free audit.',
   facts=[('Based in', 'Ghatkopar West, Mumbai'),
@@ -395,14 +395,14 @@ PAGES = [
         'Yes. Mehul Karotra of U Scale is based in Ghatkopar West and designs and builds websites for businesses across Ghatkopar and nearby areas. '
         'He can meet you at your shop or office, and every project starts with a free audit.'),
        ('How much does a website cost in Ghatkopar?',
-        f'With U Scale, a landing page is {price("Landing page")}, a 3–4 page business website {price("Business site, 3–4 pages")}, a 5–10 page site with a '
-        f'blog {price("Business site, 5–10 pages + blog")} and an online store from {price("E-commerce, under 50 products")}. The same fixed prices apply anywhere in Mumbai.'),
+        f'With U Scale, a landing page is {price("Landing page")}, a 5–10 page business website {price("Business site, 5–10 pages")}, a 10–20 page site with a '
+        f'blog {price("Business site, 10–20 pages + blog")} and an online store from {price("E-commerce, under 50 products")}. The same fixed prices apply anywhere in Mumbai.'),
        ('How do I get my Ghatkopar business into the Google Maps top 3?', MAPS_FAQ),
        ('Do you also work in Ghatkopar East, Vikhroli and Kurla?',
         'Yes. Ghatkopar East and West, Vikhroli, Kurla, Chembur, Powai and Mulund are all close by, and U Scale works with businesses across Mumbai, '
         'Thane and Navi Mumbai, and with clients elsewhere in India over WhatsApp and video calls.')],
   sources=['local-rank'],
-  offers=['Landing page', 'Business site, 3–4 pages', 'Business site, 5–10 pages + blog', 'Local SEO / Google Business Profile'],
+  offers=['Landing page', 'Business site, 5–10 pages', 'Business site, 10–20 pages + blog', 'Local SEO / Google Business Profile'],
   work=[]),
 
  dict(slug='andheri-east', kind='area', crumb='Andheri East', service='Website design and local SEO in Andheri East',
@@ -453,7 +453,7 @@ PAGES = [
         'There are several. U Scale is not a company with an office in Andheri: it is Mehul Karotra, a one-person practice based in Ghatkopar West, one '
         'Metro line away, who works with Andheri East businesses at published, fixed prices and meets clients at their shop or office.'),
        ('How much does a website cost for a shop or café in Andheri East?',
-        f'With U Scale, a landing page is {price("Landing page")}, a 3–4 page business website {price("Business site, 3–4 pages")}, a restaurant or café '
+        f'With U Scale, a landing page is {price("Landing page")}, a 5–10 page business website {price("Business site, 5–10 pages")}, a restaurant or café '
         f'website with its own online ordering {price("Restaurant site + own online ordering")} and an online store from {price("E-commerce, under 50 products")}. '
         'Prices are fixed and agreed in writing before work starts.'),
        ('The website link on my Google listing is broken. What should I do?',
@@ -462,7 +462,7 @@ PAGES = [
        ('Can you come to my shop for the audit?',
         'Yes. U Scale runs free audits in person for shops in Andheri East and nearby areas, or online over WhatsApp and a video call if that is easier.')],
   sources=['local-rank'],
-  offers=['Landing page', 'Business site, 3–4 pages', 'Restaurant site + own online ordering', 'Local SEO / Google Business Profile'],
+  offers=['Landing page', 'Business site, 5–10 pages', 'Restaurant site + own online ordering', 'Local SEO / Google Business Profile'],
   work=[]),
 
  dict(slug='website-banane-ka-kharcha', kind='guide', lang='hi-Latn', crumb='Website banane ka kharcha',
@@ -476,15 +476,15 @@ PAGES = [
   stats=[('₹8k–₹3L', 'Market range, 2025–26 guides'), (price('Landing page'), 'U Scale se shuru'), ('₹4.4k–₹9.4k', 'Har saal ka kharcha')],
   art=dict(kind='img', img='paths', caption='DIY builder, freelancer aur agency ke kaam karne ke tareeqon ke illustrative examples.'),
   answer='Mumbai mein template wali basic business website lagbhag ₹8,000–₹30,000 mein, kisi Mumbai studio se ₹15,000–₹50,000 mein, aur custom '
-         'design wali website ₹40,000 se ₹2 lakh tak mein banti hai. U Scale ke fixed prices: landing page ₹25,000, 3–4 page business website '
+         'design wali website ₹40,000 se ₹2 lakh tak mein banti hai. U Scale ke fixed prices: landing page ₹25,000, 5–10 page business website '
          '₹55,000 aur online store ₹95,000 se. Iske upar har saal domain aur hosting ka kharcha aata hai: offer khatam hone ke baad lagbhag '
          '₹4,400–₹9,400 saal ka, GST alag.',
   facts=[('Template wali basic website', '₹8,000–₹30,000'),
          ('Mumbai ke kisi studio se business website', '₹15,000–₹50,000'),
          ('Custom design wali website', '₹40,000–₹2,00,000'),
          ('Online store', '₹25,000–₹3,00,000, products aur features pe depend karta hai'),
-         ('U Scale ke fixed prices', f'Landing page {price("Landing page")} · Business site {price("Business site, 3–4 pages")} · '
-                                     f'Blog ke saath {price("Business site, 5–10 pages + blog")} · Online store {price("E-commerce, under 50 products")} se'),
+         ('U Scale ke fixed prices', f'Landing page {price("Landing page")} · Business site {price("Business site, 5–10 pages")} · '
+                                     f'Blog ke saath {price("Business site, 10–20 pages + blog")} · Online store {price("E-commerce, under 50 products")} se'),
          ('Har saal ka kharcha', 'Domain + hosting lagbhag ₹4,400–₹9,400 (offer ke baad, GST se pehle)'),
          ('GST', 'Registered agency 18% GST jodti hai; chhote freelancer aksar nahi'),
          ('U Scale aur GST', 'U Scale abhi GST charge nahi karta')],
@@ -492,7 +492,7 @@ PAGES = [
    Sec('Ek website ₹10,000 ki aur doosri ₹1 lakh ki kyun?',
        Range([('Template wali basic website', 8000, 30000), ('Mumbai ke kisi studio se business website', 15000, 50000),
               ('Custom design wali website', 40000, 200000), ('Online store', 25000, 300000)],
-             marks=[(rupees('Landing page'), 'Landing page'), (rupees('Business site, 3–4 pages'), 'Business site'), (rupees('E-commerce, under 50 products'), 'Online store')],
+             marks=[(rupees('Landing page'), 'Landing page'), (rupees('Business site, 5–10 pages'), 'Business site'), (rupees('E-commerce, under 50 products'), 'Online store')],
              ticks=[0, 50000, 100000, 150000, 200000, 250000, 300000], unit_note='U Scale ke fixed prices'),
        P('Price ka bada hissa kaam ke time ka hota hai. Sasti websites aksar ek ready-made theme hoti hain jisme aapka logo, colours aur '
          'photos daal diye jaate hain. Bahut businesses ke liye yeh theek hai, bas pata hona chahiye ki aap kya khareed rahe hain.'),
@@ -543,7 +543,7 @@ PAGES = [
   ],
   faq=[('Mumbai mein website banane mein kitna kharcha aata hai?',
         'Template wali basic business website lagbhag ₹8,000–₹30,000, Mumbai studio se ₹15,000–₹50,000, aur custom design ₹40,000 se ₹2 lakh tak. '
-        f'U Scale ke fixed prices: landing page {price("Landing page")}, 3–4 page business website {price("Business site, 3–4 pages")}, online store {price("E-commerce, under 50 products")} se.'),
+        f'U Scale ke fixed prices: landing page {price("Landing page")}, 5–10 page business website {price("Business site, 5–10 pages")}, online store {price("E-commerce, under 50 products")} se.'),
        ('E-commerce website banane mein kitna kharcha aata hai?',
         'Market mein online store ₹25,000 se ₹3 lakh tak, products aur features pe depend karta hai. U Scale se 50 se kam products ka store '
         f'{price("E-commerce, under 50 products")} aur 50–500 products ka {_fmt(rupees("E-commerce, 50–500 products"))} se. Iske upar har payment pe gateway fee, '
@@ -561,7 +561,7 @@ PAGES = [
         'Haan. Free audit ke baad price fixed hota hai aur kaam shuru hone se pehle likhit mein agree hota hai: 20% shuru mein, 20% design approve '
         'hone pe, 60% launch pe. Copywriting, photography aur payment gateway fees alag se, hamesha pehle bata ke.')],
   sources=['in-domain', 'gd-domain', 'com-domain', 'gd-com', 'hosting', 'ssl', 'shopify', 'razorpay-pricing', 'gst-22'],
-  offers=['Landing page', 'Business site, 3–4 pages', 'Business site, 5–10 pages + blog', 'E-commerce, under 50 products'],
+  offers=['Landing page', 'Business site, 5–10 pages', 'Business site, 10–20 pages + blog', 'E-commerce, under 50 products'],
   work=[]),
 
  dict(slug='freelancer-vs-agency-vs-website-builder', kind='guide', crumb='Freelancer vs agency vs builder',
@@ -581,7 +581,7 @@ PAGES = [
   facts=[('DIY website builder', 'A monthly plan (Shopify Basic ₹1,499/month billed yearly) plus your own time'),
          ('Freelancer', '₹10,000–₹80,000 for most projects'),
          ('Agency', '₹50,000–₹3,00,000 for most projects'),
-         ('U Scale', f'Fixed: landing page {price("Landing page")}, business site {price("Business site, 3–4 pages")}, online store from {price("E-commerce, under 50 products")}'),
+         ('U Scale', f'Fixed: landing page {price("Landing page")}, business site {price("Business site, 5–10 pages")}, online store from {price("E-commerce, under 50 products")}'),
          ('Whatever you choose', 'Domain, admin login and hosting login in your name')],
   sections=[
    Sec('Freelancer vs agency vs DIY builder, side by side',
@@ -627,7 +627,7 @@ PAGES = [
         'You. Whoever builds it, the domain should be registered in your business’s name with your email, and you should get the admin and hosting '
         'logins at launch.')],
   sources=['shopify', 'shopify-payments', *GUIDES],
-  offers=['Landing page', 'Business site, 3–4 pages', 'E-commerce, under 50 products'],
+  offers=['Landing page', 'Business site, 5–10 pages', 'E-commerce, under 50 products'],
   work=[]),
 ]
 
@@ -982,8 +982,8 @@ def _hero_art(p):
         return (f'<figure class="fp-art fp-art--portrait"><div class="fp-portrait">{_pic(img, "(max-width: 559px) 260px, (max-width: 1023px) 300px, 400px", eager=True)}'
                 f'<figcaption class="fp-portrait__plate"><b>Mehul Karotra</b><span>Founder of U Scale</span></figcaption></div>{chips}</figure>')
     if k == 'ticket':
-        rows = [('Landing page', price('Landing page')), ('Business site, 3–4 pages', price('Business site, 3–4 pages')),
-                ('5–10 pages + blog', price('Business site, 5–10 pages + blog')), ('Online store se', price('E-commerce, under 50 products'))]
+        rows = [('Landing page', price('Landing page')), ('Business site, 5–10 pages', price('Business site, 5–10 pages')),
+                ('10–20 pages + blog', price('Business site, 10–20 pages + blog')), ('Online store se', price('E-commerce, under 50 products'))]
         li = ''.join(f'<li><span>{e(n)}</span><i></i><b>{e(v)}</b></li>' for n, v in rows)
         return (f'<div class="fp-art fp-ticket" aria-label="U Scale ke fixed prices"><p class="fp-ticket__k">U Scale ke fixed prices · 2026</p>'
                 f'<ul>{li}</ul><p class="fp-ticket__f">{icon("shield")}Kaam se pehle likhit mein · 20% / 20% / 60%</p></div>')

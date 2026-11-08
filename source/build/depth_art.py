@@ -542,8 +542,8 @@ def card_menu():
 
 def card_prices():
     """Pricing: a sample written quote. Fixed prices, the 20 / 20 / 60 schedule, a seal, the next pages behind."""
-    rows = [('Landing page', GP.price('Landing page')), ('Business site, 3–4 pages', GP.price('Business site, 3–4 pages')),
-            ('5–10 pages + blog', GP.price('Business site, 5–10 pages + blog')), ('Online store', 'from ' + GP.price('E-commerce, under 50 products'))]
+    rows = [('Landing page', GP.price('Landing page')), ('Business site, 5–10 pages', GP.price('Business site, 5–10 pages')),
+            ('10–20 pages + blog', GP.price('Business site, 10–20 pages + blog')), ('Online store', 'from ' + GP.price('E-commerce, under 50 products'))]
     li = ''.join(f'<li style="--i:{i}"><span>{e(n)}</span><i></i><b>{e(v)}</b></li>' for i, (n, v) in enumerate(rows))
     card = (f'<div class="dk__card fp-ticket sv-ticket dk-quote"><p class="dk-quote__head"><span class="dk-quote__mark" aria-hidden="true">u</span>'
             f'<span><b>Sample quote</b><small>Fixed website prices · 2026</small></span></p>'

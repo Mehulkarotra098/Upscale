@@ -629,6 +629,18 @@
   /* Live mini scenes: play only while on screen, so off-screen loops cost nothing */
   var lives=$$('[data-live]');
   if(lives.length&&'IntersectionObserver' in window){ var lio=new IntersectionObserver(function(es){ es.forEach(function(en){ en.target.classList.toggle('is-live',en.isIntersecting); }); },{threshold:.3}); lives.forEach(function(el){ lio.observe(el); }); }
+  /* City pages: numbers count up when they arrive (prices, project count). The HTML holds the final value. */
+  if('IntersectionObserver' in window && motion){
+    var cto=new IntersectionObserver(function(es){ es.forEach(function(en){ if(!en.isIntersecting) return; cto.unobserve(en.target);
+      var el=en.target, to=+el.getAttribute('data-countto'), pre=el.getAttribute('data-pre')||'', suf=el.getAttribute('data-suf')||'', t0=performance.now(), dur=to>100?1400:1100;
+      (function step(now){ var p=Math.min(1,(now-t0)/dur), k=1-Math.pow(1-p,4); el.textContent=pre+inr.format(Math.round(to*k))+suf; if(p<1) requestAnimationFrame(step); })(t0);
+    }); },{threshold:.6});
+    $$('[data-countto]').forEach(function(el){ cto.observe(el); });
+  }
+  /* City pages: rail arrows */
+  $$('[data-rail]').forEach(function(w){ var r=$('.wr',w); if(!r) return;
+    $$('[data-rail-go]',w).forEach(function(b){ b.addEventListener('click',function(){ r.scrollBy({left:(+b.getAttribute('data-rail-go'))*r.clientWidth*.8,behavior:motion?'smooth':'auto'}); }); });
+  });
   /* City pages: quote checker. Counts what a studio's quote includes, names what is missing, places the price in that
      city's market bands, and types the result into the WhatsApp message. Without JS it stays a plain checklist. */
   $$('[data-qcheck]').forEach(function(q){

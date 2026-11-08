@@ -24,11 +24,11 @@ from geo_pages import (P, Cards, Table, Options, Links, Chips, Note, Stat, Range
 
 e, ea = SP.e, SP.ea
 
-LANDING, BIZ, BLOG, STORE = (price('Landing page'), price('Business site, 3–4 pages'), price('Business site, 5–10 pages + blog'),
+LANDING, BIZ, BLOG, STORE = (price('Landing page'), price('Business site, 5–10 pages'), price('Business site, 10–20 pages + blog'),
                              price('E-commerce, under 50 products'))
-US_ROW = ('U Scale, fixed price', 'Landing page · 3–4 page business site', rupees('Landing page'), rupees('Business site, 3–4 pages'),
-          f'{_short(rupees("Landing page"))} · {_short(rupees("Business site, 3–4 pages"))}')
-OFFERS = ['Landing page', 'Business site, 3–4 pages', 'Business site, 5–10 pages + blog', 'E-commerce, under 50 products']
+US_ROW = ('U Scale, fixed price', 'Landing page · 5–10 page business site', rupees('Landing page'), rupees('Business site, 5–10 pages'),
+          f'{_short(rupees("Landing page"))} · {_short(rupees("Business site, 5–10 pages"))}')
+OFFERS = ['Landing page', 'Business site, 5–10 pages', 'Business site, 10–20 pages + blog', 'E-commerce, under 50 products']
 
 
 # ---------------------------------------------------------------- hero: what a website costs in this city
@@ -95,6 +95,7 @@ def _who(p):
 
 def _related(p):
     others = [q for q in CITIES if q is not p]
+    n = p.get('related')  # how many cards; None = all
     li = ''.join(f'<li><a class="fp-rel" href="/{q["path"]}"><span class="fp-rel__k">Another city</span><b>{e(q["h1"])}</b>'
                  f'<span class="fp-rel__d">{e(q["card"])}</span>{icon("arrow")}</a></li>' for q in others)
     li += (f'<li><a class="fp-rel" href="/services/website-design-mumbai"><span class="fp-rel__k">Based in</span><b>Website design &amp; development in Mumbai</b>'
@@ -104,6 +105,8 @@ def _related(p):
         li += f'<li><a class="fp-rel" href="{h}"><span class="fp-rel__k">Guide</span><b>{e(t)}</b><span class="fp-rel__d">{e(d)}</span>{icon("arrow")}</a></li>'
     li += (f'<li><a class="fp-rel" href="/services/website-design-mumbai/freelancer-vs-agency-vs-website-builder"><span class="fp-rel__k">Guide</span>'
            f'<b>Freelancer, agency or website builder?</b><span class="fp-rel__d">Who each one suits, what each costs and what to watch for.</span>{icon("arrow")}</a></li>')
+    if n:
+        li = ''.join(x + '</li>' for x in li.split('</li>')[:n])
     return f'<nav class="fp-related" aria-label="More website pages"><p class="eyebrow">Keep reading</p><ul class="fp-snap" data-snap>{li}</ul></nav>'
 
 
@@ -155,6 +158,8 @@ def _jsonld(site, url, p):
 
 
 def page(ctx, parts, p):
+    if p.get('v2'):
+        return page_v2(ctx, parts, p)
     site = ctx['SITE_URL']; url = site + p['path']
     icons = ctx['ICONS']
     wa = SVP.WA + urllib.parse.quote(p.get('wa') or f"Hi Mehul, I run a business in {p['city']} and found your page. I'd like a free audit for my website.")
@@ -273,8 +278,8 @@ ART = {'cost': cost_card, 'patya': patya_card}
 
 
 PRICE_CARDS = [('Single page', 'Landing page', '', 'One page that sells: what you do, photos, prices and a WhatsApp button.', 'Live in under 2 weeks'),
-               ('Business site', 'Business site, 3–4 pages', '', '3–4 pages: home, services, about and contact, designed around your business.', 'Live in 3–4 weeks'),
-               ('Bigger site + blog', 'Business site, 5–10 pages + blog', '', '5–10 pages for catalogues and more services, with a blog that helps you rank.', ''),
+               ('Business site', 'Business site, 5–10 pages', '', '5–10 pages: home, services, work, about and contact, designed around your business.', 'Live in 3–4 weeks'),
+               ('Bigger site + blog', 'Business site, 10–20 pages + blog', '', '10–20 pages for catalogues and many services, with a blog that helps you rank.', ''),
                ('Online store', 'E-commerce, under 50 products', 'from', 'Up to 50 products, a cart and online payments by UPI and cards.', '')]
 
 
@@ -282,12 +287,12 @@ def price_cards(market, sources):
     """Four plain prices, then what every site includes, then one line on what local studios charge (with its sources)."""
     li = ''
     for i, (k, name, pre, d, t) in enumerate(PRICE_CARDS):
-        li += (f'<li class="pc__c{" pc__c--first" if i == 0 else ""}" data-reveal><p class="pc__k">{e(k)}</p>'
-               f'<p class="pc__p">{f"<small>{e(pre)}</small>" if pre else ""}{e(price(name))}</p><p class="pc__d">{e(d)}</p>'
+        li += (f'<li class="pc__c{" pc__c--first" if i == 0 else ""}" data-reveal>{PAGE_STACK[i]}<p class="pc__k">{e(k)}</p>'
+               f'<p class="pc__p">{f"<small>{e(pre)}</small>" if pre else ""}<strong data-countto="{rupees(name)}" data-pre="₹">{e(price(name))}</strong></p><p class="pc__d">{e(d)}</p>'
                + (f'<p class="pc__t">{icon("clock")}{e(t)}</p>' if t else '') + '</li>')
-    inc = (f'Every site includes {GP.INCLUDED}. Fixed in writing before work starts; you pay 20% to start, 20% on design sign-off and 60% on launch.')
+    inc = f'Every site includes {GP.INCLUDED}.'
     return Html(f'<ul class="pc" data-reveal-group>{li}</ul><p class="pc__inc">{icon("check")}<span>{e(inc)}</span></p>'
-                f'<p class="pc__mkt">{e(market)} {chips(*sources)}</p>',
+                f'<p class="pc__mkt">{e(market)} <a class="tlink" href="#sources">Sources</a></p>',
                 text='\n'.join(f'- {k}: {pre + " " if pre else ""}{price(name)}. {d}' + (f' {t}.' if t else '') for k, name, pre, d, t in PRICE_CARDS)
                      + f'\n{inc}\n{market}')
 
@@ -345,6 +350,105 @@ def lang_demo(sample, local_name, code, en, local):
       </div>''', text=f'{sample}: "{en[0]}" / "{local[0]}"')
 
 
+
+# ---------------------------------------------------------------- Pune v3: fewer words, more pictures
+# Mehul, 8 Nov 2026: "too much detail ... people will not read all this ... build trust properly ... animated and dynamic graphical
+# components". So each block is one picture that moves and one short line: what keeps you safe, real live work, simple prices, how
+# it runs week by week, and what your kind of business needs. Animations run when the block arrives (the site's reveal observer
+# adds .is-in); without JavaScript, or with motion off, every graphic shows its finished state.
+def _sheets(n, cls=''):
+    return f'<span class="pg{cls}" aria-hidden="true">' + ''.join(f'<i style="--k:{k};--m:{(n - 1) / 2}"></i>' for k in range(n)) + '</span>'
+
+
+PAGE_STACK = [_sheets(1), _sheets(3), _sheets(5),
+              '<span class="pg pg--store" aria-hidden="true"><i style="--k:0;--m:1"></i><i style="--k:1;--m:1"></i><i style="--k:2;--m:1"></i><b></b></span>']
+LOCK = '<svg viewBox="0 0 24 24" aria-hidden="true"><rect x="5" y="10.5" width="14" height="10" rx="2.5"/><path d="M8 10.5V8a4 4 0 018 0v2.5"/></svg>'
+
+
+def trust_bento():
+    img = GP.IMG['mehul']
+    me = (f'<picture class="tb-me__img"><source type="image/avif" srcset="{GP.vurl(img["file"] + "-480.avif")}">'
+          f'<img src="{GP.vurl(img["file"] + "-480.webp")}" width="480" height="480" alt="" loading="lazy" decoding="async"></picture>')
+    tiles = [
+        ('pay', '<div class="tb__g tb-pay" aria-hidden="true"><span class="tb-pay__tag">after launch</span>'
+                '<div class="tb-pay__track"><span style="--w:20;--i:0"><b>20%</b><small>Start</small></span><span style="--w:20;--i:1"><b>20%</b><small>Design</small></span>'
+                '<span style="--w:60;--i:2"><b>60%</b><small>Launch</small></span></div><span class="tb-pay__run"><i>₹</i></span></div>',
+         'Pay most after it’s live.', 'You pay 60% only when your site launches.'),
+        ('own', f'<div class="tb__g tb-own" aria-hidden="true"><span class="tb-own__bar">{LOCK}<span>yourbusiness.in</span></span>'
+                f'<span class="tb-own__tag">{icon("key")}<span>Owner</span><b>You</b></span></div>',
+         'Everything in your name.', 'Domain, code and every login. Yours, always.'),
+        ('fix', '<div class="tb__g tb-doc" aria-hidden="true"><span class="tb-doc__paper"><i style="--i:0;--w:88%"></i><i style="--i:1;--w:64%"></i>'
+                f'<i style="--i:2;--w:76%"></i><span class="tb-doc__total"><small>Total</small><b>{e(BIZ)}</b></span></span><span class="tb-doc__stamp">Fixed</span></div>',
+         'Price fixed in writing.', 'Agreed before work starts. No surprise bills.'),
+        ('me', f'<div class="tb__g tb-me" aria-hidden="true"><span class="tb-me__on"><i></i>On WhatsApp</span>{me}'
+               '<span class="tb-me__chat"><span class="tb-me__typing"><i></i><i></i><i></i></span><span class="tb-me__msg">Your design is ready. Have a look!</span></span></div>',
+         'You talk to me.', 'Mehul, directly. Never an account manager.'),
+    ]
+    li = ''.join(f'<li class="tb__c tb__c--{k}" data-reveal>{g}<h3>{e(h)}</h3><p>{e(t)}</p></li>' for k, g, h, t in tiles)
+    return f'<ul class="tb" data-reveal-group>{li}</ul>'
+
+
+def work_rail(ctx, keys):
+    wmap = {w[0]: w for w in ctx['WORK']}
+    li = ''
+    for k in keys:
+        w = wmap[k]; lw, lh = ctx['SZ'][k]
+        li += (f'<li><a class="wr__c" href="{w[5]}" target="_blank" rel="noopener" data-cursor="view"><span class="wr__img"><img src="{GP.vurl(f"/assets/work/{k}-peek.webp")}" '
+               f'width="768" height="480" alt="{ea("Website for " + w[1] + ", designed and built by U Scale")}" loading="lazy" decoding="async"></span>'
+               f'<span class="wr__meta"><span class="wr__logo"><img src="{GP.vurl(f"/assets/logos/{k}.webp")}" width="{lw}" height="{lh}" alt="" loading="lazy" decoding="async"></span>'
+               f'<span class="wr__name"><b>{e(w[1])}</b><small>{e(w[2])}</small></span></span><span class="wr__go">Visit live ↗<span class="sr-only"> (opens in a new tab)</span></span></a></li>')
+    dots = ''.join(f'<i style="--i:{i}"></i>' for i in range(11))
+    return (f'<div class="wr-top"><div class="wr-count" data-reveal><b data-countto="11" data-suf="+">11+</b><span>projects shipped</span>'
+            f'<span class="wr-dots" aria-hidden="true">{dots}</span></div>'
+            f'<div class="wr-nav"><button type="button" data-rail-go="-1" aria-label="Previous projects">←</button><button type="button" data-rail-go="1" aria-label="Next projects">→</button></div></div>'
+            f'<ul class="wr fp-snap" data-snap>{li}</ul>')
+
+
+def timeline(img_key):
+    steps = [('search', 'Free audit', 'Day 1, on WhatsApp', 'Free'),
+             ('file', 'Written plan & fixed price', 'Week 1, on a video call', '20%'),
+             ('pen', 'Design on your phone', 'Week 2, approve in Figma', '20%'),
+             ('check', 'Launch & every login to you', 'Weeks 3–4', '60%')]
+    li = ''.join(f'<li style="--i:{i}"><span class="tl__dot">{icon(ic)}</span><span class="tl__t"><b>{e(t)}</b><small>{e(w)}</small></span><em>{e(pay)}</em></li>'
+                 for i, (ic, t, w, pay) in enumerate(steps))
+    img = GP.IMG[img_key]
+    pic = (f'<figure class="tlw__img fp-shot" data-reveal><div class="fp-shot__stage">{GP._pic(img, "(max-width: 899px) 92vw, 560px")}</div>'
+           f'<figcaption>{e(img["caption"])}</figcaption></figure>')
+    return f'<div class="tlw"><ol class="tl" data-reveal>{li}</ol>{pic}</div>'
+
+
+def mix_bars(rows, label, src):
+    li = ''.join(f'<li style="--v:{v};--i:{i}"><span>{e(t)}</span><i aria-hidden="true"></i><b>{v}%</b></li>' for i, (t, v) in enumerate(rows))
+    return Html(f'<div class="mix" data-reveal><p class="mix__k">{e(label)}</p><ul>{li}</ul>{chips(src)}</div>',
+                text=label + ': ' + ', '.join(f'{t} {v}%' for t, v in rows) + '.')
+
+
+def _custom_sec(sid, eyebrow, h, lead, inner, tone=''):
+    head = (f'<header class="sec-head fp-head"><p class="eyebrow">{e(eyebrow)}</p><h2 class="h2 fp-h2" id="{sid}-title">{e(h)}</h2>'
+            + (f'<p class="lead">{e(lead)}</p>' if lead else '') + '</header>')
+    if tone == 'dark':
+        return (f'\n  <section class="section fp-sec fp-sec--dark" id="{sid}" aria-labelledby="{sid}-title">\n    <div class="wrap"><div class="panel on-dark fp-panel" '
+                f'data-tone="dark" data-rail>{head}{inner}</div></div>\n  </section>')
+    return (f'\n  <section class="section fp-sec{" fp-sec--" + tone if tone else ""}" id="{sid}" aria-labelledby="{sid}-title">\n    <div class="wrap">{head}{inner}</div>\n  </section>')
+
+
+def page_v2(ctx, parts, p):
+    """A page in the order the visitor needs it: hook, safety, proof, price, check, process, fit; facts and questions last."""
+    site = ctx['SITE_URL']; url = site + p['path']
+    icons = ctx['ICONS']
+    wa = SVP.WA + urllib.parse.quote(p['wa'])
+    by_sid = {s['sid']: (i, s) for i, s in enumerate(p['sections'])}
+    body = _hero(p, wa, icons)
+    for item in p['v2']:
+        if callable(item):
+            body += item(ctx)
+        else:
+            i, sec = by_sid[item]
+            body += GP._section(i, sec)
+    body += (aeo.brief_html(p['answer'], p['facts'], 'Key facts: ' + p['service'], 'brief-title', None, fold=2).replace('class="section sp-brief-wrap"', 'class="section sp-brief-wrap sp-brief-wrap--fold"', 1)
+             + aeo._faq_section(p['faq'], f'{p["city"]} questions.') + SVP._foot(p) + _cta(p, wa, icons))
+    return aeo._page(ctx, parts, url, p['title'], p['desc'], _jsonld(site, url, p), body)
+
 # ---------------------------------------------------------------- the cities
 CITIES = [
  dict(slug='pune', path='services/website-design-pune', city='Pune', state='Maharashtra', wiki='https://en.wikipedia.org/wiki/Pune',
@@ -353,10 +457,9 @@ CITIES = [
   title='Website Design & Development in Pune, from ₹25,000',
   desc=f'Websites for Pune businesses, designed and hand-coded by Mehul Karotra: landing page {LANDING}, business site {BIZ}, fixed in writing. Over WhatsApp.',
   h1='Website design & development in Pune', eyebrow='For Pune businesses',
-  lead='I’m Mehul Karotra, a website designer in Mumbai. Pune businesses hire me for hand-coded websites at a price fixed in writing before any '
-       'work starts. We work over WhatsApp and video calls, and you own everything at the end.',
-  stats=[(LANDING, 'Websites from'), ('3–4 wk', 'Business site, live in'), ('Free', 'Quote check on WhatsApp')],
-  art='patya', imgs=['city-pune'], hero_btn='Free quote check', hero_more=('#quote-check', 'Check a quote yourself'), wa="Hi Mehul, I run a business in Pune. Can you check my website quote, or give me one?",
+  lead='Hand-coded websites at a fixed price, over WhatsApp. You pay most after launch, and you own everything.',
+  stats=[(LANDING, 'Websites from'), ('3–4 wk', 'Live in'), ('60%', 'Paid after launch')],
+  art='patya', imgs=['city-pune'], hero_btn='Free quote check', hero_more=('#prices', 'See prices'), wa="Hi Mehul, I run a business in Pune. Can you check my website quote, or give me one?",
   cta_h='Send me your quote',
   cta_lead='Got a quote from a Pune studio, or none yet? Send it on WhatsApp and I’ll tell you honestly what’s fair. I reply within 24 hours, usually much faster.',
   cost=dict(scale=150000, ticks=[0, 50000, 100000, 150000], when='Nov 2026', foot='From 4 Pune studios’ own price pages, seen 8 Nov 2026',
@@ -364,7 +467,7 @@ CITIES = [
                   ('Business site, 5–10 pages', 'Pune studios', 20000, 60000, '₹20k–₹60k'),
                   ('Custom-designed site', 'Pune studios', 60000, 150000, '₹60k–₹1.5L')]),
   answer='U Scale is Mehul Karotra, a Mumbai-based freelance website designer and developer who builds websites for Pune businesses remotely, over '
-         f'WhatsApp and video calls. Every site is designed in Figma and hand-coded at a fixed price: a landing page {LANDING}, a 3–4 page business '
+         f'WhatsApp and video calls. Every site is designed in Figma and hand-coded at a fixed price: a landing page {LANDING}, a 5–10 page business '
          f'site {BIZ} and an online store from {STORE}. For comparison, Pune studios’ own price pages put a template site at ₹5,000–₹18,000 and a '
          'custom-designed site at ₹60,000–₹1.5 lakh. Every project starts with a free audit.',
   facts=[('Who builds it', 'Mehul Karotra, personally: designed in Figma, then hand-coded'),
@@ -377,88 +480,64 @@ CITIES = [
          ('Languages', 'English and Hindi; Marathi pages built from your own Marathi text'),
          ('Ownership', 'Your domain, code and logins, in your name')],
   sections=[
+   Sec('Website prices for Pune businesses',
+       price_cards('For comparison, Pune studios’ own price pages put a ready-made theme at ₹5,000–₹18,000 and a custom-designed site at ₹60,000–₹1.5 lakh (seen 8 November 2026).',
+                   ['pune-p1', 'pune-p2', 'pune-p3', 'pune-p4']),
+       eyebrow='Pune prices', lead='Four prices. Fixed in writing. The same as in Mumbai.',
+       layout='wide', sid='prices'),
    Sec('Got a quote from a Pune studio? Check it here',
        quote_checker(dict(city='Pune'), [(19000, 'in Pune’s template range (₹5k–₹18k). Usually a ready-made theme with your logo on it.'),
                                          (60000, 'in the range Pune studios charge for a 5–10 page business site (₹20k–₹60k).'),
                                          (0, 'in Pune’s custom-design range (₹60k–₹1.5L) and above.')]),
-       eyebrow='Quote checker', lead='Tick what your quote includes. You’ll see what’s missing, and what to ask before you pay anyone, me included.',
+       eyebrow='Quote checker', lead='Tick what it includes. See what’s missing before you pay anyone, me included.',
        layout='wide', sid='quote-check'),
-   Sec('Website prices for Pune businesses',
-       price_cards('For comparison, Pune studios’ own price pages put a ready-made theme at ₹5,000–₹18,000 and a custom-designed site at ₹60,000–₹1.5 lakh (seen 8 November 2026).',
-                   ['pune-p1', 'pune-p2', 'pune-p3', 'pune-p4']),
-       eyebrow='Pune prices', lead='Four prices, fixed in writing before any work starts. The same as in Mumbai.',
-       layout='wide', sid='prices'),
-   Sec('What does your Pune business need from its website?',
-       P('About 9.1 lakh Pune district entries in the Udyam data (March 2026) show what the city runs on: manufacturing and trade at about 40% of '
-         'registrations, food and accommodation at about 9%, and a surprising number of travel agencies, many of them cab operators around Pune and '
-         'Pimpri-Chinchwad. Pick yours. ' + chips('pune-udyam')),
+   Sec('What does your Pune business need?',
+       mix_bars([('Manufacturing & trade', 40), ('Food & stays', 9), ('Cabs & travel', 7)],
+                'What Pune runs on: share of 9.1 lakh Udyam registrations, March 2026', 'pune-udyam'),
        picker([
         ('make', 'box', 'Manufacturer or supplier', 'Manufacturers and suppliers',
-         'Buyers from other cities judge you by your website before they call, from Pimpri-Chinchwad to Chakan. Give them specifications, not slogans.',
+         'Buyers judge you by your website before they call. Give them specs, not slogans.',
          ['A product catalogue in English, with specifications and PDF downloads', 'An enquiry form that asks for quantity, material and drawings',
           'Certifications and the industries you supply, on the first screen', 'A link to your IndiaMART listing, with the same details on both'],
          f'Usually a 5–10 page site with a blog: {BLOG}, fixed in writing.', ''),
         ('shop', 'store', 'Shop or trader', 'Shops and traders',
-         'Most customers find you on Google Maps first. The website backs your listing up and takes orders on WhatsApp.',
+         'Customers find you on Google Maps first. Your site backs it up and takes orders.',
          ['Timings, an exact map pin and one-tap directions', 'Photos of what’s in stock, easy for you to update',
           'An “Order on WhatsApp” button on every product or category', 'Marathi and English, if your customers read both'],
          f'Usually a landing page ({LANDING}) with local SEO ({LSEO}).', ''),
         ('food', 'menu', 'Café or restaurant', 'Cafés and restaurants',
-         'Food and accommodation is about 9% of Pune’s Udyam registrations. Your regulars should be able to order from you directly.',
+         'Let regulars order from you directly, not through an app.',
          ['A menu with prices you can update yourself', 'Your own ordering link, so regulars skip the app commission',
           'Timings, map and a one-tap call button', 'Table and party enquiries straight to WhatsApp'],
          f'A restaurant site with your own online ordering: {REST}, fixed. <a class="tlink" href="/services/website-design-mumbai/restaurants-cafes">How that works</a>.', ''),
         ('cabs', 'truck', 'Cabs or travel', 'Cabs and travel agencies',
-         'Travel agencies, many of them cab operators, are a surprisingly large share of Pune’s registrations. People book them on a phone, in a hurry.',
+         'People book cabs on a phone, in a hurry. Make it one tap.',
          ['Routes and fares in plain words: airport, Mumbai, outstation', 'One-tap call and WhatsApp, visible without scrolling',
           'Your reviews and vehicle photos up front', 'Pages that load fast on mobile data'],
          f'Usually a landing page: {LANDING}, live in under 2 weeks.', ''),
         ('class', 'team', 'Classes or institute', 'Classes and institutes',
-         'Pune is known as the “Oxford of the East”. Students compare institutes on their phones, and parents often check too.',
+         'In the “Oxford of the East”, students compare institutes on their phones.',
          ['Courses, batches and fees on one clear page', 'Results and teachers, with real photos',
           'An enquiry button on every page, straight to WhatsApp', 'Marathi for parents who prefer it'],
-         f'Usually a 3–4 page business site: {BIZ}, fixed.', GP.render(Img('city-pune'))),
+         f'Usually a 5–10 page business site: {BIZ}, fixed.', GP.render(Img('city-pune'))),
        ], 'Your kind of business'),
-       eyebrow='Pune’s businesses', layout='wide', sid='business'),
-   Sec('Getting found in Pune: Google, directories and AI',
-       Cards([('pin', 'One Google listing, two cities', 'Pune district has two big urban centres, Pune and Pimpri-Chinchwad. If you visit customers, list both '
-                'as service areas; if they visit you, keep the pin exact and name your area on the website.'),
-              ('chat', 'Marathi, Hindi and English', 'The district administration names all three as Pune’s major languages. Write your services the way '
-                'customers search, and add Marathi where your customers read it. ' + chips('pune-gov')),
-              ('file', 'The same details everywhere', 'Justdial, Sulekha and IndiaMART listings with exactly the same name, phone number and area as your '
-                'website and Google listing.'),
-              ('bolt', 'Ready for AI answers', 'Prices, services and timings written as plain text, so ChatGPT, Gemini and Google’s AI can quote them '
-                'when someone asks for a recommendation in Pune.')], cols=2),
-       lang_demo('Sample: a Pune classes website, in English and Marathi', 'मराठी', 'mr',
+       lang_demo('Marathi and English? Tap to switch.', 'मराठी', 'mr',
                  ('Admissions open for Class 10', 'Call or WhatsApp us'), ('इयत्ता दहावीसाठी प्रवेश सुरू', 'कॉल किंवा WhatsApp करा')),
-       eyebrow='Local search', tone='band'),
-   Sec('Is a Mumbai designer right for your Pune business?',
-       Options([dict(name='A good fit', tag='Most small businesses', hi=True, rows=[
-                    ('You want', 'One person who designs and builds the site, at a price fixed in writing'),
-                    ('You’re happy with', 'WhatsApp, video calls and reviewing designs on your phone'),
-                    ('You care about', 'Owning your domain, code and logins'),
-                    ('Typical projects', 'Business sites, landing pages, catalogues and small online stores')]),
-                dict(name='Choose a Pune studio', tag='Be honest about it', rows=[
-                    ('You want', 'Someone to visit your shop or factory regularly'),
-                    ('You need', 'A large team for an app, portal or ERP'),
-                    ('You’d like', 'Photos and videos shot at your premises by the same people'),
-                    ('Then', 'A local studio is the better choice')])],
-               note=FIT_NOTE),
-       Img('remote-review'),
-       eyebrow='Honest fit', layout='wide'),
-   Sec('Check where you stand, free', Tools(), eyebrow='Free tools', layout='wide'),
+       eyebrow='Pune’s businesses', layout='wide', sid='business'),
   ],
+  v2=[lambda ctx: _custom_sec('trust', 'Why it’s safe', 'You’re protected at every step.', '', trust_bento()),
+      lambda ctx: _custom_sec('work', 'Real work', 'Real websites. Live right now.', 'Tap any card to open the live site.',
+                              work_rail(ctx, ['spacestudio', 'sashe', 'vidhi', 'antrah', 'roar', 'brandgen']), tone='dark'),
+      'prices', 'quote-check',
+      lambda ctx: _custom_sec('process', 'How it works', 'Live in 3–4 weeks. All from your phone.', '', timeline('remote-review'), tone='band'),
+      'business'],
   work=['spacestudio', 'sashe', 'vidhi'], work_h='Websites I designed and built, live today.',
   work_lead='Space Studio is an architecture practice in Chennai; Sashe by Prachi and Vidhi Parmar are Mumbai clients.',
   who='I design and code every site myself, from Mumbai. Pune clients talk to me directly on WhatsApp and video calls, never to an account manager.',
   faq=[('How much does a website cost in Pune?',
         'Pune studios’ own price pages (seen November 2026) put a template website at ₹5,000–₹18,000, a 5–10 page business website at ₹20,000–₹60,000, '
         f'a custom-designed site at ₹60,000–₹1.5 lakh and an online store at ₹25,000 to over ₹2.5 lakh. With U Scale, a landing page is {LANDING}, a '
-        f'3–4 page business site {BIZ} and an online store from {STORE}, fixed in writing before work starts.'),
-       ('Can a web designer in Mumbai build a website for my Pune business?',
-        'Yes. With U Scale it starts with a free audit on WhatsApp, then a written plan agreed on a video call. You review the designs in Figma on your '
-        'own phone, and at launch every login is handed to you. There is no Pune office, so if you want someone to visit your premises regularly, a '
-        'local studio is the better choice.'),
+        f'5–10 page business site {BIZ} and an online store from {STORE}, fixed in writing before work starts.'),
        ('Will my website rank in Pune if my designer is in Mumbai?',
         'Yes. Google ranks local results on relevance, distance and prominence, and distance is measured from your business to the person searching, '
         'not from your designer. What matters is that your website and Google Business Profile name your area, services and timings, and match each other.'),
@@ -467,10 +546,14 @@ CITIES = [
         f'Marathi text, or a translator’s, with a language switch Google understands. Writing the copy is {COPY}.'),
        ('How do I get my Pune business on Google Maps?',
         GP.MAPS_FAQ + ' If you visit customers rather than them visiting you, list Pune and Pimpri-Chinchwad as service areas.'),
-       ('How long does a website take?',
-        'A landing page usually goes live in under two weeks and a 3–4 page business site in 3–4 weeks, depending on how ready your text and photos '
-        'are. Reviews happen on WhatsApp, so nobody waits for a meeting.')],
-  sources=['pune-p1', 'pune-p2', 'pune-p3', 'pune-p4', 'mh-udyam', 'pune-udyam', 'pune-gov', 'local-rank']),
+       ('Is it safe to pay a web designer in another city?',
+        'With U Scale the price is fixed in writing before work starts, and you pay in three parts: 20% to start, 20% when you approve the design and 60% '
+        'only when the site is live. Your domain is registered in your name, and every login is handed to you at launch.'),
+       ('Do you work with businesses in Pimpri-Chinchwad?',
+        'Yes. Pune district has two big urban centres, Pune and Pimpri-Chinchwad, and U Scale works with businesses in both, remotely. For a Google '
+        'listing, list both as service areas if you visit customers; keep the pin exact if they visit you. Use the same name, phone and area on '
+        'Justdial, Sulekha, IndiaMART, your Google listing and your website.')],
+  sources=['pune-p1', 'pune-p2', 'pune-p3', 'pune-p4', 'pune-udyam', 'pune-gov', 'local-rank'], related=3),
 
  dict(slug='bengaluru', path='services/website-design-bengaluru', city='Bengaluru', state='Karnataka', wiki='https://en.wikipedia.org/wiki/Bengaluru',
   crumb='Website design in Bengaluru', service='Website design and development for Bengaluru businesses',
@@ -487,7 +570,7 @@ CITIES = [
                   ('Online store', 'Starting prices', 25000, 35000, 'from ₹25k–₹35k')]),
   answer='U Scale is Mehul Karotra, a Mumbai-based freelance website designer and developer who builds websites for Bengaluru startups and small '
          f'businesses remotely, over WhatsApp and video calls. Every site is designed in Figma and hand-coded at a fixed price: a landing page {LANDING}, '
-         f'a 3–4 page business site {BIZ} and an online store from {STORE}. For comparison, Bengaluru studios’ own price pages start basic sites at '
+         f'a 5–10 page business site {BIZ} and an online store from {STORE}. For comparison, Bengaluru studios’ own price pages start basic sites at '
          'about ₹8,750–₹22,750 and premium designs at ₹23,350–₹75,900. Every project starts with a free audit.',
   facts=[('Who builds it', 'Mehul Karotra, personally: designed in Figma, then hand-coded'),
          ('Based in', 'Mumbai (Ghatkopar West). No Bengaluru office: the work happens over WhatsApp and video calls'),
@@ -548,7 +631,7 @@ CITIES = [
   faq=[('How much does a website cost in Bengaluru?',
         'Bengaluru studios’ own package pages (seen November 2026) start a basic five-page site at about ₹8,750–₹22,750, premium designs at '
         '₹23,350–₹75,900 and online stores from ₹25,000–₹35,000, usually plus GST. With U Scale, a landing page is '
-        f'{LANDING}, a 3–4 page business site {BIZ} and an online store from {STORE}, fixed in writing before work starts.'),
+        f'{LANDING}, a 5–10 page business site {BIZ} and an online store from {STORE}, fixed in writing before work starts.'),
        ('Can a web designer in Mumbai build a website for my Bengaluru startup?',
         'Yes. With U Scale you get a free audit on WhatsApp, a written plan agreed on a video call, designs to review in Figma and a hand-coded site with '
         'every login in your name. For an app or a product with a large engineering team, a Bengaluru agency is the better fit.'),
@@ -577,7 +660,7 @@ CITIES = [
                   ('Online store', 'Most quotes', 40000, 120000, '₹40k–₹1.2L')]),
   answer='U Scale is Mehul Karotra, a Mumbai-based freelance website designer and developer who works with Chennai businesses remotely, over WhatsApp '
          'and video calls. He rebuilt the website of Space Studio, a Chennai office-architecture practice: 86 hand-coded pages. Every U Scale site is '
-         f'designed in Figma and hand-coded at a fixed price: a landing page {LANDING}, a 3–4 page business site {BIZ} and an online store from {STORE}. '
+         f'designed in Figma and hand-coded at a fixed price: a landing page {LANDING}, a 5–10 page business site {BIZ} and an online store from {STORE}. '
          'For comparison, Chennai studios’ own price pages put a template or static site at ₹5,000–₹30,000 and a custom business site at ₹20,000–₹1 lakh.',
   facts=[('Who builds it', 'Mehul Karotra, personally: designed in Figma, then hand-coded'),
          ('Chennai work', 'Space Studio, an office-architecture practice: a rebuilt website with 86 hand-coded pages, live at spacestudiochennai.com'),
@@ -640,7 +723,7 @@ CITIES = [
   faq=[('How much does a website cost in Chennai?',
         'Chennai studios’ own price pages (seen November 2026) put a template or static site at ₹5,000–₹30,000, a custom business site at '
         '₹20,000–₹1 lakh and most online stores at ₹40,000–₹1.2 lakh. With U Scale, a landing page is '
-        f'{LANDING}, a 3–4 page business site {BIZ} and an online store from {STORE}, fixed in writing before work starts.'),
+        f'{LANDING}, a 5–10 page business site {BIZ} and an online store from {STORE}, fixed in writing before work starts.'),
        ('Have you built websites for Chennai businesses?',
         'Yes. U Scale rebuilt the website of Space Studio, an office-architecture practice in Chennai: 86 hand-coded pages, live at spacestudiochennai.com.'),
        ('Should my Chennai website be in Tamil?',
