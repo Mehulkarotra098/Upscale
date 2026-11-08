@@ -315,7 +315,7 @@ def _img_width(p):
     return None
 _bad = []
 for _k, _im in GP.IMG.items():
-    for _w, _stem in ((_im['w'], _im['file']), (_im['small'], f"{_im['file']}-{_im['small']}")):
+    for _w, _stem in ((_im['w'], _im['file']), (_im['small'], f"{_im['file']}-{_im['small']}")) + (((_im['big'], f"{_im['file']}-{_im['big']}"),) if _im.get('big') else ()):
         for _ext in ('avif', 'webp'):
             _p = STATIC / f'{_stem.lstrip("/")}.{_ext}'
             try:

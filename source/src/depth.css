@@ -340,6 +340,24 @@
 .ld__v span{font:700 15px/1.4 var(--sans);color:#3F8A2B}
 .ld__v[lang] b,.ld__v[lang] span{font-family:'Nirmala UI','Noto Sans Devanagari','Noto Sans Tamil','Noto Sans Kannada','Latha','Tunga',var(--sans)}
 .js .ld__v[data-off]{display:none}
+
+/* City pages: four plain prices (the first, the single page, in violet), what every site includes, one line of local comparison */
+.pc{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:14px}
+.pc__c{display:grid;align-content:start;gap:10px;padding:clamp(20px,2vw,26px);border-radius:var(--radius-card);background:var(--white);
+  box-shadow:0 0 0 1px var(--line-light),0 18px 36px -26px rgba(37,30,69,.45)}
+.pc__k{margin:0;font:700 12px/1.25 var(--sans);letter-spacing:.12em;text-transform:uppercase;color:var(--body)}
+.pc__p{display:flex;align-items:baseline;gap:6px;margin:0;font:400 clamp(40px,3.6vw,52px)/.95 var(--display);color:var(--violet)}
+.pc__p small{font:700 13px/1 var(--sans);color:var(--body)}
+.pc__d{margin:0;font:500 15px/1.5 var(--sans);color:var(--body)}
+.pc__t{display:flex;align-items:center;gap:7px;margin:2px 0 0;font:700 13.5px/1.3 var(--sans);color:#3F8A2B}
+.pc__t .fp-ic{width:16px;height:16px}
+.pc__c--first{background:var(--violet);box-shadow:0 26px 44px -26px rgba(10,6,30,.85)}
+.pc__c--first .pc__k{color:var(--lavender)}.pc__c--first .pc__p{color:#fff}.pc__c--first .pc__d{color:#DAD3F0}.pc__c--first .pc__t{color:#8ED474}
+.pc__inc{display:flex;gap:10px;align-items:flex-start;margin:16px 0 0;padding:14px 16px;border-radius:14px;background:var(--lav-tint);font:600 14.5px/1.55 var(--sans);color:var(--violet)}
+.pc__inc .fp-ic{flex:none;width:18px;height:18px;margin-top:2px;color:#3F8A2B}
+.pc__mkt{margin:12px 0 0;font:500 14.5px/1.6 var(--sans);color:var(--body)}
+@media (max-width:1023px){.pc{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media (max-width:559px){.pc{grid-template-columns:minmax(0,1fr)}}
 /* Tools hub: what the tools make, as objects on a desk at their own depth. Sizes follow the card's width (cqw). */
 .dk--tools{container-type:inline-size;padding:10px 0 18px}
 .dk-desk{aspect-ratio:470 / 420}

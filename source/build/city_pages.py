@@ -271,6 +271,26 @@ def patya_card(p):
 
 ART = {'cost': cost_card, 'patya': patya_card}
 
+
+PRICE_CARDS = [('Single page', 'Landing page', '', 'One page that sells: what you do, photos, prices and a WhatsApp button.', 'Live in under 2 weeks'),
+               ('Business site', 'Business site, 3–4 pages', '', '3–4 pages: home, services, about and contact, designed around your business.', 'Live in 3–4 weeks'),
+               ('Bigger site + blog', 'Business site, 5–10 pages + blog', '', '5–10 pages for catalogues and more services, with a blog that helps you rank.', ''),
+               ('Online store', 'E-commerce, under 50 products', 'from', 'Up to 50 products, a cart and online payments by UPI and cards.', '')]
+
+
+def price_cards(market, sources):
+    """Four plain prices, then what every site includes, then one line on what local studios charge (with its sources)."""
+    li = ''
+    for i, (k, name, pre, d, t) in enumerate(PRICE_CARDS):
+        li += (f'<li class="pc__c{" pc__c--first" if i == 0 else ""}" data-reveal><p class="pc__k">{e(k)}</p>'
+               f'<p class="pc__p">{f"<small>{e(pre)}</small>" if pre else ""}{e(price(name))}</p><p class="pc__d">{e(d)}</p>'
+               + (f'<p class="pc__t">{icon("clock")}{e(t)}</p>' if t else '') + '</li>')
+    inc = (f'Every site includes {GP.INCLUDED}. Fixed in writing before work starts; you pay 20% to start, 20% on design sign-off and 60% on launch.')
+    return Html(f'<ul class="pc" data-reveal-group>{li}</ul><p class="pc__inc">{icon("check")}<span>{e(inc)}</span></p>'
+                f'<p class="pc__mkt">{e(market)} {chips(*sources)}</p>',
+                text='\n'.join(f'- {k}: {pre + " " if pre else ""}{price(name)}. {d}' + (f' {t}.' if t else '') for k, name, pre, d, t in PRICE_CARDS)
+                     + f'\n{inc}\n{market}')
+
 QC_ITEMS = ['A design made for your business, not a ready-made theme', 'The number of pages, written down', 'Built and tested for phones',
             'Who writes the text, and what it costs', 'The domain registered in your name', 'What hosting and the domain cost after year one',
             'How many rounds of design changes', 'A bug-fix period after launch', 'Basic SEO: page titles, Search Console, speed',
@@ -363,17 +383,11 @@ CITIES = [
                                          (0, 'in Pune’s custom-design range (₹60k–₹1.5L) and above.')]),
        eyebrow='Quote checker', lead='Tick what your quote includes. You’ll see what’s missing, and what to ask before you pay anyone, me included.',
        layout='wide', sid='quote-check'),
-   Sec('What a website costs in Pune in 2026',
-       P('Four Pune web studios publish their prices, and on 8 November 2026 they put a template website (a ready-made WordPress or Wix theme) at '
-         '₹5,000–₹18,000, a 5–10 page business website at ₹20,000–₹60,000, a custom-designed site at ₹60,000–₹1.5 lakh and an online store at '
-         '₹25,000 to over ₹2.5 lakh. ' + chips('pune-p1', 'pune-p2', 'pune-p3', 'pune-p4')),
-       Range([('Template site', 5000, 18000), ('Business site, 5–10 pages', 20000, 60000), ('Custom-designed site', 60000, 150000), ('Online store', 25000, 250000)],
-             [(rupees('Landing page'), 'Landing page'), (rupees('Business site, 3–4 pages'), 'Business site'), (rupees('E-commerce, under 50 products'), 'Online store')],
-             [0, 50000, 100000, 150000, 200000, 250000], 'U Scale, fixed'),
-       Note('My prices sit between the template and custom bands, but every page is designed for your business in Figma and hand-coded, not a theme '
-            'with your logo on it. The cheapest packages often bundle the first year of domain and hosting and charge for it every year after: '
-            'ask what renewal costs before you pay.'),
-       eyebrow='Pune prices', layout='wide', sid='prices'),
+   Sec('Website prices for Pune businesses',
+       price_cards('For comparison, Pune studios’ own price pages put a ready-made theme at ₹5,000–₹18,000 and a custom-designed site at ₹60,000–₹1.5 lakh (seen 8 November 2026).',
+                   ['pune-p1', 'pune-p2', 'pune-p3', 'pune-p4']),
+       eyebrow='Pune prices', lead='Four prices, fixed in writing before any work starts. The same as in Mumbai.',
+       layout='wide', sid='prices'),
    Sec('What does your Pune business need from its website?',
        P('About 9.1 lakh Pune district entries in the Udyam data (March 2026) show what the city runs on: manufacturing and trade at about 40% of '
          'registrations, food and accommodation at about 9%, and a surprising number of travel agencies, many of them cab operators around Pune and '
@@ -485,16 +499,11 @@ CITIES = [
          ('Languages', 'English and Hindi; Kannada pages built from your own Kannada text'),
          ('Ownership', 'Your domain, code and logins, in your name')],
   sections=[
-   Sec('What a website costs in Bengaluru in 2026',
-       P('Three Bengaluru studios publish package prices. On 8 November 2026 a basic site of about five pages started at ₹8,750–₹22,750, a premium '
-         'design at ₹23,350–₹75,900, and online stores from ₹25,000–₹35,000. Custom design is where they differ most: from ₹15,000 at one studio to '
-         '₹64,850 and up at another. Most quotes exclude GST, and some include the first year of domain and hosting. ' + chips('blr-p1', 'blr-p2', 'blr-p3')),
-       Range([('Basic site, about 5 pages', 8750, 22750), ('Premium design, up to 10 pages', 19999, 75900), ('Online store, starting prices', 25000, 35000)],
-             [(rupees('Landing page'), 'Landing page'), (rupees('Business site, 3–4 pages'), 'Business site'), (rupees('E-commerce, under 50 products'), 'Online store')],
-             [0, 25000, 50000, 75000, 100000], 'U Scale, fixed'),
-       Note('Package prices are starting points: ask what is in the price (pages, design rounds, copy, hosting) and what renewal costs. My price covers '
-            'design and build of every page, fixed in writing, and the domain is registered in your name.'),
-       eyebrow='Bengaluru prices', layout='wide', sid='prices'),
+   Sec('Website prices for Bengaluru businesses',
+       price_cards('For comparison, Bengaluru studios’ package pages start a basic five-page site at ₹8,750–₹22,750 and premium designs at ₹23,350–₹75,900, usually plus GST (seen 8 November 2026).',
+                   ['blr-p1', 'blr-p2', 'blr-p3']),
+       eyebrow='Bengaluru prices', lead='Four prices, fixed in writing before any work starts. The same as in Mumbai.',
+       layout='wide', sid='prices'),
    Sec('What Bengaluru’s businesses need from a website',
        Stat('13,649', 'startups in Bengaluru district recognised by DPIIT (as of 31 October 2024, from a Lok Sabha answer)', 'blr-startups'),
        P('Bengaluru has more recognised startups than most countries have, and they set what customers expect: a fast site, clear prices and paying '
@@ -580,16 +589,11 @@ CITIES = [
          ('Languages', 'English and Hindi; Tamil pages built from your own Tamil text'),
          ('Ownership', 'Your domain, code and logins, in your name')],
   sections=[
-   Sec('What a website costs in Chennai in 2026',
-       P('Three Chennai studios publish their price bands. On 8 November 2026 they put a template or static site of about 5–6 pages at ₹5,000–₹30,000, a '
-         'custom-designed business site at ₹20,000–₹1 lakh, and most online stores at ₹40,000–₹1.2 lakh, with quotes from ₹18,000 to over ₹2.5 lakh. '
-         + chips('chn-p1', 'chn-p2', 'chn-p3')),
-       Range([('Template or static site', 5000, 30000), ('Custom business site', 20000, 100000), ('Online store, most quotes', 40000, 120000)],
-             [(rupees('Landing page'), 'Landing page'), (rupees('Business site, 3–4 pages'), 'Business site'), (rupees('E-commerce, under 50 products'), 'Online store')],
-             [0, 50000, 100000, 150000], 'U Scale, fixed'),
-       Note('One Chennai studio’s own guide labels the cheapest template tier “Avoid”. Whoever you hire, ask how many pages are designed for you, who '
-            'writes the text, and what the domain and hosting cost after the first year.'),
-       eyebrow='Chennai prices', layout='wide', sid='prices'),
+   Sec('Website prices for Chennai businesses',
+       price_cards('For comparison, Chennai studios’ own price pages put a template or static site at ₹5,000–₹30,000 and a custom business site at ₹20,000–₹1 lakh (seen 8 November 2026).',
+                   ['chn-p1', 'chn-p2', 'chn-p3']),
+       eyebrow='Chennai prices', lead='Four prices, fixed in writing before any work starts. The same as in Mumbai.',
+       layout='wide', sid='prices'),
    Sec('Tamil first, then English',
        Stat('78.34%', 'of Chennai district has Tamil as its first language (Census 2011)', 'chn-lang'),
        P('Chennai is the most single-language of these cities: in the 2011 Census, 78.34% of the district spoke Tamil as their first language. And the '

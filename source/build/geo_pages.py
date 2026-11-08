@@ -678,16 +678,16 @@ IMG = {
                alt='Three ways to get a website for a demo plant shop side by side: a DIY site builder editor, a chat with a freelancer, and an agency project board with design, build and review stages',
                caption='Illustrated examples of DIY, direct freelance and agency workflows.'),
  # City pages: sample designs for fictional businesses, built around generated photos (the captions say so)
- 'city-pune': dict(file=A + 'pune-coaching-institute-website-sample', w=1200, h=1000, small=640,
+ 'city-pune': dict(file=A + 'pune-coaching-institute-website-sample', w=1200, h=1000, small=640, big=2400,
               alt='Sample website for a fictional Pune coaching institute, Disha Tutorials, in a desktop browser and a mobile preview: a classroom photo, Class 10, Class 12 Science and JEE course cards, and an Enquire on WhatsApp button',
               caption='A sample design for a Pune coaching institute. Disha Tutorials is fictional.'),
- 'city-bengaluru': dict(file=A + 'bengaluru-d2c-brand-website-sample', w=1200, h=1000, small=640,
+ 'city-bengaluru': dict(file=A + 'bengaluru-d2c-brand-website-sample', w=1200, h=1000, small=640, big=2400,
               alt='Sample website for a fictional Bengaluru millet snack brand, Ragi Roots: product cards for Ragi Chips, Jowar Puffs and Bajra Crackers, and a mobile product page with a Pay with UPI button',
               caption='A sample design for a Bengaluru D2C brand. Ragi Roots is fictional.'),
- 'city-chennai': dict(file=A + 'chennai-dental-clinic-website-sample', w=1200, h=1000, small=640,
+ 'city-chennai': dict(file=A + 'chennai-dental-clinic-website-sample', w=1200, h=1000, small=640, big=2400,
               alt='Sample website for a fictional Chennai dental clinic, Nalam Dental Care, with an English and Tamil language switch, treatment prices from ₹500, a map card and Book on WhatsApp buttons',
               caption='A sample design for a Chennai clinic. Nalam Dental Care is fictional.'),
- 'remote-review': dict(file=A + 'remote-website-design-review-whatsapp', w=1200, h=1000, small=640,
+ 'remote-review': dict(file=A + 'remote-website-design-review-whatsapp', w=1200, h=1000, small=640, big=2400,
               alt='Illustration of a remote design review: a shop homepage design with comments, a chat where the client approves the change, and a video call with the shop owner',
               caption='How a design review works over chat and video. The shop and people are fictional.'),
  'mehul': dict(file=A + 'mehul-karotra-website-designer-ghatkopar', w=1200, h=1200, small=640,
@@ -731,9 +731,11 @@ def vurl(path):
 
 
 def srcset(img, ext, small=None):
-    """'<file>-640.avif?v=... 640w, <file>.avif?v=... 1200w' for an IMG entry."""
+    """'<file>-640.avif?v=... 640w, <file>.avif?v=... 1200w' for an IMG entry, plus '<file>-2400.avif 2400w' when the
+    entry has a retina version ('big'), so high-density screens get a sharp picture."""
     s, f = small or img['small'], img['file']
-    return f'{vurl(f"{f}-{s}.{ext}")} {s}w, {vurl(f"{f}.{ext}")} {img["w"]}w'
+    big = f', {vurl(f"{f}-{img["big"]}.{ext}")} {img["big"]}w' if img.get('big') else ''
+    return f'{vurl(f"{f}-{s}.{ext}")} {s}w, {vurl(f"{f}.{ext}")} {img["w"]}w{big}'
 
 
 def _pic(img, sizes, eager=False, cls=''):
