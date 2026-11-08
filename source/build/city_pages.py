@@ -94,7 +94,9 @@ def _who(p):
 
 
 def _related(p):
-    others = [q for q in CITIES if q is not p]
+    # the next cities in the list, wrapping round, so every city page is linked from three others (not all from the first three)
+    i = next(k for k, q in enumerate(CITIES) if q is p)
+    others = [CITIES[(i + k) % len(CITIES)] for k in range(1, len(CITIES))]
     n = p.get('related')  # how many cards; None = all
     li = ''.join(f'<li><a class="fp-rel" href="/{q["path"]}"><span class="fp-rel__k">Another city</span><b>{e(q["h1"])}</b>'
                  f'<span class="fp-rel__d">{e(q["card"])}</span>{icon("arrow")}</a></li>' for q in others)
@@ -132,6 +134,13 @@ def _cta(p, wa, icons):
   </section>'''
 
 
+def og_image(site, p):
+    """The page's own share image (rendered by work/og/make_og.cjs in the City SEO folder): its URL and alt text."""
+    slug = p['path'].rsplit('website-design-', 1)[1]
+    return (f'{site}assets/pages/og-website-design-{slug}.jpg',
+            f'Website design and development in {p["city"]} by U Scale: websites from ₹25,000, fixed price, over WhatsApp')
+
+
 def _jsonld(site, url, p):
     extra = [Sec('', *[Img(k) for k in p.get('imgs', [])])]  # images inside widgets (the business picker)
     imgs = SVP._images(site, url, dict(art=dict(kind='city'), sections=p['sections'] + extra, who=True))
@@ -147,6 +156,11 @@ def _jsonld(site, url, p):
             'about': {'@id': main['@id']}, 'mainEntity': {'@id': main['@id']}, 'author': {'@id': site + '#mehul'},
             'breadcrumb': {'@id': url + '#breadcrumb'}, 'inLanguage': 'en-IN', 'dateModified': '__LASTMOD__',
             'citation': [GP.SRC[k][2] for k in p['sources']]}
+    og_url, og_alt = og_image(site, p)
+    imgs = imgs + [{'@type': 'ImageObject', '@id': url + '#og-image', 'url': og_url, 'contentUrl': og_url, 'width': 1200, 'height': 630,
+                    'caption': og_alt, 'encodingFormat': 'image/jpeg', 'inLanguage': 'en-IN', 'creditText': 'U Scale',
+                    'creator': {'@id': site + '#business'}, 'copyrightHolder': {'@id': site + '#business'},
+                    'copyrightNotice': '© 2026 U Scale by Mehul Karotra', 'license': site + 'image-license', 'acquireLicensePage': site + 'image-license'}]
     if imgs: page.update(primaryImageOfPage={'@id': imgs[0]['@id']}, image=[{'@id': i['@id']} for i in imgs])
     graph = [page, main, aeo.biz_ref(site), aeo.person_ref(site),
              {'@type': 'BreadcrumbList', '@id': url + '#breadcrumb', 'itemListElement': [
@@ -168,7 +182,7 @@ def page(ctx, parts, p):
             + aeo.brief_html(p['answer'], p['facts'], 'Key facts: ' + p['service'], 'brief-title', toc, 'On this page', fold=3)
             + GP._sections(p) + SVP._work(ctx, p) + _who(p) + SVP._how(dict(how=HOW))
             + aeo._faq_section(p['faq'], f'{p["city"]} questions.') + SVP._foot(p) + _cta(p, wa, icons))
-    return aeo._page(ctx, parts, url, p['title'], p['desc'], _jsonld(site, url, p), body)
+    return aeo._page(ctx, parts, url, p['title'], p['desc'], _jsonld(site, url, p), body, og=og_image(site, p))
 
 
 def build(ctx, parts):
@@ -458,7 +472,7 @@ def page_v2(ctx, parts, p):
             body += GP._section(i, sec)
     body += (aeo.brief_html(p['answer'], p['facts'], 'Key facts: ' + p['service'], 'brief-title', None, fold=2).replace('class="section sp-brief-wrap"', 'class="section sp-brief-wrap sp-brief-wrap--fold"', 1)
              + aeo._faq_section(p['faq'], f'{p["city"]} questions.') + SVP._foot(p) + _cta(p, wa, icons))
-    return aeo._page(ctx, parts, url, p['title'], p['desc'], _jsonld(site, url, p), body)
+    return aeo._page(ctx, parts, url, p['title'], p['desc'], _jsonld(site, url, p), body, og=og_image(site, p))
 
 
 # ---------------------------------------------------------------- Bengaluru and Chennai (v2)
