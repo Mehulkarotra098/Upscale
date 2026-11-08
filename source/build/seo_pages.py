@@ -21,8 +21,9 @@ WA = 'https://wa.me/917977360142?text=Hi%20Mehul%2C%20I%27d%20like%20to%20talk%2
 SERVICES = [
  dict(slug='website-design-mumbai', short='Website design', cta='website', name='Website Design & Development',
   title='Freelance Web Designer in Mumbai: Websites from ₹25,000',
-  desc='Designed in Figma and hand-coded by Mehul Karotra. Landing page ₹25,000 in under 2 weeks, business site ₹55,000 in 3–4 weeks. Price fixed in writing; domain and logins in your name.',
+  desc='Designed in Figma, hand-coded by Mehul Karotra. Landing page ₹25,000 in under 2 weeks, business site ₹55,000. Price fixed in writing; logins in your name.',
   h1='Website design & development in Mumbai',
+  og='assets/pages/og-website-design-mumbai.jpg', og_alt='Website design and development in Mumbai by Mehul Karotra of U Scale: websites from ₹25,000, fixed price',
   lead='I am a freelance web designer and developer in Mumbai. I design every page in Figma and build it by hand, so what you approve is exactly what goes live, at a fixed price agreed before I start.',
   who='For cafés, restaurants, salons, boutiques, clinics, schools, studios and founders who need a site that looks premium, loads fast on a phone and turns visitors into WhatsApp chats, calls and enquiries.',
   items=[('Custom design, not templates','Your brand, your layout. Designed screen by screen in Figma before a line of code is written.'),
@@ -292,14 +293,14 @@ def service_page(ctx, s, parts):
 <meta property="og:title" content="{ea(s['title'])}">
 <meta property="og:description" content="{ea(s['desc'])}">
 <meta property="og:url" content="{url}">
-<meta property="og:image" content="{site}og-image.png">
+<meta property="og:image" content="{site}{s.get('og', 'og-image.png')}">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
-<meta property="og:image:alt" content="U Scale by Mehul Karotra: Be found. Be chosen.">
+<meta property="og:image:alt" content="{ea(s.get('og_alt', 'U Scale by Mehul Karotra: Be found. Be chosen.'))}">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="{ea(s['title'])}">
 <meta name="twitter:description" content="{ea(s['desc'])}">
-<meta name="twitter:image" content="{site}og-image.png">
+<meta name="twitter:image" content="{site}{s.get('og', 'og-image.png')}">
 {ctx['ICONS_HEAD']}
 <link rel="preload" href="/assets/fonts/anton-latin.woff2" as="font" type="font/woff2" crossorigin><link rel="preload" href="/assets/fonts/inter-latin.woff2" as="font" type="font/woff2" crossorigin>
 <script type="application/ld+json">{service_jsonld(site, s)}</script>
