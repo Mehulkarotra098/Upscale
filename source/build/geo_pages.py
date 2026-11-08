@@ -467,9 +467,9 @@ PAGES = [
  dict(slug='website-banane-ka-kharcha', kind='guide', lang='hi-Latn', crumb='Website banane ka kharcha',
   card='Market rates, saal ka domain-hosting kharcha aur GST: poora hisaab.',
   service='Website banane ka kharcha, Mumbai (2026)',
-  title='Website Banane me Kitna Kharcha Aata Hai? (2026) | U Scale',
-  desc='Website banane me kitna kharcha aata hai? Mumbai ke market rates, ₹25,000 se fixed prices, saal ka domain-hosting kharcha aur GST, '
-       'sab ek jagah.',
+  title='Website Banane Ka Kharcha 2026: ₹8,000 se ₹2 Lakh Tak',
+  desc='Template website ₹8,000–₹30,000, custom ₹40,000–₹2 lakh. Saal ka domain-hosting kharcha, GST aur pay karne se pehle 6 sawaal. '
+       'U Scale ke fixed prices ₹25,000 se.',
   h1='Website banane me kitna kharcha aata hai?', eyebrow='Guide · Hinglish',
   lead='Main Mehul Karotra hoon, Mumbai se. Main websites khud banata hoon, aur mere saare prices website pe khule mein likhe hain. Yahan seedha hisaab hai.',
   stats=[('₹8k–₹3L', 'Market range, 2025–26 guides'), (price('Landing page'), 'U Scale se shuru'), ('₹4.4k–₹9.4k', 'Har saal ka kharcha')],
@@ -1294,4 +1294,5 @@ def related_html():
     li = ''.join(f'<li><a class="fp-rel" href="/services/{BASE}/{p["slug"]}"><span class="fp-rel__k">{label}</span><b>{e(p["h1"])}</b>'
                  f'<span class="fp-rel__d">{e(p["card"])}</span>{icon("arrow")}</a></li>'
                  for kind, label in kinds for p in PAGES if p['kind'] == kind)
-    return f'<nav class="fp-related fp-related--parent" aria-label="Website design by business, area and guide"><p class="eyebrow">By business, near you, and guides</p><ul>{li}</ul></nav>'
+    li += __import__('city_pages').related_cards()
+    return f'<nav class="fp-related fp-related--parent" aria-label="Website design by business, area, city and guide"><p class="eyebrow">By business, near you, guides and other cities</p><ul>{li}</ul></nav>'

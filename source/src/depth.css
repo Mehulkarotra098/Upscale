@@ -229,6 +229,22 @@
 .dk-seal text{font:800 10.5px var(--sans);letter-spacing:.14em;fill:var(--violet)}
 .dk-seal text.big{font:400 30px var(--display);letter-spacing:0}
 @media (max-width:559px){.dk-seal{right:-6px;top:-46px;width:84px;height:84px}.dk--quote{padding-top:36px}}
+
+/* City pages: what a website costs in the city. Market ranges as lavender bars, U Scale's fixed prices in green, on one scale */
+.dk-cost ul{gap:13px}
+.dk-cost li{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:7px 12px;align-items:end;padding:0;background:none;box-shadow:none}
+.dk-cost__l{font:700 13.5px/1.25 var(--sans);color:var(--violet)}
+.dk-cost__l small{display:block;margin-top:2px;font:600 11px/1.3 var(--sans);color:var(--body)}
+.dk-cost li>b{font:700 13px/1.25 var(--sans);color:var(--body);text-align:right;white-space:nowrap}
+.dk-cost .dk-bar{grid-column:1 / -1}
+.dk-cost .dk-bar i{left:var(--a);width:calc(var(--b) - var(--a));background:linear-gradient(#DCD3F2,#B7A9DC);box-shadow:0 2px 0 #9081C2,inset 0 1px 0 rgba(255,255,255,.6)}
+.dk-cost li.is-us .dk-bar i{background:linear-gradient(#8ED474,#5BAF41);box-shadow:0 2px 0 #3F8A2B,0 6px 10px -4px rgba(63,138,43,.6),inset 0 1px 0 rgba(255,255,255,.55)}
+.dk-cost li.is-us .dk-cost__l,.dk-cost li.is-us>b{color:var(--violet)}
+.dk-cost li.is-us>b{font-size:14px}
+.dk-cost__s{display:flex;justify-content:space-between;margin:9px 0 0;font:600 10.5px/1 var(--sans);color:var(--body)}
+.dk-cost .dk-quote__mark .fp-ic{width:19px;height:19px;color:var(--green)}
+.dk-route{left:-30px;bottom:-4px}
+@media (max-width:559px){.dk--city{padding-top:64px}.dk-route{left:4px;bottom:-10px;font-size:11.5px;padding:8px 11px}}
 /* Tools hub: what the tools make, as objects on a desk at their own depth. Sizes follow the card's width (cqw). */
 .dk--tools{container-type:inline-size;padding:10px 0 18px}
 .dk-desk{aspect-ratio:470 / 420}

@@ -622,9 +622,9 @@ HUB_FAQ = [
 
 def services_hub(ctx, parts):
     site = ctx['SITE_URL']; url = site + 'services'
-    title = 'Web Design & Digital Marketing Services in Mumbai | U Scale'
-    desc = ('Every U Scale service in one place: website design, SEO, social media, Google & Meta ads and AI search visibility in Mumbai, '
-            'with published prices.')
+    title = 'Web Design, SEO & Ads Services in Mumbai, With Prices'
+    desc = ('Websites, SEO, social media, Google and Meta ads and AI search visibility from one person, Mehul Karotra, '
+            'with every price published. Free audit on WhatsApp.')
     # No Offers here: most of those prices are not on this page. Each service page and /pricing carry the priced Offers.
     items = []
     for i, s in enumerate(SP.SERVICES):
@@ -777,6 +777,8 @@ def llms_full(site, faq):
     L += svc_pages.llms_full(site)
     import geo_pages
     L += geo_pages.llms_full(site)
+    import city_pages
+    L += city_pages.llms_full(site)
     L += ['## Free tools', '',
           f'- Google Business Profile checker: {site}tools/google-business-profile-checker. {SP.GBP["lead"]}',
           f'- Google review link & QR code maker: {site}tools/google-review-qr-code. {SP.TOOL["lead"]}',
