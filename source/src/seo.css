@@ -8,6 +8,8 @@
 .footer__svc ul{list-style:none;margin:0;padding:0;display:flex;flex-wrap:wrap;gap:8px 20px}
 .footer__svc a{font:500 13.5px/1.4 var(--sans);color:rgba(201,188,232,.85);text-decoration:none}
 .footer__svc a:hover{color:var(--white);text-decoration:underline;text-underline-offset:3px}
+/* phones: each footer link gets a finger-sized tap area */
+@media (max-width:559px){.footer__svc ul{gap:0 18px}.footer__svc a{display:inline-block;padding-block:10px}}
 
 .sp-hero{position:relative;isolation:isolate;overflow:hidden;background:var(--violet);color:var(--white);border-radius:var(--radius-panel);padding:clamp(28px,5vw,72px) clamp(22px,5vw,76px) clamp(30px,4.6vw,64px);display:grid;gap:clamp(16px,2vw,24px);justify-items:start}
 .sp-hero::before{content:"";position:absolute;right:-18%;top:-55%;width:min(80vw,900px);aspect-ratio:1;border-radius:50%;background:radial-gradient(closest-side,rgba(201,188,232,.26),rgba(201,188,232,0));z-index:-1;pointer-events:none}
@@ -336,6 +338,24 @@ html.pin-ok .sp-process .step{opacity:1;transform:none}
   .fp-art--img{max-width:660px;margin-right:clamp(-28px,-1.6vw,0px)}
   .fp-stats .stat__num{font-size:clamp(24px,2.6vw,38px)}
 }
+/* Short laptop screens (Mehul's is about 1440x626): the hero sizes from the screen's height as well as its width, so the
+   title, lead and WhatsApp button sit in the first screen. The title also fits its own column: the longest word,
+   WEBSITE DESIGN, is about 5.9em wide in Anton, and the copy column is at least 38vw wide up to 1440px, so 6.4vw keeps
+   it on one line and the title on three.
+   (Not a size container: that collapses the column to its content.) */
+@media (min-width:1024px){
+  .fp-hero{padding-top:clamp(24px,min(5vw,6.4vh),64px);padding-bottom:clamp(26px,min(4.6vw,6vh),60px)}
+  .fp-hero__copy{gap:clamp(12px,min(2vw,2.6vh),22px)}
+  .fp-hero__title{font-size:clamp(2.45rem,min(6.4vw,10.4vh),5.4rem)}
+}
+/* 1024-1199: a narrow copy column, so the two hero buttons get a little slimmer and stay on one line */
+@media (min-width:1024px) and (max-width:1199px){.fp-hero__ctas .btn{padding-inline:19px;font-size:15px}}
+/* the smallest phones (under 360px): the WhatsApp button text stays on one line */
+@media (max-width:359px){.fp-hero__ctas .btn{padding-inline:14px;font-size:15px;gap:8px}}
+/* breadcrumb links: a 40px tall tap area without moving the line */
+.fp-hero .crumbs a{display:inline-block;padding-block:13px;margin-block:-13px}
+/* one column (tablets): room above the hero art, so its seal never sits on the numbers above it */
+@media (min-width:560px) and (max-width:1023px){.fp-hero>.fp-art.dk{margin-top:26px}}
 
 /* hero art: shared */
 .fp-art{position:relative;margin:0;width:100%;justify-self:center;min-width:0}

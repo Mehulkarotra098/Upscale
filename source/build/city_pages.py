@@ -277,23 +277,29 @@ def patya_card(p):
 ART = {'cost': cost_card, 'patya': patya_card}
 
 
-PRICE_CARDS = [('Single page', 'Landing page', '', 'One page that sells: what you do, photos, prices and a WhatsApp button.', 'Live in under 2 weeks'),
-               ('Business site', 'Business site, 5–10 pages', '', '5–10 pages: home, services, work, about and contact, designed around your business.', 'Live in 3–4 weeks'),
-               ('Bigger site + blog', 'Business site, 10–20 pages + blog', '', '10–20 pages for catalogues and many services, with a blog that helps you rank.', ''),
-               ('Online store', 'E-commerce, under 50 products', 'from', 'Up to 50 products, a cart and online payments by UPI and cards.', '')]
+PRICE_CARDS = [('Single page', 'Landing page', False, 'One page that sells: what you do, photos, prices and a WhatsApp button.', 'Live in under 2 weeks', 'a one-page website'),
+               ('Business site', 'Business site, 5–10 pages', False, '5–10 pages: home, services, work, about and contact, designed around your business.', 'Live in 3–4 weeks', 'a 5–10 page business website'),
+               ('Bigger site + blog', 'Business site, 10–20 pages + blog', False, '10–20 pages for catalogues and many services, with a blog that helps you rank.', '', 'a 10–20 page website with a blog'),
+               ('Online store', 'E-commerce, under 50 products', True, 'Up to 50 products, a cart and online payments by UPI and cards.', '', 'an online store')]
 
 
-def price_cards(market, sources):
-    """Four plain prices, then what every site includes, then one line on what local studios charge (with its sources)."""
+def price_cards(market, sources, city=''):
+    """Four plain prices, then what every site includes, then one line on what local studios charge (with its sources).
+    Each card: a picture of its size on a small stage, the name, the price, one line, how soon it goes live, and a WhatsApp ask.
+    The rows line up across the four cards (CSS subgrid), and nothing sits on top of the price ("onwards" goes after it, not before)."""
     li = ''
-    for i, (k, name, pre, d, t) in enumerate(PRICE_CARDS):
-        li += (f'<li class="pc__c{" pc__c--first" if i == 0 else ""}" data-reveal>{PAGE_STACK[i]}<p class="pc__k">{e(k)}</p>'
-               f'<p class="pc__p">{f"<small>{e(pre)}</small>" if pre else ""}<strong data-countto="{rupees(name)}" data-pre="₹">{e(price(name))}</strong></p><p class="pc__d">{e(d)}</p>'
-               + (f'<p class="pc__t">{icon("clock")}{e(t)}</p>' if t else '') + '</li>')
+    for i, (k, name, onwards, d, t, ask) in enumerate(PRICE_CARDS):
+        msg = f"Hi Mehul, I'm in {city} and I'd like {ask} ({price(name)}{' onwards' if onwards else ''}). Can we talk?" if city else \
+              f"Hi Mehul, I'd like {ask} ({price(name)}{' onwards' if onwards else ''}). Can we talk?"
+        li += (f'<li class="pc__c{" pc__c--first" if i == 0 else ""}" data-reveal><div class="pc__g">{PAGE_STACK[i]}</div><p class="pc__k">{e(k)}</p>'
+               f'<p class="pc__p"><strong data-countto="{rupees(name)}" data-pre="₹">{e(price(name))}</strong>{"<small>onwards</small>" if onwards else ""}</p>'
+               f'<p class="pc__d">{e(d)}</p>'
+               + (f'<p class="pc__t">{icon("clock")}{e(t)}</p>' if t else '')
+               + f'<a class="pc__go" href="{ea(SVP.WA + urllib.parse.quote(msg))}" target="_blank" rel="noopener">{icon("chat")}<span>Ask on WhatsApp<span class="sr-only"> about {e(ask)}</span></span></a></li>')
     inc = f'Every site includes {GP.INCLUDED}.'
     return Html(f'<ul class="pc" data-reveal-group>{li}</ul><p class="pc__inc">{icon("check")}<span>{e(inc)}</span></p>'
                 f'<p class="pc__mkt">{e(market)} <a class="tlink" href="#sources">Sources</a></p>',
-                text='\n'.join(f'- {k}: {pre + " " if pre else ""}{price(name)}. {d}' + (f' {t}.' if t else '') for k, name, pre, d, t in PRICE_CARDS)
+                text='\n'.join(f'- {k}: {price(name)}{" onwards" if onwards else ""}. {d}' + (f' {t}.' if t else '') for k, name, onwards, d, t, _ in PRICE_CARDS)
                      + f'\n{inc}\n{market}')
 
 QC_ITEMS = ['A design made for your business, not a ready-made theme', 'The number of pages, written down', 'Built and tested for phones',
@@ -592,7 +598,7 @@ def _hero_card(kind, head, small, body, label, ic='pin'):
 
 def ncr_card(p):
     # Delhi: one Google listing serving the NCR cities as service areas (Google allows up to 20).
-    cities = [('Delhi', 46, 42, 1), ('Gurugram', 22, 74, 0), ('Noida', 72, 56, 0), ('Ghaziabad', 78, 22, 0), ('Faridabad', 52, 84, 0)]
+    cities = [('Delhi', 46, 42, 1), ('Gurugram', 27, 74, 0), ('Noida', 72, 56, 0), ('Ghaziabad', 78, 22, 0), ('Faridabad', 52, 84, 0)]
     lines = ''.join(f'<line x1="46" y1="42" x2="{x}" y2="{y}" style="--i:{i}"/>' for i, (_, x, y, hub) in enumerate(cities) if not hub)
     nodes = ''.join(f'<span class="ncr__n{" ncr__n--hub" if hub else ""}" style="left:{x}%;top:{y}%;--i:{i}"><i></i><b>{e(n)}</b></span>'
                     for i, (n, x, y, hub) in enumerate(cities))
@@ -624,7 +630,7 @@ def bengali_board(p):
 def pin_card(p):
     # Ahmedabad: old-city lanes (pols) need an exact pin, a landmark and the right opening hours.
     lanes = ''.join(f'<i style="--x:{x}%;--y:{y}%;--w:{w}%;--r:{r}deg"></i>' for x, y, w, r in
-                    [(4, 30, 60, 0), (30, 62, 66, 0), (20, 12, 4, 0), (50, 8, 4, 90), (14, 45, 40, 90), (60, 40, 34, 90), (8, 82, 80, 0)])
+                    [(4, 30, 60, 0), (30, 62, 66, 0), (14, 45, 40, 90), (60, 40, 34, 90), (8, 82, 80, 0)])
     body = (f'<div class="pn" aria-hidden="true"><span class="pn__map">{lanes}</span><span class="pn__pin">{icon("pin")}</span><span class="pn__tag">Sabarmati Fabrics</span></div>'
             '<ul class="pn__rows" aria-hidden="true"><li>' + icon('pin') + 'Landmark: near Manek Chowk</li><li>' + icon('clock') + 'Open 10 am to 8 pm</li></ul>'
             f'<p class="h2c__f">{icon("check")}An exact pin, so buyers find you in the lanes</p>')
@@ -701,7 +707,7 @@ CITIES = [
   sections=[
    Sec('Website prices for Pune businesses',
        price_cards('For comparison, Pune studios’ own price pages put a ready-made theme at ₹5,000–₹18,000 and a custom-designed site at ₹60,000–₹1.5 lakh (seen 8 November 2026).',
-                   ['pune-p1', 'pune-p2', 'pune-p3', 'pune-p4']),
+                   ['pune-p1', 'pune-p2', 'pune-p3', 'pune-p4'], 'Pune'),
        eyebrow='Pune prices', lead='Four prices. Fixed in writing. The same as in Mumbai.',
        layout='wide', sid='prices'),
    Sec('What does your Pune business need?',
@@ -712,7 +718,7 @@ CITIES = [
          'Buyers judge you by your website before they call. Give them specs, not slogans.',
          ['A product catalogue in English, with specifications and PDF downloads', 'An enquiry form that asks for quantity, material and drawings',
           'Certifications and the industries you supply, on the first screen', 'A link to your IndiaMART listing, with the same details on both'],
-         f'Usually a 5–10 page site with a blog: {BLOG}, fixed in writing.', ''),
+         f'Usually a 10–20 page site with a blog: {BLOG}, fixed in writing.', ''),
         ('shop', 'store', 'Shop or trader', 'Shops and traders',
          'Customers find you on Google Maps first. Your site backs it up and takes orders.',
          ['Timings, an exact map pin and one-tap directions', 'Photos of what’s in stock, easy for you to update',
@@ -798,7 +804,7 @@ CITIES = [
   sections=[
    Sec('Website prices for Bengaluru businesses',
        price_cards('For comparison, Bengaluru studios’ package pages start a basic five-page site at ₹8,750–₹22,750 and premium designs at ₹23,350–₹75,900, usually plus GST (seen 8 November 2026).',
-                   ['blr-p1', 'blr-p2', 'blr-p3']),
+                   ['blr-p1', 'blr-p2', 'blr-p3'], 'Bengaluru'),
        eyebrow='Bengaluru prices', lead='Four prices. Fixed in writing. The same as in Mumbai.', layout='wide', sid='prices'),
    Sec('What does your Bengaluru business need?',
        dot_stat(13649, 500, 'DPIIT-recognised startups in Bengaluru district, to 31 October 2024', 'blr-startups'),
@@ -889,7 +895,7 @@ CITIES = [
        layout='wide', tone='band', sid='tamil'),
    Sec('Website prices for Chennai businesses',
        price_cards('For comparison, Chennai studios’ own price pages put a template or static site at ₹5,000–₹30,000 and a custom business site at ₹20,000–₹1 lakh (seen 8 November 2026).',
-                   ['chn-p1', 'chn-p2', 'chn-p3']),
+                   ['chn-p1', 'chn-p2', 'chn-p3'], 'Chennai'),
        eyebrow='Chennai prices', lead='Four prices. Fixed in writing. The same as in Mumbai.', layout='wide', sid='prices'),
    Sec('What does your Chennai business need?',
        picker([
@@ -965,7 +971,7 @@ def _answer(city, who):
 
 def _city(slug, city, state, wiki, eyebrow, lead, who, art, img, wa, cta_lead, trust_h, trust_keys, market_line, market_src, market_fact,
           langs, sections_mid, picker_items, lang_demo_args, faq_mid, sources, extra_v2=None, wiki_state=None):
-    sec_prices = Sec(f'Website prices for {city} businesses', price_cards(market_line, market_src),
+    sec_prices = Sec(f'Website prices for {city} businesses', price_cards(market_line, market_src, city),
                      eyebrow=f'{city} prices', lead='Four prices. Fixed in writing. The same as in Mumbai.', layout='wide', sid='prices')
     biz_blocks = list(sections_mid) + [picker(picker_items, 'Your kind of business')] + ([lang_demo(*lang_demo_args)] if lang_demo_args else [])
     sec_biz = Sec(f'What does your {city} business need?', *biz_blocks, eyebrow=f'{city}’s businesses', layout='wide', sid='business')
