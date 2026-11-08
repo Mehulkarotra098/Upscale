@@ -38,7 +38,7 @@ def brief():
               'starts with a free audit.')
     facts = [('Who', 'Mehul Karotra, personally: he designs, builds and markets every project'),
              ('Based in', 'Mumbai; meets clients across Mumbai, Thane and Navi Mumbai, and works remotely with businesses across India'),
-             ('Websites', f'Landing page {price("Landing page")} · Business site {price("Business site, 3–4 pages")} · '
+             ('Websites', f'Landing page {price("Landing page")} · Business site {price("Business site, 5–10 pages")} · '
                           f'Online store from {price("E-commerce, under 50 products")}, all fixed'),
              ('Monthly growth', f'Local SEO {price("Local SEO / Google Business Profile")} · Ads management {price("Ads management")} · '
                                 f'AI search visibility {price("AI search visibility (GEO)")}'),

@@ -180,7 +180,7 @@ logo_wall = (f'<ul class="sr-only">{names}</ul>'
 
 FAQ = [
  ('Is U Scale an agency or a freelancer?', "A bit of both. U Scale is me, Mehul Karotra, working as an independent, contract-based partner. You get the design, development and marketing an agency offers, but you sign with me directly and talk to me directly. If a project ever needs a specialist, like a photographer, I bring them in and stay your single point of contact."),
- ('How much does a website cost in Mumbai?', "With me, a landing page is ₹25,000, a 3–4 page business site ₹55,000, a 5–10 page site with a blog ₹85,000, and an online store starts at ₹95,000. Every price is fixed and agreed in writing before I start, and no GST is charged right now."),
+ ('How much does a website cost in Mumbai?', "With me, a landing page is ₹25,000, a 5–10 page business site ₹55,000, a 10–20 page site with a blog ₹85,000, and an online store starts at ₹95,000. Every price is fixed and agreed in writing before I start, and no GST is charged right now."),
  ('How much does digital marketing cost in Mumbai?', "There are no fixed packages: you pay only for what you need. Local SEO is ₹15,000/month, technical SEO ₹25,000/month, ads management ₹20,000/month (plus a ₹10,000 setup), AI search visibility ₹12,000/month, and one-off work starts at ₹800 for a social post. The quote builder adds it all up for you."),
  ('Do you work on contract or monthly retainer?', "Both. Websites and branding are fixed-price contracts: 20% to start, 20% on design sign-off and 60% on launch. Marketing runs as a monthly plan: 3 months minimum, then month-to-month with 30 days’ notice. No long lock-ins."),
  ('How long does SEO take to show results?', 'Honest answer: 3–6 months for meaningful movement. Be careful of anyone who promises page one in 30 days. I show you what has moved every month.'),
@@ -315,7 +315,7 @@ def _img_width(p):
     return None
 _bad = []
 for _k, _im in GP.IMG.items():
-    for _w, _stem in ((_im['w'], _im['file']), (_im['small'], f"{_im['file']}-{_im['small']}")):
+    for _w, _stem in ((_im['w'], _im['file']), (_im['small'], f"{_im['file']}-{_im['small']}")) + (((_im['big'], f"{_im['file']}-{_im['big']}"),) if _im.get('big') else ()):
         for _ext in ('avif', 'webp'):
             _p = STATIC / f'{_stem.lstrip("/")}.{_ext}'
             try:

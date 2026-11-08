@@ -5,7 +5,7 @@ From Mehul's published price sheet. Edit here, rebuild, and every page updates."
 PILLARS = [
     dict(key='web', kick='One-time', name='Websites', lead='Designed in Figma, hand-built, fixed price agreed before I start.',
          start='25,000', unit='', noun='website prices', step='step-1', cta='Price my website',
-         rows=['Landing page', 'Business site, 3–4 pages', 'E-commerce, under 50 products']),
+         rows=['Landing page', 'Business site, 5–10 pages', 'E-commerce, under 50 products']),
     dict(key='add', kick='Monthly', name='Growth', lead='SEO, ads, social, email and more, paid monthly. Combine only what you need.', pop=True,
          start='8,000', unit='/mo', noun='monthly services', step='step-2', cta='Build my monthly mix',
          rows=['Local SEO / Google Business Profile', 'Ads management', 'AI search visibility (GEO)']),
@@ -17,8 +17,8 @@ PILLARS = [
 WEBSITES = [  # one-time, fixed price after a free audit
     ('Landing page', '₹25,000', 25000),
     ('Portfolio site', '₹40,000', 40000),
-    ('Business site, 3–4 pages', '₹55,000', 55000),
-    ('Business site, 5–10 pages + blog', '₹85,000', 85000),
+    ('Business site, 5–10 pages', '₹55,000', 55000),
+    ('Business site, 10–20 pages + blog', '₹85,000', 85000),
     ('E-commerce, under 50 products', '₹95,000', 95000),
     ('E-commerce, 50–500 products', 'from ₹1,50,000', 150000),
     ('Restaurant site + own online ordering', '₹90,000', 90000),
@@ -53,7 +53,7 @@ UNITS = [  # pick exactly what you need
 
 # Quick-start presets for the /pricing builder: honest starting points made only of items above.
 PRESETS = [
-    dict(label='New business website', web='Business site, 3–4 pages', checks=['Care plan'], units={}),
+    dict(label='New business website', web='Business site, 5–10 pages', checks=['Care plan'], units={}),
     dict(label='Get found on Google', web='', checks=['Local SEO / Google Business Profile', 'AI search visibility (GEO)'], units={}),
     dict(label='Leads from ads', web='Landing page', checks=['Ads management'], units={}),
     dict(label='A month of social', web='', checks=[], units={'Social post': 12, 'Carousel': 4, 'Reel edit (your footage)': 4}),

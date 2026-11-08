@@ -220,7 +220,7 @@ def page(ctx, parts, tv, sp):
         <div class="cta__copy">
           <h2 class="sp-cta__title" id="cta-title">Want a website that matches your card<span class="dot">?</span></h2>
           <p class="lead">I design and build websites for small businesses in Mumbai and across India.</p>
-          <div class="cta__btns"><a class="btn btn--go" href="/services/website-design-mumbai">See website design <span class="arw" aria-hidden="true"><b>↗</b><b>↗</b></span></a><a class="btn btn--ghost" href="/pricing">See prices</a></div>
+          <div class="cta__btns" data-wa-zone><a class="btn btn--go" href="{sp.ea(sp.wa_link("Hi Mehul, I made my visiting card on uscale.in. Can you also make a website for my business?"))}" target="_blank" rel="noopener" data-magnetic>{ctx["ICONS"]["ICON_CHAT"]}Chat on WhatsApp</a><a class="btn btn--ghost" href="/services/website-design-mumbai">See website design</a></div>
         </div>
       </div>
     </div>

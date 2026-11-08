@@ -9,7 +9,7 @@ import re
 SLUG = 'qr-code-generator'
 ENTRY_MARK = '__QR_TOOL_ENTRY__'
 
-TITLE = 'Free QR Code Generator with Logo, No Sign-up | U Scale'
+TITLE = 'Free QR Code Generator: Logo, UPI, WhatsApp, Wi-Fi, Link'
 DESC = ('Make a QR code with your logo and colours for a link, WhatsApp, UPI, Wi-Fi or contact. 100% free, no sign-up, no watermark, and it never expires.')
 H1 = 'Free QR code generator'
 LEAD = ('100% free, with no sign-up and no watermark. Make a QR code for a link, contact, WhatsApp, UPI payment or Wi-Fi, choose its shapes and colours, '

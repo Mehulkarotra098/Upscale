@@ -210,10 +210,10 @@ CONTRACT = '3 months minimum, then month-to-month with 30 days’ notice'
 BRIEF = {
  'website-design-mumbai': dict(
   answer='U Scale is Mehul Karotra, a freelance website designer and developer in Mumbai. Every site is designed in Figma and hand-coded, '
-         'at a fixed price agreed in writing before work starts: a landing page is ₹25,000, a 3–4 page business site ₹55,000 and '
+         'at a fixed price agreed in writing before work starts: a landing page is ₹25,000, a 5–10 page business site ₹55,000 and '
          'an online store starts at ₹95,000. Most business sites go live in 3–4 weeks.',
   facts=[('Who does the work', 'Mehul Karotra designs and codes every site himself. No templates.'),
-         ('Price', 'Landing page ₹25,000 · Portfolio ₹40,000 · Business site, 3–4 pages ₹55,000 · 5–10 pages + blog ₹85,000 · '
+         ('Price', 'Landing page ₹25,000 · Portfolio ₹40,000 · Business site, 5–10 pages ₹55,000 · 10–20 pages + blog ₹85,000 · '
                    'Restaurant site + online ordering ₹90,000 · Online store from ₹95,000'),
          ('Timeline', '3–4 weeks for a business site; a landing page can be live in under two weeks'),
          ('Payment', '20% to start, 20% on design sign-off, 60% on launch; no GST charged right now'),
@@ -221,7 +221,7 @@ BRIEF = {
          ('Ownership', 'Your domain, hosting, code and design files belong to you'),
          ('Where', 'Mumbai; remote work with businesses across India')],
   faq_replace={'How much does a website cost in Mumbai?':
-      'With U Scale, a landing page costs ₹25,000, a 3–4 page business site ₹55,000, a 5–10 page site with a blog ₹85,000 and an '
+      'With U Scale, a landing page costs ₹25,000, a 5–10 page business site ₹55,000, a 10–20 page site with a blog ₹85,000 and an '
       'online store from ₹95,000. Every price is fixed and agreed in writing before work starts, with no hourly billing.'},
   faq_more=[('Should I hire a freelance web designer or an agency?',
              'It depends on the project. A freelancer often suits a small business: you talk directly to the person designing and coding '
@@ -238,7 +238,7 @@ BRIEF = {
              'revisions and a 15–30 day bug-fix window after launch.'),
             ('Do you build websites for businesses outside Mumbai?',
              'Yes. I’m based in Mumbai and work with businesses across India remotely, over WhatsApp, calls and video meetings.')],
-  offers=['Landing page', 'Portfolio site', 'Business site, 3–4 pages', 'Business site, 5–10 pages + blog', 'E-commerce, under 50 products',
+  offers=['Landing page', 'Portfolio site', 'Business site, 5–10 pages', 'Business site, 10–20 pages + blog', 'E-commerce, under 50 products',
           'Restaurant site + own online ordering', 'Care plan: updates, backups, security']),
  'seo-mumbai': dict(
   answer='U Scale offers SEO in Mumbai done personally by Mehul Karotra: local SEO and Google Business Profile, technical and on-page SEO, '
@@ -622,9 +622,9 @@ HUB_FAQ = [
 
 def services_hub(ctx, parts):
     site = ctx['SITE_URL']; url = site + 'services'
-    title = 'Web Design & Digital Marketing Services in Mumbai | U Scale'
-    desc = ('Every U Scale service in one place: website design, SEO, social media, Google & Meta ads and AI search visibility in Mumbai, '
-            'with published prices.')
+    title = 'Web Design, SEO & Ads Services in Mumbai, With Prices'
+    desc = ('Websites, SEO, social media, Google and Meta ads and AI search visibility from one person, Mehul Karotra, '
+            'with every price published. Free audit on WhatsApp.')
     # No Offers here: most of those prices are not on this page. Each service page and /pricing carry the priced Offers.
     items = []
     for i, s in enumerate(SP.SERVICES):
@@ -777,6 +777,8 @@ def llms_full(site, faq):
     L += svc_pages.llms_full(site)
     import geo_pages
     L += geo_pages.llms_full(site)
+    import city_pages
+    L += city_pages.llms_full(site)
     L += ['## Free tools', '',
           f'- Google Business Profile checker: {site}tools/google-business-profile-checker. {SP.GBP["lead"]}',
           f'- Google review link & QR code maker: {site}tools/google-review-qr-code. {SP.TOOL["lead"]}',
