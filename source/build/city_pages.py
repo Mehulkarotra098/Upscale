@@ -20,7 +20,7 @@ import geo_pages as GP
 import seo_pages as SP
 import svc_pages as SVP
 import depth_art as DA
-from geo_pages import (P, Cards, Table, Options, Links, Chips, Note, Stat, Range, Tools, Sec, icon, price, rupees, _fmt, _short)
+from geo_pages import (P, Cards, Table, Options, Links, Chips, Note, Stat, Range, Tools, Img, Sec, icon, price, rupees, _fmt, _short)
 
 e, ea = SP.e, SP.ea
 
@@ -172,8 +172,10 @@ def build(ctx, parts):
 
 
 def images_by_url(site):
-    img = GP.IMG['mehul']
-    return {site + p['path']: [(site + img['file'][1:] + '.webp', img['caption'])] for p in CITIES}
+    def keys(p):
+        ks = [b['key'] for s in p['sections'] for b in s['blocks'] if b['t'] == 'img']
+        return list(dict.fromkeys(ks)) + ['mehul']
+    return {site + p['path']: [(site + GP.IMG[k]['file'][1:] + '.webp', GP.IMG[k]['caption']) for k in keys(p)] for p in CITIES}
 
 
 def llms_lines(site):
@@ -300,6 +302,7 @@ CITIES = [
               ('team', 'Classes and institutes', 'Courses, batches, fees and results, with an enquiry button on every page. Pune is known as the “Oxford of '
                 'the East”, and students compare institutes on their phones.')], cols=3,
              cta=('/pricing', 'rupee', 'Every price, published', 'Websites, SEO and monthly services, with a quote builder you can send on WhatsApp.', 'See prices')),
+       Img('city-pune'),
        eyebrow='Pune’s businesses'),
    Sec('Getting found in Pune: Google, directories and AI',
        Cards([('pin', 'One Google listing, two cities', 'Pune district has two big urban centres, Pune and Pimpri-Chinchwad. If you visit customers, list both '
@@ -323,6 +326,7 @@ CITIES = [
                     ('You’d like', 'Photos and videos shot at your premises by the same people'),
                     ('Then', 'A local studio is the better choice')])],
                note=FIT_NOTE),
+       Img('remote-review'),
        eyebrow='Honest fit', layout='wide'),
    Sec('Check where you stand, free', Tools(), eyebrow='Free tools', layout='wide'),
   ],
@@ -399,6 +403,7 @@ CITIES = [
                 'location do most of the selling.'),
               ('box', 'Manufacturers and wholesalers', 'A catalogue with specifications, an enquiry form that asks the right questions and a link to your '
                 'IndiaMART listing, for the buyers who check you out before they call.')], cols=2),
+       Img('city-bengaluru'),
        eyebrow='Bengaluru’s businesses'),
    Sec('Kannada, English or both?',
        P('Bengaluru is the most mixed of the three cities on this site. In the 2011 Census, 44.47% of Bangalore Urban district spoke Kannada as their '
@@ -420,6 +425,7 @@ CITIES = [
                     ('You’d like', 'Shoots at your premises by the same people'),
                     ('Then', 'A local agency is the better choice')])],
                note=FIT_NOTE),
+       Img('remote-review'),
        eyebrow='Honest fit', layout='wide'),
    Sec('Check where you stand, free', Tools(), eyebrow='Free tools', layout='wide'),
   ],
@@ -502,6 +508,7 @@ CITIES = [
               ('card', 'Clinics and healthcare', 'Doctors, timings, fees and directions, in Tamil and English, with booking on WhatsApp.'),
               ('layers', 'Architects, consultants and B2B services', 'Projects as proof, services explained plainly and a way to start a conversation. This '
                 'is the kind of site I built for Space Studio.')], cols=2),
+       Img('city-chennai'),
        eyebrow='Chennai’s businesses'),
    Sec('Is a Mumbai designer right for your Chennai business?',
        Options([dict(name='A good fit', tag='Most small businesses', hi=True, rows=[
@@ -515,6 +522,7 @@ CITIES = [
                     ('You’d like', 'Photos and videos shot locally by the same people'),
                     ('Then', 'A local studio is the better choice')])],
                note=FIT_NOTE),
+       Img('remote-review'),
        eyebrow='Honest fit', layout='wide'),
    Sec('Check where you stand, free', Tools(), eyebrow='Free tools', layout='wide'),
   ],
