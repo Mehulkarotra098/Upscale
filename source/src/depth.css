@@ -245,6 +245,101 @@
 .dk-cost .dk-quote__mark .fp-ic{width:19px;height:19px;color:var(--green)}
 .dk-route{left:-30px;bottom:-4px}
 @media (max-width:559px){.dk--city{padding-top:64px}.dk-route{left:4px;bottom:-10px;font-size:11.5px;padding:8px 11px}}
+
+/* Pune: a puneri patya (the city's blunt signboards) carrying U Scale's terms. Red lettering on a cream board, two screws */
+.dk--patya .dk__card.patya{padding:34px 32px 26px;border-radius:12px;background:linear-gradient(172deg,#FFFEF9 0%,#FBF6E8 100%);color:#1E1A2E}
+.patya::before{content:"";position:absolute;inset:11px;border:3px solid #C23A30;border-radius:7px;pointer-events:none}
+.patya__screw{position:absolute;top:20px;left:20px;width:11px;height:11px;border-radius:50%;background:radial-gradient(circle at 35% 35%,#F6F3EC,#9A9488);box-shadow:inset 0 0 0 1px rgba(0,0,0,.18),0 1px 1px rgba(0,0,0,.15)}
+.patya__screw--r{left:auto;right:20px}
+.patya__h{display:grid;justify-items:center;gap:3px;margin:4px 0 16px;text-align:center}
+.patya__h b{font:800 clamp(30px,3vw,38px)/1.15 'Nirmala UI','Noto Sans Devanagari','Mangal',var(--sans);color:#C23A30}
+.patya__h span{font:700 11px/1.2 var(--sans);letter-spacing:.16em;text-transform:uppercase;color:#6A6385}
+.patya ol{list-style:none;margin:0;padding:0;display:grid;gap:12px}
+.patya li{display:grid;grid-template-columns:24px minmax(0,1fr);gap:8px;padding:0;background:none;box-shadow:none;font:600 clamp(15px,1.25vw,16.5px)/1.4 var(--sans);color:#1E1A2E}
+.patya li b{font:400 22px/1 var(--display);color:#C23A30;padding-top:1px}
+.patya__s{margin:18px 4px 0 0;text-align:right;font:italic 600 13.5px/1 var(--sans);color:#4A4458}
+@media (prefers-reduced-motion:no-preference){.js .dk--patya .patya li{animation:patyaIn .7s var(--ease-out) both;animation-delay:calc(.45s + var(--i) * 150ms)}}
+@keyframes patyaIn{from{opacity:0;translate:0 10px}}
+.rm .dk--patya .patya li{animation:none!important}
+@media (max-width:559px){.dk--patya{padding-top:64px}.dk--patya .dk__card.patya{padding:30px 22px 22px}}
+
+/* Quote checker: tick what a studio's quote includes; the violet card scores it and fills the WhatsApp message.
+   Without JavaScript the list is a checklist of questions and the score card stays hidden. */
+.qc{display:grid;gap:clamp(16px,2.4vw,28px);align-items:start}
+.js .qc{grid-template-columns:minmax(0,1.3fr) minmax(0,1fr)}
+.qc__form{padding:clamp(18px,2.4vw,28px);border-radius:var(--radius-card);background:var(--white);box-shadow:0 0 0 1px var(--line-light),0 18px 36px -26px rgba(37,30,69,.45)}
+.qc__price{display:grid;gap:8px;margin:0 0 20px;font:700 11.5px/1.3 var(--sans);letter-spacing:.14em;text-transform:uppercase;color:var(--body)}
+.qc__inr{display:flex;align-items:center;gap:8px;height:54px;padding:0 16px;border-radius:14px;background:var(--space);box-shadow:inset 0 0 0 1.5px #DCD3F0;transition:box-shadow .2s}
+.qc__inr:focus-within{box-shadow:inset 0 0 0 2px var(--violet)}
+.qc__inr b{font:400 26px/1 var(--display);color:var(--violet)}
+.qc__inr input{flex:1;min-width:0;width:100%;border:0;background:none;font:700 20px/1 var(--sans);color:var(--violet);letter-spacing:0;text-transform:none;outline:none}
+.qc__q{display:flex;justify-content:space-between;align-items:baseline;gap:12px;margin:0 0 8px;font:700 15.5px/1.3 var(--sans);color:var(--violet)}
+.qc__live{flex:none;font:600 12.5px/1 var(--sans);color:var(--body)}
+.qc__list{list-style:none;margin:0;padding:0;display:grid;gap:2px}
+.qc__opt{position:relative;display:grid;grid-template-columns:24px minmax(0,1fr);gap:12px;align-items:start;padding:10px 10px;border-radius:12px;cursor:pointer;
+  font:500 15px/1.4 var(--sans);color:var(--violet);transition:background .2s}
+.qc__opt:hover{background:var(--lav-tint)}
+.qc__opt input{position:absolute;left:16px;top:14px;width:1px;height:1px;opacity:0}
+.qc__box{display:grid;place-items:center;width:24px;height:24px;border-radius:7px;background:#fff;box-shadow:inset 0 0 0 2px #CFC5EA;color:transparent;transition:background .2s,box-shadow .2s,color .2s}
+.qc__box .fp-ic{width:15px;height:15px}
+.qc__opt input:checked+.qc__box{background:var(--green);box-shadow:0 4px 8px -4px rgba(63,138,43,.7);color:#fff}
+.qc__opt input:focus-visible+.qc__box{outline:2px solid var(--violet);outline-offset:3px}
+.qc__out{display:none;position:sticky;top:calc(var(--header-h) + 24px);gap:12px;padding:clamp(20px,2.6vw,32px);border-radius:var(--radius-card);background:var(--violet);color:#fff;
+  box-shadow:0 30px 50px -30px rgba(10,6,30,.8)}
+.js .qc__out{display:grid}
+.qc__k{margin:0;font:700 11.5px/1 var(--sans);letter-spacing:.16em;text-transform:uppercase;color:var(--lavender)}
+.qc__score{display:flex;align-items:baseline;gap:10px;margin:0}
+.qc__score b{font:400 clamp(60px,6vw,80px)/.9 var(--display);color:#fff}
+.qc__score span{font:600 15px/1.2 var(--sans);color:var(--lavender)}
+.qc__band{margin:0;font:600 15.5px/1.45 var(--sans);color:#fff}
+.qc__msg{margin:0;font:500 14.5px/1.5 var(--sans);color:#DAD3F0}
+.qc__msg:empty{display:none}
+.qc__miss p{margin:0 0 6px;font:700 13px/1.3 var(--sans);color:#fff}
+.qc__miss ul{margin:0;padding-left:18px;display:grid;gap:4px;font:500 13.5px/1.45 var(--sans);color:#DAD3F0}
+.qc__out .btn{justify-self:start;margin-top:4px}
+.qc__note{margin:0;font:500 12.5px/1.5 var(--sans);color:var(--lavender)}
+@media (max-width:899px){.js .qc{grid-template-columns:minmax(0,1fr)}.qc__out{position:static}}
+
+/* Business picker: tabs (JavaScript) or every panel stacked (no JavaScript) */
+.bp{display:grid;gap:16px}
+.bp__tabs{display:none;gap:8px;flex-wrap:wrap}
+.js .bp__tabs{display:flex}
+.bp__tabs button{display:inline-flex;align-items:center;gap:8px;height:46px;padding:0 17px;border:0;border-radius:99px;background:var(--white);box-shadow:inset 0 0 0 1.5px #DCD3F0;
+  font:700 14.5px/1 var(--sans);color:var(--violet);cursor:pointer;transition:background .2s,color .2s,box-shadow .2s}
+.bp__tabs button:hover{box-shadow:inset 0 0 0 1.5px var(--violet)}
+.bp__tabs button .fp-ic{width:18px;height:18px;color:var(--violet)}
+.bp__tabs button[aria-selected=true]{background:var(--violet);color:#fff;box-shadow:0 10px 18px -10px rgba(37,30,69,.8)}
+.bp__tabs button[aria-selected=true] .fp-ic{color:var(--green)}
+.bp__panel{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.05fr);gap:clamp(18px,3vw,40px);align-items:center;padding:clamp(20px,2.8vw,36px);
+  border-radius:var(--radius-card);background:var(--white);box-shadow:0 0 0 1px var(--line-light),0 18px 36px -26px rgba(37,30,69,.45)}
+.bp__panel--solo{grid-template-columns:minmax(0,1fr)}
+.js .bp__panel[data-off]{display:none}
+.bp__panel h3{margin:0 0 10px;font:400 clamp(26px,2.6vw,36px)/1.02 var(--display);text-transform:uppercase;color:var(--violet)}
+.bp__panel h3+p{margin:0 0 16px;max-width:62ch;font:500 16px/1.55 var(--sans);color:var(--body)}
+.bp__must{list-style:none;margin:0 0 18px;padding:0;display:grid;gap:10px}
+.bp__panel--solo .bp__must{grid-template-columns:repeat(2,minmax(0,1fr));gap:12px 28px}
+.bp__must li{display:grid;grid-template-columns:22px minmax(0,1fr);gap:10px;font:600 15px/1.45 var(--sans);color:var(--violet)}
+.bp__must .fp-ic{width:20px;height:20px;color:var(--green)}
+.bp__fit{display:flex;gap:10px;align-items:flex-start;margin:0;padding:13px 15px;border-radius:12px;background:var(--lav-tint);font:600 14.5px/1.5 var(--sans);color:var(--violet)}
+.bp__fit .fp-ic{flex:none;width:18px;height:18px;margin-top:2px}
+.bp__panel .fp-shot{margin:0}
+@media (max-width:899px){.bp__panel{grid-template-columns:minmax(0,1fr)}.bp__panel--solo .bp__must{grid-template-columns:1fr}
+  .js .bp__tabs{flex-wrap:nowrap;overflow-x:auto;scrollbar-width:none;margin:0 calc(var(--gutter) * -1);padding:2px var(--gutter) 6px}
+  .bp__tabs::-webkit-scrollbar{display:none}.bp__tabs button{flex:none}}
+
+/* The same two lines in English and the city's language */
+.ld{display:grid;gap:12px;max-width:560px;margin-top:clamp(18px,2.4vw,28px)}
+.ld__sw{display:none;gap:6px}
+.js .ld__sw{display:inline-flex}
+.ld__sw button{height:38px;padding:0 15px;border:0;border-radius:99px;background:var(--white);box-shadow:inset 0 0 0 1.5px #DCD3F0;font:700 14px/1 var(--sans);color:var(--violet);cursor:pointer}
+.ld__sw button[aria-pressed=true]{background:var(--violet);color:#fff;box-shadow:none}
+.ld__card{display:grid;gap:12px;padding:18px 20px;border-radius:16px;background:var(--white);box-shadow:0 0 0 1px var(--line-light),0 14px 28px -22px rgba(37,30,69,.5)}
+.ld__k{margin:0;font:700 11px/1.3 var(--sans);letter-spacing:.14em;text-transform:uppercase;color:var(--body)}
+.ld__v{display:grid;gap:4px}
+.ld__v b{font:800 clamp(20px,2vw,24px)/1.3 var(--sans);color:var(--violet)}
+.ld__v span{font:700 15px/1.4 var(--sans);color:#3F8A2B}
+.ld__v[lang] b,.ld__v[lang] span{font-family:'Nirmala UI','Noto Sans Devanagari','Noto Sans Tamil','Noto Sans Kannada','Latha','Tunga',var(--sans)}
+.js .ld__v[data-off]{display:none}
 /* Tools hub: what the tools make, as objects on a desk at their own depth. Sizes follow the card's width (cqw). */
 .dk--tools{container-type:inline-size;padding:10px 0 18px}
 .dk-desk{aspect-ratio:470 / 420}

@@ -629,6 +629,48 @@
   /* Live mini scenes: play only while on screen, so off-screen loops cost nothing */
   var lives=$$('[data-live]');
   if(lives.length&&'IntersectionObserver' in window){ var lio=new IntersectionObserver(function(es){ es.forEach(function(en){ en.target.classList.toggle('is-live',en.isIntersecting); }); },{threshold:.3}); lives.forEach(function(el){ lio.observe(el); }); }
+  /* City pages: quote checker. Counts what a studio's quote includes, names what is missing, places the price in that
+     city's market bands, and types the result into the WhatsApp message. Without JS it stays a plain checklist. */
+  $$('[data-qcheck]').forEach(function(q){
+    var boxes=$$('input[type=checkbox]',q), price=$('[data-qc-price]',q), n=$('[data-qc-n]',q), band=$('[data-qc-band]',q), msg=$('[data-qc-msg]',q),
+        missW=$('[data-qc-misswrap]',q), miss=$('[data-qc-miss]',q), wa=$('[data-qc-wa]',q), live=$('[data-qc-live]',q), city=q.dataset.city||'';
+    var bands=[]; try{ bands=JSON.parse(q.dataset.bands||'[]'); }catch(e){}
+    var base=wa.getAttribute('href').split('?text=')[0], fmt=new Intl.NumberFormat('en-IN');
+    function run(){
+      var on=boxes.filter(function(b){ return b.checked; }), off=boxes.filter(function(b){ return !b.checked; }), k=on.length, pr=Math.max(0,Math.round(+price.value||0));
+      n.textContent=k; if(live) live.textContent=k?k+' of '+boxes.length+' ticked':'';
+      var t='Enter the price and tick what the quote includes.';
+      if(pr){ for(var i=0;i<bands.length;i++){ if(!bands[i][0]||pr<=bands[i][0]){ t='₹'+fmt.format(pr)+' is '+bands[i][1]; break; } } }
+      band.textContent=t;
+      msg.textContent= !k?'':k>=9?'A complete quote. Now compare the price, and how they will work with you.':k>=6?'A good start. Get the missing items in writing before you pay.':'This quote leaves a lot unsaid. Missing items often come back later as extra charges.';
+      miss.textContent=''; off.forEach(function(x){ var li=document.createElement('li'); li.textContent=x.getAttribute('data-qc-item'); miss.appendChild(li); });
+      missW.hidden=!(k&&off.length);
+      var m='Hi Mehul, I got a website quote in '+city+(pr?' for ₹'+fmt.format(pr):'')+(k?'. It covers '+k+' of the '+boxes.length+' items on your checklist':'')+'. Can you check it for me?';
+      wa.setAttribute('href',base+'?text='+encodeURIComponent(m));
+    }
+    q.addEventListener('change',run); price.addEventListener('input',run); run();
+  });
+  /* City pages: business picker. Tabs with arrow keys; without JS every panel shows. */
+  $$('[data-picker]').forEach(function(pk){
+    var tabs=$$('[role=tab]',pk), panels=$$('[role=tabpanel]',pk);
+    function pick(t,focus){
+      tabs.forEach(function(x){ var on=x===t; x.setAttribute('aria-selected',String(on)); x.tabIndex=on?0:-1; });
+      panels.forEach(function(p){ if(p.id===t.getAttribute('aria-controls')) p.removeAttribute('data-off'); else p.setAttribute('data-off',''); });
+      if(focus) t.focus();
+    }
+    tabs.forEach(function(t,i){
+      t.addEventListener('click',function(){ pick(t); });
+      t.addEventListener('keydown',function(e){ var d=e.key==='ArrowRight'?1:e.key==='ArrowLeft'?-1:0; if(d){ e.preventDefault(); pick(tabs[(i+d+tabs.length)%tabs.length],true); } });
+    });
+  });
+  /* City pages: the same sample lines in English and the city's language */
+  $$('[data-langdemo]').forEach(function(ld){
+    var bs=$$('button',ld), vs=$$('.ld__v',ld);
+    bs.forEach(function(b){ b.addEventListener('click',function(){
+      bs.forEach(function(x){ x.setAttribute('aria-pressed',String(x===b)); });
+      vs.forEach(function(v){ if(v.getAttribute('data-l')===b.getAttribute('data-l')) v.removeAttribute('data-off'); else v.setAttribute('data-off',''); });
+    }); });
+  });
   /* Commission calculator (restaurant page). The HTML already shows the worked example; this only re-does the sums. */
   $$('[data-calc]').forEach(function(c){
     var f=$('form',c), price=+c.dataset.price, fee=.0236;

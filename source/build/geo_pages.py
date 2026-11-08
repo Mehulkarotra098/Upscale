@@ -158,6 +158,7 @@ def Svg(key):             return dict(t='svg', key=key)
 def Calc():               return dict(t='calc')
 def Tools(lang='en'):     return dict(t='tools', lang=lang)
 def Img(key):             return dict(t='img', key=key)  # a product shot from IMG, with its caption
+def Html(html, text=''):  return dict(t='html', html=html, text=text)  # a ready-made widget (city pages); text is its llms-full.txt version
 
 
 def Sec(h, *blocks, eyebrow='', lead='', layout='split', tone='', sid=''):
@@ -916,6 +917,7 @@ def render(b):
     if t == 'svg': return SVGS[b['key']]()
     if t == 'calc': return _calc()
     if t == 'tools': return _tools(b)
+    if t == 'html': return b['html']
     if t == 'img':
         img = IMG[b['key']]
         return (f'<figure class="fp-shot" data-reveal><div class="fp-shot__stage">{_pic(img, "(max-width: 1023px) 92vw, 720px")}</div>'
@@ -949,6 +951,7 @@ def text(b):
     if t == 'links': return '\n'.join(f'- {tt}: {d}' + (f' ({pr})' if pr else '') for _, _, tt, d, pr in b['items'])
     if t == 'chips': return f'{b["label"]}: ' + ', '.join(b['items'])
     if t in ('svg', 'img'): return ''
+    if t == 'html': return b['text']
     if t == 'calc': return _calc_text()
     if t == 'tools': return ('- Free Google Business Profile checker: a score out of 100 and a fix list in about 2 minutes.\n'
                              '- Free Google review QR code maker: a printable counter standee that brings in reviews.')

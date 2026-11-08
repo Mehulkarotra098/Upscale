@@ -20,7 +20,7 @@ import geo_pages as GP
 import seo_pages as SP
 import svc_pages as SVP
 import depth_art as DA
-from geo_pages import (P, Cards, Table, Options, Links, Chips, Note, Stat, Range, Tools, Img, Sec, icon, price, rupees, _fmt, _short)
+from geo_pages import (P, Cards, Table, Options, Links, Chips, Note, Stat, Range, Tools, Img, Html, Sec, icon, price, rupees, _fmt, _short)
 
 e, ea = SP.e, SP.ea
 
@@ -32,6 +32,12 @@ OFFERS = ['Landing page', 'Business site, 3–4 pages', 'Business site, 5–10 p
 
 
 # ---------------------------------------------------------------- hero: what a website costs in this city
+SEAL = ('<svg viewBox="0 0 120 120"><defs><path id="dkseal-c" d="M60 60m-42 0a42 42 0 1 1 84 0a42 42 0 1 1-84 0"/></defs>'
+        '<circle cx="60" cy="60" r="56"/><circle cx="60" cy="60" r="34" class="in"/>'
+        '<text><textPath href="#dkseal-c" startOffset="0" textLength="262" lengthAdjust="spacingAndGlyphs">FIXED PRICE · IN WRITING · </textPath></text>'
+        '<text x="60" y="68" text-anchor="middle" class="big">₹</text></svg>')
+
+
 def cost_card(p):
     """A sample price sheet with depth: the city's market ranges (from its sources) against U Scale's fixed prices,
     a FIXED PRICE seal and a chip for how the work happens (remotely, from Mumbai)."""
@@ -48,11 +54,7 @@ def cost_card(p):
             f'<span><b>What a website costs in {e(p["city"])}</b><small>Market ranges vs fixed prices · {e(c["when"])}</small></span></p>'
             f'<ul>{rows}</ul><p class="dk-cost__s" aria-hidden="true">{ticks}</p>'
             f'<p class="fp-ticket__f">{icon("file")}{e(c["foot"])}</p></div>')
-    seal = ('<svg viewBox="0 0 120 120"><defs><path id="dkseal-c" d="M60 60m-42 0a42 42 0 1 1 84 0a42 42 0 1 1-84 0"/></defs>'
-            '<circle cx="60" cy="60" r="56"/><circle cx="60" cy="60" r="34" class="in"/>'
-            '<text><textPath href="#dkseal-c" startOffset="0" textLength="262" lengthAdjust="spacingAndGlyphs">FIXED PRICE · IN WRITING · </textPath></text>'
-            '<text x="60" y="68" text-anchor="middle" class="big">₹</text></svg>')
-    floats = (DA._float('dk-seal', seal, 110, 0)
+    floats = (DA._float('dk-seal', SEAL, 110, 0)
               + DA._float('dk-chip dk-route', f'{icon("chat")}Mumbai ⇄ {e(p["city"])} · WhatsApp &amp; video', 90, 1))
     return DA._dk('city', card, floats, sheets=2, label=f'What a website costs in {p["city"]}: market ranges compared with U Scale’s fixed prices')
 
@@ -67,12 +69,12 @@ def _hero(p, wa, icons):
         <p class="eyebrow">{e(p['eyebrow'])}</p><h1 class="sp-hero__title fp-hero__title" id="page-title">{e(p['h1'])}<span class="dot">.</span></h1>
         <p class="sp-hero__lead">{GP.lead_html(p['lead'])}</p>
         <div class="fp-hero__ctas">
-          <div class="hero__cta" data-wa-zone><a class="btn btn--go" href="{ea(wa)}" target="_blank" rel="noopener" data-magnetic>{icons['ICON_CHAT']}Free audit on WhatsApp</a></div>
-          <a class="btn btn--ghost fp-hero__more" href="#brief-title">See prices &amp; facts</a>
+          <div class="hero__cta" data-wa-zone><a class="btn btn--go" href="{ea(wa)}" target="_blank" rel="noopener" data-magnetic>{icons['ICON_CHAT']}{e(p.get('hero_btn', 'Free audit on WhatsApp'))}</a></div>
+          <a class="btn btn--ghost fp-hero__more" href="{ea(p.get('hero_more', ('#brief-title', ''))[0])}">{e(p.get('hero_more', ('', 'See prices & facts'))[1])}</a>
         </div>
         <ul class="stats fp-stats">{stats}</ul>
       </div>
-      {cost_card(p)}
+      {ART[p.get('art', 'cost')](p)}
     </section>
   </div>'''
 
@@ -111,8 +113,8 @@ def _cta(p, wa, icons):
     <div class="wrap">
       <div class="panel on-dark" data-tone="dark">
         <div class="cta__copy">
-          <h2 class="sp-cta__title" id="cta-title">Get a free audit<span class="dot">.</span></h2>
-          <p class="lead">Tell me about your {e(p['city'])} business. I reply within 24 hours, usually much faster on WhatsApp.</p>
+          <h2 class="sp-cta__title" id="cta-title">{e(p.get('cta_h', 'Get a free audit'))}<span class="dot">.</span></h2>
+          <p class="lead">{e(p.get('cta_lead') or f"Tell me about your {p['city']} business. I reply within 24 hours, usually much faster on WhatsApp.")}</p>
           <div class="cta__btns" data-wa-zone>
             <a class="btn btn--go" href="{ea(wa)}" target="_blank" rel="noopener" data-magnetic>{icons['ICON_CHAT']}Chat on WhatsApp</a>
             <a class="btn btn--ghost" href="mailto:{SP.EMAIL}">Email me</a>
@@ -128,7 +130,8 @@ def _cta(p, wa, icons):
 
 
 def _jsonld(site, url, p):
-    imgs = SVP._images(site, url, dict(art=dict(kind='city'), sections=p['sections'], who=True))
+    extra = [Sec('', *[Img(k) for k in p.get('imgs', [])])]  # images inside widgets (the business picker)
+    imgs = SVP._images(site, url, dict(art=dict(kind='city'), sections=p['sections'] + extra, who=True))
     city = {'@type': 'City', 'name': p['city'], 'sameAs': p['wiki'], 'containedInPlace': {'@type': 'State', 'name': p['state']}}
     main = {'@type': 'Service', '@id': url + '#service', 'name': p['service'], 'serviceType': 'Website design and development', 'url': url,
             'description': p['answer'], 'provider': {'@id': site + '#business'}, 'areaServed': city, 'availableChannel': {
@@ -154,7 +157,7 @@ def _jsonld(site, url, p):
 def page(ctx, parts, p):
     site = ctx['SITE_URL']; url = site + p['path']
     icons = ctx['ICONS']
-    wa = SVP.WA + urllib.parse.quote(f"Hi Mehul, I run a business in {p['city']} and found your page. I'd like a free audit for my website.")
+    wa = SVP.WA + urllib.parse.quote(p.get('wa') or f"Hi Mehul, I run a business in {p['city']} and found your page. I'd like a free audit for my website.")
     toc = [((s['sid'] or f's{i}') + '-title', s['h']) for i, s in enumerate(p['sections'])] + [('how-title', 'How it works'), ('faq-title', 'Questions')]
     body = (_hero(p, wa, icons)
             + aeo.brief_html(p['answer'], p['facts'], 'Key facts: ' + p['service'], 'brief-title', toc, 'On this page', fold=3)
@@ -174,7 +177,7 @@ def build(ctx, parts):
 def images_by_url(site):
     def keys(p):
         ks = [b['key'] for s in p['sections'] for b in s['blocks'] if b['t'] == 'img']
-        return list(dict.fromkeys(ks)) + ['mehul']
+        return list(dict.fromkeys(ks + p.get('imgs', []))) + ['mehul']
     return {site + p['path']: [(site + GP.IMG[k]['file'][1:] + '.webp', GP.IMG[k]['caption']) for k in keys(p)] for p in CITIES}
 
 
@@ -244,6 +247,82 @@ def chips(*keys):
 
 COPY = price('Website copy')
 FIT_NOTE = 'Not sure? The first audit is free either way, and I’ll tell you honestly if a local studio suits you better.'
+REST, LSEO = price('Restaurant site + own online ordering'), price('Local SEO / Google Business Profile')
+
+
+# ---------------------------------------------------------------- widgets that tailor a page to how its city buys
+# Each city page leads with what its owners care about most, not one template with the facts swapped:
+#   Pune: owners compare quotes hard (studios there advertise ₹5k–₹10k packages) and like plain talk, so the page opens on a
+#   Puneri patya of honest terms, then a quote checker, then a picker for the city's real business mix.
+def patya_card(p):
+    """Pune's famous blunt signboards (puneri patya), turned into U Scale's terms. The 1-to-4 line is the city's own joke."""
+    rules = ['Price is fixed in writing. No “extras” later.',
+             'Your domain is registered in your name. Not mine.',
+             'Questions on WhatsApp are welcome. Even between 1 and 4.',
+             'If a Pune studio suits you better, I’ll say so.']
+    li = ''.join(f'<li style="--i:{i}"><b>{i + 1}.</b><span>{e(r)}</span></li>' for i, r in enumerate(rules))
+    card = (f'<div class="dk__card patya"><span class="patya__screw" aria-hidden="true"></span><span class="patya__screw patya__screw--r" aria-hidden="true"></span>'
+            f'<p class="patya__h"><b lang="mr">सूचना</b><span>Notice to Pune businesses</span></p><ol>{li}</ol>'
+            f'<p class="patya__s">— Mehul, U Scale</p></div>')
+    floats = (DA._float('dk-seal', SEAL, 110, 0)
+              + DA._float('dk-chip dk-route', f'{icon("chat")}Mumbai ⇄ {e(p["city"])} · WhatsApp &amp; video', 90, 1))
+    return DA._dk('patya', card, floats, sheets=1, label='Notice to Pune businesses: ' + ' '.join(rules))
+
+
+ART = {'cost': cost_card, 'patya': patya_card}
+
+QC_ITEMS = ['A design made for your business, not a ready-made theme', 'The number of pages, written down', 'Built and tested for phones',
+            'Who writes the text, and what it costs', 'The domain registered in your name', 'What hosting and the domain cost after year one',
+            'How many rounds of design changes', 'A bug-fix period after launch', 'Basic SEO: page titles, Search Console, speed',
+            'Every login handed over to you']
+
+
+def quote_checker(p, bands):
+    """Tick what a studio's quote includes: a score, what to ask about, and the result typed into a WhatsApp message.
+    Without JavaScript it is still a checklist of what a quote should say. bands: [(up to ₹, text)], 0 = everything above."""
+    wa = SVP.WA + urllib.parse.quote(f"Hi Mehul, I got a website quote in {p['city']}. Can you check it for me?")
+    li = ''.join(f'<li><label class="qc__opt"><input type="checkbox" data-qc-item="{ea(t)}"><span class="qc__box" aria-hidden="true">{icon("check")}</span>'
+                 f'<span>{e(t)}</span></label></li>' for t in QC_ITEMS)
+    return Html(f'''<div class="qc" data-qcheck data-city="{ea(p['city'])}" data-bands="{ea(json.dumps(bands, ensure_ascii=False))}" data-reveal>
+        <div class="qc__form">
+          <label class="qc__price"><span>The quote’s price</span><span class="qc__inr"><b aria-hidden="true">₹</b><input type="number" inputmode="numeric" min="0" step="500" placeholder="18000" data-qc-price></span></label>
+          <p class="qc__q">What does it include, in writing? <span class="qc__live" data-qc-live></span></p>
+          <ul class="qc__list">{li}</ul>
+        </div>
+        <div class="qc__out" aria-live="polite">
+          <p class="qc__k">Your quote</p>
+          <p class="qc__score"><b data-qc-n>0</b><span>of {len(QC_ITEMS)} covered</span></p>
+          <p class="qc__band" data-qc-band>Enter the price and tick what the quote includes.</p>
+          <p class="qc__msg" data-qc-msg></p>
+          <div class="qc__miss" data-qc-misswrap hidden><p>Ask about these before you pay:</p><ul data-qc-miss></ul></div>
+          <a class="btn btn--go" href="{ea(wa)}" target="_blank" rel="noopener" data-qc-wa>{icon("chat")}Send me your quote: free check</a>
+          <p class="qc__note">I’ll tell you honestly if it’s a fair deal, even if it isn’t mine.</p>
+        </div>
+      </div>''', text='Before you pay any web studio, check that the quote includes, in writing: ' + '; '.join(QC_ITEMS).lower() + '.')
+
+
+def picker(items, label):
+    """Tabs, one per kind of local business: what its website must do, and what it usually costs with U Scale.
+    Without JavaScript every panel shows, one after another. items: (key, icon, tab, title, lead, musts, fit, extra html)."""
+    tabs = panels = ''
+    for i, (k, ic, tab, title, lead, musts, fit, extra) in enumerate(items):
+        tabs += (f'<button type="button" role="tab" id="bp-t-{k}" aria-controls="bp-p-{k}" aria-selected="{"true" if i == 0 else "false"}" '
+                 f'tabindex="{0 if i == 0 else -1}">{icon(ic)}<span>{e(tab)}</span></button>')
+        must = ''.join(f'<li>{icon("check")}<span>{e(m)}</span></li>' for m in musts)
+        panels += (f'<div class="bp__panel{"" if extra else " bp__panel--solo"}" role="tabpanel" id="bp-p-{k}" aria-labelledby="bp-t-{k}"{"" if i == 0 else " data-off"}>'
+                   f'<div><h3>{e(title)}</h3><p>{lead}</p><ul class="bp__must">{must}</ul><p class="bp__fit">{icon("rupee")}<span>{fit}</span></p></div>{extra}</div>')
+    text = '\n'.join(f'- {title}: ' + '; '.join(musts) + f'. {GP._text(fit)}' for _, _, _, title, _, musts, fit, _ in items)
+    return Html(f'<div class="bp" data-picker data-reveal><div class="bp__tabs" role="tablist" aria-label="{ea(label)}">{tabs}</div>{panels}</div>', text=text)
+
+
+def lang_demo(sample, local_name, code, en, local):
+    """The same two lines in English and the city's language, switchable: what a bilingual site looks like."""
+    def v(l, pair, lang=''):
+        return f'<div class="ld__v" data-l="{l}"{f" lang={chr(34)}{lang}{chr(34)}" if lang else ""}{"" if l == "en" else " data-off"}><b>{e(pair[0])}</b><span>{e(pair[1])}</span></div>'
+    return Html(f'''<div class="ld" data-langdemo data-reveal>
+        <div class="ld__sw" role="group" aria-label="Language of the sample"><button type="button" data-l="en" aria-pressed="true">English</button><button type="button" data-l="{code}" lang="{code}" aria-pressed="false">{e(local_name)}</button></div>
+        <div class="ld__card"><p class="ld__k">{e(sample)}</p>{v("en", en)}{v(code, local, code)}</div>
+      </div>''', text=f'{sample}: "{en[0]}" / "{local[0]}"')
 
 
 # ---------------------------------------------------------------- the cities
@@ -254,9 +333,12 @@ CITIES = [
   title='Website Design & Development in Pune, from ₹25,000',
   desc=f'Websites for Pune businesses, designed and hand-coded by Mehul Karotra: landing page {LANDING}, business site {BIZ}, fixed in writing. Over WhatsApp.',
   h1='Website design & development in Pune', eyebrow='For Pune businesses',
-  lead='I’m Mehul Karotra, a website designer and developer based in Mumbai. I design and hand-code websites for Pune businesses over WhatsApp and video '
-       'calls, with the same fixed prices, process and ownership as my Mumbai clients.',
-  stats=[(LANDING, 'Websites from'), ('3–4 wk', 'Business site, live in'), ('Free', 'Audit before you pay')],
+  lead='I’m Mehul Karotra, a website designer in Mumbai. Pune businesses hire me for hand-coded websites at a price fixed in writing before any '
+       'work starts. We work over WhatsApp and video calls, and you own everything at the end.',
+  stats=[(LANDING, 'Websites from'), ('3–4 wk', 'Business site, live in'), ('Free', 'Quote check on WhatsApp')],
+  art='patya', imgs=['city-pune'], hero_btn='Free quote check', hero_more=('#quote-check', 'Check a quote yourself'), wa="Hi Mehul, I run a business in Pune. Can you check my website quote, or give me one?",
+  cta_h='Send me your quote',
+  cta_lead='Got a quote from a Pune studio, or none yet? Send it on WhatsApp and I’ll tell you honestly what’s fair. I reply within 24 hours, usually much faster.',
   cost=dict(scale=150000, ticks=[0, 50000, 100000, 150000], when='Nov 2026', foot='From 4 Pune studios’ own price pages, seen 8 Nov 2026',
             rows=[('Template site', 'Ready-made WordPress or Wix theme', 5000, 18000, '₹5k–₹18k'),
                   ('Business site, 5–10 pages', 'Pune studios', 20000, 60000, '₹20k–₹60k'),
@@ -275,6 +357,12 @@ CITIES = [
          ('Languages', 'English and Hindi; Marathi pages built from your own Marathi text'),
          ('Ownership', 'Your domain, code and logins, in your name')],
   sections=[
+   Sec('Got a quote from a Pune studio? Check it here',
+       quote_checker(dict(city='Pune'), [(19000, 'in Pune’s template range (₹5k–₹18k). Usually a ready-made theme with your logo on it.'),
+                                         (60000, 'in the range Pune studios charge for a 5–10 page business site (₹20k–₹60k).'),
+                                         (0, 'in Pune’s custom-design range (₹60k–₹1.5L) and above.')]),
+       eyebrow='Quote checker', lead='Tick what your quote includes. You’ll see what’s missing, and what to ask before you pay anyone, me included.',
+       layout='wide', sid='quote-check'),
    Sec('What a website costs in Pune in 2026',
        P('Four Pune web studios publish their prices, and on 8 November 2026 they put a template website (a ready-made WordPress or Wix theme) at '
          '₹5,000–₹18,000, a 5–10 page business website at ₹20,000–₹60,000, a custom-designed site at ₹60,000–₹1.5 lakh and an online store at '
@@ -286,33 +374,49 @@ CITIES = [
             'with your logo on it. The cheapest packages often bundle the first year of domain and hosting and charge for it every year after: '
             'ask what renewal costs before you pay.'),
        eyebrow='Pune prices', layout='wide', sid='prices'),
-   Sec('What Pune’s businesses need from a website',
-       Stat('15%', 'of Maharashtra’s 6.6 million Udyam registrations are in Pune district (July 2020 to August 2026)', 'mh-udyam'),
-       P('An analysis of about 9.1 lakh Pune district entries in the Udyam data (March 2026) found manufacturing and trade at about 40% of registrations, '
-         'food and accommodation at about 9%, and a surprising number of travel agencies, many of them cab operators working around Pune and '
-         'Pimpri-Chinchwad. Not every registration is a trading business, but the mix tells you what Pune’s websites have to do. ' + chips('pune-udyam')),
-       Cards([('box', 'Manufacturers and suppliers', 'A product catalogue in English with specifications and PDFs, an enquiry form that asks for quantities and '
-                'drawings, and a link to your IndiaMART listing. Buyers check your website before they call.'),
-              ('store', 'Shops and traders', 'Timings, a map, photos of what’s in stock and an “Order on WhatsApp” button. Your Google listing does most of '
-                'the work; the website backs it up.'),
-              ('menu', 'Restaurants, cafés and stays', 'Menu, photos and your own ordering or booking link, so regulars stop paying app commission. '
-                '<a class="tlink" href="/services/website-design-mumbai/restaurants-cafes">How that works</a>.'),
-              ('truck', 'Cabs and travel agencies', 'Routes and fares in plain words, one-tap call and WhatsApp, and your reviews up front. These are booked on a '
-                'phone, in a hurry.'),
-              ('team', 'Classes and institutes', 'Courses, batches, fees and results, with an enquiry button on every page. Pune is known as the “Oxford of '
-                'the East”, and students compare institutes on their phones.')], cols=3,
-             cta=('/pricing', 'rupee', 'Every price, published', 'Websites, SEO and monthly services, with a quote builder you can send on WhatsApp.', 'See prices')),
-       Img('city-pune'),
-       eyebrow='Pune’s businesses'),
+   Sec('What does your Pune business need from its website?',
+       P('About 9.1 lakh Pune district entries in the Udyam data (March 2026) show what the city runs on: manufacturing and trade at about 40% of '
+         'registrations, food and accommodation at about 9%, and a surprising number of travel agencies, many of them cab operators around Pune and '
+         'Pimpri-Chinchwad. Pick yours. ' + chips('pune-udyam')),
+       picker([
+        ('make', 'box', 'Manufacturer or supplier', 'Manufacturers and suppliers',
+         'Buyers from other cities judge you by your website before they call, from Pimpri-Chinchwad to Chakan. Give them specifications, not slogans.',
+         ['A product catalogue in English, with specifications and PDF downloads', 'An enquiry form that asks for quantity, material and drawings',
+          'Certifications and the industries you supply, on the first screen', 'A link to your IndiaMART listing, with the same details on both'],
+         f'Usually a 5–10 page site with a blog: {BLOG}, fixed in writing.', ''),
+        ('shop', 'store', 'Shop or trader', 'Shops and traders',
+         'Most customers find you on Google Maps first. The website backs your listing up and takes orders on WhatsApp.',
+         ['Timings, an exact map pin and one-tap directions', 'Photos of what’s in stock, easy for you to update',
+          'An “Order on WhatsApp” button on every product or category', 'Marathi and English, if your customers read both'],
+         f'Usually a landing page ({LANDING}) with local SEO ({LSEO}).', ''),
+        ('food', 'menu', 'Café or restaurant', 'Cafés and restaurants',
+         'Food and accommodation is about 9% of Pune’s Udyam registrations. Your regulars should be able to order from you directly.',
+         ['A menu with prices you can update yourself', 'Your own ordering link, so regulars skip the app commission',
+          'Timings, map and a one-tap call button', 'Table and party enquiries straight to WhatsApp'],
+         f'A restaurant site with your own online ordering: {REST}, fixed. <a class="tlink" href="/services/website-design-mumbai/restaurants-cafes">How that works</a>.', ''),
+        ('cabs', 'truck', 'Cabs or travel', 'Cabs and travel agencies',
+         'Travel agencies, many of them cab operators, are a surprisingly large share of Pune’s registrations. People book them on a phone, in a hurry.',
+         ['Routes and fares in plain words: airport, Mumbai, outstation', 'One-tap call and WhatsApp, visible without scrolling',
+          'Your reviews and vehicle photos up front', 'Pages that load fast on mobile data'],
+         f'Usually a landing page: {LANDING}, live in under 2 weeks.', ''),
+        ('class', 'team', 'Classes or institute', 'Classes and institutes',
+         'Pune is known as the “Oxford of the East”. Students compare institutes on their phones, and parents often check too.',
+         ['Courses, batches and fees on one clear page', 'Results and teachers, with real photos',
+          'An enquiry button on every page, straight to WhatsApp', 'Marathi for parents who prefer it'],
+         f'Usually a 3–4 page business site: {BIZ}, fixed.', GP.render(Img('city-pune'))),
+       ], 'Your kind of business'),
+       eyebrow='Pune’s businesses', layout='wide', sid='business'),
    Sec('Getting found in Pune: Google, directories and AI',
        Cards([('pin', 'One Google listing, two cities', 'Pune district has two big urban centres, Pune and Pimpri-Chinchwad. If you visit customers, list both '
                 'as service areas; if they visit you, keep the pin exact and name your area on the website.'),
               ('chat', 'Marathi, Hindi and English', 'The district administration names all three as Pune’s major languages. Write your services the way '
-                'customers search, and add Marathi pages if your customers read Marathi. ' + chips('pune-gov')),
+                'customers search, and add Marathi where your customers read it. ' + chips('pune-gov')),
               ('file', 'The same details everywhere', 'Justdial, Sulekha and IndiaMART listings with exactly the same name, phone number and area as your '
                 'website and Google listing.'),
               ('bolt', 'Ready for AI answers', 'Prices, services and timings written as plain text, so ChatGPT, Gemini and Google’s AI can quote them '
                 'when someone asks for a recommendation in Pune.')], cols=2),
+       lang_demo('Sample: a Pune classes website, in English and Marathi', 'मराठी', 'mr',
+                 ('Admissions open for Class 10', 'Call or WhatsApp us'), ('इयत्ता दहावीसाठी प्रवेश सुरू', 'कॉल किंवा WhatsApp करा')),
        eyebrow='Local search', tone='band'),
    Sec('Is a Mumbai designer right for your Pune business?',
        Options([dict(name='A good fit', tag='Most small businesses', hi=True, rows=[
