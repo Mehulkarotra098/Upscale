@@ -3,12 +3,16 @@ import assert from 'node:assert/strict';
 import test from 'node:test';
 import { withLicence } from '../../server/media/licence.js';
 
-const LOSSY = Buffer.from('UklGRjQAAABXRUJQVlA4ICgAAABwAQCdASoFAAMAAUAmJaACdAFAAAD+77zxU/+4OP/7g4//uDj90wAA', 'base64');   // 5x3
-const ALPHA = Buffer.from('UklGRiIAAABXRUJQVlA4TBYAAAAvA0ABEAdQ5CpUq3gBgCD8b5uI6H8I', 'base64');                          // 4x6, lossless, alpha
+const LOSSY = Buffer.from('UklGRjQAAABXRUJQVlA4ICgAAABwAQCdASoFAAMAAUAmJaACdAFAAAD+77zxU/+4OP/7g4//uDj90wAA', 'base64'); // 5x3
+const ALPHA = Buffer.from('UklGRiIAAABXRUJQVlA4TBYAAAAvA0ABEAdQ5CpUq3gBgCD8b5uI6H8I', 'base64'); // 4x6, lossless, alpha
 
 function chunks(buf) {
   const out = [];
-  for (let i = 12; i + 8 <= buf.length;) { const n = buf.readUInt32LE(i + 4); out.push([buf.toString('latin1', i, i + 4), buf.subarray(i + 8, i + 8 + n)]); i += 8 + n + (n & 1); }
+  for (let i = 12; i + 8 <= buf.length;) {
+    const n = buf.readUInt32LE(i + 4);
+    out.push([buf.toString('latin1', i, i + 4), buf.subarray(i + 8, i + 8 + n)]);
+    i += 8 + n + (n & 1);
+  }
   return out;
 }
 
@@ -16,7 +20,10 @@ test('a simple lossy WebP gets VP8X, EXIF and XMP; the image chunk is byte-for-b
   const out = withLicence(LOSSY, { title: 'Sample', desc: 'Alt & “text” ₹' });
   assert.equal(out.readUInt32LE(4), out.length - 8);
   const c = chunks(out);
-  assert.deepEqual(c.map((x) => x[0]), ['VP8X', 'VP8 ', 'EXIF', 'XMP ']);
+  assert.deepEqual(
+    c.map((x) => x[0]),
+    ['VP8X', 'VP8 ', 'EXIF', 'XMP '],
+  );
   assert.equal(c[0][1][0] & 0x0c, 0x0c);
   assert.equal(c[0][1].readUIntLE(4, 3) + 1, 5);
   assert.equal(c[0][1].readUIntLE(7, 3) + 1, 3);
