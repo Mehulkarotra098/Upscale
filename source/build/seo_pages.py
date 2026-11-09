@@ -778,14 +778,15 @@ def tool_page(ctx, parts, tv):
         <div class="cta__copy">
           <h2 class="sp-cta__title" id="cta-title">Want more customers from Google<span class="dot">?</span></h2>
           <p class="lead">I check your Google profile, reviews and website for free and send you the five fixes that matter most.</p>
-          <div class="cta__btns" data-wa-zone><a class="btn btn--go" href="{ea(wa_link('Hi Mehul, I made my Google review QR code on uscale.in. Can you help me get more Google reviews?'))}" target="_blank" rel="noopener" data-magnetic>{ctx['ICONS']['ICON_CHAT']}Chat on WhatsApp</a><a class="btn btn--ghost" href="/services/seo-mumbai">Local SEO service</a></div>
+          <div class="cta__btns" data-wa-zone><a class="btn btn--go" href="{wa_qr}" target="_blank" rel="noopener" data-magnetic>{ctx['ICONS']['ICON_CHAT']}Chat on WhatsApp</a><a class="btn btn--ghost" href="/services/seo-mumbai">Local SEO service</a></div>
         </div>
       </div>
     </div>
   </section>
 '''
     body = (body.replace('{brief}', __import__('aeo').brief_html(QR_ANSWER, QR_FACTS, 'Key facts: Google review QR code maker', 'rq-brief'))
-            .replace('{h1}', e(t['h1'])).replace('{lead}', e(t['lead'])).replace('{swatches}', swatches).replace('{tpls}', tpls).replace('{formats}', formats).replace('{guides}', tool_guides()).replace('{faq}', faq_html(t['faq'])).replace('{more}', _tool_card('gp')))
+            .replace('{h1}', e(t['h1'])).replace('{lead}', e(t['lead'])).replace('{swatches}', swatches).replace('{tpls}', tpls).replace('{formats}', formats).replace('{guides}', tool_guides()).replace('{faq}', faq_html(t['faq'])).replace('{more}', _tool_card('gp'))
+            .replace('{wa_qr}', ea(wa_link('Hi Mehul, I made my Google review QR code on uscale.in. Can you help me get more Google reviews?'))))
     return f'''<!doctype html>
 <html lang="en-IN">
 <head>
@@ -1041,7 +1042,7 @@ def gbp_page(ctx, parts, tv):
         <div class="cta__copy">
           <h2 class="sp-cta__title" id="cta-title">Want your Google profile fixed for you<span class="dot">?</span></h2>
           <p class="lead">I set up and run Google profiles for Mumbai businesses: categories, photos, weekly posts, a review system and a website that matches.</p>
-          <div class="cta__btns" data-wa-zone><a class="btn btn--go" href="{ea(wa_link('Hi Mehul, I checked my Google profile on uscale.in. Can you fix it for me?'))}" target="_blank" rel="noopener" data-magnetic>{ctx['ICONS']['ICON_CHAT']}Chat on WhatsApp</a><a class="btn btn--ghost" href="/services/seo-mumbai">Local SEO service</a></div>
+          <div class="cta__btns" data-wa-zone><a class="btn btn--go" href="{wa_gp}" target="_blank" rel="noopener" data-magnetic>{ctx['ICONS']['ICON_CHAT']}Chat on WhatsApp</a><a class="btn btn--ghost" href="/services/seo-mumbai">Local SEO service</a></div>
         </div>
       </div>
     </div>
@@ -1049,7 +1050,8 @@ def gbp_page(ctx, parts, tv):
 '''
     body = (body.replace('{brief}', __import__('aeo').brief_html(GBP_ANSWER, GBP_FACTS, 'Key facts: Google Business Profile checker', 'gp-brief'))
             .replace('{art}', _gbp_art()).replace('{h1}', e(t['h1'])).replace('{lead}', e(t['lead'])).replace('{faq}', faq_html(t['faq']))
-            .replace('{more}', _tool_card('qr')).replace('{psi}', ea(PSI_KEY)))
+            .replace('{more}', _tool_card('qr')).replace('{psi}', ea(PSI_KEY))
+            .replace('{wa_gp}', ea(wa_link('Hi Mehul, I checked my Google profile on uscale.in. Can you fix it for me?'))))
     head = _tool_head(ctx, url, t['title'], t['desc'], og, 'Free Google Business Profile checker by U Scale', gbp_jsonld(site, t), tv)
     return f'''{head}
 <body class="page-sub page-tool page-gp">
