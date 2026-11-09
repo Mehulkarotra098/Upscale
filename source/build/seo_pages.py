@@ -45,7 +45,7 @@ SERVICES = [
        ('Can you redesign my existing website?','Yes. I start with an audit of what works and what leaks enquiries, then redesign around that.')]),
  dict(slug='seo-mumbai', short='SEO', cta='SEO', name='SEO Services', cta_h='Let’s get you found on Google', wa="Hi Mehul, I'd like to talk about SEO for my business.",
   title='SEO Expert in Mumbai: Local SEO from ₹15,000/Month',
-  desc='Freelance SEO by Mehul Karotra: Google Maps and local SEO ₹15,000 a month, technical SEO ₹25,000. Monthly report, your listing stays yours, no ranking guarantees. Free first check.',
+  desc='Freelance SEO by Mehul Karotra: Google Maps and local SEO ₹15,000 a month, technical SEO ₹25,000. Monthly report, no ranking guarantees. Free first check.',
   h1='SEO services in Mumbai',
   lead='I’m a freelance SEO consultant in Mumbai. I help your business show up when nearby customers search on Google and Google Maps. Local SEO, technical fixes and content, done personally, with honest monthly reporting.',
   who='For local businesses that depend on people searching "near me", and for service businesses that want steady enquiries without paying for every click.',
@@ -112,7 +112,7 @@ SERVICES = [
        ('Will I see where my money goes?','Yes. You own the ad accounts and get a monthly report showing spend, leads and cost per lead.')]),
  dict(slug='ai-search-visibility', short='AI search', cta='AI search visibility', name='AI Search Visibility (GEO)', cta_h='Let’s see what AI says about you', wa="Hi Mehul, I'd like to check what ChatGPT and Google say about my business.",
   title='AI Search Visibility in India: What ChatGPT Says About You',
-  desc='See what ChatGPT, Gemini and Google AI tell customers about your business, then fix the facts they rely on. ₹2,500 audit or ₹12,000 a month. Nobody can guarantee a mention.',
+  desc='See what ChatGPT, Gemini and Google AI tell customers about your business, then fix the facts they use. ₹2,500 audit or ₹12,000 a month. No mention guaranteed.',
   h1='AI search visibility (GEO)',
   lead="When someone asks ChatGPT, Gemini or Google’s AI to recommend a business like yours, are you mentioned, and is what they say correct? I check what AI tools say about you today, then correct the facts, listings and pages they draw on, and help you earn genuine reviews. No one can guarantee a mention; I show you what changed every month.",
   who='For local businesses whose customers already ask AI assistants for recommendations, and who want those answers to get their name, services, prices and area right.',
@@ -1369,8 +1369,8 @@ def pricing_page(ctx, parts):
     header, menu, footer, tail = parts
     url = site + 'pricing'
     title = 'Website & Digital Marketing Prices in Mumbai, All Published'
-    desc = ('Every price on one page: websites from ₹25,000, local SEO ₹15,000/month, ads management ₹20,000/month, '
-            'one-off work from ₹800. Build your quote, then send it on WhatsApp.')
+    desc = ('Every price on one page: websites from ₹25,000, local SEO ₹15,000/month, ads ₹20,000/month, '
+            'one-off work from ₹800. Build a quote, send it on WhatsApp.')
     faq = [ctx['FAQ'][i] for i in PRICING_FAQ_IDX]
     ld = json.dumps({'@context': 'https://schema.org', '@graph': [
         {'@type': 'WebPage', '@id': url + '#webpage', 'url': url, 'name': title, 'description': desc, 'isPartOf': {'@id': site + '#website'},
