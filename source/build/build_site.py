@@ -371,9 +371,10 @@ def _img_v(m):
     return p + GP.vurl(a)[len(a):] if (STATIC / a[1:]).is_file() else p
 def _asset_v(markup):
     return _IMG_ATTR.sub(lambda m: f'{m.group(1)}="{_IMG_URL.sub(_img_v, m.group(2))}"', markup)
+import tracking  # Google Tag Manager on every public page (not /admin)
 for _page in site.rglob('*.html'):
     if 'admin' in _page.relative_to(site).parts: continue
-    _page.write_text(_brand_nbsp(_asset_v(_page.read_text())))
+    _page.write_text(tracking.inject(_brand_nbsp(_asset_v(_page.read_text()))))
 
 # Preview: one file; the artifact skeleton supplies doctype/head/body
 pv = src.replace('{{STYLES}}', '<style>\n' + css + '\n.pv-replay{position:fixed;left:calc(16px + env(safe-area-inset-left,0px));bottom:calc(16px + env(safe-area-inset-bottom,0px));z-index:1001;display:inline-flex;align-items:center;gap:8px;font:600 14px/1 var(--sans);background:var(--violet);color:var(--white);border:1px solid var(--line-dark);border-radius:999px;padding:13px 18px;cursor:pointer;box-shadow:0 12px 24px -14px rgba(37,30,69,.6)}\n</style>')

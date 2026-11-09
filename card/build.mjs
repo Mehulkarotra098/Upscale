@@ -6,6 +6,7 @@ import { createHash } from 'node:crypto';
 import { dirname, join } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { gzipSync } from 'node:zlib';
+import { GTM_BODY, GTM_HEAD } from '../server/lib/gtm.js';
 
 const root = join(dirname(fileURLToPath(import.meta.url)), '..');
 const pub = process.env.OUTPUT_DIR ? join(root, process.env.OUTPUT_DIR) : join(root, 'public');
@@ -57,6 +58,7 @@ writeFileSync(
 <html lang="en-IN">
 <head>
 <meta charset="utf-8">
+${GTM_HEAD}
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <meta name="robots" content="noindex">
 <meta name="theme-color" content="#251E45">
@@ -66,7 +68,7 @@ writeFileSync(
 <link rel="preload" href="/assets/fonts/inter-latin.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="stylesheet" href="/card/editor-${hash}.css">
 </head>
-<body>
+<body>${GTM_BODY}
 <div id="app"><div class="ce-boot">Opening the card maker…</div></div>
 <noscript><p class="ce-fail">The card maker needs JavaScript. Please turn it on, or open this page in another browser.</p></noscript>
 <script type="module" src="/card/${entryName}"></script>
