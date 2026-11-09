@@ -469,7 +469,7 @@ PAGES = [
   card='Market rates, saal ka domain-hosting kharcha aur GST: poora hisaab.',
   service='Website banane ka kharcha, Mumbai (2026)',
   title='Website Banane Ka Kharcha 2026: ₹8,000 se ₹2 Lakh Tak',
-  desc='Template website ₹8,000–₹30,000, custom ₹40,000–₹2 lakh. Saal ka domain-hosting kharcha, GST aur pay karne se pehle 6 sawaal. '
+  desc='Template website ₹8,000–₹30,000, custom ₹40,000–₹2 lakh. Saal ka domain-hosting kharcha, GST aur pay se pehle 6 sawaal. '
        'U Scale ke fixed prices ₹25,000 se.',
   h1='Website banane me kitna kharcha aata hai?', eyebrow='Guide · Hinglish',
   lead='Main Mehul Karotra hoon, Mumbai se. Main websites khud banata hoon, aur mere saare prices website pe khule mein likhe hain. Yahan seedha hisaab hai.',

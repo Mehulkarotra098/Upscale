@@ -579,7 +579,7 @@ def image_license_page(ctx, parts):
          'breadcrumb': {'@id': url + '#breadcrumb'}, 'dateModified': '__LASTMOD__'},
         {'@type': 'BreadcrumbList', '@id': url + '#breadcrumb', 'itemListElement': [
             {'@type': 'ListItem', 'position': 1, 'name': 'Home', 'item': site},
-            {'@type': 'ListItem', 'position': 2, 'name': 'Image use and licensing', 'item': url}]}]},
+            {'@type': 'ListItem', 'position': 2, 'name': 'Image use', 'item': url}]}]},
         ensure_ascii=False, separators=(',', ':')).replace('</', '<\\/')
     body = f'''{_hero('Image use', 'Image use and licensing', 'The photos, graphics and mockups on this site are made for U Scale. Here is who owns them and how to ask before you use one.', cta=False)}
 

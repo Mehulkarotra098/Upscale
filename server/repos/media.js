@@ -36,6 +36,6 @@ export const remove = (id) => exec('DELETE FROM media WHERE id = $1', [id]);
 
 /** Image bytes for /media/…; the small variant falls back to the full one. */
 export const bytes = (id, small) =>
-  one(`SELECT mime, ${small ? 'coalesce(bytes_sm, bytes)' : 'bytes'} AS data FROM media WHERE id = $1`, [id]);
+  one(`SELECT mime, name, alt, ${small ? 'coalesce(bytes_sm, bytes)' : 'bytes'} AS data FROM media WHERE id = $1`, [id]);
 
 export const totals = () => one('SELECT count(*)::int AS n, coalesce(sum(size), 0)::bigint AS bytes FROM media');

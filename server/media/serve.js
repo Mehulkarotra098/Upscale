@@ -4,6 +4,7 @@ import { hasDb } from '../db/client.js';
 import { CACHE, query, send } from '../lib/http.js';
 import { log } from '../lib/log.js';
 import * as media from '../repos/media.js';
+import { withLicence } from './licence.js';
 import { parseMediaFile } from './urls.js';
 
 const missing = (res) =>
@@ -15,9 +16,11 @@ export default async function mediaHandler(req, res) {
   try {
     const row = await media.bytes(file.id, file.small);
     if (!row) return missing(res);
-    return send(res, 200, row.data, {
+    // licence metadata goes in as the image is served (the stored image is left as uploaded)
+    const data = withLicence(row.data, { title: row.name, desc: row.alt });
+    return send(res, 200, data, {
       'Content-Type': row.mime || 'image/webp',
-      'Content-Length': String(row.data.length),
+      'Content-Length': String(data.length),
       'Cache-Control': CACHE.immutable,
       'X-Content-Type-Options': 'nosniff',
     });
