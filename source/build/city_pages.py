@@ -282,7 +282,7 @@ def patya_card(p):
     li = ''.join(f'<li style="--i:{i}"><b>{i + 1}.</b><span>{e(r)}</span></li>' for i, r in enumerate(rules))
     card = (f'<div class="dk__card patya"><span class="patya__screw" aria-hidden="true"></span><span class="patya__screw patya__screw--r" aria-hidden="true"></span>'
             f'<p class="patya__h"><b lang="mr">सूचना</b><span>Notice to Pune businesses</span></p><ol>{li}</ol>'
-            f'<p class="patya__s">— Mehul, U Scale</p></div>')
+            f'<p class="patya__s">Signed: Mehul, U Scale</p></div>')
     floats = (DA._float('dk-seal', SEAL, 110, 0)
               + DA._float('dk-chip dk-route', f'{icon("chat")}Mumbai ⇄ {e(p["city"])} · WhatsApp &amp; video', 90, 1))
     return DA._dk('patya', card, floats, sheets=1, label='Notice to Pune businesses: ' + ' '.join(rules))

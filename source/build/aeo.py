@@ -222,12 +222,14 @@ BRIEF = {
          ('Where', 'Mumbai; remote work with businesses across India')],
   faq_replace={'How much does a website cost in Mumbai?':
       'With U Scale, a landing page costs ₹25,000, a 5–10 page business site ₹55,000, a 10–20 page site with a blog ₹85,000 and an '
-      'online store from ₹95,000. Every price is fixed and agreed in writing before work starts, with no hourly billing.'},
+      'online store from ₹95,000. Every price is fixed and agreed in writing before work starts, with no hourly billing. Market prices and '
+      'yearly costs are in the website design cost guide, and the website cost calculator gives a quick estimate.'},
   faq_more=[('Should I hire a freelance web designer or an agency?',
              'It depends on the project. A freelancer often suits a small business: you talk directly to the person designing and coding '
              'your site, and you are not paying for account managers. An agency makes sense when you need a large team working in parallel, '
              'and a website builder can work if your budget is very small and you are happy to do it yourself. I compare all three, with '
-             'price ranges, in my guide: freelancer vs agency vs website builder.'),
+             'price ranges, in my guide: freelancer vs agency vs website builder. If one person suits you, here is what to expect when you '
+             'hire me as a freelance web designer.'),
             ('Do I need a website if I already have Instagram?',
              'Instagram is good for discovery, but you don’t own it. A simple website gives people one place to check prices, timings and '
              'your work, and it keeps working if your reach drops or your account is restricted. Start small: a ₹25,000 landing page linked '
@@ -235,7 +237,15 @@ BRIEF = {
              'Your Instagram posts now show up on Google.'),
             ('What is included in every website?',
              'Every U Scale website includes a mobile-responsive design, enquiry forms, basic SEO, Google Maps, social links, 2–3 rounds of '
-             'revisions and a 15–30 day bug-fix window after launch.'),
+             'revisions and a 15–30 day bug-fix window after launch. For what India’s data protection rules ask of a website with forms, see '
+             'the DPDP checklist for small business websites.'),
+            ('How much does a landing page cost?',
+             'With U Scale, a landing page is ₹25,000, fixed, and can be live in under two weeks. It is one page built for one job, such as an '
+             'ad campaign, a launch or an offer, with your photos, your prices and a WhatsApp button, and it includes the same basics as every '
+             'site: mobile-first design, an enquiry form, basic SEO and a bug-fix window after launch.'),
+            ('Do you design websites in Thane and Navi Mumbai?',
+             'Yes. I’m based in Ghatkopar West, a short train ride from both, and meet clients at their shop or office. Prices are the same as '
+             'in Mumbai. More on website design in Thane and website design in Navi Mumbai.'),
             ('Do you build websites for businesses outside Mumbai?',
              'Yes. I’m based in Mumbai and work with businesses across India remotely, over WhatsApp, calls and video meetings.')],
   offers=['Landing page', 'Portfolio site', 'Business site, 5–10 pages', 'Business site, 10–20 pages + blog', 'E-commerce, under 50 products',
@@ -253,14 +263,20 @@ BRIEF = {
          ('Content', 'SEO blog posts, ₹2,000 each (about 1,000 words)')],
   faq_more=[('How much does SEO cost in Mumbai?',
              'With U Scale, local SEO and Google Business Profile management costs ₹15,000 a month, and technical + on-page SEO costs '
-             '₹25,000 a month. A deep-dive SEO audit is ₹7,500, or free if we go on to work together.'),
+             '₹25,000 a month. A deep-dive SEO audit is ₹7,500, or free if we go on to work together. Market ranges across India are in '
+             'SEO cost in India (2026).'),
             ('How do I get my business into the Google Maps top 3?',
              'Verify your Google Business Profile, choose the most specific primary category, keep hours, phone, photos and services '
              'complete, earn genuine reviews every week and reply to them, and show the same name, address and phone number on your '
              'website. Distance from the person searching also matters, and nobody can change that.'),
             ('What is included in local SEO?',
              'Local SEO with U Scale covers Google Business Profile setup and optimisation (categories, photos and posts), a review '
-             'strategy, consistent listings across Indian directories, genuine local links and a monthly report on calls and enquiries.')],
+             'strategy, consistent listings across Indian directories, genuine local links and a monthly report on calls and enquiries. '
+             'The listing work on its own is described on the Google Business Profile management page.'),
+            ('How do I choose an SEO consultant in Mumbai?',
+             'Ask six things before you pay. Will you get access to your own Google Search Console and Google Business Profile? Do they '
+             'promise rankings (a red flag)? What exactly happens each month, in writing? Do they buy links or sell link packages (avoid)? '
+             'Does your listing stay in your name? Can you stop after the minimum term? Anyone good will answer all six plainly.')],
   offers=['Local SEO / Google Business Profile', 'Technical + on-page SEO', 'SEO deep-dive audit (free if we work together)', 'SEO blog (~1,000 words)']),
  'social-media-management-mumbai': dict(
   answer='U Scale manages social media for Mumbai businesses on Instagram, Facebook, LinkedIn and YouTube: a monthly content calendar, '
@@ -300,7 +316,11 @@ BRIEF = {
              'one-time ₹10,000 setup. Your ad spend is separate and paid directly to Google and Meta.'),
             ('How fast do ads bring enquiries?',
              'Ads can bring enquiries within days of launch, unlike SEO. The first few weeks are a learning phase in which budgets, '
-             'keywords and creatives are tested and improved.')],
+             'keywords and creatives are tested and improved.'),
+            ('What does a Meta ads agency do that boosting a post doesn’t?',
+             'Boosting a post from Instagram or Facebook is a quick promotion with few settings. Ads Manager lets you choose the goal '
+             '(messages, leads or sales), build audiences, test several creatives and track results with the Meta pixel, so you can see '
+             'which ads bring enquiries. That set-up and the weekly testing are what you pay an ads manager for, agency or freelancer.')],
   offers=['Ads management']),
  'ai-search-visibility': dict(
   answer='AI search visibility, also called GEO or AEO, is work that helps ChatGPT, Gemini, Perplexity and Google AI Overviews describe '

@@ -1,39 +1,51 @@
 {
  "https://uscale.in/": {
-  "fp": "6e1b2d957fcd283e",
-  "date": "2026-11-09"
+  "fp": "e299673b90540d53",
+  "date": "2026-11-10"
  },
  "https://uscale.in/about": {
   "fp": "cc70dca0b12d4936",
   "date": "2026-11-06"
+ },
+ "https://uscale.in/freelance-web-designer-mumbai": {
+  "fp": "26a26774d6fb5832",
+  "date": "2026-11-10"
  },
  "https://uscale.in/image-license": {
   "fp": "81819a653d7b6dfe",
   "date": "2026-11-09"
  },
  "https://uscale.in/pricing": {
-  "fp": "73eb69714dd6b160",
-  "date": "2026-11-09"
+  "fp": "a60f3c5edefea101",
+  "date": "2026-11-10"
  },
  "https://uscale.in/services": {
-  "fp": "dbabd70c58919e79",
-  "date": "2026-11-09"
+  "fp": "51c5347cf0d34bc8",
+  "date": "2026-11-10"
  },
  "https://uscale.in/services/ai-search-visibility": {
-  "fp": "dd539dffb0cbc0c7",
-  "date": "2026-11-09"
+  "fp": "05d6f8fb2e135155",
+  "date": "2026-11-10"
+ },
+ "https://uscale.in/services/ecommerce-website-mumbai": {
+  "fp": "e274032aabc3005e",
+  "date": "2026-11-10"
+ },
+ "https://uscale.in/services/google-business-profile-mumbai": {
+  "fp": "5422d5c12bd4d7f6",
+  "date": "2026-11-10"
  },
  "https://uscale.in/services/google-meta-ads-mumbai": {
-  "fp": "1533cc402f7a105a",
-  "date": "2026-11-05"
+  "fp": "c7ce48aff5707714",
+  "date": "2026-11-10"
  },
  "https://uscale.in/services/seo-mumbai": {
-  "fp": "cbe1e200610704fe",
-  "date": "2026-11-09"
+  "fp": "c4f0d71fbc0bfc61",
+  "date": "2026-11-10"
  },
  "https://uscale.in/services/social-media-management-mumbai": {
-  "fp": "e003d39a39621ee2",
-  "date": "2026-11-05"
+  "fp": "e6c93b56ffd4107d",
+  "date": "2026-11-10"
  },
  "https://uscale.in/services/website-design-ahmedabad": {
   "fp": "9ca6204341ade678",
@@ -64,44 +76,52 @@
   "date": "2026-11-09"
  },
  "https://uscale.in/services/website-design-mumbai": {
-  "fp": "ce199bd1d96a8445",
-  "date": "2026-11-09"
+  "fp": "b59c4a72db574f8b",
+  "date": "2026-11-10"
  },
  "https://uscale.in/services/website-design-mumbai/andheri-east": {
-  "fp": "57dad7be12724382",
-  "date": "2026-11-08"
+  "fp": "5d8f16a8510ac933",
+  "date": "2026-11-10"
  },
  "https://uscale.in/services/website-design-mumbai/boutiques-fashion": {
-  "fp": "890645b65e73e6e0",
-  "date": "2026-11-08"
+  "fp": "be6a8cbc38cea7f4",
+  "date": "2026-11-10"
  },
  "https://uscale.in/services/website-design-mumbai/freelancer-vs-agency-vs-website-builder": {
-  "fp": "514ae337b33b04fa",
-  "date": "2026-11-01"
+  "fp": "3061a50846da84a0",
+  "date": "2026-11-10"
  },
  "https://uscale.in/services/website-design-mumbai/ghatkopar": {
-  "fp": "3802e8577a31740d",
-  "date": "2026-11-08"
+  "fp": "c1fb440603ff6c7d",
+  "date": "2026-11-10"
  },
  "https://uscale.in/services/website-design-mumbai/restaurants-cafes": {
-  "fp": "e590b7e99cf6576c",
-  "date": "2026-11-08"
+  "fp": "d0086a0d0757ae31",
+  "date": "2026-11-10"
  },
  "https://uscale.in/services/website-design-mumbai/website-banane-ka-kharcha": {
-  "fp": "6d867a1bf42415cc",
-  "date": "2026-11-09"
+  "fp": "46befcc731b4df07",
+  "date": "2026-11-10"
+ },
+ "https://uscale.in/services/website-design-navi-mumbai": {
+  "fp": "88677fe578ea8556",
+  "date": "2026-11-10"
  },
  "https://uscale.in/services/website-design-pune": {
-  "fp": "bcdb2cbf9d8206b7",
-  "date": "2026-11-09"
+  "fp": "3a3b3089c71fa5b1",
+  "date": "2026-11-10"
  },
  "https://uscale.in/services/website-design-surat": {
   "fp": "3e226a59c7ccc393",
   "date": "2026-11-09"
  },
+ "https://uscale.in/services/website-design-thane": {
+  "fp": "18ba18899a53d99a",
+  "date": "2026-11-10"
+ },
  "https://uscale.in/tools": {
-  "fp": "7376e11a827e06e2",
-  "date": "2026-11-06"
+  "fp": "aaef13f9a4f4ae83",
+  "date": "2026-11-10"
  },
  "https://uscale.in/tools/google-business-profile-checker": {
   "fp": "2f6d1a3b14391917",
@@ -118,5 +138,9 @@
  "https://uscale.in/tools/visiting-card-maker": {
   "fp": "c027cfbcaf9823be",
   "date": "2026-11-08"
+ },
+ "https://uscale.in/tools/website-cost-calculator": {
+  "fp": "9937992c6cd287d2",
+  "date": "2026-11-10"
  }
 }

@@ -593,3 +593,148 @@ def card_tools():
 
 
 CARDS['tools'] = card_tools
+
+
+# ---------------------------------------------------------------- Thane: up the Central line from Ghatkopar (area page)
+def thane_map():
+    """Thane gets its own view: the Central line runs north from Ghatkopar through Mulund to Thane, crosses the creek and
+    runs on to Dombivli and Kalyan. Wagle Estate sits west of Thane station, Ghodbunder Road runs north-west towards the hills."""
+    central = [(-170, 470), (-150, 330), (-128, 200), (-100, 70), (-70, -40), (-40, -150), (10, -240), (90, -300), (180, -360), (270, -420), (360, -470), (470, -520)]
+    eeh = [(-110, 470), (-80, 300), (-48, 160), (-10, 30), (30, -90), (70, -200), (110, -320), (130, -470), (140, -560)]
+    gbr = [(-50, -160), (-120, -250), (-200, -340), (-290, -430), (-380, -520), (-470, -560)]
+    lbs = [(-230, 470), (-210, 300), (-180, 140), (-150, 20), (-120, -90), (-90, -170)]
+    creek = [(70, 470), (90, 300), (120, 150), (160, 20), (190, -110), (230, -230), (300, -300), (470, -300), (470, 470)]
+    mangrove = [(30, 470), (50, 300), (80, 150), (120, 20), (150, -110), (190, -230), (150, -260), (110, -130), (80, 0), (40, 150), (10, 300), (-10, 470)]
+    hills = [(-470, -560), (-330, -560), (-300, -420), (-340, -260), (-400, -120), (-470, -60)]
+    lake = [(-24, -110), (4, -128), (32, -112), (28, -84), (0, -74), (-22, -88)]
+    wagle = [(-250, -130), (-130, -150), (-110, -60), (-150, 10), (-260, 0)]
+    lines = [central, eeh, gbr, lbs]
+    rnd = random.Random(23)
+    clusters = [((-90, -230, 0, -170), 6, 14, 52), ((-40, -60, 40, 20), 6, 12, 40), ((-240, -120, -140, -10), 9, 10, 26),
+                ((-200, -380, -110, -280), 6, 18, 70), ((-130, 60, -50, 170), 6, 12, 34), ((-190, 240, -100, 360), 6, 12, 34),
+                ((200, -470, 300, -400), 6, 10, 30), ((320, -540, 420, -480), 5, 10, 30), ((-300, 120, -220, 240), 5, 10, 28)]
+    blds = _blocks(rnd, clusters, lines)
+    plots = [(ax - 14, ay - 14, bx + 14, by + 14) for (ax, ay, bx, by), *_ in clusters]
+    trees = ([('t', x, y) for x, y in _scatter(rnd, 70, hills, [], 0, 15)]
+             + [('m', x, y) for x, y in _scatter(rnd, 40, mangrove, [], 0, 15)])
+    pins = [('Thane West', -40, -150, 'r', ''), ('Wagle Estate', -200, -70, 'l', ''), ('Ghodbunder Road', -230, -380, 'r', ''),
+            ('Mulund', -100, 70, 'r', ''), ('Dombivli', 270, -420, 'l', ''), ('Kalyan', 400, -490, 'l', ''),
+            ('Ghatkopar West', -160, 400, 'base', 'U Scale · Mehul Karotra')]
+    sp = dict(
+        id='thmap', seed=23,
+        title='Thane, Kalyan and Dombivli on the Central line from Ghatkopar, where U Scale is based',
+        desc=('Schematic map, not to scale: the Central line runs north from Ghatkopar West through Mulund to Thane station, then crosses Thane '
+              'Creek and runs on to Dombivli and Kalyan. Wagle Estate lies west of Thane station, Ghodbunder Road runs north-west towards the hills, '
+              'and the Eastern Express Highway runs alongside the line.'),
+        caption='From Ghatkopar up the Central line to Thane, Dombivli and Kalyan. Schematic, not to scale.',
+        areas=[('park', hills), ('mangrove', mangrove), ('water', creek), ('water', lake), ('zone', wagle)],
+        roads=[('hwy', eeh, 'EASTERN EXPRESS HIGHWAY'), ('road', gbr, 'GHODBUNDER ROAD'), ('road', lbs, 'LBS MARG')],
+        rails=[('central', central)], plots=plots,
+        paint=[('THANE CREEK', 330, 40, 80, 'dm-paint--water')],
+        base=(-160, 400), buildings=blds, trees=trees, pins=pins)
+    return diorama(sp, [
+        dict(name='wide', theta=-17, k=.6, slab=(-470, -560, 470, 470), lift=52, compass=(410, 410),
+             road_label_at={0: '28%', 1: '55%', 2: '35%'}),
+        dict(name='tall', theta=-9, k=.76, slab=(-300, -560, 470, 470), lift=62, compass=(410, 420), radius=40,
+             road_label_at={0: '28%'},
+             pins=[(n, x, y, {'Wagle Estate': 'r', 'Kalyan': 'l'}.get(n, s), t) for n, x, y, s, t in pins if n != 'Ghodbunder Road'] +
+                  [('Ghodbunder Rd', -230, -380, 'r', '')]),
+    ])
+
+
+# ---------------------------------------------------------------- Navi Mumbai: across the creek from Ghatkopar (area page)
+def navi_map():
+    """Navi Mumbai's own view: Ghatkopar in the west, Thane Creek in the middle, the Harbour line crossing to Vashi and running
+    south-east to Nerul, Belapur, Kharghar and Panvel, the Trans-Harbour line down the east bank from Airoli, and the TTC MIDC belt."""
+    harbour = [(-470, 40), (-380, 70), (-280, 95), (-170, 110), (-60, 118), (40, 120), (110, 132), (140, 190), (160, 250), (182, 320), (220, 370), (290, 400), (380, 430), (470, 450)]
+    trans = [(-30, -560), (0, -440), (40, -330), (70, -220), (90, -110), (100, 0), (110, 130)]
+    spr = [(-470, -10), (-330, 20), (-200, 40), (-60, 60), (60, 70), (170, 110), (250, 200), (330, 300), (400, 380), (470, 420)]
+    tbr = [(30, -560), (60, -440), (100, -330), (130, -220), (150, -110), (160, 0), (180, 110)]
+    creek = [(-260, -560), (-120, -560), (-60, -400), (-20, -200), (0, 0), (10, 200), (20, 470), (-260, 470), (-220, 300), (-200, 120), (-200, -100), (-230, -350)]
+    mangrove = [(0, -560), (40, -560), (40, -420), (60, -200), (70, 0), (80, 200), (90, 470), (40, 470), (30, 200), (20, 0), (10, -200), (-10, -420)]
+    midc = [(160, -460), (380, -460), (400, -60), (190, -60)]
+    hills = [(400, -560), (470, -560), (470, 200), (430, 160), (420, -100), (440, -360)]
+    lines = [harbour, trans, spr, tbr]
+    rnd = random.Random(31)
+    clusters = [((-450, -140, -330, -20), 8, 12, 40), ((-420, 120, -300, 230), 6, 10, 30), ((120, 40, 220, 110), 7, 14, 54),
+                ((200, -430, 360, -90), 10, 8, 22), ((260, 240, 340, 320), 6, 12, 42), ((330, 380, 440, 450), 5, 10, 30),
+                ((60, -400, 150, -300), 5, 18, 62), ((200, 300, 280, 400), 5, 12, 36), ((-330, -400, -250, -260), 5, 10, 30)]
+    blds = _blocks(rnd, clusters, lines)
+    plots = [(ax - 14, ay - 14, bx + 14, by + 14) for (ax, ay, bx, by), *_ in clusters]
+    trees = ([('t', x, y) for x, y in _scatter(rnd, 40, hills, [], 0, 16)]
+             + [('m', x, y) for x, y in _scatter(rnd, 40, mangrove, [], 0, 15)])
+    pins = [('Airoli', 30, -360, 'r', ''), ('TTC MIDC', 280, -300, 'r', ''), ('Vashi', 110, 132, 'l', ''), ('Nerul', 160, 250, 'l', ''),
+            ('CBD Belapur', 182, 320, 'l', ''), ('Kharghar', 290, 400, 'r', ''),
+            ('Ghatkopar West', -390, -60, 'base', 'U Scale · Mehul Karotra')]
+    sp = dict(
+        id='nmmap', seed=31,
+        title='Navi Mumbai across Thane Creek from Ghatkopar, where U Scale is based',
+        desc=('Schematic map, not to scale: Ghatkopar West lies west of Thane Creek. The Harbour line crosses the creek to Vashi and runs south-east '
+              'through Nerul and CBD Belapur to Kharghar and Panvel. The Trans-Harbour line runs down the east bank from Airoli to Vashi, beside '
+              'the Thane-Belapur road and the TTC MIDC industrial belt.'),
+        caption='Navi Mumbai, across Thane Creek from Ghatkopar: Airoli to Panvel. Schematic, not to scale.',
+        areas=[('park', hills), ('water', creek), ('mangrove', mangrove), ('zone', midc)],
+        roads=[('hwy', spr, 'SION–PANVEL HIGHWAY'), ('road', tbr, 'THANE–BELAPUR ROAD')],
+        rails=[('harbour', harbour), ('central', trans)], plots=plots,
+        paint=[('THANE CREEK', -110, -170, 82, 'dm-paint--water')],
+        base=(-390, -60), buildings=blds, trees=trees, pins=pins)
+    return diorama(sp, [
+        dict(name='wide', theta=-12, k=.58, slab=(-470, -560, 470, 470), lift=52, compass=(-420, 410),
+             road_label_at={0: '18%', 1: '30%'}, notes=[('Panvel →', 430, 446, 'g-l')]),
+        dict(name='tall', theta=-6, k=.74, slab=(-300, -560, 470, 470), lift=62, compass=(-250, 420), radius=40,
+             road_label_at={1: '30%'},
+             pins=[(n, x, y, s, t) for n, x, y, s, t in pins if n != 'Ghatkopar West'] + [('Ghatkopar West', -250, -60, 'base-r', 'U Scale · Mehul Karotra')],
+             notes=[('Panvel →', 430, 446, 'g-l')]),
+    ])
+
+
+# ---------------------------------------------------------------- more hero cards
+def card_profile():
+    """Google Business Profile management: an illustrative listing (no real business, no rating number), with the four things
+    kept up to date every month on raised rows, and two chips floating in front."""
+    acts = ''.join(f'<li>{icon(ic)}<span>{e(t)}</span></li>' for ic, t in [('phone', 'Call'), ('map', 'Directions'), ('globe', 'Website'), ('chat', 'WhatsApp')])
+    rows = [('check', 'Verified, right category', 'Name exactly as on your board'), ('clock', 'Hours and holiday hours', 'The same on your website'),
+            ('photo', 'Photos and weekly posts', 'Real photos, real offers'), ('star', 'Reviews asked for, replied to', 'Never bought, never filtered')]
+    li = ''.join(f'<li style="--i:{i}"><span class="sv-pack__ic">{icon(ic)}</span><span class="sv-pack__l"><b>{e(n)}</b><small>{e(t)}</small></span>'
+                 f'<span class="sv-prof__ok">{icon("check")}</span></li>' for i, (ic, n, t) in enumerate(rows))
+    card = (f'<div class="dk__card sv-card sv-pack sv-prof"><p class="sv-card__k">{icon("pin")}Your Google listing · illustration</p>'
+            f'<div class="sv-prof__head"><span class="sv-prof__logo" aria-hidden="true">Y</span><span><b>Your business</b><small>Salon · Ghatkopar West</small></span></div>'
+            f'<p class="sv-prof__stars" aria-hidden="true"><span>★★★★★</span><small>Open now · closes 9 pm</small></p>'
+            f'<ul class="sv-prof__acts" aria-hidden="true">{acts}</ul>'
+            f'<p class="sv-card__h">Kept up to date every month</p><ul>{li}</ul>'
+            f'<p class="sv-card__f">{icon("key")}Your listing stays in your name</p></div>')
+    floats = (_float('dk-chip dk-chip--prof1', f'{icon("check")}Verified', 120, 0)
+              + _float('dk-chip dk-chip--prof2', f'{icon("chat")}Review replied', 90, 1))
+    return _dk('prof', card, floats, sheets=2, label='Illustration: a Google Business Profile kept up to date: verified, hours, photos and posts, and reviews replied to')
+
+
+def card_store():
+    """Online stores: a product page on your own domain, the cart and a UPI payment floating in front. Illustrative product and prices."""
+    sizes = ''.join(('<li class="is-on">' if z == 'M' else '<li>') + z + '</li>' for z in ('S', 'M', 'L', 'XL'))
+    card = (f'<div class="dk__card sv-card sv-store"><p class="dk-win" aria-hidden="true"><i></i><i></i><i></i><span>yourstore.in</span></p>'
+            f'<div class="sv-store__p"><span class="sv-store__img" aria-hidden="true"><i></i></span>'
+            f'<span class="sv-store__t"><b>Block-print cotton kurta</b><small>In stock · ships in 2 days</small><em>₹1,450</em></span></div>'
+            f'<p class="sv-card__h">Size</p><ul class="sv-store__sz" aria-hidden="true">{sizes}</ul>'
+            f'<p class="sv-store__btn" aria-hidden="true">{icon("cart")}Add to cart</p>'
+            f'<p class="sv-card__f">{icon("shield")}Your store, your customers, your domain</p></div>')
+    floats = (_float('dk-chip dk-chip--cart', f'{icon("cart")}Cart · 2 items · ₹2,900', 110, 0)
+              + _float('dk-chip dk-chip--upi', f'{icon("check")}Paid by UPI', 140, 1))
+    return _dk('store', card, floats, sheets=2, label='Illustration: a product page on your own online store, with a cart and a UPI payment')
+
+
+def card_estimate():
+    """Website cost calculator: an estimate slip with toggles on the left of each line, the total in the display face,
+    and the yearly running costs underneath. Illustrative choices; the prices are the published ones."""
+    bs, copy, logo = GP.rupees('Business site, 5–10 pages'), 6 * GP.rupees('Website copy'), GP.rupees('Logo')
+    rows = [(True, 'Business site, 5–10 pages', GP._fmt(bs)), (True, 'Website copy, 6 pages', GP._fmt(copy)), (False, 'Logo', GP._fmt(logo))]
+    li = ''.join(f'<li style="--i:{i}"' + ('' if on else ' class="is-off"') + f'><span class="sv-est__t{" is-on" if on else ""}" aria-hidden="true"></span><span>{e(n)}</span><i></i><b>{e(v)}</b></li>'
+                 for i, (on, n, v) in enumerate(rows))
+    card = (f'<div class="dk__card fp-ticket sv-ticket sv-est"><p class="dk-quote__head"><span class="dk-quote__mark" aria-hidden="true">₹</span>'
+            f'<span><b>Your estimate</b><small>Website cost calculator</small></span></p>'
+            f'<ul>{li}</ul><p class="sv-est__tot"><span>One-time, fixed</span><b>{GP._fmt(bs + copy)}</b></p>'
+            f'<p class="fp-ticket__f">{icon("refresh")}Plus domain and hosting, about ₹4,400–₹9,400 a year</p></div>')
+    floats = _float('dk-chip dk-chip--est', f'{icon("chat")}Send on WhatsApp', 120, 0)
+    return _dk('est', card, floats, sheets=2, label='Illustration: a website estimate with a business site and website copy, its fixed total and yearly running costs')
+
+
+CARDS.update(profile=card_profile, store=card_store, estimate=card_estimate)

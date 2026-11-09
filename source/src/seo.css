@@ -987,3 +987,53 @@ html.pin-ok .sp-process .step{opacity:1;transform:none}
 @keyframes rwfLive{0%{box-shadow:0 0 0 0 rgba(99,184,73,.45)}100%{box-shadow:0 0 0 10px rgba(99,184,73,0)}}
 .rm .rwf__phone,.rm .rwf__dot{animation:none!important}
 @media (prefers-reduced-motion:reduce){.rwf__browser,.rwf__stage:hover .rwf__browser{transform:none}}
+
+/* ---------- Website cost calculator (/tools/website-cost-calculator) ---------- */
+.wc{display:grid;gap:clamp(18px,2.4vw,28px)}
+.wc__set{min-width:0;margin:0 0 18px;padding:0;border:0}
+.wc__set legend{margin:0 0 10px;padding:0;font:700 12.5px/1.2 var(--sans);letter-spacing:.14em;text-transform:uppercase;color:var(--body)}
+.wc-opts{display:grid;gap:8px}
+.wc-opt,.wc-tick{position:relative;display:block;cursor:pointer}
+.wc-tick{margin-bottom:8px}
+.wc-opt input,.wc-tick input{position:absolute;inset:0;width:100%;height:100%;margin:0;opacity:0;cursor:pointer}
+.wc-opt>span,.wc-tick>span{position:relative;display:grid;gap:3px;height:100%;padding:13px 14px 13px 46px;border-radius:14px;border:1.5px solid var(--line-light);background:var(--white);transition:border-color .2s,box-shadow .2s}
+.wc-opt>span::before,.wc-tick>span::before{content:"";position:absolute;left:15px;top:15px;width:18px;height:18px;border:2px solid #B4A8D8;border-radius:50%;background:#fff;transition:border-color .2s,background-color .2s,box-shadow .2s}
+.wc-tick>span::before{border-radius:6px}
+.wc-opt b,.wc-tick b{font:700 15px/1.3 var(--sans);color:var(--violet)}
+.wc-opt small,.wc-tick small{font:500 13px/1.4 var(--sans);color:var(--body)}
+.wc-opt input:checked+span,.wc-tick input:checked+span{border-color:var(--violet);box-shadow:0 12px 24px -18px rgba(37,30,69,.6)}
+.wc-opt input:checked+span::before,.wc-tick input:checked+span::before{border-color:var(--violet);background:var(--green);box-shadow:inset 0 0 0 3px #fff}
+.wc-opt input:focus-visible+span,.wc-tick input:focus-visible+span{outline:3px solid var(--green);outline-offset:2px}
+.wc__out{padding:clamp(20px,2.6vw,30px);border-radius:var(--radius-card);background:var(--violet);color:#fff;box-shadow:0 30px 50px -34px rgba(10,6,30,.9)}
+.wc__k{margin:0 0 6px;font:700 12px/1.2 var(--sans);letter-spacing:.14em;text-transform:uppercase;color:var(--lavender)}
+.wc__total{display:flex;flex-wrap:wrap;align-items:baseline;gap:4px 10px;margin:0 0 16px}
+.wc__total span{font:600 15px/1 var(--sans);color:var(--lavender)}
+.wc__total span:empty{display:none}
+.wc__total b{font:400 clamp(40px,5vw,58px)/1 var(--display);letter-spacing:.01em;color:#fff}
+.wc__total small{flex-basis:100%;font:500 13px/1.4 var(--sans);color:#DAD3F0}
+.wc__lines{width:100%;margin:0 0 16px;border-collapse:collapse;font:500 14px/1.4 var(--sans)}
+.wc__lines th{padding:9px 10px 9px 0;border-top:1px solid rgba(255,255,255,.14);text-align:left;font-weight:500;color:#DAD3F0}
+.wc__lines td{padding:9px 0;border-top:1px solid rgba(255,255,255,.14);text-align:right;font-weight:700;white-space:nowrap}
+.wc__mkt,.wc__year{margin:0 0 14px;padding:12px 14px;border-radius:12px;background:rgba(255,255,255,.08)}
+.wc__mkt p,.wc__year p{margin:0;font:600 13px/1.45 var(--sans);color:#DAD3F0}
+.wc__mkt b{font:700 19px/1.3 var(--sans);color:#fff}
+.wc__mkt .wc__note{margin-top:4px;font-weight:500;font-size:12px}
+.wc__year ul{display:grid;gap:4px;margin:6px 0 0;padding:0;list-style:none;font:500 13.5px/1.45 var(--sans);color:#fff}
+.wc__send{width:100%;justify-content:center}
+.wc__send .fp-ic{width:20px;height:20px}
+@media (min-width:560px){.wc-opts{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media (min-width:960px){.wc{grid-template-columns:minmax(0,1.2fr) minmax(0,.8fr);align-items:start}.wc__out{position:sticky;top:96px}}
+.th-more{margin-top:clamp(16px,2vw,22px)}
+
+.fp-hero .dm figcaption{color:#C9BCE8}
+
+.wc-ticks{display:grid;gap:8px}
+.wc-ticks .wc-tick{margin:0}
+@media (min-width:1100px){.wc-ticks{grid-template-columns:repeat(3,minmax(0,1fr))}}
+.wc__peek{display:none}
+@media (max-width:959px){
+  .wc__peek{position:sticky;bottom:12px;z-index:5;display:flex;align-items:baseline;gap:10px;margin-top:6px;padding:12px 16px;border-radius:14px;background:var(--violet);color:#fff;text-decoration:none;box-shadow:0 18px 30px -14px rgba(10,6,30,.75)}
+  .wc__peek span{font:700 11.5px/1 var(--sans);letter-spacing:.12em;text-transform:uppercase;color:var(--lavender)}
+  .wc__peek b{font:400 26px/1 var(--display);letter-spacing:.01em}
+  .wc__peek i{margin-left:auto;font:600 12.5px/1 var(--sans);font-style:normal;color:#DAD3F0}
+}

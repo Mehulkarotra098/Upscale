@@ -12,7 +12,7 @@ import json, urllib.parse
 import aeo
 import geo_pages as GP
 import seo_pages as SP
-from geo_pages import (P, Cards, Table, Options, Links, Chips, Svg, Tools, Img, Sec, icon, price, _fmt)
+from geo_pages import (P, Cards, Check, Table, Options, Links, Chips, Svg, Tools, Img, Sec, icon, price, _fmt)
 
 e, ea = SP.e, SP.ea
 
@@ -42,11 +42,17 @@ GUIDE = {  # blog guides, for "read next" links
     'diwali': ('/blog/diwali-2026-marketing-ideas-small-business', 'calendar', 'Diwali 2026 marketing ideas', 'A dated checklist for Google offers, holiday hours, photos and WhatsApp.'),
     'wedding': ('/blog/wedding-season-marketing-ideas-local-shops', 'calendar', 'Wedding season 2026–27 plan for shops', 'Muhurat dates and a four-week plan for Google, Instagram and WhatsApp.'),
     'cost': ('/blog/website-design-cost-mumbai', 'rupee', 'Website design cost in Mumbai (2026)', 'Real price ranges, yearly costs, GST and red flags before you pay.'),
+    'chatads': ('/blog/chatgpt-ads-india', 'bolt', 'ChatGPT ads in India (2026)', 'What they cost, how they work and whether your business should pay.'),
+    'verify': ('/blog/google-business-profile-verification', 'check', 'Google Business Profile verification (2026)', 'Video steps, why verification fails and what to do.'),
+    'seocost': ('/blog/seo-cost-in-india', 'rupee', 'SEO cost in India (2026)', 'Real monthly prices, what you get and the red flags.'),
+    'igalgo': ('/blog/instagram-algorithm-2026', 'camera', 'Instagram algorithm 2026', 'What actually gets reels seen, for Indian businesses.'),
 }
 
 
-def guides(*keys):
-    return Links([(h, ic, t, d, '') for h, ic, t, d in (GUIDE[k] for k in keys)])
+def guides(*keys, n=4):
+    """The first n of these guides that are live (scheduled posts join once published)."""
+    live = [GUIDE[k] for k in keys if SP.live(GUIDE[k][0])][:n]
+    return Links([(h, ic, t, d, '') for h, ic, t, d in live])
 
 
 def svc(slug):
@@ -101,6 +107,37 @@ SEO = dict(
                           ('Best for', 'Service businesses and online stores that win customers from search'), ('You see', 'Rankings, clicks and enquiries from Search Console')])],
                     note='Take one or both. Not sure which? The first check is free, and a full deep-dive audit is ' + price('SEO deep-dive audit (free if we work together)') + ', free if we go on to work together.'),
             eyebrow='Two plans', layout='wide'),
+        Sec('SEO packages in Mumbai',
+            Table(['Package', 'What’s included', 'Price'],
+                  [('Local SEO + Google Business Profile', 'Profile set-up and upkeep, categories, services, photos and posts, a review plan, directory listings, area pages, a monthly report', LOCAL),
+                   ('Technical + on-page SEO', 'Speed, crawling and indexing fixes, titles, headings, internal links, structured data, a monthly report', TECH),
+                   ('AI search visibility', 'What ChatGPT, Gemini and Google’s AI say about you, and the facts and pages they rely on', price('AI search visibility (GEO)')),
+                   ('SEO deep-dive audit', 'A one-off audit of your site, your listing and your top local competitors, free if we go on to work together', price('SEO deep-dive audit (free if we work together)')),
+                   ('SEO blog post', 'About 1,000 words, researched and written around one search', price('SEO blog (~1,000 words)'))],
+                  'U Scale SEO packages in Mumbai, with published prices'),
+            P('Affordable SEO here means you pay only for what you need: start with one package, read the monthly report, and add more only when '
+              'it is worth it. Monthly plans run for 3 months, then month to month. What SEO costs across India, with market ranges: '
+              + SP.post_link('/blog/seo-cost-in-india', 'SEO cost in India (2026)') + '.'),
+            eyebrow='Packages', layout='wide', sid='packages'),
+        Sec('SEO company or SEO consultant?',
+            P('U Scale isn’t a big SEO company with a sales team and account managers. It is one SEO consultant, me, doing the audit, the fixes and '
+              'the report myself. That has trade-offs both ways.'),
+            Options([dict(name='An SEO company', tag='A team', rows=[('Good for', 'Large sites, many locations, content at volume'),
+                                                                     ('You deal with', 'An account manager'), ('Ask about', 'Contract length and who actually does the work')]),
+                     dict(name='A freelance SEO consultant', tag='One person', hi=True, rows=[('Good for', 'Local businesses and small service sites'),
+                                                                                             ('You deal with', 'The person doing the work'), ('Ask about', 'How many clients they take on at once')])]),
+            eyebrow='Company or consultant', sid='company'),
+        Sec('Local SEO across Mumbai',
+            P('Local results depend on where the searcher is, so local SEO is done area by area: your listing, your pages and your reviews have to '
+              'name the places you serve. I work with businesses across Mumbai, from Andheri, Borivali and Kandivali in the west to Ghatkopar, '
+              'Powai and Mulund in the east, and in Thane and Navi Mumbai.'),
+            Chips(['Andheri', 'Borivali', 'Kandivali', 'Malad', 'Goregaon', 'Bandra', 'Dadar', 'Ghatkopar', 'Powai', 'Vikhroli', 'Mulund', 'Chembur', 'Thane', 'Navi Mumbai'], 'Areas I work in'),
+            P('Pages that go deeper: <a class="tlink" href="/services/website-design-mumbai/ghatkopar">Ghatkopar</a>, '
+              '<a class="tlink" href="/services/website-design-mumbai/andheri-east">Andheri</a>, '
+              '<a class="tlink" href="/services/website-design-thane">Thane</a> and '
+              '<a class="tlink" href="/services/website-design-navi-mumbai">Navi Mumbai</a>. The Google listing work on its own: '
+              '<a class="tlink" href="/services/google-business-profile-mumbai">Google Business Profile management</a>.'),
+            eyebrow='Across Mumbai', tone='band', sid='areas'),
         Sec('A typical month of SEO',
             Table(['Week', 'What happens', 'What you get'],
                   [('Week 1', 'Fix what is broken: listing details, technical errors, tracking', 'A short note of what changed'),
@@ -117,7 +154,7 @@ SEO = dict(
                    ('alert', 'Keywords in your business name', 'Adding “best dentist Mumbai” to your Google name breaks its guidelines. Your real name, as on your board. ' + GP.src_chip('gbp-guidelines'))], cols=2),
             eyebrow='Honest SEO'),
         Sec('Check where you stand, free', Tools(), eyebrow='Free tools', layout='wide'),
-        Sec('Read these first', guides('maps', 'reviews', 'vanish', 'insta'), eyebrow='Guides', layout='wide'),
+        Sec('Read these first', guides('seocost', 'verify', 'maps', 'reviews', 'vanish', 'insta'), eyebrow='Guides', layout='wide'),
     ],
     how=dict(head='No guarantees. Clear reports.', sub='From a free check to a report every month.',
              steps=[('search', 'Audit', 'Your website, Google Business Profile and the top local competitors, checked against what customers search.', 'First check free'),
@@ -128,7 +165,8 @@ SEO = dict(
     who='I check your listing, fix your website and write your pages myself. You talk to me directly on WhatsApp, not to an account manager.',
     faq_extra=[('Can you help if my Google listing is suspended?',
                 'Yes. I check what triggered it, fix what goes against Google’s guidelines, and help you file a reinstatement request through Google’s own form. '
-                'No one can guarantee Google will reinstate a listing, and anyone who promises to do it for a fee “through contacts” is not being honest.'),
+                'No one can guarantee Google will reinstate a listing, and anyone who promises to do it for a fee “through contacts” is not being honest. '
+                'Verification problems are covered step by step in my Google Business Profile verification guide.'),
                ('Do I need a Google listing if I don’t have a shop?',
                 'If you serve customers at their place, like AC repair, pest control or tuition at home, you can have a service-area listing that shows the areas you '
                 'cover without showing your home address.')],
@@ -182,7 +220,13 @@ SOCIAL = dict(
                    ('alert', 'Pass off AI images as your products', 'Customers notice. Real products, real places, real people.'),
                    ('alert', 'Post without your OK', 'You approve the calendar first, and can check any post before it goes out.')], cols=2),
             eyebrow='Honest social'),
-        Sec('Read these next', guides('insta', 'wa', 'diwali', 'wedding'), eyebrow='Guides', layout='wide'),
+        Sec('Agency, company or one social media manager?',
+            P('A social media agency gives you a team: a strategist, designers, an editor and an account manager. A freelance social media manager '
+              'gives you one person who plans, designs and posts for you. For most local businesses in Mumbai, one good person is enough: the brand '
+              'stays consistent and you approve everything on WhatsApp. When a shoot needs a photographer, I bring one in and stay your single '
+              'point of contact.'),
+            eyebrow='Who to hire', sid='who-to-hire'),
+        Sec('Read these next', guides('igalgo', 'insta', 'wa', 'wedding', 'diwali'), eyebrow='Guides', layout='wide'),
     ],
     how=dict(head='A plan you approve. Posts you’re proud of.', sub='Four steps, then the same rhythm every month.',
              steps=[('search', 'Audit', 'Your profiles, competitors and what your customers already respond to.', 'Free'),
@@ -245,7 +289,17 @@ ADS = dict(
                    ('alert', 'Lock you out', 'You own the accounts from day one. Nothing is held back if we part ways.'),
                    ('alert', 'Run misleading ads', 'Claims your business can back up, within Google’s and Meta’s ad policies.')], cols=2),
             eyebrow='Honest ads'),
-        Sec('Read these next', guides('insta', 'wa', 'diwali', 'wedding'), eyebrow='Guides', layout='wide'),
+        Sec('Looking for a Google Ads agency in Mumbai?',
+            P('Most people looking for help with ads search for an “agency”. With U Scale you get one person who sets up and runs your Google and '
+              'Meta ads, not an agency team. Whoever you hire, check these six things first:'),
+            Check(['The Google Ads and Meta ad accounts are created in your business’s name, and you are the owner.',
+                   'Your ad spend is paid by you to Google and Meta directly, never marked up.',
+                   'Conversion tracking for calls, WhatsApp taps and forms is set up before the first rupee is spent.',
+                   'You see the search terms your money was spent on, not just clicks.',
+                   'The fee and the minimum term are written down, with no long lock-in.',
+                   'Someone watches the account every week in the first month, when most money is wasted.']),
+            eyebrow='Choosing who runs your ads', layout='wide', sid='choosing'),
+        Sec('Read these next', guides('chatads', 'wa', 'insta', 'wedding'), eyebrow='Guides', layout='wide'),
     ],
     how=dict(head='Test small. Scale what works.', sub='From your goals to a weekly rhythm.',
              steps=[('search', 'Audit', 'Your goals, budget, offers and competitors reviewed.', 'Free'),
@@ -258,7 +312,7 @@ ADS = dict(
                 'Yes. Ads, landing pages and WhatsApp replies can be in English, Hindi or Hinglish, or Marathi where your customers prefer it.')],
     sources=['pmax', 'ctwa'],
     offers=['Ads management'],
-    related=['wa', 'diwali', 'wedding'],
+    related=['chatads', 'wa', 'wedding'],
 )
 
 AI = dict(
@@ -308,7 +362,13 @@ AI = dict(
                    ('alert', 'The same answer every time', 'AI answers change with wording, location and time. I check the same questions every month to see the trend.'),
                    ('alert', 'Shortcuts', 'No fake reviews, paid mentions or pages written for bots. They put your Google listing at risk too.')], cols=3),
             eyebrow='Honest GEO'),
-        Sec('Read these next', guides('chatgpt', 'askmaps', 'maps', 'reviews'), eyebrow='Guides', layout='wide'),
+        Sec('AI search optimisation agency or consultant?',
+            P('Look for AI SEO help in India and you’ll find agencies and consultants offering “GEO”, “AEO” and “AI SEO”. They describe the same work: '
+              'making your facts clear, consistent and easy for AI tools to find and repeat. U Scale is one consultant, me, doing the audit and the '
+              'monthly checks myself, with a screenshot of every answer. Whoever you hire, ask to see the actual AI answers before and after, not '
+              'just a score.'),
+            eyebrow='Who to hire', sid='who-to-hire'),
+        Sec('Read these next', guides('chatgpt', 'chatads', 'askmaps', 'maps'), eyebrow='Guides', layout='wide'),
     ],
     how=dict(head='See what AI says. Fix what it reads.', sub='An audit, then a monthly loop.',
              steps=[('search', 'Audit', 'What AI assistants say about you and your competitors today, with screenshots.', price('AI visibility audit (free if we work together)')),
@@ -325,7 +385,7 @@ AI = dict(
                 'No. Google says its AI features need no special files, and other AI companies have not said they rely on llms.txt. It is a tidy extra, not a requirement.')],
     sources=['ai-features', 'openai-bots', 'pplx-bots', 'local-schema', 'helpful'],
     offers=['AI search visibility (GEO)', 'AI visibility audit (free if we work together)'],
-    related=['chatgpt', 'askmaps', 'maps'],
+    related=['chatgpt', 'chatads', 'askmaps'],
 )
 
 SERVICE_PAGES = [SEO, SOCIAL, ADS, AI]
