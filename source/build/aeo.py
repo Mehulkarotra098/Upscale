@@ -680,7 +680,7 @@ def services_hub(ctx, parts):
 {brief_html(HUB_ANSWER, [('Who does the work', 'Mehul Karotra, personally'), ('Where', 'Mumbai, and businesses across India'),
                          ('Websites', 'Fixed price: 20% to start, 20% on design sign-off, 60% on launch'), ('Monthly services', CONTRACT),
                          ('Free audit', 'Every project starts with a free audit of your website, Google listing and social media')],
-            'Key facts about U Scale services', 'svc-brief')}
+            'Key facts about U Scale services', 'brief-title')}
 
   <section class="section" aria-labelledby="svc-title">
     <div class="wrap">
@@ -799,6 +799,8 @@ def llms_full(site, faq):
     L += geo_pages.llms_full(site)
     import city_pages
     L += city_pages.llms_full(site)
+    import growth_pages
+    L += growth_pages.llms_full(site)
     L += ['## Free tools', '',
           f'- Google Business Profile checker: {site}tools/google-business-profile-checker. {SP.GBP["lead"]}',
           f'- Google review link & QR code maker: {site}tools/google-review-qr-code. {SP.TOOL["lead"]}',

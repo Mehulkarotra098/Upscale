@@ -99,7 +99,7 @@ def _related(p):
     others = [CITIES[(i + k) % len(CITIES)] for k in range(1, len(CITIES))]
     n = p.get('related')  # how many cards; None = all
     li = ''.join(f'<li><a class="fp-rel" href="/{q["path"]}"><span class="fp-rel__k">Another city</span><b>{e(q["h1"])}</b>'
-                 f'<span class="fp-rel__d">{e(q["card"])}</span>{icon("arrow")}</a></li>' for q in others)
+                 f'{icon("arrow")}</a></li>' for q in others)
     li += (f'<li><a class="fp-rel" href="/services/website-design-mumbai"><span class="fp-rel__k">Based in</span><b>Website design &amp; development in Mumbai</b>'
            f'<span class="fp-rel__d">Where U Scale is based, with every website price.</span>{icon("arrow")}</a></li>')
     for k in ('cost',):
@@ -297,12 +297,55 @@ PRICE_CARDS = [('Single page', 'Landing page', False, 'One page that sells: what
                ('Online store', 'E-commerce, under 50 products', True, 'Up to 50 products, a cart and online payments by UPI and cards.', '', 'an online store')]
 
 
+# What each price buys, said for the businesses of that city (the same four prices everywhere).
+CARD_DESC = {
+    'Pune': ['For a cab service, tuition class or home business: what you do, your prices and a WhatsApp button.',
+             'For a Kothrud clinic or a Chakan supplier: 5–10 pages built around what buyers ask first.',
+             'For manufacturers with a product range: catalogue pages, and a blog that answers buyers’ questions.',
+             'For a Pune brand selling online: up to 50 products, a cart, and UPI and card payments.'],
+    'Bengaluru': ['For a launch or a waitlist: one fast page, live in under 2 weeks, ready for your first ads.',
+                  'For a startup or studio: product, pricing, team and contact, designed and hand-coded.',
+                  'For software and services with many pages, and a blog that brings search traffic.',
+                  'For a D2C brand: up to 50 products, a cart, and UPI and card checkout.'],
+    'Chennai': ['For a clinic or tuition centre starting out: services, timings and a WhatsApp button.',
+                'For an architect, CA or clinic: 5–10 pages, in English and Tamil if you need both.',
+                'For practices with many services or projects, and a blog that brings search traffic.',
+                'For a Chennai brand selling online: up to 50 products, a cart, and UPI and card payments.'],
+    'Delhi NCR': ['For a Gurugram consultant or a Noida coaching class: your services, fees and a WhatsApp button.',
+                  'For a CA firm or clinic: services with fees, your team, and an enquiry form that asks the right questions.',
+                  'For firms with many services across NCR: a page per service, and a blog that answers clients’ questions.',
+                  'For a Delhi brand selling online: up to 50 products, a cart, and UPI and card payments.'],
+    'Hyderabad': ['For a home-collection lab or a Hitech City startup: one page, live in under 2 weeks.',
+                  'For a diagnostic lab or clinic: tests or treatments with prices, timings and booking enquiries.',
+                  'For groups with several centres: a page per branch, and a blog that answers patients’ questions.',
+                  'For a Hyderabad brand selling online: up to 50 products, a cart, and UPI and card payments.'],
+    'Kolkata': ['For a sweet shop or a home bakery: what you make, your prices and an “Order on WhatsApp” button.',
+                'For a shop, clinic or school: 5–10 pages, in Bengali and English if your customers read both.',
+                'For businesses with many products or branches: a page per range, and a blog for festival season.',
+                'For a Kolkata brand shipping across India: up to 50 products, a cart, and UPI and card payments.'],
+    'Ahmedabad': ['For a trader or a new brand: your range, your minimum order and a WhatsApp button.',
+                  'For a wholesaler or manufacturer: a catalogue by fabric or product, with “Get price on WhatsApp”.',
+                  'For exporters and manufacturers: product pages, certifications, and a blog for buyers outside Gujarat.',
+                  'For an Ahmedabad brand selling online: up to 50 products, a cart, and UPI and card payments.'],
+    'Surat': ['For a textile trader: your range, your market and shop number, and a WhatsApp button for rates.',
+              'For a jeweller or saree maker: collections, certificates, and an enquiry form for retailers.',
+              'For traders with large catalogues: a page per range, and a blog that answers bulk buyers’ questions.',
+              'For a Surat brand selling direct: up to 50 products, a cart, and UPI and card payments.'],
+    'Jaipur': ['For a guesthouse or a craft maker: photos, prices and a WhatsApp button for availability.',
+               'For a heritage stay or a showroom: rooms or collections, how to find you, and how to book direct.',
+               'For hotels and makers with many rooms or products: a page each, and a blog for travellers.',
+               'For a Jaipur craft brand shipping across India: up to 50 products, a cart, and UPI and card payments.'],
+}
+
+
 def price_cards(market, sources, city=''):
     """Four plain prices, then what every site includes, then one line on what local studios charge (with its sources).
     Each card: a picture of its size on a small stage, the name, the price, one line, how soon it goes live, and a WhatsApp ask.
     The rows line up across the four cards (CSS subgrid), and nothing sits on top of the price ("onwards" goes after it, not before)."""
     li = ''
+    local = CARD_DESC.get(city)
     for i, (k, name, onwards, d, t, ask) in enumerate(PRICE_CARDS):
+        d = local[i] if local else d
         msg = f"Hi Mehul, I'm in {city} and I'd like {ask} ({price(name)}{' onwards' if onwards else ''}). Can we talk?" if city else \
               f"Hi Mehul, I'd like {ask} ({price(name)}{' onwards' if onwards else ''}). Can we talk?"
         li += (f'<li class="pc__c{" pc__c--first" if i == 0 else ""}" data-reveal><div class="pc__g">{PAGE_STACK[i]}</div><p class="pc__k">{e(k)}</p>'
@@ -313,7 +356,8 @@ def price_cards(market, sources, city=''):
     inc = f'Every site includes {GP.INCLUDED}.'
     return Html(f'<ul class="pc" data-reveal-group>{li}</ul><p class="pc__inc">{icon("check")}<span>{e(inc)}</span></p>'
                 f'<p class="pc__mkt">{e(market)} <a class="tlink" href="#sources">Sources</a></p>',
-                text='\n'.join(f'- {k}: {price(name)}{" onwards" if onwards else ""}. {d}' + (f' {t}.' if t else '') for k, name, onwards, d, t, _ in PRICE_CARDS)
+                text='\n'.join(f'- {k}: {price(name)}{" onwards" if onwards else ""}. {(CARD_DESC.get(city) or [c[3] for c in PRICE_CARDS])[i]}' + (f' {t}.' if t else '')
+                               for i, (k, name, onwards, d, t, _) in enumerate(PRICE_CARDS))
                      + f'\n{inc}\n{market}')
 
 QC_ITEMS = ['A design made for your business, not a ready-made theme', 'The number of pages, written down', 'Built and tested for phones',
@@ -415,7 +459,7 @@ def trust_bento(keys=('pay', 'own', 'fix', 'me')):
 def work_rail(ctx, keys):
     wmap = {w[0]: w for w in ctx['WORK']}
     li = ''
-    for k in keys:
+    for k in keys[:3]:
         w = wmap[k]; lw, lh = ctx['SZ'][k]
         li += (f'<li><a class="wr__c" href="{w[5]}" target="_blank" rel="noopener" data-cursor="view"><span class="wr__img"><img src="{GP.vurl(f"/assets/work/{k}-peek.webp")}" '
                f'width="768" height="480" alt="{ea("Website for " + w[1] + ", designed and built by U Scale")}" loading="lazy" decoding="async"></span>'
@@ -1222,3 +1266,108 @@ CITIES += [
          f'and add Hindi for local customers. I build Hindi pages from your own text; writing the copy is {COPY}.')],
        ['jpr-p1', 'jpr-p2', 'jpr-p3', 'jpr-tour', 'jpr-lang', 'local-rank']),
 ]
+
+
+# ---------------------------------------------------------------- each city's own answers to the three questions every city page asks
+# (they were word for word the same on all nine pages)
+_SAFE = {
+    'pune': 'Pune buyers compare quotes hard, so here is the deal in writing before any work starts: a fixed price, 20% to start, 20% when you approve '
+            'the design on your phone, and 60% only when the site is live. The domain is registered in your name from day one, and every login is handed '
+            'over at launch, so you never pay for work you haven’t seen.',
+    'bengaluru': 'You never pay for what you haven’t seen. The scope and price are written down first; then it is 20% to start, 20% once you approve the '
+                 'screens in Figma, and the last 60% when the site is live. The domain, hosting and code are in your company’s name, not mine.',
+    'chennai': 'The terms are the same for every client, near or far: a written scope and fixed price, then 20% to start, 20% after you approve the '
+               'design, and 60% when the site is live. You can follow every step on WhatsApp and video calls, and the domain and logins are yours from the start.',
+    'delhi-ncr': 'Distance doesn’t change the terms. You get the scope and a fixed price in writing, pay 20% to start and 20% on design approval, and '
+                 'keep 60% until the site is live. Your firm owns the domain, the code and every login, so nothing is held back at the end.',
+    'hyderabad': 'Yes, if the money follows the work. With U Scale you pay 20% to start, 20% when you approve the design and 60% only after launch, '
+                 'against a scope and price written down first. The domain is registered in your name and all logins come to you at launch.',
+    'kolkata': 'Pay in three steps, each after you see progress: 20% to start, 20% when you have approved the design, and 60% when the site is live. '
+               'The price is fixed in writing before work begins, and the domain and logins are in your name, so the site is yours whoever maintains it.',
+    'ahmedabad': 'Treat it like any supplier: terms in writing first. The price is fixed before work starts; you pay 20% to start, 20% on design '
+                 'approval and the balance 60% only when the site is live. Domain and logins are in your firm’s name from day one.',
+    'surat': 'The terms are written down before work starts: a fixed price, 20% advance, 20% when you approve the design and 60% on launch, the way '
+             'traders like to settle against delivery. The domain is booked in your name, and you get every login when the site goes live.',
+    'jaipur': 'Most of the payment comes after you see the result: 20% to start, 20% when you approve the design, and 60% once the site is live. '
+              'The scope and price are agreed in writing first, and your domain, booking pages and logins stay in your name.',
+}
+_RANK = {
+    'pune': 'Yes. For a search in Kothrud or Hinjewadi, Google weighs how relevant, how close and how well known your business is, and the distance it '
+            'measures is between your business and the searcher, not your designer. Name your Pune areas and services on your site and your Google listing, '
+            'keep them identical, and collect reviews from Pune customers.',
+    'delhi-ncr': 'Yes, for searches near your office. NCR is several cities, and a search in Noida mostly shows Noida businesses. Google measures distance '
+                 'from your business to the person searching, not from your designer, so name the city and sector you serve on your site and your listing.',
+    'hyderabad': 'Yes. The distance Google weighs is between your business and the person searching in Hyderabad, not your designer in Mumbai. Name '
+                 'your area, whether Banjara Hills or Gachibowli, on your site and your listing, keep the two identical, and build genuine reviews.',
+    'kolkata': 'Yes. Google judges relevance, distance and prominence, and distance runs from your shop to the person searching in Kolkata. Name your '
+               'neighbourhood, Gariahat or Salt Lake, on your site and listing, and the same Bengali or English name everywhere.',
+    'ahmedabad': 'Yes. What Google measures is the distance between your business and the buyer searching in Ahmedabad, not where your designer sits. '
+                 'Name your area, from the old city to SG Highway, the same way on your site and your Google listing, and earn reviews from local buyers.',
+    'surat': 'Yes. Google ranks local results by relevance, distance and prominence, and distance is from your shop to the buyer, not from your '
+             'designer. Name your market and area, a Ring Road textile market or Varachha, exactly as buyers search for it, on your site and your listing.',
+    'jaipur': 'Yes. Travellers search from their phones, often near you, and Google measures distance from your property to them, not to your '
+              'designer. Name your area, C-Scheme or the walled city, on your site and listing, and keep the same name on booking sites.',
+}
+_MAPS = {
+    'pune': 'Claim and verify your Google Business Profile with your exact Pune address, or set Pune and Pimpri-Chinchwad as service areas if you '
+            'travel to customers. Pick the most specific category, add timings and real photos, and ask every happy customer for a review. Use the same '
+            'name and phone on Justdial and IndiaMART.',
+    'bengaluru': 'If customers visit you, verify a Google Business Profile at your exact address, in Indiranagar or Whitefield or wherever you are. '
+                 'Google’s guidelines leave out businesses that only work online, so a SaaS company may not need one. Choose the most specific category, '
+                 'keep hours and photos current, and reply to every review.',
+    'chennai': 'Verify your Google Business Profile at your exact Chennai address, from T. Nagar to OMR, with the name exactly as it is on your board, '
+               'in English or Tamil. Pick the most specific category, add hours, photos and services, and ask for a review after each visit.',
+    'delhi-ncr': 'Verify one Google Business Profile at your real office address in Delhi, Gurugram or Noida, and pick the most specific category, '
+                 'like “Chartered accountant”. If you visit clients across NCR, add the cities you cover as service areas. Keep timings, photos '
+                 'and services complete, and reply to every review.',
+    'hyderabad': 'Verify your Google Business Profile at the exact address, with the locality people know, like Madhapur or Kukatpally. Choose the '
+                 'most specific category, for a lab “Medical laboratory”, add hours, home-collection areas and photos, and ask patients for reviews.',
+    'kolkata': 'Verify your Google Business Profile with your shop’s exact address and the name on your signboard. Add opening hours, festival hours '
+               'before Durga Puja, photos of what you sell, and reply to reviews in the language the customer used.',
+    'ahmedabad': 'Verify your Google Business Profile with the exact address, and if your shop is in a busy old-city lane, place the pin carefully '
+                 'and describe how to find you. Pick the most specific category, add photos of your range, and ask regular buyers for reviews.',
+    'surat': 'Verify your Google Business Profile with the market name, floor and shop number in the address, so buyers reach the right shop in a big '
+             'market. Add your categories, photos of your range and timings, and ask regular buyers to leave a review.',
+    'jaipur': 'Verify your Google Business Profile with the exact location, pinned where guests actually arrive. Add photos of rooms or pieces, '
+              'opening hours and the languages you speak, and reply to every review, because travellers read them closely.',
+}
+
+
+def _uniquify():
+    extra = {
+        'ahmedabad': ('Can my website help me sell to buyers outside Gujarat?',
+                      'Yes. Buyers in other states search in English for what you make, like “cotton fabric manufacturer Ahmedabad”, so a page for each '
+                      'range, with photos, minimum order and a WhatsApp button, is what they find and trust. Keep the same firm name and phone on '
+                      'IndiaMART and your Google listing.'),
+        'hyderabad': ('Should my lab or clinic show test prices online?',
+                      'It helps. Patients compare labs on their phones before they book, so clear prices for common tests and packages, the areas you '
+                      'collect from and when reports arrive answer their first questions. The prices online must match what you charge at the counter.'),
+        'kolkata': ('Can my sweet shop take festival and wedding orders online?',
+                    'Yes. A page for festival and wedding orders, with boxes, quantities and an “Order on WhatsApp” button, lets customers book ahead for '
+                    'Durga Puja, Bijoya and weddings, and you confirm each order in the chat.'),
+        'jaipur': ('Can guests book directly on my website?',
+                   'Yes, as a direct enquiry: guests pick dates, the number of people and a room, and the details arrive on your WhatsApp for you to '
+                   'confirm. A full booking engine with live availability is a bigger project, priced after the free audit.'),
+    }
+    for p in CITIES:
+        if p['slug'] in extra and extra[p['slug']] not in p['faq']:
+            p['faq'] = list(p['faq']) + [extra[p['slug']]]
+    more = {'ahmedabad': ('Do you work with businesses in Gandhinagar?',
+                          'Yes, remotely and at the same prices. Gandhinagar and Ahmedabad customers search by their own city names, so if you serve both, '
+                          'say so on your website, and if you visit customers there, list both as service areas on your Google listing.'),
+            'hyderabad': ('Do you work with businesses in Secunderabad?',
+                          'Yes, remotely and at the same prices. People search “Secunderabad” and “Hyderabad” separately, so name the side of the city you '
+                          'are on, and the localities you serve, in your listing and on your pages.')}
+    for p in CITIES:
+        k = p['slug']
+        if k in more and more[k] not in p['faq']: p['faq'] = list(p['faq']) + [more[k]]
+        faq = []
+        for q, a in p['faq']:
+            if q.startswith('Is it safe to pay') and k in _SAFE: a = _SAFE[k]
+            elif q.startswith('Will my website rank') and k in _RANK: a = _RANK[k]
+            elif 'on Google Maps?' in q and k in _MAPS: a = _MAPS[k]
+            faq.append((q, a))
+        p['faq'] = faq
+
+
+_uniquify()

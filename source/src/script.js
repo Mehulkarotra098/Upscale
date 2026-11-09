@@ -578,6 +578,8 @@
           if(h) h.textContent='My inbox didn\'t answer just now. Tap below to send the same message on WhatsApp.';
         }
         form.hidden=true; done.hidden=false; done.classList.add('is-in');
+        /* For analytics (Google Tag Manager): one event per sent form, with no personal details in it */
+        if(ok){ try{ (window.dataLayer=window.dataLayer||[]).push({event:'generate_lead',form_name:'free_audit',page_path:location.pathname}); }catch(err){} }
         if(h) h.focus({preventScroll:true});
         var r=done.getBoundingClientRect(); if(ok&&motion&&fine) burst(r.left+48,r.top+40);
         setTimeout(layout,50);

@@ -703,8 +703,7 @@ def card_profile():
             f'<ul class="sv-prof__acts" aria-hidden="true">{acts}</ul>'
             f'<p class="sv-card__h">Kept up to date every month</p><ul>{li}</ul>'
             f'<p class="sv-card__f">{icon("key")}Your listing stays in your name</p></div>')
-    floats = (_float('dk-chip dk-chip--prof1', f'{icon("check")}Verified', 120, 0)
-              + _float('dk-chip dk-chip--prof2', f'{icon("chat")}Review replied', 90, 1))
+    floats = _float('dk-chip dk-chip--prof1', f'{icon("check")}Verified', 120, 0)
     return _dk('prof', card, floats, sheets=2, label='Illustration: a Google Business Profile kept up to date: verified, hours, photos and posts, and reviews replied to')
 
 

@@ -133,7 +133,7 @@ def page(ctx, parts, tv, sp):
   </section>
   <section class="section" aria-labelledby="types-title">
     <div class="wrap">
-      <header class="sec-head"><p class="eyebrow">Every kind of code</p><h2 class="h2" id="types-title">QR codes for links, UPI, WhatsApp, <span class="qt-nb">Wi-Fi</span> and more.</h2></header>
+      <header class="sec-head"><p class="eyebrow">Every kind of code</p><h2 class="h2" id="types-title">UPI, WhatsApp, <span class="qt-nb">Wi-Fi</span> and link QR codes.</h2></header>
       <ul class="qt-types">{types}</ul>
     </div>
   </section>

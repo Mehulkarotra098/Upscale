@@ -298,7 +298,7 @@ ADS = dict(
                    'You see the search terms your money was spent on, not just clicks.',
                    'The fee and the minimum term are written down, with no long lock-in.',
                    'Someone watches the account every week in the first month, when most money is wasted.']),
-            eyebrow='Choosing who runs your ads', layout='wide', sid='choosing'),
+            eyebrow='Choosing who runs your ads', layout='wide', tone='dark', sid='choosing'),
         Sec('Read these next', guides('chatads', 'wa', 'insta', 'wedding'), eyebrow='Guides', layout='wide'),
     ],
     how=dict(head='Test small. Scale what works.', sub='From your goals to a weekly rhythm.',

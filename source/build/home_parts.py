@@ -113,7 +113,8 @@ def for_places():
     import city_pages as CP
     near = ('<a class="tlink" href="/services/website-design-thane">Thane</a> and '
             '<a class="tlink" href="/services/website-design-navi-mumbai">Navi Mumbai</a>')
-    cities = ', '.join(f'<a class="tlink" href="/{c["path"]}">{e(c["city"])}</a>' for c in CP.CITIES)
+    links = [f'<a class="tlink" href="/{c["path"]}">{e(c["city"])}</a>' for c in CP.CITIES]
+    cities = ', '.join(links[:-1]) + ' and ' + links[-1]
     return (f'      <p class="fp-all home-places" data-reveal>Also near Mumbai: {near}. Outside Mumbai, I build websites for businesses in '
             f'{cities}.</p>')
 

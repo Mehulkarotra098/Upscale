@@ -225,7 +225,7 @@ PAGES = [
   title='Restaurant Website Design in Mumbai with Online Ordering',
   desc='Restaurant or café website with your menu and your own online ordering, so regulars order direct, not via an app that takes 20–25%. '
        f'Fixed {price("Restaurant site + own online ordering")}.',
-  h1='Restaurant & café website design with online ordering', eyebrow='Websites by business',
+  h1='Restaurant websites with online ordering', eyebrow='Restaurant website design',
   lead='Your menu and your own online ordering, on a website you own. Regulars order from you directly, not through an app that keeps a share of every order.',
   stats=[(price('Restaurant site + own online ordering'), 'Fixed price'), ('0%', 'App commission on direct orders'), ('3–4 weeks', 'To go live')],
   art=dict(kind='img', img='rest', chips=[('cart', 'New order · ₹190 · paid by UPI'), ('check', '0% app commission')]),
@@ -413,7 +413,6 @@ PAGES = [
          'prominence (how well known you are, judged partly from reviews and from the web). A website that names your area, services and timings, '
          'and matches your Google listing exactly, helps with relevance; reviews and mentions across the web build prominence.'),
        Img('found'),
-       RANKING,
        eyebrow='Google Maps'),
    Sec('Where I meet clients around Ghatkopar',
        Svg('gk-map'),
@@ -421,6 +420,14 @@ PAGES = [
        P('Further away? I work with businesses across Mumbai, ' + _link('/services/website-design-thane', 'Thane') + ' and '
          + _link('/services/website-design-navi-mumbai', 'Navi Mumbai') + ', and with clients elsewhere in India, over WhatsApp and video calls.'),
        eyebrow='Near you', tone='band', sid='areas'),
+   Sec('Ghatkopar by area',
+       Cards([('store', 'Around the station, East and West', 'Jewellers, sweet shops, clinics and stores on the station roads, where people search on the way home.'),
+              ('pin', 'Pant Nagar and Garodia Nagar', 'Residential lanes in Ghatkopar East, with tuition classes, salons, clinics and home businesses.'),
+              ('pin', 'Rajawadi', 'Around Rajawadi hospital in Ghatkopar East: clinics, chemists and diagnostic centres people look up in a hurry.'),
+              ('layers', 'LBS Marg', 'Showrooms, offices and the R City mall in Ghatkopar West, with plenty of businesses chasing the same searches.')], cols=2),
+       P('Each part of Ghatkopar is searched by its own name, so a clinic in Pant Nagar and a jeweller near the station need different words on their '
+         'listing and their website. The same goes for language: plenty of customers here search in Hindi or Hinglish as well as English.'),
+       eyebrow='By area', layout='wide', sid='by-area'),
    Sec('Also nearby: Powai, Vikhroli, Kurla, Chembur and Mulund',
        Cards([('pin', 'Ghatkopar East', 'Across the station from my base in Ghatkopar West, so a meeting at your shop is easy to arrange.'),
               ('pin', 'Vikhroli', 'The next station north on the Central line.'),
@@ -442,7 +449,10 @@ PAGES = [
        ('How much does a website cost in Ghatkopar?',
         f'With U Scale, a landing page is {price("Landing page")}, a 5–10 page business website {price("Business site, 5–10 pages")}, a 10–20 page site with a '
         f'blog {price("Business site, 10–20 pages + blog")} and an online store from {price("E-commerce, under 50 products")}. The same fixed prices apply anywhere in Mumbai.'),
-       ('How do I get my Ghatkopar business into the Google Maps top 3?', MAPS_FAQ),
+       ('How do I get my Ghatkopar business into the Google Maps top 3?',
+        'Start with the basics most Ghatkopar listings miss: verify the profile, pick the most specific category, and write the address the way people '
+        'give directions here, East or West and the nearest landmark or road, like LBS Marg or the station. Add real photos and timings, and ask every '
+        'customer for a review. Distance from the person searching decides part of the ranking, so nobody can promise a top-3 spot.'),
        ('Is there a digital marketing agency in Ghatkopar?',
         'There are several. U Scale is not an agency with a team: it is Mehul Karotra, based in Ghatkopar West, who builds websites and runs '
         'Google listings, local SEO, social media and ads for local businesses himself, at published prices.'),
@@ -462,7 +472,7 @@ PAGES = [
   title='Website Designer in Andheri East & West | U Scale',
   desc='Websites, Google listings and local SEO for shops, cafés and offices in Andheri East and West: Marol, Chakala, MIDC, Lokhandwala, Versova. '
        f'From {price("Landing page")}.',
-  h1='Website design for Andheri businesses, East and West', eyebrow='Near you',
+  h1='Website design in Andheri, East and West', eyebrow='Near you',
   lead='Shops, cafés and offices in Andheri East compete for the same searches on Google. I design websites and fix Google listings here, and in October 2026 I ran a free audit day for local shops.',
   stats=[('30+', 'Local listings checked'), (price('Landing page'), 'Websites from'), ('Free', 'Audit, in person')],
   art=dict(kind='img', img='found'),
@@ -678,8 +688,8 @@ PAGES = [
        eyebrow='DIY builder', layout='half'),
    Sec('What Wix, Shopify, Squarespace and Hostinger cost a year in India',
        Table(['Builder', 'Cheapest plan, per month, billed yearly', 'A year at that rate', 'Watch for'],
-             [('Wix', '₹250 (Light)', '₹3,000', 'Prices exclude taxes; online payments need a higher plan'),
-              ('Squarespace', '₹630 (Basic)', '₹7,560', '2% on store sales on Basic; prices on a 50%-off offer at the time'),
+             [('Wix', '₹250 (Light)', '₹3,000', 'Prices exclude taxes; check which plan takes online payments'),
+              ('Squarespace', '₹630 (Basic)', '₹7,560', '2% on store sales on Basic; a 50%-off code was on offer when checked'),
               ('Hostinger Website Builder', '₹139 (Premium, 4-year term)', '₹1,668', 'Renews at ₹449 a month; prices exclude GST'),
               ('Shopify', 'About ₹1,500–₹1,800 (Basic)', '₹18,000–₹21,600', 'Plus 2% on every sale in India, on top of the payment gateway fee')],
              'Yearly cost of website builders in India, cheapest plan, from their own pricing pages on 10 Nov 2026'),
@@ -726,7 +736,7 @@ def parent_sections():
                    ('chat', 'One clear action', 'WhatsApp, a call or a short form, right where people decide.')], cols=3),
             eyebrow='Landing pages', sid='landing'),
         Sec(f'Why {price("Business site, 5–10 pages")} and not a ₹25,000 template?',
-            Table(['', 'A U Scale business site', 'A typical template package'],
+            Table(['', 'U Scale business site', 'Template package'],
                   [('Price', f'{price("Business site, 5–10 pages")}, fixed, for 5–10 pages', '₹8,000–₹30,000 in 2025–26 price guides'),
                    ('Design', 'Designed for you in Figma, screen by screen', 'A ready-made theme with your logo and colours'),
                    ('Code', 'Hand-coded, with nothing the site doesn’t use', 'A theme and plugins, often more than the site needs'),
@@ -1371,7 +1381,10 @@ def _foot(p):
 
 def _related(p):
     kinds = {'business': 'By business', 'area': 'Near you', 'guide': 'Guide'}
-    others = [q for q in PAGES if q is not p]
+    # five cards: up to three of the same kind (other areas from an area page), then the closest of the rest
+    same = [q for q in PAGES if q is not p and q['kind'] == p['kind']][:3]
+    rest = [q for q in PAGES if q is not p and q not in same and q['kind'] == ('guide' if p['kind'] != 'guide' else 'business')]
+    others = same + rest[:5 - len(same)]
     li = ''.join(f'<li><a class="fp-rel" href="{href_of(q)}"><span class="fp-rel__k">{kinds[q["kind"]]}</span><b>{e(q["h1"])}</b>'
                  f'<span class="fp-rel__d">{e(q["card"])}</span>{icon("arrow")}</a></li>' for q in others)
     return f'<nav class="fp-related" aria-label="More website pages"><p class="eyebrow">Keep reading</p><ul class="fp-snap" data-snap>{li}</ul></nav>'

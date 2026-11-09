@@ -1037,3 +1037,13 @@ html.pin-ok .sp-process .step{opacity:1;transform:none}
   .wc__peek b{font:400 26px/1 var(--display);letter-spacing:.01em}
   .wc__peek i{margin-left:auto;font:600 12.5px/1 var(--sans);font-style:normal;color:#DAD3F0}
 }
+
+/* Short laptop screens (e.g. 1440x626): like phones, the hero shows the lead's first sentence so the buttons stay in the
+   first screen; the rest stays in the page for screen readers and search engines. */
+@media (min-width:700px) and (max-height:760px){
+  .fp-lead-more{position:absolute;width:1px;height:1px;margin:-1px;padding:0;border:0;overflow:hidden;clip:rect(0 0 0 0);clip-path:inset(50%);white-space:nowrap}
+}
+
+/* Paragraphs and text links inside dark panels (sections with tone="dark") */
+.on-dark .fp-p{color:#DAD3F0}
+.on-dark .fp-p .tlink,.on-dark .fp-note .tlink{color:#fff}

@@ -885,4 +885,5 @@
 .sv-est__tot{display:flex;align-items:baseline;justify-content:space-between;gap:10px;margin:10px 0 0;padding-top:12px;border-top:2px solid var(--violet);font:700 12px/1.2 var(--sans);letter-spacing:.12em;text-transform:uppercase;color:var(--body)}
 .sv-est__tot b{font:400 clamp(30px,3vw,38px)/1 var(--display);letter-spacing:.01em;text-transform:none;color:var(--violet)}
 .dk-chip--est{right:-20px;bottom:-6px}
-@media (max-width:559px){.dk-chip--prof1,.dk-chip--cart{right:-6px}.dk-chip--prof2,.dk-chip--upi{left:-6px}.dk-chip--est{right:-4px}}
+@media (max-width:559px){.dk-chip--prof1{top:auto;bottom:-6px;right:10px}.dk-chip--cart{top:8px;right:12px}.dk-chip--upi{left:10px}.dk-chip--est{right:-4px}}
+@media (max-width:359px){.sv-card .sv-prof__acts{grid-template-columns:repeat(2,minmax(0,1fr))}}

@@ -44,7 +44,7 @@ ECOM = dict(
     card=f'Your own online store with UPI and card payments, from {STORE} for under 50 products.',
     title='E-commerce Website Development in Mumbai from ₹95,000',
     desc=f'Your own online store, built in Mumbai: under 50 products {STORE}, 50–500 products {STORE_BIG}. UPI and card payments, product pages Google can find.',
-    h1='E-commerce website development in Mumbai', eyebrow='Websites by business',
+    h1='E-commerce websites in Mumbai', eyebrow='Website development',
     lead='Your own online store, designed in Figma and coded by hand: product pages Google can find, a cart, and payments by UPI and cards through a payment gateway. Fixed price, agreed in writing before I start.',
     stats=[(STORE, 'Online store, under 50 products'), ('₹1.5L', '50–500 products, from'), ('0%', 'Marketplace commission')],
     art=dict(kind='card', card='store'),
@@ -85,7 +85,7 @@ ECOM = dict(
               'add. Nothing is decided for you later.'),
             Check(['How you will deliver, and to which pin codes', 'Whether you offer cash on delivery', 'Delivery charges and free-delivery rules',
                    'Returns and exchanges, in writing on the site', 'Your GST details for invoices, if you are registered', 'Who updates products and prices after launch']),
-            eyebrow='Decided up front', tone='band', sid='delivery'),
+            eyebrow='Decided up front', layout='wide', tone='dark', sid='delivery'),
         Sec('List your products on Google for free',
             P('Google Merchant Center lets shops list products for free across Google Search, the Shopping tab, Images and Lens. Google asks for a '
               'product page on your own website for each item, with the price, availability and a way to buy. A marketplace listing doesn’t give '
@@ -161,7 +161,7 @@ def gbp_page_dict():
                        'The website and phone match your site exactly', 'Recent edits that may have triggered a review']),
                 P('Step-by-step guides: ' + _link('/blog/business-not-showing-on-google-maps', 'why a business doesn’t show on Google Maps')
                   + (', and ' + _link('/blog/google-business-profile-verification', 'Google Business Profile verification') if SP.live('/blog/google-business-profile-verification') else '') + '.'),
-                eyebrow='Fixes', tone='band', sid='fixes'),
+                eyebrow='Fixes', layout='wide', tone='dark', sid='fixes'),
             Sec('No shop? A service-area listing',
                 P('If you serve customers at their place, like AC repair, pest control, tuition at home or a home bakery, you can have a listing that '
                   'shows the areas you cover without showing your home address. Google asks service-area businesses to hide the address and list '
@@ -478,13 +478,16 @@ THANE = dict(
             Cards([('store', 'Thane West', 'Shops, clinics, coaching classes and restaurants from Naupada and Vartak Nagar to Majiwada, where people search on the way home.'),
                    ('pin', 'Ghodbunder Road', 'Newer housing societies, and the salons, clinics, gyms and cafés that serve them. A complete Google listing matters most here.'),
                    ('box', 'Wagle Estate', 'An MIDC industrial estate of manufacturers and suppliers, whose buyers check a website before they ask for a quote. ' + GP.src_chip('mpcb-thane')),
-                   ('truck', 'Kalyan and Dombivli', 'Retail and wholesale traders, and the textile, chemical and engineering units of Dombivli MIDC, set up in 1964. ' + GP.src_chip('mpcb-dombivli'))], cols=2),
+                   ('truck', 'Kalyan and Dombivli', 'Retail and wholesale traders, and the textile, chemical and engineering units of Dombivli MIDC, set up in 1964. ' + GP.src_chip('mpcb-dombivli')),
+                   ('pin', 'Thane East', 'Shops, clinics and services east of the station, which people search for as “Thane East”, not just Thane.'),
+                   ('layers', 'Kalwa and Mumbra', 'Across the creek but inside Thane’s municipal limits, with busy markets of their own and their own names in search.')], cols=2),
             eyebrow='By area', layout='wide', sid='areas'),
         Sec('How Thane customers search',
             P('Thane, Navi Mumbai and Kalyan-Dombivli each have their own municipal corporation, and people search by their own area names, not “Mumbai”: '
               '“dentist in Thane West”, “CA near Thane station”, “cake shop Dombivli East”. Many search in Marathi, Hindi or Hinglish too. Your Google '
               'listing and your pages should use the words customers type and name the areas you actually serve. ' + GP.src_chip('tmc-list')),
-            RANKING,
+            Chips(['Thane West', 'Thane East', 'Naupada', 'Vartak Nagar', 'Majiwada', 'Ghodbunder Road', 'Wagle Estate', 'Kalwa', 'Mumbra', 'Dombivli', 'Kalyan'],
+                  'Area names Thane customers type'),
             eyebrow='Search in Thane'),
         Sec('Prices: the same as in Mumbai',
             Table(['Website', 'U Scale price'], [('Landing page', price('Landing page')), ('Business site, 5–10 pages', price('Business site, 5–10 pages')),
@@ -498,23 +501,36 @@ THANE = dict(
             P('Most Thane customers find a local business on Google Maps first, then check its website or Instagram before they call. So the work is '
               'usually three things together: a website that names your area and services, a complete Google Business Profile, and a steady flow of '
               'genuine reviews. For factories and suppliers in Wagle Estate or Dombivli MIDC, a website with your products, capacity and certifications '
-              'often matters more than the map.'),
-            GP.svc_links(), eyebrow='Services', layout='wide', sid='services'),
-        Sec('Check where you stand, free', Tools(), eyebrow='Free tools', layout='wide'),
+              'often matters more than the map. Check where your listing stands first with the free '
+              + _link('/tools/google-business-profile-checker', 'Google Business Profile checker') + '.'),
+            Links([('/services/website-design-mumbai', 'globe', 'A website for your Thane business', 'Designed in Figma, hand-coded, with your areas and services named the way customers search.', f'From {price("Landing page")}'),
+                   ('/services/google-business-profile-mumbai', 'pin', 'Your Google listing, managed', 'Verified, the right categories, hours, photos, weekly posts and replies to reviews.', LOCAL),
+                   ('/services/ecommerce-website-mumbai', 'cart', 'An online store', 'For Thane brands selling across India: products, cart, UPI and card payments.', f'From {STORE}')]),
+            eyebrow='Services', layout='wide', sid='services'),
     ],
     faq=[('Is there a website designer near me in Thane?',
           'Yes. Mehul Karotra of U Scale is based in Ghatkopar West, a short ride down the Central line, and designs and builds websites for businesses '
           'across Thane, Kalyan and Dombivli. He can meet you at your shop or office, and every project starts with a free audit.'),
          ('How much does a website cost in Thane?', WEB_FAQ + ' Thane studios’ own pages, seen in November 2026, range from about ₹4,000 template packages to over ₹1.5 lakh.'),
+         ('Do you work with businesses on Ghodbunder Road?',
+          'Yes. Ghodbunder Road’s housing societies keep salons, clinics, gyms, tuition classes and cafés busy, and most of their customers search on '
+          'Google Maps by society or landmark. A complete listing with real photos, a website with your services and prices, and steady reviews '
+          'from residents is usually the place to start.'),
+         ('Can my Thane website be in Marathi?',
+          'Yes. Many Thane customers read Marathi, so a Marathi version of your key pages, or a Marathi line next to the English, can help. I build '
+          f'the pages from your own Marathi text or a translator’s, with a language switch Google understands; writing the copy is {price("Website copy")}.'),
          ('Do you work in Kalyan and Dombivli?',
           'Yes. Kalyan and Dombivli are further up the same Central line, and the prices are the same. Meetings can be at your shop or office, or over WhatsApp and video calls.'),
          ('Do you build websites for manufacturers in Wagle Estate and Dombivli MIDC?',
           f'Yes. A website for a manufacturer or supplier usually needs product or capability pages, certifications, clients you are allowed to show and '
           f'a clear enquiry form. It is priced as a business site, from {price("Business site, 5–10 pages")} for 5–10 pages.'),
-         ('How do I get my Thane business into the Google Maps top 3?', MAPS_FAQ),
-         ('Is there a digital marketing agency in Thane?',
-          'There are several. U Scale is not an agency with a team: it is Mehul Karotra, who builds websites and runs Google listings, local SEO, social '
-          'media and ads for businesses in Thane himself, at published prices.')],
+         ('How do I get my Thane business on Google Maps?',
+          'Verify your Google Business Profile at your exact Thane address, with the area customers use, Naupada or Ghodbunder Road, in the address. '
+          'If you serve customers at home across Thane, Kalyan and Dombivli, list those as service areas instead. Then complete the hours, photos and '
+          'services, and ask every customer for a review. Nobody can promise a top-3 spot, because distance from the searcher decides part of it.'),
+         ('Do you also handle social media and ads for Thane businesses?',
+          'Yes. Besides the website and Google listing, I run Instagram and Facebook, and Google and Meta ads, for Thane businesses on monthly plans with '
+          'published prices. Most start with the website and the listing, then add the rest.')],
     sources=['tmc-list', 'mpcb-thane', 'mpcb-dombivli', 'local-rank', 'th-websetgo', 'th-vebbly', 'th-s2h'],
     offers=['Landing page', 'Business site, 5–10 pages', 'Business site, 10–20 pages + blog', 'Local SEO / Google Business Profile'],
     work=[])
@@ -556,36 +572,49 @@ NAVI = dict(
             P('Navi Mumbai is a planned city, developed by CIDCO since 1970, and its addresses run by node and sector. People search the way they give '
               'directions: “dentist Sector 17 Vashi”, “cafe in Kharghar”, “CA near Belapur station”, not “Mumbai”. Your Google listing and your website '
               'should name your node and sector exactly as customers type them. ' + GP.src_chip('cidco')),
-            RANKING,
-            eyebrow='Search in Navi Mumbai'),
+            Table(['Node', 'How people search', 'Name it on your listing as'],
+                  [('Vashi', '“physiotherapist sector 17 vashi”', 'Sector and node, e.g. “Sector 17, Vashi”'),
+                   ('Kharghar', '“cafe in kharghar sector 35”', 'Sector and node, with the nearest landmark'),
+                   ('CBD Belapur', '“ca near belapur station”', 'Node and station, for offices'),
+                   ('Airoli', '“gym airoli sector 5”', 'Sector and node; Mindspace for office-park businesses')],
+                  'How Navi Mumbai customers search by node and sector: illustrative searches'),
+            eyebrow='Search in Navi Mumbai', layout='wide'),
         Sec('Prices: the same as in Mumbai',
             Table(['Website', 'U Scale price'], [('Landing page', price('Landing page')), ('Business site, 5–10 pages', price('Business site, 5–10 pages')),
                                                  ('Business site, 10–20 pages + blog', price('Business site, 10–20 pages + blog')), ('Online store, under 50 products', STORE),
                                                  ('Local SEO and Google Business Profile', LOCAL)], 'U Scale prices for Navi Mumbai businesses'),
             Note('Navi Mumbai market, for comparison: a Kharghar studio lists packages at ₹4,999, ₹9,999 and ₹24,999; a Kalamboli studio lists static sites '
                  'from ₹8,000, dynamic sites at ₹20,000–₹50,000 and online stores from ₹30,000; a CBD Belapur studio starts at ₹7,999 (studios’ own pages, '
-                 'seen 10 Nov 2026). Cheaper packages are usually templates: ask what you get, and whose name the domain is in.'),
+                 'seen 10 Nov 2026). A ₹5,000 package is almost always a template, so compare what you get, not just the price.'),
             eyebrow='Prices', layout='wide', tone='band', sid='prices'),
         Sec('Websites, SEO and Google Maps for Navi Mumbai businesses',
-            P('Most Navi Mumbai customers find a local business on Google Maps first, then check its website or Instagram before they call. So the work is '
-              'usually three things together: a website that names your node and services, a complete Google Business Profile, and a steady flow of '
-              'genuine reviews. For suppliers in the TTC MIDC belt, a website with your products, capacity and certifications often matters more than the map.'),
-            GP.svc_links(), eyebrow='Services', layout='wide', sid='services'),
-        Sec('Check where you stand, free', Tools(), eyebrow='Free tools', layout='wide'),
+            P('In a city of nodes and sectors, people look you up on Google Maps, check your page, then call or message. Three things decide whether they '
+              'pick you: a site that names your node and what you do, a Google listing with the right sector and pin, and reviews from people nearby. '
+              'B2B buyers in the TTC MIDC belt work differently: they want products, capacity and certifications before they ask for a quote. '
+              'Check where your listing stands first with the free ' + _link('/tools/google-business-profile-checker', 'Google Business Profile checker') + '.'),
+            Links([('/services/website-design-mumbai', 'globe', 'A website for your Navi Mumbai business', 'Designed in Figma, hand-coded, with your node and sector named the way customers search.', f'From {price("Landing page")}'),
+                   ('/services/google-business-profile-mumbai', 'pin', 'Your Google listing, managed', 'Verified, the right categories, hours, photos, weekly posts and replies to reviews.', LOCAL),
+                   ('/services/website-design-mumbai/restaurants-cafes', 'menu', 'Restaurant and café websites', 'Your own menu and ordering for Vashi, Nerul and Kharghar regulars, no app commission.', price('Restaurant site + own online ordering'))]),
+            eyebrow='Services', layout='wide', sid='services'),
     ],
     faq=[('Is there a website designer near me in Navi Mumbai?',
           'Yes. Mehul Karotra of U Scale is based in Ghatkopar West, across Thane Creek, and designs and builds websites for businesses from Airoli and '
-          'Vashi to Nerul, CBD Belapur, Kharghar and Panvel. He can meet you at your shop or office, and every project starts with a free audit.'),
+          'Vashi to Nerul, CBD Belapur, Kharghar and Panvel. The first audit is free, in person or on a video call.'),
          ('How much does a website cost in Navi Mumbai?', WEB_FAQ + ' Navi Mumbai studios’ own pages, seen in November 2026, start from about ₹5,000 for template packages.'),
          ('Do you work in Panvel and Kharghar?',
-          'Yes, at the same prices. Meetings can be at your shop or office, or over WhatsApp and video calls.'),
+          'Yes, at the same prices as Vashi or Mumbai. Kharghar and Panvel are further along the Harbour line, so we can meet at your place or do most of '
+          'the work on WhatsApp and video calls, whichever suits you.'),
          ('Do you build websites for suppliers in the TTC MIDC area?',
           f'Yes. A website for a manufacturer or supplier usually needs product or capability pages, certifications, clients you are allowed to show and '
           f'a clear enquiry form. It is priced as a business site, from {price("Business site, 5–10 pages")} for 5–10 pages.'),
-         ('How do I get my Navi Mumbai business into the Google Maps top 3?', MAPS_FAQ),
-         ('Is there a digital marketing agency in Navi Mumbai?',
-          'There are several. U Scale is not an agency with a team: it is Mehul Karotra, who builds websites and runs Google listings, local SEO, social '
-          'media and ads for businesses in Navi Mumbai himself, at published prices.')],
+         ('How do I get my Navi Mumbai business on Google Maps?',
+          'Write the address the way Navi Mumbai does: building, sector and node, like “Sector 17, Vashi”, and place the pin on your door, not the '
+          'sector’s centre. Pick the most specific category, add hours and photos, and ask customers for reviews. Distance from the searcher still '
+          'decides part of the ranking, so nobody can promise a top-3 spot.'),
+         ('Do you work with APMC traders and MIDC suppliers?',
+          'Yes. Wholesale traders around the APMC markets and suppliers in the TTC MIDC belt usually need a catalogue their buyers can check before '
+          'they call: products, capacity, certifications and a clear enquiry form. That is a business site, from '
+          f'{price("Business site, 5–10 pages")} for 5–10 pages.')],
     sources=['cidco', 'apmc', 'mpcb-ttc', 'mindspace', 'nmia', 'local-rank', 'nm-go1', 'nm-sysmic', 'nm-collegare'],
     offers=['Landing page', 'Business site, 5–10 pages', 'Business site, 10–20 pages + blog', 'Local SEO / Google Business Profile'],
     work=[])
@@ -609,6 +638,18 @@ def build(ctx, parts):
         f.write_text(GP.page(ctx, parts, p))
         rels.append(GP.path_of(p) + '.html')
     return rels
+
+
+def llms_full(site):
+    L = []
+    for p in standalone():
+        L += [f'## {p["h1"]}', '', f'URL: {GP.url_of(site, p)}', '', p['answer'], ''] + [f'- {k}: {v}' for k, v in p['facts']] + ['']
+        for s in p['sections']:
+            body = '\n\n'.join(x for x in (GP.text(b) for b in s['blocks']) if x)
+            if body: L += [f'### {s["h"]}', '', body, '']
+        L += ['### Questions', ''] + [f'**{q}**\n{a}\n' for q, a in p['faq']]
+        if p['sources']: L += ['Sources: ' + '; '.join(f'{GP.SRC[k][1]} ({GP.SRC[k][0]}) {GP.SRC[k][2]}' for k in p['sources']), '']
+    return L
 
 
 def llms_lines(site):

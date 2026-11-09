@@ -69,7 +69,7 @@ SERVICES = [
  dict(slug='social-media-management-mumbai', short='Social media', cta='social media', name='Social Media Management',
   title='Social Media Marketing & Management in Mumbai | U Scale',
   desc='Social media marketing in Mumbai: a monthly plan, designed posts from ₹800, reels from ₹2,500 and inbox care, run by Mehul Karotra. You approve every post.',
-  h1='Social media marketing and management in Mumbai',
+  h1='Social media marketing in Mumbai',
   lead='Consistent, on-brand social media without you chasing anyone. As your freelance social media manager, I plan, design and post your content on Instagram, Facebook, LinkedIn and YouTube, and keep the focus on bringing you enquiries.',
   who='For businesses that know they should post regularly but never find the time, and for brands that want their feed to look as good as their product.',
   items=[('Monthly content calendar','A clear plan of posts, reels and stories, approved by you before anything goes live.'),
@@ -871,7 +871,10 @@ GBP = dict(slug='google-business-profile-checker',
   desc='Free Google Business Profile (GMB) checker: a score out of 100, your top fixes and a review goal, in about 2 minutes. No sign-up. English or Hinglish.',
   h1='Free Google Business Profile checker',
   lead='See how your shop looks on Google in about 2 minutes: your live listing, a score out of 100, a real website speed test, the fixes most likely to bring customers, and how many reviews you need to beat the shop next door. Free, no sign-up, English or Hinglish.',
-  faq=[('Is this an official Google score?', 'No. Google doesn’t publish a score. This checker is U Scale’s checklist, built on what Google says improves local ranking (verify your business, keep information complete and accurate, respond to reviews, add photos) and on the gaps I most often find when I check local listings.'),
+  faq=[('Is this a GMB checker?', 'Yes. Google renamed “Google My Business” (GMB) to “Google Business Profile” in November 2021, so this checks the same '
+                                     'listing: the one that shows your business on Google Search and Maps. If you want the listing managed for you, see '
+                                     'Google Business Profile management.'),
+       ('Is this an official Google score?', 'No. Google doesn’t publish a score. This checker is U Scale’s checklist, built on what Google says improves local ranking (verify your business, keep information complete and accurate, respond to reviews, add photos) and on the gaps I most often find when I check local listings.'),
        ('Do I need to be the owner to use it?', 'No. You can check almost every item by looking at the listing on Google Maps or Google Search. To fix things you need the Google account that manages the profile, or you can claim the profile if nobody has.'),
        ('Is Google My Business the same as Google Business Profile?', 'Yes. Google renamed Google My Business to Google Business Profile in 2021. It is the same listing that shows on Google Search and Google Maps.'),
        ('Why doesn’t my business show up on Google Maps?', 'The usual reasons are: the profile isn’t verified, the main category is too broad or wrong, the person searching is far away (distance matters), nearby competitors have many more reviews, or the profile was suspended for breaking a guideline. Fix the basics first, then build reviews every week.'),
@@ -979,7 +982,7 @@ def gbp_page(ctx, parts, tv):
 
   <section class="section gp" aria-labelledby="gp-title">
     <div class="wrap" data-gp data-psi="{psi}">
-      <h2 class="sr-only" id="gp-title">Check your Google Business Profile</h2>
+      <h2 class="sr-only" id="gp-title">A free Google Business Profile audit in 2 minutes</h2>
       <p class="sr-only" id="gp-live" role="status" aria-live="polite"></p>
       <div class="gp__grid">
         <div class="gp-main" id="gp-start">
@@ -1392,7 +1395,9 @@ PRICING_FAQ_IDX = [1, 2, 3]  # website cost, marketing cost, contract vs retaine
 PRICING_FAQ_MORE = [
     ('Do you charge by the hour?',
      'No. Websites are a fixed price agreed in writing before work starts, monthly services are a fixed monthly fee, and every single piece of '
-     'work has its own price on this page. Nothing is billed by the hour, so the price can’t grow because a task took longer than planned.'),
+     'work has its own price on this page. Nothing is billed by the hour, so the price can’t grow because a task took longer than planned. '
+     'For comparison, freelance developers in India charge from about ₹300 an hour early in their careers to ₹800–₹2,000 an hour with '
+     'experience (OnJob, June 2026).'),
     ('How much does a landing page cost?',
      'A landing page is ₹25,000, fixed, and can be live in under two weeks. It is one page built for one job, such as an ad campaign, a launch '
      'or an offer, with your photos, your prices and a clear WhatsApp or call button.'),
@@ -1402,7 +1407,7 @@ PRICING_FAQ_MORE = [
 def compare_html():
     """Guides and tools that put these prices in context, under the price list."""
     import geo_pages as GP
-    items = [('/blog/website-design-cost-mumbai', 'rupee', 'Website design cost in Mumbai and India', 'Market ranges from 16 price guides, yearly costs, GST and red flags.', ''),
+    items = [('/blog/website-design-cost-mumbai', 'rupee', 'Website design cost in Mumbai (2026)', 'Market ranges from 16 price guides, yearly costs, GST and red flags.', ''),
              ('/tools/website-cost-calculator', 'layers', 'Website cost calculator', 'Pick your pages and features for a market range and a fixed U Scale price.', 'Free'),
              ('/services/website-design-mumbai/freelancer-vs-agency-vs-website-builder', 'user', 'Freelancer vs agency vs builder', 'Who each one suits, what each costs, and six checks before you hire.', ''),
              ('/services/website-design-mumbai/website-banane-ka-kharcha', 'file', 'Website banane ka kharcha (Hinglish)', 'Poora hisaab: market rates, saal ka kharcha aur GST.', '')]
