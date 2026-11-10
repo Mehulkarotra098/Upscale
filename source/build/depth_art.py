@@ -452,7 +452,7 @@ def metro_map():
              clear=[(-250, 178, 160, 30)],
              notes=[(n, x, y, 'm' if i % 2 == 0 else 'm2') for i, (n, x, y) in enumerate(stations)]),
         dict(name='tall', theta=78, k=.86, slab=(-570, -220, 560, 210), lift=120, radius=36, road_label_at={},
-             paint=[('ANDHERI EAST', -400, -176, -78, 'dm-paint--zone'), ('GHATKOPAR', 300, -176, -78, 'dm-paint--zone')],
+             paint=[('ANDHERI EAST', -300, -100, -78, 'dm-paint--zone')],
              pins=[('Ghatkopar West', xs[-1], ys[-1], 'base-l', 'U Scale base')],
              notes=[(n, x, y, 'm-s') for n, x, y in stations]),
     ])
@@ -663,8 +663,8 @@ def navi_map():
     plots = [(ax - 14, ay - 14, bx + 14, by + 14) for (ax, ay, bx, by), *_ in clusters]
     trees = ([('t', x, y) for x, y in _scatter(rnd, 40, hills, [], 0, 16)]
              + [('m', x, y) for x, y in _scatter(rnd, 40, mangrove, [], 0, 15)])
-    pins = [('Airoli', 30, -360, 'r', ''), ('TTC MIDC', 280, -300, 'r', ''), ('Vashi', 110, 132, 'l', ''), ('Nerul', 160, 250, 'l', ''),
-            ('CBD Belapur', 182, 320, 'l', ''), ('Kharghar', 290, 400, 'r', ''),
+    pins = [('Airoli', 30, -360, 'r', ''), ('TTC MIDC', 280, -300, 'r', ''), ('Vashi', 110, 132, 'l', ''), ('Nerul', 160, 250, 'r', ''),
+            ('CBD Belapur', 182, 320, 'l', ''), ('Kharghar', 240, 372, 'r', ''),
             ('Ghatkopar West', -390, -60, 'base', 'U Scale · Mehul Karotra')]
     sp = dict(
         id='nmmap', seed=31,
@@ -676,15 +676,16 @@ def navi_map():
         areas=[('park', hills), ('water', creek), ('mangrove', mangrove), ('zone', midc)],
         roads=[('hwy', spr, 'SION–PANVEL HIGHWAY'), ('road', tbr, 'THANE–BELAPUR ROAD')],
         rails=[('harbour', harbour), ('central', trans)], plots=plots,
-        paint=[('THANE CREEK', -110, -170, 82, 'dm-paint--water')],
+        paint=[('THANE CREEK', -100, 230, 82, 'dm-paint--water')],
         base=(-390, -60), buildings=blds, trees=trees, pins=pins)
     return diorama(sp, [
         dict(name='wide', theta=-12, k=.58, slab=(-470, -560, 470, 470), lift=52, compass=(-420, 410),
-             road_label_at={0: '18%', 1: '30%'}, notes=[('Panvel →', 430, 446, 'g-l')]),
+             road_label_at={0: '18%', 1: '62%'}, notes=[('Panvel →', 440, 452, 'g-l')]),
         dict(name='tall', theta=-6, k=.74, slab=(-300, -560, 470, 470), lift=62, compass=(-250, 420), radius=40,
-             road_label_at={1: '30%'},
-             pins=[(n, x, y, s, t) for n, x, y, s, t in pins if n != 'Ghatkopar West'] + [('Ghatkopar West', -250, -60, 'base-r', 'U Scale · Mehul Karotra')],
-             notes=[('Panvel →', 430, 446, 'g-l')]),
+             road_label_at={1: '62%'}, paint=[('THANE CREEK', -120, 140, 82, 'dm-paint--water')],
+             pins=[('Airoli', 30, -360, 'r', ''), ('TTC MIDC', 220, -250, 'r', ''), ('Vashi', 110, 132, 'l', ''), ('Nerul', 160, 250, 'l', ''),
+                   ('CBD Belapur', 182, 320, 'r', ''), ('Kharghar', 240, 380, 'l', ''), ('Ghatkopar West', -250, -60, 'base-r', 'U Scale · Mehul Karotra')],
+             notes=[('Panvel →', 410, 452, 'g-l')]),
     ])
 
 

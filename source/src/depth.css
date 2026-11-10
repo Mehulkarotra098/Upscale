@@ -504,12 +504,12 @@
 .mix{display:grid;gap:12px;max-width:760px;margin:0 0 22px;padding:18px 20px;border-radius:16px;background:var(--white);box-shadow:0 0 0 1px var(--line-light),0 14px 28px -22px rgba(37,30,69,.5)}
 .mix__k{margin:0;font:700 11.5px/1.35 var(--sans);letter-spacing:.12em;text-transform:uppercase;color:var(--body)}
 .mix ul{list-style:none;margin:0;padding:0;display:grid;gap:10px}
-.mix li{display:grid;grid-template-columns:minmax(0,190px) minmax(0,1fr) 54px;gap:14px;align-items:center;font:600 14.5px/1.2 var(--sans);color:var(--violet)}
+.mix li{display:grid;grid-template-columns:minmax(0,190px) minmax(0,1fr) max-content;gap:14px;align-items:center;font:600 14.5px/1.2 var(--sans);color:var(--violet)}
 .mix li i{position:relative;height:14px;border-radius:99px;background:var(--lav-tint);overflow:hidden}
 .mix li i::after{content:"";position:absolute;left:0;top:0;bottom:0;width:calc(var(--w) * 1%);border-radius:99px;background:linear-gradient(90deg,#8ED474,#58AC3F);transform-origin:left}
-.mix li b{text-align:right;font:400 26px/1 var(--display);color:var(--violet)}
+.mix li b{min-width:54px;text-align:right;white-space:nowrap;font:400 26px/1 var(--display);color:var(--violet)}
 .mix .fp-src{justify-self:start}
-@media (max-width:559px){.mix li{grid-template-columns:minmax(0,1fr) 48px;gap:6px 10px}.mix li span{grid-column:1 / -1}.mix li i{grid-column:1}.mix li b{grid-row:2;grid-column:2}}
+@media (max-width:559px){.mix li{grid-template-columns:minmax(0,1fr) max-content;gap:6px 10px}.mix li span{grid-column:1 / -1}.mix li i{grid-column:1}.mix li b{grid-row:2;grid-column:2}}
 
 /* ---- motion ---- */
 @media (prefers-reduced-motion:no-preference){
@@ -578,6 +578,7 @@
 @keyframes lcTick{from{background:#fff;box-shadow:inset 0 0 0 2px #CFC5EA;color:transparent;scale:.85}}
 .rm .lc__bar i,.rm .lc__box,.rm .lc__live{animation:none!important}
 .dk--launch .dk-route{bottom:-30px;left:-12px}
+@media (max-width:559px){.dk--launch .dk-route{left:14px;bottom:-14px}.dk--launch{margin-bottom:22px}.dk-route{left:14px}}
 @media (max-width:559px){.dk--launch{padding-top:64px}.dk--launch .dk__card.lc{padding:22px 18px 18px}}
 
 /* ---------- Chennai: the real site as the hero ---------- */
@@ -806,13 +807,13 @@
 .hd{display:grid;grid-template-columns:auto minmax(0,1fr);gap:18px 24px;align-items:center;max-width:760px;margin:0 0 22px;padding:18px 20px;border-radius:16px;background:var(--white);
   box-shadow:0 0 0 1px var(--line-light),0 14px 28px -22px rgba(37,30,69,.5)}
 .hd__dots{display:grid;grid-template-columns:repeat(10,12px);gap:4px}
-.hd__dots i{height:12px;border-radius:50%;background:#E4DDF3}
+.hd__dots i{aspect-ratio:1;border-radius:50%;background:#E4DDF3}
 .hd__dots i.on{background:linear-gradient(140deg,#8ED474,#58AC3F)}
 .hd__n{margin:0;font:400 clamp(40px,4vw,56px)/.9 var(--display);color:var(--violet)}
 .hd__t{margin:6px 0 10px;font:600 14.5px/1.45 var(--sans);color:var(--body)}
 @media (prefers-reduced-motion:no-preference){.js .hd.is-in .hd__dots i.on{animation:cvPop .35s var(--ease-spring) both;animation-delay:calc(.2s + var(--i) * 14ms)}}
 .rm .hd__dots i{animation:none!important}
-@media (max-width:559px){.hd{grid-template-columns:minmax(0,1fr)}.hd__dots{grid-template-columns:repeat(10,minmax(0,1fr))}}
+@media (max-width:559px){.hd{grid-template-columns:minmax(0,1fr)}.hd__dots{grid-template-columns:repeat(10,minmax(0,1fr));width:min(100%,260px)}}
 /* Tools hub: what the tools make, as objects on a desk at their own depth. Sizes follow the card's width (cqw). */
 .dk--tools{container-type:inline-size;padding:10px 0 18px}
 .dk-desk{aspect-ratio:470 / 420}
@@ -887,3 +888,53 @@
 .dk-chip--est{right:-20px;bottom:-6px}
 @media (max-width:559px){.dk-chip--prof1{top:auto;bottom:-6px;right:10px}.dk-chip--cart{top:8px;right:12px}.dk-chip--upi{left:10px}.dk-chip--est{right:-4px}}
 @media (max-width:359px){.sv-card .sv-prof__acts{grid-template-columns:repeat(2,minmax(0,1fr))}}
+
+/* ---------- Fixes from the 10 Nov whole-site QA ---------- */
+/* Source pills on lavender band sections: white, so the pill reads as a pill and lines up with the text above. */
+.fp-sec--band .fp-src{background:var(--white)}
+.fp-sec--band .fp-src:hover{background:var(--lavender)}
+/* Chennai's Tamil section: the board on the left, the 78% figure and the Tamil/English demo stacked on the right. */
+@media (min-width:1024px){
+  .fp-wide:has(>.nb){display:grid;grid-template-columns:minmax(0,1.05fr) minmax(0,1fr);column-gap:clamp(28px,3.4vw,48px);row-gap:22px;align-items:start}
+  .fp-wide:has(>.nb)>.nb{display:contents}
+  .fp-wide:has(>.nb) .nb__board{grid-column:1;grid-row:1 / span 2}
+  .fp-wide:has(>.nb) .nb__stat{grid-column:2;grid-row:1;align-self:end}
+  .fp-wide:has(>.nb)>.ld{grid-column:2;grid-row:2;margin:0;max-width:none}
+}
+/* Hero chips that covered part of the illustration (QA 10 Nov). */
+/* Ads hero: the "Ad spend paid to Meta directly" chip sits under the two phones, not on the chat. */
+/* Online store hero: "Paid by UPI" sits under the card, clear of the Add to cart button. */
+.dk-chip--upi{left:28px;bottom:-20px}
+@media (max-width:559px){.dk-chip--upi{left:12px;bottom:-18px}}
+/* Social calendar hero: the phone clears the Sunday column, the Approved chip clears the footnote,
+   and on phones the post/carousel marks move to the bottom corner, away from the dates. */
+@media (min-width:560px){
+  .dk--cal .dk-phone{right:-86px;bottom:30px}
+  .dk--cal .dk-chip--ok{right:-40px;top:16px;bottom:auto}
+}
+@media (max-width:559px){
+  .dk .th--p{background:radial-gradient(circle at 72% 74%,#FFE9A8 0 13%,transparent 14%),linear-gradient(160deg,transparent 55%,#7A6CB8 56% 70%,#5B4F96 71%),linear-gradient(#C9BCE8,#9C8DD0)}
+  .dk .th--c::before{top:auto;bottom:5px}
+  .dk .th--c::after{top:auto;bottom:8px}
+}
+/* Profile hero on phones: action labels fit their tiles. */
+@media (max-width:559px){.dk .sv-prof .sv-prof__acts li,.sv-prof .sv-prof__acts li{font-size:10px;letter-spacing:-.01em;padding:8px 1px}}
+/* Hero card stacks on phones: nudge left so the stacked sheets behind sit centred in the panel. */
+@media (max-width:559px){.fp-hero .dk{position:relative;left:-8px}}
+/* SEO hero on short laptops: the search and map part of the illustration only, so the hero fits the first screen
+   and the text isn't floating mid-panel. The same three ranking factors are explained in the page below. */
+@media (min-width:1024px) and (max-height:760px){
+  .fp-hero .dk--pack .sv-card__h,.fp-hero .dk--pack .sv-card__h~ul,.fp-hero .dk--pack .sv-card__f{display:none}
+}
+/* Phone chip strips that scroll sideways fade out at the right edge, so a cut-off chip reads as "more this way". */
+@media (max-width:759px){
+  .sp-toc ol,.bp__tabs,.cm-chips{-webkit-mask-image:linear-gradient(90deg,#000 0,#000 calc(100% - 44px),transparent);mask-image:linear-gradient(90deg,#000 0,#000 calc(100% - 44px),transparent)}
+}
+/* Services rate card on phones: the FREE stamp sits clear of the "Rate card · 2026" line. */
+@media (max-width:559px){.dk-ink{top:-30px;right:-6px;width:74px}}
+/* Pricing hero on phones: the FIXED PRICE seal sits clear of the Build your quote button. */
+@media (max-width:559px){.dk-seal{top:-22px;right:-4px;width:74px;height:74px}}
+/* Chennai hero on phones: the "Live" chip sits inside the panel, clear of its edge. */
+@media (max-width:559px){.pf__chip:not(.pf__chip--b){left:12px}}
+/* City "Why it's safe" carousel on phones: room below the cards for their shadows (no hard line). */
+@media (max-width:559px){.tb{padding-bottom:36px;margin-bottom:-22px}}

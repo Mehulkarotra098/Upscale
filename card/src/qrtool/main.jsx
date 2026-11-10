@@ -446,13 +446,26 @@ function App() {
   const [note, setNote] = useState('');
   const latest = useRef({ svg: '', payload: '', size: null });
   const outRef = useRef(null);
+  const toolRef = useRef(null);
+  const endRef = useRef(null);
   const [outOfView, setOutOfView] = useState(false);
+  const [inTool, setInTool] = useState(true);
+  const [pastEnd, setPastEnd] = useState(false);
   // On a phone the controls are below the code, so a small copy stays in sight while choosing shapes and colours.
+  // It shows only while the tool itself fills the screen: once you scroll on into the guide below, it goes away.
   useEffect(() => {
-    if (!outRef.current || !('IntersectionObserver' in window)) return undefined;
+    if (!outRef.current || !toolRef.current || !('IntersectionObserver' in window)) return undefined;
     const io = new IntersectionObserver(([e]) => setOutOfView(!e.isIntersecting), { threshold: 0.15 });
     io.observe(outRef.current);
-    return () => io.disconnect();
+    const tool = new IntersectionObserver(([e]) => setInTool(e.isIntersecting), { rootMargin: '0px 0px -45% 0px' });
+    tool.observe(toolRef.current);
+    const end = new IntersectionObserver(([e]) => setPastEnd(e.isIntersecting || e.boundingClientRect.top < 0));
+    if (endRef.current) end.observe(endRef.current);
+    return () => {
+      io.disconnect();
+      tool.disconnect();
+      end.disconnect();
+    };
   }, []);
   const set = (patch) => setS((old) => ({ ...old, ...patch }));
   const setInput = (k, v) => setS((old) => ({ ...old, input: { ...old.input, [old.kind]: { ...(old.input[old.kind] ?? {}), [k]: v } } }));
@@ -593,7 +606,7 @@ function App() {
   }[scan];
 
   return (
-    <div class="qt">
+    <div class="qt" ref={toolRef}>
       <div class="qt-controls">
         <div class="qt-lang">
           <button
@@ -787,8 +800,9 @@ function App() {
             </>
           ) : null}
         </Section>
+        <span ref={endRef} class="qt-end" aria-hidden="true" />
       </div>
-      {outOfView && preview ? (
+      {outOfView && inTool && !pastEnd && preview ? (
         <button
           type="button"
           class={`qt-mini qt-mini--${scan}`}

@@ -412,7 +412,7 @@ PAGES = [
          'it ranks local results on relevance (how well your listing matches the search), distance (how far you are from the person searching) and '
          'prominence (how well known you are, judged partly from reviews and from the web). A website that names your area, services and timings, '
          'and matches your Google listing exactly, helps with relevance; reviews and mentions across the web build prominence.'),
-       Img('found'),
+       Img('tool-checker'),
        eyebrow='Google Maps'),
    Sec('Where I meet clients around Ghatkopar',
        Svg('gk-map'),
@@ -990,7 +990,8 @@ def _options(b):
                   f'<h3>{e(o["name"])}</h3><dl>{rows}</dl></li>')
     note = f'<p class="fp-note">{e(b["note"])}</p>' if b['note'] else ''
     snap = ' fp-snap" data-snap aria-label="Options compared' if len(b['items']) > 2 else ''  # 3+ cards: a swipe row on phones
-    return f'<ul class="fp-opts fp-opts--{len(b["items"])}{snap}" data-reveal-group>{cards}</ul>{note}'
+    nrows = max(len(o['rows']) for o in b['items'])  # cards share row lines (CSS subgrid), so each label sits level across the row
+    return f'<ul class="fp-opts fp-opts--{len(b["items"])} fp-opts--r{nrows}{snap}" data-reveal-group>{cards}</ul>{note}'
 
 
 def _range(b):

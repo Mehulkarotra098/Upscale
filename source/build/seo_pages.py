@@ -684,7 +684,7 @@ def tool_page(ctx, parts, tv):
         <form class="rq-form" id="rq-start" onsubmit="return false" novalidate>
           <div class="rq-step">
             <p class="rq-step__head"><span class="rq-step__n" aria-hidden="true">1</span><label class="rq-step__title" for="rq-link">Paste your Google Maps or review link</label></p>
-            <input class="rq-input" id="rq-link" type="url" inputmode="url" autocomplete="off" spellcheck="false" placeholder="Paste the link from Google Maps here" aria-describedby="rq-link-hint rq-link-msg">
+            <input class="rq-input" id="rq-link" type="url" inputmode="url" autocomplete="off" spellcheck="false" placeholder="Paste your Google Maps link" aria-describedby="rq-link-hint rq-link-msg">
             <p class="rq-hint" id="rq-link-hint">Any of these work: a Google Maps share link (maps.app.goo.gl/&hellip;), a Google Maps page link, or the owner&rsquo;s review link (g.page/r/&hellip;/review).</p>
             <p class="rq-msg" id="rq-link-msg" role="status"></p>
             <details class="rq-find" id="rq-find">
@@ -795,7 +795,7 @@ def tool_page(ctx, parts, tv):
 
   <section class="section" aria-labelledby="more-title">
     <div class="wrap">
-      <header class="sec-head"><p class="eyebrow">More free tools</p><h2 class="h2" id="more-title">How strong is your Google profile?</h2></header>
+      <header class="sec-head"><p class="eyebrow">More free tools</p><h2 class="h2" id="more-title">Check your Google profile next, or make any QR code</h2></header>
       <div class="th-grid">{more}</div>
     </div>
   </section>
@@ -807,15 +807,15 @@ def tool_page(ctx, parts, tv):
         <div class="cta__copy">
           <h2 class="sp-cta__title" id="cta-title">Want more customers from Google<span class="dot">?</span></h2>
           <p class="lead">I check your Google profile, reviews and website for free and send you the five fixes that matter most.</p>
-          <div class="cta__btns" data-wa-zone><a class="btn btn--go" href="{wa_qr}" target="_blank" rel="noopener" data-magnetic>{ctx['ICONS']['ICON_CHAT']}Chat on WhatsApp</a><a class="btn btn--ghost" href="/services/seo-mumbai">Local SEO service</a></div>
+          <div class="cta__btns" data-wa-zone><a class="btn btn--go" href="{wa_qr}" target="_blank" rel="noopener" data-magnetic>{icon_chat}Chat on WhatsApp</a><a class="btn btn--ghost" href="/services/seo-mumbai">Local SEO service</a></div>
         </div>
       </div>
     </div>
   </section>
 '''
     body = (body.replace('{brief}', __import__('aeo').brief_html(QR_ANSWER, QR_FACTS, 'Key facts: Google review QR code maker', 'rq-brief'))
-            .replace('{h1}', e(t['h1'])).replace('{lead}', e(t['lead'])).replace('{swatches}', swatches).replace('{tpls}', tpls).replace('{formats}', formats).replace('{guides}', tool_guides()).replace('{faq}', faq_html(t['faq'])).replace('{more}', _tool_card('gp'))
-            .replace('{wa_qr}', ea(wa_link('Hi Mehul, I made my Google review QR code on uscale.in. Can you help me get more Google reviews?'))))
+            .replace('{h1}', e(t['h1'])).replace('{lead}', e(t['lead'])).replace('{swatches}', swatches).replace('{tpls}', tpls).replace('{formats}', formats).replace('{guides}', tool_guides()).replace('{faq}', faq_html(t['faq'])).replace('{more}', _tool_card('gp') + _tool_card('qrgen'))
+            .replace('{wa_qr}', ea(wa_link('Hi Mehul, I made my Google review QR code on uscale.in. Can you help me get more Google reviews?'))).replace('{icon_chat}', ctx['ICONS']['ICON_CHAT']))
     return f'''<!doctype html>
 <html lang="en-IN">
 <head>
@@ -1062,7 +1062,7 @@ def gbp_page(ctx, parts, tv):
 
   <section class="section" aria-labelledby="more-title">
     <div class="wrap">
-      <header class="sec-head"><p class="eyebrow">More free tools</p><h2 class="h2" id="more-title">Get more reviews next</h2></header>
+      <header class="sec-head"><p class="eyebrow">More free tools</p><h2 class="h2" id="more-title">Get more reviews next, or make your visiting card</h2></header>
       <div class="th-grid">{more}</div>
     </div>
   </section>
@@ -1074,7 +1074,7 @@ def gbp_page(ctx, parts, tv):
         <div class="cta__copy">
           <h2 class="sp-cta__title" id="cta-title">Want your Google profile fixed for you<span class="dot">?</span></h2>
           <p class="lead">I set up and run Google profiles for Mumbai businesses: categories, photos, weekly posts, a review system and a website that matches.</p>
-          <div class="cta__btns" data-wa-zone><a class="btn btn--go" href="{wa_gp}" target="_blank" rel="noopener" data-magnetic>{ctx['ICONS']['ICON_CHAT']}Chat on WhatsApp</a><a class="btn btn--ghost" href="/services/seo-mumbai">Local SEO service</a></div>
+          <div class="cta__btns" data-wa-zone><a class="btn btn--go" href="{wa_gp}" target="_blank" rel="noopener" data-magnetic>{icon_chat}Chat on WhatsApp</a><a class="btn btn--ghost" href="/services/seo-mumbai">Local SEO service</a></div>
         </div>
       </div>
     </div>
@@ -1082,8 +1082,8 @@ def gbp_page(ctx, parts, tv):
 '''
     body = (body.replace('{brief}', __import__('aeo').brief_html(GBP_ANSWER, GBP_FACTS, 'Key facts: Google Business Profile checker', 'gp-brief'))
             .replace('{art}', _gbp_art()).replace('{h1}', e(t['h1'])).replace('{lead}', e(t['lead'])).replace('{faq}', faq_html(t['faq']))
-            .replace('{more}', _tool_card('qr')).replace('{psi}', ea(PSI_KEY))
-            .replace('{wa_gp}', ea(wa_link('Hi Mehul, I checked my Google profile on uscale.in. Can you fix it for me?'))))
+            .replace('{more}', _tool_card('qr') + _tool_card('card')).replace('{psi}', ea(PSI_KEY))
+            .replace('{wa_gp}', ea(wa_link('Hi Mehul, I checked my Google profile on uscale.in. Can you fix it for me?'))).replace('{icon_chat}', ctx['ICONS']['ICON_CHAT']))
     head = _tool_head(ctx, url, t['title'], t['desc'], og, 'Free Google Business Profile checker by U Scale', gbp_jsonld(site, t), tv)
     return f'''{head}
 <body class="page-sub page-tool page-gp">
@@ -1101,6 +1101,12 @@ def gbp_page(ctx, parts, tv):
 '''
 
 def _tool_card(which):
+    if which == 'calc':
+        return ('<a class="th-card th-card--wide" href="/tools/website-cost-calculator"><span class="th-card__art th-card__art--gp" aria-hidden="true">'
+                '<img class="th-plan" src="/assets/pages/fixed-price-website-quote-mumbai-640.webp" alt="" width="640" height="480" loading="lazy" decoding="async"></span>'
+                '<h3>Website cost calculator</h3><p>Pick your kind of site and the extras you need. See the fixed U Scale price, the market range from 16 published '
+                'price guides, and what you pay every year after.</p>'
+                '<ul><li>Fixed prices</li><li>Market ranges</li><li>Yearly costs</li></ul><span class="btn btn--go">Work out my cost <span class="arw" aria-hidden="true"><b>→</b><b>→</b></span></span></a>')
     if which == 'qrgen':
         return ('<a class="th-card" href="/tools/qr-code-generator"><span class="th-card__art th-card__art--cm" aria-hidden="true"><img class="th-cm" src="/assets/tools/qr-tool-tile.webp" alt="" width="1200" height="800" loading="lazy" decoding="async"></span>'
                 '<h3>QR code generator</h3><p>Make a QR code for a link, contact, WhatsApp, UPI or Wi-Fi. Choose its shapes and colours, add your logo, and download it. Codes never expire.</p>'
@@ -1182,9 +1188,8 @@ def tools_hub(ctx, parts, tv):
 {__import__('aeo').brief_html(TOOLS_ANSWER, TOOLS_FACTS, 'Key facts: free tools by U Scale', 'tools-brief')}
   <section class="section" aria-labelledby="tools-title">
     <div class="wrap">
-      <h2 class="sr-only" id="tools-title">All free tools</h2>
-      <div class="th-grid th-grid--4">{_tool_card('gp')}{_tool_card('qr')}{_tool_card('card')}{_tool_card('qrgen')}</div>
-      <div class="th-more">{__import__('geo_pages').render(__import__('geo_pages').Links([('/tools/website-cost-calculator', 'rupee', 'Website cost calculator', 'Pick your kind of site and extras: a fixed U Scale price, the market range from 16 price guides, and what you pay every year after.', 'Free')]))}</div>
+      <header class="sec-head"><p class="eyebrow">Five free tools</p><h2 class="h2" id="tools-title">Pick a tool. No sign-up.</h2></header>
+      <div class="th-grid th-grid--4">{_tool_card('gp')}{_tool_card('qr')}{_tool_card('card')}{_tool_card('qrgen')}{_tool_card('calc')}</div>
       <p class="th-more">Want something done for you instead? See <a class="tlink" href="/services/seo-mumbai">local SEO</a>, <a class="tlink" href="/services/website-design-mumbai">website design</a> or <a class="tlink" href="/pricing">the full price list</a>.</p>
     </div>
   </section>
@@ -1344,8 +1349,8 @@ def quote_builder_html(ICON_CHAT):
       <legend><span class="qb__num">1</span><span>A website<small>One-time, fixed price after a free audit</small></span></legend>
       <div class="qb__opts qb__opts--web">{web}</div>
       <div class="qb__toggles">
-        <label class="qb__switch"><input type="checkbox" data-redesign><span class="qb__sw" aria-hidden="true"></span><span>I already have a site. Redesign it <em>70% of a fresh build</em></span></label>
-        <label class="qb__switch"><input type="checkbox" data-name="Care plan" data-mo="{care[2]}" data-once="0"><span class="qb__sw" aria-hidden="true"></span><span>Care plan: updates, backups, security <em>{e(care[1])}</em></span></label>
+        <label class="qb__switch"><input type="checkbox" data-redesign><span class="qb__sw" aria-hidden="true"></span><span>I already have a site: redesign it for <em>70% of a fresh build</em></span></label>
+        <label class="qb__switch"><input type="checkbox" data-name="Care plan" data-mo="{care[2]}" data-once="0"><span class="qb__sw" aria-hidden="true"></span><span>Care plan for updates, backups and security: <em>{e(care[1])}</em></span></label>
       </div>
       <p class="qb__fine">{e(PD.WEBSITES_NOTE)}</p>
     </fieldset>

@@ -364,8 +364,27 @@ print('service pages:', ', '.join(_slugs))
 # Keep the brand name on one line: "U Scale" never breaks between U and Scale. Visible text only;
 # tags, attributes, scripts, styles and JSON-LD are left exactly as they are.
 _SKIP = re.compile(r'(<script\b.*?</script>|<style\b.*?</style>|<title\b.*?</title>|<textarea\b.*?</textarea>|<[^>]+>)', re.S | re.I)
+# The same pass keeps other short units whole: "Delhi NCR", a number and its unit ("2 weeks", "₹1.5 lakh"), a range
+# ("5–10", no break after the dash) and short hyphenated words ("on-page", "lock-ins"), so no line ends on half of one.
+_WJ = '&#8288;'   # word joiner: invisible, forbids a line break on either side
+_UNITS = re.compile(r'(\d) (weeks?|days?|months?|years?|pages?|minutes?|hours?|mm|lakh|crore|km|reels|words)\b')
+_RANGE = re.compile(r'(\d%?)–(?=[\d₹])')
+_HYPH = re.compile(r'\b([A-Za-z]{1,4})-(?=[A-Za-z]{1,10}\b)')
+def _keep(text):
+    text = text.replace('U Scale', 'U&nbsp;Scale').replace('Delhi NCR', 'Delhi&nbsp;NCR').replace('Navi Mumbai', 'Navi&nbsp;Mumbai')
+    text = text.replace(' · ', '&nbsp;· ')   # a separator dot stays with the word before it, never starts a line
+    text = _UNITS.sub(r'\1&nbsp;\2', text)
+    text = _RANGE.sub(lambda m: m.group(1) + '–' + _WJ, text)
+    return _HYPH.sub(lambda m: m.group(1) + '-' + _WJ, text)
 def _brand_nbsp(markup):
-    return ''.join(part if part.startswith('<') else part.replace('U Scale', 'U&nbsp;Scale') for part in _SKIP.split(markup))
+    return ''.join(part if part.startswith('<') else _keep(part) for part in _SKIP.split(markup))
+# Fail the build if a template placeholder reached a page as text, e.g. "{ctx['ICONS']['ICON_CHAT']}" or "{{FOR_PLACES}}".
+_LEFTOVER = re.compile(r"\{(?:ctx\[|ea\(|e\(|wa_link|price\(|[a-z_]+\})|\{\{[A-Z_]+\}\}")
+def _no_leftovers(path, markup):
+    vis = ''.join(part for part in _SKIP.split(markup) if not part.startswith('<'))
+    attrs = ' '.join(re.findall(r'\b(?:href|src|alt|title|content|aria-label)="([^"]*)"', markup))
+    m = _LEFTOVER.search(vis) or _LEFTOVER.search(attrs)
+    if m: raise SystemExit(f'Unfilled template text in {path}: {m.group(0)!r}')
 # Cache busting for the image URLs not built by geo_pages._pic (work screenshots, logos, the About portrait, tool
 # art): /assets is cached for 30 days, so each src/srcset/imagesrcset/data-peek image URL gets ?v=<sha1 of the file>,
 # exactly as geo_pages.vurl does. Share images (og:image, JSON-LD, sitemaps) keep their plain URLs.
@@ -379,7 +398,9 @@ def _asset_v(markup):
 import tracking  # Google Tag Manager on every public page (not /admin)
 for _page in site.rglob('*.html'):
     if 'admin' in _page.relative_to(site).parts: continue
-    _page.write_text(tracking.inject(_brand_nbsp(_asset_v(_page.read_text()))))
+    _out = tracking.inject(_brand_nbsp(_asset_v(_page.read_text())))
+    _no_leftovers(_page.relative_to(site), _out)
+    _page.write_text(_out)
 
 # Preview: one file; the artifact skeleton supplies doctype/head/body
 pv = src.replace('{{STYLES}}', '<style>\n' + css + '\n.pv-replay{position:fixed;left:calc(16px + env(safe-area-inset-left,0px));bottom:calc(16px + env(safe-area-inset-bottom,0px));z-index:1001;display:inline-flex;align-items:center;gap:8px;font:600 14px/1 var(--sans);background:var(--violet);color:var(--white);border:1px solid var(--line-dark);border-radius:999px;padding:13px 18px;cursor:pointer;box-shadow:0 12px 24px -14px rgba(37,30,69,.6)}\n</style>')
