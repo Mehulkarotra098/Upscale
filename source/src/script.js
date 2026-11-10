@@ -578,6 +578,8 @@
           if(h) h.textContent='My inbox didn\'t answer just now. Tap below to send the same message on WhatsApp.';
         }
         form.hidden=true; done.hidden=false; done.classList.add('is-in');
+        /* For analytics (Google Tag Manager): one event per sent form, with no personal details in it */
+        if(ok){ try{ (window.dataLayer=window.dataLayer||[]).push({event:'generate_lead',form_name:'free_audit',page_path:location.pathname}); }catch(err){} }
         if(h) h.focus({preventScroll:true});
         var r=done.getBoundingClientRect(); if(ok&&motion&&fine) burst(r.left+48,r.top+40);
         setTimeout(layout,50);
@@ -700,6 +702,31 @@
       o('kept').textContent=inr(Math.max(0,k)); o('pay').textContent=n?n+(n===1?' month':' months'):'—';
     }
     f.addEventListener('input',run); f.addEventListener('submit',function(e){ e.preventDefault(); }); run();
+  });
+  /* Website cost calculator (/tools/website-cost-calculator). The HTML already shows the default estimate; this redoes the sums. */
+  $$('[data-wcalc]').forEach(function(c){
+    var D; try{ D=JSON.parse(c.getAttribute('data-wcalc')); }catch(err){ return; }
+    var f=$('form',c), X=D._, inr=function(n){ return '₹'+Math.round(n).toLocaleString('en-IN'); };
+    var w=function(k){ return $('[data-w="'+k+'"]',c); };
+    var esc=function(s){ return String(s).replace(/[&<>"]/g,function(m){ return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[m]; }); };
+    function run(){
+      var t=(f.querySelector('input[name="type"]:checked')||{}).value||'business', d=D[t], lines=[[d.n,d.p]], total=d.p;
+      f.elements.pages.value=d.pages;
+      if(f.elements.copy.checked){ var cp=d.pages*X.copy; lines.push(['Website copy, about '+d.pages+(d.pages===1?' page':' pages'),cp]); total+=cp; }
+      if(f.elements.logo.checked){ lines.push(['Logo',X.logo]); total+=X.logo; }
+      w('from').textContent=d.from?'from':'';
+      w('total').textContent=inr(total); w('peek').textContent=(d.from?'from ':'')+inr(total);
+      w('lines').innerHTML=lines.map(function(l){ return '<tr><th scope="row">'+esc(l[0])+'</th><td>'+inr(l[1])+'</td></tr>'; }).join('');
+      w('market').textContent=inr(d.m[0])+'–'+inr(d.m[1]);
+      w('mlabel').textContent='Market price for '+d.ml;
+      var y=['Domain and hosting: about '+inr(X.yearly[0])+'–'+inr(X.yearly[1])+', before GST'];
+      if(f.elements.care.checked) y.push('Care plan: '+inr(X.care*12)+' a year ('+inr(X.care)+' a month)');
+      if(t.indexOf('store')===0||t==='restaurant') y.push('Payment gateway: about 2% + GST on each online payment');
+      w('yearly').innerHTML=y.map(function(x){ return '<li>'+esc(x)+'</li>'; }).join('');
+      var msg='Hi Mehul, I used the website cost calculator on uscale.in. Estimate: '+lines.map(function(l){ return l[0]; }).join(' + ')+' = '+(d.from?'from ':'')+inr(total)+(f.elements.care.checked?', with the care plan':'')+'. I’d like a free audit.';
+      w('wa').href='https://wa.me/917977360142?text='+encodeURIComponent(msg);
+    }
+    f.addEventListener('change',run); f.addEventListener('submit',function(e){ e.preventDefault(); }); run();
   });
   /* Key facts on phones: the first rows show, "All facts" opens the rest (all rows are always in the HTML) */
   $$('[data-facts-more]').forEach(function(b){

@@ -102,10 +102,21 @@ def for_cards():
                   f'{_pic(GP.IMG[img], "(max-width: 759px) 92vw, 560px")}</figure><span class="mf__body"><span class="mf__k">{e(k)}</span>'
                   f'<b class="mf__t">{e(by[slug]["h1"])}</b><span class="mf__d">{e(by[slug]["card"])}</span>'
                   f'<span class="mf__go">{e(go)} {icon("arrow")}</span></span></a></li>' for slug, img, k, go in pics)
-    guides = ''.join(f'<li data-reveal><a class="fp-rel" href="/services/{GP.BASE}/{p["slug"]}"><span class="fp-rel__k">Guide</span><b>{e(p["h1"])}</b>'
+    guides = ''.join(f'<li data-reveal><a class="fp-rel" href="{GP.href_of(p)}"><span class="fp-rel__k">Guide</span><b>{e(p["h1"])}</b>'
                      f'<span class="fp-rel__d">{e(p["card"])}</span>{icon("arrow")}</a></li>' for p in GP.PAGES if p['kind'] == 'guide')
     return (f'      <ul class="mf-list" data-reveal-group>{big}</ul>\n'
             f'      <div class="fp-related home-for__list"><ul data-reveal-group>{guides}</ul></div>')
+
+
+def for_places():
+    """One line of links: the two areas next to Mumbai, then every city page (the home page linked none of them)."""
+    import city_pages as CP
+    near = ('<a class="tlink" href="/services/website-design-thane">Thane</a> and '
+            '<a class="tlink" href="/services/website-design-navi-mumbai">Navi Mumbai</a>')
+    links = [f'<a class="tlink" href="/{c["path"]}">{e(c["city"])}</a>' for c in CP.CITIES]
+    cities = ', '.join(links[:-1]) + ' and ' + links[-1]
+    return (f'      <p class="fp-all home-places" data-reveal>Also near Mumbai: {near}. Outside Mumbai, I build websites for businesses in '
+            f'{cities}.</p>')
 
 
 def how():
@@ -158,5 +169,5 @@ def cx_me():
 
 def parts(handset):
     return {'{{WA_AUDIT}}': ea(WA_AUDIT), '{{FROM_WEB}}': '₹' + format(GP.rupees('Landing page') // 1000) + 'k',
-            '{{BRIEF}}': brief(), '{{SERVICES3}}': services3(), '{{FOR_CARDS}}': for_cards(),
+            '{{BRIEF}}': brief(), '{{SERVICES3}}': services3(), '{{FOR_CARDS}}': for_cards(), '{{FOR_PLACES}}': for_places(),
             '{{HOW}}': how(), '{{FOUNDER_PHOTO}}': founder_photo(), '{{TOOLS}}': tools(), '{{CX_ME}}': cx_me()}

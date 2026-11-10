@@ -123,6 +123,7 @@ BOOK = 'https://wa.me/917977360142?text=' + urllib.parse.quote("Hi Mehul, I'd li
 SZ = json.load(open(ROOT / 'asset_sizes.json'))
 ARW = '<span class="arw" aria-hidden="true"><b>↗</b><b>↗</b></span>'
 e = lambda t: html.escape(t, quote=False)
+ea = lambda t: html.escape(t, quote=True)
 # slug, name, meta, tag, description, url, accent, has_mobile, wall_tag, page alt detail
 WORK = [
  ('spacestudio', 'Space Studio Chennai', 'Architecture · Chennai', 'Web Development + SEO', 'Rebuilt website for an office architecture practice in Chennai: 86 hand-coded pages, a live 3D building model on every service page, and every old WordPress link kept for search.', 'https://spacestudiochennai.com', '#A48064', True, '', 'hero film, featured projects and concepts sections'),
@@ -167,31 +168,35 @@ work_cards = '\n'.join(work_card(w, i) for i, w in enumerate(WORK))
 project_index = '\n'.join(
     f'        <li><a href="{w[5]}" target="_blank" rel="noopener" data-peek="assets/work/{w[0]}-peek.webp"><b>{e(w[1])}</b><span>{e(w[2])} · {e(w[3])}</span><i aria-hidden="true">↗</i><span class="sr-only"> (opens in a new tab)</span></a></li>'
     for w in WORK)
-def wall_cell(w, dup=False):
+def wall_cell(w, dup=False, named=False):
+    # The grid copy names each client in its alt text (for image search and AI tools; the grid itself is aria-hidden and the
+    # names are read out from the sr-only list above it). The marquee copies stay alt="" so nothing is announced twice.
     k = w[0]; lw, lh = SZ[k]; t = f'<span class="lw__tag">{w[8]}</span>' if w[8] else ''
-    return f'<div class="lw__cell{" lw__dup" if dup else ""}"><img src="assets/logos/{k}.webp" width="{lw}" height="{lh}" alt="" loading="lazy" decoding="async">{t}</div>'
+    alt = ea(f'{w[1]} logo') if named else ''
+    return f'<div class="lw__cell{" lw__dup" if dup else ""}"><img src="assets/logos/{k}.webp" width="{lw}" height="{lh}" alt="{alt}" loading="lazy" decoding="async">{t}</div>'
 names = ''.join(f'<li>{e(w[1])}{" (concept project)" if w[8]=="Concept" else " (in-house role)" if w[8]=="In-house" else ""}</li>' for w in WORK)
 r1, r2 = WORK[:5], WORK[5:]
 logo_wall = (f'<ul class="sr-only">{names}</ul>'
-             f'<div class="wrap"><div class="lw__grid" aria-hidden="true" style="--cols:{next((c for c in (3, 5, 4) if len(WORK) % c == 0), 3)}">{"".join(wall_cell(w) for w in WORK)}</div></div>'
+             f'<div class="wrap"><div class="lw__grid" aria-hidden="true" style="--cols:{next((c for c in (3, 5, 4) if len(WORK) % c == 0), 3)}">{"".join(wall_cell(w, named=True) for w in WORK)}</div></div>'
              '<div class="lw__marq" aria-hidden="true">'
              f'<div class="lw__row r1"><div class="lw__track">{"".join(wall_cell(w) for w in r1)}{"".join(wall_cell(w, True) for w in r1)}</div></div>'
              f'<div class="lw__row r2"><div class="lw__track">{"".join(wall_cell(w) for w in r2)}{"".join(wall_cell(w, True) for w in r2)}</div></div></div>')
 
 FAQ = [
  ('Is U Scale an agency or a freelancer?', "A bit of both. U Scale is me, Mehul Karotra, working as an independent, contract-based partner. You get the design, development and marketing an agency offers, but you sign with me directly and talk to me directly. If a project ever needs a specialist, like a photographer, I bring them in and stay your single point of contact."),
- ('How much does a website cost in Mumbai?', "With me, a landing page is ₹25,000, a 5–10 page business site ₹55,000, a 10–20 page site with a blog ₹85,000, and an online store starts at ₹95,000. Every price is fixed and agreed in writing before I start, and no GST is charged right now."),
+ ('How much does a website cost in Mumbai?', "With me, a landing page is ₹25,000, a 5–10 page business site ₹55,000, a 10–20 page site with a blog ₹85,000, and an online store starts at ₹95,000. Every price is fixed and agreed in writing before I start, and no GST is charged right now. Market prices and the yearly costs nobody quotes are in my website design cost guide, and the website cost calculator gives a quick estimate."),
  ('How much does digital marketing cost in Mumbai?', "There are no fixed packages: you pay only for what you need. Local SEO is ₹15,000/month, technical SEO ₹25,000/month, ads management ₹20,000/month (plus a ₹10,000 setup), AI search visibility ₹12,000/month, and one-off work starts at ₹800 for a social post. The quote builder adds it all up for you."),
  ('Do you work on contract or monthly retainer?', "Both. Websites and branding are fixed-price contracts: 20% to start, 20% on design sign-off and 60% on launch. Marketing runs as a monthly plan: 3 months minimum, then month-to-month with 30 days’ notice. No long lock-ins."),
  ('How long does SEO take to show results?', 'Honest answer: 3–6 months for meaningful movement. Be careful of anyone who promises page one in 30 days. I show you what has moved every month.'),
  ('How long does it take to build a website?', 'A business website usually goes live in 3–4 weeks from kickoff, depending on pages and how ready your content is. A landing page can be live in under two weeks.'),
  ('What is AI search visibility (GEO)?', "It is how often, and how accurately, AI assistants like ChatGPT, Gemini and Google's AI Overviews mention your business when people ask for a recommendation. I check what they say today, then correct the facts, listings and pages they rely on, and help you earn genuine reviews. No one can guarantee a mention."),
+ ('Do you work with businesses in Thane and Navi Mumbai?', "Yes. I'm based in Ghatkopar West and meet clients across Mumbai, Thane and Navi Mumbai, at their shop or office. More on website design in Thane and website design in Navi Mumbai. Businesses elsewhere in India work with me over WhatsApp and video calls, at the same prices."),
  ('How do we start?', 'Send me your website, Google listing or Instagram on WhatsApp. I check them for free, then send you a written plan with the price.'),
 ]
 faq = '\n'.join(
     (f'        <div class="qa{" is-open" if i == 0 else ""}"><h3><button class="qa__btn" type="button" id="q{i}" aria-expanded="{"true" if i == 0 else "false"}" aria-controls="a{i}">'
      f'<span class="qa__n" aria-hidden="true">{i+1:02d}</span><span>{e(q)}</span><span class="qa__icon" aria-hidden="true"></span></button></h3>'
-     f'<div class="qa__panel" id="a{i}" role="region" aria-labelledby="q{i}"><div><p>{e(a)}</p></div></div></div>'
+     f'<div class="qa__panel" id="a{i}" role="region" aria-labelledby="q{i}"><div><p>{__import__("seo_pages")._faq_answer(a)}</p></div></div></div>'
      )
     for i, (q, a) in enumerate(FAQ))
 faq = faq.replace('<p>Get your free audit', f'<p><a class="tlink" href="{e(BOOK)}" target="_blank" rel="noopener">Get your free audit</a>',1)
@@ -371,9 +376,10 @@ def _img_v(m):
     return p + GP.vurl(a)[len(a):] if (STATIC / a[1:]).is_file() else p
 def _asset_v(markup):
     return _IMG_ATTR.sub(lambda m: f'{m.group(1)}="{_IMG_URL.sub(_img_v, m.group(2))}"', markup)
+import tracking  # Google Tag Manager on every public page (not /admin)
 for _page in site.rglob('*.html'):
     if 'admin' in _page.relative_to(site).parts: continue
-    _page.write_text(_brand_nbsp(_asset_v(_page.read_text())))
+    _page.write_text(tracking.inject(_brand_nbsp(_asset_v(_page.read_text()))))
 
 # Preview: one file; the artifact skeleton supplies doctype/head/body
 pv = src.replace('{{STYLES}}', '<style>\n' + css + '\n.pv-replay{position:fixed;left:calc(16px + env(safe-area-inset-left,0px));bottom:calc(16px + env(safe-area-inset-bottom,0px));z-index:1001;display:inline-flex;align-items:center;gap:8px;font:600 14px/1 var(--sans);background:var(--violet);color:var(--white);border:1px solid var(--line-dark);border-radius:999px;padding:13px 18px;cursor:pointer;box-shadow:0 12px 24px -14px rgba(37,30,69,.6)}\n</style>')
