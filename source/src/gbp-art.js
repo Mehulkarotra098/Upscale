@@ -121,11 +121,11 @@
         '<path d="M296 40a20 20 0 0 1 0 28M302 34a28 28 0 0 1 0 40" stroke="' + G2 + '" stroke-width="2" fill="none" stroke-linecap="round" opacity=".7"/>' + sparkle(304, 150, 0.6) + sparkle(228, 30, 0.5, G2);
     },
     desc: function () {
-      var lines = ['Handwoven silk and cotton sarees', 'in Andheri East since 1998. Bridal,', 'Banarasi, Kanjivaram and daily wear.', 'Free fall & pico on every saree.'];
+      var lines = ['Handwoven silk and cotton sarees', 'in Andheri East since 1998.', 'Bridal, Banarasi, Kanjivaram', 'and daily wear. Free fall & pico.'];
       return card(22, 22, 206, 136) + t(36, 46, 'From the business', { s: 13, w: 700 }) + ring(30, 54, 190, 78, 10) +
-        lines.map(function (l, i) { return t(38, 72 + i * 16, l, { s: 10, w: 500, c: '#3C4043' }); }).join('') +
+        lines.map(function (l, i) { return t(38, 72 + i * 16, l, { s: 9.6, w: 500, c: '#3C4043' }); }).join('') +
         r(36, 138, 70, 8, 4, '#ECE7F5') + r(36, 138, 44, 8, 4, G) + t(112, 145.5, '312 / 750 characters', { s: 8.5, w: 600, c: MUT }) +
-        bubble(268, 64, 22, LAV, ic.pen(268, 64, 1.2, V)) + pill(236, 108, 'What · who · where', { bg: '#fff', fg: V, size: 9 }) + sparkle(300, 30, 0.7, G2) + sparkle(304, 152, 0.5);
+        bubble(268, 64, 22, LAV, ic.pen(268, 64, 1.2, V)) + pill(274, 150, 'What · who · where', { bg: '#fff', fg: V, size: 9 }) + sparkle(300, 30, 0.7, G2) + sparkle(296, 112, 0.5);
     },
     products: function () {
       var items = [['Silk saree', '₹4,500', ['#B3123E', '#E07A1F']], ['Banarasi', '₹7,800', ['#7A1FA2', '#E9B04D']], ['Cotton', '₹1,200', ['#0F766E', '#86E061']]];

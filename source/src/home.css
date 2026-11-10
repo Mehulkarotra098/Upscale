@@ -202,3 +202,59 @@
 
 @media (min-width:760px){.home-for__list ul{grid-template-columns:repeat(2,minmax(0,1fr))}}
 @keyframes svcFloat{0%,100%{translate:0 0}50%{translate:0 -6px}}
+
+/* Short laptop screens (e.g. 1440x626): the hero keeps its look but tightens, so both buttons sit in the first screen. */
+@media (min-width:1024px) and (max-height:760px){
+  .hero{min-height:calc(100svh - var(--header-h) - 24px);padding-top:clamp(22px,4.4vh,40px);padding-bottom:clamp(22px,4.4vh,40px)}
+  .hero__copy{gap:clamp(12px,2.2vh,18px)}
+  .hero--v2 .hero__title{font-size:clamp(4.2rem,min(6.4vw,13.4vh),6.4rem)}
+  .hero__sub{font-size:16.5px;line-height:1.55;max-width:58ch}
+}
+/* Narrow short laptops (1024-1179 wide): give the text more of the width, so it wraps onto fewer lines. */
+@media (min-width:1024px) and (max-width:1179px) and (max-height:760px){
+  .hero--v2 .hero__grid{grid-template-columns:minmax(0,1.34fr) minmax(0,.86fr)}
+  .hero__copy{gap:10px}
+  .hero__sub{font-size:15px}
+}
+/* Up to 660px tall the stats row can't fit: start it just below the first screen, so it is never cut in half. */
+@media (min-width:1024px) and (max-height:660px){.hero--v2 .stats{margin-top:24px}}
+/* 661-760px tall: a little smaller still, so the stats row under the buttons fits whole instead of being cut. */
+@media (min-width:1024px) and (min-height:661px) and (max-height:760px){
+  .hero--v2 .hero__title{font-size:clamp(4.2rem,min(6.4vw,11.5vh),6.4rem)}
+  .hero--v2 .stats{padding-top:10px}
+  .hero--v2 .stat__num{font-size:clamp(28px,6.4vh,52px)}
+  .hero__sub{font-size:15.5px}
+}
+
+/* ---------- Alignment fixes from the 10 Nov whole-site QA ---------- */
+/* Service cards: each part (art, kicker, title, text, chips, price, links) sits on the same line across the row. */
+@media (min-width:1100px){
+  .svc3__card{grid-row:span 7;grid-template-rows:subgrid;row-gap:14px}
+}
+.svc3__price{text-wrap:balance}
+/* Work cards: the description takes the spare height, so every "View live site" link sits at the card's foot. */
+.wk__body{grid-template-rows:auto auto auto 1fr auto}
+/* Tool cards: the button sits at the foot of the card, so buttons line up across a row. */
+.fp-tool{display:flex;flex-direction:column}
+.fp-tool__go{margin-top:auto;align-self:flex-start}
+.fp-tool__d{margin-bottom:8px}
+/* Payment strip: the facts sit 2 by 2 beside the bar, so no label is squeezed into 3 lines. */
+@media (min-width:1180px){
+  .pts__facts{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .pts__cap{text-wrap:balance}
+}
+/* Step cards: the green chip sits at the foot of each card, so chips line up across the row. */
+.fp-step{display:flex;flex-direction:column}
+.fp-step__body{flex:1 1 auto;display:flex;flex-direction:column;gap:6px}
+.fp-step__tag{margin-top:auto;align-self:flex-start}
+.fp-step>h3+p,.fp-step__body>h3+p{margin-bottom:6px}
+/* Phones: the number sits above the text instead of in its own narrow column. */
+@media (max-width:559px){
+  .fp-steps:not(.fp-steps--media) .fp-step:not(.home-how .fp-step){padding:18px}
+  .fp-steps:not(.fp-steps--media) .fp-step:not(.home-how .fp-step) .fp-step__n{position:static;width:34px;height:34px;margin-bottom:4px}
+}
+/* Site-wide line breaks (QA 10 Nov): headings balance their lines; paragraphs, list items and captions avoid a lone last word. */
+h1,h2,h3,h4,.h2,summary,.sp-cta__title,.stat__label,.eyebrow{text-wrap:balance}
+p,li,dd,figcaption,.fp-note{text-wrap:pretty}
+.svc3__links{align-content:start}
+.h2,.fp-h2{line-height:1.1}

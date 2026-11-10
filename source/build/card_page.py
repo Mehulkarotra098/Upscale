@@ -134,7 +134,7 @@ def page(ctx, parts, tv, sp):
     hero_art = ''.join(f'<img class="cm-fan cm-fan--{n}" src="/assets/card/thumbs/{i}.webp" width="480" height="274" alt="" decoding="async" fetchpriority="{"high" if n == 0 else "low"}">' for n, i in enumerate(hero_ids))
     known = {t['id'] for t in items}
     businesses = ''.join(
-        f'<li><b>{e(n)}</b> {e(t)} ' + ' '.join(f'<a class="tlink" href="{editor}?design={ea(i)}">{e(lab)}</a>' for i, lab in d if i in known) + '</li>'
+        f'<li><b>{e(n)}</b> {e(t)} <span class="cm-try">Try: ' + ', '.join(f'<a class="tlink" href="{editor}?design={ea(i)}">{e(lab)}</a>' for i, lab in d if i in known) + '</span></li>'
         for n, t, d in BUSINESSES)
     aeo = __import__('aeo')
     body = f'''

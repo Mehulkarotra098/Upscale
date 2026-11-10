@@ -127,3 +127,6 @@
 .qt-compare thead th{font:700 13px/1.3 var(--sans);text-align:left;color:var(--violet)}
 .qt-nb{white-space:nowrap}
 .qt-compare td,.qt-compare th{padding-right:14px}
+/* QA 10 Nov: suggested designs read as a labelled list; the filter chips wrap on wide screens instead of being cut off. */
+.cm-try{display:block;margin-top:6px;font-size:14px;color:var(--body)}
+@media (min-width:900px){.cm-chips{flex-wrap:wrap;overflow:visible}}

@@ -407,3 +407,29 @@ code{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:.92em;bac
 @keyframes gpburst{0%{transform:scale(.6);opacity:1}100%{transform:scale(2.6);opacity:0}}
 @media (prefers-reduced-motion:reduce){.gp-hl,.gp-pts.is-pop,.gp-sec.is-party .gp-sec__hd .rq-step__n,.gp-sec.is-party .gp-sec__hd .rq-step__n::after{animation:none}}
 @media (max-width:520px){.gp-dials{display:grid;grid-template-columns:repeat(4,1fr);gap:8px}.gp-dial{min-width:0}.gp-dial__v{width:56px;height:56px}.gp-dial__v b{width:44px;height:44px;font-size:16px}.gp-dial small{font-size:11.5px}}
+
+/* Short laptop screens (e.g. 1440x626): tool heroes tighten so the title, lead and buttons all fit in the first screen. */
+@media (min-width:1024px) and (max-height:760px){
+  .page-tool .sp-hero{padding-top:clamp(20px,4vh,40px);padding-bottom:clamp(20px,4vh,40px);gap:clamp(10px,1.8vh,16px)}
+  .page-tool .sp-hero__title{font-size:clamp(2.6rem,9vh,5.4rem)}
+  .page-tool .sp-hero__lead{font-size:16px;line-height:1.55}
+}
+/* Disabled buttons stay readable: a quiet outline style instead of a faded fill. */
+.gp-mbar .btn[disabled]{opacity:1;background:rgba(255,255,255,.08);color:rgba(255,255,255,.78);border-color:rgba(201,188,232,.4)}
+.gp-see[disabled],.rq-actions .btn[disabled]{opacity:1;background:var(--lav-tint);color:var(--body);border-color:var(--line-light)}
+.rq-wa a[aria-disabled="true"]{opacity:1;background:var(--lav-tint);color:var(--body);border-color:var(--line-light)}
+.gp-find{margin-top:22px}
+/* Tools hub: the calculator is a full card too; on wide screens it spans the row, art on the left. */
+.th-plan{display:block;width:76%;height:auto;filter:drop-shadow(0 20px 30px rgba(0,0,0,.4))}
+@media (min-width:900px){
+  .th-grid--4 .th-card--wide{grid-column:1 / -1;display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);grid-template-rows:auto auto auto 1fr;column-gap:clamp(22px,3vw,40px);row-gap:12px;align-items:start;align-content:center}
+  .th-card--wide .th-card__art{grid-column:1;grid-row:1 / span 4;height:100%;aspect-ratio:auto;min-height:240px}
+  .th-card--wide>:not(.th-card__art){grid-column:2}
+  .th-card--wide .btn{align-self:start;justify-self:start;margin-top:8px}
+}
+.th-card__art--cm{display:grid;place-items:center;overflow:hidden}
+.th-cm{display:block;width:88%;height:auto;border-radius:4px;box-shadow:0 8px 22px rgba(0,0,0,.28)}
+.gp-hero .gp-hero__quick{max-width:min(62%,780px)}
+@media (max-width:559px){.rq-fmt b,.rq-fmt small{white-space:nowrap}.rq-fmt small{margin-left:auto;text-align:right}}
+/* Short laptops: the tilted tool art stays inside the shorter hero. */
+@media (min-width:1024px) and (max-height:760px){.gp-hero__art{width:clamp(200px,16vw,250px)}.rq-hero__art{width:clamp(190px,15vw,240px)}}

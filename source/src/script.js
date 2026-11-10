@@ -85,7 +85,7 @@
   /* ---------- Headings rise word by word; eyebrows type in with a short scramble ---------- */
   $$('[data-split]').forEach(function(h){
     var txt=h.textContent.trim(); h.setAttribute('aria-label',txt);
-    h.innerHTML=txt.split(/\s+/).map(function(w,i){ return '<span class="sw" aria-hidden="true"><span class="swi" style="--wi:'+i+'">'+w.replace(/&/g,'&amp;').replace(/</g,'&lt;')+'</span></span>'; }).join(' ');
+    h.innerHTML=txt.split(/[ \t\r\n]+/).map(function(w,i){ return '<span class="sw" aria-hidden="true"><span class="swi" style="--wi:'+i+'">'+w.replace(/&/g,'&amp;').replace(/</g,'&lt;')+'</span></span>'; }).join(' ');
   });
   var GLYPHS='ABCDEFGHIJKLMNOPQRSTUVWXYZ/·+';
   function scramble(el){

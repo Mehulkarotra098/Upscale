@@ -323,7 +323,7 @@ def _calc_html():
   <form class="wc__in" aria-label="Your website">
     <fieldset class="wc__set"><legend>What do you need?</legend><div class="wc-opts">{opts}</div></fieldset>
     <fieldset class="wc__set"><legend>Add to it</legend><div class="wc-ticks">
-      <label class="wc-tick"><input type="checkbox" name="copy" checked><span><b>I write the text</b><small>Website copy, {price("Website copy")}, about <output name="pages">{d0["pages"]}</output> pages</small></span></label>
+      <label class="wc-tick"><input type="checkbox" name="copy" checked><span><b>Text written for you</b><small>Website copy, {price("Website copy")}, about <output name="pages">{d0["pages"]}</output> pages</small></span></label>
       <label class="wc-tick"><input type="checkbox" name="logo"><span><b>A logo</b><small>{price("Logo")}</small></span></label>
       <label class="wc-tick"><input type="checkbox" name="care"><span><b>Care plan</b><small>Updates, backups and security, {price("Care plan: updates, backups, security")}</small></span></label>
     </div></fieldset>
@@ -339,7 +339,7 @@ def _calc_html():
     <div class="wc__mkt"><p data-w="mlabel">Market price for {e(d0["ml"])}</p><p><b data-w="market">{_fmt(d0["m"][0])}–{_fmt(d0["m"][1])}</b></p>
       <p class="wc__note">From 16 published price guides, compared by U Scale in October 2026.</p></div>
     <div class="wc__year"><p>Every year after</p><ul data-w="yearly"><li>Domain and hosting: about {_fmt(YEARLY[0])}–{_fmt(YEARLY[1])}, before GST</li></ul></div>
-    <a class="btn btn--go wc__send" data-w="wa" href="{ea(wa)}" target="_blank" rel="noopener">{icon("chat")}Send this estimate on WhatsApp</a>
+    <a class="btn btn--go wc__send" data-w="wa" href="{ea(wa)}" target="_blank" rel="noopener">{icon("chat")}Send on WhatsApp</a>
   </div>
 </div>'''
 

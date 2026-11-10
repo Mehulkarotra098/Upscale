@@ -253,7 +253,7 @@ def _fee(spend):
 ADS = dict(
     slug='google-meta-ads-mumbai', path='services/google-meta-ads-mumbai', crumbs=[('Services', '/services')], crumb='Google & Meta ads',
     service='Google and Meta ads management in Mumbai', eyebrow='Google, Facebook, Instagram, WhatsApp',
-    art=dict(kind='img', img='social', chips=[('chat', 'Opens a WhatsApp chat'), ('rupee', 'Ad spend paid to Meta directly')]),
+    art=dict(kind='img', img='social', chips=[('chat', 'Opens a WhatsApp chat')]),
     stats=[(price('Ads management').split('/')[0], 'Per month, up to ₹1.5 lakh spend'), ('₹10,000', 'One-time setup'), ('You', 'Own the ad accounts')],
     wa="Hi Mehul, I'd like to talk about running ads for my business.",
     sections=[
