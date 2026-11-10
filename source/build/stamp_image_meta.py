@@ -153,8 +153,12 @@ def main(check_only=False):
             new = jpeg(data, tiff, x)
         else:   # AVIF: re-encode from the largest sibling of the same picture
             base = re.sub(r'-\d+$', '', p.stem)
-            sibs = sorted(ROOT.joinpath(p.parent.relative_to(ROOT)).glob(base + '*'), key=lambda s: Image.open(s).size[0], reverse=True)
-            src = Image.open(sibs[0]).convert('RGB')
+            # largest sibling first; at the same size prefer PNG, then WebP, so an AVIF is never re-encoded from an AVIF
+            pref = {'.png': 0, '.webp': 1}
+            sibs = sorted(ROOT.joinpath(p.parent.relative_to(ROOT)).glob(base + '*'), key=lambda s: (-Image.open(s).size[0], pref.get(s.suffix.lower(), 2)))
+            src = Image.open(sibs[0])
+            # keep transparency: converting to RGB turns the clear background black
+            src = src.convert('RGBA' if src.mode in ('RGBA', 'LA', 'PA') or 'transparency' in src.info else 'RGB')
             if src.size != im.size: src = src.resize(im.size, Image.LANCZOS)
             buf = io.BytesIO(); src.save(buf, 'AVIF', quality=76, speed=2, subsampling='4:4:4', exif=b'Exif\x00\x00' + tiff, xmp=x)
             new = buf.getvalue()
@@ -163,6 +167,8 @@ def main(check_only=False):
         if ext != '.avif':
             a, b = Image.open(io.BytesIO(data)).convert('RGBA'), chk.convert('RGBA')
             assert a.size == b.size and a.tobytes() == b.tobytes(), f'pixels changed: {rel}'
+        else:
+            assert (chk.mode == 'RGBA') == (src.mode == 'RGBA'), f'transparency lost: {rel}'
         assert b'WebStatement' in new
         p.write_bytes(new); done.append(rel)
     print(f'{len(done)} images {"would be " if check_only else ""}stamped')
