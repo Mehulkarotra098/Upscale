@@ -20,7 +20,7 @@ import {
   setField,
   updateElement,
 } from './actions.js';
-import { activeElements, commit, endTyping, setUi, state } from './store.js';
+import { activeElements, commit, endTyping, setUi, STANDEE, state } from './store.js';
 
 const FIELD_ROWS = [
   ['name', 'Name', 'Your full name', 'text'],
@@ -346,11 +346,11 @@ function BrandMatch({ t }) {
   return (
     <>
       <h2>{t('Match my logo')}</h2>
-      <button class="ce-btn ce-brand" disabled={busy} onClick={run}>
+      <button class="ce-btn ce-logomatch" disabled={busy} onClick={run}>
         <img src={doc.fields.logo} alt="" />
         <span>{busy ? `${t('Working')}…` : t('Use my logo’s colours')}</span>
         {found?.length ? (
-          <span class="ce-brand__sw" aria-hidden="true">
+          <span class="ce-logomatch__sw" aria-hidden="true">
             {found.map((c) => (
               <i key={c} style={{ background: c }} />
             ))}
@@ -655,26 +655,28 @@ export function PropertiesPanel({ t, templates, engine }) {
           doc={doc}
           onChange={(v) => commit((d) => void (d.sides[state.side].background = v))}
         />
-        <label class="ce-field">
-          <span>{t('Card size')}</span>
-          <select
-            value={
-              CARD_SIZES.find((s) => {
-                const c = cardSize(doc);
-                return (
-                  (Math.abs(s.w - c.w) < 0.01 && Math.abs(s.h - c.h) < 0.01) || (Math.abs(s.w - c.h) < 0.01 && Math.abs(s.h - c.w) < 0.01)
-                );
-              })?.id
-            }
-            onChange={(e) => setCardSize(CARD_SIZES.find((s) => s.id === e.target.value))}
-          >
-            {CARD_SIZES.map((s) => (
-              <option key={s.id} value={s.id}>
-                {s.label}
-              </option>
-            ))}
-          </select>
-        </label>
+        {STANDEE ? null : (
+          <label class="ce-field">
+            <span>{t('Card size')}</span>
+            <select
+              value={
+                CARD_SIZES.find((s) => {
+                  const c = cardSize(doc);
+                  return (
+                    (Math.abs(s.w - c.w) < 0.01 && Math.abs(s.h - c.h) < 0.01) || (Math.abs(s.w - c.h) < 0.01 && Math.abs(s.h - c.w) < 0.01)
+                  );
+                })?.id
+              }
+              onChange={(e) => setCardSize(CARD_SIZES.find((s) => s.id === e.target.value))}
+            >
+              {CARD_SIZES.map((s) => (
+                <option key={s.id} value={s.id}>
+                  {s.label}
+                </option>
+              ))}
+            </select>
+          </label>
+        )}
         <div class="ce-field">
           <span>{t('Gradient')}</span>
           <div class="ce-row ce-row--tight">

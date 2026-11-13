@@ -2,7 +2,12 @@
 import { validateDesign } from '../core/schema.js';
 
 const DB = 'us-card-maker';
-const KEY = 'current';
+/**
+ * The Google review standee opens in this same editor (?doc=standee). It is saved apart from the visiting card,
+ * so working on one never overwrites the other.
+ */
+export const STANDEE = typeof location !== 'undefined' && new URLSearchParams(location.search).get('doc') === 'standee';
+const KEY = STANDEE ? 'standee' : 'current';
 const HISTORY = 60;
 
 function deepCopy(v) {

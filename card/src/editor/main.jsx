@@ -24,7 +24,7 @@ import { FloatBar, InlineText } from './floatbar.jsx';
 import { translate } from './i18n.js';
 import { AddPanel, ColoursPanel, DetailsPanel, LayersPanel, PropertiesPanel, TemplatesPanel } from './panels.jsx';
 import { applyTransform, Stage } from './stage.js';
-import { commit, endTyping, loadSaved, redo, replaceDoc, setUi, state, subscribe, typingDetails, undo } from './store.js';
+import { commit, endTyping, loadSaved, redo, replaceDoc, saveDoc, setUi, STANDEE, state, subscribe, typingDetails, undo } from './store.js';
 
 const engine = new TextEngine(async (file) => {
   const res = await fetch(`/assets/card/fonts/${file}`);
@@ -122,7 +122,9 @@ function DownloadDialog({ t, close, templates }) {
         </section>
         <section>
           <h3>{t('For WhatsApp and sharing')}</h3>
-          <p class="ce-sub">PNG at 600 dpi (2100 × 1200 pixels).</p>
+          <p class="ce-sub">
+            PNG at 600 dpi ({Math.round((cardSize(doc).w / 25.4) * 600)} × {Math.round((cardSize(doc).h / 25.4) * 600)} pixels).
+          </p>
           <div class="ce-row ce-row--wrap">
             {btn('pngf', `PNG: ${t('Front')}`, () => downloadPng(doc, 'front', engine, { dpi: 600, bleed }))}
             {btn('pngb', `PNG: ${t('Back')}`, () => downloadPng(doc, 'back', engine, { dpi: 600, bleed }))}
@@ -147,11 +149,13 @@ function DownloadDialog({ t, close, templates }) {
             {btn('mock2', t('Tall photo for Status'), async () => (await import('./extras.js')).downloadMockup(doc, engine, 'story'))}
           </div>
         </section>
-        <section>
-          <h3>{t('Print at home')}</h3>
-          <p class="ce-sub">{t('A4 sheet of 10 cards')}, with cut marks.</p>
-          {btn('sheet', `${t('A4 sheet of 10 cards')} (PDF)`, () => downloadSheetPdf(doc, engine))}
-        </section>
+        {STANDEE ? null : (
+          <section>
+            <h3>{t('Print at home')}</h3>
+            <p class="ce-sub">{t('A4 sheet of 10 cards')}, with cut marks.</p>
+            {btn('sheet', `${t('A4 sheet of 10 cards')} (PDF)`, () => downloadSheetPdf(doc, engine))}
+          </section>
+        )}
         <section>
           <h3>{t('For designers')}</h3>
           <p class="ce-sub">True vector SVG. Text is outlined, so it looks the same in any software.</p>
@@ -223,6 +227,13 @@ function App({ templates, instantiate }) {
   const [fontBusy, setFontBusy] = useState(false);
   const [selBox, setSelBox] = useState(null);
   const [inlineEdit, setInlineEdit] = useState(null);
+  // A text box that was just added asks to be typed into (see addElement).
+  useEffect(() => {
+    if (!state.editText) return;
+    const id = state.editText;
+    state.editText = null;
+    setInlineEdit(id);
+  });
   const [lockedHint, setLockedHint] = useState(null);
 
   const selectIds = useCallback((ids) => setUi({ selection: ids, sheet: 'edit', sheetOpen: true }), []);
@@ -388,7 +399,11 @@ function App({ templates, instantiate }) {
   return (
     <div class="ce">
       <header class="ce-top">
-        <a class="ce-brand" href="/tools/visiting-card-maker" aria-label="Back to the card maker page">
+        <a
+          class="ce-brand"
+          href={STANDEE ? '/tools/google-review-qr-code' : '/tools/visiting-card-maker'}
+          aria-label={STANDEE ? 'Back to the review QR maker' : 'Back to the card maker page'}
+        >
           ← <b>U Scale</b>
         </a>
         <div class="ce-seg ce-sides" role="group" aria-label="Card side">
@@ -445,7 +460,7 @@ function App({ templates, instantiate }) {
       </header>
       <div class="ce-main">
         <nav class="ce-nav" aria-label="Tools">
-          {TABS.map(([k, l]) => (
+          {(STANDEE ? TABS.filter(([k]) => k !== 'details' && k !== 'templates') : TABS).map(([k, l]) => (
             <button
               key={k}
               aria-pressed={state.sheet === k && state.sheetOpen}
@@ -530,7 +545,25 @@ async function start() {
     const wanted = new URLSearchParams(location.search).get('design');
     const pick = TEMPLATES.find((x) => x.id === wanted);
     let doc = pick ? null : saved;
-    if (!doc) {
+    if (STANDEE) {
+      // A standee sent over from the review QR maker replaces the last one; otherwise the last one opens again.
+      doc = saved;
+      try {
+        const raw = localStorage.getItem('us-standee-for-editor');
+        if (raw) {
+          doc = validateDesign(JSON.parse(raw));
+          // Kept straight away: until now a design was only saved after its first edit, and this one has nowhere else to live.
+          await saveDoc(doc);
+          localStorage.removeItem('us-standee-for-editor');
+        }
+      } catch {
+        /* A damaged hand-over just means the last saved standee opens instead. */
+      }
+      if (!doc) {
+        location.replace('/tools/google-review-qr-code');
+        return;
+      }
+    } else if (!doc) {
       const tpl = pick ?? TEMPLATES[0];
       doc = instantiate(tpl);
       doc.user = saved?.user ?? {};
@@ -541,11 +574,11 @@ async function start() {
     }
     await engine.ensure(fontsUsed(doc));
     state.doc = doc;
-    state.sheet = pick ? 'details' : 'templates';
+    state.sheet = STANDEE ? 'add' : pick ? 'details' : 'templates';
     state.sheetOpen = true;
-    pendingQr = readQrFromTool();
+    pendingQr = STANDEE ? null : readQrFromTool();
     // A design link starts a design once. Left in the address, reloading would throw away everything done since.
-    if (location.search) history.replaceState(null, '', location.pathname);
+    if (location.search) history.replaceState(null, '', location.pathname + (STANDEE ? '?doc=standee' : ''));
     root.textContent = '';
     render(<App templates={TEMPLATES} instantiate={instantiate} />, root);
   } catch (e) {

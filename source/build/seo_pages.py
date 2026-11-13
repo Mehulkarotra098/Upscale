@@ -537,6 +537,8 @@ TOOL = dict(slug='google-review-qr-code',
        ('Can I offer a discount or gift for a Google review?','No. Google does not allow rewards, discounts or gifts in exchange for reviews, or asking only happy customers. Ask every customer for an honest review instead. This tool warns you if your wording looks like an incentive.'),
        ('What size should I print the QR code?','Keep the QR code at least 3 cm wide. The A6 standee prints with the QR code about 4 cm wide (4 per A4 sheet), the square table sticker prints 6 per A4 sheet, the A5 wall poster prints one per A4 sheet, and the WhatsApp Status size is for sharing on your phone.'),
        ('Can I make the review standee in Hindi or Marathi?','Yes. Under “Choose the wording”, pick English, Hinglish, हिंदी or मराठी. The headline, the line under it and the three WhatsApp messages change to that language, and Hindi and Marathi print in proper Devanagari letters. You can also write your own headline in any language.'),
+       ('Can I change the layout of the standee myself?','Yes. Press “Edit everything freely” and the design opens in the full editor. There you can move, resize or turn any part, change the fonts and colours, and add your own photos, icons, shapes and text, then download a PNG, an SVG or a print PDF. It is saved in your browser, apart from any visiting card you are making.'),
+       ('Can I add my logo to the review standee?','Yes. Choose a PNG, JPG, WebP or SVG file. The logo keeps its own shape, you can make it small, medium or large, and you can switch off the white box behind it if your logo is white or light. It stays in your browser for next time and is never uploaded.'),
        ('Will the QR code stop working?','No. It is a plain QR code of your Google review link, with no redirect through uscale.in, so it keeps working as long as your business is on Google.'),
        ('Can I add my logo and brand colours?','Yes. Upload your logo, pick one of 10 colour themes or your own brand colour, and choose from 6 designs: Classic, Split, Card, Festive, Minimal and Bold.')])
 
@@ -752,6 +754,10 @@ def tool_page(ctx, parts, tv):
             <button type="button" class="btn btn--ink rq-wide" id="rq-print" data-rq-need-link disabled>Print 4 on one A4 sheet</button>
             <button type="button" class="btn btn--line" id="rq-dl-png" data-rq-need-link disabled>QR code PNG</button>
             <button type="button" class="btn btn--line" id="rq-dl-svg" data-rq-need-link disabled>QR code SVG</button>
+          </div>
+          <div class="rq-free">
+            <button type="button" class="btn btn--line rq-wide" id="rq-edit-free" data-rq-need-link disabled>Edit everything freely</button>
+            <p>Opens this design in the full editor: move, resize or turn any part, change fonts and colours, add photos, icons and shapes, then download a PNG, SVG or print PDF.</p>
           </div>
           <a class="tlink rq-test" id="rq-test" href="#" target="_blank" rel="noopener" hidden>Test my review link</a>
           <p class="rq-private"><span aria-hidden="true">&#128274;</span><span>Private by design: your name, logo and wording stay in this browser. A short Maps link is only checked once to find your business, and nothing is stored.</span></p>

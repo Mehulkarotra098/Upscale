@@ -434,3 +434,4 @@ code{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:.92em;bac
 @media (max-width:559px){.rq-fmt b,.rq-fmt small{white-space:nowrap}.rq-fmt small{margin-left:auto;text-align:right}}
 /* Short laptops: the tilted tool art stays inside the shorter hero. */
 @media (min-width:1024px) and (max-height:760px){.gp-hero__art{width:clamp(200px,16vw,250px)}.rq-hero__art{width:clamp(190px,15vw,240px)}}
+.rq-free{margin-top:12px;padding-top:14px;border-top:1px solid rgba(37,30,69,.12);display:grid;gap:8px}.rq-free p{margin:0;font-size:13.5px;line-height:1.5;color:var(--body)}

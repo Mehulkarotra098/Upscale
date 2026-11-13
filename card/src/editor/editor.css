@@ -966,7 +966,7 @@ input[type='color'] {
   line-height: 1.4;
 }
 /* Colour the card from the logo */
-.ce-brand {
+.ce-logomatch {
   display: flex;
   align-items: center;
   gap: 10px;
@@ -975,7 +975,7 @@ input[type='color'] {
   padding: 8px 12px;
   text-align: left;
 }
-.ce-brand img {
+.ce-logomatch img {
   flex: none;
   width: 34px;
   height: 34px;
@@ -983,17 +983,17 @@ input[type='color'] {
   border-radius: 6px;
   background: #fff;
 }
-.ce-brand > span:first-of-type {
+.ce-logomatch > span:first-of-type {
   flex: 1;
 }
-.ce-brand__sw {
+.ce-logomatch__sw {
   display: flex;
   flex: none;
   overflow: hidden;
   border-radius: 6px;
   border: 1px solid var(--line);
 }
-.ce-brand__sw i {
+.ce-logomatch__sw i {
   width: 18px;
   height: 22px;
 }

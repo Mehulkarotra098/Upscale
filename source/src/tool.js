@@ -542,6 +542,49 @@
     cv.width = cv.height = n * px; ctx.fillStyle = '#fff'; ctx.fillRect(0, 0, cv.width, cv.height); drawQr(ctx, qr, 4 * px, 4 * px, (n - 8) * px);
     cv.toBlob(function (b) { download(b, 'google-review-qr-' + slug() + '.png'); say('QR code downloaded'); }, 'image/png');
   });
+  /* ---------- hand the design to the full editor, where every part can be moved, restyled or replaced ---------- */
+  var STAR = 'M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01z';
+  function freeDesign() {
+    var size = { a6: [105, 148], a5: [141.4, 200], square: [90, 90], story: [90, 160] }[state.format] || [105, 148];
+    var W = size[0], H = size[1], u = Math.min(W / 105, H / 148), th = THEMES[state.theme];
+    var ink = th.dark ? '#FFFFFF' : '#1D1930', acc = readable(state.accent || th.acc, th.bg[0]);
+    var c = COPY[state.lang], head = headline(), name = (state.name || 'Your business name').trim();
+    var q = Math.min(W * 0.52, H * 0.36), pad = q * 0.07, m = 9 * u, els = [], n = 0, blocks = [];
+    var id = function (p) { n += 1; return p + n; };
+    var text = function (t, o) {
+      var e = { id: id('text'), type: 'text', text: t, x: W * 0.08, w: W * 0.84, align: 'center', valign: 'middle', font: 'inter', weight: 600, lineHeight: 1.12, minSize: 5.5, fill: ink };
+      for (var k in o) e[k] = o[k];
+      return e;
+    };
+    if (logo && /^data:image\/png;base64,/.test(logo.src)) {
+      var lr = Math.min(W * 0.36 / logo.width, 15 * u / logo.height), lw = logo.width * lr, lh = logo.height * lr, lp = state.logoPlate ? 2 * u : 0;
+      blocks.push({ h: lh + 2 * lp, make: function (y) {
+        if (lp) els.push({ id: id('plate'), type: 'rect', x: (W - lw) / 2 - lp, y: y, w: lw + 2 * lp, h: lh + 2 * lp, r: 2 * u, fill: '#FFFFFF' });
+        els.push({ id: id('logo'), type: 'image', src: logo.src, imgW: logo.width, imgH: logo.height, x: (W - lw) / 2, y: y + lp, w: lw, h: lh, fit: 'contain' });
+      } });
+    }
+    blocks.push({ h: 6 * u, make: function (y) { els.push(text(name, { y: y, h: 6 * u, size: 10.5 * u, weight: 700, fill: acc, upper: true, tracking: DEVA.test(name) ? 0 : 0.14, noWrap: true })); } });
+    blocks.push({ h: 30 * u, make: function (y) { var dv = DEVA.test(head); els.push(text(head, { y: y, h: 30 * u, size: 33 * u, minSize: 14 * u, weight: 400, font: dv ? 'rozha' : 'anton', upper: true, lineHeight: dv ? 1.25 : 1.02, maxLines: 3 })); } });
+    blocks.push({ h: 7 * u, make: function (y) { els.push(text(c.sub, { y: y, h: 7 * u, size: 12.5 * u, noWrap: true })); } });
+    blocks.push({ h: q, make: function (y) {
+      els.push({ id: id('plate'), type: 'rect', x: (W - q) / 2, y: y, w: q, h: q, r: 4 * u, fill: '#FFFFFF' });
+      els.push({ id: id('qr'), type: 'qr', x: (W - q) / 2 + pad, y: y + pad, w: q - 2 * pad, qrKind: 'link', qrIn: { value: current.url }, data: '', light: '#FFFFFF', dark: '#111111', quiet: 1 });
+    } });
+    blocks.push({ h: 6 * u, make: function (y) { var sw = 6 * u, g = 1.6 * u, x0 = (W - (5 * sw + 4 * g)) / 2; for (var i = 0; i < 5; i++) els.push({ id: id('star'), type: 'path', d: STAR, vb: [0, 0, 24, 24], x: x0 + i * (sw + g), y: y, w: sw, h: sw, fill: th.dark ? '#FFC83D' : acc }); } });
+    blocks.push({ h: 6 * u, make: function (y) { els.push(text(c.foot, { y: y, h: 6 * u, size: 11.5 * u, noWrap: true })); } });
+    if (state.credit) blocks.push({ h: 3.5 * u, make: function (y) { els.push(text('Made with uscale.in/tools', { y: y, h: 3.5 * u, size: 6 * u, weight: 500, opacity: 0.6, noWrap: true })); } });
+    var total = blocks.reduce(function (t, b) { return t + b.h; }, 0), gap = Math.max(0.6 * u, (H - 2 * m - total) / (blocks.length - 1)), y = Math.max(3 * u, (H - total - gap * (blocks.length - 1)) / 2);
+    blocks.forEach(function (b) { b.make(y); y += b.h + gap; });
+    return { v: 1, fonts: { heading: 'anton', body: 'inter' }, palette: { ink: ink, accent: acc, paper: th.bg[0], deep: th.bg[1] }, fields: {}, size: { w: W, h: H },
+      sides: { front: { background: { type: 'linear', angle: 135, stops: [[0, th.bg[0]], [1, th.bg[1]]] }, elements: els }, back: { background: '#FFFFFF', elements: [] } } };
+  }
+  var editBtn = $('#rq-edit-free');
+  if (editBtn) editBtn.addEventListener('click', function () {
+    if (!qr || !current || !current.url) return;
+    try { localStorage.setItem('us-standee-for-editor', JSON.stringify(freeDesign())); } catch (err) { say('Your browser blocked saving this, so it can’t open in the editor.'); return; }
+    location.href = '/tools/visiting-card-maker/editor?doc=standee';
+  });
+
   $('#rq-dl-svg').addEventListener('click', function () { if (!qr) return; download(new Blob([qrSvg(qr)], { type: 'image/svg+xml' }), 'google-review-qr-' + slug() + '.svg'); say('QR code downloaded'); });
   printBtn.addEventListener('click', function () {
     var F = FORMATS[state.format]; if (!qr || !F.print) return;
