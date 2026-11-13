@@ -258,6 +258,126 @@
   "orientation": "horizontal"
  },
  {
+  "id": "aurora",
+  "name": "Aurora",
+  "category": "tech",
+  "orientation": "horizontal"
+ },
+ {
+  "id": "cube-stack",
+  "name": "Cube Stack",
+  "category": "tech",
+  "orientation": "horizontal"
+ },
+ {
+  "id": "glass-orb",
+  "name": "Glass Orb",
+  "category": "minimal",
+  "orientation": "horizontal"
+ },
+ {
+  "id": "line-bloom",
+  "name": "Line Bloom",
+  "category": "minimal",
+  "orientation": "horizontal"
+ },
+ {
+  "id": "marble-vein",
+  "name": "Marble",
+  "category": "luxury",
+  "orientation": "horizontal"
+ },
+ {
+  "id": "deco-fans",
+  "name": "Deco Fans",
+  "category": "luxury",
+  "orientation": "vertical"
+ },
+ {
+  "id": "capsule",
+  "name": "Capsule",
+  "category": "health",
+  "orientation": "horizontal"
+ },
+ {
+  "id": "spectacles",
+  "name": "Spectacles",
+  "category": "health",
+  "orientation": "horizontal"
+ },
+ {
+  "id": "latte-art",
+  "name": "Latte Art",
+  "category": "food",
+  "orientation": "horizontal"
+ },
+ {
+  "id": "window-seat",
+  "name": "Window Seat",
+  "category": "professional",
+  "orientation": "horizontal"
+ },
+ {
+  "id": "cassette",
+  "name": "Cassette",
+  "category": "creative",
+  "orientation": "horizontal"
+ },
+ {
+  "id": "ring-light",
+  "name": "Ring Light",
+  "category": "creative",
+  "orientation": "vertical"
+ },
+ {
+  "id": "star-wheel",
+  "name": "Star Wheel",
+  "category": "professional",
+  "orientation": "horizontal"
+ },
+ {
+  "id": "cricket-seam",
+  "name": "Leather Ball",
+  "category": "bold",
+  "orientation": "horizontal"
+ },
+ {
+  "id": "balloons",
+  "name": "Balloons",
+  "category": "playful",
+  "orientation": "horizontal"
+ },
+ {
+  "id": "sharp-pencil",
+  "name": "Sharp Pencil",
+  "category": "playful",
+  "orientation": "horizontal"
+ },
+ {
+  "id": "good-boy",
+  "name": "Good Boy",
+  "category": "playful",
+  "orientation": "horizontal"
+ },
+ {
+  "id": "warli-dance",
+  "name": "Warli Dance",
+  "category": "marathi",
+  "orientation": "horizontal"
+ },
+ {
+  "id": "paithani-mor",
+  "name": "Paithani",
+  "category": "marathi",
+  "orientation": "horizontal"
+ },
+ {
+  "id": "ikat-weave",
+  "name": "Ikat",
+  "category": "traditional",
+  "orientation": "horizontal"
+ },
+ {
   "id": "brilliant-cut",
   "name": "Brilliant Cut",
   "category": "retail",

@@ -2,6 +2,8 @@
 
 Each template is a JavaScript object in a `set-N.js` file. Read `set-1.js` for 12 working examples, and `art.js` for the kind of code-drawn artwork they use.
 
+For illustrated cards, read `set-9.js` and `set-10.js`. They use `blocks.js`, which has ready-made name, shop, contact and brand blocks, plus drawing helpers: paths with their own gradient box, shapes turned about a point, and seeded random numbers so art never changes between builds.
+
 ## The bar
 
 A template must be something a real shop owner, doctor or freelancer would actually print and hand out with their own details on it. Beauty and usefulness come first. A clever idea only counts if it survives real details.
