@@ -122,8 +122,8 @@
 
 /* v3 QA fixes */
 .cta__title .cw{display:inline-block;white-space:nowrap}
-.footer__big{container-type:inline-size}
-.footer__big .fb{font-size:min(calc((100cqw - 2 * var(--gutter)) / 7.7),15rem);line-height:.96}
+.footer__big{container-type:inline-size;max-width:1360px;margin-inline:auto}
+.footer__big .fb{font-size:min(calc((100cqw - 2 * var(--gutter)) / 7.52),15rem);line-height:.96}
 html.pin-ok .wk{width:var(--cwj,var(--cw))}
 html.pin-ok .process{overflow:clip}
 .wk__phone ~ .wk__body,.wk__media:has(.wk__phone) + .wk__body{padding-top:30px}
