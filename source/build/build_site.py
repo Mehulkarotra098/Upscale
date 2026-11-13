@@ -266,7 +266,7 @@ def quotes_html():
     for i,t in enumerate(ok):
         ini=''.join(w[0] for w in t['name'].split()[:2]).upper()
         logo=(f'<img class="quote__logo" src="assets/logos/{t["logo"]}.webp" alt="" loading="lazy" decoding="async">' if t.get('logo') else '')
-        out.append(f'      <li class="quote quote--real" style="--q:{i%3}" data-reveal>{dash}<blockquote><p>{e(t["quote"])}</p></blockquote><p class="quote__by"><span class="quote__av" aria-hidden="true">{ini}</span><span><strong>{e(t["name"])}</strong><br>{e(t["role"])}</span>{logo}</p></li>')
+        out.append(f'      <li class="quote quote--real" style="--q:{i%3}" data-reveal>{dash}<blockquote{' lang="'+t["lang"]+'"' if t.get("lang") else ''}><p>{e(t["quote"])}</p></blockquote><p class="quote__by"><span class="quote__av" aria-hidden="true">{ini}</span><span><strong>{e(t["name"])}</strong><br>{e(t["role"])}</span>{logo}</p></li>')
     return '\n'.join(out)
 ICONS_HEAD = ('<link rel="icon" href="/favicon.svg" type="image/svg+xml">\n<link rel="icon" href="/favicon-32.png" sizes="32x32" type="image/png">\n'
               '<link rel="icon" href="/icon-192.png" sizes="192x192" type="image/png">\n'

@@ -1,8 +1,10 @@
 [
+ {"name":"Vidhi Parmar","role":"AI visual artist, Mumbai. From her Instagram comment","logo":"vidhi","approved":true,
+  "quote":"I wanted something unique, creative and something that truly feels like me. You understood the vision and brought it to life so beautifully. Couldn't have asked for anything better. Absolutely love what you have created."},
+ {"name":"Store owner","role":"Used the free review QR card maker. Sent on WhatsApp","logo":"","approved":true,"lang":"hi-Latn",
+  "quote":"Aapki website se maine apne store ka review card banaya jo bohot hi attractive laga."},
  {"name":"Prachi","role":"Founder, Sashe by Prachi","logo":"sashe","approved":false,
   "quote":"Mehul got the feel of the label before he wrote a line of code. The site reads like our lookbook: calm, editorial, and easy to shop from on a phone."},
- {"name":"Vidhi Parmar","role":"AI visual artist, Mumbai","logo":"vidhi","approved":false,
-  "quote":"I wanted a portfolio that moves the way my films do. U Scale built exactly that, and it is now the first link I send to every brand."},
  {"name":"Yash","role":"Founder, BrandGen","logo":"brandgen","approved":false,
   "quote":"Site and socials came from one person with one plan. Same voice, same visuals, every week, and I never had to chase anyone for an update."},
  {"name":"Raj Patel","role":"TODO: business name","logo":"","approved":false,
