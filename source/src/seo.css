@@ -8,8 +8,10 @@
 .footer__svc ul{list-style:none;margin:0;padding:0;display:flex;flex-wrap:wrap;gap:8px 20px}
 .footer__svc a{font:500 13.5px/1.4 var(--sans);color:rgba(201,188,232,.85);text-decoration:none}
 .footer__svc a:hover{color:var(--white);text-decoration:underline;text-underline-offset:3px}
+.footer__areas{padding-top:0}
+.footer__areas-k{font:600 13.5px/1.4 var(--sans);color:var(--white)}
 /* phones: each footer link gets a finger-sized tap area */
-@media (max-width:559px){.footer__svc ul{gap:0 18px}.footer__svc a{display:inline-block;padding-block:10px}}
+@media (max-width:559px){.footer__svc ul{gap:0 18px}.footer__svc a{display:inline-block;padding-block:10px}.footer__areas-k{flex-basis:100%;padding-top:10px}}
 
 .sp-hero{position:relative;isolation:isolate;overflow:hidden;background:var(--violet);color:var(--white);border-radius:var(--radius-panel);padding:clamp(28px,5vw,72px) clamp(22px,5vw,76px) clamp(30px,4.6vw,64px);display:grid;gap:clamp(16px,2vw,24px);justify-items:start}
 .sp-hero::before{content:"";position:absolute;right:-18%;top:-55%;width:min(80vw,900px);aspect-ratio:1;border-radius:50%;background:radial-gradient(closest-side,rgba(201,188,232,.26),rgba(201,188,232,0));z-index:-1;pointer-events:none}

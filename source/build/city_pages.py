@@ -129,7 +129,7 @@ def _cta(p, wa, icons):
         </div>
       </div>
       {_related(p)}
-      <p class="fp-all"><a class="tlink" href="/services/website-design-mumbai">All website design</a> · <a class="tlink" href="/pricing">Full price list</a></p>
+      <p class="fp-all"><a class="tlink" href="/services/website-design-india">Website design across India</a> · <a class="tlink" href="/services/website-design-mumbai">All website design</a> · <a class="tlink" href="/pricing">Full price list</a></p>
     </div>
   </section>'''
 
@@ -739,7 +739,7 @@ CITIES = [
   crumb='Website design in Pune', service='Website design and development for Pune businesses',
   card='Fixed-price websites for Pune shops, suppliers, institutes and cafés, built from Mumbai over WhatsApp and video calls.',
   title='Website Design & Development in Pune, from ₹25,000',
-  desc=f'Websites for Pune businesses, designed and hand-coded by Mehul Karotra: landing page {LANDING}, business site {BIZ}, fixed in writing. Over WhatsApp.',
+  desc=f'Website design for Pune shops, suppliers, institutes and cafés, in Marathi or English: landing page {LANDING}, business site {BIZ}, fixed in writing.',
   h1='Website design & development in Pune', eyebrow='For Pune businesses',
   lead='Hand-coded websites at a fixed price, over WhatsApp. You pay most after launch, and you own everything.',
   stats=[(LANDING, 'Websites from'), ('3–4 wk', 'Live in'), ('60%', 'Paid after launch')],
@@ -1027,6 +1027,26 @@ def _answer(city, who):
             f'Prices are fixed in writing: {LANDING} for one page, {BIZ} for 5–10 pages and from {STORE} for an online store, and you pay 60% only after launch.')
 
 
+# Each city's own search snippet and link card, from what its page actually says (who it is for, which languages).
+# A shared sentence with only the city name swapped reads as a doorway page, in Google's results and to people.
+DESC = {
+    'delhi-ncr': f'Website design for Delhi NCR businesses, from Delhi to Gurugram and Noida: landing page {LANDING}, business site {BIZ}, fixed in writing, on WhatsApp.',
+    'hyderabad': f'Website design for Hyderabad businesses, from Old City shops to Cyberabad firms: landing page {LANDING}, business site {BIZ}, fixed in writing.',
+    'kolkata': f'Website design for Kolkata businesses, in Bengali and English: landing page {LANDING}, business site {BIZ}, fixed in writing. You talk to the designer.',
+    'ahmedabad': f'Website design for Ahmedabad businesses, in English or Gujarati: landing page {LANDING}, business site {BIZ}, fixed in writing. 60% is paid after launch.',
+    'surat': f'Website design for Surat traders and makers, so buyers across India find your stock: landing page {LANDING}, business site {BIZ}, fixed in writing.',
+    'jaipur': f'Website design for Jaipur stays, shops and makers, in English for tourists and Hindi for locals: landing page {LANDING}, business site {BIZ}, fixed.',
+}
+CARD = {
+    'delhi-ncr': 'Fixed-price websites for businesses across Delhi, Gurugram and Noida, built from Mumbai over WhatsApp and video calls.',
+    'hyderabad': 'Fixed-price websites for Hyderabad businesses, from Old City shops to Cyberabad firms, with Telugu or Urdu pages from your own text.',
+    'kolkata': 'Fixed-price websites for Kolkata businesses in Bengali and English, built from Mumbai over WhatsApp and video calls.',
+    'ahmedabad': 'Fixed-price websites for Ahmedabad businesses in English or Gujarati, with 60% paid only after launch.',
+    'surat': 'Fixed-price websites for Surat traders and makers, built so buyers across India can find your shop and your stock.',
+    'jaipur': 'Fixed-price websites for Jaipur stays, shops and makers: English for tourists, Hindi for locals.',
+}
+
+
 def _city(slug, city, state, wiki, eyebrow, lead, who, art, img, wa, cta_lead, trust_h, trust_keys, market_line, market_src, market_fact,
           langs, sections_mid, picker_items, lang_demo_args, faq_mid, sources, extra_v2=None, wiki_state=None):
     sec_prices = Sec(f'Website prices for {city} businesses', price_cards(market_line, market_src, city),
@@ -1047,9 +1067,9 @@ def _city(slug, city, state, wiki, eyebrow, lead, who, art, img, wa, cta_lead, t
            (f'How do I get my {city} business on Google Maps?', GP.MAPS_FAQ)]
     return dict(slug=slug, path=f'services/website-design-{slug}', city=city, state=state, wiki=wiki,
                 crumb=f'Website design in {city}', service=f'Website design and development for {city} businesses',
-                card=f'Fixed-price websites for {city} businesses, built from Mumbai over WhatsApp and video calls.',
+                card=CARD.get(slug) or f'Fixed-price websites for {city} businesses, built from Mumbai over WhatsApp and video calls.',
                 title=f'Website Design & Development in {city}, from ₹25,000',
-                desc=f'Websites for {city} businesses, designed and hand-coded by Mehul Karotra: landing page {LANDING}, business site {BIZ}, fixed in writing. Over WhatsApp.',
+                desc=DESC.get(slug) or f'Websites for {city} businesses, designed and hand-coded by Mehul Karotra: landing page {LANDING}, business site {BIZ}, fixed in writing. Over WhatsApp.',
                 h1=f'Website design & development in {city}', eyebrow=eyebrow, lead=lead,
                 stats=[(LANDING, 'Websites from'), ('3–4 wk', 'Live in'), ('60%', 'Paid after launch')],
                 art=art, imgs=[img], hero_btn='Free audit on WhatsApp', hero_more=('#prices', 'See prices'), wa=wa,

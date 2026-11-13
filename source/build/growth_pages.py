@@ -6,6 +6,8 @@
   /services/google-business-profile-mumbai  Google listing management (the listing side of local SEO)
   /freelance-web-designer-mumbai          for people looking to hire a person, not an agency
   /tools/website-cost-calculator          an estimate from the published prices and sourced market ranges
+  /services/digital-marketing-mumbai      for people searching for a digital marketing agency: what one person covers, with prices
+  /services/website-design-india          the hub for work outside Mumbai: prices, how remote projects run, and every city page
 
 Same rules as the other focus pages: every rupee figure comes from pricing_data.py or a linked, dated source; nothing is
 invented (no clients, results, offices or reviews); illustrations say they are illustrations. Thane and Navi Mumbai get
@@ -418,15 +420,240 @@ def calc_dict():
         all_links='<a class="tlink" href="/tools">All free tools</a>')
 
 
+# ================================================================ Digital marketing in Mumbai (people searching for an agency)
+SEO_TECH, ADS, GEO = price('Technical + on-page SEO'), price('Ads management'), price('AI search visibility (GEO)')
+GP.SRC.update({
+    'dm-edtech': ('EdTech Buzzz, updated 27 Aug 2026', 'Top 10 digital marketing agencies in Mumbai (2026): verified list and pricing',
+                  'https://www.edtechbuzzz.com/top-digital-marketing-agencies-in-mumbai/'),
+    'dm-scalegrowth': ('ScaleGrowth Digital, Mumbai, 14 Feb 2026 (seen 14 Nov 2026)', 'Digital marketing agency in Mumbai: what retainers cost',
+                       'https://scalegrowth.digital/mumbai/'),
+})
+
+
+def _mo(p):
+    """'₹15,000/mo' -> '₹15,000 a month'."""
+    return p.replace('/mo', ' a month')
+
+
+def _social_month():
+    """A month of social from single pieces, the same mix as the pricing page's preset: 12 posts, 4 carousels, 4 reel edits."""
+    return 12 * rupees('Social post') + 4 * rupees('Carousel') + 4 * rupees('Reel edit (your footage)')
+
+
+def digital_dict():
+    social = _fmt(_social_month())
+    return dict(
+        slug='digital-marketing-mumbai', path='services/digital-marketing-mumbai', kind='business', crumb='Digital marketing',
+        trail=CROSS, service='Digital marketing services in Mumbai', service_type='Digital marketing',
+        related_ld=lambda site: {'@type': 'Service', '@id': site + 'services/seo-mumbai#service', 'name': 'SEO Services', 'url': site + 'services/seo-mumbai'},
+        wa_msg="Hi Mehul, I'm looking for digital marketing for my business. I'd like a free audit.",
+        title='Digital Marketing Agency in Mumbai? Meet the Alternative',
+        desc=f'Looking for a digital marketing agency in Mumbai? U Scale is one specialist, Mehul Karotra: local SEO {LOCAL}, ads {ADS}, social posts from {price("Social post")}.',
+        h1='Digital marketing in Mumbai', eyebrow='An alternative to an agency',
+        lead='SEO, Google Maps, social media, Google and Meta ads and AI search, run by one person instead of an agency team. I’m Mehul Karotra; you talk to me, I do the work, and every price is published before we speak.',
+        stats=[(LOCAL.split('/')[0], 'Local SEO, per month'), (ADS.split('/')[0], 'Ads, per month'), ('1', 'Person does the work')],
+        art=dict(kind='card', card='menu'),
+        answer=(f'U Scale is the independent digital marketing practice of Mehul Karotra in Mumbai, an alternative to hiring a digital marketing agency. '
+                f'He personally runs local SEO and Google Business Profiles ({_mo(LOCAL)}), technical and on-page SEO ({_mo(SEO_TECH)}), Google and Meta ads '
+                f'({_mo(ADS)}, plus a one-time ₹10,000 setup), social media (posts from {price("Social post")}, reel edits from {price("Reel edit (your footage)")}) '
+                f'and AI search visibility ({_mo(GEO)}). Every price is published, and monthly plans run for 3 months, then month to month. '
+                'Two sources published in 2026 put full-service agency retainers in Mumbai between about ₹25,000 and ₹5 lakh a month.'),
+        facts=[('Who does the work', 'Mehul Karotra, personally. U Scale is one person, not an agency team'),
+               ('Local SEO and Google Business Profile', LOCAL),
+               ('Technical and on-page SEO', SEO_TECH),
+               ('Google and Meta ads', f'{ADS} up to ₹1.5 lakh monthly ad spend, then 12% of spend; ₹10,000 one-time setup; ad spend paid to Google or Meta directly'),
+               ('Social media', f'Posts {price("Social post")}, carousels {price("Carousel")}, reel edits {price("Reel edit (your footage)")}; community and inbox management {price("Community & inbox management")}'),
+               ('AI search visibility', GEO),
+               ('Contract', aeo.CONTRACT),
+               ('Accounts', 'Your Google listing, ad accounts and social pages stay in your name'),
+               ('Based in', 'Ghatkopar West, Mumbai; meets clients across Mumbai, Thane and Navi Mumbai, and works with businesses across India remotely'),
+               ('First step', 'A free audit of your website, Google listing and Instagram')],
+        sections=[
+            Sec('What digital marketing covers, and what each part costs',
+                Links([('/services/seo-mumbai', 'search', 'SEO and Google Maps', 'Your Google listing, the pages customers land on and the technical fixes behind them.', f'From {LOCAL}'),
+                       ('/services/google-business-profile-mumbai', 'pin', 'Google Business Profile', 'Set-up, verification, weekly posts, review replies and help with suspensions.', LOCAL),
+                       ('/services/social-media-management-mumbai', 'chat', 'Social media', 'A monthly plan you approve, designed posts, reels and inbox care.', f'From {price("Social post")} a post'),
+                       ('/services/google-meta-ads-mumbai', 'bolt', 'Google and Meta ads', 'Search, Instagram and click-to-WhatsApp campaigns, in your own ad accounts.', ADS),
+                       ('/services/ai-search-visibility', 'layers', 'AI search visibility', 'What ChatGPT, Gemini and Google’s AI say about you, and the facts they read.', GEO),
+                       ('/services/website-design-mumbai', 'globe', 'A website to send people to', 'Designed in Figma and hand-coded, at a fixed price.', f'From {price("Landing page")}')]),
+                P('You don’t need all of it. Most businesses start with one or two and add the rest when the first is working. The '
+                  + _link('/pricing', 'pricing page') + ' has a quote builder for mixing them.'),
+                eyebrow='Services and prices', layout='wide', sid='services'),
+            Sec('A digital marketing agency, or one specialist?',
+                Options([dict(name='A digital marketing agency', tag='A team', rows=[('Good for', 'Brands running many channels and campaigns at once'),
+                                                                                    ('You deal with', 'Usually an account manager'),
+                                                                                    ('Monthly cost', 'About ₹25,000 to ₹5 lakh for full service, in two sources published in 2026')]),
+                         dict(name='U Scale', tag='One specialist', hi=True, rows=[('Good for', 'Small and mid-sized businesses that want one person accountable'),
+                                                                                   ('You deal with', 'Mehul, who also does the work'),
+                                                                                   ('Monthly cost', f'Published for each service, from {price("Email marketing")}')])],
+                        note='If you need large shoots every week, influencer campaigns or a team on call all day, an agency is the better choice, and I will tell you so in the free audit.'),
+                P('Where the agency figures come from: one 2026 guide to Mumbai agencies puts full-service retainers at ₹25,000 to ₹2.5 lakh a month and more '
+                  + GP.src_chip('dm-edtech') + ', and a Mumbai agency’s own page puts them at ₹50,000 to ₹5 lakh ' + GP.src_chip('dm-scalegrowth')
+                  + '. They overlap rather than agree, so ask any agency what is included, and who will actually do the work.'),
+                eyebrow='Compared', layout='wide', tone='band', sid='compared'),
+            Sec('Three ways businesses usually start',
+                Table(['Goal', 'What it includes', 'Cost'],
+                      [('Get found on Google', 'Local SEO and Google Business Profile management', LOCAL),
+                       ('Enquiries from ads', 'A landing page, then ads management', f'{price("Landing page")} once, then {ADS} and a ₹10,000 setup'),
+                       ('A month of social media', '12 posts, 4 carousels and 4 reel edits from your footage', f'{social} for the month')],
+                      'Three common starting points for digital marketing with U Scale, priced from the published list'),
+                Note('Ad spend is paid by you to Google or Meta directly and is not part of these prices. No GST is charged on U Scale prices right now.'),
+                eyebrow='Starting points', layout='wide', sid='start'),
+            Sec('What I won’t do',
+                Cards([('shield', 'Promise a ranking', 'Nobody controls Google. I report what was done and what changed, every month.'),
+                       ('star', 'Buy reviews or followers', 'Bought reviews break Google’s rules and can get reviews removed or a listing restricted. Bought followers don’t buy from you.'),
+                       ('key', 'Hold your accounts', 'Your Google listing, ad accounts and pages stay in your name. You add me, and can remove me any time.')], cols=3),
+                eyebrow='Straight talk', layout='wide', tone='dark', sid='wont'),
+            Sec('Check where you stand first, free', Tools(), eyebrow='Free tools', layout='wide'),
+        ],
+        faq=[('How much does digital marketing cost in Mumbai?',
+              f'With U Scale, local SEO and Google Business Profile management is {_mo(LOCAL)}, technical and on-page SEO {_mo(SEO_TECH)}, Google and Meta ads '
+              f'management {_mo(ADS)} plus a ₹10,000 setup, and AI search visibility {_mo(GEO)}. Social media is priced by the piece, from {price("Social post")} '
+              'a post. Two sources published in 2026 put full-service agency retainers in Mumbai between about ₹25,000 and ₹5 lakh a month.'),
+             ('Is U Scale a digital marketing agency?',
+              'No. U Scale is one person, Mehul Karotra, who plans and does the work himself. When a project needs a photographer or another specialist, '
+              'he brings one in and stays your single point of contact.'),
+             ('Which service should I start with?',
+              'If customers look for you on Google Maps, start with your Google Business Profile and local SEO. If you have no website, or one that does '
+              'not bring enquiries, start there. The free audit looks at your website, Google listing and Instagram and suggests an order.'),
+             ('How long does digital marketing take to work?',
+              'Ads begin showing once the campaigns are approved. SEO and Google Maps work builds over months, and distance from the searcher decides part '
+              'of the map results. Nobody can promise a ranking or a number of enquiries.'),
+             ('Do I have to sign a long contract?',
+              'No. Monthly plans run for 3 months, then month to month with 30 days’ notice. Websites are one-time, fixed-price projects.'),
+             ('Do you work with businesses outside Mumbai?',
+              'Yes. I meet clients across Mumbai, Thane and Navi Mumbai, and work with businesses across India over WhatsApp and video calls, at the same prices.')],
+        sources=['dm-edtech', 'dm-scalegrowth', 'local-rank', 'ugc-policy'],
+        offers=['Local SEO / Google Business Profile', 'Technical + on-page SEO', 'Ads management', 'AI search visibility (GEO)', 'Community & inbox management'],
+        work=[],
+        related_html=_rel([('/services/seo-mumbai', 'Service', 'SEO services in Mumbai', 'Local and technical SEO, with a plain monthly report.'),
+                           ('/services/google-meta-ads-mumbai', 'Service', 'Google & Meta ads management', 'A flat monthly fee, in your own ad accounts.'),
+                           ('/services/social-media-management-mumbai', 'Service', 'Social media marketing in Mumbai', 'A plan you approve, posts, reels and inbox care.'),
+                           ('/services/ai-search-visibility', 'Service', 'AI search visibility', 'What AI assistants say about your business.'),
+                           ('/services/website-design-mumbai/freelancer-vs-agency-vs-website-builder', 'Guide', 'Freelancer vs agency vs builder', 'Who each one suits, and what each costs.'),
+                           ('/pricing', 'Prices', 'Full price list', 'Every service, with a quote builder.')]),
+        all_links='<a class="tlink" href="/services">All services</a>')
+
+
+# ================================================================ Website design across India (the hub for the city pages)
+def india_dict():
+    import city_pages as CP
+    cities = [(f'/{c["path"]}', 'pin', c['h1'].replace('Website design & development in ', ''), c['card'], '') for c in CP.CITIES]
+    near = [('/services/website-design-mumbai', 'pin', 'Mumbai', 'Where I’m based: meetings in person across the city.', ''),
+            ('/services/website-design-thane', 'pin', 'Thane, Kalyan and Dombivli', THANE['card'], ''),
+            ('/services/website-design-navi-mumbai', 'pin', 'Navi Mumbai', NAVI['card'], '')]
+    names = ', '.join(c['city'] for c in CP.CITIES[:-1]) + ' and ' + CP.CITIES[-1]['city']
+    return dict(
+        slug='website-design-india', path='services/website-design-india', kind='business', crumb='Across India',
+        service='Website design and development for businesses across India', service_type='Website design',
+        area_ld=[aeo.place('India', 'Country')],
+        wa_msg="Hi Mehul, my business is outside Mumbai. I'd like a free audit and a fixed price for my website.",
+        title='Website Design & Development in India, from ₹25,000 Fixed',
+        desc=f'Websites for businesses anywhere in India, designed and hand-coded by Mehul Karotra in Mumbai: landing page {price("Landing page")}, business site {price("Business site, 5–10 pages")}, over WhatsApp.',
+        h1='Website design & development in India', eyebrow='For businesses anywhere in India',
+        lead='I’m Mehul Karotra, a website designer and developer in Mumbai. I build websites for businesses across India over WhatsApp and video calls, at the same fixed prices I charge in Mumbai, agreed in writing before I start.',
+        stats=[(price('Landing page'), 'Websites from'), ('3–4 wk', 'Live in'), ('60%', 'Paid after launch')],
+        art=dict(kind='card', card='prices'),
+        answer=(f'U Scale is Mehul Karotra, a website designer and developer based in Mumbai who works with businesses across India over WhatsApp and video '
+                f'calls. Prices are fixed in writing and the same in every city: a landing page {price("Landing page")}, a 5–10 page business site '
+                f'{price("Business site, 5–10 pages")}, a 10–20 page site with a blog {price("Business site, 10–20 pages + blog")} and an online store from '
+                f'{STORE}. Most business sites go live in 3–4 weeks, 60% of the price is paid at launch, and the domain, code and logins are in your name. '
+                'For comparison, 16 published price guides put a custom-designed website in India at about ₹40,000 to ₹2 lakh.'),
+        facts=[('Who builds it', 'Mehul Karotra, personally: designed in Figma, then hand-coded'),
+               ('Based in', 'Mumbai (Ghatkopar West). No offices in other cities: the work happens over WhatsApp and video calls'),
+               ('Website prices', WEB_PRICES + '. The same in every city'),
+               ('India market, for comparison', 'Basic template website ₹8,000–₹30,000 · custom-designed website ₹40,000–₹2,00,000 · online store ₹25,000–₹3,00,000 (16 published price guides, compared in October 2026)'),
+               ('Timeline', 'Most business sites go live in 3–4 weeks; a landing page in under two weeks'),
+               ('Payment', '20% to start, 20% on design sign-off, 60% on launch. No GST is charged right now'),
+               ('You own', 'Your domain, hosting, code, design files and every login'),
+               ('City pages', f'Mumbai, Thane and Navi Mumbai (in person), and {names} (remote)'),
+               ('Languages', 'English and Hindi')],
+        sections=[
+            Sec('What a website costs in India',
+                Table(['Kind of website', 'Market range in India', 'U Scale, fixed'],
+                      [('One-page or basic template site', '₹8,000–₹30,000', price('Landing page') + ' for a custom landing page'),
+                       ('Custom-designed business site', '₹40,000–₹2,00,000', price('Business site, 5–10 pages') + ' for 5–10 pages'),
+                       ('Larger site with a blog', '₹40,000–₹2,00,000', price('Business site, 10–20 pages + blog') + ' for 10–20 pages'),
+                       ('Online store', '₹25,000–₹3,00,000', f'{STORE} under 50 products · {STORE_BIG} for 50–500')],
+                      'What a website costs in India: market ranges from published price guides, beside U Scale’s fixed prices'),
+                P(GP.GUIDES_NOTE.replace(' and listed under Sources below', '') + ' The full list is in the '
+                  + _link('/services/website-design-mumbai/freelancer-vs-agency-vs-website-builder#sources', 'freelancer vs agency guide')
+                  + '. For an estimate with your own choices, use the ' + _link('/tools/website-cost-calculator', 'website cost calculator') + '.'),
+                eyebrow='Prices', layout='wide', sid='prices'),
+            Sec('How a project runs when we are in different cities',
+                Cards([('chat', 'WhatsApp and video calls', 'You talk to me directly, from the first message to launch. No account manager in between.'),
+                       ('pen', 'Designs you review on your own phone', 'Real screens in Figma, desktop and mobile, approved by you before I write any code.'),
+                       ('rupee', 'Most of the price after launch', '20% to start, 20% when you approve the design and 60% when the site is live.'),
+                       ('key', 'Everything in your name', 'Your domain, hosting, code and logins, handed over at launch.'),
+                       ('file', 'A written plan first', 'Pages, timeline and the exact price, agreed before you pay anything.'),
+                       ('shield', 'Bug fixes after launch', 'A 15–30 day window to fix anything that doesn’t work as agreed.')], cols=3),
+                eyebrow='Working remotely', layout='wide', tone='band', sid='remote'),
+            Sec('Website design by city',
+                P('Each city has its own page, with what local studios charge there, from their own price pages, and how customers in that city search.'),
+                Links(cities),
+                P('In and around Mumbai I also meet clients in person:'),
+                Links(near),
+                eyebrow='City pages', layout='wide', sid='cities'),
+            Sec('A local studio, or a designer in another city?',
+                Options([dict(name='A studio in your city', tag='Local', rows=[('Good for', 'Owners who want to sit across a table'),
+                                                                              ('Ask about', 'Who designs and builds the site, and whose name the domain is in'),
+                                                                              ('Price', 'Varies by city: see the city pages')]),
+                         dict(name='U Scale, from Mumbai', tag='Remote', hi=True, rows=[('Good for', 'Owners happy to work over WhatsApp and video calls'),
+                                                                                        ('Ask about', 'When I can start; I take a few projects at a time'),
+                                                                                        ('Price', f'Fixed in writing, from {price("Landing page")}')])],
+                        note='Not sure? The first audit is free either way, and I will tell you honestly if a local studio suits you better.'),
+                eyebrow='Compared', layout='wide', sid='compared'),
+            Sec('Websites by type of business',
+                Links([('/services/website-design-mumbai/restaurants-cafes', 'menu', 'Restaurants and cafés', 'Your menu and your own online ordering, with no app commission.', price('Restaurant site + own online ordering')),
+                       ('/services/website-design-mumbai/boutiques-fashion', 'tag', 'Boutiques and clothing stores', 'A catalogue with WhatsApp orders, or a full online store.', f'From {price("Business site, 5–10 pages")}'),
+                       ('/services/ecommerce-website-mumbai', 'cart', 'Online stores', 'Product pages Google can find, a cart, UPI and card payments.', f'From {STORE}')]),
+                eyebrow='By business', layout='wide', sid='types'),
+        ],
+        faq=[('How much does a website cost in India?',
+              'About ₹8,000–₹30,000 for a basic template website, ₹40,000–₹2 lakh for a custom-designed one and ₹25,000–₹3 lakh for an online store, according '
+              f'to 16 published price guides compared in 2026. U Scale’s fixed prices are {price("Landing page")} for a landing page, '
+              f'{price("Business site, 5–10 pages")} for a 5–10 page business site and from {STORE} for an online store.'),
+             ('Can you build my website if I am not in Mumbai?',
+              'Yes. The whole project runs over WhatsApp and video calls: a free audit, a written plan with a fixed price, designs you review in Figma on '
+              'your own phone and laptop, then the build and launch. The prices are the same as in Mumbai.'),
+             ('Which cities do you work with?',
+              f'Any city in India. There are pages for {names}, and I meet clients in person in Mumbai, Thane and Navi Mumbai.'),
+             ('Do you have an office in my city?',
+              'No. U Scale is based in Mumbai (Ghatkopar West) and has no offices elsewhere. If you want someone who can visit you, a studio in your '
+              'city is the better choice.'),
+             ('How do payments work, and is GST added?',
+              'You pay 20% to start, 20% when you approve the design and 60% when the site is live. No GST is charged on U Scale prices right now.'),
+             ('How long does a website take?',
+              'Most business sites go live in 3–4 weeks from the start date, and a landing page in under two weeks. You get the start date in writing before the advance.'),
+             ('Can my website be in Hindi or another Indian language?',
+              f'Yes. I write in English and Hindi. For other languages I build the pages from your own text or a translator’s, with a language switch '
+              f'Google understands. Writing the copy is {price("Website copy")}.'),
+             ('Do you also do SEO for businesses outside Mumbai?',
+              'Yes. Technical and on-page SEO, AI search visibility and Google Business Profile management are all done remotely, on monthly plans with '
+              'published prices, and your Google listing stays in your name.')],
+        sources=['g-hostinger', 'g-goodfirms', 'g-esc', 'g-zethic', 'g-pac', 'g-mwd'],
+        offers=['Landing page', 'Business site, 5–10 pages', 'Business site, 10–20 pages + blog', 'E-commerce, under 50 products'],
+        work=[],
+        related_html=_rel([('/services/website-design-mumbai', 'Service', 'Website design in Mumbai', 'Designed in Figma, hand-coded, fixed price.'),
+                           ('/freelance-web-designer-mumbai', 'Hire', 'Freelance web designer', 'Hire one person, not an agency team.'),
+                           ('/tools/website-cost-calculator', 'Free tool', 'Website cost calculator', 'An estimate in a minute, from published prices.'),
+                           ('/blog/website-design-cost-mumbai', 'Guide', 'Website design cost (2026)', 'Market ranges, yearly costs and red flags.'),
+                           ('/services/website-design-mumbai/website-banane-ka-kharcha', 'Guide', 'Website banane ka kharcha', 'Poora hisaab, Hinglish mein.'),
+                           ('/pricing', 'Prices', 'Full price list', 'Websites, monthly plans and single pieces.')]))
+
+
 GP.OG.update({'ecommerce-website-mumbai': 'og-ecommerce-website-mumbai', 'google-business-profile-mumbai': 'og-google-business-profile-mumbai',
               'freelance-web-designer-mumbai': 'og-freelance-web-designer-mumbai', 'website-cost-calculator': 'og-website-cost-calculator',
-              'website-design-thane': 'og-website-design-thane', 'website-design-navi-mumbai': 'og-website-design-navi-mumbai'})
+              'website-design-thane': 'og-website-design-thane', 'website-design-navi-mumbai': 'og-website-design-navi-mumbai',
+              'digital-marketing-mumbai': 'og-digital-marketing-mumbai', 'website-design-india': 'og-website-design-india'})
 GP.OG_ALT.update({'ecommerce-website-mumbai': 'E-commerce website development in Mumbai, by U Scale',
                   'google-business-profile-mumbai': 'Google Business Profile management in Mumbai, by U Scale',
                   'freelance-web-designer-mumbai': 'Freelance web designer in Mumbai: Mehul Karotra of U Scale',
                   'website-cost-calculator': 'Free website cost calculator for India, by U Scale',
                   'website-design-thane': 'Website design in Thane, Kalyan and Dombivli, by U Scale',
-                  'website-design-navi-mumbai': 'Website design in Navi Mumbai, Vashi to Panvel, by U Scale'})
+                  'website-design-navi-mumbai': 'Website design in Navi Mumbai, Vashi to Panvel, by U Scale',
+                  'digital-marketing-mumbai': 'Digital marketing in Mumbai by one specialist: Mehul Karotra of U Scale',
+                  'website-design-india': 'Website design and development for businesses across India, by U Scale'})
 
 GP.SRC.update({
     'tmc-list': ('Thane District, Government of Maharashtra', 'Municipal corporations in Thane district', 'https://thane.nic.in/en/municipal-corporations/'),
@@ -456,8 +683,8 @@ THANE = dict(
     places=['Thane West', 'Thane East', 'Ghodbunder Road', 'Wagle Estate', 'Kalyan', 'Dombivli'],
     area_ld=[aeo.place('Thane'), {'@type': 'City', 'name': 'Kalyan'}, {'@type': 'City', 'name': 'Dombivli'}],
     wa_msg="Hi Mehul, I run a business in Thane. I'd like a free audit for my website and Google listing.",
-    title='Website Design in Thane, Kalyan & Dombivli from ₹25,000',
-    desc='Websites, Google Maps and local SEO for Thane businesses, from Ghodbunder Road to Wagle Estate, Kalyan and Dombivli. Fixed prices, meetings in person.',
+    title='Website Design & SEO in Thane, Kalyan & Dombivli | U Scale',
+    desc='Websites, Google Maps and local SEO for Thane businesses, from Ghodbunder Road to Kalyan and Dombivli. Fixed prices from ₹25,000, meetings in person.',
     h1='Website design in Thane', eyebrow='Thane, Kalyan and Dombivli',
     lead='I’m Mehul Karotra, a website designer based in Ghatkopar West, a short ride down the Central line from Thane. I design and build websites and run Google listings and local SEO for businesses in Thane, Kalyan and Dombivli, and I can meet you at your shop or office.',
     stats=[(price('Landing page'), 'Websites from'), (LOCAL.split('/')[0], 'Local SEO, per month'), ('In person', 'Meetings at your shop')],
@@ -542,7 +769,7 @@ NAVI = dict(
     places=['Vashi', 'Airoli', 'Nerul', 'CBD Belapur', 'Kharghar', 'Panvel'],
     area_ld=[aeo.place('Navi Mumbai'), {'@type': 'City', 'name': 'Panvel'}],
     wa_msg="Hi Mehul, I run a business in Navi Mumbai. I'd like a free audit for my website and Google listing.",
-    title='Website Design in Navi Mumbai: Vashi to Panvel, from ₹25,000',
+    title='Website Design & SEO in Navi Mumbai: Vashi to Panvel',
     desc='Websites, Google Maps and local SEO for Navi Mumbai businesses in Vashi, Nerul, Belapur, Kharghar, Airoli and Panvel. Fixed prices from ₹25,000.',
     h1='Website design in Navi Mumbai', eyebrow='Vashi to Panvel',
     lead='I’m Mehul Karotra, a website designer based in Ghatkopar West, across Thane Creek from Navi Mumbai. I design and build websites and run Google listings and local SEO for businesses from Airoli and Vashi to Nerul, Belapur, Kharghar and Panvel, and I can meet you at your shop or office.',
@@ -625,9 +852,21 @@ if ECOM not in GP.PAGES:
     GP.PAGES[areas_at:areas_at] = [THANE, NAVI]  # after Ghatkopar and Andheri
 
 
+def hub_cards():
+    """Link cards on the services hub for the pages that are not one of the five core services or a website type."""
+    items = [('/services/digital-marketing-mumbai', 'Digital marketing', 'Digital marketing in Mumbai', 'What one specialist covers instead of an agency team, with every price.'),
+             ('/services/google-business-profile-mumbai', 'Local SEO', 'Google Business Profile management', 'Set-up, verification, weekly posts, reviews and suspension fixes.'),
+             ('/freelance-web-designer-mumbai', 'Hire', 'Freelance web designer in Mumbai', 'Hire Mehul directly: fixed price, designed in Figma, hand-coded.'),
+             ('/services/website-design-india', 'Other cities', 'Website design across India', 'The same fixed prices in every city, over WhatsApp and video calls.'),
+             ('/tools/website-cost-calculator', 'Free tool', 'Website cost calculator', 'An estimate in a minute, from published prices.')]
+    li = ''.join(f'<li><a class="fp-rel" href="{ea(h)}"><span class="fp-rel__k">{e(k)}</span><b>{e(t)}</b><span class="fp-rel__d">{e(d)}</span>{icon("arrow")}</a></li>'
+                 for h, k, t, d in items)
+    return f'<nav class="fp-related fp-related--parent" aria-label="More services and pages"><p class="eyebrow">Also on this site</p><ul>{li}</ul></nav>'
+
+
 def standalone(ctx=None):
     """The pages that are not in GP.PAGES (they don't belong in the website-design "Keep reading" rail)."""
-    return [gbp_page_dict(), freelancer_dict(ctx), calc_dict()]
+    return [gbp_page_dict(), freelancer_dict(ctx), calc_dict(), digital_dict(), india_dict()]
 
 
 def build(ctx, parts):

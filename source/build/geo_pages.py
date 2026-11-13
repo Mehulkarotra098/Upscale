@@ -1476,4 +1476,6 @@ def related_html():
                  f'<span class="fp-rel__d">{e(p["card"])}</span>{icon("arrow")}</a></li>'
                  for kind, label in kinds for p in PAGES if p['kind'] == kind)
     li += __import__('city_pages').related_cards()
+    li += (f'<li><a class="fp-rel" href="/services/website-design-india"><span class="fp-rel__k">Other cities</span><b>Website design &amp; development in India</b>'
+           f'<span class="fp-rel__d">The same fixed prices in every city, how remote projects run, and every city page.</span>{icon("arrow")}</a></li>')
     return f'<nav class="fp-related fp-related--parent" aria-label="Website design by business, area, city and guide"><p class="eyebrow">By business, near you, guides and other cities</p><ul>{li}</ul></nav>'

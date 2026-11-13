@@ -247,7 +247,12 @@ BRIEF = {
              'Yes. I’m based in Ghatkopar West, a short train ride from both, and meet clients at their shop or office. Prices are the same as '
              'in Mumbai. More on website design in Thane and website design in Navi Mumbai.'),
             ('Do you build websites for businesses outside Mumbai?',
-             'Yes. I’m based in Mumbai and work with businesses across India remotely, over WhatsApp, calls and video meetings.')],
+             'Yes. I’m based in Mumbai and work with businesses across India remotely, over WhatsApp, calls and video meetings, at the same '
+             'fixed prices. More on website design across India, with a page for each major city.'),
+            ('Is U Scale a website design company in Mumbai?',
+             'U Scale is the practice of one website designer and developer, Mehul Karotra, run the way a website design company runs a '
+             'project: a written scope, a fixed price, payment in stages and every login handed over at launch. You get a company’s process, '
+             'with one person accountable for the work.')],
   offers=['Landing page', 'Portfolio site', 'Business site, 5–10 pages', 'Business site, 10–20 pages + blog', 'E-commerce, under 50 products',
           'Restaurant site + own online ordering', 'Care plan: updates, backups, security']),
  'seo-mumbai': dict(
@@ -518,7 +523,7 @@ ABOUT_FAQ = [
      'directly, on fixed-price contracts for websites or monthly plans for marketing, and every price is published at uscale.in/pricing.'),
     ('Is U Scale an agency or a freelancer?', 'A bit of both. U Scale is one person, Mehul Karotra, working as an independent, contract-based partner. '
      'You get the design, development and marketing an agency offers, but you sign with him and talk to him directly. If a project needs a specialist, '
-     'like a photographer, he brings them in and stays your single point of contact.'),
+     'like a photographer, he brings them in and stays your single point of contact. More on digital marketing in Mumbai with one specialist.'),
     ('Where is U Scale based?', 'U Scale is based in Mumbai. Mehul meets clients across Mumbai, Thane and Navi Mumbai, and works '
      'with businesses across India remotely.'),
     ('How do I contact Mehul Karotra?', f'WhatsApp or call {SP.PHONE_D}, or email {SP.EMAIL}. He replies personally within 24 hours, usually much faster on WhatsApp.'),
@@ -699,6 +704,7 @@ def services_hub(ctx, parts):
         <h2 class="h2" id="by-title" data-split>Websites by business type and area.</h2>
       </header>
       {__import__('geo_pages').related_html()}
+      {__import__('growth_pages').hub_cards()}
     </div>
   </section>
 
