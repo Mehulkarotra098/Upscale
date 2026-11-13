@@ -14,6 +14,7 @@
     a6: { w: 1240, h: 1748, name: 'standee', cap: 'A6 counter standee (10.5 × 14.8 cm), print-ready at 300 dpi', print: { cols: 2, rows: 2, wmm: 105, hmm: 148 } },
     square: { w: 1200, h: 1200, name: 'sticker', cap: 'Square table sticker (9 × 9 cm), print-ready', print: { cols: 2, rows: 3, wmm: 90, hmm: 90 } },
     story: { w: 1080, h: 1920, name: 'status', cap: 'WhatsApp Status and Instagram Story (1080 × 1920)', print: null },
+    a5: { w: 1748, h: 2480, name: 'poster', cap: 'A5 wall poster (14.8 × 21 cm), print-ready at 300 dpi', print: { cols: 1, rows: 1, wmm: 148, hmm: 210 } },
   };
   var THEMES = {
     midnight: { bg: ['#2C2454', '#16102C'], acc: '#7BD35A', dark: true },
@@ -52,12 +53,36 @@
         ['Ek gentle reminder', 'Namaste, {b} se ek chhota sa reminder. Time mile toh Google par apna honest review dijiye: {l} Dhanyavaad!'],
       ],
     },
+    dv: {
+      heads: ['हमारी सेवा पसंद आई?', 'खरीदारी अच्छी लगी?', 'आपका अनुभव कैसा रहा?', 'ऑर्डर पसंद आया?', 'Google पर रिव्यू दीजिए'],
+      sub: 'स्कैन करके Google रिव्यू दीजिए',
+      scan: 'स्कैन कीजिए',
+      foot: 'सिर्फ़ 1 मिनट। धन्यवाद!',
+      msgs: [
+        ['खरीदारी के बाद', 'नमस्ते! {b} से खरीदारी करने के लिए धन्यवाद। अगर 1 मिनट हो, तो Google पर अपना ईमानदार रिव्यू ज़रूर दीजिए। इससे हमें बहुत मदद मिलती है: {l}'],
+        ['सर्विस या अपॉइंटमेंट के बाद', 'नमस्ते, आज {b} आने के लिए शुक्रिया। Google पर आपकी राय हमारे लिए बहुत ज़रूरी है, अच्छी हो या बुरी: {l}'],
+        ['एक छोटा सा रिमाइंडर', 'नमस्ते, {b} की ओर से एक छोटा सा रिमाइंडर। समय मिले तो Google पर अपना ईमानदार रिव्यू दीजिए: {l} धन्यवाद!'],
+      ],
+    },
+    mr: {
+      heads: ['आमची सेवा आवडली?', 'खरेदी आवडली?', 'तुमचा अनुभव कसा होता?', 'ऑर्डर आवडली?', 'Google वर रिव्ह्यू द्या'],
+      sub: 'स्कॅन करून Google रिव्ह्यू द्या',
+      scan: 'स्कॅन करा',
+      foot: 'फक्त 1 मिनिट. धन्यवाद!',
+      msgs: [
+        ['खरेदीनंतर', 'नमस्कार! {b} मधून खरेदी केल्याबद्दल धन्यवाद. एक मिनिट वेळ असेल तर Google वर तुमचा प्रामाणिक रिव्ह्यू नक्की द्या. याची आम्हाला खूप मदत होते: {l}'],
+        ['सेवा किंवा अपॉइंटमेंटनंतर', 'नमस्कार, आज {b} ला भेट दिल्याबद्दल धन्यवाद. Google वरील तुमचा अभिप्राय आमच्यासाठी खूप महत्त्वाचा आहे, चांगला असो वा वाईट: {l}'],
+        ['एक छोटी आठवण', 'नमस्कार, {b} कडून एक छोटी आठवण. वेळ मिळाल्यास Google वर तुमचा प्रामाणिक रिव्ह्यू द्या: {l} धन्यवाद!'],
+      ],
+    },
   };
+  var DEVA = /[\u0900-\u097F]/;
   var RISKY = /(discount|cash ?back|coupon|gift|prize|reward|lucky draw|\bfree\b|\d+\s?%|\boff\b|5[\s-]?star|five[\s-]?star|only good)/i;
 
   var state = { link: '', name: '', nameAuto: false, lang: 'en', head: 0, custom: '', template: 'classic', theme: 'midnight', accent: '', format: 'a6', credit: true };
   try { var saved = JSON.parse(localStorage.getItem(KEY) || 'null'); if (saved) for (var k in state) if (k in saved) state[k] = saved[k]; } catch (e) { /* storage unavailable */ }
   if (!THEMES[state.theme]) state.theme = 'midnight';
+  if (!COPY[state.lang]) state.lang = 'en';
   if (TEMPLATES.indexOf(state.template) < 0) state.template = 'classic';
   if (!FORMATS[state.format]) state.format = 'a6';
   var save = function () { try { localStorage.setItem(KEY, JSON.stringify(state)); } catch (e) { /* ignore */ } };
@@ -157,7 +182,7 @@
     for (var bw = maxW - 8, n = lines.length; n > 1 && bw > maxW * 0.45; bw -= 8) { var t2 = wrap(ctx, text, bw); if (t2.length !== n || t2.some(function (l) { return ctx.measureText(l).width > bw; })) break; lines = t2; }
     return { lines: lines, size: s };
   }
-  function spaced(ctx, px) { if ('letterSpacing' in ctx) ctx.letterSpacing = px + 'px'; }
+  function spaced(ctx, px, text) { if ('letterSpacing' in ctx) ctx.letterSpacing = (text && DEVA.test(text) ? 0 : px) + 'px'; }
   function headline() { var c = COPY[state.lang]; return (state.head === 'custom' ? state.custom.trim() : c.heads[state.head]) || c.heads[0]; }
 
   /* vertical stack: blocks are {h:function(k), draw:function(y,k)}; shrinks k until it fits [top,bottom] */
@@ -187,7 +212,7 @@
   function fillBg(P, c1, c2) { var g = P.ctx.createLinearGradient(0, 0, P.W, P.H); g.addColorStop(0, c1); g.addColorStop(1, c2); P.ctx.fillStyle = g; P.ctx.fillRect(0, 0, P.W, P.H); }
   function credit(P, color, align, x, fromBottom) {
     if (!state.credit) return;
-    var ctx = P.ctx; ctx.save(); ctx.fillStyle = color; ctx.font = '500 ' + Math.round(26 * P.u) + 'px Inter'; ctx.textAlign = align || 'center';
+    var ctx = P.ctx; ctx.save(); ctx.fillStyle = color; ctx.font = '500 ' + Math.round(26 * P.u) + 'px Inter,USDeva'; ctx.textAlign = align || 'center';
     ctx.fillText('Made with uscale.in/tools', x == null ? P.W / 2 : x, P.H - (fromBottom || 58) * P.u); ctx.restore();
   }
   /* reusable blocks */
@@ -203,25 +228,25 @@
     var ctx = P.ctx;
     return { h: function (k) { return (46 * (scale || 1)) * P.u * k + 40 * P.u * k; }, draw: function (y, k) {
       var size = 46 * (scale || 1) * P.u * k, txt = P.name.toUpperCase(), maxW = P.W * (align === 'left' ? 0.8 : 0.84);
-      ctx.save(); ctx.fillStyle = color; ctx.textAlign = align || 'center'; spaced(ctx, Math.round(size * 0.16));
-      for (; size > 20 * P.u; size -= 2) { ctx.font = '700 ' + size + 'px Inter'; if (ctx.measureText(txt).width <= maxW) break; }
+      ctx.save(); ctx.fillStyle = color; ctx.textAlign = align || 'center'; spaced(ctx, Math.round(size * 0.16), txt);
+      for (; size > 20 * P.u; size -= 2) { ctx.font = '700 ' + size + 'px Inter,USDeva'; if (ctx.measureText(txt).width <= maxW) break; }
       ctx.fillText(txt, x, y + size); ctx.restore();
     } };
   }
   function bHead(P, color, x, align, o) {
     o = o || {}; var ctx = P.ctx, cache = {};
-    var get = function (k) { if (!cache[k]) cache[k] = fitLines(ctx, (o.upper === false ? P.head : P.head.toUpperCase()), (o.font || '400 {s}px Anton'), Math.round((o.size || 156) * P.u * k), Math.round((o.min || 84) * P.u * k), o.maxW || P.W * 0.84, o.maxLines || 3); return cache[k]; };
-    var lh = o.lh || 1;
-    return { h: function (k) { var f = get(k); return f.lines.length * f.size * lh + (o.after || 44) * P.u * k; }, draw: function (y, k) {
-      var f = get(k); ctx.save(); ctx.fillStyle = color; ctx.textAlign = align || 'center'; ctx.font = (o.font || '400 {s}px Anton').replace('{s}', f.size);
-      f.lines.forEach(function (l, i) { ctx.fillText(l, x, y + f.size * (0.88 + i * lh)); }); ctx.restore();
+    var get = function (k) { if (!cache[k]) cache[k] = fitLines(ctx, (o.upper === false ? P.head : P.head.toUpperCase()), (o.font || '400 {s}px Anton,USDevaHead'), Math.round((o.size || 156) * P.u * k), Math.round((o.min || 84) * P.u * k), o.maxW || P.W * 0.84, o.maxLines || 3); return cache[k]; };
+    var deva = DEVA.test(P.head), lh = (o.lh || 1) * (deva ? 1.24 : 1), top = deva ? 1.04 : 0.88;
+    return { h: function (k) { var f = get(k); return f.lines.length * f.size * lh + (deva ? f.size * 0.1 : 0) + (o.after || 44) * P.u * k; }, draw: function (y, k) {
+      var f = get(k); ctx.save(); ctx.fillStyle = color; ctx.textAlign = align || 'center'; ctx.font = (o.font || '400 {s}px Anton,USDevaHead').replace('{s}', f.size);
+      f.lines.forEach(function (l, i) { ctx.fillText(l, x, y + f.size * (top + i * lh)); }); ctx.restore();
     } };
   }
   function bText(P, text, color, size, weight, x, align, after) {
     var ctx = P.ctx;
     return { h: function (k) { return size * P.u * k + (after == null ? 52 : after) * P.u * k; }, draw: function (y, k) {
       var s = size * P.u * k; ctx.save(); ctx.fillStyle = color; ctx.textAlign = align || 'center';
-      for (; s > 20 * P.u; s -= 1) { ctx.font = (weight || 600) + ' ' + s + 'px Inter'; if (ctx.measureText(text).width <= P.W * 0.86) break; }
+      for (; s > 20 * P.u; s -= 1) { ctx.font = (weight || 600) + ' ' + s + 'px Inter,USDeva'; if (ctx.measureText(text).width <= P.W * 0.86) break; }
       ctx.fillText(text, x, y + s * 0.82); ctx.restore();
     } };
   }
@@ -235,8 +260,8 @@
     if (P.q) drawQr(ctx, P.q, x + pad, y + pad, box - pad * 2);
     else {
       ctx.fillStyle = '#EFEDF5'; rr(ctx, x + pad, y + pad, box - pad * 2, box - pad * 2, box * 0.04); ctx.fill();
-      ctx.save(); ctx.fillStyle = '#8A84A0'; ctx.textAlign = 'center'; ctx.font = '600 ' + Math.round(box * 0.066) + 'px Inter'; ctx.fillText('Your QR code', x + box / 2, y + box / 2 - box * 0.01);
-      ctx.font = '500 ' + Math.round(box * 0.052) + 'px Inter'; ctx.fillText('appears here', x + box / 2, y + box / 2 + box * 0.075); ctx.restore();
+      ctx.save(); ctx.fillStyle = '#8A84A0'; ctx.textAlign = 'center'; ctx.font = '600 ' + Math.round(box * 0.066) + 'px Inter,USDeva'; ctx.fillText('Your QR code', x + box / 2, y + box / 2 - box * 0.01);
+      ctx.font = '500 ' + Math.round(box * 0.052) + 'px Inter,USDeva'; ctx.fillText('appears here', x + box / 2, y + box / 2 + box * 0.075); ctx.restore();
     }
   }
   function bQr(P, box, o) { return { h: function (k) { return box * k + 60 * P.u * k; }, draw: function (y, k) { qrCard(P, (P.W - box * k) / 2, y, box * k, o); } }; }
@@ -285,7 +310,7 @@
       var cw = cardW, ch = (box + 250 * u) * k, cx = (W - cw) / 2;
       ctx.save(); ctx.shadowColor = 'rgba(0,0,0,.25)'; ctx.shadowBlur = 50 * u; ctx.shadowOffsetY = 18 * u; ctx.fillStyle = '#FFFFFF'; rr(ctx, cx, y, cw, ch, 44 * u); ctx.fill(); ctx.restore();
       ctx.fillStyle = P.acc0; rr(ctx, cx, y, cw, 16 * u, 8 * u); ctx.fill();
-      ctx.save(); ctx.fillStyle = '#1D1930'; ctx.font = '700 ' + Math.round(42 * u * k) + 'px Inter'; ctx.textAlign = 'center'; ctx.fillText(P.c.sub, W / 2, y + 88 * u * k); ctx.restore();
+      ctx.save(); ctx.fillStyle = '#1D1930'; ctx.font = '700 ' + Math.round(42 * u * k) + 'px Inter,USDeva'; ctx.textAlign = 'center'; ctx.fillText(P.c.sub, W / 2, y + 88 * u * k); ctx.restore();
       qrCard(P, (W - box * k) / 2, y + 118 * u * k, box * k, { plain: true });
       var sy = y + 118 * u * k + box * k + 50 * u * k; ctx.fillStyle = '#FBBC04';
       for (var i = 0; i < 5; i++) star(ctx, W / 2 + (i - 2) * 70 * u * k, sy, 26 * u * k);
@@ -312,7 +337,7 @@
     var ink = dark ? '#FFFFFF' : '#1D1930', soft = dark ? 'rgba(255,255,255,.9)' : '#4A4458', nameC = readable(acc, th.bg[1]);
     stack([bLogo(P, W / 2), bName(P, nameC, W / 2, 'center', 0.92), bHead(P, ink, W / 2, 'center', { size: 140, maxW: W * 0.74 }), bText(P, P.c.sub, soft, 48, 600, W / 2), bQr(P, 560 * u, { shadow: !dark, border: dark ? null : 'rgba(29,25,48,.12)' }),
       bStars(P, '#FBBC04', W / 2), bText(P, P.c.foot, soft, 42, 600, W / 2, 'center', 0)], m2 + 60 * u, H - m2 - (state.credit ? 70 : 40) * u);
-    if (state.credit) { ctx.save(); ctx.fillStyle = dark ? 'rgba(255,255,255,.6)' : 'rgba(29,25,48,.5)'; ctx.font = '500 ' + Math.round(24 * u) + 'px Inter'; ctx.textAlign = 'center'; ctx.fillText('Made with uscale.in/tools', W / 2, H - m2 - 26 * u); ctx.restore(); }
+    if (state.credit) { ctx.save(); ctx.fillStyle = dark ? 'rgba(255,255,255,.6)' : 'rgba(29,25,48,.5)'; ctx.font = '500 ' + Math.round(24 * u) + 'px Inter,USDeva'; ctx.textAlign = 'center'; ctx.fillText('Made with uscale.in/tools', W / 2, H - m2 - 26 * u); ctx.restore(); }
   }
   function tMinimal(P) {
     var ctx = P.ctx, W = P.W, H = P.H, u = P.u, acc = readable(P.acc0, '#FFFFFF');
@@ -320,7 +345,7 @@
     ctx.strokeStyle = acc; ctx.lineWidth = 6 * u; rr(ctx, 54 * u, 54 * u, W - 108 * u, H - 108 * u, 36 * u); ctx.stroke();
     var ink = '#17141F', muted = '#5E5872';
     var rule = { h: function (k) { return 50 * u * k; }, draw: function (y, k) { ctx.fillStyle = acc; ctx.fillRect(W / 2 - 40 * u * k, y + 6 * u * k, 80 * u * k, 6 * u * k); } };
-    stack([bLogo(P, W / 2), bName(P, acc, W / 2, 'center', 0.8), bHead(P, ink, W / 2, 'center', { font: '800 {s}px Inter', upper: false, size: 104, min: 60, lh: 1.12, maxW: W * 0.76, after: 30 }), rule, bText(P, P.c.sub, muted, 44, 500, W / 2),
+    stack([bLogo(P, W / 2), bName(P, acc, W / 2, 'center', 0.8), bHead(P, ink, W / 2, 'center', { font: '800 {s}px Inter,USDeva', upper: false, size: 104, min: 60, lh: 1.12, maxW: W * 0.76, after: 30 }), rule, bText(P, P.c.sub, muted, 44, 500, W / 2),
       bQr(P, 560 * u, { border: 'rgba(23,20,31,.14)' }), bStars(P, acc, W / 2, 'center', 30), bText(P, P.c.foot, muted, 40, 500, W / 2, 'center', 0)], 130 * u, H - (state.credit ? 170 : 120) * u);
     credit(P, 'rgba(23,20,31,.45)', 'center', null, 92);
   }
@@ -334,10 +359,10 @@
     stack([bLogo(P, L, 'left'), bName(P, acc, L, 'left'), bHead(P, '#FFFFFF', L, 'left', { size: 200, min: 90, maxW: W * 0.82, maxLines: 4, after: 34 }), bText(P, P.c.sub, 'rgba(255,255,255,.92)', 48, 600, L, 'left', 0)], 110 * u, qy - 60 * u);
     qrCard(P, L, qy, box, { shadow: true });
     var rx = L + box + 46 * u, ctxs = ctx;
-    ctxs.save(); ctxs.textAlign = 'left'; ctxs.fillStyle = acc; ctxs.font = '400 ' + Math.round(84 * u) + 'px Anton'; ctxs.fillText(P.c.scan.toUpperCase(), rx, qy + box * 0.36);
+    ctxs.save(); ctxs.textAlign = 'left'; ctxs.fillStyle = acc; ctxs.font = '400 ' + Math.round(84 * u) + 'px Anton,USDevaHead'; ctxs.fillText(P.c.scan.toUpperCase(), rx, qy + box * 0.36);
     ctxs.strokeStyle = acc; ctxs.lineWidth = 7 * u; ctxs.lineCap = 'round'; ctxs.beginPath(); var ay = qy + box * 0.48; ctxs.moveTo(rx + 120 * u, ay); ctxs.lineTo(rx, ay); ctxs.moveTo(rx + 26 * u, ay - 24 * u); ctxs.lineTo(rx, ay); ctxs.lineTo(rx + 26 * u, ay + 24 * u); ctxs.stroke();
     ctxs.fillStyle = '#FBBC04'; for (var i = 0; i < 5; i++) star(ctxs, rx + 26 * u + i * 58 * u, qy + box * 0.68, 22 * u);
-    ctxs.fillStyle = 'rgba(255,255,255,.9)'; var fs = 34 * u; ctxs.font = '600 ' + Math.round(fs) + 'px Inter';
+    ctxs.fillStyle = 'rgba(255,255,255,.9)'; var fs = 34 * u; ctxs.font = '600 ' + Math.round(fs) + 'px Inter,USDeva';
     var footLines = ctxs.measureText(P.c.foot).width <= W - rx - L * 0.6 ? [P.c.foot] : P.c.foot.replace(/\.\s+/, '.\n').split('\n');
     footLines.forEach(function (l, i) { ctxs.fillText(l, rx, qy + box * 0.86 + i * fs * 1.25); });
     ctxs.restore();
@@ -366,7 +391,16 @@
     });
   }
 
+  var devaLoad = null;
+  function needDeva() {
+    if (devaLoad || !window.FontFace || !document.fonts) return;
+    devaLoad = Promise.all([['USDevaHead', 'rozha.ttf', '400'], ['USDeva', 'notosansdeva.ttf', '400 800']].map(function (f) {
+      return new FontFace(f[0], 'url(/assets/card/fonts/' + f[1] + ')', { weight: f[2] }).load().then(function (face) { document.fonts.add(face); });
+    })).catch(function () { /* the phone's own Devanagari font is used instead */ }).then(function () { render(); });
+  }
+
   function render() {
+    if (DEVA.test(headline() + ' ' + state.name + ' ' + COPY[state.lang].sub)) needDeva();
     current = parseLink(state.link);
     if (current.state === 'resolve') { resolveShort(current.key); }
     var ok = current.state === 'ok' || current.state === 'warn';
@@ -386,7 +420,7 @@
     var F = FORMATS[state.format];
     cap.textContent = F.cap;
     printBtn.hidden = !F.print;
-    if (F.print) printBtn.textContent = 'Print ' + F.print.cols * F.print.rows + ' on one A4 sheet';
+    if (F.print) printBtn.textContent = F.print.cols * F.print.rows === 1 ? 'Print it on A4 paper' : 'Print ' + F.print.cols * F.print.rows + ' on one A4 sheet';
     canvas.style.aspectRatio = F.w + '/' + F.h;
 
     customWrap.hidden = state.head !== 'custom';
@@ -496,7 +530,7 @@
     if (left === 0) window.print();
   });
 
-  var loads = ['400 100px Anton', '800 40px Inter', '700 40px Inter', '600 40px Inter', '500 30px Inter'].map(function (f) { return document.fonts ? document.fonts.load(f) : Promise.resolve(); });
+  var loads = ['400 100px Anton,USDevaHead', '800 40px Inter,USDeva', '700 40px Inter,USDeva', '600 40px Inter,USDeva', '500 30px Inter,USDeva'].map(function (f) { return document.fonts ? document.fonts.load(f) : Promise.resolve(); });
   Promise.all(loads).catch(function () {}).then(function () { fontsReady = true; render(); });
   render();
 })();

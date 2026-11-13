@@ -32,7 +32,7 @@ def page_copy(count):
         answer=(f'The free visiting card and business card maker from U Scale has {count} original designs and works on a phone or computer. You can edit '
                 'every part of a card, in English, Hindi or Marathi, then download a PNG, a vector SVG and a print PDF with 3 mm bleed. '
                 'There is no sign-up and no watermark, and your details stay in your browser.'),
-        facts=[('Designs', f'{count} original designs, front and back'), ('Downloads', 'PNG, SVG, print PDF, and an A4 sheet of 10 cards'),
+        facts=[('Designs', f'{count} original designs, front and back'), ('Downloads', 'PNG, JPG, SVG, print PDF, an A4 sheet of 10 cards and a photo of your card for sharing'),
                ('Card languages', 'English, Hindi and Marathi'), ('Cost', '100% free, with no paid version'), ('Sign-up', 'None needed, and no watermark'),
                ('QR codes', 'Add your own, with your style and logo'),
                ('Privacy', 'Your details and logo stay in your browser'), ('Made by', 'Mehul Karotra, U Scale, Mumbai')],
@@ -47,6 +47,8 @@ def page_copy(count):
             ('What is bleed, and why does my card need it?', 'Bleed is extra background that runs past the cut line, usually 3 mm on each side. Cutting machines can shift slightly, and bleed stops a thin white edge showing when they do. Keep important text at least 4 mm inside the cut line. The editor shows this safe area as a dashed line.'),
             ('Can I make a visiting card in Hindi or Marathi?', 'Yes. Type in Hindi or Marathi anywhere on the card. Joined letters such as क्ष and त्र come out correctly, and you can switch to Marathi letter shapes for words like शाळा. Some designs are made Hindi or Marathi first.'),
             ('Is the colour in the PDF RGB or CMYK?', 'The PDF is RGB. A web browser cannot convert colours accurately for a particular printing press, so the print shop does that step. Printed colours can look a little different from your screen, so ask for a proof if the exact colour matters.'),
+            ('Can the card match my logo’s colours?', 'Yes. Upload your logo in Details, open Colours and press “Use my logo’s colours”. The tool finds the one or two main colours in the logo and recolours the whole design to match. Every colour keeps how light or dark it was, so the text stays as readable as before. Undo brings the old colours back.'),
+            ('Can I share my visiting card on WhatsApp?', 'Yes. Download a PNG or JPG, or on a phone press “Share this side” to open the share sheet and send it straight to a chat. “A photo of your card” gives you both sides laid out on a soft background, square for a post or tall for a Status.'),
             ('Can I add a QR code to my card?', 'Yes. Paste any link, such as your website, Instagram, Facebook or YouTube, and the code opens it. It can also start a WhatsApp chat, take a UPI payment, join your Wi-Fi, open your location, or save your contact on someone’s phone. You can pick its shapes and colours and add your logo, and the editor checks that it still scans. Always test it with your phone before printing.'),
             ('Where are my details stored?', 'In your own browser. Your name, number and logo are not sent to U Scale. Your design saves automatically on that device, and you can download a design file to open it somewhere else.'),
             ('Can I print cards at home?', 'Yes. Download the A4 sheet, which fits 10 cards with cut marks. Use thick card paper of about 250 to 300 gsm if your printer can take it, and check your printer’s margins. For the cleanest edges, a print shop will do a better job.'),
@@ -178,11 +180,12 @@ def page(ctx, parts, tv, sp):
           <li>Move, resize and rotate anything, with guides that line up what you see</li>
           <li>Type on the card itself, and align or evenly space anything in a tap</li>
           <li>Over 20 fonts, including Hindi and Marathi fonts</li>
-          <li>Your own colours, or a matching colour set in one tap</li>
+          <li>Your own colours, a matching colour set, or one tap that colours the whole card to match your logo</li>
           <li>Shapes, lines, gradients, icons and your own photos</li>
           <li>QR codes for any link: your website, Instagram, WhatsApp, UPI, Wi-Fi, location or contact</li>
           <li>Your own QR style: shapes, colours and a logo in the centre, with a live check that it still scans</li>
           <li>Front and back, horizontal or vertical</li>
+          <li>A photo of your card, square or tall, ready for WhatsApp Status and Instagram</li>
           <li>Undo, layers, and an automatic save in your browser</li>
         </ul>
       </div>
