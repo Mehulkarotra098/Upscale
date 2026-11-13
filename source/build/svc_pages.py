@@ -321,7 +321,11 @@ ADS = dict(
              promise=[('key', 'Ad accounts in your name'), ('rupee', 'Spend paid directly to Google and Meta'), ('refresh', '3 months minimum, then month-to-month')]),
     who='I set up the tracking, build the campaigns and watch them every week myself. You get one person who knows your account, on WhatsApp.',
     faq_extra=[('Can you run ads in Hindi or Marathi?',
-                'Yes. Ads, landing pages and WhatsApp replies can be in English, Hindi or Hinglish, or Marathi where your customers prefer it.')],
+                'Yes. Ads, landing pages and WhatsApp replies can be in English, Hindi or Hinglish, or Marathi where your customers prefer it.'),
+               ('Are there hidden charges in ads management?',
+                f'No. There are three costs and all three are published: the monthly fee of {price("Ads management")} up to ₹1.5 lakh of ad spend (12% of spend above that), '
+                f'a one-time {_fmt(10000)} setup, and your ad spend, which you pay to Google or Meta directly from accounts in your name. '
+                'Everything is agreed in writing before the first ad runs. No GST is charged right now.')],
     sources=['pmax', 'ctwa'],
     offers=['Ads management'],
     related=['chatads', 'wa', 'wedding'],
@@ -394,7 +398,11 @@ AI = dict(
                 'Mehul Karotra puts the questions your customers ask to ChatGPT, Gemini, Perplexity and Google’s AI features, and shows you the answers, '
                 'the sources they cite and what to fix.'),
                ('Do I need llms.txt for AI search?',
-                'No. Google says its AI features need no special files, and other AI companies have not said they rely on llms.txt. It is a tidy extra, not a requirement.')],
+                'No. Google says its AI features need no special files, and other AI companies have not said they rely on llms.txt. It is a tidy extra, not a requirement.'),
+               ('Are there hidden charges in AI search visibility work?',
+                f'No. The audit is {price("AI visibility audit (free if we work together)")} once, or free if we go on to work together, and monthly work is '
+                f'{price("AI search visibility (GEO)")} a month, agreed in writing before it starts. Monthly work runs for 3 months minimum, then month to month '
+                'with 30 days’ notice. No GST is charged right now.')],
     sources=['ai-features', 'openai-bots', 'pplx-bots', 'local-schema', 'helpful'],
     offers=['AI search visibility (GEO)', 'AI visibility audit (free if we work together)'],
     related=['chatgpt', 'chatads', 'askmaps'],
@@ -636,7 +644,7 @@ def about_page(ctx, parts):
                        'or an AI product built, that is where I point them; websites and marketing stay with U Scale.'),
                      eyebrow='The story'),
                  Sec('How I work',
-                     Cards([('rupee', 'Every price published', 'Websites, SEO, ads and single pieces, all on the <a class="tlink" href="/pricing">pricing page</a>. No “call for a quote”.'),
+                     Cards([('rupee', 'Every price published', 'Websites, SEO, ads and single pieces, all on the <a class="tlink" href="/pricing">pricing page</a>. No “call for a quote”, and no hidden charges.'),
                             ('user', 'You talk to me', 'No account managers. The person who answers your WhatsApp is the person doing the work.'),
                             ('file', 'Fixed price, in writing', 'Websites are 20% to start, 20% on design sign-off and 60% on launch. Monthly work is 3 months minimum, then month-to-month.'),
                             ('key', 'You own everything', 'Your domain, code, logins, ad accounts and listings stay in your name, always.'),

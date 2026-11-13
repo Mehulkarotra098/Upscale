@@ -621,10 +621,10 @@ def image_license_page(ctx, parts):
 
   <section class="section" aria-labelledby="own-title">
     <div class="wrap sp-prose">
-      <h3 id="own-title">Who owns the images</h3>
+      <h2 id="own-title">Who owns the images</h2>
       <p>Unless a caption says otherwise, every photo, illustration, mockup and graphic on uscale.in is {e(COPYRIGHT)}</p>
       <p>Brands shown in demo images, such as Chai Kona or Saanjh Studio, are made-up samples, not real businesses. Screenshots of client websites show work U Scale did; those websites, their names and their logos belong to the businesses that own them.</p>
-      <h3 id="use-title">Using an image</h3>
+      <h2 id="use-title">Using an image</h2>
       <p>You are welcome to link to any page on this site. To reuse an image anywhere else, in an article, a presentation, a listing or a social post, please ask first.</p>
       <p>Email <a class="tlink" href="mailto:{ea(SP.EMAIL)}">{e(SP.EMAIL)}</a> or WhatsApp {e(SP.PHONE_D)} with a link to the image and where you would like to use it. I reply personally within 24 hours. If I say yes, credit it as “Image: U Scale (uscale.in)”.</p>
     </div>
@@ -653,6 +653,9 @@ HUB_FAQ = [
      'Monthly services run for 3 months minimum, then month-to-month with 30 days’ notice.'),
     ('Who does the work?', 'Mehul Karotra, personally. If a project needs a specialist like a photographer, he brings them in and '
      'stays your single point of contact.'),
+    ('Are there any hidden charges?', 'No. Every price is published on the pricing page and agreed in writing before work starts. A website’s only other costs, '
+     'such as the yearly domain and hosting paid to your provider in your name, are listed upfront, and ad spend is paid by you to Google or Meta directly. '
+     'No GST is charged right now.'),
 ]
 
 

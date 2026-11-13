@@ -218,7 +218,7 @@ def llms_full(site):
 
 def related_cards():
     """Cards for the website-design hub and the services hub."""
-    return ''.join(f'<li><a class="fp-rel" href="/{p["path"]}"><span class="fp-rel__k">Other cities</span><b>{e(p["h1"])}</b>'
+    return ''.join(f'<li class="fp-rel-city"><a class="fp-rel" href="/{p["path"]}"><span class="fp-rel__k">Other cities</span><b>{e(p["h1"])}</b>'
                    f'<span class="fp-rel__d">{e(p["card"])}</span>{icon("arrow")}</a></li>' for p in CITIES)
 
 
@@ -354,11 +354,13 @@ def price_cards(market, sources, city=''):
                + (f'<p class="pc__t">{icon("clock")}{e(t)}</p>' if t else '')
                + f'<a class="pc__go" href="{ea(SVP.WA + urllib.parse.quote(msg))}" target="_blank" rel="noopener">{icon("chat")}<span>Ask on WhatsApp<span class="sr-only"> about {e(ask)}</span></span></a></li>')
     inc = f'Every site includes {GP.INCLUDED}.'
-    return Html(f'<ul class="pc" data-reveal-group>{li}</ul><p class="pc__inc">{icon("check")}<span>{e(inc)}</span></p>'
+    nohid = ('No hidden charges: domain and hosting are paid to your provider, in your name, and anything optional is priced in your written plan before you pay.')
+    return Html(f'<ul class="pc" data-reveal-group>{li}</ul><p class="pc__inc">{icon("check")}<span>{e(inc)} {e(nohid)} '
+                f'<a class="tlink" href="/services/website-design-mumbai#no-hidden-charges">See every other cost</a></span></p>'
                 f'<p class="pc__mkt">{e(market)} <a class="tlink" href="#sources">Sources</a></p>',
                 text='\n'.join(f'- {k}: {price(name)}{" onwards" if onwards else ""}. {(CARD_DESC.get(city) or [c[3] for c in PRICE_CARDS])[i]}' + (f' {t}.' if t else '')
                                for i, (k, name, onwards, d, t, _) in enumerate(PRICE_CARDS))
-                     + f'\n{inc}\n{market}')
+                     + f'\n{inc} {nohid}\n{market}')
 
 QC_ITEMS = ['A design made for your business, not a ready-made theme', 'The number of pages, written down', 'Built and tested for phones',
             'Who writes the text, and what it costs', 'The domain registered in your name', 'What hosting and the domain cost after year one',
@@ -453,7 +455,7 @@ def trust_bento(keys=('pay', 'own', 'fix', 'me')):
     tiles += EXTRA_TILES
     by = {k: (k, g, h, x) for k, g, h, x in tiles}
     li = ''.join(f'<li class="tb__c tb__c--{k}" data-reveal>{g}<h3>{e(h)}</h3><p>{e(x)}</p></li>' for k, g, h, x in (by[k] for k in keys))
-    return f'<ul class="tb" data-reveal-group>{li}</ul>'
+    return f'<ul class="tb" data-reveal-group tabindex="0" aria-label="How your payment and ownership are protected">{li}</ul>'
 
 
 def work_rail(ctx, keys):
@@ -766,7 +768,7 @@ CITIES = [
    Sec('Website prices for Pune businesses',
        price_cards('For comparison, Pune studios’ own price pages put a ready-made theme at ₹5,000–₹18,000 and a custom-designed site at ₹60,000–₹1.5 lakh (seen 8 November 2026).',
                    ['pune-p1', 'pune-p2', 'pune-p3', 'pune-p4'], 'Pune'),
-       eyebrow='Pune prices', lead='Four prices. Fixed in writing. The same as in Mumbai.',
+       eyebrow='Pune prices', lead='Four prices, fixed in writing, with no hidden charges. The same as in Mumbai.',
        layout='wide', sid='prices'),
    Sec('What does your Pune business need?',
        mix_bars([('Manufacturing & trade', 40), ('Food & stays', 9), ('Cabs & travel', 7)],
@@ -863,7 +865,7 @@ CITIES = [
    Sec('Website prices for Bengaluru businesses',
        price_cards('For comparison, Bengaluru studios’ package pages start a basic five-page site at ₹8,750–₹22,750 and premium designs at ₹23,350–₹75,900, usually plus GST (seen 8 November 2026).',
                    ['blr-p1', 'blr-p2', 'blr-p3'], 'Bengaluru'),
-       eyebrow='Bengaluru prices', lead='Four prices. Fixed in writing. The same as in Mumbai.', layout='wide', sid='prices'),
+       eyebrow='Bengaluru prices', lead='Four prices, fixed in writing, with no hidden charges. The same as in Mumbai.', layout='wide', sid='prices'),
    Sec('What does your Bengaluru business need?',
        dot_stat(13649, 500, 'DPIIT-recognised startups in Bengaluru district, to 31 October 2024', 'blr-startups'),
        picker([
@@ -954,7 +956,7 @@ CITIES = [
    Sec('Website prices for Chennai businesses',
        price_cards('For comparison, Chennai studios’ own price pages put a template or static site at ₹5,000–₹30,000 and a custom business site at ₹20,000–₹1 lakh (seen 8 November 2026).',
                    ['chn-p1', 'chn-p2', 'chn-p3'], 'Chennai'),
-       eyebrow='Chennai prices', lead='Four prices. Fixed in writing. The same as in Mumbai.', layout='wide', sid='prices'),
+       eyebrow='Chennai prices', lead='Four prices, fixed in writing, with no hidden charges. The same as in Mumbai.', layout='wide', sid='prices'),
    Sec('What does your Chennai business need?',
        picker([
         ('auto', 'truck', 'Auto or engineering', 'Auto and engineering suppliers', 'Buyers from other states judge you by your website.',
@@ -1050,7 +1052,7 @@ CARD = {
 def _city(slug, city, state, wiki, eyebrow, lead, who, art, img, wa, cta_lead, trust_h, trust_keys, market_line, market_src, market_fact,
           langs, sections_mid, picker_items, lang_demo_args, faq_mid, sources, extra_v2=None, wiki_state=None):
     sec_prices = Sec(f'Website prices for {city} businesses', price_cards(market_line, market_src, city),
-                     eyebrow=f'{city} prices', lead='Four prices. Fixed in writing. The same as in Mumbai.', layout='wide', sid='prices')
+                     eyebrow=f'{city} prices', lead='Four prices, fixed in writing, with no hidden charges. The same as in Mumbai.', layout='wide', sid='prices')
     biz_blocks = list(sections_mid) + [picker(picker_items, 'Your kind of business')] + ([lang_demo(*lang_demo_args)] if lang_demo_args else [])
     sec_biz = Sec(f'What does your {city} business need?', *biz_blocks, eyebrow=f'{city}’s businesses', layout='wide', sid='business')
     v2 = [lambda ctx: _custom_sec('trust', 'Why it’s safe', trust_h, '', trust_bento(trust_keys)),

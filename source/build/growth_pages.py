@@ -129,7 +129,7 @@ def gbp_page_dict():
         wa_msg="Hi Mehul, I'd like help with my Google Business Profile.",
         title='Google Business Profile Management in Mumbai | U Scale',
         desc=f'Google Business Profile setup, verification, suspension fixes and monthly management for Mumbai businesses, part of local SEO at {LOCAL.replace("/mo", " a month")}.',
-        h1='Google Business Profile management', eyebrow='Local SEO in Mumbai',
+        h1='Google Business Profile management in Mumbai', eyebrow='Local SEO',
         lead='Your Google listing is often the first thing a customer sees: your hours, photos, reviews and a button to call. I set it up properly, keep it current every month and help you earn genuine reviews, without breaking Google’s rules.',
         stats=[(LOCAL.split('/')[0], 'Per month, with local SEO'), ('Free', 'Listing check, 2 minutes'), ('You', 'Keep the listing in your name')],
         art=dict(kind='card', card='profile'),
@@ -857,7 +857,6 @@ def hub_cards():
     items = [('/services/digital-marketing-mumbai', 'Digital marketing', 'Digital marketing in Mumbai', 'What one specialist covers instead of an agency team, with every price.'),
              ('/services/google-business-profile-mumbai', 'Local SEO', 'Google Business Profile management', 'Set-up, verification, weekly posts, reviews and suspension fixes.'),
              ('/freelance-web-designer-mumbai', 'Hire', 'Freelance web designer in Mumbai', 'Hire Mehul directly: fixed price, designed in Figma, hand-coded.'),
-             ('/services/website-design-india', 'Other cities', 'Website design across India', 'The same fixed prices in every city, over WhatsApp and video calls.'),
              ('/tools/website-cost-calculator', 'Free tool', 'Website cost calculator', 'An estimate in a minute, from published prices.')]
     li = ''.join(f'<li><a class="fp-rel" href="{ea(h)}"><span class="fp-rel__k">{e(k)}</span><b>{e(t)}</b><span class="fp-rel__d">{e(d)}</span>{icon("arrow")}</a></li>'
                  for h, k, t, d in items)

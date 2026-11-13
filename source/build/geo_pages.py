@@ -635,6 +635,10 @@ PAGES = [
        ('Kya website banane pe GST lagta hai?',
         'Haan, website design pe 18% GST lagta hai jab registered agency ya freelancer bill karta hai. Jiska turnover ₹20 lakh se kam hai aur jo '
         'registered nahi hai, woh GST nahi le sakta. U Scale abhi apne prices pe GST charge nahi karta.'),
+       ('Kya U Scale ke price mein koi hidden charges hain?',
+        'Nahi, koi hidden charge nahi hai. Package ka price hi website ka price hai, aur kaam shuru hone se pehle likhit mein fix hota hai. '
+        'Uske alawa sirf domain aur hosting ka saalana kharcha hota hai, jo aap seedha provider ko apne naam pe dete hain. Content likhwana, '
+        'photoshoot ya care plan jaisi cheezein optional hain aur pehle se quote hoti hain.'),
        ('₹5,000–₹10,000 wali sasti website lena theek hai?',
         'Agar aapko pata hai ki yeh ek theme hai aur domain aur logins aapke naam pe honge, toh chhote kaam ke liye theek ho sakta hai. Theme ka naam, '
         'renewal price aur launch ke baad support ke baare mein likhit mein poochiye.'),
@@ -1049,7 +1053,7 @@ def _durations(b):
 
 
 def _table(b):
-    th = ''.join(f'<th scope="col">{e(h)}</th>' for h in b['head'])
+    th = ''.join(f'<th scope="col">{e(h)}</th>' if h else '<td></td>' for h in b['head'])
     body = ''.join('<tr><th scope="row">' + e(r[0]) + '</th>' + ''.join(f'<td data-l="{ea(b["head"][j + 1])}">{e(c)}</td>' for j, c in enumerate(r[1:])) + '</tr>'
                    for r in b['rows'])
     return f'<div class="fp-table" data-reveal><table><caption class="sr-only">{e(b["caption"])}</caption><thead><tr>{th}</tr></thead><tbody>{body}</tbody></table></div>'
@@ -1505,6 +1509,6 @@ def related_html():
                  f'<span class="fp-rel__d">{e(p["card"])}</span>{icon("arrow")}</a></li>'
                  for kind, label in kinds for p in PAGES if p['kind'] == kind)
     li += __import__('city_pages').related_cards()
-    li += (f'<li><a class="fp-rel" href="/services/website-design-india"><span class="fp-rel__k">Other cities</span><b>Website design &amp; development in India</b>'
+    li += (f'<li class="fp-rel-city"><a class="fp-rel" href="/services/website-design-india"><span class="fp-rel__k">Other cities</span><b>Website design &amp; development in India</b>'
            f'<span class="fp-rel__d">The same fixed prices in every city, how remote projects run, and every city page.</span>{icon("arrow")}</a></li>')
     return f'<nav class="fp-related fp-related--parent" aria-label="Website design by business, area, city and guide"><p class="eyebrow">By business, near you, guides and other cities</p><ul>{li}</ul></nav>'
