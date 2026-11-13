@@ -79,16 +79,19 @@
   var DEVA = /[\u0900-\u097F]/;
   var RISKY = /(discount|cash ?back|coupon|gift|prize|reward|lucky draw|\bfree\b|\d+\s?%|\boff\b|5[\s-]?star|five[\s-]?star|only good)/i;
 
-  var state = { link: '', name: '', nameAuto: false, lang: 'en', head: 0, custom: '', template: 'classic', theme: 'midnight', accent: '', format: 'a6', credit: true };
+  var state = { link: '', name: '', nameAuto: false, lang: 'en', head: 0, custom: '', template: 'classic', theme: 'midnight', accent: '', format: 'a6', credit: true, logoSize: 'm', logoPlate: true };
   try { var saved = JSON.parse(localStorage.getItem(KEY) || 'null'); if (saved) for (var k in state) if (k in saved) state[k] = saved[k]; } catch (e) { /* storage unavailable */ }
   if (!THEMES[state.theme]) state.theme = 'midnight';
   if (!COPY[state.lang]) state.lang = 'en';
+  var LOGO_SIZES = { s: [96, 0.28], m: [130, 0.36], l: [200, 0.52] }; // tallest it may be (in design units), widest as a share of the page
+  if (!LOGO_SIZES[state.logoSize]) state.logoSize = 'm';
+  var LOGO_KEY = 'us-reviewqr-logo';
   if (TEMPLATES.indexOf(state.template) < 0) state.template = 'classic';
   if (!FORMATS[state.format]) state.format = 'a6';
   var save = function () { try { localStorage.setItem(KEY, JSON.stringify(state)); } catch (e) { /* ignore */ } };
   /* ?link=… (e.g. from the Google profile checker) pre-fills step 1 */
   try { var qlink = new URLSearchParams(location.search).get('link'); if (qlink && qlink.length < 600) { state.link = qlink; history.replaceState(null, '', location.pathname + location.hash); } } catch (e) { /* ignore */ }
-  var logo = null; // HTMLImageElement, session only
+  var logo = null; // HTMLImageElement; a small copy is kept in this browser so it is still there next time
 
   /* ---------- review link ---------- */
   var FID = /0x[0-9a-f]{1,16}:0x[0-9a-f]{1,16}/i;
@@ -217,11 +220,12 @@
   }
   /* reusable blocks */
   function bLogo(P, x, align) {
-    return { h: function (k) { return logo ? (130 * P.u * k + 34 * P.u * k) : 0; }, draw: function (y, k) {
-      if (!logo) return; var ctx = P.ctx, mh = 130 * P.u * k, mw = P.W * 0.36, r = Math.min(mw / logo.width, mh / logo.height), w = logo.width * r, h = logo.height * r, pad = 18 * P.u * k;
-      var bx = align === 'left' ? x - 0 : x - w / 2 - pad;
-      ctx.save(); ctx.fillStyle = '#fff'; rr(ctx, bx, y - pad + 6 * P.u, w + pad * 2, h + pad * 2 - 12 * P.u, 18 * P.u * k); ctx.fill(); ctx.restore();
-      ctx.drawImage(logo, bx + pad, y + 6 * P.u * k, w, h - 12 * P.u * k);
+    var S = LOGO_SIZES[state.logoSize];
+    var dims = function (k) { var r = Math.min(P.W * S[1] / logo.width, S[0] * P.u * k / logo.height); return { w: logo.width * r, h: logo.height * r, pad: (state.logoPlate ? 16 : 0) * P.u * k }; };
+    return { h: function (k) { if (!logo) return 0; var d = dims(k); return d.h + d.pad * 2 + 30 * P.u * k; }, draw: function (y, k) {
+      if (!logo) return; var ctx = P.ctx, d = dims(k), bx = align === 'left' ? x : x - d.w / 2 - d.pad;
+      if (state.logoPlate) { ctx.save(); ctx.fillStyle = '#fff'; rr(ctx, bx, y, d.w + d.pad * 2, d.h + d.pad * 2, 18 * P.u * k); ctx.fill(); ctx.restore(); }
+      ctx.drawImage(logo, bx + d.pad, y + d.pad, d.w, d.h);
     } };
   }
   function bName(P, color, x, align, scale) {
@@ -482,13 +486,33 @@
   $('#rq-accent-custom').addEventListener('input', function (e) { state.accent = e.target.value; render(); });
   $('#rq-accent-reset').addEventListener('click', function () { state.accent = ''; render(); });
   $('#rq-credit').addEventListener('change', function (e) { state.credit = e.target.checked; render(); });
+  var logoOpts = $('#rq-logo-opts');
+  function showLogo(img) { logo = img; $('#rq-logo-clear').hidden = !img; if (logoOpts) logoOpts.hidden = !img; render(); }
+  function useLogo(src, keep) {
+    var img = new Image();
+    img.onload = function () {
+      if (!keep) return showLogo(img);
+      // Redrawn small: that drops anything active inside an SVG and makes a copy little enough to keep in the browser.
+      var k = Math.min(1, 640 / Math.max(img.naturalWidth || 640, img.naturalHeight || 640)), c = document.createElement('canvas');
+      c.width = Math.max(1, Math.round((img.naturalWidth || 640) * k)); c.height = Math.max(1, Math.round((img.naturalHeight || 640) * k));
+      c.getContext('2d').drawImage(img, 0, 0, c.width, c.height);
+      var data; try { data = c.toDataURL('image/png'); } catch (err) { return showLogo(img); }
+      try { localStorage.setItem(LOGO_KEY, data); } catch (err) { /* too big or storage is off: it still works for this visit */ }
+      useLogo(data, false);
+    };
+    img.onerror = function () { say('That image could not be read. Try a PNG or JPG.'); };
+    img.src = src;
+  }
   $('#rq-logo').addEventListener('change', function (e) {
     var f = e.target.files && e.target.files[0];
     if (!f) return;
-    if (!/^image\/(png|jpe?g|webp|svg\+xml)$/.test(f.type) || f.size > 5e6) { say('Use a PNG, JPG or WebP image under 5 MB'); return; }
-    var img = new Image(); img.onload = function () { logo = img; $('#rq-logo-clear').hidden = false; render(); }; img.src = URL.createObjectURL(f);
+    if (!/^image\/(png|jpe?g|webp|svg\+xml)$/.test(f.type) || f.size > 5e6) { say('Use a PNG, JPG, WebP or SVG image under 5 MB'); return; }
+    useLogo(URL.createObjectURL(f), true);
   });
-  $('#rq-logo-clear').addEventListener('click', function () { logo = null; $('#rq-logo').value = ''; this.hidden = true; render(); });
+  $('#rq-logo-clear').addEventListener('click', function () { $('#rq-logo').value = ''; try { localStorage.removeItem(LOGO_KEY); } catch (err) { /* ignore */ } showLogo(null); });
+  $$('input[name="rq-logo-size"]').forEach(function (r) { r.checked = r.value === state.logoSize; r.addEventListener('change', function () { state.logoSize = r.value; render(); }); });
+  if ($('#rq-logo-plate')) { $('#rq-logo-plate').checked = state.logoPlate; $('#rq-logo-plate').addEventListener('change', function (e) { state.logoPlate = e.target.checked; render(); }); }
+  try { var kept = localStorage.getItem(LOGO_KEY); if (kept && /^data:image\/png;base64,/.test(kept)) useLogo(kept, false); } catch (err) { /* ignore */ }
 
   /* guide tabs */
   $$('[role="tab"][data-rq-tab]').forEach(function (t, i, all) {

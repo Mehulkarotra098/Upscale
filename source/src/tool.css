@@ -118,6 +118,7 @@ code{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:.92em;bac
 
 /* ---- v2: logo, sizes, designs, colours ---- */
 .rq-logo{display:flex;align-items:center;gap:14px;margin-top:12px}
+.rq-logo-opts{display:grid;gap:12px;margin-top:14px}.rq-logo-opts[hidden]{display:none}.rq-logo-opts small{font-weight:400;color:var(--body)}
 .rq-linkbtn{border:0;background:none;padding:0;cursor:pointer;font:600 14px/1.4 var(--sans)}
 .rq-mt{margin-top:20px}
 .rq-fmts{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}

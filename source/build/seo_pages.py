@@ -715,7 +715,12 @@ def tool_page(ctx, parts, tv):
           <div class="rq-step">
             <p class="rq-step__head"><span class="rq-step__n" aria-hidden="true">2</span><label class="rq-step__title" for="rq-name">Your business name</label></p>
             <input class="rq-input" id="rq-name" type="text" maxlength="40" autocomplete="organization" placeholder="Sharma Sarees">
-            <div class="rq-logo"><label class="btn btn--line rq-btn-sm" for="rq-logo">Add your logo (optional)</label><input class="sr-only" id="rq-logo" type="file" accept="image/png,image/jpeg,image/webp"><button type="button" class="tlink rq-linkbtn" id="rq-logo-clear" hidden>Remove logo</button></div>
+            <div class="rq-logo"><label class="btn btn--line rq-btn-sm" for="rq-logo">Add your logo (optional)</label><input class="sr-only" id="rq-logo" type="file" accept="image/png,image/jpeg,image/webp,image/svg+xml"><button type="button" class="tlink rq-linkbtn" id="rq-logo-clear" hidden>Remove logo</button></div>
+            <div class="rq-logo-opts" id="rq-logo-opts" hidden>
+              <div><span class="rq-label" id="rq-ls-l">Logo size</span>
+                <div class="rq-seg" role="radiogroup" aria-labelledby="rq-ls-l"><input type="radio" name="rq-logo-size" id="rq-ls-s" value="s"><label for="rq-ls-s">Small</label><input type="radio" name="rq-logo-size" id="rq-ls-m" value="m"><label for="rq-ls-m">Medium</label><input type="radio" name="rq-logo-size" id="rq-ls-l2" value="l"><label for="rq-ls-l2">Large</label></div></div>
+              <label class="rq-check"><input type="checkbox" id="rq-logo-plate" checked> White box behind the logo <small>(switch it off for a white or light logo on a dark design)</small></label>
+            </div>
           </div>
           <div class="rq-step">
             <p class="rq-step__head"><span class="rq-step__n" aria-hidden="true">3</span><span class="rq-step__title">Choose the wording</span></p>
