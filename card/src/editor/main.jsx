@@ -127,6 +127,24 @@ function DownloadDialog({ t, close, templates }) {
             {btn('pngf', `PNG: ${t('Front')}`, () => downloadPng(doc, 'front', engine, { dpi: 600, bleed }))}
             {btn('pngb', `PNG: ${t('Back')}`, () => downloadPng(doc, 'back', engine, { dpi: 600, bleed }))}
             {btn('png3', 'PNG 300 dpi', () => downloadPng(doc, state.side, engine, { dpi: 300, bleed }), 'ce-btn--plain')}
+            {btn('jpg', 'JPG', async () => (await import('./extras.js')).downloadJpg(doc, state.side, engine), 'ce-btn--plain')}
+          </div>
+          {typeof navigator.share === 'function' && typeof navigator.canShare === 'function' ? (
+            <div class="ce-row ce-row--wrap">
+              {btn('share', t('Share this side'), async () => {
+                const x = await import('./extras.js');
+                if (!x.canShareFiles()) throw new Error('no-share');
+                await x.shareCard(doc, state.side, engine);
+              })}
+            </div>
+          ) : null}
+        </section>
+        <section>
+          <h3>{t('A photo of your card')}</h3>
+          <p class="ce-sub">{t('Both sides laid out on a soft background in your card’s colours, ready to post.')}</p>
+          <div class="ce-row ce-row--wrap">
+            {btn('mock1', t('Square photo'), async () => (await import('./extras.js')).downloadMockup(doc, engine, 'square'))}
+            {btn('mock2', t('Tall photo for Status'), async () => (await import('./extras.js')).downloadMockup(doc, engine, 'story'))}
           </div>
         </section>
         <section>

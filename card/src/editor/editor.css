@@ -965,3 +965,35 @@ input[type='color'] {
   font-size: 13px;
   line-height: 1.4;
 }
+/* Colour the card from the logo */
+.ce-brand {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  width: 100%;
+  min-height: 52px;
+  padding: 8px 12px;
+  text-align: left;
+}
+.ce-brand img {
+  flex: none;
+  width: 34px;
+  height: 34px;
+  object-fit: contain;
+  border-radius: 6px;
+  background: #fff;
+}
+.ce-brand > span:first-of-type {
+  flex: 1;
+}
+.ce-brand__sw {
+  display: flex;
+  flex: none;
+  overflow: hidden;
+  border-radius: 6px;
+  border: 1px solid var(--line);
+}
+.ce-brand__sw i {
+  width: 18px;
+  height: 22px;
+}

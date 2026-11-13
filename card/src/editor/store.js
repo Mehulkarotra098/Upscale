@@ -65,6 +65,26 @@ function scheduleSave() {
   }, 500);
 }
 
+/** Save straight away when the page is being left, so an edit made in the last half second is not lost. */
+export function flushSave() {
+  if (state.saved !== false || !state.doc) return;
+  clearTimeout(saveTimer);
+  saveDoc(state.doc).then(
+    () => {
+      state.saved = true;
+    },
+    () => {
+      /* The page is closing: there is nobody left to tell. */
+    },
+  );
+}
+if (typeof document !== 'undefined') {
+  addEventListener('pagehide', flushSave);
+  document.addEventListener('visibilitychange', () => {
+    if (document.visibilityState === 'hidden') flushSave();
+  });
+}
+
 /** Change the design. Each call is one undo step. */
 export function commit(mutate) {
   const next = deepCopy(state.doc);

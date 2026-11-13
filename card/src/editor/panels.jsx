@@ -315,11 +315,65 @@ export function TemplatesPanel({ t, templates, instantiate, engine }) {
   );
 }
 
+/** Colours the whole card from the uploaded logo. The code for it loads on the first click. */
+function BrandMatch({ t }) {
+  const doc = state.doc;
+  const [found, setFound] = useState(null);
+  const [busy, setBusy] = useState(false);
+  if (!doc.fields?.logo) {
+    return (
+      <>
+        <h2>{t('Match my logo')}</h2>
+        <p class="ce-sub">{t('Upload your logo in Details. Then one tap colours the whole card to match it.')}</p>
+      </>
+    );
+  }
+  const run = async () => {
+    setBusy(true);
+    try {
+      const { logoColours, matchPalette } = await import('./extras.js');
+      const cols = await logoColours(doc.fields.logo);
+      setFound(cols);
+      if (cols.length)
+        commit((d) => {
+          d.palette = matchPalette(d.palette, cols);
+        });
+    } catch {
+      setFound([]);
+    }
+    setBusy(false);
+  };
+  return (
+    <>
+      <h2>{t('Match my logo')}</h2>
+      <button class="ce-btn ce-brand" disabled={busy} onClick={run}>
+        <img src={doc.fields.logo} alt="" />
+        <span>{busy ? `${t('Working')}…` : t('Use my logo’s colours')}</span>
+        {found?.length ? (
+          <span class="ce-brand__sw" aria-hidden="true">
+            {found.map((c) => (
+              <i key={c} style={{ background: c }} />
+            ))}
+          </span>
+        ) : null}
+      </button>
+      <p class="ce-sub" role="status">
+        {found === null
+          ? t('Text stays as readable as before: only the colours change. Undo brings the old colours back.')
+          : found.length
+            ? t('Done. Text is as readable as before. Tap Undo if you liked the old colours more.')
+            : t('This logo is black, white or grey, so there is no colour to take from it. Pick your colours below.')}
+      </p>
+    </>
+  );
+}
+
 export function ColoursPanel({ t, templates }) {
   const doc = state.doc;
   const tpl = templates?.find((x) => x.id === doc.template);
   return (
     <div class="ce-panel">
+      <BrandMatch t={t} />
       {tpl ? (
         <>
           <h2>{t('Colour sets')}</h2>
