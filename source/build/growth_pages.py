@@ -491,7 +491,7 @@ def digital_dict():
                   + GP.src_chip('dm-edtech') + ', and a Mumbai agency’s own page puts them at ₹50,000 to ₹5 lakh ' + GP.src_chip('dm-scalegrowth')
                   + '. They overlap rather than agree, so ask any agency what is included, and who will actually do the work.'),
                 eyebrow='Compared', layout='wide', tone='band', sid='compared'),
-            Sec('Three ways businesses usually start',
+            Sec('Digital marketing packages: three ways to start',
                 Table(['Goal', 'What it includes', 'Cost'],
                       [('Get found on Google', 'Local SEO and Google Business Profile management', LOCAL),
                        ('Enquiries from ads', 'A landing page, then ads management', f'{price("Landing page")} once, then {ADS} and a ₹10,000 setup'),

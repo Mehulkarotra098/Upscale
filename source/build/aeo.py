@@ -249,6 +249,17 @@ BRIEF = {
             ('Do you build websites for businesses outside Mumbai?',
              'Yes. I’m based in Mumbai and work with businesses across India remotely, over WhatsApp, calls and video meetings, at the same '
              'fixed prices. More on website design across India, with a page for each major city.'),
+            ('Are there any hidden charges?',
+             'No. The price of your website is fixed in writing before work starts. The only other costs are listed on this page and quoted '
+             'before I begin: website copy at ₹2,000 a page if you want it written, photography, premium plugins and the payment gateway’s own '
+             'fee. Domain and hosting are paid by you to your provider, in your name. No GST is charged right now.'),
+            ('Is there a website designer near me in Mumbai?',
+             'I’m based in Ghatkopar West and meet clients at their shop or office across Mumbai, Thane and Navi Mumbai. Anywhere else, the '
+             'work happens over WhatsApp and video calls, at the same prices.'),
+            ('Do you offer affordable website design in Mumbai?',
+             'It depends what you compare. Template packages in Mumbai cost about ₹8,000–₹30,000 in 2025–26 price guides. A U Scale landing page, '
+             'designed for you and hand-coded, is ₹25,000 and a 5–10 page business site ₹55,000, fixed in writing, with 60% paid only when the '
+             'site is live. The website cost calculator shows the market range beside each price.'),
             ('Is U Scale a website design company in Mumbai?',
              'U Scale is the practice of one website designer and developer, Mehul Karotra, run the way a website design company runs a '
              'project: a written scope, a fixed price, payment in stages and every login handed over at launch. You get a company’s process, '
