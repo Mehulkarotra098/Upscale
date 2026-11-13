@@ -738,3 +738,18 @@
   function snapTabs(){ snaps.forEach(function(s){ var over=s.scrollWidth>s.clientWidth+2&&!$('a,button',s); if(over) s.setAttribute('tabindex','0'); else s.removeAttribute('tabindex'); }); }
   if(snaps.length){ snapTabs(); window.addEventListener('resize',snapTabs,{passive:true}); }
 })();
+
+/* Analytics (Google Tag Manager): one event per tap on a WhatsApp, phone or email link, so enquiries can be counted
+   by page and by where the button sits. No personal details are sent. */
+(function(){
+  'use strict';
+  document.addEventListener('click',function(ev){
+    var a=ev.target&&ev.target.closest?ev.target.closest('a[href]'):null; if(!a) return;
+    var h=a.getAttribute('href')||'';
+    var name=/^https:\/\/wa\.me\//.test(h)?'whatsapp_click':/^tel:/.test(h)?'phone_click':/^mailto:/.test(h)?'email_click':'';
+    if(!name) return;
+    var sec=a.closest('section[id]');
+    var where=a.classList.contains('wa-float')?'floating_button':a.closest('header')?'header':a.closest('footer')?'footer':sec?sec.id:'page';
+    try{ (window.dataLayer=window.dataLayer||[]).push({event:name,link_location:where,page_path:location.pathname}); }catch(err){}
+  },true);
+})();

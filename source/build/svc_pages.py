@@ -163,7 +163,13 @@ SEO = dict(
                     ('file', 'Report', 'A monthly report and call. Honest about what moved and what did not.', 'Every month')],
              promise=[('shield', 'No ranking guarantees, ever'), ('key', 'Your listing and accounts stay in your name'), ('refresh', '3 months minimum, then month-to-month')]),
     who='I check your listing, fix your website and write your pages myself. You talk to me directly on WhatsApp, not to an account manager.',
-    faq_extra=[('Can you help if my Google listing is suspended?',
+    faq_extra=[('Do you offer monthly SEO packages in Mumbai?',
+                f'Yes. Local SEO with Google Business Profile management is {LOCAL.replace("/mo", " a month")}, and technical and on-page SEO is '
+                f'{TECH.replace("/mo", " a month")}. Take one or both. Plans run for 3 months, then month to month with 30 days’ notice.'),
+               ('Are there hidden charges in your SEO packages?',
+                f'No. The monthly price is published and agreed in writing before work starts, and the monthly report shows what was done for it. '
+                f'Extra pieces, such as a blog post at {price("SEO blog (~1,000 words)")}, are optional and quoted first. No GST is charged right now.'),
+               ('Can you help if my Google listing is suspended?',
                 'Yes. I check what triggered it, fix what goes against Google’s guidelines, and help you file a reinstatement request through Google’s own form. '
                 'No one can guarantee Google will reinstate a listing, and anyone who promises to do it for a fee “through contacts” is not being honest. '
                 'Verification problems are covered step by step in my Google Business Profile verification guide.'),
@@ -197,7 +203,7 @@ SOCIAL = dict(
             P('Instagram posts can now appear in Google search too, so captions written in plain words help you on both. More in the guide: '
               '<a class="tlink" href="/blog/instagram-posts-google-search-seo">your Instagram posts now show up on Google</a>.'),
             eyebrow='Platforms', layout='wide'),
-        Sec('A starting month, priced',
+        Sec('Social media marketing packages in Mumbai, priced',
             Table(['What', 'How many', 'Price'],
                   [('Designed posts', str(POSTS), _fmt(POSTS * GP.rupees('Social post'))),
                    ('Carousels', str(CAROUSELS), _fmt(CAROUSELS * GP.rupees('Carousel'))),
@@ -237,7 +243,13 @@ SOCIAL = dict(
     who='I plan your calendar, design your posts and edit your reels myself. When a shoot needs a photographer, I bring one in and stay your single point of contact.',
     work=['brandgen', 'vidhi', 'sashe'], work_h='Brands I’ve designed for.',
     work_lead='U Scale started in 2026, so my work so far is mostly websites and marketing visuals. Here are three.',
-    faq_extra=[],
+    faq_extra=[('Do you have social media marketing packages in Mumbai?',
+                f'Yes, built from published prices. A typical starting month is {POSTS} designed posts, {CAROUSELS} carousels and {REELS} reel edits '
+                f'from your footage for {_fmt(_content)}, with community and inbox management at {price("Community & inbox management").replace("/mo", " a month")} '
+                'if you want replies handled too. You can start smaller: content is priced by the piece.'),
+               ('Are there hidden charges in social media management?',
+                'No. Every post, carousel, reel edit and shoot has a published price, and you approve the month’s plan and its cost before anything is '
+                'made. Ad spend, if you run ads, is paid by you to Meta directly. No GST is charged right now.')],
     sources=[],
     offers=['Community & inbox management', 'Social post', 'Carousel', 'Designed story', 'Reel edit (your footage)',
             'Premium edit (colour grading, motion graphics)', 'Half-day shoot + 3 reels', 'Full-day shoot + 6 reels'],
@@ -309,7 +321,11 @@ ADS = dict(
              promise=[('key', 'Ad accounts in your name'), ('rupee', 'Spend paid directly to Google and Meta'), ('refresh', '3 months minimum, then month-to-month')]),
     who='I set up the tracking, build the campaigns and watch them every week myself. You get one person who knows your account, on WhatsApp.',
     faq_extra=[('Can you run ads in Hindi or Marathi?',
-                'Yes. Ads, landing pages and WhatsApp replies can be in English, Hindi or Hinglish, or Marathi where your customers prefer it.')],
+                'Yes. Ads, landing pages and WhatsApp replies can be in English, Hindi or Hinglish, or Marathi where your customers prefer it.'),
+               ('Are there hidden charges in ads management?',
+                f'No. There are three costs and all three are published: the monthly fee of {price("Ads management")} up to ₹1.5 lakh of ad spend (12% of spend above that), '
+                f'a one-time {_fmt(10000)} setup, and your ad spend, which you pay to Google or Meta directly from accounts in your name. '
+                'Everything is agreed in writing before the first ad runs. No GST is charged right now.')],
     sources=['pmax', 'ctwa'],
     offers=['Ads management'],
     related=['chatads', 'wa', 'wedding'],
@@ -382,7 +398,11 @@ AI = dict(
                 'Mehul Karotra puts the questions your customers ask to ChatGPT, Gemini, Perplexity and Google’s AI features, and shows you the answers, '
                 'the sources they cite and what to fix.'),
                ('Do I need llms.txt for AI search?',
-                'No. Google says its AI features need no special files, and other AI companies have not said they rely on llms.txt. It is a tidy extra, not a requirement.')],
+                'No. Google says its AI features need no special files, and other AI companies have not said they rely on llms.txt. It is a tidy extra, not a requirement.'),
+               ('Are there hidden charges in AI search visibility work?',
+                f'No. The audit is {price("AI visibility audit (free if we work together)")} once, or free if we go on to work together, and monthly work is '
+                f'{price("AI search visibility (GEO)")} a month, agreed in writing before it starts. Monthly work runs for 3 months minimum, then month to month '
+                'with 30 days’ notice. No GST is charged right now.')],
     sources=['ai-features', 'openai-bots', 'pplx-bots', 'local-schema', 'helpful'],
     offers=['AI search visibility (GEO)', 'AI visibility audit (free if we work together)'],
     related=['chatgpt', 'chatads', 'askmaps'],
@@ -624,7 +644,7 @@ def about_page(ctx, parts):
                        'or an AI product built, that is where I point them; websites and marketing stay with U Scale.'),
                      eyebrow='The story'),
                  Sec('How I work',
-                     Cards([('rupee', 'Every price published', 'Websites, SEO, ads and single pieces, all on the <a class="tlink" href="/pricing">pricing page</a>. No “call for a quote”.'),
+                     Cards([('rupee', 'Every price published', 'Websites, SEO, ads and single pieces, all on the <a class="tlink" href="/pricing">pricing page</a>. No “call for a quote”, and no hidden charges.'),
                             ('user', 'You talk to me', 'No account managers. The person who answers your WhatsApp is the person doing the work.'),
                             ('file', 'Fixed price, in writing', 'Websites are 20% to start, 20% on design sign-off and 60% on launch. Monthly work is 3 months minimum, then month-to-month.'),
                             ('key', 'You own everything', 'Your domain, code, logins, ad accounts and listings stay in your name, always.'),

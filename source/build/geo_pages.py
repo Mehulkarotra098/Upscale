@@ -635,6 +635,10 @@ PAGES = [
        ('Kya website banane pe GST lagta hai?',
         'Haan, website design pe 18% GST lagta hai jab registered agency ya freelancer bill karta hai. Jiska turnover ₹20 lakh se kam hai aur jo '
         'registered nahi hai, woh GST nahi le sakta. U Scale abhi apne prices pe GST charge nahi karta.'),
+       ('Kya U Scale ke price mein koi hidden charges hain?',
+        'Nahi, koi hidden charge nahi hai. Package ka price hi website ka price hai, aur kaam shuru hone se pehle likhit mein fix hota hai. '
+        'Uske alawa sirf domain aur hosting ka saalana kharcha hota hai, jo aap seedha provider ko apne naam pe dete hain. Content likhwana, '
+        'photoshoot ya care plan jaisi cheezein optional hain aur pehle se quote hoti hain.'),
        ('₹5,000–₹10,000 wali sasti website lena theek hai?',
         'Agar aapko pata hai ki yeh ek theme hai aur domain aur logins aapke naam pe honge, toh chhote kaam ke liye theek ho sakta hai. Theme ka naam, '
         'renewal price aur launch ke baad support ke baare mein likhit mein poochiye.'),
@@ -726,6 +730,35 @@ PAGES = [
 def parent_sections():
     """Sections for /services/website-design-mumbai (built by seo_pages.service_page), after "What's included"."""
     return [
+        Sec('Website design packages and prices in Mumbai',
+            Table(['Package', 'Good for', 'Usually live in', 'Price'],
+                  [('Landing page', 'One offer, an ad campaign or a new shop', 'Under 2 weeks', price('Landing page')),
+                   ('Portfolio site', 'Creators, consultants and freelancers', '2–3 weeks', price('Portfolio site')),
+                   ('Business site, 5–10 pages', 'Clinics, salons, studios and service businesses', '3–4 weeks', price('Business site, 5–10 pages')),
+                   ('Business site, 10–20 pages + blog', 'Firms that publish guides to be found for more searches', 'Agreed in the plan', price('Business site, 10–20 pages + blog')),
+                   ('Restaurant site + own online ordering', 'Restaurants and cafés taking their own orders', '3–4 weeks', price('Restaurant site + own online ordering')),
+                   ('Online store, under 50 products', 'Brands selling a focused range', 'Agreed in the plan', price('E-commerce, under 50 products')),
+                   ('Online store, 50–500 products', 'Larger catalogues', 'Agreed in the plan', price('E-commerce, 50–500 products')),
+                   ('Redesign of your current site', 'A site that looks dated or loses enquiries', 'Agreed in the plan', price('Redesign of your current site'))],
+                  'U Scale website design packages in Mumbai, with published prices'),
+            P(f'Every package includes {INCLUDED}. You pay 20% to start, 20% when you approve the design and 60% when the site is live. '
+              'The same list, with a quote builder, is on the ' + _link('/pricing', 'pricing page') + '.'),
+            eyebrow='Packages and prices', layout='wide', sid='packages'),
+        Sec('No hidden charges: every other cost, said upfront',
+            P('The package price is the price of the website. These are the only other costs a website can bring, and each one is in your written '
+              'plan before you pay anything.'),
+            Table(['Cost', 'When it applies', 'Amount'],
+                  [('Website copy', 'Only if you want the text written for you', price('Website copy')),
+                   ('Photography', 'Only if you need a shoot', 'Quoted before the shoot'),
+                   ('Premium plugins', 'Only if a feature needs a paid one', 'At cost, quoted first'),
+                   ('Payment gateway fee', 'Online stores and ordering sites; paid to the gateway, not to me', 'About 2% + GST per payment on Razorpay’s standard plan'),
+                   ('Domain and hosting', 'Every website; paid to your provider, in your name', 'About ₹4,400–₹9,400 a year before GST'),
+                   ('Care plan', 'Optional: updates, backups and security after launch', price('Care plan: updates, backups, security')),
+                   ('GST', 'On U Scale prices', 'None charged right now')],
+                  'Every cost outside a U Scale website package, and when it applies'),
+            P('Yearly domain and hosting figures are renewal prices from the providers’ own pages, explained in the '
+              + _link('/blog/website-design-cost-mumbai', 'website design cost guide') + '. ' + src_chip('razorpay-pricing')),
+            eyebrow='Total transparency', layout='wide', tone='band', sid='no-hidden-charges'),
         Sec('Landing pages for ads and launches',
             P(f'A landing page is a single page built for one job: an ad campaign, a launch, an offer or a new branch. It costs {price("Landing page")}, '
               'fixed, and can be live in under two weeks. It loads fast on a phone, says what you sell and what it costs, and ends in one clear action, '
@@ -1020,7 +1053,7 @@ def _durations(b):
 
 
 def _table(b):
-    th = ''.join(f'<th scope="col">{e(h)}</th>' for h in b['head'])
+    th = ''.join(f'<th scope="col">{e(h)}</th>' if h else '<td></td>' for h in b['head'])
     body = ''.join('<tr><th scope="row">' + e(r[0]) + '</th>' + ''.join(f'<td data-l="{ea(b["head"][j + 1])}">{e(c)}</td>' for j, c in enumerate(r[1:])) + '</tr>'
                    for r in b['rows'])
     return f'<div class="fp-table" data-reveal><table><caption class="sr-only">{e(b["caption"])}</caption><thead><tr>{th}</tr></thead><tbody>{body}</tbody></table></div>'
@@ -1288,7 +1321,7 @@ def _how(p):
                  ('Written plan', 'What I will build, by when, and the exact price, in writing before you pay anything.', 'Fixed price'),
                  ('Design & build', 'You approve real screens in Figma, desktop and mobile, before I code them and test on phones.', '20% to start · 20% on design sign-off'),
                  ('Launch', 'Domain, hosting, Google Search Console and a final check on real phones. Then I hand over every login.', '60% on launch')]
-        promise = [('key', 'Your domain, code and logins, in your name'), ('file', 'Price fixed in writing before work starts'), ('shield', '15–30 day bug-fix window after launch')]
+        promise = [('key', 'Your domain, code and logins, in your name'), ('file', 'Price fixed in writing, no hidden charges'), ('shield', '15–30 day bug-fix window after launch')]
     shots, sz = ['step-audit', 'step-plan', 'step-design', 'step-launch'], '(max-width: 759px) 82vw, (max-width: 1099px) 46vw, 290px'
     li = ''.join(f'<li class="fp-step" data-reveal>{_shot(shots[i], sz, "fp-step__media")}<div class="fp-step__body"><span class="fp-step__n" aria-hidden="true">{i + 1:02d}</span><h3>{e(t)}</h3><p>{e(d)}</p>'
                  + (f'<span class="fp-step__tag">{e(tag)}</span>' if tag else '') + '</div></li>' for i, (t, d, tag) in enumerate(steps))
@@ -1476,4 +1509,6 @@ def related_html():
                  f'<span class="fp-rel__d">{e(p["card"])}</span>{icon("arrow")}</a></li>'
                  for kind, label in kinds for p in PAGES if p['kind'] == kind)
     li += __import__('city_pages').related_cards()
+    li += (f'<li class="fp-rel-city"><a class="fp-rel" href="/services/website-design-india"><span class="fp-rel__k">Other cities</span><b>Website design &amp; development in India</b>'
+           f'<span class="fp-rel__d">The same fixed prices in every city, how remote projects run, and every city page.</span>{icon("arrow")}</a></li>')
     return f'<nav class="fp-related fp-related--parent" aria-label="Website design by business, area, city and guide"><p class="eyebrow">By business, near you, guides and other cities</p><ul>{li}</ul></nav>'

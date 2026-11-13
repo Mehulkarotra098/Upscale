@@ -85,7 +85,7 @@ HOW = dict(head='Same price. Same process. Over WhatsApp.', sub='From a free aud
                   ('file', 'Written plan', 'Pages, timeline and the exact price, in writing, agreed on a video call before you pay anything.', 'Fixed price'),
                   ('pen', 'Design & build', 'You review real screens in Figma on your own phone and laptop, then I code and test the site.', '20% to start · 20% on design sign-off'),
                   ('check', 'Launch', 'Domain, hosting, Google Search Console and a final check on real phones. Every login handed over to you.', '60% on launch')],
-           promise=[('key', 'Your domain, code and logins, in your name'), ('file', 'Price fixed in writing before work starts'), ('shield', '15–30 day bug-fix window after launch')])
+           promise=[('key', 'Your domain, code and logins, in your name'), ('file', 'Price fixed in writing, no hidden charges'), ('shield', '15–30 day bug-fix window after launch')])
 
 
 def _who(p):
@@ -129,7 +129,7 @@ def _cta(p, wa, icons):
         </div>
       </div>
       {_related(p)}
-      <p class="fp-all"><a class="tlink" href="/services/website-design-mumbai">All website design</a> · <a class="tlink" href="/pricing">Full price list</a></p>
+      <p class="fp-all"><a class="tlink" href="/services/website-design-india">Website design across India</a> · <a class="tlink" href="/services/website-design-mumbai">All website design</a> · <a class="tlink" href="/pricing">Full price list</a></p>
     </div>
   </section>'''
 
@@ -218,7 +218,7 @@ def llms_full(site):
 
 def related_cards():
     """Cards for the website-design hub and the services hub."""
-    return ''.join(f'<li><a class="fp-rel" href="/{p["path"]}"><span class="fp-rel__k">Other cities</span><b>{e(p["h1"])}</b>'
+    return ''.join(f'<li class="fp-rel-city"><a class="fp-rel" href="/{p["path"]}"><span class="fp-rel__k">Other cities</span><b>{e(p["h1"])}</b>'
                    f'<span class="fp-rel__d">{e(p["card"])}</span>{icon("arrow")}</a></li>' for p in CITIES)
 
 
@@ -354,11 +354,13 @@ def price_cards(market, sources, city=''):
                + (f'<p class="pc__t">{icon("clock")}{e(t)}</p>' if t else '')
                + f'<a class="pc__go" href="{ea(SVP.WA + urllib.parse.quote(msg))}" target="_blank" rel="noopener">{icon("chat")}<span>Ask on WhatsApp<span class="sr-only"> about {e(ask)}</span></span></a></li>')
     inc = f'Every site includes {GP.INCLUDED}.'
-    return Html(f'<ul class="pc" data-reveal-group>{li}</ul><p class="pc__inc">{icon("check")}<span>{e(inc)}</span></p>'
+    nohid = ('No hidden charges: domain and hosting are paid to your provider, in your name, and anything optional is priced in your written plan before you pay.')
+    return Html(f'<ul class="pc" data-reveal-group>{li}</ul><p class="pc__inc">{icon("check")}<span>{e(inc)} {e(nohid)} '
+                f'<a class="tlink" href="/services/website-design-mumbai#no-hidden-charges">See every other cost</a></span></p>'
                 f'<p class="pc__mkt">{e(market)} <a class="tlink" href="#sources">Sources</a></p>',
                 text='\n'.join(f'- {k}: {price(name)}{" onwards" if onwards else ""}. {(CARD_DESC.get(city) or [c[3] for c in PRICE_CARDS])[i]}' + (f' {t}.' if t else '')
                                for i, (k, name, onwards, d, t, _) in enumerate(PRICE_CARDS))
-                     + f'\n{inc}\n{market}')
+                     + f'\n{inc} {nohid}\n{market}')
 
 QC_ITEMS = ['A design made for your business, not a ready-made theme', 'The number of pages, written down', 'Built and tested for phones',
             'Who writes the text, and what it costs', 'The domain registered in your name', 'What hosting and the domain cost after year one',
@@ -453,7 +455,7 @@ def trust_bento(keys=('pay', 'own', 'fix', 'me')):
     tiles += EXTRA_TILES
     by = {k: (k, g, h, x) for k, g, h, x in tiles}
     li = ''.join(f'<li class="tb__c tb__c--{k}" data-reveal>{g}<h3>{e(h)}</h3><p>{e(x)}</p></li>' for k, g, h, x in (by[k] for k in keys))
-    return f'<ul class="tb" data-reveal-group>{li}</ul>'
+    return f'<ul class="tb" data-reveal-group tabindex="0" aria-label="How your payment and ownership are protected">{li}</ul>'
 
 
 def work_rail(ctx, keys):
@@ -739,7 +741,7 @@ CITIES = [
   crumb='Website design in Pune', service='Website design and development for Pune businesses',
   card='Fixed-price websites for Pune shops, suppliers, institutes and cafés, built from Mumbai over WhatsApp and video calls.',
   title='Website Design & Development in Pune, from ₹25,000',
-  desc=f'Websites for Pune businesses, designed and hand-coded by Mehul Karotra: landing page {LANDING}, business site {BIZ}, fixed in writing. Over WhatsApp.',
+  desc=f'Website design for Pune shops, suppliers, institutes and cafés, in Marathi or English: landing page {LANDING}, business site {BIZ}, fixed in writing.',
   h1='Website design & development in Pune', eyebrow='For Pune businesses',
   lead='Hand-coded websites at a fixed price, over WhatsApp. You pay most after launch, and you own everything.',
   stats=[(LANDING, 'Websites from'), ('3–4 wk', 'Live in'), ('60%', 'Paid after launch')],
@@ -766,7 +768,7 @@ CITIES = [
    Sec('Website prices for Pune businesses',
        price_cards('For comparison, Pune studios’ own price pages put a ready-made theme at ₹5,000–₹18,000 and a custom-designed site at ₹60,000–₹1.5 lakh (seen 8 November 2026).',
                    ['pune-p1', 'pune-p2', 'pune-p3', 'pune-p4'], 'Pune'),
-       eyebrow='Pune prices', lead='Four prices. Fixed in writing. The same as in Mumbai.',
+       eyebrow='Pune prices', lead='Four prices, fixed in writing, with no hidden charges. The same as in Mumbai.',
        layout='wide', sid='prices'),
    Sec('What does your Pune business need?',
        mix_bars([('Manufacturing & trade', 40), ('Food & stays', 9), ('Cabs & travel', 7)],
@@ -863,7 +865,7 @@ CITIES = [
    Sec('Website prices for Bengaluru businesses',
        price_cards('For comparison, Bengaluru studios’ package pages start a basic five-page site at ₹8,750–₹22,750 and premium designs at ₹23,350–₹75,900, usually plus GST (seen 8 November 2026).',
                    ['blr-p1', 'blr-p2', 'blr-p3'], 'Bengaluru'),
-       eyebrow='Bengaluru prices', lead='Four prices. Fixed in writing. The same as in Mumbai.', layout='wide', sid='prices'),
+       eyebrow='Bengaluru prices', lead='Four prices, fixed in writing, with no hidden charges. The same as in Mumbai.', layout='wide', sid='prices'),
    Sec('What does your Bengaluru business need?',
        dot_stat(13649, 500, 'DPIIT-recognised startups in Bengaluru district, to 31 October 2024', 'blr-startups'),
        picker([
@@ -954,7 +956,7 @@ CITIES = [
    Sec('Website prices for Chennai businesses',
        price_cards('For comparison, Chennai studios’ own price pages put a template or static site at ₹5,000–₹30,000 and a custom business site at ₹20,000–₹1 lakh (seen 8 November 2026).',
                    ['chn-p1', 'chn-p2', 'chn-p3'], 'Chennai'),
-       eyebrow='Chennai prices', lead='Four prices. Fixed in writing. The same as in Mumbai.', layout='wide', sid='prices'),
+       eyebrow='Chennai prices', lead='Four prices, fixed in writing, with no hidden charges. The same as in Mumbai.', layout='wide', sid='prices'),
    Sec('What does your Chennai business need?',
        picker([
         ('auto', 'truck', 'Auto or engineering', 'Auto and engineering suppliers', 'Buyers from other states judge you by your website.',
@@ -1027,10 +1029,30 @@ def _answer(city, who):
             f'Prices are fixed in writing: {LANDING} for one page, {BIZ} for 5–10 pages and from {STORE} for an online store, and you pay 60% only after launch.')
 
 
+# Each city's own search snippet and link card, from what its page actually says (who it is for, which languages).
+# A shared sentence with only the city name swapped reads as a doorway page, in Google's results and to people.
+DESC = {
+    'delhi-ncr': f'Website design for Delhi NCR businesses, from Delhi to Gurugram and Noida: landing page {LANDING}, business site {BIZ}, fixed in writing, on WhatsApp.',
+    'hyderabad': f'Website design for Hyderabad businesses, from Old City shops to Cyberabad firms: landing page {LANDING}, business site {BIZ}, fixed in writing.',
+    'kolkata': f'Website design for Kolkata businesses, in Bengali and English: landing page {LANDING}, business site {BIZ}, fixed in writing. You talk to the designer.',
+    'ahmedabad': f'Website design for Ahmedabad businesses, in English or Gujarati: landing page {LANDING}, business site {BIZ}, fixed in writing. 60% is paid after launch.',
+    'surat': f'Website design for Surat traders and makers, so buyers across India find your stock: landing page {LANDING}, business site {BIZ}, fixed in writing.',
+    'jaipur': f'Website design for Jaipur stays, shops and makers, in English for tourists and Hindi for locals: landing page {LANDING}, business site {BIZ}, fixed.',
+}
+CARD = {
+    'delhi-ncr': 'Fixed-price websites for businesses across Delhi, Gurugram and Noida, built from Mumbai over WhatsApp and video calls.',
+    'hyderabad': 'Fixed-price websites for Hyderabad businesses, from Old City shops to Cyberabad firms, with Telugu or Urdu pages from your own text.',
+    'kolkata': 'Fixed-price websites for Kolkata businesses in Bengali and English, built from Mumbai over WhatsApp and video calls.',
+    'ahmedabad': 'Fixed-price websites for Ahmedabad businesses in English or Gujarati, with 60% paid only after launch.',
+    'surat': 'Fixed-price websites for Surat traders and makers, built so buyers across India can find your shop and your stock.',
+    'jaipur': 'Fixed-price websites for Jaipur stays, shops and makers: English for tourists, Hindi for locals.',
+}
+
+
 def _city(slug, city, state, wiki, eyebrow, lead, who, art, img, wa, cta_lead, trust_h, trust_keys, market_line, market_src, market_fact,
           langs, sections_mid, picker_items, lang_demo_args, faq_mid, sources, extra_v2=None, wiki_state=None):
     sec_prices = Sec(f'Website prices for {city} businesses', price_cards(market_line, market_src, city),
-                     eyebrow=f'{city} prices', lead='Four prices. Fixed in writing. The same as in Mumbai.', layout='wide', sid='prices')
+                     eyebrow=f'{city} prices', lead='Four prices, fixed in writing, with no hidden charges. The same as in Mumbai.', layout='wide', sid='prices')
     biz_blocks = list(sections_mid) + [picker(picker_items, 'Your kind of business')] + ([lang_demo(*lang_demo_args)] if lang_demo_args else [])
     sec_biz = Sec(f'What does your {city} business need?', *biz_blocks, eyebrow=f'{city}’s businesses', layout='wide', sid='business')
     v2 = [lambda ctx: _custom_sec('trust', 'Why it’s safe', trust_h, '', trust_bento(trust_keys)),
@@ -1047,9 +1069,9 @@ def _city(slug, city, state, wiki, eyebrow, lead, who, art, img, wa, cta_lead, t
            (f'How do I get my {city} business on Google Maps?', GP.MAPS_FAQ)]
     return dict(slug=slug, path=f'services/website-design-{slug}', city=city, state=state, wiki=wiki,
                 crumb=f'Website design in {city}', service=f'Website design and development for {city} businesses',
-                card=f'Fixed-price websites for {city} businesses, built from Mumbai over WhatsApp and video calls.',
+                card=CARD.get(slug) or f'Fixed-price websites for {city} businesses, built from Mumbai over WhatsApp and video calls.',
                 title=f'Website Design & Development in {city}, from ₹25,000',
-                desc=f'Websites for {city} businesses, designed and hand-coded by Mehul Karotra: landing page {LANDING}, business site {BIZ}, fixed in writing. Over WhatsApp.',
+                desc=DESC.get(slug) or f'Websites for {city} businesses, designed and hand-coded by Mehul Karotra: landing page {LANDING}, business site {BIZ}, fixed in writing. Over WhatsApp.',
                 h1=f'Website design & development in {city}', eyebrow=eyebrow, lead=lead,
                 stats=[(LANDING, 'Websites from'), ('3–4 wk', 'Live in'), ('60%', 'Paid after launch')],
                 art=art, imgs=[img], hero_btn='Free audit on WhatsApp', hero_more=('#prices', 'See prices'), wa=wa,

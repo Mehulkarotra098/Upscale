@@ -20,8 +20,8 @@ WA = 'https://wa.me/917977360142?text=Hi%20Mehul%2C%20I%27d%20like%20to%20talk%2
 # ---------------------------------------------------------------- service pages
 SERVICES = [
  dict(slug='website-design-mumbai', short='Website design', cta='website', name='Website Design & Development',
-  title='Freelance Web Designer in Mumbai: Websites from ₹25,000',
-  desc='Designed in Figma, hand-coded by Mehul Karotra. Landing page ₹25,000 in under 2 weeks, business site ₹55,000. Price fixed in writing; logins in your name.',
+  title='Website Design & Development in Mumbai, from ₹25,000',
+  desc='Website design in Mumbai with every price published and no hidden charges: landing page ₹25,000, business site ₹55,000, online store from ₹95,000.',
   h1='Website design & development in Mumbai',
   og='assets/pages/og-website-design-mumbai.jpg', og_alt='Website design and development in Mumbai by Mehul Karotra of U Scale: websites from ₹25,000, fixed price',
   lead='I design and build websites for Mumbai businesses: landing pages, 5–10 page business sites, online stores and restaurant ordering. Every page is designed in Figma and coded by hand, so what you approve is exactly what goes live, at a fixed price agreed before I start.',
@@ -44,8 +44,8 @@ SERVICES = [
        ('Will I own my website?','Yes. The domain, hosting account, code and design files are yours.'),
        ('Can you redesign my existing website?','Yes. I start with an audit of what works and what leaks enquiries, then redesign around that. A redesign costs 70% of a fresh build.')]),
  dict(slug='seo-mumbai', short='SEO', cta='SEO', name='SEO Services', cta_h='Let’s get you found on Google', wa="Hi Mehul, I'd like to talk about SEO for my business.",
-  title='SEO Expert in Mumbai: Local SEO from ₹15,000/Month',
-  desc='Freelance SEO by Mehul Karotra: Google Maps and local SEO ₹15,000 a month, technical SEO ₹25,000. Monthly report, no ranking guarantees. Free first check.',
+  title='SEO Services & Packages in Mumbai, from ₹15,000 a Month',
+  desc='SEO packages in Mumbai from a freelance SEO expert: local SEO and Google Maps ₹15,000 a month, technical SEO ₹25,000. No hidden charges, no ranking guarantees.',
   h1='SEO services in Mumbai',
   lead='I’m a freelance SEO consultant in Mumbai. I help your business show up when nearby customers search on Google and Google Maps. Local SEO, technical fixes and content, done personally, with honest monthly reporting.',
   who='For local businesses that depend on people searching "near me", and for service businesses that want steady enquiries without paying for every click.',
@@ -67,8 +67,8 @@ SERVICES = [
        ('Do you guarantee first-page rankings?','No one can honestly guarantee rankings. I guarantee the work, the transparency and a clear report of results every month.'),
        ('Do I need a new website for SEO?','Not always. I start by auditing your current site; if it can be fixed, I fix it.')]),
  dict(slug='social-media-management-mumbai', short='Social media', cta='social media', name='Social Media Management',
-  title='Social Media Marketing & Management in Mumbai | U Scale',
-  desc='Social media marketing in Mumbai: a monthly plan, designed posts from ₹800, reels from ₹2,500 and inbox care, run by Mehul Karotra. You approve every post.',
+  title='Social Media Marketing in Mumbai: Packages and Prices',
+  desc='Social media marketing packages in Mumbai, priced by the piece: posts from ₹800, reel edits from ₹2,500, inbox care ₹12,000 a month. No hidden charges.',
   h1='Social media marketing in Mumbai',
   lead='Consistent, on-brand social media without you chasing anyone. As your freelance social media manager, I plan, design and post your content on Instagram, Facebook, LinkedIn and YouTube, and keep the focus on bringing you enquiries.',
   who='For businesses that know they should post regularly but never find the time, and for brands that want their feed to look as good as their product.',
@@ -111,7 +111,7 @@ SERVICES = [
        ('Google Ads or Meta ads, which is better?','Google catches people who are already searching; Meta reaches people nearby who are not searching yet. Many local businesses use both.'),
        ('Will I see where my money goes?','Yes. You own the ad accounts and get a monthly report showing spend, leads and cost per lead.')]),
  dict(slug='ai-search-visibility', short='AI search', cta='AI search visibility', name='AI Search Visibility (GEO)', cta_h='Let’s see what AI says about you', wa="Hi Mehul, I'd like to check what ChatGPT and Google say about my business.",
-  title='AI Search Visibility in India: What ChatGPT Says About You',
+  title='AI Search Visibility Services in India (GEO & AI SEO)',
   desc='See what ChatGPT, Gemini and Google AI tell customers about your business, then fix the facts they use. ₹2,500 audit or ₹12,000 a month. No mention guaranteed.',
   h1='AI SEO and AI search visibility (GEO)',
   lead="When someone asks ChatGPT, Gemini or Google’s AI to recommend a business like yours, are you mentioned, and is what they say correct? This is what people call AI SEO, GEO or AEO. I check what AI tools say about you today, then correct the facts, listings and pages they draw on, and help you earn genuine reviews. No one can guarantee a mention; I show you what changed every month.",
@@ -175,7 +175,7 @@ def home_jsonld(site, faq):
     desc = re.search(r'<meta name="description" content="([^"]+)"', (config.REPO / 'source' / 'src' / 'index.src.html').read_text(encoding='utf-8')).group(1)
     person = aeo.person_full(site)
     website = dict(aeo.website_ref(site), description=desc)
-    page = {'@type': 'WebPage', '@id': site + '#webpage', 'url': site, 'name': 'Web Designer & Digital Marketer in Mumbai | U Scale',
+    page = {'@type': 'WebPage', '@id': site + '#webpage', 'url': site, 'name': 'Website Design, SEO & Social Media in Mumbai | U Scale',
             'description': desc, 'isPartOf': {'@id': site + '#website'}, 'about': {'@id': site + '#business'},
             'primaryImageOfPage': {'@type': 'ImageObject', '@id': site + '#og-image', 'url': site + 'og-image.png', 'contentUrl': site + 'og-image.png',
                                    'width': 1200, 'height': 630, 'caption': 'U Scale by Mehul Karotra: web design and digital marketing in Mumbai'},
@@ -244,6 +244,8 @@ FAQ_LINKS = {
     'website design in Thane': '/services/website-design-thane',
     'website design in Navi Mumbai': '/services/website-design-navi-mumbai',
     'hire me as a freelance web designer': '/freelance-web-designer-mumbai',
+    'website design across India': '/services/website-design-india',
+    'digital marketing in Mumbai': '/services/digital-marketing-mumbai',
     'Google Business Profile management': '/services/google-business-profile-mumbai',
     'online store page': '/services/ecommerce-website-mumbai',
     'SEO cost in India (2026)': '/blog/seo-cost-in-india',
@@ -356,7 +358,7 @@ def service_page(ctx, s, parts):
     <div class="wrap">
       <header class="sec-head">
         <p class="eyebrow" data-reveal data-scramble>What's included</p>
-        <h2 class="h2" id="inc-title" data-split>Everything handled by one person.</h2>
+        <h2 class="h2" id="inc-title" data-split>Website design services, handled by one person.</h2>
         <p class="lead" data-reveal>You work directly with me, Mehul Karotra. No account managers, no middlemen.</p>
       </header>
       <ul class="bento sp-grid" data-reveal-group>{items}</ul>
@@ -1398,6 +1400,10 @@ def terms_html():
 
 PRICING_FAQ_IDX = [1, 2, 3]  # website cost, marketing cost, contract vs retainer (indexes into the home FAQ)
 PRICING_FAQ_MORE = [
+    ('Are there any hidden charges?',
+     'No. Every price is on this page, and the price of your project is fixed in writing before work starts. The costs that are not part of '
+     'a U Scale price are listed here too, and quoted before I begin: website copy, photography, premium plugins, the payment gateway’s own '
+     'fee, and the domain and hosting you pay your provider. No GST is charged right now.'),
     ('Do you charge by the hour?',
      'No. Websites are a fixed price agreed in writing before work starts, monthly services are a fixed monthly fee, and every single piece of '
      'work has its own price on this page. Nothing is billed by the hour, so the price can’t grow because a task took longer than planned. '
@@ -1441,9 +1447,9 @@ def pricing_page(ctx, parts):
     site, v = ctx['SITE_URL'], ctx['_v']
     header, menu, footer, tail = parts
     url = site + 'pricing'
-    title = 'Website & Digital Marketing Prices in Mumbai, All Published'
-    desc = ('Every price on one page: websites from ₹25,000, local SEO ₹15,000/month, ads ₹20,000/month, '
-            'one-off work from ₹800. Build a quote, send it on WhatsApp.')
+    title = 'Website Design, SEO & Social Media Prices in Mumbai'
+    desc = ('Every U Scale price on one page, no hidden charges: website packages from ₹25,000, SEO ₹15,000 a month, '
+            'social posts from ₹800. Build a quote on WhatsApp.')
     faq = [ctx['FAQ'][i] for i in PRICING_FAQ_IDX] + PRICING_FAQ_MORE
     ld = json.dumps({'@context': 'https://schema.org', '@graph': [
         {'@type': 'WebPage', '@id': url + '#webpage', 'url': url, 'name': title, 'description': desc, 'isPartOf': {'@id': site + '#website'},
@@ -1495,7 +1501,7 @@ def pricing_page(ctx, parts):
     <section class="sp-hero fp-hero on-dark" data-tone="dark" aria-labelledby="page-title">
       <div class="fp-hero__copy">
       <nav class="crumbs" aria-label="Breadcrumb"><ol><li><a href="/">Home</a></li><li aria-current="page">Pricing</li></ol></nav>
-      <h1 class="sp-hero__title fp-hero__title" id="page-title">Pricing, published openly<span class="dot">.</span></h1>
+      <h1 class="sp-hero__title fp-hero__title" id="page-title">Prices and packages, published openly<span class="dot">.</span></h1>
       <p class="sp-hero__lead">Most agencies hide their prices behind a contact form. Here is everything I charge for web design and digital marketing in Mumbai, on one page: fixed-price websites, monthly growth services and single pieces of work.</p>
       <div class="hero__cta" data-wa-zone>
         <a class="btn btn--go" href="{ea(WA)}" target="_blank" rel="noopener" data-magnetic>{ctx['ICONS']['ICON_CHAT']}Ask me for a quote</a>

@@ -247,7 +247,23 @@ BRIEF = {
              'Yes. I’m based in Ghatkopar West, a short train ride from both, and meet clients at their shop or office. Prices are the same as '
              'in Mumbai. More on website design in Thane and website design in Navi Mumbai.'),
             ('Do you build websites for businesses outside Mumbai?',
-             'Yes. I’m based in Mumbai and work with businesses across India remotely, over WhatsApp, calls and video meetings.')],
+             'Yes. I’m based in Mumbai and work with businesses across India remotely, over WhatsApp, calls and video meetings, at the same '
+             'fixed prices. More on website design across India, with a page for each major city.'),
+            ('Are there any hidden charges?',
+             'No. The price of your website is fixed in writing before work starts. The only other costs are listed on this page and quoted '
+             'before I begin: website copy at ₹2,000 a page if you want it written, photography, premium plugins and the payment gateway’s own '
+             'fee. Domain and hosting are paid by you to your provider, in your name. No GST is charged right now.'),
+            ('Is there a website designer near me in Mumbai?',
+             'I’m based in Ghatkopar West and meet clients at their shop or office across Mumbai, Thane and Navi Mumbai. Anywhere else, the '
+             'work happens over WhatsApp and video calls, at the same prices.'),
+            ('Do you offer affordable website design in Mumbai?',
+             'It depends what you compare. Template packages in Mumbai cost about ₹8,000–₹30,000 in 2025–26 price guides. A U Scale landing page, '
+             'designed for you and hand-coded, is ₹25,000 and a 5–10 page business site ₹55,000, fixed in writing, with 60% paid only when the '
+             'site is live. The website cost calculator shows the market range beside each price.'),
+            ('Is U Scale a website design company in Mumbai?',
+             'U Scale is the practice of one website designer and developer, Mehul Karotra, run the way a website design company runs a '
+             'project: a written scope, a fixed price, payment in stages and every login handed over at launch. You get a company’s process, '
+             'with one person accountable for the work.')],
   offers=['Landing page', 'Portfolio site', 'Business site, 5–10 pages', 'Business site, 10–20 pages + blog', 'E-commerce, under 50 products',
           'Restaurant site + own online ordering', 'Care plan: updates, backups, security']),
  'seo-mumbai': dict(
@@ -518,7 +534,7 @@ ABOUT_FAQ = [
      'directly, on fixed-price contracts for websites or monthly plans for marketing, and every price is published at uscale.in/pricing.'),
     ('Is U Scale an agency or a freelancer?', 'A bit of both. U Scale is one person, Mehul Karotra, working as an independent, contract-based partner. '
      'You get the design, development and marketing an agency offers, but you sign with him and talk to him directly. If a project needs a specialist, '
-     'like a photographer, he brings them in and stays your single point of contact.'),
+     'like a photographer, he brings them in and stays your single point of contact. More on digital marketing in Mumbai with one specialist.'),
     ('Where is U Scale based?', 'U Scale is based in Mumbai. Mehul meets clients across Mumbai, Thane and Navi Mumbai, and works '
      'with businesses across India remotely.'),
     ('How do I contact Mehul Karotra?', f'WhatsApp or call {SP.PHONE_D}, or email {SP.EMAIL}. He replies personally within 24 hours, usually much faster on WhatsApp.'),
@@ -605,10 +621,10 @@ def image_license_page(ctx, parts):
 
   <section class="section" aria-labelledby="own-title">
     <div class="wrap sp-prose">
-      <h3 id="own-title">Who owns the images</h3>
+      <h2 id="own-title">Who owns the images</h2>
       <p>Unless a caption says otherwise, every photo, illustration, mockup and graphic on uscale.in is {e(COPYRIGHT)}</p>
       <p>Brands shown in demo images, such as Chai Kona or Saanjh Studio, are made-up samples, not real businesses. Screenshots of client websites show work U Scale did; those websites, their names and their logos belong to the businesses that own them.</p>
-      <h3 id="use-title">Using an image</h3>
+      <h2 id="use-title">Using an image</h2>
       <p>You are welcome to link to any page on this site. To reuse an image anywhere else, in an article, a presentation, a listing or a social post, please ask first.</p>
       <p>Email <a class="tlink" href="mailto:{ea(SP.EMAIL)}">{e(SP.EMAIL)}</a> or WhatsApp {e(SP.PHONE_D)} with a link to the image and where you would like to use it. I reply personally within 24 hours. If I say yes, credit it as “Image: U Scale (uscale.in)”.</p>
     </div>
@@ -637,6 +653,9 @@ HUB_FAQ = [
      'Monthly services run for 3 months minimum, then month-to-month with 30 days’ notice.'),
     ('Who does the work?', 'Mehul Karotra, personally. If a project needs a specialist like a photographer, he brings them in and '
      'stays your single point of contact.'),
+    ('Are there any hidden charges?', 'No. Every price is published on the pricing page and agreed in writing before work starts. A website’s only other costs, '
+     'such as the yearly domain and hosting paid to your provider in your name, are listed upfront, and ad spend is paid by you to Google or Meta directly. '
+     'No GST is charged right now.'),
 ]
 
 
@@ -699,6 +718,7 @@ def services_hub(ctx, parts):
         <h2 class="h2" id="by-title" data-split>Websites by business type and area.</h2>
       </header>
       {__import__('geo_pages').related_html()}
+      {__import__('growth_pages').hub_cards()}
     </div>
   </section>
 

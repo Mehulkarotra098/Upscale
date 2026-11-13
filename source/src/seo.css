@@ -8,8 +8,15 @@
 .footer__svc ul{list-style:none;margin:0;padding:0;display:flex;flex-wrap:wrap;gap:8px 20px}
 .footer__svc a{font:500 13.5px/1.4 var(--sans);color:rgba(201,188,232,.85);text-decoration:none}
 .footer__svc a:hover{color:var(--white);text-decoration:underline;text-underline-offset:3px}
+/* the service, tool and page links sit in four labelled columns (two on phones) instead of one long wrapped row */
+.footer__cols{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:26px clamp(18px,3vw,48px);padding-block:14px 26px;border-top:1px solid rgba(201,188,232,.14)}
+.footer__cols ul{display:grid;gap:9px}
+.footer__k{margin:0 0 12px;font:600 13.5px/1.4 var(--sans);color:var(--white)}
+.footer__areas{padding-top:0}
+.footer__areas-k{font:600 13.5px/1.4 var(--sans);color:var(--white)}
+@media (max-width:899px){.footer__cols{grid-template-columns:repeat(2,minmax(0,1fr))}}
 /* phones: each footer link gets a finger-sized tap area */
-@media (max-width:559px){.footer__svc ul{gap:0 18px}.footer__svc a{display:inline-block;padding-block:10px}}
+@media (max-width:559px){.footer__svc ul{gap:0 18px}.footer__svc a{display:inline-block;padding-block:10px}.footer__areas-k{flex-basis:100%;padding-top:10px}.footer__cols{gap:18px 16px}.footer__cols ul{gap:0}.footer__k{margin-bottom:4px}}
 
 .sp-hero{position:relative;isolation:isolate;overflow:hidden;background:var(--violet);color:var(--white);border-radius:var(--radius-panel);padding:clamp(28px,5vw,72px) clamp(22px,5vw,76px) clamp(30px,4.6vw,64px);display:grid;gap:clamp(16px,2vw,24px);justify-items:start}
 .sp-hero::before{content:"";position:absolute;right:-18%;top:-55%;width:min(80vw,900px);aspect-ratio:1;border-radius:50%;background:radial-gradient(closest-side,rgba(201,188,232,.26),rgba(201,188,232,0));z-index:-1;pointer-events:none}
@@ -275,7 +282,7 @@ html.pin-ok .sp-process .step{opacity:1;transform:none}
 .sp-facts--wide th{width:30%}
 .sp-prose>*:not(.sec-head){max-width:860px}
 .sp-prose>p{margin:0 0 16px;font-size:clamp(16px,1.3vw,18px);line-height:1.7;color:var(--body)}
-.sp-prose>h3{margin:clamp(26px,3vw,40px) 0 12px;font:700 18px/1.3 var(--sans);color:var(--violet)}
+.sp-prose>h3,.sp-prose>h2:not(.sp-h2):not(.h2){margin:clamp(26px,3vw,40px) 0 12px;font:700 18px/1.3 var(--sans);letter-spacing:-.01em;text-transform:none;color:var(--violet)}
 .sp-list{list-style:none;margin:0;padding:0;display:grid;gap:10px}
 .sp-list li{font-size:16px;line-height:1.5;color:var(--body)}
 .sp-list--work span{color:var(--body);font-size:14px}
@@ -599,7 +606,7 @@ html.pin-ok .sp-process .step{opacity:1;transform:none}
   .fp-table thead{display:table-header-group}
   .fp-table tr{display:table-row;padding:0}
   .fp-table th,.fp-table td{display:table-cell;padding:14px 18px;text-align:left;vertical-align:top;border-top:1px solid var(--line-light)}
-  .fp-table thead th{border-top:0;background:var(--violet);color:var(--white);font:700 12px/1.4 var(--sans);letter-spacing:.08em;text-transform:uppercase}
+  .fp-table thead th,.fp-table thead td{border-top:0;background:var(--violet);color:var(--white);font:700 12px/1.4 var(--sans);letter-spacing:.08em;text-transform:uppercase}
   .fp-table td::before{display:none}
   .fp-table th[scope=row]{font-size:15px}
 }
@@ -1109,6 +1116,8 @@ html.pin-ok .sp-process .step{opacity:1;transform:none}
 /* Services hub: price and link sit at the foot of every card, so they line up across each row. */
 .fp-card:has(>p>.sv-from){display:flex;flex-direction:column}
 .fp-card>p:has(>.sv-from){flex:1 1 auto;display:flex;flex-direction:column}
+/* in the column layout above, the base "align-self:center" would centre the title sideways on phones */
+.fp-card:has(>p>.sv-from)>h3{align-self:flex-start}
 .fp-card>p>.sv-from{margin-top:auto;padding-top:12px}
 /* Two-column link grids: equal heights in a row, and a last odd card sits centred. */
 @media (min-width:760px){
@@ -1120,3 +1129,18 @@ html.pin-ok .sp-process .step{opacity:1;transform:none}
 /* Labels and table cells: no lone last word. */
 .fp-opt dt,.fp-table th{text-wrap:balance}
 .fp-table td,.fp-opt dd{text-wrap:pretty}
+.quote__src{color:var(--violet);font-weight:600;text-decoration:underline;text-underline-offset:3px}
+.quote__src::after{content:"";position:absolute;inset:0;border-radius:inherit}
+.quote:has(.quote__src):hover{border-color:var(--violet)}
+.quote__src:focus-visible{outline:none}
+.quote__src:focus-visible::after{outline:2px solid var(--violet);outline-offset:3px}
+/* phones: the ten "other cities" cards sit two-up as short cards, so the page reaches the FAQ sooner */
+@media (max-width:559px){
+.fp-related--parent ul{grid-template-columns:repeat(2,minmax(0,1fr))}
+.fp-related--parent ul>li{grid-column:span 2}
+.fp-related--parent ul>li.fp-rel-city{grid-column:span 1}
+.fp-rel-city .fp-rel{height:100%;padding:14px;gap:6px}
+.fp-rel-city .fp-rel__d,.fp-rel-city .fp-rel>.fp-ic{display:none}
+.fp-rel-city .fp-rel b{font-size:14.5px;line-height:1.35}
+}
+.tb:focus-visible{outline:2px solid var(--violet);outline-offset:4px;border-radius:var(--radius-card)}
