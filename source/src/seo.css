@@ -1122,3 +1122,8 @@ html.pin-ok .sp-process .step{opacity:1;transform:none}
 /* Labels and table cells: no lone last word. */
 .fp-opt dt,.fp-table th{text-wrap:balance}
 .fp-table td,.fp-opt dd{text-wrap:pretty}
+.quote__src{color:var(--violet);font-weight:600;text-decoration:underline;text-underline-offset:3px}
+.quote__src::after{content:"";position:absolute;inset:0;border-radius:inherit}
+.quote:has(.quote__src):hover{border-color:var(--violet)}
+.quote__src:focus-visible{outline:none}
+.quote__src:focus-visible::after{outline:2px solid var(--violet);outline-offset:3px}
