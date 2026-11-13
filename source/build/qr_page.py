@@ -10,17 +10,20 @@ SLUG = 'qr-code-generator'
 ENTRY_MARK = '__QR_TOOL_ENTRY__'
 
 TITLE = 'Free QR Code Generator: Logo, UPI, WhatsApp, Wi-Fi, Link'
-DESC = ('Make a QR code with your logo and colours for a link, WhatsApp, UPI, Wi-Fi or contact. 100% free, no sign-up, no watermark, and it never expires.')
+DESC = ('Make one QR code or 200 at once, with your logo and colours, for a link, WhatsApp, UPI or Wi-Fi. Free, no sign-up, no watermark, never expires.')
 H1 = 'Free QR code generator'
 LEAD = ('100% free, with no sign-up and no watermark. Make a QR code for a link, contact, WhatsApp, UPI payment or Wi-Fi, choose its shapes and colours, '
         'add your logo, and download it. It never expires.')
 ANSWER = ('The free QR code generator from U Scale makes codes for links, contacts, WhatsApp, UPI payments, Wi-Fi, locations, phone calls, SMS, email and plain text. '
-          'You can change the pattern, eye shapes and colours, add a logo or frame, and download a PNG, a vector SVG or a PDF. '
+          'You can change the pattern, eye shapes and colours, add a logo or frame, and download a PNG, a JPG, a vector SVG or a PDF. '
+          'You can also make up to 200 codes from a list in one go, or print an A4 sheet of one code as stickers. '
           'It checks that each code still scans as you design it. There is no sign-up and no watermark. '
           'Your details stay in your browser, and because the content sits in the code itself, it never expires.')
 FACTS = [('Code types', 'Link, contact, WhatsApp, UPI, Wi-Fi, location, phone, SMS, email, text'),
          ('Design', '12 patterns, 8 eye frames, 6 eye centres, your colours, logo and frame'),
-         ('Downloads', 'PNG up to 4096 px, vector SVG and PDF'),
+         ('Downloads', 'PNG up to 4096 px, JPG, vector SVG and PDF'),
+         ('Many at once', 'Up to 200 codes from a list, as a zip of PNG or SVG files or as A4 sheets'),
+         ('Sticker sheet', 'An A4 PDF of one code, 3 to 9 cm wide, with cut lines'),
          ('Expiry', 'Never. The content is stored in the code itself'),
          ('Cost', '100% free, with no paid version and no limit'),
          ('Sign-up', 'None needed, and no watermark'),
@@ -29,7 +32,7 @@ FACTS = [('Code types', 'Link, contact, WhatsApp, UPI, Wi-Fi, location, phone, S
 STEPS = [('Choose what it opens', 'A link, your contact, a WhatsApp chat, a UPI payment, your Wi-Fi or something else, then fill in the details.'),
          ('Make it yours', 'Pick a quick style or choose the pattern, eyes and colours yourself. Add your logo and a “Scan me” frame if you like.'),
          ('Check it scans', 'The tool scans your design as you work and tells you if a choice stops it working.'),
-         ('Download it', 'A PNG for WhatsApp and the web, an SVG or PDF for printing, or put it straight onto a visiting card.')]
+         ('Download it', 'A PNG or JPG for WhatsApp and the web, an SVG or PDF for printing, an A4 sheet of stickers, or put it straight onto a visiting card.')]
 
 TYPES = [('Link QR code', 'Paste any link: your website, Instagram, Facebook, YouTube, menu, form or PDF. Use a link you plan to keep working.'),
          ('UPI QR code', 'Customers scan it with any UPI app and pay you directly. Type your UPI ID, and leave the amount empty so they can enter it, or fix an amount for a set price.'),
@@ -70,6 +73,9 @@ FAQ = [
     ('How do I make a Wi-Fi QR code?', 'Choose Wi-Fi, then type your network name and password. Guests scan it to join without typing anything. Keep in mind that anyone who can see the code can read the password.'),
     ('What size should a QR code be?', 'Keep it at least 2 cm wide on paper. As a rule of thumb, make it about one tenth of the distance it will be scanned from, and always test a printed copy with your phone.'),
     ('Which file should I use for printing?', 'Use the SVG or PDF. They are vector files, so they stay sharp at any size. Keep the code at least 2 cm wide on paper, and larger if it holds a lot of details or will be scanned from far away.'),
+    ('Can I make many QR codes at once?', 'Yes. Open “Many codes at once” and paste a list with one link, number or UPI ID on each line. You get up to 200 codes in one go, as a zip of PNG or SVG files or as A4 sheets with a name under each code. To name them, copy two columns from Excel or Google Sheets, or type a name, a comma and the link, such as “Table 1, https://yourcafe.in/menu”. Every code uses the style you chose and gets the same scan check. It is free, with no sign-up.'),
+    ('Can I print a sheet of QR code stickers?', 'Yes. Under the downloads, choose how wide each code should be, from 3 cm to 9 cm, and download an A4 PDF filled with your code and light cut lines. At 4 cm wide, one sheet holds 24 plain codes. Print it at 100% size, not “fit to page”, on sticker paper or plain paper.'),
+    ('Can I save my QR code style to use again?', 'Yes. Press “Save this style” and it is kept in your browser, up to 8 styles, so your next code can match. An uploaded logo is not kept, so add it again when you come back.'),
     ('Can I put the QR code on my visiting card?', 'Yes. Press “Put this on a visiting card” and your code opens in the free visiting card maker, with your style already applied.'),
     ('How is this different from the Google review QR code maker?', 'That tool finds your Google review link and makes a printable counter standee. This one makes a general QR code for anything else, with full control over how it looks.'),
 ]

@@ -2,7 +2,7 @@
 // work, so nobody has to hunt through a side panel to change a size or fix a spelling.
 import { useEffect, useRef } from 'preact/hooks';
 import { hasEmoji } from '../core/text.js';
-import { duplicateSelected, removeSelected, reorderSelected, setField, updateElement } from './actions.js';
+import { duplicateSelected, NEW_TEXT, removeSelected, reorderSelected, setField, updateElement } from './actions.js';
 import { activeElements, endTyping, setUi, state } from './store.js';
 
 const Ico = ({ d }) => (
@@ -31,9 +31,13 @@ const ICON = {
 };
 
 /** Keep the bar on screen, above the selection when there's room and below it when there isn't. */
+// The rotate handle sits 40 px above the selection and a finger needs about 30 px to catch it,
+// so the bar stays clear of that spot. It used to sit right on top of the handle.
+const CLEAR_OF_ROTATE = 58;
+
 function place(box, wrap, barH = 44) {
   const W = wrap?.clientWidth ?? 800;
-  const above = box.y - barH - 28;
+  const above = box.y - barH - CLEAR_OF_ROTATE;
   const y = above > 4 ? above : Math.min((wrap?.clientHeight ?? 600) - barH - 4, box.y + box.h + 12);
   const x = Math.max(4, Math.min(W - 4, box.x + box.w / 2));
   return { left: `${x}px`, top: `${y}px` };
@@ -116,7 +120,9 @@ export function InlineText({ t, id, box, wrapRef, templates, close }) {
   useEffect(() => {
     const node = ref.current;
     node?.focus();
-    node?.setSelectionRange(node.value.length, node.value.length);
+    // Fresh placeholder text is selected whole, so the first key replaces it. Real text gets the cursor at its end.
+    if (node?.value === NEW_TEXT) node.select();
+    else node?.setSelectionRange(node.value.length, node.value.length);
     return () => endTyping();
   }, [id]);
   if (!el) return null;

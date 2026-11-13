@@ -179,13 +179,16 @@ function freeSpot(d, itemW, itemH, prefer) {
   );
 }
 
+/** What a newly added text box says until the person types their own. */
+export const NEW_TEXT = 'Your text';
+
 export function addElement(partial) {
   const id = newId(partial.type);
   commit((d) => {
     const { w, h } = cardSize(d);
     const ink = readableInk(d, state.side);
     const defaults = {
-      text: { text: 'Your text', x: w * 0.2, y: h * 0.4, w: w * 0.6, size: 12, weight: 600, font: '$body', fill: ink, minSize: 5.5 },
+      text: { text: NEW_TEXT, x: w * 0.2, y: h * 0.4, w: w * 0.6, size: 12, weight: 600, font: '$body', fill: ink, minSize: 5.5 },
       rect: { x: w * 0.35, y: h * 0.3, w: w * 0.3, h: h * 0.4, fill: ink, r: 0 },
       ellipse: { x: w / 2 - 8, y: h / 2 - 8, w: 16, h: 16, fill: ink },
       line: { x: w * 0.25, y: h / 2, w: w * 0.5, h: 0, stroke: ink, sw: 0.35 },
@@ -214,7 +217,10 @@ export function addElement(partial) {
     }
     d.sides[state.side].elements.push(el);
   });
-  setUi({ selection: [id], sheet: 'edit', sheetOpen: true });
+  // New text is ready to type into straight away on a wide screen. On a phone the edit sheet opens instead,
+  // because the on-card box and the keyboard together would hide the card.
+  const typeNow = partial.type === 'text' && typeof matchMedia === 'function' && matchMedia('(min-width: 900px)').matches;
+  setUi({ selection: [id], sheet: 'edit', sheetOpen: true, editText: typeNow ? id : null });
   return id;
 }
 

@@ -111,3 +111,127 @@ export async function svgsToPdf(pages, libs, { title = 'Card' } = {}) {
     holder.remove();
   }
 }
+
+/** JPG copy of an SVG, on a white ground (JPG has no transparency). */
+export async function svgToJpeg(svg, dpi = 300, quality = 0.92) {
+  const c = await svgToCanvas(svg, dpi);
+  const flat = document.createElement('canvas');
+  flat.width = c.width;
+  flat.height = c.height;
+  const x = flat.getContext('2d');
+  x.fillStyle = '#FFFFFF';
+  x.fillRect(0, 0, flat.width, flat.height);
+  x.drawImage(c, 0, 0);
+  return new Promise((res, rej) => flat.toBlob((b) => (b ? res(b) : rej(new Error('JPG failed'))), 'image/jpeg', quality));
+}
+
+/**
+ * A zip file with no compression. PNG and PDF are already compressed, so storing them as they are keeps this tiny and fast.
+ * files: [{ name, bytes: Uint8Array }]. Names are written as UTF-8.
+ */
+export function zipStore(files) {
+  const enc = new TextEncoder();
+  const parts = [];
+  const central = [];
+  let offset = 0;
+  // A fixed date: zip needs one, and a constant keeps the same input producing the same file.
+  const time = 0;
+  const date = ((2026 - 1980) << 9) | (1 << 5) | 1;
+  for (const f of files) {
+    const name = enc.encode(f.name);
+    const crc = crc32(f.bytes);
+    const local = new Uint8Array(30 + name.length);
+    const lv = new DataView(local.buffer);
+    lv.setUint32(0, 0x04034b50, true);
+    lv.setUint16(4, 20, true);
+    lv.setUint16(6, 0x0800, true); // names are UTF-8
+    lv.setUint16(8, 0, true); // stored
+    lv.setUint16(10, time, true);
+    lv.setUint16(12, date, true);
+    lv.setUint32(14, crc, true);
+    lv.setUint32(18, f.bytes.length, true);
+    lv.setUint32(22, f.bytes.length, true);
+    lv.setUint16(26, name.length, true);
+    local.set(name, 30);
+    const head = new Uint8Array(46 + name.length);
+    const hv = new DataView(head.buffer);
+    hv.setUint32(0, 0x02014b50, true);
+    hv.setUint16(4, 20, true);
+    hv.setUint16(6, 20, true);
+    hv.setUint16(8, 0x0800, true);
+    hv.setUint16(10, 0, true);
+    hv.setUint16(12, time, true);
+    hv.setUint16(14, date, true);
+    hv.setUint32(16, crc, true);
+    hv.setUint32(20, f.bytes.length, true);
+    hv.setUint32(24, f.bytes.length, true);
+    hv.setUint16(28, name.length, true);
+    hv.setUint32(42, offset, true);
+    head.set(name, 46);
+    parts.push(local, f.bytes);
+    central.push(head);
+    offset += local.length + f.bytes.length;
+  }
+  const size = central.reduce((n, c) => n + c.length, 0);
+  const end = new Uint8Array(22);
+  const ev = new DataView(end.buffer);
+  ev.setUint32(0, 0x06054b50, true);
+  ev.setUint16(8, files.length, true);
+  ev.setUint16(10, files.length, true);
+  ev.setUint32(12, size, true);
+  ev.setUint32(16, offset, true);
+  return new Blob([...parts, ...central, end], { type: 'application/zip' });
+}
+
+/** How many tiles of a given width fit on an A4 page, and where each one goes (all in mm). */
+export function a4Grid(tileW, tileH, { margin = 10, gap = 4, caption = 0 } = {}) {
+  const cols = Math.max(1, Math.floor((210 - 2 * margin + gap) / (tileW + gap)));
+  const rows = Math.max(1, Math.floor((297 - 2 * margin + gap) / (tileH + caption + gap)));
+  const left = (210 - (cols * tileW + (cols - 1) * gap)) / 2;
+  const top = (297 - (rows * (tileH + caption) + (rows - 1) * gap)) / 2;
+  const cells = [];
+  for (let r = 0; r < rows; r++)
+    for (let c = 0; c < cols; c++) cells.push({ x: left + c * (tileW + gap), y: top + r * (tileH + caption + gap) });
+  return { cols, rows, perPage: cols * rows, cells };
+}
+
+/**
+ * A4 pages of codes to print and cut. items: [{ svg, caption? }], laid out left to right, top to bottom, as many pages as
+ * they need. Every tile is drawn as vector art, with a light dashed cut line around it.
+ */
+export async function svgTilesToPdf(items, libs, { tileW = 40, title = 'QR codes', captions = false } = {}) {
+  const { jsPDF, svg2pdf } = libs;
+  const first = mmFromSvg(items[0].svg);
+  const tileH = (tileW * first.h) / first.w;
+  const caption = captions ? 6 : 0;
+  const grid = a4Grid(tileW, tileH, { caption });
+  const doc = new jsPDF({ unit: 'pt', format: 'a4', orientation: 'portrait', compress: true });
+  const holder = document.createElement('div');
+  holder.style.cssText = 'position:absolute;left:-9999px;top:0;visibility:hidden';
+  document.body.appendChild(holder);
+  try {
+    for (let i = 0; i < items.length; i++) {
+      const slot = i % grid.perPage;
+      if (i && slot === 0) doc.addPage('a4', 'portrait');
+      const { x, y } = grid.cells[slot];
+      const el = new DOMParser().parseFromString(items[i].svg, 'image/svg+xml').documentElement;
+      holder.replaceChildren(el);
+      await svg2pdf(el, doc, { x: x * MM, y: y * MM, width: tileW * MM, height: tileH * MM });
+      doc.setDrawColor(170);
+      doc.setLineWidth(0.4);
+      doc.setLineDashPattern([2, 2], 0);
+      doc.rect((x - 2) * MM, (y - 2) * MM, (tileW + 4) * MM, (tileH + caption + 4) * MM);
+      doc.setLineDashPattern([], 0);
+      if (captions && items[i].caption) {
+        doc.setFont('helvetica', 'bold');
+        doc.setFontSize(Math.max(6, Math.min(9, tileW / 4.5)));
+        doc.setTextColor(40);
+        doc.text(items[i].caption, (x + tileW / 2) * MM, (y + tileH + 4.2) * MM, { align: 'center', maxWidth: tileW * MM });
+      }
+    }
+    doc.setProperties({ title, creator: 'U Scale free QR code generator (uscale.in/tools)' });
+    return new Blob([doc.output('arraybuffer')], { type: 'application/pdf' });
+  } finally {
+    holder.remove();
+  }
+}

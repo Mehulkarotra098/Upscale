@@ -20,7 +20,7 @@ import {
   setField,
   updateElement,
 } from './actions.js';
-import { activeElements, commit, endTyping, setUi, state } from './store.js';
+import { activeElements, commit, endTyping, setUi, STANDEE, state } from './store.js';
 
 const FIELD_ROWS = [
   ['name', 'Name', 'Your full name', 'text'],
@@ -315,11 +315,65 @@ export function TemplatesPanel({ t, templates, instantiate, engine }) {
   );
 }
 
+/** Colours the whole card from the uploaded logo. The code for it loads on the first click. */
+function BrandMatch({ t }) {
+  const doc = state.doc;
+  const [found, setFound] = useState(null);
+  const [busy, setBusy] = useState(false);
+  if (!doc.fields?.logo) {
+    return (
+      <>
+        <h2>{t('Match my logo')}</h2>
+        <p class="ce-sub">{t('Upload your logo in Details. Then one tap colours the whole card to match it.')}</p>
+      </>
+    );
+  }
+  const run = async () => {
+    setBusy(true);
+    try {
+      const { logoColours, matchPalette } = await import('./extras.js');
+      const cols = await logoColours(doc.fields.logo);
+      setFound(cols);
+      if (cols.length)
+        commit((d) => {
+          d.palette = matchPalette(d.palette, cols);
+        });
+    } catch {
+      setFound([]);
+    }
+    setBusy(false);
+  };
+  return (
+    <>
+      <h2>{t('Match my logo')}</h2>
+      <button class="ce-btn ce-logomatch" disabled={busy} onClick={run}>
+        <img src={doc.fields.logo} alt="" />
+        <span>{busy ? `${t('Working')}…` : t('Use my logo’s colours')}</span>
+        {found?.length ? (
+          <span class="ce-logomatch__sw" aria-hidden="true">
+            {found.map((c) => (
+              <i key={c} style={{ background: c }} />
+            ))}
+          </span>
+        ) : null}
+      </button>
+      <p class="ce-sub" role="status">
+        {found === null
+          ? t('Text stays as readable as before: only the colours change. Undo brings the old colours back.')
+          : found.length
+            ? t('Done. Text is as readable as before. Tap Undo if you liked the old colours more.')
+            : t('This logo is black, white or grey, so there is no colour to take from it. Pick your colours below.')}
+      </p>
+    </>
+  );
+}
+
 export function ColoursPanel({ t, templates }) {
   const doc = state.doc;
   const tpl = templates?.find((x) => x.id === doc.template);
   return (
     <div class="ce-panel">
+      <BrandMatch t={t} />
       {tpl ? (
         <>
           <h2>{t('Colour sets')}</h2>
@@ -601,26 +655,28 @@ export function PropertiesPanel({ t, templates, engine }) {
           doc={doc}
           onChange={(v) => commit((d) => void (d.sides[state.side].background = v))}
         />
-        <label class="ce-field">
-          <span>{t('Card size')}</span>
-          <select
-            value={
-              CARD_SIZES.find((s) => {
-                const c = cardSize(doc);
-                return (
-                  (Math.abs(s.w - c.w) < 0.01 && Math.abs(s.h - c.h) < 0.01) || (Math.abs(s.w - c.h) < 0.01 && Math.abs(s.h - c.w) < 0.01)
-                );
-              })?.id
-            }
-            onChange={(e) => setCardSize(CARD_SIZES.find((s) => s.id === e.target.value))}
-          >
-            {CARD_SIZES.map((s) => (
-              <option key={s.id} value={s.id}>
-                {s.label}
-              </option>
-            ))}
-          </select>
-        </label>
+        {STANDEE ? null : (
+          <label class="ce-field">
+            <span>{t('Card size')}</span>
+            <select
+              value={
+                CARD_SIZES.find((s) => {
+                  const c = cardSize(doc);
+                  return (
+                    (Math.abs(s.w - c.w) < 0.01 && Math.abs(s.h - c.h) < 0.01) || (Math.abs(s.w - c.h) < 0.01 && Math.abs(s.h - c.w) < 0.01)
+                  );
+                })?.id
+              }
+              onChange={(e) => setCardSize(CARD_SIZES.find((s) => s.id === e.target.value))}
+            >
+              {CARD_SIZES.map((s) => (
+                <option key={s.id} value={s.id}>
+                  {s.label}
+                </option>
+              ))}
+            </select>
+          </label>
+        )}
         <div class="ce-field">
           <span>{t('Gradient')}</span>
           <div class="ce-row ce-row--tight">

@@ -175,6 +175,22 @@ const HL = {
   'Add crop marks': 'Crop marks lagayein',
   'Include 3 mm bleed': '3 mm bleed shamil karein',
   Close: 'Band karein',
+  'Match my logo': 'Logo se match karein',
+  'Upload your logo in Details. Then one tap colours the whole card to match it.':
+    'Details me apna logo upload karein. Phir ek tap me poora card usi ke rang ka ho jayega.',
+  'Use my logo’s colours': 'Mere logo ke colours lagayein',
+  'Text stays as readable as before: only the colours change. Undo brings the old colours back.':
+    'Text pehle jitna hi saaf rahega: sirf colours badlenge. Undo se purane colours wapas aa jayenge.',
+  'Done. Text is as readable as before. Tap Undo if you liked the old colours more.':
+    'Ho gaya. Text pehle jitna hi saaf hai. Purane colours zyada pasand the to Undo dabayein.',
+  'This logo is black, white or grey, so there is no colour to take from it. Pick your colours below.':
+    'Ye logo kala, safed ya grey hai, isliye isse koi rang nahi mil sakta. Neeche apne colours chunein.',
+  'Share this side': 'Ye side share karein',
+  'A photo of your card': 'Aapke card ki photo',
+  'Both sides laid out on a soft background in your card’s colours, ready to post.':
+    'Dono sides aapke card ke rangon wale background par, post karne ke liye taiyaar.',
+  'Square photo': 'Square photo',
+  'Tall photo for Status': 'Status ke liye lambi photo',
   Working: 'Ban raha hai',
 };
 

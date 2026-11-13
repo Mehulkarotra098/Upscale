@@ -2,11 +2,12 @@
 // and the codes hold their content directly, so they never expire and nothing can track who scans them.
 import { render } from 'preact';
 import { useEffect, useMemo, useRef, useState } from 'preact/hooks';
-import { svgToCanvas, svgToPng, svgsToPdf } from '../core/export.js';
+import { a4Grid, svgTilesToPdf, svgToCanvas, svgToJpeg, svgToPng, svgsToPdf, zipStore } from '../core/export.js';
 import { ICONS } from '../core/icons.js';
 import { BALL_SHAPES, ballPath, BODY_SHAPES, bodyPath, FRAME_SHAPES, framePath, logoShare } from '../core/qr.js';
 import { fontsUsed, resolveSide, sideToSvg } from '../core/render.js';
 import { TextEngine } from '../core/text.js';
+import { parseBulk } from './bulk.js';
 
 const engine = new TextEngine(async (file) => {
   const r = await fetch(`/assets/card/fonts/${file}`);
@@ -99,6 +100,15 @@ const HL = {
   'Test it with your own phone before you print a lot of copies.': 'Zyada copies print karne se pehle apne phone se test karein.',
   'The pattern changes as you type, because the code holds what you type.':
     'Likhne par pattern badalta hai, kyunki code me wahi likha hota hai.',
+  'My styles': 'Mere styles',
+  'Save this style': 'Ye style save karein',
+  'Many codes at once': 'Ek saath kai codes',
+  'One per line. Paste from Excel or Google Sheets, or type a name, a comma, then the link.':
+    'Har line me ek. Excel ya Google Sheets se paste karein, ya naam, comma, phir link likhein.',
+  'Make all codes': 'Sabhi codes banayein',
+  'Print many copies': 'Kai copies print karein',
+  'A4 sheet (PDF)': 'A4 sheet (PDF)',
+  'Put each name on the frame label': 'Har naam frame ke label par likhein',
 };
 
 const KINDS = [
@@ -182,6 +192,52 @@ const PRESETS = [
   ['Bars', { body: 'vbars', frame: 'rounded', ball: 'rounded', c1: '#8A2A0B' }],
 ];
 const STYLE_KEYS = ['body', 'frame', 'ball', 'c1', 'c2', 'gradient', 'frameC', 'ballC'];
+// A saved style also keeps the background, frame and centre icon. An uploaded logo is too big to keep in the browser's store.
+const SAVED_KEYS = [...STYLE_KEYS, 'bg', 'clear', 'outer', 'outerC', 'icon', 'logoSize'];
+const SAVED_MAX = 8;
+const HEX = /^#[0-9a-f]{6}$/i;
+
+function readStyles() {
+  try {
+    const list = JSON.parse(localStorage.getItem('us-qr-styles') || '[]');
+    if (!Array.isArray(list)) return [];
+    return list
+      .filter((x) => x && typeof x === 'object')
+      .slice(0, SAVED_MAX)
+      .map((x) => {
+        const out = {};
+        for (const k of SAVED_KEYS) {
+          const v = x[k];
+          if (
+            ['c1', 'c2', 'bg', 'outerC'].includes(k) ? HEX.test(v) : ['frameC', 'ballC'].includes(k) ? v === '' || HEX.test(v) : v != null
+          )
+            out[k] = v;
+        }
+        out.logo = x.logo === 'icon' ? 'icon' : null;
+        return out;
+      });
+  } catch {
+    return [];
+  }
+}
+
+// Types with one main value, so a list can supply that value line by line. A contact has many fields, so it is left out.
+const BULK_KINDS = new Set(['link', 'text', 'phone', 'whatsapp', 'upi', 'maps', 'sms', 'email']);
+const BULK_MAX = 200;
+const SHEET_WIDTHS = [30, 40, 50, 60, 90];
+
+const fileSlug = (text) =>
+  String(text)
+    .toLowerCase()
+    .replace(/^https?:\/\//, '')
+    .replace(/[^a-z0-9]+/g, '-')
+    .replace(/^-|-$/g, '')
+    .slice(0, 40) || 'code';
+// The sheet's captions use a built-in PDF font, which only has Latin letters.
+const latin = (text) =>
+  String(text)
+    .replace(/[^\x20-\x7E\xA0-\xFF]/g, '')
+    .trim();
 
 const FRAMES = [
   ['none', 'None'],
@@ -438,12 +494,17 @@ function App() {
     }
     return START;
   });
-  const [open, setOpen] = useState({ 1: true, 2: true, 3: false, 4: false });
+  const [open, setOpen] = useState({ 1: true, 2: true, 3: false, 4: false, 5: false });
   const [preview, setPreview] = useState('');
   const [scan, setScan] = useState('wait');
   const [warnings, setWarnings] = useState([]);
   const [busy, setBusy] = useState('');
   const [note, setNote] = useState('');
+  const [styles, setStyles] = useState(readStyles);
+  const [bulk, setBulk] = useState('');
+  const [bulkNames, setBulkNames] = useState(true);
+  const [bulkNote, setBulkNote] = useState('');
+  const [sheetW, setSheetW] = useState(40);
   const latest = useRef({ svg: '', payload: '', size: null });
   const outRef = useRef(null);
   const toolRef = useRef(null);
@@ -540,12 +601,107 @@ function App() {
     try {
       if (type === 'svg') save(new Blob([svg], { type: 'image/svg+xml' }), 'qr-code.svg');
       if (type === 'png') save(await svgToPng(svg, (s.png / Math.max(size.w, size.h)) * 25.4), `qr-code-${s.png}px.png`);
+      if (type === 'jpg') save(await svgToJpeg(svg, (s.png / Math.max(size.w, size.h)) * 25.4), `qr-code-${s.png}px.jpg`);
       if (type === 'pdf') {
         const [{ jsPDF }, { svg2pdf }] = await Promise.all([import('jspdf'), import('svg2pdf.js')]);
         save(await svgsToPdf([{ svg }], { jsPDF, svg2pdf }, { title: 'QR code' }), 'qr-code.pdf');
       }
+      if (type === 'sheet') {
+        const [{ jsPDF }, { svg2pdf }] = await Promise.all([import('jspdf'), import('svg2pdf.js')]);
+        const n = a4Grid(sheetW, (sheetW * size.h) / size.w).perPage;
+        const items = Array.from({ length: n }, () => ({ svg }));
+        save(await svgTilesToPdf(items, { jsPDF, svg2pdf }, { tileW: sheetW, title: 'QR code sheet' }), `qr-code-a4-sheet-${n}.pdf`);
+      }
     } catch {
       setNote('That download did not work. Please try again, or open this page in Chrome or Safari.');
+    }
+    setBusy('');
+  };
+
+  const keepStyles = (list) => {
+    setStyles(list);
+    try {
+      localStorage.setItem('us-qr-styles', JSON.stringify(list));
+    } catch {
+      /* Saved styles are only a convenience. */
+    }
+  };
+  const saveStyle = () => {
+    const mine = Object.fromEntries(SAVED_KEYS.map((k) => [k, s[k]]));
+    mine.logo = s.logo === 'icon' ? 'icon' : null;
+    const same = (a) => SAVED_KEYS.every((k) => a[k] === mine[k]) && a.logo === mine.logo;
+    keepStyles([mine, ...styles.filter((a) => !same(a))].slice(0, SAVED_MAX));
+  };
+  const styleThumb = (style) =>
+    `data:image/svg+xml;base64,${btoa(
+      sideToSvg(toDoc({ ...START, ...style, label: '', input: { link: { value: 'uscale.in' } }, kind: 'link' }), 'front', engine, {
+        bleed: false,
+      }).svg,
+    )}`;
+
+  const bulkRows = useMemo(() => parseBulk(bulk, s.kind), [bulk, s.kind]);
+  const makeBulk = async (format) => {
+    const rows = bulkRows.slice(0, BULK_MAX);
+    if (!rows.length) return;
+    setBusy('bulk');
+    setBulkNote('');
+    try {
+      const useNames = bulkNames && s.outer !== 'none';
+      const made = [];
+      const unread = [];
+      let skipped = 0;
+      for (const [i, row] of rows.entries()) {
+        const doc = toDoc({
+          ...s,
+          label: useNames && row.name ? row.name.slice(0, 32) : s.label,
+          input: { ...s.input, [s.kind]: { ...(s.input[s.kind] ?? {}), value: row.value } },
+        });
+        if (i === 0 && s.outer !== 'none') await engine.ensure(fontsUsed(doc));
+        const qr = resolveSide(doc, 'front', engine).ops.find((o) => o.qr);
+        if (!qr) {
+          skipped++;
+          continue;
+        }
+        const { svg } = sideToSvg(doc, 'front', engine, { bleed: false });
+        // Each code holds different text, so each one gets the same scan check as the code on screen.
+        setBulkNote(`Checking ${i + 1} of ${rows.length}…`);
+        if (!(await scanOk(svg, qr.qr.payload, Math.max(doc.size.w, doc.size.h)))) unread.push(i + 1);
+        made.push({ svg, size: doc.size, name: row.name, file: `${String(i + 1).padStart(3, '0')}-${fileSlug(row.name || row.value)}` });
+      }
+      if (!made.length) throw new Error('none');
+      const px = Math.min(s.png, 2048);
+      if (format === 'pdf') {
+        const [{ jsPDF }, { svg2pdf }] = await Promise.all([import('jspdf'), import('svg2pdf.js')]);
+        const items = made.map((m, i) => ({ svg: m.svg, caption: latin(m.name) || String(i + 1) }));
+        save(
+          await svgTilesToPdf(items, { jsPDF, svg2pdf }, { tileW: sheetW, title: 'QR codes', captions: true }),
+          `qr-codes-a4-${made.length}.pdf`,
+        );
+      } else {
+        const files = [];
+        for (const [i, m] of made.entries()) {
+          setBulkNote(`Making ${i + 1} of ${made.length}…`);
+          const blob =
+            format === 'svg'
+              ? new Blob([m.svg], { type: 'image/svg+xml' })
+              : await svgToPng(m.svg, (px / Math.max(m.size.w, m.size.h)) * 25.4);
+          files.push({ name: `${m.file}.${format}`, bytes: new Uint8Array(await blob.arrayBuffer()) });
+          // Let the page breathe, so the count above is seen and the tab stays responsive.
+          if (i % 5 === 4) await new Promise((r) => setTimeout(r, 0));
+        }
+        save(zipStore(files), `qr-codes-${made.length}.zip`);
+      }
+      const skippedNote = skipped
+        ? ` ${skipped} ${skipped === 1 ? 'line was' : 'lines were'} skipped because nothing could be made from ${skipped === 1 ? 'it' : 'them'}.`
+        : '';
+      const unreadNote = unread.length
+        ? ` Line${unread.length === 1 ? '' : 's'} ${unread.slice(0, 12).join(', ')}${unread.length > 12 ? ' and more' : ''} did not pass the scan check with this style. Pick a simpler pattern or a darker colour, then make ${unread.length === 1 ? 'it' : 'them'} again.`
+        : ' Every code passed the scan check.';
+      setBulkNote(
+        `${made.length} ${made.length === 1 ? 'code' : 'codes'} made.${skippedNote}${unreadNote} Test a few with your phone before you print.`,
+      );
+    } catch {
+      setBulkNote('That did not work. Check the list, then try again, or open this page in Chrome or Safari.');
     }
     setBusy('');
   };
@@ -669,6 +825,31 @@ function App() {
                 </button>
               ))}
             </div>
+          </div>
+          <div class="qt-field">
+            <span>{t('My styles')}</span>
+            <div class="qt-mystyles">
+              {styles.map((style, i) => (
+                <span class="qt-mine" key={i}>
+                  <button type="button" aria-label={`Use saved style ${i + 1}`} onClick={() => set({ ...style })}>
+                    <img src={styleThumb(style)} alt="" width="64" height="64" />
+                  </button>
+                  <button
+                    type="button"
+                    class="qt-mine__x"
+                    aria-label={`Remove saved style ${i + 1}`}
+                    onClick={() => keepStyles(styles.filter((_, j) => j !== i))}
+                  >
+                    ×
+                  </button>
+                </span>
+              ))}
+              <button type="button" class="qt-mine__add" onClick={saveStyle}>
+                <b aria-hidden="true">+</b>
+                {t('Save this style')}
+              </button>
+            </div>
+            <p class="qt-note">Saved in this browser, so your next code can match. Up to {SAVED_MAX} styles.</p>
           </div>
           <ShapeGrid
             label={t('Pattern')}
@@ -800,6 +981,74 @@ function App() {
             </>
           ) : null}
         </Section>
+        <Section n="5" title={t('Many codes at once')} open={open[5]} onToggle={() => setOpen({ ...open, 5: !open[5] })}>
+          {BULK_KINDS.has(s.kind) ? (
+            <>
+              <label class="qt-input">
+                <span>
+                  {t(KINDS.find(([k]) => k === s.kind)[1])}:{' '}
+                  {t('One per line. Paste from Excel or Google Sheets, or type a name, a comma, then the link.')}
+                </span>
+                <textarea
+                  class="qt-bulk"
+                  rows="6"
+                  value={bulk}
+                  placeholder={
+                    s.kind === 'link' ? 'Table 1, https://yourcafe.in/menu?t=1\nTable 2, https://yourcafe.in/menu?t=2' : 'One on each line'
+                  }
+                  onInput={(e) => setBulk(e.target.value)}
+                />
+              </label>
+              <p class="qt-note">
+                {bulkRows.length
+                  ? `${Math.min(bulkRows.length, BULK_MAX)} ${bulkRows.length === 1 ? 'code' : 'codes'} ready.${bulkRows.length > BULK_MAX ? ` Only the first ${BULK_MAX} are made in one go.` : ''}`
+                  : `Every code uses the style, colours, logo and frame you chose above. Up to ${BULK_MAX} at a time, free.`}
+              </p>
+              {s.outer !== 'none' ? (
+                <label class="qt-check">
+                  <input type="checkbox" checked={bulkNames} onChange={(e) => setBulkNames(e.target.checked)} />
+                  {t('Put each name on the frame label')}
+                </label>
+              ) : null}
+              <div class="qt-bulkgo">
+                <button
+                  type="button"
+                  class="btn btn--go"
+                  disabled={!bulkRows.length || !!busy || scan === 'bad'}
+                  onClick={() => makeBulk('png')}
+                >
+                  {busy === 'bulk' ? t('Making…') : `${t('Make all codes')} (PNG, zip)`}
+                </button>
+                <button
+                  type="button"
+                  class="btn btn--ghost-dark"
+                  disabled={!bulkRows.length || !!busy || scan === 'bad'}
+                  onClick={() => makeBulk('svg')}
+                >
+                  SVG
+                </button>
+                <button
+                  type="button"
+                  class="btn btn--ghost-dark"
+                  disabled={!bulkRows.length || !!busy || scan === 'bad'}
+                  onClick={() => makeBulk('pdf')}
+                >
+                  {t('A4 sheet (PDF)')}
+                </button>
+              </div>
+              {bulkNote ? (
+                <p class="qt-note" role="status">
+                  {bulkNote}
+                </p>
+              ) : null}
+            </>
+          ) : (
+            <p class="qt-note">
+              A list works for links, WhatsApp numbers, UPI IDs, phone numbers, locations, SMS, email and text. Pick one of those above
+              first. A contact or Wi-Fi code holds several details, so make those one at a time.
+            </p>
+          )}
+        </Section>
         <span ref={endRef} class="qt-end" aria-hidden="true" />
       </div>
       {outOfView && inTool && !pastEnd && preview ? (
@@ -847,6 +1096,25 @@ function App() {
           </button>
           <button type="button" class="btn btn--ghost-dark" disabled={scan === 'empty' || !!busy} onClick={() => download('pdf')}>
             {busy === 'pdf' ? t('Making…') : 'PDF'}
+          </button>
+        </div>
+        <div class="qt-sheet">
+          <span>{t('Print many copies')}</span>
+          <select aria-label="Size of each code on the sheet" value={sheetW} onChange={(e) => setSheetW(Number(e.target.value))}>
+            {SHEET_WIDTHS.map((w) => {
+              const size = latest.current.size ?? { w: 60, h: 60 };
+              return (
+                <option key={w} value={w}>
+                  {w / 10} cm wide, {a4Grid(w, (w * size.h) / size.w).perPage} on a sheet
+                </option>
+              );
+            })}
+          </select>
+          <button type="button" class="btn btn--ghost-dark" disabled={scan === 'empty' || !!busy} onClick={() => download('sheet')}>
+            {busy === 'sheet' ? t('Making…') : t('A4 sheet (PDF)')}
+          </button>
+          <button type="button" class="btn btn--ghost-dark" disabled={scan === 'empty' || !!busy} onClick={() => download('jpg')}>
+            {busy === 'jpg' ? t('Making…') : 'JPG'}
           </button>
         </div>
         <button type="button" class="qt-tocard" disabled={scan === 'empty'} onClick={toCard}>

@@ -529,13 +529,16 @@ TOOL = dict(slug='google-review-qr-code',
   title='Google Review QR Code Maker: Free, With Printable Standee',
   desc='Find your Google review link in 30 seconds, even without owner access, then download a QR code, a printable standee and WhatsApp messages. Free, no sign-up.',
   h1='Free Google review link & QR code maker',
-  lead='Find your Google review link in 30 seconds, even if you don\u2019t manage the Google profile. Then download a QR code, a counter standee in 6 designs and ready WhatsApp messages in English or Hinglish. Free, no sign-up.',
+  lead='Find your Google review link in 30 seconds, even if you don\u2019t manage the Google profile. Then download a QR code, a counter standee in 6 designs and ready WhatsApp messages in English, Hinglish, Hindi or Marathi. Free, no sign-up.',
   faq=[('What is a Google review link?','It is a link that opens the "write a review" box for your business on Google, so customers can leave a review in one tap instead of searching for you first.'),
        ('How do I get my Google review link if I don\u2019t manage the Google profile?','Open Google Maps, search your business, tap Share and then Copy link. Paste that link into this tool. It finds your business and turns it into a direct review link, no owner access needed. This works for staff, family members and agencies too.'),
        ('Where do business owners find the review link?','On a computer, open business.google.com (or search your business name on Google while signed in), click Read reviews, then Get more reviews, and copy the link. It looks like g.page/r/\u2026/review.'),
        ('Is this tool really free?','Yes. There is no sign-up and nothing to pay to remove. Your business name, logo and wording stay in your browser. Only a short Google Maps link is checked once on the U Scale server to find your business, and nothing is stored.'),
        ('Can I offer a discount or gift for a Google review?','No. Google does not allow rewards, discounts or gifts in exchange for reviews, or asking only happy customers. Ask every customer for an honest review instead. This tool warns you if your wording looks like an incentive.'),
-       ('What size should I print the QR code?','Keep the QR code at least 3 cm wide. The A6 standee prints with the QR code about 4 cm wide (4 per A4 sheet), the square table sticker prints 6 per A4 sheet, and the WhatsApp Status size is for sharing on your phone.'),
+       ('What size should I print the QR code?','Keep the QR code at least 3 cm wide. The A6 standee prints with the QR code about 4 cm wide (4 per A4 sheet), the square table sticker prints 6 per A4 sheet, the A5 wall poster prints one per A4 sheet, and the WhatsApp Status size is for sharing on your phone.'),
+       ('Can I make the review standee in Hindi or Marathi?','Yes. Under “Choose the wording”, pick English, Hinglish, हिंदी or मराठी. The headline, the line under it and the three WhatsApp messages change to that language, and Hindi and Marathi print in proper Devanagari letters. You can also write your own headline in any language.'),
+       ('Can I change the layout of the standee myself?','Yes. Press “Edit everything freely” and the design opens in the full editor. There you can move, resize or turn any part, change the fonts and colours, and add your own photos, icons, shapes and text, then download a PNG, an SVG or a print PDF. It is saved in your browser, apart from any visiting card you are making.'),
+       ('Can I add my logo to the review standee?','Yes. Choose a PNG, JPG, WebP or SVG file. The logo keeps its own shape, you can make it small, medium or large, and you can switch off the white box behind it if your logo is white or light. It stays in your browser for next time and is never uploaded.'),
        ('Will the QR code stop working?','No. It is a plain QR code of your Google review link, with no redirect through uscale.in, so it keeps working as long as your business is on Google.'),
        ('Can I add my logo and brand colours?','Yes. Upload your logo, pick one of 10 colour themes or your own brand colour, and choose from 6 designs: Classic, Split, Card, Festive, Minimal and Bold.')])
 
@@ -665,7 +668,7 @@ def tool_page(ctx, parts, tv):
     tpls = ''.join(f'<button type="button" class="rq-tpl" data-rq-tpl="{k}" aria-pressed="false" aria-label="{n}"><canvas aria-hidden="true"></canvas><span>{n}</span></button>'
                    for k, n in [('classic', 'Classic'), ('split', 'Split'), ('card', 'Card'), ('festive', 'Festive'), ('minimal', 'Minimal'), ('bold', 'Bold')])
     formats = ''.join(f'<button type="button" class="rq-fmt" data-rq-format="{k}" aria-pressed="false"><i class="rq-fmt__i rq-fmt__i--{k}" aria-hidden="true"></i><b>{n}</b><small>{d}</small></button>'
-                      for k, n, d in [('a6', 'Counter standee', 'A6 \u00b7 4 per A4'), ('square', 'Table sticker', 'Square \u00b7 6 per A4'), ('story', 'WhatsApp Status', 'Phone \u00b7 1080\u00d71920')])
+                      for k, n, d in [('a6', 'Counter standee', 'A6 \u00b7 4 per A4'), ('square', 'Table sticker', 'Square \u00b7 6 per A4'), ('story', 'WhatsApp Status', 'Phone \u00b7 1080\u00d71920'), ('a5', 'Wall poster', 'A5 \u00b7 1 per A4')])
     body = '''
   <div class="wrap hero-shell">
     <section class="sp-hero rq-hero on-dark" data-tone="dark" aria-labelledby="page-title">
@@ -714,13 +717,18 @@ def tool_page(ctx, parts, tv):
           <div class="rq-step">
             <p class="rq-step__head"><span class="rq-step__n" aria-hidden="true">2</span><label class="rq-step__title" for="rq-name">Your business name</label></p>
             <input class="rq-input" id="rq-name" type="text" maxlength="40" autocomplete="organization" placeholder="Sharma Sarees">
-            <div class="rq-logo"><label class="btn btn--line rq-btn-sm" for="rq-logo">Add your logo (optional)</label><input class="sr-only" id="rq-logo" type="file" accept="image/png,image/jpeg,image/webp"><button type="button" class="tlink rq-linkbtn" id="rq-logo-clear" hidden>Remove logo</button></div>
+            <div class="rq-logo"><label class="btn btn--line rq-btn-sm" for="rq-logo">Add your logo (optional)</label><input class="sr-only" id="rq-logo" type="file" accept="image/png,image/jpeg,image/webp,image/svg+xml"><button type="button" class="tlink rq-linkbtn" id="rq-logo-clear" hidden>Remove logo</button></div>
+            <div class="rq-logo-opts" id="rq-logo-opts" hidden>
+              <div><span class="rq-label" id="rq-ls-l">Logo size</span>
+                <div class="rq-seg" role="radiogroup" aria-labelledby="rq-ls-l"><input type="radio" name="rq-logo-size" id="rq-ls-s" value="s"><label for="rq-ls-s">Small</label><input type="radio" name="rq-logo-size" id="rq-ls-m" value="m"><label for="rq-ls-m">Medium</label><input type="radio" name="rq-logo-size" id="rq-ls-l2" value="l"><label for="rq-ls-l2">Large</label></div></div>
+              <label class="rq-check"><input type="checkbox" id="rq-logo-plate" checked> White box behind the logo <small>(switch it off for a white or light logo on a dark design)</small></label>
+            </div>
           </div>
           <div class="rq-step">
             <p class="rq-step__head"><span class="rq-step__n" aria-hidden="true">3</span><span class="rq-step__title">Choose the wording</span></p>
             <div class="rq-row rq-row--2">
               <div><span class="rq-label" id="rq-lang-l">Language</span>
-                <div class="rq-seg" role="radiogroup" aria-labelledby="rq-lang-l"><input type="radio" name="rq-lang" id="rq-lang-en" value="en"><label for="rq-lang-en">English</label><input type="radio" name="rq-lang" id="rq-lang-hi" value="hi"><label for="rq-lang-hi">Hinglish</label></div></div>
+                <div class="rq-seg" role="radiogroup" aria-labelledby="rq-lang-l"><input type="radio" name="rq-lang" id="rq-lang-en" value="en"><label for="rq-lang-en">English</label><input type="radio" name="rq-lang" id="rq-lang-hi" value="hi"><label for="rq-lang-hi">Hinglish</label><input type="radio" name="rq-lang" id="rq-lang-dv" value="dv"><label for="rq-lang-dv" lang="hi">हिंदी</label><input type="radio" name="rq-lang" id="rq-lang-mr" value="mr"><label for="rq-lang-mr" lang="mr">मराठी</label></div></div>
               <div><label class="rq-label" for="rq-head">Headline</label><select class="rq-select" id="rq-head"></select></div>
             </div>
             <div data-rq-custom hidden><label class="rq-label" for="rq-custom" style="margin-top:16px">Your headline</label><input class="rq-input" id="rq-custom" type="text" maxlength="60" placeholder="Thank you for visiting us!"></div>
@@ -746,6 +754,10 @@ def tool_page(ctx, parts, tv):
             <button type="button" class="btn btn--ink rq-wide" id="rq-print" data-rq-need-link disabled>Print 4 on one A4 sheet</button>
             <button type="button" class="btn btn--line" id="rq-dl-png" data-rq-need-link disabled>QR code PNG</button>
             <button type="button" class="btn btn--line" id="rq-dl-svg" data-rq-need-link disabled>QR code SVG</button>
+          </div>
+          <div class="rq-free">
+            <button type="button" class="btn btn--line rq-wide" id="rq-edit-free" data-rq-need-link disabled>Edit everything freely</button>
+            <p>Opens this design in the full editor: move, resize or turn any part, change fonts and colours, add photos, icons and shapes, then download a PNG, SVG or print PDF.</p>
           </div>
           <a class="tlink rq-test" id="rq-test" href="#" target="_blank" rel="noopener" hidden>Test my review link</a>
           <p class="rq-private"><span aria-hidden="true">&#128274;</span><span>Private by design: your name, logo and wording stay in this browser. A short Maps link is only checked once to find your business, and nothing is stored.</span></p>
@@ -1122,7 +1134,7 @@ def _tool_card(which):
     if which == 'qr':
         return ('<a class="th-card" href="/tools/google-review-qr-code"><span class="th-card__art th-card__art--gp" aria-hidden="true"><img class="th-qr" src="/assets/tools/standee-sample.webp" alt="" width="600" height="846" loading="lazy" decoding="async"></span>'
                 '<h3>Google review link &amp; QR code maker</h3><p>Find your Google review link from any Maps link, no owner access needed. Download a QR code, a print-ready counter standee and WhatsApp messages.</p>'
-                '<ul><li>6 designs</li><li>Your logo</li><li>English or Hinglish</li></ul><span class="btn btn--go">Make my review QR <span class="arw" aria-hidden="true"><b>→</b><b>→</b></span></span></a>')
+                '<ul><li>6 designs</li><li>Your logo</li><li>English, Hindi or Marathi</li></ul><span class="btn btn--go">Make my review QR <span class="arw" aria-hidden="true"><b>→</b><b>→</b></span></span></a>')
     return ('<a class="th-card" href="/tools/google-business-profile-checker"><span class="th-card__art th-card__art--gp" aria-hidden="true">' + _gbp_art().replace('class="gp-hero__art"', 'class="th-gp"') + '</span>'
             '<h3>Google Business Profile checker</h3><p>Answer 16 quick questions about your Google listing. Get a score out of 100, your top fixes with step-by-step help, and a review goal.</p>'
             '<ul><li>Score out of 100</li><li>Top fixes</li><li>Review calculator</li></ul><span class="btn btn--go">Check my profile <span class="arw" aria-hidden="true"><b>→</b><b>→</b></span></span></a>')
@@ -1136,8 +1148,8 @@ TOOLS_ANSWER = ('U Scale has five free tools for local businesses in India. The 
                 'All five are free and need no sign-up.')
 TOOLS_FACTS = [('Google Business Profile checker', 'A score out of 100, a fix list and a review goal, in about 2 minutes'),
                ('Google review QR code maker', 'Your review link, a QR code and a printable counter standee'),
-               ('Visiting card maker', 'Editable designs, with PNG, SVG and print PDF downloads'),
-               ('QR code generator', 'Your own style and logo, for links, contacts, UPI and Wi-Fi'),
+               ('Visiting card maker', 'Editable designs that can match your logo, with PNG, SVG and print PDF downloads'),
+               ('QR code generator', 'Your own style and logo, one code or 200 at once, for links, contacts, UPI and Wi-Fi'),
                ('Website cost calculator', 'A fixed U Scale price, the market range and yearly costs, in a minute'),
                ('Cost', 'Free, no sign-up'), ('Languages', 'English and Hinglish'), ('Made by', 'Mehul Karotra, U Scale, Mumbai')]
 GBP_ANSWER = ('The free Google Business Profile checker from U Scale scores your Google listing out of 100 in about 2 minutes. It looks at '
