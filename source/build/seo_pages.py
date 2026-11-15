@@ -20,12 +20,12 @@ WA = 'https://wa.me/917977360142?text=Hi%20Mehul%2C%20I%27d%20like%20to%20talk%2
 # ---------------------------------------------------------------- service pages
 SERVICES = [
  dict(slug='website-design-mumbai', short='Website design', cta='website', name='Website Design & Development',
-  title='Website Design & Development in Mumbai, from ₹25,000',
-  desc='Website design in Mumbai with every price published and no hidden charges: landing page ₹25,000, business site ₹55,000, online store from ₹95,000.',
+  title='Website Design & Development Company in Mumbai? From ₹25,000',
+  desc='Website designing company in Mumbai? One designer-developer, every price published: landing page ₹25,000, business site ₹55,000, online store from ₹95,000.',
   h1='Website design & development in Mumbai',
   og='assets/pages/og-website-design-mumbai.jpg', og_alt='Website design and development in Mumbai by Mehul Karotra of U Scale: websites from ₹25,000, fixed price',
   lead='I design and build websites for Mumbai businesses: landing pages, 5–10 page business sites, online stores and restaurant ordering. Every page is designed in Figma and coded by hand, so what you approve is exactly what goes live, at a fixed price agreed before I start.',
-  who='For cafés, restaurants, salons, boutiques, clinics, schools, studios and founders who need a site that looks premium, loads fast on a phone and turns visitors into WhatsApp chats, calls and enquiries.',
+  who='For cafés, restaurants, salons, boutiques, clinics, schools, studios and founders who need a site that looks the part, opens fast on a phone and gets people to message or call.',
   items=[('Custom design, not templates','Your brand, your layout. Designed screen by screen in Figma before a line of code is written.'),
          ('Mobile-first build','Most of your visitors are on a phone, so the mobile version is designed first and tested on real devices.'),
          ('Fast on every phone','Lean code and compressed images, so pages load quickly even on a slow mobile connection and are built to pass Google’s speed checks (Core Web Vitals).'),
@@ -44,10 +44,10 @@ SERVICES = [
        ('Will I own my website?','Yes. The domain, hosting account, code and design files are yours.'),
        ('Can you redesign my existing website?','Yes. I start with an audit of what works and what leaks enquiries, then redesign around that. A redesign costs 70% of a fresh build.')]),
  dict(slug='seo-mumbai', short='SEO', cta='SEO', name='SEO Services', cta_h='Let’s get you found on Google', wa="Hi Mehul, I'd like to talk about SEO for my business.",
-  title='SEO Services & Packages in Mumbai, from ₹15,000 a Month',
-  desc='SEO packages in Mumbai from a freelance SEO expert: local SEO and Google Maps ₹15,000 a month, technical SEO ₹25,000. No hidden charges, no ranking guarantees.',
+  title='SEO Company in Mumbai? Services & Packages from ₹15,000/mo',
+  desc='Looking for an SEO company or SEO agency in Mumbai? One SEO expert, published packages: local SEO ₹15,000 a month, technical SEO ₹25,000. No ranking guarantees.',
   h1='SEO services in Mumbai',
-  lead='I’m a freelance SEO consultant in Mumbai. I help your business show up when nearby customers search on Google and Google Maps. Local SEO, technical fixes and content, done personally, with honest monthly reporting.',
+  lead='I’m a freelance SEO consultant in Mumbai. I get local businesses found on Google and Google Maps by the people already searching nearby. I do the listing work, the technical fixes and the writing myself, and you get a plain report every month.',
   who='For local businesses that depend on people searching "near me", and for service businesses that want steady enquiries without paying for every click.',
   items=[('Google Business Profile and Maps','Your Google Business Profile (the listing people see on Google Maps) set up and filled in properly: categories, photos, posts and a plan for getting more reviews in your area.'),
          ('Technical SEO','Slow pages, pages Google can’t find or read, problems on mobile, and missing business details in your site’s code, fixed at the source.'),
@@ -56,24 +56,24 @@ SERVICES = [
          ('Directory listings and links','Consistent listings across Indian directories and genuine local links, no spammy shortcuts.'),
          ('A clear monthly report','Rankings, traffic, calls and enquiries, and what I am doing next.')],
   steps=[('Audit','A full SEO audit of your site, Google Business Profile and top local competitors.'),
-         ('Fix','Technical and on-page issues fixed first, because they unlock everything else.'),
+         ('Fix','Technical and on-page issues fixed first, because nothing else works properly until they are.'),
          ('Grow','New content, reviews, listings and links added month by month.'),
          ('Report','Monthly report and call. Honest about what moved and what did not.')],
   price='Local SEO and Google Business Profile ₹15,000/month, technical + on-page SEO ₹25,000/month; take one or both. Your first check is free; a full deep-dive SEO audit is ₹7,500, or free if we go on to work together.',
   related='<p class="sp-price" data-reveal><strong>Local SEO near you.</strong> Website design and local SEO for businesses in <a class="tlink" href="/services/website-design-mumbai/ghatkopar">Ghatkopar</a> and <a class="tlink" href="/services/website-design-mumbai/andheri-east">Andheri East</a>.</p>',
   work=['tis','antrah','sashe'],
-  faq=[('How long does SEO take to show results?','Honest answer: usually 3 to 6 months before you see real progress. Be careful of anyone who promises page one in 30 days. I show you what has moved every month.'),
+  faq=[('How long does SEO take to show results?','Usually 3 to 6 months before you see real progress. Be careful of anyone who promises page one in 30 days. Every month I show you what has moved.'),
        ('What is local SEO?','Local SEO is making sure your business shows up when people nearby search for what you sell, in Google Maps, the top three map results on Google, and “near me” searches. Google says it ranks local results on relevance, distance and prominence. In practice the work is: a complete, verified Google Business Profile with the right primary category, the same name, address and phone on your website and directories, steady genuine reviews with replies, and service pages that name your area. You can check your own listing free with the Google Business Profile checker. Step by step: How to get more Google reviews in 2026 and Why is my business not showing on Google Maps?'),
-       ('Do you guarantee first-page rankings?','No one can honestly guarantee rankings. I guarantee the work, the transparency and a clear report of results every month.'),
+       ('Do you guarantee first-page rankings?','No, and nobody honestly can. What I do guarantee is the work, and a clear report of results every month.'),
        ('Do I need a new website for SEO?','Not always. I start by auditing your current site; if it can be fixed, I fix it.')]),
  dict(slug='social-media-management-mumbai', short='Social media', cta='social media', name='Social Media Management',
-  title='Social Media Marketing in Mumbai: Packages and Prices',
-  desc='Social media marketing packages in Mumbai, priced by the piece: posts from ₹800, reel edits from ₹2,500, inbox care ₹12,000 a month. No hidden charges.',
+  title='Social Media Marketing Agency in Mumbai? Packages & Prices',
+  desc='Looking for a social media marketing agency in Mumbai? One social media manager, priced by the piece: posts from ₹800, reel edits ₹2,500. No hidden charges.',
   h1='Social media marketing in Mumbai',
-  lead='Consistent, on-brand social media without you chasing anyone. As your freelance social media manager, I plan, design and post your content on Instagram, Facebook, LinkedIn and YouTube, and keep the focus on bringing you enquiries.',
+  lead='Regular posts that look like your brand, without you having to chase anyone. As your freelance social media manager I plan the month, design the posts and publish them on Instagram, Facebook, LinkedIn and YouTube, and I judge the work by the enquiries it brings you.',
   who='For businesses that know they should post regularly but never find the time, and for brands that want their feed to look as good as their product.',
   items=[('Monthly content calendar','A clear plan of posts, reels and stories, approved by you before anything goes live.'),
-         ('Designed posts and carousels','On-brand creatives designed for your audience: ₹800 a post, ₹1,500 a carousel.'),
+         ('Designed posts and carousels','Posts and carousels designed in your brand’s colours and type: ₹800 a post, ₹1,500 a carousel.'),
          ('Reels and short video','Reels and YouTube Shorts, edited to suit each platform.'),
          ('Posting and scheduling','Everything published at the right times, so your feed stays active without you.'),
          ('Engagement','Comments and DMs monitored and answered in your voice, with leads passed straight to you.'),
@@ -1412,6 +1412,15 @@ def terms_html():
 
 PRICING_FAQ_IDX = [1, 2, 3]  # website cost, marketing cost, contract vs retainer (indexes into the home FAQ)
 PRICING_FAQ_MORE = [
+    ('How are your SEO packages priced?',
+     'There are two, both monthly. The local SEO package, which includes looking after your Google Business Profile, is ₹15,000 a month. '
+     'The technical and on-page SEO package is ₹25,000 a month, and it is the one online stores take as their e-commerce SEO package. '
+     'You can take either or both. If you want to keep SEO affordable, start with one, read a couple of monthly reports and then decide about the other.'),
+    ('What do social media marketing packages cost?',
+     'You put the package together yourself, because social media is priced by the piece: ₹800 a post, ₹1,500 a carousel, ₹2,500 a reel edit. '
+     'A common starting month is 12 posts, 4 carousels and 4 reel edits, which comes to ₹25,600. If you want comments and DMs answered too, '
+     'that is ₹12,000 a month. Social media advertising is billed separately: ₹20,000 a month for managing the ads plus ₹10,000 to set up, '
+     'and you pay Meta for the ad spend yourself.'),
     ('Are there any hidden charges?',
      'No. Every price is on this page, and the price of your project is fixed in writing before work starts. The costs that are not part of '
      'a U Scale price are listed here too, and quoted before I begin: website copy, photography, premium plugins, the payment gateway’s own '
@@ -1443,6 +1452,28 @@ def compare_html():
 
 def price_of(name):
     return __import__('aeo')._price(name)[0]
+
+
+def packages_html():
+    """The monthly packages people search for by name (SEO packages, social media packages), in one table under the quote builder.
+    Every figure comes from pricing_data.py; each row's detail lives on its service page."""
+    import geo_pages as GP
+    month = 12 * GP.rupees('Social post') + 4 * GP.rupees('Carousel') + 4 * GP.rupees('Reel edit (your footage)')
+    link = lambda href, text: f'<a class="tlink" href="{href}">{e(text)}</a>'
+    return GP._section(0, GP.Sec('SEO packages and social media packages, at a glance',
+        GP.Table(['Package', 'What’s included', 'Price'],
+                 [('Local SEO package', 'Google Business Profile set-up and upkeep, a review plan, directory listings, area pages and a monthly report', price_of('Local SEO / Google Business Profile')),
+                  ('Technical + on-page SEO package', 'Speed, crawling and indexing fixes, titles, headings, internal links and structured data. The one online stores take', price_of('Technical + on-page SEO')),
+                  ('AI search visibility', 'What ChatGPT, Gemini and Google’s AI say about you, and the facts they rely on', price_of('AI search visibility (GEO)')),
+                  ('Social media content, a typical month', '12 designed posts, 4 carousels and 4 reel edits from your footage', GP._fmt(month)),
+                  ('Community and inbox management', 'Comments and DMs answered in your voice, with serious enquiries passed to you', price_of('Community & inbox management')),
+                  ('Social media advertising', 'Facebook, Instagram and Google ads run in your own ad accounts. Ad spend is paid to Meta or Google directly', price_of('Ads management') + ' + ₹10,000 setup')],
+                 'U Scale monthly SEO, social media and advertising packages, with published prices'),
+        GP.P('Each package is explained on its own page: ' + link('/services/seo-mumbai#packages', 'SEO packages in Mumbai') + ', '
+             + link('/services/social-media-management-mumbai#packages', 'social media marketing packages') + ', '
+             + link('/services/google-meta-ads-mumbai', 'Google and Meta ads management') + ' and '
+             + link('/services/website-design-mumbai#packages', 'website design packages') + '. Monthly packages run for 3 months, then month to month.'),
+        eyebrow='Monthly packages', layout='wide', sid='monthly-packages'))
 PRICING_ANSWER = ('U Scale publishes every price. Websites are fixed one-time prices: landing page ₹25,000, business site (5–10 pages) ₹55,000, '
                   '10–20 pages with blog ₹85,000, restaurant site with online ordering ₹90,000, online store from ₹95,000. Monthly services run '
                   'for 3 months minimum, then month-to-month: local SEO ₹15,000, technical SEO ₹25,000, AI search visibility ₹12,000, ads '
@@ -1459,9 +1490,9 @@ def pricing_page(ctx, parts):
     site, v = ctx['SITE_URL'], ctx['_v']
     header, menu, footer, tail = parts
     url = site + 'pricing'
-    title = 'Website Design, SEO & Social Media Prices in Mumbai'
-    desc = ('Every U Scale price on one page, no hidden charges: website packages from ₹25,000, SEO ₹15,000 a month, '
-            'social posts from ₹800. Build a quote on WhatsApp.')
+    title = 'Website, SEO & Social Media Packages and Prices in Mumbai'
+    desc = ('Every U Scale package and price on one page: website packages from ₹25,000, SEO packages from ₹15,000 a month, '
+            'social media posts from ₹800. No hidden charges.')
     faq = [ctx['FAQ'][i] for i in PRICING_FAQ_IDX] + PRICING_FAQ_MORE
     ld = json.dumps({'@context': 'https://schema.org', '@graph': [
         {'@type': 'WebPage', '@id': url + '#webpage', 'url': url, 'name': title, 'description': desc, 'isPartOf': {'@id': site + '#website'},
@@ -1514,7 +1545,7 @@ def pricing_page(ctx, parts):
       <div class="fp-hero__copy">
       <nav class="crumbs" aria-label="Breadcrumb"><ol><li><a href="/">Home</a></li><li aria-current="page">Pricing</li></ol></nav>
       <h1 class="sp-hero__title fp-hero__title" id="page-title">Prices and packages, published openly<span class="dot">.</span></h1>
-      <p class="sp-hero__lead">Most agencies hide their prices behind a contact form. Here is everything I charge for web design and digital marketing in Mumbai, on one page: fixed-price websites, monthly growth services and single pieces of work.</p>
+      <p class="sp-hero__lead">Most agencies hide their prices behind a contact form. Here is everything I charge for web design and digital marketing in Mumbai, on one page: website packages, monthly SEO and social media packages, and single pieces of work.</p>
       <div class="hero__cta" data-wa-zone>
         <a class="btn btn--go" href="{ea(WA)}" target="_blank" rel="noopener" data-magnetic>{ctx['ICONS']['ICON_CHAT']}Ask me for a quote</a>
         <a class="btn btn--ghost" href="#builder">Build your quote</a>
@@ -1536,6 +1567,7 @@ def pricing_page(ctx, parts):
       {quote_builder_html(ctx['ICONS']['ICON_CHAT'])}
     </div>
   </section>
+{packages_html()}
 
   <section class="section" aria-labelledby="cmp-title">
     <div class="wrap">

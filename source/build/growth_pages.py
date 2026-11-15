@@ -447,8 +447,8 @@ def digital_dict():
         trail=CROSS, service='Digital marketing services in Mumbai', service_type='Digital marketing',
         related_ld=lambda site: {'@type': 'Service', '@id': site + 'services/seo-mumbai#service', 'name': 'SEO Services', 'url': site + 'services/seo-mumbai'},
         wa_msg="Hi Mehul, I'm looking for digital marketing for my business. I'd like a free audit.",
-        title='Digital Marketing Agency in Mumbai? Meet the Alternative',
-        desc=f'Looking for a digital marketing agency in Mumbai? U Scale is one specialist, Mehul Karotra: local SEO {LOCAL}, ads {ADS}, social posts from {price("Social post")}.',
+        title='Digital Marketing Company in Mumbai? An Agency Alternative',
+        desc=f'Looking for a digital marketing company or agency in Mumbai? U Scale is one specialist, Mehul Karotra: local SEO {LOCAL}, ads {ADS}, posts from {price("Social post")}.',
         h1='Digital marketing in Mumbai', eyebrow='An alternative to an agency',
         lead='SEO, Google Maps, social media, Google and Meta ads and AI search, run by one person instead of an agency team. I’m Mehul Karotra; you talk to me, I do the work, and every price is published before we speak.',
         stats=[(LOCAL.split('/')[0], 'Local SEO, per month'), (ADS.split('/')[0], 'Ads, per month'), ('1', 'Person does the work')],
@@ -479,8 +479,10 @@ def digital_dict():
                 P('You don’t need all of it. Most businesses start with one or two and add the rest when the first is working. The '
                   + _link('/pricing', 'pricing page') + ' has a quote builder for mixing them.'),
                 eyebrow='Services and prices', layout='wide', sid='services'),
-            Sec('A digital marketing agency, or one specialist?',
-                Options([dict(name='A digital marketing agency', tag='A team', rows=[('Good for', 'Brands running many channels and campaigns at once'),
+            Sec('A digital marketing company, an agency, or one specialist?',
+                P('Digital marketing companies in Mumbai come in every size, and most of them call themselves an agency. Whatever the name on '
+                  'the door, ask two things first: who will do your work, and what it will cost each month.'),
+                Options([dict(name='A digital marketing company or agency', tag='A team', rows=[('Good for', 'Brands running many channels and campaigns at once'),
                                                                                     ('You deal with', 'Usually an account manager'),
                                                                                     ('Monthly cost', 'About ₹25,000 to ₹5 lakh for full service, in two sources published in 2026')]),
                          dict(name='U Scale', tag='One specialist', hi=True, rows=[('Good for', 'Small and mid-sized businesses that want one person accountable'),
@@ -499,6 +501,16 @@ def digital_dict():
                       'Three common starting points for digital marketing with U Scale, priced from the published list'),
                 Note('Ad spend is paid by you to Google or Meta directly and is not part of these prices. No GST is charged on U Scale prices right now.'),
                 eyebrow='Starting points', layout='wide', sid='start'),
+            Sec('How to pick the best digital marketing company in Mumbai for you',
+                P('I can’t tell you which is the best digital marketing company in Mumbai, and nobody else can either. It depends on your budget '
+                  'and on how you like to work. What I can give you is the six things I would check, and you should hold me to the same list.'),
+                Cards([('rupee', 'Prices in writing', 'You get a price list or a written quote before anyone gets you on a sales call.'),
+                       ('user', 'Who does the work', 'Ask to speak to the person who will run your account. The one selling it is often someone else.'),
+                       ('key', 'Accounts in your name', 'The Google listing, ad accounts and social pages are opened in your name, with you as the owner.'),
+                       ('shield', 'No guarantees', 'Nobody can promise a ranking or a number of leads. Be wary of a company that does.'),
+                       ('calendar', 'A short minimum term', 'Three months is fair for SEO. A one-year lock-in is there for the seller’s benefit.'),
+                       ('file', 'A report you can read', 'Every month: calls, enquiries and what changed, in plain words.')], cols=3),
+                eyebrow='Six checks', layout='wide', sid='choose'),
             Sec('What I won’t do',
                 Cards([('shield', 'Promise a ranking', 'Nobody controls Google. I report what was done and what changed, every month.'),
                        ('star', 'Buy reviews or followers', 'Bought reviews break Google’s rules and can get reviews removed or a listing restricted. Bought followers don’t buy from you.'),
@@ -510,9 +522,14 @@ def digital_dict():
               f'With U Scale, local SEO and Google Business Profile management is {_mo(LOCAL)}, technical and on-page SEO {_mo(SEO_TECH)}, Google and Meta ads '
               f'management {_mo(ADS)} plus a ₹10,000 setup, and AI search visibility {_mo(GEO)}. Social media is priced by the piece, from {price("Social post")} '
               'a post. Two sources published in 2026 put full-service agency retainers in Mumbai between about ₹25,000 and ₹5 lakh a month.'),
-             ('Is U Scale a digital marketing agency?',
-              'No. U Scale is one person, Mehul Karotra, who plans and does the work himself. When a project needs a photographer or another specialist, '
-              'he brings one in and stays your single point of contact.'),
+             ('Is U Scale a digital marketing company or an agency?',
+              'It is a company of one. I’m Mehul Karotra, and I plan and do the work myself, so there is no agency team behind me. When a job '
+              'needs a photographer or another specialist I bring one in, and you still deal with me.'),
+             ('Which is the best digital marketing company in Mumbai?',
+              'I don’t think anyone can answer that honestly. It depends on your budget, your industry and how involved you want to be. Shortlist '
+              'two or three and compare them on the same points: are the prices published, who does the work, whose name are the accounts in, and '
+              'how long is the minimum term. U Scale suits small and mid-sized businesses that want to deal with one person and see the prices '
+              'before the first call.'),
              ('Which service should I start with?',
               'If customers look for you on Google Maps, start with your Google Business Profile and local SEO. If you have no website, or one that does '
               'not bring enquiries, start there. The free audit looks at your website, Google listing and Instagram and suggests an order.'),
@@ -548,8 +565,8 @@ def india_dict():
         service='Website design and development for businesses across India', service_type='Website design',
         area_ld=[aeo.place('India', 'Country')],
         wa_msg="Hi Mehul, my business is outside Mumbai. I'd like a free audit and a fixed price for my website.",
-        title='Website Design & Development in India, from ₹25,000 Fixed',
-        desc=f'Websites for businesses anywhere in India, designed and hand-coded by Mehul Karotra in Mumbai: landing page {price("Landing page")}, business site {price("Business site, 5–10 pages")}, over WhatsApp.',
+        title='Website Design & Development Company in India? From ₹25,000',
+        desc=f'A web design and development company of one, working across India from Mumbai: landing page {price("Landing page")}, business site {price("Business site, 5–10 pages")}, fixed in writing, over WhatsApp.',
         h1='Website design & development in India', eyebrow='For businesses anywhere in India',
         lead='I’m Mehul Karotra, a website designer and developer in Mumbai. I build websites for businesses across India over WhatsApp and video calls, at the same fixed prices I charge in Mumbai, agreed in writing before I start.',
         stats=[(price('Landing page'), 'Websites from'), ('3–4 wk', 'Live in'), ('60%', 'Paid after launch')],
@@ -576,7 +593,8 @@ def india_dict():
                        ('Larger site with a blog', '₹40,000–₹2,00,000', price('Business site, 10–20 pages + blog') + ' for 10–20 pages'),
                        ('Online store', '₹25,000–₹3,00,000', f'{STORE} under 50 products · {STORE_BIG} for 50–500')],
                       'What a website costs in India: market ranges from published price guides, beside U Scale’s fixed prices'),
-                P(GP.GUIDES_NOTE.replace(' and listed under Sources below', '') + ' The full list is in the '
+                P('These ranges are what web development companies and web design firms in India publish themselves. '
+                  + GP.GUIDES_NOTE.replace(' and listed under Sources below', '') + ' The full list is in the '
                   + _link('/services/website-design-mumbai/freelancer-vs-agency-vs-website-builder#sources', 'freelancer vs agency guide')
                   + '. For an estimate with your own choices, use the ' + _link('/tools/website-cost-calculator', 'website cost calculator') + '.'),
                 eyebrow='Prices', layout='wide', sid='prices'),
@@ -613,6 +631,10 @@ def india_dict():
               'About ₹8,000–₹30,000 for a basic template website, ₹40,000–₹2 lakh for a custom-designed one and ₹25,000–₹3 lakh for an online store, according '
               f'to 16 published price guides compared in 2026. U Scale’s fixed prices are {price("Landing page")} for a landing page, '
               f'{price("Business site, 5–10 pages")} for a 5–10 page business site and from {STORE} for an online store.'),
+             ('Is U Scale a web development company in India?',
+              'A very small one. U Scale is me, Mehul Karotra, in Mumbai. I design each site in Figma and write the code myself. You get the same '
+              'website development services a larger web design company offers, which is design, build, launch and care afterwards, and the '
+              'person you message is the person doing the work.'),
              ('Can you build my website if I am not in Mumbai?',
               'Yes. The whole project runs over WhatsApp and video calls: a free audit, a written plan with a fixed price, designs you review in Figma on '
               'your own phone and laptop, then the build and launch. The prices are the same as in Mumbai.'),

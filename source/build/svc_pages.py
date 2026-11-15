@@ -115,18 +115,23 @@ SEO = dict(
                    ('SEO deep-dive audit', 'A one-off audit of your site, your listing and your top local competitors, free if we go on to work together', price('SEO deep-dive audit (free if we work together)')),
                    ('SEO blog post', 'About 1,000 words, researched and written around one search', price('SEO blog (~1,000 words)'))],
                   'U Scale SEO packages in Mumbai, with published prices'),
-            P('Affordable SEO here means you pay only for what you need: start with one package, read the monthly report, and add more only when '
-              'it is worth it. Monthly plans run for 3 months, then month to month. What SEO costs across India, with market ranges: '
-              + SP.post_link('/blog/seo-cost-in-india', 'SEO cost in India (2026)') + '.'),
+            P('A shop, clinic or salon should start with the local SEO package. An online store, or a business that gets its customers from '
+              'search rather than from the map, usually needs the technical one.',
+              'If you are after affordable SEO packages, the cheapest sensible route is one package for three months: read the reports, then '
+              'decide whether the second is worth adding. After those 3 months every plan is month to month. For what SEO costs elsewhere in '
+              'India, with the market ranges, read ' + SP.post_link('/blog/seo-cost-in-india', 'SEO cost in India (2026)') + '.'),
             eyebrow='Packages', layout='wide', sid='packages'),
-        Sec('SEO company or SEO consultant?',
-            P('U Scale isn’t a big SEO company with a sales team and account managers. It is one SEO consultant, me, doing the audit, the fixes and '
-              'the report myself. That has trade-offs both ways.'),
-            Options([dict(name='An SEO company', tag='A team', rows=[('Good for', 'Large sites, many locations, content at volume'),
-                                                                     ('You deal with', 'An account manager'), ('Ask about', 'Contract length and who actually does the work')]),
+        Sec('SEO company, SEO agency or one consultant?',
+            P('If you came here looking for an SEO company in Mumbai (or an SEO agency, or an SEO firm in Bombay, as plenty of people still call '
+              'it), you should know what U Scale is before we talk. It is me. I do the audit, I make the fixes and I write the report you get '
+              'each month. There is no sales team, and nobody sits between you and the person doing the work. That suits some businesses and not others.'),
+            Options([dict(name='An SEO company or agency', tag='A team', rows=[('Good for', 'Large sites, many locations, content at volume'),
+                                                                               ('You deal with', 'An account manager'), ('Ask about', 'Contract length and who actually does the work')]),
                      dict(name='A freelance SEO consultant', tag='One person', hi=True, rows=[('Good for', 'Local businesses and small service sites'),
-                                                                                             ('You deal with', 'The person doing the work'), ('Ask about', 'How many clients they take on at once')])]),
-            eyebrow='Company or consultant', sid='company'),
+                                                                                             ('You deal with', 'The person doing the work'), ('Ask about', 'How many clients they take on at once')])],
+                    note='If you are comparing a few SEO companies in Mumbai, ask all of them the same four questions. Who will actually do the work? '
+                         'What is in the monthly report? How long is the contract? And does the Google listing stay in my name?'),
+            eyebrow='Company, agency or consultant', sid='company'),
         Sec('Local SEO across Mumbai',
             P('Local results depend on where the searcher is, so local SEO is done area by area: your listing, your pages and your reviews have to '
               'name the places you serve. I work with businesses across Mumbai, from Andheri, Borivali and Kandivali in the west to Ghatkopar, '
@@ -145,7 +150,7 @@ SEO = dict(
                    ('Week 3', 'New content or area page, directory consistency, review requests', 'A draft for you to check'),
                    ('Week 4', 'Report and call: what moved, what did not, what is next', 'Calls, directions, clicks and rankings')],
                   'What a typical month of SEO looks like with U Scale'),
-            P('SEO is slow on purpose. Expect about 3 to 6 months before real progress, and be wary of anyone promising page one in 30 days.'),
+            P('SEO is slow. Expect about 3 to 6 months before real progress, and be wary of anyone promising page one in 30 days.'),
             eyebrow='How it runs', layout='wide', tone='band'),
         Sec('What I won’t do',
             Cards([('alert', 'Fake or paid reviews', 'They break Google’s rules and can get reviews removed or a listing restricted. ' + GP.src_chip('ugc-policy')),
@@ -158,7 +163,7 @@ SEO = dict(
     ],
     how=dict(head='No guarantees. Clear reports.', sub='From a free check to a report every month.',
              steps=[('search', 'Audit', 'Your website, Google Business Profile and the top local competitors, checked against what customers search.', 'First check free'),
-                    ('pen', 'Fix', 'Technical and listing problems fixed first, because they unlock everything else.', 'Month 1'),
+                    ('pen', 'Fix', 'Technical and listing problems fixed first, because nothing else works properly until they are.', 'Month 1'),
                     ('layers', 'Grow', 'Content, reviews, listings and genuine local links, added month by month.', 'Month 2 onwards'),
                     ('file', 'Report', 'A monthly report and call. Honest about what moved and what did not.', 'Every month')],
              promise=[('shield', 'No ranking guarantees, ever'), ('key', 'Your listing and accounts stay in your name'), ('refresh', '3 months minimum, then month-to-month')]),
@@ -169,6 +174,15 @@ SEO = dict(
                ('Are there hidden charges in your SEO packages?',
                 f'No. The monthly price is published and agreed in writing before work starts, and the monthly report shows what was done for it. '
                 f'Extra pieces, such as a blog post at {price("SEO blog (~1,000 words)")}, are optional and quoted first. No GST is charged right now.'),
+               ('Is U Scale an SEO company or an SEO agency in Mumbai?',
+                'Neither, if you mean an office with a team. U Scale is me, Mehul Karotra, a freelance SEO consultant working from Ghatkopar West. '
+                'The work is what an SEO company in Mumbai would sell you: an audit, local SEO, technical fixes, content and a monthly report. '
+                'The difference is that I do it myself and you can message me directly. If your site has hundreds of pages, or you need several '
+                'cities handled at once, hire an SEO agency. I will tell you that in the free check rather than take the job.'),
+               ('Do you have an e-commerce SEO package?',
+                f'There isn’t a separate one. For an online store, take the technical and on-page SEO package at {TECH.replace("/mo", " a month")}. '
+                'Most of what a store needs sits there: titles for product and category pages, structured data, speed, and checking that Google '
+                'can crawl and index every product. If you also sell from a shop, add the local SEO package.'),
                ('Can you help if my Google listing is suspended?',
                 'Yes. I check what triggered it, fix what goes against Google’s guidelines, and help you file a reinstatement request through Google’s own form. '
                 'No one can guarantee Google will reinstate a listing, and anyone who promises to do it for a fee “through contacts” is not being honest. '
@@ -213,7 +227,16 @@ SOCIAL = dict(
                   'A typical starting month of social media with U Scale, priced from the published price list'),
             P(f'Content is priced per piece, so you pay only for what you post. Need footage? A half-day shoot with 3 reels is {price("Half-day shoot + 3 reels")} '
               f'and a full day with 6 reels {price("Full-day shoot + 6 reels")}, at your shop or studio anywhere in Mumbai, Thane or Navi Mumbai.'),
-            eyebrow='Prices', tone='band'),
+            eyebrow='Prices', tone='band', sid='packages'),
+        Sec('Social media optimisation (SMO), before any posting',
+            P('Social media optimisation (SMO) is the unglamorous part. It means setting up the profile so that someone who lands on it can tell '
+              'what you sell, where you are and how to reach you. A good feed does little if the profile has no phone number or a dead link. '
+              'I go through these four things in the free audit and fix them in the first month.'),
+            Cards([('user', 'Profile basics', 'The name people search for, the right category, a bio that says what you sell and where, and call, WhatsApp and direction buttons that work.'),
+                   ('search', 'The words customers type', 'Captions and highlights in plain words, so your posts turn up in Instagram search and on Google.'),
+                   ('pin', 'The same details everywhere', 'Name, address, phone number and timings that match your Google Business Profile and your website.'),
+                   ('layers', 'A profile that answers', 'Pinned posts and highlights for prices, timings, location and reviews, so a new visitor doesn’t have to ask.')], cols=2),
+            eyebrow='SMO', sid='smo'),
         Sec('What you do, and what I handle',
             Options([dict(name='You', tag='About 30 minutes a month', rows=[('Approve', 'The monthly calendar, before anything goes live'), ('Share', 'Offers, new stock, events, photos you already have'),
                                                                           ('Answer', 'Serious enquiries I pass on to you')]),
@@ -226,11 +249,12 @@ SOCIAL = dict(
                    ('alert', 'Pass off AI images as your products', 'Customers notice. Real products, real places, real people.'),
                    ('alert', 'Post without your OK', 'You approve the calendar first, and can check any post before it goes out.')], cols=2),
             eyebrow='Honest social'),
-        Sec('Agency, company or one social media manager?',
-            P('A social media agency gives you a team: a strategist, designers, an editor and an account manager. A freelance social media manager '
-              'gives you one person who plans, designs and posts for you. For most local businesses in Mumbai, one good person is enough: the brand '
-              'stays consistent and you approve everything on WhatsApp. When a shoot needs a photographer, I bring one in and stay your single '
-              'point of contact.'),
+        Sec('A social media marketing agency, or one manager?',
+            P('A social media marketing agency in Mumbai will give you a team: someone for strategy, designers, a video editor and an account '
+              'manager you talk to. A freelance social media manager is one person doing all of that at a smaller scale. An agency, or one of '
+              'the larger marketing companies, earns its fee when you need shoots every week or influencer campaigns.',
+              'For most local businesses, one person is enough. The feed stays consistent and you approve everything on WhatsApp. When a shoot '
+              'needs a photographer I bring one in, and you still deal only with me.'),
             eyebrow='Who to hire', sid='who-to-hire'),
         Sec('Read these next', guides('igalgo', 'insta', 'wa', 'wedding', 'diwali'), eyebrow='Guides', layout='wide'),
     ],
@@ -247,6 +271,15 @@ SOCIAL = dict(
                 f'Yes, built from published prices. A typical starting month is {POSTS} designed posts, {CAROUSELS} carousels and {REELS} reel edits '
                 f'from your footage for {_fmt(_content)}, with community and inbox management at {price("Community & inbox management").replace("/mo", " a month")} '
                 'if you want replies handled too. You can start smaller: content is priced by the piece.'),
+               ('What is social media optimisation (SMO)?',
+                'Social media optimisation (social media optimization, if you spell it the American way) is setting up your profiles so people can '
+                'find them and make sense of them. That means the right name and category, a clear bio, contact buttons that work, captions in '
+                'the words customers search, and the same details as your Google listing and website. I check it in the free audit and fix it in '
+                'the first month, before any posting plan starts.'),
+               ('Is U Scale a social media marketing agency?',
+                'No. It is me, Mehul Karotra, working as your social media manager. I plan the month, design the posts, edit the reels and '
+                'publish them, at published prices. If you need shoots every day, influencer campaigns or a big team, a social media agency in '
+                'Mumbai is the right choice. For a steady monthly plan, one person usually does the job.'),
                ('Are there hidden charges in social media management?',
                 'No. Every post, carousel, reel edit and shoot has a published price, and you approve the month’s plan and its cost before anything is '
                 'made. Ad spend, if you run ads, is paid by you to Meta directly. No GST is charged right now.')],
@@ -322,6 +355,10 @@ ADS = dict(
     who='I set up the tracking, build the campaigns and watch them every week myself. You get one person who knows your account, on WhatsApp.',
     faq_extra=[('Can you run ads in Hindi or Marathi?',
                 'Yes. Ads, landing pages and WhatsApp replies can be in English, Hindi or Hinglish, or Marathi where your customers prefer it.'),
+               ('Do you have social media advertising packages?',
+                f'Just one, and it is short. I manage your Facebook and Instagram advertising for {price("Ads management").replace("/mo", " a month")} '
+                f'while your ad spend is under ₹1.5 lakh a month, and for 12% of spend above that. Setting up costs {_fmt(10000)}, once. The fee '
+                'depends on the total you spend on ads, on whichever platforms. Posts and reels for your own feed are a different thing, priced by the piece.'),
                ('Are there hidden charges in ads management?',
                 f'No. There are three costs and all three are published: the monthly fee of {price("Ads management")} up to ₹1.5 lakh of ad spend (12% of spend above that), '
                 f'a one-time {_fmt(10000)} setup, and your ad spend, which you pay to Google or Meta directly from accounts in your name. '

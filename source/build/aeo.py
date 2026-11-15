@@ -263,7 +263,11 @@ BRIEF = {
             ('Is U Scale a website design company in Mumbai?',
              'U Scale is the practice of one website designer and developer, Mehul Karotra, run the way a website design company runs a '
              'project: a written scope, a fixed price, payment in stages and every login handed over at launch. You get a company’s process, '
-             'with one person accountable for the work.')],
+             'with one person accountable for the work.'),
+            ('Is website hosting included?',
+             'The set-up is included; the yearly fee is not. I arrange website hosting and the domain for every site I build, in your name, '
+             'and give you the logins. You then pay the provider directly each year, about ₹4,400–₹9,400 before GST for the domain and '
+             'hosting together at renewal prices. Where those figures come from is in the website design cost guide.')],
   offers=['Landing page', 'Portfolio site', 'Business site, 5–10 pages', 'Business site, 10–20 pages + blog', 'E-commerce, under 50 products',
           'Restaurant site + own online ordering', 'Care plan: updates, backups, security']),
  'seo-mumbai': dict(
@@ -649,7 +653,7 @@ HUB_ANSWER = ('U Scale offers website design and development (from ₹25,000), S
 HUB_FAQ = [
     ('What services does U Scale offer?', 'Website design and development, SEO, social media management, Google and Meta ads, AI search visibility (GEO), '
      'branding and identity, content and reels production, WhatsApp automation, email marketing, review and reputation management, and writing.'),
-    ('Can I combine services?', 'Yes. There are no fixed packages: you pick only what you need and the quote builder on the pricing page adds it up. '
+    ('Can I combine services?', 'Yes. Nothing is bundled: you pick only the packages you need and the quote builder on the pricing page adds it up. '
      'Monthly services run for 3 months minimum, then month-to-month with 30 days’ notice.'),
     ('Who does the work?', 'Mehul Karotra, personally. If a project needs a specialist like a photographer, he brings them in and '
      'stays your single point of contact.'),
