@@ -23,7 +23,7 @@ const FALLBACK = `<!doctype html>
 <header class="site-header"><div class="wrap"><a class="brand" href="/" aria-label="U Scale home"><b style="font:400 28px/1 var(--display);color:var(--violet)">uscale</b></a>
 <nav class="nav" aria-label="Main"><ul><li><a href="/#services">Services</a></li><li><a href="/pricing">Pricing</a></li><li><a href="/blog">Blog</a></li><li><a href="/#contact">Contact</a></li></ul></nav></div></header>
 <main id="main"><!--MAIN--></main>
-<footer class="site-footer on-dark" data-tone="dark"><div class="wrap footer__bottom"><p>© U Scale by Mehul Karotra · Mumbai, India.</p></div></footer>
+<footer class="site-footer on-dark" data-tone="dark"><div class="wrap footer__bottom"><p>© U Scale by Mehul Karotra · Mumbai, India. · <a href="/privacy">Privacy and cookies</a></p></div></footer>
 <script defer src="/blog.js?v=${V}"></script></body></html>`;
 
 let cached = null;

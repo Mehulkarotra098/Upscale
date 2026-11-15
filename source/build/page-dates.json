@@ -1,6 +1,6 @@
 {
  "https://uscale.in/": {
-  "fp": "f258cb725879af0b",
+  "fp": "46dbb4e4812ec2d6",
   "date": "2026-11-16"
  },
  "https://uscale.in/about": {
@@ -17,6 +17,10 @@
  },
  "https://uscale.in/pricing": {
   "fp": "24e69c7b0fbb695b",
+  "date": "2026-11-16"
+ },
+ "https://uscale.in/privacy": {
+  "fp": "a989319204bc791f",
   "date": "2026-11-16"
  },
  "https://uscale.in/services": {

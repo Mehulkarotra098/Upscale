@@ -1252,6 +1252,7 @@ def build(ctx):
     (out / 'tools' / 'index.html').write_text(tools_hub(ctx, parts, tv))
     (out / 'about.html').write_text(svc_pages.about_page(ctx, parts))
     (out / f'{aeo.LICENSE_SLUG}.html').write_text(aeo.image_license_page(ctx, parts))
+    (out / f'{aeo.PRIVACY_SLUG}.html').write_text(aeo.privacy_page(ctx, parts))
     (out / 'services.html').write_text(aeo.services_hub(ctx, parts))
     import geo_pages  # websites by business type and by area (/services/website-design-mumbai/<slug>)
     geo_rels = geo_pages.build(ctx, parts)
@@ -1259,9 +1260,9 @@ def build(ctx):
     geo_rels += city_pages.build(ctx, parts)
     geo_rels += growth_pages.build(ctx, parts)
     rels = (['index.html', 'about.html', 'services.html', 'pricing.html'] + [f'services/{x["slug"]}.html' for x in SERVICES] + geo_rels
-            + ['tools/index.html', f'tools/{GBP["slug"]}.html', f'tools/{TOOL["slug"]}.html', f'tools/{card_page.SLUG}.html', f'tools/{qr_page.SLUG}.html', f'{aeo.LICENSE_SLUG}.html'])
+            + ['tools/index.html', f'tools/{GBP["slug"]}.html', f'tools/{TOOL["slug"]}.html', f'tools/{card_page.SLUG}.html', f'tools/{qr_page.SLUG}.html', f'{aeo.LICENSE_SLUG}.html', f'{aeo.PRIVACY_SLUG}.html'])
     dates = aeo.stamp_pages(out, site, rels)  # each page's date moves only when its content changes
-    prio = {site: '1.0', site + 'pricing': '0.9', site + 'services': '0.9', site + 'about': '0.8', site + 'tools': '0.7', site + aeo.LICENSE_SLUG: '0.2'}
+    prio = {site: '1.0', site + 'pricing': '0.9', site + 'services': '0.9', site + 'about': '0.8', site + 'tools': '0.7', site + aeo.LICENSE_SLUG: '0.2', site + aeo.PRIVACY_SLUG: '0.2'}
     # Sitemap index: static pages here, blog posts from the live database at /sitemap-blog.xml (server-rendered).
     pics = geo_pages.images_by_url(site)
     pics.update(svc_pages.images_by_url(site))
