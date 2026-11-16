@@ -755,29 +755,33 @@
   },true);
 })();
 
-/* Cookie choice. Analytics stay off until the visitor says yes; the default is set in <head> (source/build/tracking.py)
-   before Tag Manager loads, and this only asks the question and passes the answer on. The answer is kept in this
+/* Cookie choice. The default is set in <head> (source/build/tracking.py) before Tag Manager loads, by region: in the EU,
+   UK, Switzerland and Quebec (<html data-cc="ask">) Analytics stay off until a yes and this asks first; elsewhere
+   (data-cc="note") Analytics are on and this shows a note with "Turn off". It only asks and passes the answer on. The answer is kept in this
    browser for 12 months (localStorage 'us-consent' = yes|no:time). "Change cookie choice" in the footer asks again.
    A browser that sends Global Privacy Control is not asked: its answer is already no. */
 (function(){
   'use strict';
-  var KEY='us-consent',YEAR=31536e6,doc=document,root=doc.documentElement,box=null,back=null;
+  var KEY='us-consent',YEAR=31536e6,doc=document,root=doc.documentElement,box=null,back=null,note=root.getAttribute('data-cc')==='note',OPEN=note?'cc-note-open':'cc-open';
   function read(){ try{ var p=(localStorage.getItem(KEY)||'').split(':'); return p[0]&&Date.now()-(+p[1]||0)<YEAR?p[0]:''; }catch(e){ return ''; } }
   function save(v){
     try{ localStorage.setItem(KEY,v+':'+Date.now()); }catch(e){}
     var state=v==='yes'?'granted':'denied';
     try{ if(window.gtag) window.gtag('consent','update',{analytics_storage:state}); (window.dataLayer=window.dataLayer||[]).push({event:'cookie_choice',analytics_storage:state}); }catch(e){}
   }
-  function close(){ if(!box) return; box.hidden=true; root.classList.remove('cc-open'); if(back&&back.focus) back.focus(); back=null; }
+  function close(){ if(!box) return; box.hidden=true; root.classList.remove(OPEN); if(back&&back.focus) back.focus(); back=null; }
   function open(asked){
     if(!box){
-      box=doc.createElement('section'); box.className='cc'; box.setAttribute('aria-label','Cookie choice'); box.hidden=true;
-      box.innerHTML='<p class="cc__t"><b>Can I count your visit?</b>I use Google Analytics to see which pages are useful. It stays off unless you say yes. <a href="/privacy">Privacy and cookies</a></p>'
-        +'<div class="cc__b"><button type="button" class="cc__btn" data-cc="no">No thanks</button><button type="button" class="cc__btn" data-cc="yes">Yes, that\u2019s fine</button></div>';
+      box=doc.createElement('section'); box.className=note?'cc cc--note':'cc'; box.setAttribute('aria-label','Cookie choice'); box.hidden=true;
+      box.innerHTML=note
+        ?'<p class="cc__t"><b>I count visits.</b>Google Analytics shows me which pages are useful. No ads, and nothing is sold. <a href="/privacy">Privacy and cookies</a></p>'
+          +'<div class="cc__b"><button type="button" class="cc__btn" data-cc="no">Turn off</button><button type="button" class="cc__btn" data-cc="yes">OK</button></div>'
+        :'<p class="cc__t"><b>Can I count your visit?</b>I use Google Analytics to see which pages are useful. It stays off unless you say yes. <a href="/privacy">Privacy and cookies</a></p>'
+          +'<div class="cc__b"><button type="button" class="cc__btn" data-cc="no">No thanks</button><button type="button" class="cc__btn" data-cc="yes">Yes, that\u2019s fine</button></div>';
       box.addEventListener('click',function(ev){ var b=ev.target.closest?ev.target.closest('[data-cc]'):null; if(!b) return; save(b.getAttribute('data-cc')); close(); });
       doc.body.appendChild(box);
     }
-    box.hidden=false; root.classList.add('cc-open');
+    box.hidden=false; root.classList.add(OPEN);
     if(asked){ back=doc.activeElement; var first=box.querySelector('button'); if(first) first.focus(); }
   }
   doc.addEventListener('click',function(ev){ var t=ev.target&&ev.target.closest?ev.target.closest('[data-cookie-choice]'):null; if(t){ ev.preventDefault(); open(true); } });

@@ -515,7 +515,8 @@ a.channel:hover{transform:translateY(-3px);border-color:var(--lavender);box-shad
 body.gp-bar-on .cc{bottom:calc(88px + env(safe-area-inset-bottom,0px))}
 @keyframes cc-in{from{opacity:0;transform:translateY(14px)}}
 .rm .cc{animation:none}
-@media (min-width:1024px){.cc{left:auto;right:calc(28px + env(safe-area-inset-right,0px))}}
+@media (min-width:1024px){.cc{left:auto;right:calc(28px + env(safe-area-inset-right,0px))}.cc.cc--note{left:calc(28px + env(safe-area-inset-left,0px));right:auto}}
+@media (max-width:519px){.cc-note-open .wa-float{opacity:0;pointer-events:none}}
 @media (max-width:519px){.cc{left:12px;width:calc(100vw - 24px);bottom:calc(12px + env(safe-area-inset-bottom,0px))}}
 @media (prefers-reduced-motion:reduce){.cc{animation:none}}
 @media print{.cc{display:none}}

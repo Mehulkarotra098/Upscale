@@ -580,7 +580,7 @@ def cookie_demo():
             '<span class="ck__btns"><span class="ck__b">No thanks</span><span class="ck__b ck__b--go">Yes, that’s fine</span></span></div></div>'
             f'<div class="ck__copy"><p class="ck__k">{icon("shield")}Built for uscale.in first</p><h3>The choice is real.</h3>'
             '<p>“No thanks” sits next to “Yes”, the same size, and no analytics cookie is set until someone says yes. Browsers that send Global Privacy Control are never asked: '
-            'their answer is already no. It is the banner on this site, and the one we build for you.</p>'
+            'their answer is already no. It is the banner UK visitors see on this site, and the one we build for you.</p>'
             '<p class="ck__small">Since the Data (Use and Access) Act 2025, cookies that only count visits to improve a site can be set without asking, '
             f'as long as people can switch them off. We still ask on our own site, and set yours up the way you prefer. {GP.src_chip("uk-pecr")}</p></div></div>')
     return html, ('The cookie choice we build: “No thanks” next to “Yes”, the same size, and no analytics cookie until a yes. Since the Data (Use and Access) Act 2025, '

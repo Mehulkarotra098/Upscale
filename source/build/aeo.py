@@ -646,14 +646,14 @@ _STORED = [
     ('usl-seen, us-read-…', 'So the opening animation plays once, and a blog article is counted as read once. Gone when you close the tab.'),
     ('us-gbpcheck-v1, us-reviewqr-v2, us-reviewqr-logo, us-qr-tool, us-qr-styles, us-card-maker',
      'Your work in the free tools: the listing checker, the review QR maker, the QR generator and the visiting card maker. Kept until you clear your browser data.'),
-    ('_ga, _ga_…', 'Google Analytics cookies that tell one visit from another. Set only if you said yes, and kept for up to 2 years.'),
+    ('_ga, _ga_…', 'Google Analytics cookies that tell one visit from another, kept for up to 2 years. In the EU, the UK, Switzerland and Quebec they are set only after a yes; elsewhere, unless you turn Analytics off.'),
 ]
 
 
 def privacy_page(ctx, parts):
     site = ctx['SITE_URL']; url = site + PRIVACY_SLUG
     title = 'Privacy and Cookies | U Scale'
-    desc = ('What uscale.in collects when you use it, which cookies it sets and only after you agree, who handles your details, '
+    desc = ('What uscale.in collects when you use it, which cookies it sets and how to turn them off, who handles your details, '
             'and how to have them deleted.')
     ld = json.dumps({'@context': 'https://schema.org', '@graph': [
         {'@type': 'WebPage', '@id': url + '#webpage', 'url': url, 'name': title, 'description': desc, 'inLanguage': 'en-IN',
@@ -674,7 +674,7 @@ def privacy_page(ctx, parts):
       <h2 id="short-title">The short version</h2>
       <ul class="sp-bullets">
         <li>U Scale is one person: me, Mehul Karotra, in Mumbai. I keep what you send me so that I can reply to you.</li>
-        <li>Analytics are off until you say yes to the cookie question. You can change your answer at the bottom of any page.</li>
+        <li>In the EU, the UK, Switzerland and Quebec, Analytics stay off until you say yes. Everywhere else they are on, and one tap turns them off. You can change your answer at the bottom of any page.</li>
         <li>I don’t sell your details and I don’t give them to anyone for advertising.</li>
         <li>To see, correct or delete what I hold about you, email {mail}.</li>
       </ul>
@@ -685,18 +685,18 @@ def privacy_page(ctx, parts):
       <p><strong>When you use the Google listing check on WhatsApp.</strong> The website saves your WhatsApp number, your WhatsApp profile name, the listing you checked and its score. It needs these to reply, and I use them to follow up if you ask for help. It does not save your messages. Send STOP and it stops replying.</p>
       <p><strong>When you check a Google listing on this site.</strong> The business name or Maps link you type is sent to Google to find the listing, or to SerpApi, a search-data service I keep as a backup. I store which listing was checked and a daily count. I don’t store who checked it. Your IP address is used for a moment to stop misuse and is not saved.</p>
       <p><strong>When you use the free tools.</strong> The visiting card maker, the QR code tools and the listing checker keep your work in your own browser, so it is still there when you come back. That includes any name, phone number or logo you put in. None of it is sent to me, and clearing your browser data removes it. The listing checker also asks Google’s PageSpeed service to test your website, and can show a Google Maps preview of your listing. Both come straight from Google.</p>
-      <p><strong>When you read the site.</strong> If you say yes to the cookie question, Google Analytics counts your visit: the pages you open, roughly where you are, the kind of device you use, and whether you tap a WhatsApp, phone or email button. It never gets your name, your number or anything you type. If you say no, or don’t answer, it stays off.</p>
+      <p><strong>When you read the site.</strong> Google Analytics counts your visit: the pages you open, roughly where you are, the kind of device you use, and whether you tap a WhatsApp, phone or email button. It never gets your name, your number or anything you type. In the EU, the UK, Switzerland and Quebec it waits for your yes, and if you say no or don’t answer it stays off. Everywhere else it counts unless you tap “Turn off”. The site goes by your device’s time zone, and Google also checks your rough location. If your browser sends Global Privacy Control, Analytics stay off wherever you are.</p>
       <p><strong>Visits from AI assistants.</strong> I count how often AI tools such as ChatGPT read a page, and how many visitors arrive from an AI answer. These are totals for each page and day. No IP address, device or identity is kept.</p>
 
       <h2 id="cookies-title">Cookies and browser storage</h2>
-      <p>The website sets no cookies of its own for visitors. What it remembers sits in your browser’s local storage, and the only cookies come from Google Analytics, after a yes.</p>
+      <p>The website sets no cookies of its own for visitors. What it remembers sits in your browser’s local storage, and the only cookies come from Google Analytics, when it is on.</p>
       <table class="sp-facts sp-facts--wide"><caption class="sr-only">What uscale.in keeps in your browser, and for how long</caption><tbody>{stored}</tbody></table>
       <p><button type="button" class="tlink cc-again" data-cookie-choice>Change cookie choice</button></p>
 
       <h2 id="who-title">Who else handles your details</h2>
       <ul class="sp-bullets">
         <li><strong>FormSubmit</strong> delivers the audit form to my email.</li>
-        <li><strong>Google</strong> runs my email, Tag Manager (which loads on every page but keeps Analytics off until you say yes), Analytics (only after a yes), and the Maps, Places and PageSpeed services the listing tools use.</li>
+        <li><strong>Google</strong> runs my email, Tag Manager (which loads on every page and applies your cookie choice), Analytics (as above), and the Maps, Places and PageSpeed services the listing tools use.</li>
         <li><strong>Apex36 Technologies</strong>, our sister company, builds the AI chatbots, AI receptionists and larger automations. If you ask about one of those, your enquiry is shared with Apex36 so it can quote and do the work.</li>
         <li><strong>Wise</strong> receives payments from clients outside India, in their own currency.</li>
         <li><strong>Meta</strong> runs WhatsApp.</li>
