@@ -221,3 +221,13 @@
 @media (max-width:559px){.jsh__stamp{top:auto;bottom:-16px;right:-8px}}
 @media (max-width:399px){.dk--ql .wa__chip:not(.wa__chip--b){display:none}}
 @media (max-width:559px){.dk .dk__card.jsh{padding-bottom:44px}}
+
+/* ---- 3D hero stage (source/build/hero3d.py, static/assets/3d/engine.js): sized from the screen's width and height ---- */
+.fp-hero>.h3d{position:relative;align-self:center;width:100%;height:clamp(300px,min(44vw,100svh - var(--header-h) - 96px),620px);margin:0;touch-action:pan-y;-webkit-tap-highlight-color:transparent}
+.h3d__poster,.h3d__cv{position:absolute;inset:0;width:100%;height:100%;display:block}
+.h3d__poster{object-fit:contain;transition:opacity .7s ease}
+.h3d__cv{opacity:0;transition:opacity .9s ease;cursor:grab}
+.h3d.is-live .h3d__cv{opacity:1}
+.h3d.is-live .h3d__poster{opacity:0}
+@media (max-width:1023px){.fp-hero>.h3d{height:clamp(280px,64vw,470px)}}
+@media (max-width:559px){.fp-hero>.h3d{height:clamp(260px,84vw,380px);width:calc(100% + 16px);margin:2px -8px}}

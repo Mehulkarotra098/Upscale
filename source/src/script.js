@@ -898,3 +898,18 @@
   var y0=window.scrollY;
   window.addEventListener('scroll',function(){ if(li.classList.contains('is-open')&&Math.abs(window.scrollY-y0)>120) set(false); if(!li.classList.contains('is-open')) y0=window.scrollY; },{passive:true});
 })();
+
+/* 3D hero scenes (source/build/hero3d.py): the poster shows at once; after the page has loaded and gone idle, the engine
+   and this page's scene load and take over. Skipped for crawlers and automated browsers, on Save-Data, and without
+   WebGL, where the poster stays. */
+(function(){
+  'use strict';
+  var els=document.querySelectorAll('.h3d[data-scene]'); if(!els.length) return;
+  var root=document.documentElement;
+  if(root.classList.contains('agent')&&!/[?&]h3d=1/.test(location.search)) return;
+  var c=navigator.connection; if(c&&c.saveData) return;
+  try{ var cv=document.createElement('canvas'); if(!(cv.getContext('webgl2')||cv.getContext('webgl'))) return; }catch(e){ return; }
+  function go(){ import(els[0].getAttribute('data-engine')).then(function(m){ Array.prototype.forEach.call(els,function(el){ m.mount(el); }); }).catch(function(){}); }
+  function idle(){ if('requestIdleCallback' in window) requestIdleCallback(go,{timeout:1500}); else setTimeout(go,600); }
+  if(document.readyState==='complete') idle(); else window.addEventListener('load',idle);
+})();
