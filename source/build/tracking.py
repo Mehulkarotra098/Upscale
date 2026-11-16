@@ -4,7 +4,7 @@ The tag goes right after <meta charset> in <head>, as Google asks. Before it loa
 state (Consent Mode v2). Ads are off always. Analytics, by region (Mehul, 16 Nov 2026):
 - EU/EEA, UK, Switzerland and Quebec (told apart by the device time zone, and by Google's own location check through the
   `region` default as a second net): off until the visitor says yes;
-- everywhere else: on, with a note and a one-tap "Turn off";
+- everywhere else: on, with nothing on screen; "Change cookie choice" in the footer turns it off;
 - a saved answer (localStorage 'us-consent', 12 months) always wins, and Global Privacy Control means off.
 The script marks <html data-cc="ask|note"> so the question in source/src/script.js shows the right wording. There is no <noscript>
 fallback any more: a visitor without JavaScript can't be asked, so nothing loads for them.

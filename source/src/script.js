@@ -757,7 +757,8 @@
 
 /* Cookie choice. The default is set in <head> (source/build/tracking.py) before Tag Manager loads, by region: in the EU,
    UK, Switzerland and Quebec (<html data-cc="ask">) Analytics stay off until a yes and this asks first; elsewhere
-   (data-cc="note") Analytics are on and this shows a note with "Turn off". It only asks and passes the answer on. The answer is kept in this
+   (data-cc="note") Analytics are on with nothing on screen (no law there asks for a banner; Mehul, 16 Nov 2026), and
+   "Change cookie choice" in the footer opens a note with "Turn off". It only asks and passes the answer on. The answer is kept in this
    browser for 12 months (localStorage 'us-consent' = yes|no:time). "Change cookie choice" in the footer asks again.
    A browser that sends Global Privacy Control is not asked: its answer is already no. */
 (function(){
@@ -786,7 +787,7 @@
   }
   doc.addEventListener('click',function(ev){ var t=ev.target&&ev.target.closest?ev.target.closest('[data-cookie-choice]'):null; if(t){ ev.preventDefault(); open(true); } });
   doc.addEventListener('keydown',function(ev){ if(ev.key==='Escape'&&box&&!box.hidden) close(); });
-  if(read()||root.classList.contains('agent')||navigator.globalPrivacyControl) return;
+  if(note||read()||root.classList.contains('agent')||navigator.globalPrivacyControl) return;
   function ask(){ window.setTimeout(function(){ if(!read()) open(false); },1200); }
   if(doc.readyState==='complete') ask(); else window.addEventListener('load',ask);
 })();
