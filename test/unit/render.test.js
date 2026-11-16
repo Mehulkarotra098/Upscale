@@ -84,6 +84,19 @@ test('sitemap lists the blog, categories with at least 3 posts, and posts with l
   assert.match(xml, /<image:loc>https:\/\/uscale\.in\/media\/3-cover\.webp<\/image:loc>/);
 });
 
+test('sitemap lists every image of an article once: the cover, then its own inline images', () => {
+  const html =
+    '<p>x</p><figure><img src="/media/7-steps.webp" srcset="/media/7-steps-800.webp 1200w, /media/7-steps.webp 2000w" alt="a"></figure>' +
+    '<img src="/media/3-cover.webp" alt="same as the cover"><img src="https://example.com/other.png" alt="not ours"><img src="/media/9-table.webp" alt="b">';
+  const xml = renderSitemap([{ slug: 'hello', lastmod: '2026-10-05T10:00:00Z', cover_id: 3, cover_name: 'Cover', content_html: html }], []);
+  const locs = [...xml.matchAll(/<image:loc>([^<]+)<\/image:loc>/g)].map((m) => m[1]);
+  assert.deepEqual(locs, [
+    'https://uscale.in/media/3-cover.webp',
+    'https://uscale.in/media/7-steps.webp',
+    'https://uscale.in/media/9-table.webp',
+  ]);
+});
+
 test('listing: empty state, pagination links', () => {
   const empty = renderListing({ posts: [], page: 1, pages: 1, total: 0, categories: [] });
   assert.match(empty.main, /first articles are on the way/);

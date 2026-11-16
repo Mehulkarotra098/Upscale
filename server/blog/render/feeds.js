@@ -41,6 +41,21 @@ ${items}
 </rss>`;
 }
 
+/**
+ * Every image of a post for the image sitemap: the cover first, then the article's own images from the media library
+ * (the full-size file in each <img src>; external images aren't ours to list). Google Images reads these entries, so the
+ * infographics inside an article are found as well as its cover.
+ */
+function sitemapImages(r) {
+  const urls = [];
+  if (r.cover_id) urls.push(abs(mediaUrl({ id: r.cover_id, name: r.cover_name })));
+  for (const tag of String(r.content_html || '').match(/<img\b[^>]*>/g) || []) {
+    const src = (tag.match(/\ssrc="(\/media\/[^"]+)"/) || [])[1];
+    if (src && !urls.includes(abs(src))) urls.push(abs(src));
+  }
+  return urls.map((u) => `<image:image><image:loc>${esc(u)}</image:loc></image:image>`).join('');
+}
+
 /** @param rows indexable live posts (repos/posts.sitemapRows) @param categories with live post counts */
 export function renderSitemap(rows, categories) {
   const newest = rows[0]?.lastmod;
@@ -48,12 +63,7 @@ export function renderSitemap(rows, categories) {
     `<url><loc>${abs('blog')}</loc>${newest ? `<lastmod>${isoDate(newest)}</lastmod>` : ''}</url>`,
     // Only categories with enough posts to be indexable (thin ones render noindex, follow).
     ...categories.filter((c) => c.n >= MIN_CATEGORY_POSTS).map((c) => `<url><loc>${abs(`blog/category/${c.slug}`)}</loc></url>`),
-    ...rows.map(
-      (r) =>
-        `<url><loc>${abs(`blog/${r.slug}`)}</loc><lastmod>${isoDate(r.lastmod)}</lastmod>${
-          r.cover_id ? `<image:image><image:loc>${abs(mediaUrl({ id: r.cover_id, name: r.cover_name }))}</image:loc></image:image>` : ''
-        }</url>`,
-    ),
+    ...rows.map((r) => `<url><loc>${abs(`blog/${r.slug}`)}</loc><lastmod>${isoDate(r.lastmod)}</lastmod>${sitemapImages(r)}</url>`),
   ];
   return `<?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">

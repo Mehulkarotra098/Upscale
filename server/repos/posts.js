@@ -272,7 +272,7 @@ export const related = (post, n = 3) =>
   );
 
 export const sitemapRows = () =>
-  query(`SELECT p.slug, greatest(p.content_updated_at, p.published_at) AS lastmod, m.id AS cover_id, m.name AS cover_name
+  query(`SELECT p.slug, greatest(p.content_updated_at, p.published_at) AS lastmod, m.id AS cover_id, m.name AS cover_name, p.content_html
     FROM posts p LEFT JOIN media m ON m.id = p.cover_media_id
     WHERE ${LIVE} AND NOT p.noindex AND p.canonical_url = '' ORDER BY p.published_at DESC`);
 
