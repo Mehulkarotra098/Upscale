@@ -570,8 +570,17 @@ def pages():
 
 # ================================================================ build hooks (seo_pages.build, llms.txt, llms-full.txt, sitemap images)
 def all_pages():
-    import ai_pages, trade_pages
-    return pages() + ai_pages.pages() + trade_pages.pages()
+    import ai_pages, trade_pages, world_widgets
+    out = pages() + ai_pages.pages() + trade_pages.pages()
+    ex = world_widgets.extra()
+    for p in out:
+        key = p['path'].replace('services/', '', 1)
+        for before, block in ex.get(key, []):
+            sids = [b.get('sid') if isinstance(b, dict) else None for b in p['blocks']]
+            p['blocks'].insert(sids.index(before) if before in sids else len(p['blocks']) - 1, block)
+        if key in ('website-design-india/clinics', 'website-design-india/ca-and-law-firms'):  # the do/don't list replaces the unsourced rules cards
+            p['blocks'] = [b for b in p['blocks'] if not (isinstance(b, dict) and b.get('sid') == 'rules' and b['h'].startswith('Within'))]
+    return out
 
 
 def build(ctx, parts):

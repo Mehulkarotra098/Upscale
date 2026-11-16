@@ -828,3 +828,40 @@
   q('.wc__g li[data-tz]').forEach(function(li){ if(li.getAttribute('data-tz')===tz) li.classList.add('is-you'); });
   q('.cg li[data-cur]').forEach(function(li){ if(li.getAttribute('data-tz')===tz||(cur!=='EUR'&&li.getAttribute('data-cur')===cur)) li.classList.add('is-you'); });
 })();
+
+/* Blocks only one page has (world_widgets.py): calculators with the visitor's own numbers, and the tap-to-ask chat.
+   Without JavaScript the calculators show their worked example and the chat shows every answer. */
+(function(){
+  'use strict';
+  var doc=document;
+  function q(s,r){ return Array.prototype.slice.call((r||doc).querySelectorAll(s)); }
+  var F={
+    commission:function(v,x){ var kept=v.n*v.a*(v.c/100)*(v.s/100); return {kept:kept, year:kept*12, pay:kept>0?(x.site/kept):0}; },
+    missed:function(v){ var people=v.n*4.33*(v.m/100)*(v.b/100); return {lost:people*v.v, people:people}; },
+    margin:function(v,x){ var per=v.p-x.ours; return {per:per, month:per*v.n, year:per*v.n*12}; }
+  };
+  function money(sym,n){ n=Math.max(0,Math.round(n)); var s=sym==='\u20b9'?n.toLocaleString('en-IN'):n.toLocaleString('en-GB'); return sym+s; }
+  q('[data-wxcalc]').forEach(function(box){
+    var kind=box.getAttribute('data-wxcalc'),sym=box.getAttribute('data-sym')||'',fixed={}; try{ fixed=JSON.parse(box.getAttribute('data-fixed')||'{}'); }catch(e){ fixed={}; }
+    function run(){
+      var v={}; q('[data-k]',box).forEach(function(i){ v[i.getAttribute('data-k')]=Math.max(0,parseFloat(i.value)||0); });
+      var r=F[kind]?F[kind](v,fixed):{};
+      q('[data-o]',box).forEach(function(o){ var k=o.getAttribute('data-o'),val=r[k],t;
+        if(k==='pay') t=val<=0?'\u2013':val<1?'under a month':Math.ceil(val)+' months';
+        else if(k==='people') t=Math.round(val)+' a month';
+        else t=money(sym,val);
+        if(o.textContent!==t){ o.textContent=t; o.classList.remove('is-new'); void o.offsetWidth; o.classList.add('is-new'); } });
+    }
+    box.addEventListener('input',run); run();
+  });
+  q('[data-askdemo]').forEach(function(box){
+    var pairs=q('[data-a]',box),btns=q('[data-ask]',box),typing=box.querySelector('.ak__typing'),timer=0;
+    function show(i){ btns.forEach(function(b){ b.classList.toggle('is-on',b.getAttribute('data-ask')===String(i)); });
+      var p=pairs[i]; if(!p) return; if(p.parentNode) p.parentNode.appendChild(p);
+      var you=p.querySelector('.ak__m--you'),bot=p.querySelector('.ak__m--bot'); p.classList.add('is-on'); bot.hidden=true; if(typing) typing.classList.add('is-on');
+      window.clearTimeout(timer); timer=window.setTimeout(function(){ bot.hidden=false; if(typing) typing.classList.remove('is-on'); },doc.documentElement.classList.contains('rm')?0:900);
+      if(you) you.hidden=false; }
+    btns.forEach(function(b){ b.addEventListener('click',function(){ show(+b.getAttribute('data-ask')); }); });
+    show(0);
+  });
+})();

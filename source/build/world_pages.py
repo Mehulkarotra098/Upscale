@@ -322,7 +322,7 @@ def hundred(n, big, label, src):
 def sec(sid, eyebrow, h, lead, inner, tone=''):
     """A section: (html, plain text for llms-full.txt, heading). inner is (html, text)."""
     html, text = inner
-    return dict(html=CP._custom_sec(sid, eyebrow, h, lead, html, tone=tone), text=text, h=h)
+    return dict(html=CP._custom_sec(sid, eyebrow, h, lead, html, tone=tone), text=text, h=h, sid=sid)
 
 
 def work_sec(ctx_keys=('spacestudio', 'sashe', 'vidhi', 'antrah', 'roar', 'brandgen'), h='Real websites. Live right now.', lead='Tap any card to open the live site.'):
@@ -332,7 +332,7 @@ def work_sec(ctx_keys=('spacestudio', 'sashe', 'vidhi', 'antrah', 'roar', 'brand
 def process_sec(h='Live in 3–4 weeks. All from your phone.'):
     return dict(html=CP._custom_sec('process', 'How it works', h, '', CP.timeline('remote-review'), tone='band'),
                 text='Free audit on day 1 over WhatsApp; a written plan and fixed price on a video call in week 1 (20% to start); '
-                     'the design in Figma to approve in week 2 (20% on sign-off); launch in weeks 3–4 with every login handed over (60% on launch).', h=h)
+                     'the design in Figma to approve in week 2 (20% on sign-off); launch in weeks 3–4 with every login handed over (60% on launch).', h=h, sid='process')
 
 
 def _crumbs(p):
