@@ -487,6 +487,11 @@ a.channel:hover{transform:translateY(-3px);border-color:var(--lavender);box-shad
 .footer__bottom a:hover{background-size:100% 2px}
 .footer__legal{display:grid;gap:4px}
 .footer__legal p{margin:0}
+.footer__privacy a,.footer__privacy button{color:inherit;text-decoration:underline;text-underline-offset:3px}
+.footer__privacy a,.footer__privacy button{display:inline-block;padding:12px 0}
+.footer__privacy button{background:none;border:0;font:inherit;cursor:pointer}
+.footer__privacy a:hover,.footer__privacy button:hover{color:var(--white)}
+.cx__fine a{color:inherit;text-underline-offset:3px}
 .footer__sister{display:flex;flex-wrap:wrap;align-items:center;gap:2px 10px;color:rgba(255,255,255,.66)}
 .footer__sister img{width:22px;height:19px;flex:none}
 @media (min-width:860px){
@@ -495,6 +500,25 @@ a.channel:hover{transform:translateY(-3px);border-color:var(--lavender);box-shad
   .footer__nav ul{display:flex;gap:clamp(18px,2.4vw,36px)}
   .footer__bottom{grid-template-columns:1fr auto;align-items:center}
 }
+
+/* ---------- Cookie choice: a small card, two equal buttons, nothing switched on until "yes" ---------- */
+.cc{position:fixed;left:calc(16px + env(safe-area-inset-left,0px));bottom:calc(16px + env(safe-area-inset-bottom,0px));z-index:57;width:min(400px,calc(100vw - 32px));padding:16px 18px 18px;border-radius:16px;background:var(--white);color:var(--body);border:1px solid var(--line-light);box-shadow:0 22px 48px -22px rgba(37,30,69,.5);font:400 14.5px/1.5 var(--sans);animation:cc-in .45s var(--ease-out) both}
+.cc[hidden]{display:none}
+.cc__t{margin:0 0 14px}
+.cc__t b{display:block;margin-bottom:2px;color:var(--violet);font-size:15.5px}
+.cc__t a{color:var(--violet);font-weight:600;text-underline-offset:3px}
+.cc__b{display:flex;gap:10px}
+.cc__btn{flex:1 1 0;min-height:46px;padding:0 12px;border-radius:10px;border:1.5px solid var(--violet);background:var(--white);color:var(--violet);font:700 14.5px/1.15 var(--sans);cursor:pointer;transition:background .2s ease,color .2s ease}
+.cc__btn:hover{background:var(--violet);color:var(--white)}
+.cc__btn:focus-visible{outline:2px solid var(--green);outline-offset:2px}
+.menu-open .cc{opacity:0;pointer-events:none}
+body.gp-bar-on .cc{bottom:calc(88px + env(safe-area-inset-bottom,0px))}
+@keyframes cc-in{from{opacity:0;transform:translateY(14px)}}
+.rm .cc{animation:none}
+@media (min-width:1024px){.cc{left:auto;right:calc(28px + env(safe-area-inset-right,0px))}}
+@media (max-width:519px){.cc{left:12px;width:calc(100vw - 24px);bottom:calc(12px + env(safe-area-inset-bottom,0px))}.cc-open .wa-float{opacity:0;pointer-events:none}}
+@media (prefers-reduced-motion:reduce){.cc{animation:none}}
+@media print{.cc{display:none}}
 
 /* ---------- WhatsApp float (mobile) ---------- */
 .wa-float{position:fixed;right:calc(16px + env(safe-area-inset-right,0px));bottom:calc(16px + env(safe-area-inset-bottom,0px));z-index:55;width:54px;height:54px;border-radius:50%;display:grid;place-items:center;background:var(--green);color:var(--violet);box-shadow:0 16px 32px -14px rgba(37,30,69,.55);text-decoration:none;transform:translateY(140%) scale(.6);opacity:0;pointer-events:none;transition:transform .55s var(--ease-spring),opacity .3s ease}
@@ -589,3 +613,5 @@ html.menu-open{overflow:hidden}
   .stat:first-child{border-top:0;padding-top:0}
   .stat__label{margin-top:0;font-size:11px;letter-spacing:.09em}
 }
+.cc-again{background:none;border:0;padding:0;font:inherit;font-weight:600;cursor:pointer}
+.sp-facts th code{font:600 13px/1.5 ui-monospace,SFMono-Regular,Consolas,monospace;letter-spacing:0;text-transform:none;overflow-wrap:anywhere}

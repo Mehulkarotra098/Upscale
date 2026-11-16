@@ -782,6 +782,17 @@ def parent_sections():
               + ', with six checks to make before you hire anyone. For your own estimate, try the '
               + _link('/tools/website-cost-calculator', 'website cost calculator') + '.'),
             eyebrow='The price gap', layout='wide', tone='band', sid='value'),
+        Sec('Looking for a website designing company in Mumbai?',
+            P('People usually search for a website designing company, a web development company or a web design firm, so let me be plain about '
+              'what you get here. U Scale is one person. I design your site and I write its code, which covers the website development services '
+              'a larger company would split across a team. Before you pay any web designing company in Mumbai, me included, check six things:'),
+            Check(['The domain and hosting are registered in your name, not the company’s.',
+                   'You see the phone and desktop designs before any code is written.',
+                   'The price and the number of pages are in writing, and so is what counts as extra.',
+                   'You know who is designing and building the site, and you can speak to that person.',
+                   'Somebody tests the site on an ordinary phone as well as on the designer’s laptop.',
+                   'At launch you get the code, the design files and every login.']),
+            eyebrow='Choosing a web design company', layout='wide', tone='dark', sid='company'),
         Sec('Areas I work in across Mumbai',
             P('I’m based in Ghatkopar West and meet clients across Mumbai: the western suburbs from Bandra to Borivali, the island city from Dadar '
               'and Lower Parel to Worli and Fort, and the eastern suburbs around me, from Kurla and Chembur to Powai and Mulund.',
