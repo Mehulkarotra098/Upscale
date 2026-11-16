@@ -507,6 +507,7 @@ def llms_txt(site, faq, updated=TODAY):
     lines += city_pages.llms_lines(site)
     import growth_pages
     lines += growth_pages.llms_lines(site)
+    lines += __import__('world_more').llms_lines(site)
     lines += ['', '## Free tools', '',
               f'- [Google Business Profile checker]({site}tools/google-business-profile-checker): a score out of 100 with a fix list and review goal (runs in the browser, no sign-up)',
               f'- [Google review QR code and counter standee maker]({site}tools/google-review-qr-code): runs in the browser, no sign-up',
@@ -1259,6 +1260,8 @@ def build(ctx):
     import city_pages  # website design in other Indian cities (/services/website-design-<city>)
     geo_rels += city_pages.build(ctx, parts)
     geo_rels += growth_pages.build(ctx, parts)
+    import world_more  # clients abroad, AI services with Apex36, trades across India (Nov 2026)
+    geo_rels += world_more.build(ctx, parts)
     rels = (['index.html', 'about.html', 'services.html', 'pricing.html'] + [f'services/{x["slug"]}.html' for x in SERVICES] + geo_rels
             + ['tools/index.html', f'tools/{GBP["slug"]}.html', f'tools/{TOOL["slug"]}.html', f'tools/{card_page.SLUG}.html', f'tools/{qr_page.SLUG}.html', f'{aeo.LICENSE_SLUG}.html', f'{aeo.PRIVACY_SLUG}.html'])
     dates = aeo.stamp_pages(out, site, rels)  # each page's date moves only when its content changes
@@ -1268,6 +1271,7 @@ def build(ctx):
     pics.update(svc_pages.images_by_url(site))
     pics.update(city_pages.images_by_url(site))
     pics.update(growth_pages.images_by_url(site))
+    pics.update(world_more.images_by_url(site))
     # Home and tool pages: the product shots and tool images shown in <main>, read from the built page so the image
     # sitemap lists exactly what people see there (work thumbnails and logos are left out).
     for rel in ['index.html', 'tools/index.html', f'tools/{GBP["slug"]}.html', f'tools/{TOOL["slug"]}.html', f'tools/{card_page.SLUG}.html', f'tools/{qr_page.SLUG}.html']:

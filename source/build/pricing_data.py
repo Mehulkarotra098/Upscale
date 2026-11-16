@@ -59,6 +59,30 @@ PRESETS = [
     dict(label='A month of social', web='', checks=[], units={'Social post': 12, 'Carousel': 4, 'Reel edit (your footage)': 4}),
 ]
 
+# Prices for clients outside India. Mehul, 16 Nov 2026: the same prices as the rupee list above, converted and rounded to a
+# solid amount. Rates of 16 Nov 2026 (open.er-api.com, units per 1 US dollar). They are fixed here on purpose, so a price
+# abroad only moves when the rupee price above moves or someone updates these rates. One-time prices round to the nearest
+# 50 (dirhams: 100), monthly ones to the nearest 5 (dirhams: 10), halves round up.
+FX_DATE = '16 November 2026'
+INR_PER_USD = 94.3996
+FX = {  # code: (symbol shown, units per US dollar, currency name)
+    'USD': ('$', 1.0, 'US dollars'), 'GBP': ('£', 0.756564, 'pounds'), 'EUR': ('€', 0.906623, 'euros'),
+    'AUD': ('A$', 1.475643, 'Australian dollars'), 'CAD': ('C$', 1.426617, 'Canadian dollars'),
+    'SGD': ('S$', 1.287631, 'Singapore dollars'), 'AED': ('AED ', 3.6725, 'dirhams'), 'NZD': ('NZ$', 1.809242, 'New Zealand dollars'),
+}
+
+
+def fx_amount(rupees, cur, monthly=False):
+    """A rupee price in another currency, rounded to a solid amount."""
+    step = (10 if cur == 'AED' else 5) if monthly else (100 if cur == 'AED' else 50)
+    v = rupees / INR_PER_USD * FX[cur][1]
+    return int((v / step) + .5) * step
+
+
+def fx_label(rupees, cur, monthly=False):
+    return f'{FX[cur][0]}{fx_amount(rupees, cur, monthly):,}'
+
+
 TERMS = [
     '20% advance to start, 20% on design sign-off, 60% on launch. Final files are released after the final payment.',
     '2–3 revision rounds included on every project, agreed in writing before I start.',

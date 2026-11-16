@@ -436,7 +436,7 @@ def _head(ctx, url, title, desc, ld, og=None, extra_head=None, lang='en-IN'):
     # language on <html> and in og:locale instead of claiming to be the en-IN version.
     alt = (f'<link rel="alternate" hreflang="en-IN" href="{url}">\n<link rel="alternate" hreflang="x-default" href="{url}">\n'
            if lang == 'en-IN' else '')
-    locale = 'hi_IN' if lang.startswith('hi') else 'en_IN'
+    locale = 'hi_IN' if lang.startswith('hi') else lang.replace('-', '_') if lang.startswith('en-') else 'en_IN'  # en-GB → en_GB on pages for clients abroad
     return f'''<!doctype html>
 <html lang="{lang}">
 <head>
@@ -914,6 +914,7 @@ def llms_full(site, faq):
     L += city_pages.llms_full(site)
     import growth_pages
     L += growth_pages.llms_full(site)
+    L += __import__('world_more').llms_full(site)
     L += ['## Free tools', '',
           f'- Google Business Profile checker: {site}tools/google-business-profile-checker. {SP.GBP["lead"]}',
           f'- Google review link & QR code maker: {site}tools/google-review-qr-code. {SP.TOOL["lead"]}',

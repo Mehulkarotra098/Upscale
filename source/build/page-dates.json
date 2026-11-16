@@ -24,7 +24,19 @@
   "date": "2026-11-16"
  },
  "https://uscale.in/services": {
-  "fp": "f35535e38fd26d6e",
+  "fp": "cb5e8d29e7983265",
+  "date": "2026-11-16"
+ },
+ "https://uscale.in/services/ai-chatbot-for-website": {
+  "fp": "f66dd3a16704bdfe",
+  "date": "2026-11-16"
+ },
+ "https://uscale.in/services/ai-marketing": {
+  "fp": "f8dec6490d6f6e02",
+  "date": "2026-11-16"
+ },
+ "https://uscale.in/services/ai-receptionist": {
+  "fp": "40c40b86c774621f",
   "date": "2026-11-16"
  },
  "https://uscale.in/services/ai-search-visibility": {
@@ -39,12 +51,24 @@
   "fp": "3d83c7f8274b3525",
   "date": "2026-11-14"
  },
+ "https://uscale.in/services/figma-to-code": {
+  "fp": "7ac153966e489839",
+  "date": "2026-11-16"
+ },
  "https://uscale.in/services/google-business-profile-mumbai": {
   "fp": "622de4f6277991c6",
   "date": "2026-11-14"
  },
  "https://uscale.in/services/google-meta-ads-mumbai": {
   "fp": "ba07dd062c164954",
+  "date": "2026-11-16"
+ },
+ "https://uscale.in/services/n8n-automation": {
+  "fp": "2f4138618c625009",
+  "date": "2026-11-16"
+ },
+ "https://uscale.in/services/outsource-web-design-india": {
+  "fp": "9d145a0472e79384",
   "date": "2026-11-16"
  },
  "https://uscale.in/services/seo-mumbai": {
@@ -59,9 +83,17 @@
   "fp": "b5d660fdace1b245",
   "date": "2026-11-16"
  },
+ "https://uscale.in/services/website-design-australia": {
+  "fp": "8e1ffd7dbb876792",
+  "date": "2026-11-16"
+ },
  "https://uscale.in/services/website-design-bengaluru": {
   "fp": "10e7ee704dc6ae9c",
   "date": "2026-11-14"
+ },
+ "https://uscale.in/services/website-design-canada": {
+  "fp": "7fd49f33147175e0",
+  "date": "2026-11-16"
  },
  "https://uscale.in/services/website-design-chennai": {
   "fp": "4e8e1bd750438a75",
@@ -71,12 +103,48 @@
   "fp": "2639190b0c16eead",
   "date": "2026-11-16"
  },
+ "https://uscale.in/services/website-design-for-independent-hotels": {
+  "fp": "96b87fcf64ef5c34",
+  "date": "2026-11-16"
+ },
+ "https://uscale.in/services/website-design-for-indian-fashion-brands": {
+  "fp": "db85cbbfa2360717",
+  "date": "2026-11-16"
+ },
+ "https://uscale.in/services/website-design-for-indian-restaurants": {
+  "fp": "2bcbee9158df6d7e",
+  "date": "2026-11-16"
+ },
  "https://uscale.in/services/website-design-hyderabad": {
   "fp": "aa5c7851e66f7533",
   "date": "2026-11-16"
  },
  "https://uscale.in/services/website-design-india": {
-  "fp": "c93fb2959502e54c",
+  "fp": "3dfd748380be6ffc",
+  "date": "2026-11-16"
+ },
+ "https://uscale.in/services/website-design-india/ca-and-law-firms": {
+  "fp": "b690634f28f93246",
+  "date": "2026-11-16"
+ },
+ "https://uscale.in/services/website-design-india/clinics": {
+  "fp": "ab10afec60bfdf29",
+  "date": "2026-11-16"
+ },
+ "https://uscale.in/services/website-design-india/coaching-institutes": {
+  "fp": "168d36e2c9af47a4",
+  "date": "2026-11-16"
+ },
+ "https://uscale.in/services/website-design-india/exporters": {
+  "fp": "86ec54c78db51213",
+  "date": "2026-11-16"
+ },
+ "https://uscale.in/services/website-design-india/real-estate": {
+  "fp": "1af64f39becd9c1f",
+  "date": "2026-11-16"
+ },
+ "https://uscale.in/services/website-design-ireland": {
+  "fp": "96720cc98569759a",
   "date": "2026-11-16"
  },
  "https://uscale.in/services/website-design-jaipur": {
@@ -119,8 +187,20 @@
   "fp": "d94f7999fb6b021c",
   "date": "2026-11-14"
  },
+ "https://uscale.in/services/website-design-netherlands": {
+  "fp": "76dca22224a4b6f0",
+  "date": "2026-11-16"
+ },
+ "https://uscale.in/services/website-design-new-zealand": {
+  "fp": "46868ef7c4246b84",
+  "date": "2026-11-16"
+ },
  "https://uscale.in/services/website-design-pune": {
   "fp": "e834ab875a13454f",
+  "date": "2026-11-16"
+ },
+ "https://uscale.in/services/website-design-singapore": {
+  "fp": "ad62c568ce9a349a",
   "date": "2026-11-16"
  },
  "https://uscale.in/services/website-design-surat": {
@@ -130,6 +210,26 @@
  "https://uscale.in/services/website-design-thane": {
   "fp": "9afbe8b0f23dd755",
   "date": "2026-11-14"
+ },
+ "https://uscale.in/services/website-design-uae": {
+  "fp": "ddcb820ca0865842",
+  "date": "2026-11-16"
+ },
+ "https://uscale.in/services/website-design-uk": {
+  "fp": "ed77ecf46c73b0b8",
+  "date": "2026-11-16"
+ },
+ "https://uscale.in/services/website-design-usa": {
+  "fp": "1f515235893d8f6f",
+  "date": "2026-11-16"
+ },
+ "https://uscale.in/services/whatsapp-chatbot": {
+  "fp": "29554a3528e91ca8",
+  "date": "2026-11-16"
+ },
+ "https://uscale.in/services/white-label-web-design": {
+  "fp": "5976e06f72337cd1",
+  "date": "2026-11-16"
  },
  "https://uscale.in/tools": {
   "fp": "9669311c1e917ce7",

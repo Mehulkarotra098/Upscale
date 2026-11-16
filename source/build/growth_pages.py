@@ -621,6 +621,16 @@ def india_dict():
                                                                                         ('Price', f'Fixed in writing, from {price("Landing page")}')])],
                         note='Not sure? The first audit is free either way, and I will tell you honestly if a local studio suits you better.'),
                 eyebrow='Compared', layout='wide', sid='compared'),
+            Sec('Websites by trade, anywhere in India',
+                P('Each trade works under its own rules, from RERA for property to the 2024 coaching guidelines, so each has its own page.'),
+                Links([('/services/website-design-india/clinics', 'pin', 'Clinics and doctors', 'Timings, fees and booking on WhatsApp, within medical ethics.', f'From {price("Landing page")}'),
+                       ('/services/website-design-india/real-estate', 'pin', 'Real estate', 'Project pages with RERA details and site visits on WhatsApp.', f'From {price("Landing page")}'),
+                       ('/services/website-design-india/exporters', 'pin', 'Exporters and manufacturers', 'Catalogues and RFQs that buyers abroad trust.', f'From {price("Landing page")}'),
+                       ('/services/website-design-india/coaching-institutes', 'pin', 'Coaching institutes', 'Courses, fees and honest results, within the 2024 rules.', f'From {price("Landing page")}'),
+                       ('/services/website-design-india/ca-and-law-firms', 'pin', 'CA and law firms', 'Facts, not ads, within your profession’s rules.', f'From {price("Landing page")}')]),
+                P('Outside India? We work with businesses in nine countries, at the same prices converted to your currency: '
+                  + _link('/services/outsource-web-design-india', 'web design for clients abroad') + '.'),
+                eyebrow='By trade', layout='wide', sid='trades'),
             Sec('Websites by type of business',
                 Links([('/services/website-design-mumbai/restaurants-cafes', 'menu', 'Restaurants and cafés', 'Your menu and your own online ordering, with no app commission.', price('Restaurant site + own online ordering')),
                        ('/services/website-design-mumbai/boutiques-fashion', 'tag', 'Boutiques and clothing stores', 'A catalogue with WhatsApp orders, or a full online store.', f'From {price("Business site, 5–10 pages")}'),
@@ -879,7 +889,11 @@ def hub_cards():
     items = [('/services/digital-marketing-mumbai', 'Digital marketing', 'Digital marketing in Mumbai', 'What one specialist covers instead of an agency team, with every price.'),
              ('/services/google-business-profile-mumbai', 'Local SEO', 'Google Business Profile management', 'Set-up, verification, weekly posts, reviews and suspension fixes.'),
              ('/freelance-web-designer-mumbai', 'Hire', 'Freelance web designer in Mumbai', 'Hire Mehul directly: fixed price, designed in Figma, hand-coded.'),
-             ('/tools/website-cost-calculator', 'Free tool', 'Website cost calculator', 'An estimate in a minute, from published prices.')]
+             ('/tools/website-cost-calculator', 'Free tool', 'Website cost calculator', 'An estimate in a minute, from published prices.'),
+             ('/services/outsource-web-design-india', 'Clients abroad', 'Web design for businesses outside India', 'One price list in eight currencies, nine country pages.'),
+             ('/services/white-label-web-design', 'For agencies', 'White label web design', 'A fixed price per site, your brand, NDA first.'),
+             ('/services/whatsapp-chatbot', 'AI', 'WhatsApp and website chatbots', 'Set up by us, built by our sister company Apex36.'),
+             ('/services/website-design-india/clinics', 'By trade', 'Websites by trade across India', 'Clinics, real estate, exporters, coaching, CA and law firms.')]
     li = ''.join(f'<li><a class="fp-rel" href="{ea(h)}"><span class="fp-rel__k">{e(k)}</span><b>{e(t)}</b><span class="fp-rel__d">{e(d)}</span>{icon("arrow")}</a></li>'
                  for h, k, t, d in items)
     return f'<nav class="fp-related fp-related--parent" aria-label="More services and pages"><p class="eyebrow">Also on this site</p><ul>{li}</ul></nav>'
