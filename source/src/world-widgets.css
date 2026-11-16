@@ -204,3 +204,12 @@
 .ck2__copy p{margin:0;font:500 16px/1.55 var(--sans);color:var(--body)}
 @media (max-width:799px){.ck2{grid-template-columns:minmax(0,1fr)}}
 .rm .wg li,.rm .wg__ok,.rm .wkp li,.rm .ul2 li{animation:none!important}
+
+/* ---- the ChatGPT images (world_images.py) ---- */
+.ab-sample{max-width:1100px}
+.ab-fig{margin:0}
+.ab-scene{display:grid;gap:16px;max-width:1100px}
+.ab-scene--2{grid-template-columns:minmax(0,1fr) minmax(0,1fr)}
+@media (max-width:799px){.ab-scene--2{grid-template-columns:minmax(0,1fr)}}
+.ab-fig--photo .fp-shot__stage{padding:0;background:none;box-shadow:0 30px 50px -34px rgba(37,30,69,.6)}
+.ab-fig--photo .fp-shot__stage img{display:block;width:100%;height:auto;border-radius:var(--radius-card)}

@@ -570,7 +570,7 @@ def pages():
 
 # ================================================================ build hooks (seo_pages.build, llms.txt, llms-full.txt, sitemap images)
 def all_pages():
-    import ai_pages, trade_pages, world_widgets
+    import ai_pages, trade_pages, world_widgets, world_images
     out = pages() + ai_pages.pages() + trade_pages.pages()
     ex = world_widgets.extra()
     for p in out:
@@ -579,6 +579,7 @@ def all_pages():
             sids = [b.get('sid') if isinstance(b, dict) else None for b in p['blocks']]
             p['blocks'].insert(sids.index(before) if before in sids else len(p['blocks']) - 1, block)
         world_widgets.swap_sigs(p)
+        world_images.attach(p, sec, process_sec)
         if key in ('website-design-india/clinics', 'website-design-india/ca-and-law-firms'):  # the do/don't list replaces the unsourced rules cards
             p['blocks'] = [b for b in p['blocks'] if not (isinstance(b, dict) and b.get('sid') == 'rules' and b['h'].startswith('Within'))]
     return out
@@ -612,4 +613,5 @@ def llms_full(site):
 
 
 def images_by_url(site):
-    return {site + p['path']: [(f'{site}assets/pages/og-{p["slug"]}.jpg', p['og_alt'])] for p in all_pages()}
+    import world_images
+    return {site + p['path']: [(f'{site}assets/pages/og-{p["slug"]}.jpg', p['og_alt'])] + world_images.image_urls(site, p['slug']) for p in all_pages()}

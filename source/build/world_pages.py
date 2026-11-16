@@ -329,8 +329,8 @@ def work_sec(ctx_keys=('spacestudio', 'sashe', 'vidhi', 'antrah', 'roar', 'brand
     return lambda ctx: dict(html=CP._custom_sec('work', 'Real work', h, lead, CP.work_rail(ctx, list(ctx_keys)), tone='dark'), text='', h=h)
 
 
-def process_sec(h='Live in 3–4 weeks. All from your phone.'):
-    return dict(html=CP._custom_sec('process', 'How it works', h, '', CP.timeline('remote-review'), tone='band'),
+def process_sec(h='Live in 3–4 weeks. All from your phone.', img='remote-review'):
+    return dict(html=CP._custom_sec('process', 'How it works', h, '', CP.timeline(img), tone='band'),
                 text='Free audit on day 1 over WhatsApp; a written plan and fixed price on a video call in week 1 (20% to start); '
                      'the design in Figma to approve in week 2 (20% on sign-off); launch in weeks 3–4 with every login handed over (60% on launch).', h=h, sid='process')
 
