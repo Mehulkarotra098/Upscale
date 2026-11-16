@@ -363,10 +363,10 @@ def calc_dict():
         slug='website-cost-calculator', path='tools/website-cost-calculator', kind='guide', crumb='Website cost calculator',
         trail=[('Free tools', '/tools')], main_ld=main_ld, service='Website cost calculator for India', hero_more=('#calculator', 'Use the calculator'),
         wa_msg="Hi Mehul, I used the website cost calculator on uscale.in. I'd like a free audit and a fixed price.",
-        title='Website Cost Calculator India: Free Estimate in 1 Minute',
-        desc='Free website cost calculator for India: pick your pages and features to see the market range and a fixed U Scale price. Send the estimate on WhatsApp.',
+        title='Website Cost Calculator for Mumbai & India: Free, 1 Minute',
+        desc='Free website cost calculator for Mumbai and the rest of India: pick your pages and features to see the market range and a fixed U Scale price. No sign-up.',
         h1='Website cost calculator', eyebrow='Free tool · no sign-up',
-        lead='What will your website cost? Pick the kind of site and what you want added, and see a fixed U Scale price, the market range from 16 published price guides, and what you will pay every year after.',
+        lead='What will your website cost, in Mumbai or anywhere else in India? Pick the kind of site and what you want added, and see a fixed U Scale price, the market range from 16 published price guides, and what you will pay every year after.',
         stats=[('1 min', 'To an estimate'), (price('Landing page'), 'Websites from'), ('Free', 'No sign-up')],
         art=dict(kind='card', card='estimate'),
         answer=(f'A website in India costs about ₹8,000–₹30,000 for a basic template site, ₹40,000–₹2 lakh for a custom design and ₹25,000–₹3 lakh for an '

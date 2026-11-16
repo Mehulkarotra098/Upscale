@@ -383,8 +383,8 @@ AI = dict(
                    ('Do your facts match everywhere?', 'Website, Google Business Profile, Instagram and directories, line by line'),
                    ('How do competitors appear?', 'Who gets named instead of you, and what their pages do that yours do not')],
                   'What a U Scale AI visibility audit checks'),
-            P(f'The audit is {price("AI visibility audit (free if we work together)")}, free if we go on to work together, and you get the answers as screenshots, '
-              'not just a score.'),
+            P(f'The audit is {price("AI visibility audit (free if we work together)")}, free if we go on to work together, and you get the actual answers as screenshots, '
+              'so you can read them yourself.'),
             eyebrow='AI visibility audit, India', layout='wide'),
         Sec('Questions people in Mumbai now ask AI',
             Cards([('chat', '“Best dentist near Ghatkopar station that’s open on Sunday?”', 'Answered from listings, timings and reviews.'),
@@ -435,7 +435,7 @@ AI = dict(
                 'Mehul Karotra puts the questions your customers ask to ChatGPT, Gemini, Perplexity and Google’s AI features, and shows you the answers, '
                 'the sources they cite and what to fix.'),
                ('Do I need llms.txt for AI search?',
-                'No. Google says its AI features need no special files, and other AI companies have not said they rely on llms.txt. It is a tidy extra, not a requirement.'),
+                'No. Google says its AI features need no special files, and other AI companies have not said they rely on llms.txt. It does no harm to have one, and nothing depends on it.'),
                ('Are there hidden charges in AI search visibility work?',
                 f'No. The audit is {price("AI visibility audit (free if we work together)")} once, or free if we go on to work together, and monthly work is '
                 f'{price("AI search visibility (GEO)")} a month, agreed in writing before it starts. Monthly work runs for 3 months minimum, then month to month '
