@@ -2,6 +2,7 @@
 (Indian restaurants, Indian fashion labels, independent hotels). Shared parts and the country pages are in world_pages.py."""
 import aeo
 import geo_pages as GP
+import world_pages as WP
 import depth_art as DA
 import pricing_data as PD
 from geo_pages import icon, price, e
@@ -10,7 +11,25 @@ from world_pages import (COUNTRIES, LANDING, BIZ, BLOG, STORE, STORE_BIG, REST, 
 
 
 # ================================================================ shared widgets for the hub and the trade pages
-def cur_switch(items, curs=('USD', 'GBP', 'EUR', 'AUD', 'CAD', 'SGD', 'AED', 'NZD'), sid='cur', inr=False):
+# The cheapest local price for a 5–10 page business site in each currency, from the country pages' own sources.
+LOCAL = {'GBP': ('A UK freelancer', 800, 'uk-a9'), 'USD': ('A US freelancer', 1500, 'us-jim'), 'AUD': ('An Australian studio', 2000, 'au-wtd'),
+         'CAD': ('A Canadian freelancer', 1500, 'ca-marvel'), 'NZD': ('A New Zealand studio', 1500, 'nz-kiwi'), 'SGD': ('A Singapore studio', 3000, 'sg-mt'),
+         'EUR': ('An Irish studio', 1500, 'ie-vimar'), 'AED': ('A Dubai agency', 5000, 'ae-2m')}
+
+
+def _vs(c):
+    who, lo, src = LOCAL[c]
+    ours = PD.fx_amount(GP.rupees(BIZ), c)
+    s = PD.FX[c][0]
+    return (f'<div class="fxs__v fxs__v--{c.lower()}"><p class="fxs__vk">The same 5–10 page site</p>'
+            f'<p class="fxs__vb"><span>{e(who)}, from</span><i style="--w:100%"></i><b>{e(s)}{lo:,}</b></p>'
+            f'<p class="fxs__vb fxs__vb--us"><span>U Scale, fixed</span><i style="--w:{ours / lo * 100:.1f}%"></i><b>{e(s)}{ours:,}</b></p>'
+            f'<p class="fxs__vd"><b>{e(s)}{lo - ours:,}</b> less than the cheapest local option we found.</p>'
+            + (f'<p class="fxs__vn">Template shops in Dubai start at AED 999, below us. We win on custom design and hand-written code.</p>' if c == 'AED' else '')
+            + f'{GP.src_chip(src)}</div>')
+
+
+def cur_switch(items, curs=('USD', 'GBP', 'EUR', 'AUD', 'CAD', 'SGD', 'AED', 'NZD'), sid='cur', inr=False, vs=False):
     """Prices in every currency, switched with radio buttons (no JavaScript needed). items: [(label, pricing name, note)]."""
     curs = (('INR',) if inr else ()) + tuple(curs)
     sym = lambda c: '₹' if c == 'INR' else PD.FX[c][0]
@@ -26,8 +45,12 @@ def cur_switch(items, curs=('USD', 'GBP', 'EUR', 'AUD', 'CAD', 'SGD', 'AED', 'NZ
     css = ''.join(f'#{sid}-{c.lower()}:checked~.fxs__tabs label[for={sid}-{c.lower()}]{{background:var(--violet);color:#fff}}'
                   f'#{sid}-{c.lower()}:checked~.fxs__ps .fxs__p--{c.lower()}{{display:grid}}'
                   f'#{sid}-{c.lower()}:focus-visible~.fxs__tabs label[for={sid}-{c.lower()}]{{outline:3px solid var(--green);outline-offset:2px}}' for c in curs)
-    html = (f'<div class="fxs" data-reveal>{radios}<div class="fxs__tabs" role="group" aria-label="Currency">{labels}</div>'
-            f'<div class="fxs__ps">{panels}</div><style>{css}</style></div>')
+    side = ''
+    if vs:
+        side = '<div class="fxs__vs" aria-live="polite">' + ''.join(_vs(c) for c in curs if c in LOCAL) + '</div>'
+        css += ''.join(f'#{sid}-{c.lower()}:checked~.fxs__vs .fxs__v--{c.lower()}{{display:grid}}' for c in curs if c in LOCAL)
+    html = (f'<div class="fxs{" fxs--vs" if vs else ""}" data-reveal data-fxs>{radios}<div class="fxs__tabs" role="group" aria-label="Currency">{labels}</div>'
+            f'<div class="fxs__ps">{panels}</div>{side}<p class="fxs__geo" data-geo hidden></p><style>{css}</style></div>')
     text = '\n'.join(f'- {lbl}: ' + ', '.join(val(name, c) for c in curs) for lbl, name, _ in items)
     return html, text
 
@@ -38,7 +61,7 @@ def country_grid():
     for i, p in enumerate(COUNTRIES):
         ov = overlap(p['utc'])
         segs = ''.join(f'<i style="--x:{x / 24 * 100:.1f}%;--w:{(y - x) / 24 * 100:.1f}%"></i>' for x, y in _segs(*our_day(p['utc'])))
-        li += (f'<li style="--i:{i}" data-reveal><a class="cg__c" href="/{p["path"]}"><span class="cg__cur">{e(p["cur"])}</span><b>{e(p["short"])}</b>'
+        li += (f'<li style="--i:{i}" data-reveal data-cur="{p["cur"]}" data-tz="{p["tz"]}"><a class="cg__c" href="/{p["path"]}"><span class="cg__cur">{e(p["cur"])}</span><b>{e(p["short"])}</b>'
                f'<span class="cg__p">{e(fx(BIZ, p["cur"]))}<small>5–10 page site</small></span>'
                f'<span class="cg__h" aria-hidden="true"><span class="cg__you"></span>{segs}</span>'
                f'<span class="cg__o">{icon("clock")}{e(f"{ov:g} shared hours" if ov else "We work while you sleep")}</span>{icon("arrow")}</a></li>')
@@ -164,10 +187,10 @@ def _hub():
         offers=[(LANDING, 'USD'), (BIZ, 'USD'), (BLOG, 'USD'), (STORE, 'USD'), (LANDING, 'GBP'), (BIZ, 'GBP'), (LANDING, 'EUR'), (BIZ, 'EUR'),
                 ('Technical + on-page SEO', 'USD'), ('Local SEO / Google Business Profile', 'USD'), ('AI search visibility (GEO)', 'USD'), ('Ads management', 'USD')],
         blocks=[
-            sec('trust', 'Why it’s safe', 'Safe to pay a studio on the other side of the world.', '', trust('USD', '.com')),
+            sec('trust', 'Why it’s safe', 'Safe to pay a studio on the other side of the world.', '', WP.with_review(trust('USD', '.com'))),
             work_sec(),
             sec('prices', 'One price list', 'Pick your currency.', 'The same work and the same price everywhere, converted and rounded. Fixed in writing.',
-                cur_switch([(t, n, d) for n, t, d in curs])),
+                cur_switch([(t, n, d) for n, t, d in curs], vs=True)),
             sec('monthly', 'Monthly work', 'SEO, ads and AI search, by the month.', 'The same monthly prices as in India, converted. Three months minimum, then month to month.',
                 cur_switch([('Technical and on-page SEO', 'Technical + on-page SEO', 'Speed, page titles and fixes'),
                             ('Local SEO', 'Local SEO / Google Business Profile', 'Google Business Profile and local rankings'),
@@ -250,7 +273,7 @@ def _white_label():
         og_alt=f'White label web design for agencies by U Scale: from {fx(LANDING, "USD")} a site, NDA first',
         offers=[(LANDING, 'USD'), (BIZ, 'USD'), (BLOG, 'USD'), (STORE, 'USD')],
         blocks=[
-            sec('trust', 'Why agencies trust it', 'Your client stays yours.', '', trust('USD', '.com', keys=('nda', 'fix', 'code', 'pay'))),
+            sec('trust', 'Why agencies trust it', 'Your client stays yours.', '', WP.with_review(trust('USD', '.com', keys=('nda', 'fix', 'code', 'pay')))),
             work_sec(h='Work we can show. Yours we never will.', lead='White-label sites never appear in our portfolio. These are our own clients.'),
             sec('prices', 'Per site, fixed', 'One price per site. You set the markup.', '', pc),
             sec('process', 'How it works', 'From your brief to your launch.', '', steps_html([
@@ -448,7 +471,7 @@ def _fashion():
                 ('pen', 'Made to measure', 'A size form that asks the right questions, sent straight to you.'),
                 ('chat', 'WhatsApp for questions', 'A button on every product, because people ask before they buy.'),
                 ('search', 'Found on Google', 'Product pages written for what people search, like “indian clothing store online uk”.')])),
-            sec('trust', 'Why it’s safe', 'You’re protected at every step.', '', trust('USD', '.com')),
+            sec('trust', 'Why it’s safe', 'In the words of the label we built for.', '', WP.with_review(trust('USD', '.com'))),
             sec('prices', 'Prices', 'Fixed, in rupees or your currency.', '', cur_switch(items, curs=('USD', 'GBP', 'CAD', 'AED'), sid='fb', inr=True)),
             process_sec(),
         ],

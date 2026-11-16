@@ -151,7 +151,8 @@ def cost_card(p):
             f'<ul>{li}</ul><p class="dk-cost__s" aria-hidden="true">{ticks}</p>'
             f'<p class="fp-ticket__f">{icon("file")}{e(p["cost_foot"])}</p></div>')
     floats = (DA._float('dk-seal', seal(PD.FX[cur][0]), 110, 0)
-              + DA._float('dk-chip dk-route', f'{icon("chat")}Mumbai ⇄ {e(p["city"])}<span class="dk-route__x"> · WhatsApp &amp; video</span>', 90, 1))
+              + DA._float('dk-chip dk-route', f'{icon("chat")}<span data-route data-tz="{p["tz"]}" data-city="{ea(p["city"])}"{" data-h12" if p.get("h12") else ""}>'
+                          f'Mumbai ⇄ {e(p["city"])}<span class="dk-route__x"> · WhatsApp &amp; video</span></span>', 90, 1))
     return DA._dk('city', card, floats, sheets=2, label=f'What a website costs in {p["the"]}: local price ranges compared with U Scale’s fixed prices')
 
 
@@ -207,10 +208,30 @@ def hours_html(p):
             + ''.join(f'<i class="hr__both" style="--x:{x / 24 * 100:.2f}%;--w:{(y - x) / 24 * 100:.2f}%"></i>' for x, y in shared)
             + f'</span><small>{e(_hhmm(9, h12))}–{e(_hhmm(18, h12))}</small></div>'
             f'<div class="hr__row"><span class="hr__k">Ours</span><span class="hr__t">{bar(_segs(a, b), "hr__us")}</span><small>{e(ours_txt)}</small></div>'
-            f'<div class="hr__ticks" aria-hidden="true">{ticks}</div></div>'
+            f'<div class="hr__ticks" aria-hidden="true">{ticks}</div>'
+            f'<span class="hr__now" data-now data-tz="{p["tz"]}" hidden><b data-clock data-tz="{p["tz"]}"{" data-h12" if h12 else ""}></b></span></div>'
+            f'<p class="hr__live" data-onair data-tz="{p["tz"]}" data-city="{ea(p["city"])}"{" data-h12" if h12 else ""} hidden></p>'
             f'<p class="hr__note">{icon("chat")}<span>{e(note)}</span></p></div>')
     text = f'Their working day 9:00–18:00 and ours 10:00–19:00 in Mumbai ({ours_txt} their time): {big} shared hours in standard time. {note}'
     return html, text
+
+
+CLUTCH_URL = 'https://clutch.co/go-to-review/eca08f5c-a4b3-4095-b8fb-b46d05187051/505521'
+CLUTCH_QUOTE = 'Their creativity, professionalism, attention to detail, and customer-focused approach truly set them apart.'
+
+
+def review_html():
+    """Our first review on Clutch, word for word (Prachi Pandya, Sashe by Prachi, 5.0). No review schema: Google ignores reviews a business shows of itself."""
+    stars = ''.join(f'<i style="--s:{k}"></i>' for k in range(5))
+    return (f'<figure class="rv" data-reveal><p class="rv__stars" aria-label="Rated 5.0 out of 5 on Clutch">{stars}<b>5.0</b><span>Verified review on Clutch</span></p>'
+            f'<blockquote><p>{e(CLUTCH_QUOTE)}</p></blockquote><figcaption><span class="rv__av" aria-hidden="true">P</span><span><b>Prachi Pandya</b>'
+            f'<small>Fashion Designer, Sashe by Prachi · Mumbai</small></span><a class="tlink" href="{ea(CLUTCH_URL)}" target="_blank" rel="noopener">Read it on Clutch'
+            f'<span class="sr-only"> (opens in a new tab)</span> ↗</a></figcaption></figure>')
+
+
+def with_review(block):
+    html, text = block
+    return html + review_html(), text + f' Review on Clutch, 5.0: "{CLUTCH_QUOTE}" (Prachi Pandya, Fashion Designer, Sashe by Prachi).'
 
 
 def trust(cur, tld, keys=('pay', 'own', 'fix', 'bank')):
@@ -447,6 +468,7 @@ HUB = '/services/outsource-web-design-india'
 TRAIL = [('Services', '/services'), ('Clients abroad', HUB)]
 
 
+TZ = {'uk': 'Europe/London', 'usa': 'America/New_York', 'australia': 'Australia/Sydney', 'canada': 'America/Toronto', 'singapore': 'Asia/Singapore', 'uae': 'Asia/Dubai', 'ireland': 'Europe/Dublin', 'new-zealand': 'Pacific/Auckland', 'netherlands': 'Europe/Amsterdam'}
 ADJ = {'uk': 'UK', 'usa': 'US', 'australia': 'Australian', 'canada': 'Canadian', 'singapore': 'Singapore', 'uae': 'UAE', 'ireland': 'Irish',
        'new-zealand': 'New Zealand', 'netherlands': 'Dutch'}
 HOURS_H = {'uk': 'Your morning is our afternoon.', 'usa': 'We work while you sleep.', 'australia': 'Your afternoon is our morning.',
@@ -458,7 +480,7 @@ def country(slug, name, the, short, cur, lang, tld, city, utc, zone, h12, overla
             title, desc, h1, lead, wa, rules, signature, faq_extra, sources, hours_note, card, where, cta_lead, extra_facts=(), price_descs=None,
             summer_note=''):
     ov = overlap(utc)
-    p = dict(slug=f'website-design-{slug}', path=f'services/website-design-{slug}', name=name, the=the, short=short, cur=cur, lang=lang, tld=tld,
+    p = dict(slug=f'website-design-{slug}', path=f'services/website-design-{slug}', name=name, the=the, short=short, cur=cur, lang=lang, tld=tld, tz=TZ[slug],
              city=city, utc=utc, zone=zone, h12=h12, market=market, scale=scale, ticks=ticks, cost_foot=cost_foot, hours_note=hours_note,
              trail=TRAIL, crumb=short, title=title, desc=desc, h1=h1, eyebrow=f'From Mumbai, for {the}', lead=lead, wa=wa, card=card,
              art=cost_card, cta_lead=cta_lead, countries=[name], service=f'Website design and development for businesses in {the}',
@@ -467,7 +489,7 @@ def country(slug, name, the, short, cur, lang, tld, city, utc, zone, h12, overla
     p['stats'] = [(fx(LANDING, cur), 'Websites from'), (f'{ov:g} h' if ov else 'Overnight', 'Shared hours' if ov else 'Work while you sleep'), ('60%', 'Paid after launch')]
     pc = price_cards(cur, market_line, where, price_descs)
     p['blocks'] = [
-        sec('trust', 'Why it’s safe', 'You’re protected at every step.', '', trust(cur, tld)),
+        sec('trust', 'Why it’s safe', 'You’re protected at every step.', '', with_review(trust(cur, tld))),
         work_sec(),
         sec('prices', f'Prices in {PD.FX[cur][2]}', f'Website prices for {the}', 'Four prices, fixed in writing before work starts.', pc),
         sec('hours', 'Your time zone', HOURS_H[slug], '', hours_html(p), tone='band'),
