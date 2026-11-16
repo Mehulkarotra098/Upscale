@@ -578,6 +578,7 @@ def all_pages():
         for before, block in ex.get(key, []):
             sids = [b.get('sid') if isinstance(b, dict) else None for b in p['blocks']]
             p['blocks'].insert(sids.index(before) if before in sids else len(p['blocks']) - 1, block)
+        world_widgets.swap_sigs(p)
         if key in ('website-design-india/clinics', 'website-design-india/ca-and-law-firms'):  # the do/don't list replaces the unsourced rules cards
             p['blocks'] = [b for b in p['blocks'] if not (isinstance(b, dict) and b.get('sid') == 'rules' and b['h'].startswith('Within'))]
     return out

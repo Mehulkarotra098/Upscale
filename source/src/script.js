@@ -865,3 +865,11 @@
     show(0);
   });
 })();
+
+/* Figma to code: drag to compare the design with the built page. */
+(function(){
+  Array.prototype.slice.call(document.querySelectorAll('[data-compare]')).forEach(function(box){
+    var r=box.querySelector('[data-compare-range]'); if(!r) return;
+    r.addEventListener('input',function(){ box.style.setProperty('--x',r.value+'%'); });
+  });
+})();

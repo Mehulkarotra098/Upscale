@@ -59,10 +59,125 @@ def _site(cur):
     return PD.fx_amount(rupees(BIZ), cur)
 
 
+def compare():
+    """Figma to code: the design and the built page on top of each other; drag to compare. Without JS the split stays at the middle."""
+    page = lambda cls, tag: (f'<div class="cm__l cm__l--{cls}"><span class="cm__tag">{e(tag)}</span><p class="cm__nav"><b>Ridgeline</b><i></i><i></i><i></i></p>'
+                             '<p class="cm__h">Small-batch coffee, roasted Mondays</p><p class="cm__s">Single origins from Coorg and Chikmagalur, posted the same week.</p>'
+                             '<span class="cm__btn">Shop beans</span><span class="cm__img"></span></div>')
+    guides = ('<span class="cm__g cm__g--1">48</span><span class="cm__g cm__g--2">24</span><span class="cm__g cm__g--3">Anton 56/58</span>')
+    html = (f'<div class="cm" data-compare data-reveal style="--x:50%"><div class="cm__stage">{page("built", "Live site")}'
+            f'<div class="cm__top">{page("design", "Your Figma file")}{guides}</div><span class="cm__bar" aria-hidden="true"><i>{icon("code")}</i></span></div>'
+            '<label class="cm__range"><span class="sr-only">Compare the design with the built page</span><input type="range" min="0" max="100" value="50" data-compare-range></label>'
+            '<p class="cm__k">Drag to compare. Spacing, type and colour come straight from your file.</p></div>')
+    return html, 'A sample design and the hand-coded page built from it, side by side: spacing, type and colour taken from the Figma file.'
+
+
+def draft_edit():
+    """AI marketing: what the AI wrote, and what a person sends."""
+    html = ('<div class="ed" data-reveal><div class="ed__c ed__c--ai"><p class="ed__k">AI first draft</p>'
+            '<p class="ed__t"><s>Elevate your mornings</s> with our <s>amazing, handcrafted</s> coffee! <s>Experience the magic</s> of every cup. ☕✨ <s>#CoffeeLovers #Blessed</s></p>'
+            '<p class="ed__n">Generic, too many adjectives, no reason to come in today.</p></div>'
+            f'<span class="ed__arrow" aria-hidden="true">{icon("pen")}</span>'
+            '<div class="ed__c ed__c--us"><p class="ed__k">After a person edits it</p>'
+            '<p class="ed__t">Monday’s roast is out: Ethiopia Guji, fruity and light. 250 g for ₹650, ground the way you like. Pick it up before 11.</p>'
+            '<p class="ed__n">Specific, in your voice, with a price and a reason to come in.</p></div></div>')
+    return html, ('AI first draft: generic and full of adjectives. After a person edits it: "Monday’s roast is out: Ethiopia Guji, fruity and light. 250 g for ₹650, '
+                  'ground the way you like. Pick it up before 11."')
+
+
+def checkout():
+    """Indian fashion labels: the buyer sees shipping and duties before paying. A sample, with sample amounts."""
+    rows = [('Chanderi kurta set', '£79.00'), ('Shipping to London, 5–7 days', '£12.00'), ('Duties and taxes', '£18.20')]
+    li = ''.join(f'<li style="--i:{i}"><span>{e(a)}</span><b>{e(b)}</b></li>' for i, (a, b) in enumerate(rows))
+    html = (f'<div class="co" data-reveal><div class="co__card"><p class="co__head">{icon("cart")}<b>Checkout</b><small>sample · prices in £</small></p><ul>{li}</ul>'
+            f'<p class="co__tot"><span>Total, nothing more at the door</span><b>£109.20</b></p><span class="co__btn">Pay £109.20</span></div>'
+            '<div class="co__copy"><h3>No surprise bill at the door.</h3><p>A parcel held at customs for unpaid duty is the fastest way to lose a customer abroad. '
+            'Your store shows shipping and duties before checkout, by country, so the buyer pays once.</p></div></div>')
+    return html, 'A sample checkout: kurta set £79, shipping to London £12, duties and taxes £18.20, total £109.20, shown before paying.'
+
+
+# ---------------------------------------------------------------- country sections that would repeat the new hero, replaced
+def wcag():
+    """Ireland: four accessibility checks that light up, with a real contrast pair."""
+    rows = [('Contrast', 'Text at least 4.5:1 against its background', '<span class="wg__sw"><i style="background:#251E45;color:#fff">Aa 15.6:1</i><i style="background:#C9BCE8;color:#fff">Aa 1.8:1</i></span>'),
+            ('Keyboard', 'Every link and button reachable with Tab, with a visible focus ring', '<span class="wg__kb"><i>Tab</i><i>↵</i></span>'),
+            ('Images', 'Alt text that says what the picture shows', '<span class="wg__alt">alt="Double room with a harbour view"</span>'),
+            ('Forms', 'Every field labelled, every error explained', '<span class="wg__frm"><b>Email</b><i></i></span>')]
+    li = ''.join(f'<li style="--i:{i}"><span class="wg__ok">{icon("check")}</span><span class="wg__t"><b>{e(a)}</b><small>{e(b)}</small></span>{x}</li>' for i, (a, b, x) in enumerate(rows))
+    return (f'<ul class="wg" data-reveal>{li}</ul>', 'The checks we run on every page to WCAG 2.1 AA: ' + '; '.join(f'{a}: {b}' for a, b, _ in rows) + '.')
+
+
+def week():
+    """New Zealand: a project week, in Auckland time. Feedback in your afternoon, changes overnight."""
+    days = [('Mon', 'You send the brief', '4:30 pm', 'Plan and price back', '9:00 pm'), ('Tue', 'You approve the plan', '12:00 pm', 'Design started', '6:00 pm'),
+            ('Wed', 'You see the first design', '8:00 am', 'Your notes, all done', '11:00 pm'), ('Thu', 'You approve it', '9:00 am', 'Build begins', '5:00 pm'),
+            ('Fri', 'You check the preview', '8:30 am', 'Fixes from your list', '10:00 pm')]
+    li = ''.join(f'<li style="--i:{i}"><b class="wkp__d">{d}</b><span class="wkp__you"><small>{e(t1)}</small>{e(a)}</span><span class="wkp__us"><small>{e(t2)}</small>{e(b)}</span></li>'
+                 for i, (d, a, t1, b, t2) in enumerate(days))
+    return (f'<div class="wkp" data-reveal><p class="wkp__lg"><span class="wkp__lg-you">You, Auckland</span><span class="wkp__lg-us">Us, Mumbai (in your time)</span></p><ol>{li}</ol></div>',
+            'A sample project week in Auckland time: ' + '; '.join(f'{d}: {a} ({t1}), {b} ({t2})' for d, a, t1, b, t2 in days) + '.')
+
+
+def urls():
+    """Canada: English and French, each on its own address, linked so Google shows the right one."""
+    html = ('<div class="ul2" data-reveal><div class="ul2__tree"><p class="ul2__dom">yourbusiness.ca</p><ul>'
+            '<li style="--i:0"><b>/en/</b><span>Home</span></li><li style="--i:1"><b>/en/services</b><span>Services</span></li>'
+            '<li class="is-fr" style="--i:2"><b>/fr/</b><span lang="fr">Accueil</span></li><li class="is-fr" style="--i:3"><b>/fr/services</b><span lang="fr">Services</span></li></ul></div>'
+            '<pre class="ul2__code" aria-label="The tags that link each page to its other language"><span>&lt;link rel="alternate" hreflang="en-CA" href="/en/services"&gt;</span>'
+            '<span>&lt;link rel="alternate" hreflang="fr-CA" href="/fr/services"&gt;</span></pre>'
+            '<p class="ul2__t">Each language gets its own address, so Google can show the French page to French searchers and the English one to everyone else.</p></div>')
+    return html, 'English and French pages each get their own address (/en/ and /fr/), linked with hreflang tags so Google shows the right language.'
+
+
+def template_vs():
+    """UAE: what AED 999 buys, and what a custom site does differently. Honest: the template shops are cheaper."""
+    html = ('<div class="tv" data-reveal><div class="tv__c"><p class="tv__k">Template shop</p><b class="tv__p">from AED 999</b><ul>'
+            '<li>A theme many other businesses also use</li><li>Your text dropped into fixed boxes</li><li>Plugins to update, often slower on phones</li></ul></div>'
+            f'<div class="tv__c tv__c--us"><p class="tv__k">U Scale</p><b class="tv__p">{e(PD.fx_label(rupees(BIZ), "AED"))}, fixed</b><ul>'
+            '<li>Designed for your business in Figma, approved by you</li><li>Hand-coded: light pages, nothing to update</li><li>WhatsApp on every page; Arabic layout from your translator’s text</li></ul></div></div>')
+    return html, (f'A template shop starts around AED 999; a custom, hand-coded 5–10 page site from U Scale is {PD.fx_label(rupees(BIZ), "AED")}, fixed.')
+
+
+def consent_nl():
+    """Netherlands: prior consent, shown the way the site asks."""
+    html = ('<div class="ck2" data-reveal><div class="ck2__box"><p class="ck2__k">Cookies</p><p>We use one analytics cookie to see which pages help. It stays off unless you say yes.</p>'
+            '<p class="ck2__row"><span>Functional (needed for the site to work)</span><b>Always on</b></p><p class="ck2__row"><span>Analytics</span><b class="ck2__off">Off until you say yes</b></p>'
+            '<p class="ck2__btns"><span>No thanks</span><span class="ck2__go">Yes, that’s fine</span></p></div>'
+            '<div class="ck2__copy"><h3>Prior consent, done properly.</h3><p>Dutch rules ask for consent before any cookie except the functional ones. Your site asks first, '
+            'with “no” as easy as “yes”, in Dutch, English or both.</p></div></div>')
+    return html, 'Dutch rules ask for prior consent for every cookie except functional ones; the site asks first, with no as easy as yes.'
+
+
+SIG_SWAP = {'website-design-ireland': ('eaa', 'wcag', 'Accessibility', 'Four checks on every page.', wcag),
+            'website-design-new-zealand': ('relay', 'week', 'A project week', 'Your afternoon. Our evening. Done by morning.', week),
+            'website-design-canada': ('french', 'urls', 'English and French', 'Bilingual, the way Google reads it.', urls),
+            'website-design-uae': ('day', 'template', 'Not a template', 'Cheaper exists. Here’s the difference.', template_vs),
+            'website-design-netherlands': ('english', 'consent', 'Cookies', 'Prior consent, the Dutch way.', consent_nl)}
+
+
+def swap_sigs(p):
+    key = p['path'].replace('services/', '', 1)
+    if key not in SIG_SWAP: return
+    old, sid, eyebrow, h, fn = SIG_SWAP[key]
+    p['blocks'] = [sec(sid, eyebrow, h, '', fn(), tone='band') if isinstance(b, dict) and b.get('sid') == old else b for b in p['blocks']]
+
+
 # ---------------------------------------------------------------- the blocks, by page slug: (insert before this section id, block)
 def extra():
     rest_gbp = PD.fx_amount(rupees(REST), 'GBP')
     return {
+     'figma-to-code': [('get', sec('compare', 'Design against build', 'Pixel for pixel.', '', compare(), tone='band'))],
+     'ai-marketing': [('prices', sec('edit', 'AI drafts, people decide', 'The difference a person makes.', '', draft_edit()))],
+     'website-design-for-indian-fashion-brands': [('trust', sec('checkout', 'Selling abroad', 'Duties shown before they pay.', '', checkout(), tone='band'))],
+     'n8n-automation': [('start', sec('jobs', 'Pick a job', 'Four automations small businesses ask for first.', '', tabs('auto', [
+        ('New enquiry', 'A new enquiry, handled in seconds', 'The form or Instagram message lands in your sheet, you get a WhatsApp alert, and the customer gets your price list by email.',
+         ['Website form', 'Google Sheet', 'WhatsApp alert', 'Reply email']),
+        ('Order paid', 'An order, from payment to packing', 'The payment confirms the order, the customer gets a receipt, and your packing list updates itself.',
+         ['Payment received', 'Receipt email', 'Packing list', 'Stock count']),
+        ('Job done', 'A finished job, turned into a review', 'Mark the job done and the customer gets a thank-you with your Google review link two hours later.',
+         ['Job marked done', 'Wait 2 hours', 'WhatsApp thank-you', 'Review link']),
+        ('Invoice late', 'A late invoice, chased politely', 'Unpaid after the due date? A polite reminder goes out, and a second one a week later, with you copied in.',
+         ['Due date passes', 'Reminder 1', 'Wait 7 days', 'Reminder 2'])], 'Automations')))],
      'website-design-for-indian-restaurants': [('trust', sec('keep', 'Your numbers', 'What the delivery apps cost you.', 'Put in your own numbers. Nothing is sent anywhere.',
         calc('commission', 'Your takeaway, by the month', [('n', 'Orders through apps, a month', 400), ('a', 'Average order', 28, 0.5, None, '', '£'),
               ('c', 'The app’s commission (your rate)', 25, 1, 100, '%'), ('s', 'Share you could move to your own site', 30, 5, 100, '%')],
