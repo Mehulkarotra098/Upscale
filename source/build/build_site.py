@@ -218,7 +218,7 @@ def bp(built):
 blueprint = bp(False) + f'<div class="blueprint__built"><div>{bp(True)}</div></div><span class="blueprint__seam"></span>'
 
 src = (SRC / 'index.src.html').read_text()
-css = '\n'.join((SRC / f).read_text() for f in ['styles.css', 'work.css', 'motion.css', 'growth.css', 'seo.css', 'depth.css', 'home.css', 'world.css', 'world-ai.css'])
+css = '\n'.join((SRC / f).read_text() for f in ['styles.css', 'work.css', 'motion.css', 'growth.css', 'seo.css', 'depth.css', 'home.css', 'world.css', 'world-ai.css', 'world-art.css', 'world-widgets.css'])
 def _rules(block):
     out, i, depth, start = [], 0, 0, 0
     for j, ch in enumerate(block):
@@ -280,6 +280,8 @@ rep = {'{{PRICE_PILLARS}}': seo_pages.pricing_pillars_html(), '{{PRICE_TERMS}}':
 import home_parts  # hero, In short, services, built-for cards, how it works, founder photo, tools, contact (see home_parts.py)
 rep.update(home_parts.parts(handset))
 rep.update({'{{' + k + '}}': v for k, v in ICONS.items()})
+import mega_menu
+rep.update({'{{MEGA}}': mega_menu.desktop(), '{{MEGA_M}}': mega_menu.mobile()})  # Services mega menu (16 Nov 2026)
 for k, v in rep.items():
     src = src.replace(k, v)
 src = re.sub(r'\s*<!--T-->.*?<!--/T-->', '', src, flags=re.S) if not rep['{{QUOTES}}'] else src.replace('  <!--T-->\n', '').replace('\n  <!--/T-->', '')

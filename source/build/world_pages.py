@@ -322,17 +322,17 @@ def hundred(n, big, label, src):
 def sec(sid, eyebrow, h, lead, inner, tone=''):
     """A section: (html, plain text for llms-full.txt, heading). inner is (html, text)."""
     html, text = inner
-    return dict(html=CP._custom_sec(sid, eyebrow, h, lead, html, tone=tone), text=text, h=h)
+    return dict(html=CP._custom_sec(sid, eyebrow, h, lead, html, tone=tone), text=text, h=h, sid=sid)
 
 
 def work_sec(ctx_keys=('spacestudio', 'sashe', 'vidhi', 'antrah', 'roar', 'brandgen'), h='Real websites. Live right now.', lead='Tap any card to open the live site.'):
     return lambda ctx: dict(html=CP._custom_sec('work', 'Real work', h, lead, CP.work_rail(ctx, list(ctx_keys)), tone='dark'), text='', h=h)
 
 
-def process_sec(h='Live in 3–4 weeks. All from your phone.'):
-    return dict(html=CP._custom_sec('process', 'How it works', h, '', CP.timeline('remote-review'), tone='band'),
+def process_sec(h='Live in 3–4 weeks. All from your phone.', img='remote-review'):
+    return dict(html=CP._custom_sec('process', 'How it works', h, '', CP.timeline(img), tone='band'),
                 text='Free audit on day 1 over WhatsApp; a written plan and fixed price on a video call in week 1 (20% to start); '
-                     'the design in Figma to approve in week 2 (20% on sign-off); launch in weeks 3–4 with every login handed over (60% on launch).', h=h)
+                     'the design in Figma to approve in week 2 (20% on sign-off); launch in weeks 3–4 with every login handed over (60% on launch).', h=h, sid='process')
 
 
 def _crumbs(p):
@@ -469,6 +469,16 @@ TRAIL = [('Services', '/services'), ('Clients abroad', HUB)]
 
 
 TZ = {'uk': 'Europe/London', 'usa': 'America/New_York', 'australia': 'Australia/Sydney', 'canada': 'America/Toronto', 'singapore': 'Asia/Singapore', 'uae': 'Asia/Dubai', 'ireland': 'Europe/Dublin', 'new-zealand': 'Pacific/Auckland', 'netherlands': 'Europe/Amsterdam'}
+# The order each buyer reads in (DESIGN-TAILORING.md): what that country's buyer checks first comes first.
+ORDER = {'uk': ['trust', 'sig', 'prices', 'cost', 'hours', 'work', 'process', 'rules'],
+         'usa': ['hours', 'sig', 'prices', 'cost', 'work', 'trust', 'process', 'rules'],
+         'australia': ['sig', 'prices', 'cost', 'trust', 'work', 'hours', 'process', 'rules'],
+         'canada': ['sig', 'trust', 'prices', 'cost', 'hours', 'work', 'process', 'rules'],
+         'singapore': ['hours', 'prices', 'cost', 'sig', 'trust', 'work', 'process', 'rules'],
+         'uae': ['sig', 'prices', 'cost', 'trust', 'work', 'hours', 'process', 'rules'],
+         'ireland': ['sig', 'trust', 'rules', 'prices', 'cost', 'hours', 'work', 'process'],
+         'new-zealand': ['hours', 'sig', 'prices', 'cost', 'trust', 'work', 'process', 'rules'],
+         'netherlands': ['sig', 'trust', 'prices', 'cost', 'rules', 'hours', 'work', 'process']}
 ADJ = {'uk': 'UK', 'usa': 'US', 'australia': 'Australian', 'canada': 'Canadian', 'singapore': 'Singapore', 'uae': 'UAE', 'ireland': 'Irish',
        'new-zealand': 'New Zealand', 'netherlands': 'Dutch'}
 HOURS_H = {'uk': 'Your morning is our afternoon.', 'usa': 'We work while you sleep.', 'australia': 'Your afternoon is our morning.',
@@ -483,20 +493,21 @@ def country(slug, name, the, short, cur, lang, tld, city, utc, zone, h12, overla
     p = dict(slug=f'website-design-{slug}', path=f'services/website-design-{slug}', name=name, the=the, short=short, cur=cur, lang=lang, tld=tld, tz=TZ[slug],
              city=city, utc=utc, zone=zone, h12=h12, market=market, scale=scale, ticks=ticks, cost_foot=cost_foot, hours_note=hours_note,
              trail=TRAIL, crumb=short, title=title, desc=desc, h1=h1, eyebrow=f'From Mumbai, for {the}', lead=lead, wa=wa, card=card,
-             art=cost_card, cta_lead=cta_lead, countries=[name], service=f'Website design and development for businesses in {the}',
+             art=__import__('world_art').ART[slug], cta_lead=cta_lead, countries=[name], service=f'Website design and development for businesses in {the}',
              og_alt=f'Website design for businesses in {the}, from U Scale in Mumbai: fixed prices in {PD.FX[cur][2]}',
              offers=[(LANDING, cur), (BIZ, cur), (BLOG, cur), (STORE, cur)], sources=sources)
     p['stats'] = [(fx(LANDING, cur), 'Websites from'), (f'{ov:g} h' if ov else 'Overnight', 'Shared hours' if ov else 'Work while you sleep'), ('60%', 'Paid after launch')]
     pc = price_cards(cur, market_line, where, price_descs)
-    p['blocks'] = [
-        sec('trust', 'Why it’s safe', 'You’re protected at every step.', '', with_review(trust(cur, tld))),
-        work_sec(),
-        sec('prices', f'Prices in {PD.FX[cur][2]}', f'Website prices for {the}', 'Four prices, fixed in writing before work starts.', pc),
-        sec('hours', 'Your time zone', HOURS_H[slug], '', hours_html(p), tone='band'),
-        signature,
-        process_sec(),
-        sec('rules', 'Local rules', f'{ADJ[slug]} rules, handled.', '', rules_html(rules)),
-    ]
+    by = {'trust': sec('trust', 'Why it’s safe', 'You’re protected at every step.', '', with_review(trust(cur, tld))),
+          'work': work_sec(),
+          'prices': sec('prices', f'Prices in {PD.FX[cur][2]}', f'Website prices for {the}', 'Four prices, fixed in writing before work starts.', pc),
+          'cost': sec('cost', 'Compared', f'What a website costs in {the}', '', (f'<div class="cost-sec">{cost_card(p)}<p class="cost-sec__t">{e(market_line)} '
+                      '<a class="tlink" href="#sources">Sources</a></p></div>', market_line), tone='band'),
+          'hours': sec('hours', 'Your time zone', HOURS_H[slug], '', hours_html(p), tone='band'),
+          'sig': signature,
+          'process': process_sec(),
+          'rules': sec('rules', 'Local rules', f'{ADJ[slug]} rules, handled.', '', rules_html(rules))}
+    p['blocks'] = [by[k] for k in ORDER[slug]]
     p['answer'] = (f'U Scale is a web design studio in Mumbai, India, that builds hand-coded websites for businesses in {the} over WhatsApp and '
                    f'video calls. Prices are fixed in {PD.FX[cur][2]} and agreed in writing: {fx(LANDING, cur)} for a landing page, {fx(BIZ, cur)} for a '
                    f'5–10 page business site and from {fx(STORE, cur)} for an online store. You pay 60% only when the site is live, and the domain, '
@@ -569,7 +580,7 @@ def cookie_demo():
             '<span class="ck__btns"><span class="ck__b">No thanks</span><span class="ck__b ck__b--go">Yes, that’s fine</span></span></div></div>'
             f'<div class="ck__copy"><p class="ck__k">{icon("shield")}Built for uscale.in first</p><h3>The choice is real.</h3>'
             '<p>“No thanks” sits next to “Yes”, the same size, and no analytics cookie is set until someone says yes. Browsers that send Global Privacy Control are never asked: '
-            'their answer is already no. It is the banner on this site, and the one we build for you.</p>'
+            'their answer is already no. It is the banner UK visitors see on this site, and the one we build for you.</p>'
             '<p class="ck__small">Since the Data (Use and Access) Act 2025, cookies that only count visits to improve a site can be set without asking, '
             f'as long as people can switch them off. We still ask on our own site, and set yours up the way you prefer. {GP.src_chip("uk-pecr")}</p></div></div>')
     return html, ('The cookie choice we build: “No thanks” next to “Yes”, the same size, and no analytics cookie until a yes. Since the Data (Use and Access) Act 2025, '

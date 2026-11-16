@@ -181,7 +181,7 @@ def _hub():
         desc=f'A Mumbai studio that hand-codes websites for businesses in the UK, US, Australia and six more countries. From {fx(LANDING, "USD")}, fixed in your currency.',
         h1='Web design from India, priced in your currency', eyebrow='For businesses outside India',
         lead='A studio in Mumbai that designs and hand-codes websites for businesses in nine countries. One price list, fixed in your currency. You pay most of it after launch.',
-        stats=[(fx(LANDING, 'USD'), 'Websites from'), ('8', 'Currencies'), ('60%', 'Paid after launch')], art=board_card, hero_more=('#countries', 'Find your country'),
+        stats=[(fx(LANDING, 'USD'), 'Websites from'), ('8', 'Currencies'), ('60%', 'Paid after launch')], art=__import__('world_art').hub_clocks, hero_more=('#countries', 'Find your country'),
         wa="Hi Mehul, my business is outside India. I'd like a free audit and a price in my currency.",
         og_alt='Web design from India for businesses abroad, by U Scale: one price list in eight currencies',
         offers=[(LANDING, 'USD'), (BIZ, 'USD'), (BLOG, 'USD'), (STORE, 'USD'), (LANDING, 'GBP'), (BIZ, 'GBP'), (LANDING, 'EUR'), (BIZ, 'EUR'),
@@ -570,8 +570,19 @@ def pages():
 
 # ================================================================ build hooks (seo_pages.build, llms.txt, llms-full.txt, sitemap images)
 def all_pages():
-    import ai_pages, trade_pages
-    return pages() + ai_pages.pages() + trade_pages.pages()
+    import ai_pages, trade_pages, world_widgets, world_images
+    out = pages() + ai_pages.pages() + trade_pages.pages()
+    ex = world_widgets.extra()
+    for p in out:
+        key = p['path'].replace('services/', '', 1)
+        for before, block in ex.get(key, []):
+            sids = [b.get('sid') if isinstance(b, dict) else None for b in p['blocks']]
+            p['blocks'].insert(sids.index(before) if before in sids else len(p['blocks']) - 1, block)
+        world_widgets.swap_sigs(p)
+        world_images.attach(p, sec, process_sec)
+        if key in ('website-design-india/clinics', 'website-design-india/ca-and-law-firms'):  # the do/don't list replaces the unsourced rules cards
+            p['blocks'] = [b for b in p['blocks'] if not (isinstance(b, dict) and b.get('sid') == 'rules' and b['h'].startswith('Within'))]
+    return out
 
 
 def build(ctx, parts):
@@ -602,4 +613,5 @@ def llms_full(site):
 
 
 def images_by_url(site):
-    return {site + p['path']: [(f'{site}assets/pages/og-{p["slug"]}.jpg', p['og_alt'])] for p in all_pages()}
+    import world_images
+    return {site + p['path']: [(f'{site}assets/pages/og-{p["slug"]}.jpg', p['og_alt'])] + world_images.image_urls(site, p['slug']) for p in all_pages()}

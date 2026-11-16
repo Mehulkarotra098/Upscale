@@ -167,6 +167,7 @@
   if(!SPROG[0][0]){ SPROG=$$('main > section, main > .hero-shell').map(function(sec){ var ey=$('.eyebrow,.crumbs [aria-current]',sec), h=$('h1,h2',sec); var t=(ey&&(ey.dataset.final||ey.textContent)||h&&(h.getAttribute('aria-label')||h.textContent)||'').trim(); return [sec,t.length>22?t.slice(0,21)+'…':t]; }).filter(function(x){ return x[1]; }); if(!SPROG.length) SPROG=[[null,'']]; }
   SPROG=SPROG.filter(function(x){ return x[0]; });
   function markScroll(){ scrollDirty=true; kick(); }
+  var waReady=false; setTimeout(function(){ waReady=true; markScroll(); },900);  /* the WhatsApp button springs in just after the page settles */
   function setSteps(p,idx){
     steps.forEach(function(s,i){
       var lit=i<=idx; if(lit && !s.classList.contains('is-lit')){ var n=$('.step__num',s); if(n&&motion){ var k=0,t=+n.dataset.n; var iv=setInterval(function(){ k++; n.textContent='0'+Math.min(k,t); if(k>=t) clearInterval(iv); },60); } }
@@ -193,8 +194,8 @@
       sprog.classList.toggle('on-dark',onDark);
       if(Math.abs(y-lastY)>1){ sprog.classList.add('is-active'); clearTimeout(sprogT); sprogT=setTimeout(function(){ sprog.classList.remove('is-active'); },1000); }
     }
-    /* WhatsApp button: out of the way while reading down (like the header), back on the way up */
-    if(waFloat&&heroCta) waFloat.classList.toggle('is-visible', heroCta.getBoundingClientRect().bottom<0 && waVisible.size===0 && !headerEl.classList.contains('is-hidden'));
+    /* WhatsApp button: always in the corner on every page and screen size (Mehul, 16 Nov 2026); away only while the menu is open */
+    if(waFloat) waFloat.classList.toggle('is-visible', waReady && !menuOpen);
     if(motion){
       if(hero) hero.style.setProperty('--sy',Math.min(y,1200).toFixed(0));
       /* work gallery */
@@ -754,34 +755,39 @@
   },true);
 })();
 
-/* Cookie choice. Analytics stay off until the visitor says yes; the default is set in <head> (source/build/tracking.py)
-   before Tag Manager loads, and this only asks the question and passes the answer on. The answer is kept in this
+/* Cookie choice. The default is set in <head> (source/build/tracking.py) before Tag Manager loads, by region: in the EU,
+   UK, Switzerland and Quebec (<html data-cc="ask">) Analytics stay off until a yes and this asks first; elsewhere
+   (data-cc="note") Analytics are on with nothing on screen (no law there asks for a banner; Mehul, 16 Nov 2026), and
+   "Change cookie choice" in the footer opens a note with "Turn off". It only asks and passes the answer on. The answer is kept in this
    browser for 12 months (localStorage 'us-consent' = yes|no:time). "Change cookie choice" in the footer asks again.
    A browser that sends Global Privacy Control is not asked: its answer is already no. */
 (function(){
   'use strict';
-  var KEY='us-consent',YEAR=31536e6,doc=document,root=doc.documentElement,box=null,back=null;
+  var KEY='us-consent',YEAR=31536e6,doc=document,root=doc.documentElement,box=null,back=null,note=root.getAttribute('data-cc')==='note',OPEN=note?'cc-note-open':'cc-open';
   function read(){ try{ var p=(localStorage.getItem(KEY)||'').split(':'); return p[0]&&Date.now()-(+p[1]||0)<YEAR?p[0]:''; }catch(e){ return ''; } }
   function save(v){
     try{ localStorage.setItem(KEY,v+':'+Date.now()); }catch(e){}
     var state=v==='yes'?'granted':'denied';
     try{ if(window.gtag) window.gtag('consent','update',{analytics_storage:state}); (window.dataLayer=window.dataLayer||[]).push({event:'cookie_choice',analytics_storage:state}); }catch(e){}
   }
-  function close(){ if(!box) return; box.hidden=true; root.classList.remove('cc-open'); if(back&&back.focus) back.focus(); back=null; }
+  function close(){ if(!box) return; box.hidden=true; root.classList.remove(OPEN); if(back&&back.focus) back.focus(); back=null; }
   function open(asked){
     if(!box){
-      box=doc.createElement('section'); box.className='cc'; box.setAttribute('aria-label','Cookie choice'); box.hidden=true;
-      box.innerHTML='<p class="cc__t"><b>Can I count your visit?</b>I use Google Analytics to see which pages are useful. It stays off unless you say yes. <a href="/privacy">Privacy and cookies</a></p>'
-        +'<div class="cc__b"><button type="button" class="cc__btn" data-cc="no">No thanks</button><button type="button" class="cc__btn" data-cc="yes">Yes, that\u2019s fine</button></div>';
+      box=doc.createElement('section'); box.className=note?'cc cc--note':'cc'; box.setAttribute('aria-label','Cookie choice'); box.hidden=true;
+      box.innerHTML=note
+        ?'<p class="cc__t"><b>I count visits.</b>Google Analytics shows me which pages are useful. No ads, and nothing is sold. <a href="/privacy">Privacy and cookies</a></p>'
+          +'<div class="cc__b"><button type="button" class="cc__btn" data-cc="no">Turn off</button><button type="button" class="cc__btn" data-cc="yes">OK</button></div>'
+        :'<p class="cc__t"><b>Can I count your visit?</b>I use Google Analytics to see which pages are useful. It stays off unless you say yes. <a href="/privacy">Privacy and cookies</a></p>'
+          +'<div class="cc__b"><button type="button" class="cc__btn" data-cc="no">No thanks</button><button type="button" class="cc__btn" data-cc="yes">Yes, that\u2019s fine</button></div>';
       box.addEventListener('click',function(ev){ var b=ev.target.closest?ev.target.closest('[data-cc]'):null; if(!b) return; save(b.getAttribute('data-cc')); close(); });
       doc.body.appendChild(box);
     }
-    box.hidden=false; root.classList.add('cc-open');
+    box.hidden=false; root.classList.add(OPEN);
     if(asked){ back=doc.activeElement; var first=box.querySelector('button'); if(first) first.focus(); }
   }
   doc.addEventListener('click',function(ev){ var t=ev.target&&ev.target.closest?ev.target.closest('[data-cookie-choice]'):null; if(t){ ev.preventDefault(); open(true); } });
   doc.addEventListener('keydown',function(ev){ if(ev.key==='Escape'&&box&&!box.hidden) close(); });
-  if(read()||root.classList.contains('agent')||navigator.globalPrivacyControl) return;
+  if(note||read()||root.classList.contains('agent')||navigator.globalPrivacyControl) return;
   function ask(){ window.setTimeout(function(){ if(!read()) open(false); },1200); }
   if(doc.readyState==='complete') ask(); else window.addEventListener('load',ask);
 })();
@@ -806,6 +812,7 @@
     q('[data-route]').forEach(function(el){ var tz=el.getAttribute('data-tz'),h=el.hasAttribute('data-h12'),a=fmt(tz,h,now),b=fmt(MUM,h,now); if(!a||!b) return;
       el.textContent=''; el.appendChild(doc.createTextNode(el.getAttribute('data-city')+' ')); var x=doc.createElement('b'); x.textContent=a; el.appendChild(x);
       el.appendChild(doc.createTextNode(' · Mumbai ')); var y=doc.createElement('b'); y.textContent=b; el.appendChild(y); });
+    q('[data-hands]').forEach(function(el){ var p=parts(el.getAttribute('data-tz'),now); if(!p) return; el.style.setProperty('--hr',((p.h%12)*30+p.m*.5)+'deg'); el.style.setProperty('--mn',(p.m*6)+'deg'); });
     q('[data-now]').forEach(function(el){ var p=parts(el.getAttribute('data-tz'),now); if(!p) return; el.style.setProperty('--f',((p.h*60+p.m)/1440).toFixed(4)); el.hidden=false; });
     q('[data-onair]').forEach(function(el){ var tz=el.getAttribute('data-tz'),h=el.hasAttribute('data-h12'),c=el.getAttribute('data-city'),on=atWork(now);
       el.textContent=''; var dot=doc.createElement('i'); if(on) dot.className='is-on'; el.appendChild(dot); var sp=doc.createElement('span'); el.appendChild(sp);
@@ -824,5 +831,70 @@
   q('[data-fxs]').forEach(function(box){ var r=box.querySelector('input[value="'+cur+'"]'),g=box.querySelector('[data-geo]');
     if(r){ r.checked=true; if(g&&NAME[cur]){ g.textContent='Showing '+NAME[cur]+', because your device is set to that time zone. Tap another currency any time.'; g.hidden=false; } }
     else if(cur==='INR'&&g){ g.textContent='In India? Our rupee prices are on the price list: '; var a=doc.createElement('a'); a.className='tlink'; a.href='/pricing'; a.textContent='see prices in rupees'; g.appendChild(a); g.hidden=false; } });
+  q('.wc__g li[data-tz]').forEach(function(li){ if(li.getAttribute('data-tz')===tz) li.classList.add('is-you'); });
   q('.cg li[data-cur]').forEach(function(li){ if(li.getAttribute('data-tz')===tz||(cur!=='EUR'&&li.getAttribute('data-cur')===cur)) li.classList.add('is-you'); });
+})();
+
+/* Blocks only one page has (world_widgets.py): calculators with the visitor's own numbers, and the tap-to-ask chat.
+   Without JavaScript the calculators show their worked example and the chat shows every answer. */
+(function(){
+  'use strict';
+  var doc=document;
+  function q(s,r){ return Array.prototype.slice.call((r||doc).querySelectorAll(s)); }
+  var F={
+    commission:function(v,x){ var kept=v.n*v.a*(v.c/100)*(v.s/100); return {kept:kept, year:kept*12, pay:kept>0?(x.site/kept):0}; },
+    missed:function(v){ var people=v.n*4.33*(v.m/100)*(v.b/100); return {lost:people*v.v, people:people}; },
+    margin:function(v,x){ var per=v.p-x.ours; return {per:per, month:per*v.n, year:per*v.n*12}; }
+  };
+  function money(sym,n){ n=Math.max(0,Math.round(n)); var s=sym==='\u20b9'?n.toLocaleString('en-IN'):n.toLocaleString('en-GB'); return sym+s; }
+  q('[data-wxcalc]').forEach(function(box){
+    var kind=box.getAttribute('data-wxcalc'),sym=box.getAttribute('data-sym')||'',fixed={}; try{ fixed=JSON.parse(box.getAttribute('data-fixed')||'{}'); }catch(e){ fixed={}; }
+    function run(){
+      var v={}; q('[data-k]',box).forEach(function(i){ v[i.getAttribute('data-k')]=Math.max(0,parseFloat(i.value)||0); });
+      var r=F[kind]?F[kind](v,fixed):{};
+      q('[data-o]',box).forEach(function(o){ var k=o.getAttribute('data-o'),val=r[k],t;
+        if(k==='pay') t=val<=0?'\u2013':val<1?'under a month':Math.ceil(val)+' months';
+        else if(k==='people') t=Math.round(val)+' a month';
+        else t=money(sym,val);
+        if(o.textContent!==t){ o.textContent=t; o.classList.remove('is-new'); void o.offsetWidth; o.classList.add('is-new'); } });
+    }
+    box.addEventListener('input',run); run();
+  });
+  q('[data-askdemo]').forEach(function(box){
+    var pairs=q('[data-a]',box),btns=q('[data-ask]',box),typing=box.querySelector('.ak__typing'),timer=0;
+    function show(i){ btns.forEach(function(b){ b.classList.toggle('is-on',b.getAttribute('data-ask')===String(i)); });
+      var p=pairs[i]; if(!p) return; if(p.parentNode) p.parentNode.appendChild(p);
+      var you=p.querySelector('.ak__m--you'),bot=p.querySelector('.ak__m--bot'); p.classList.add('is-on'); bot.hidden=true; if(typing) typing.classList.add('is-on');
+      window.clearTimeout(timer); timer=window.setTimeout(function(){ bot.hidden=false; if(typing) typing.classList.remove('is-on'); },doc.documentElement.classList.contains('rm')?0:900);
+      if(you) you.hidden=false; }
+    btns.forEach(function(b){ b.addEventListener('click',function(){ show(+b.getAttribute('data-ask')); }); });
+    show(0);
+  });
+})();
+
+/* Figma to code: drag to compare the design with the built page. */
+(function(){
+  Array.prototype.slice.call(document.querySelectorAll('[data-compare]')).forEach(function(box){
+    var r=box.querySelector('[data-compare-range]'); if(!r) return;
+    r.addEventListener('input',function(){ box.style.setProperty('--x',r.value+'%'); });
+  });
+})();
+
+/* Services menu (source/build/mega_menu.py): opens on hover with a mouse, on click or Enter otherwise; Escape, a click
+   outside, leaving it by keyboard, or scrolling away closes it. */
+(function(){
+  'use strict';
+  var li=document.querySelector('.nav__mm'); if(!li) return;
+  var btn=li.querySelector('.nav__more'), t=0, hover=window.matchMedia('(hover:hover) and (pointer:fine)').matches;
+  function set(open){ li.classList.toggle('is-open',open); btn.setAttribute('aria-expanded',String(open)); }
+  btn.addEventListener('click',function(){ set(!li.classList.contains('is-open')); });
+  if(hover){
+    li.addEventListener('mouseenter',function(){ clearTimeout(t); set(true); });
+    li.addEventListener('mouseleave',function(){ clearTimeout(t); t=setTimeout(function(){ set(false); },180); });
+  }
+  li.addEventListener('focusout',function(e){ if(!li.contains(e.relatedTarget)) set(false); });
+  document.addEventListener('keydown',function(e){ if(e.key==='Escape'&&li.classList.contains('is-open')){ set(false); btn.focus(); } });
+  document.addEventListener('click',function(e){ if(!li.contains(e.target)) set(false); });
+  var y0=window.scrollY;
+  window.addEventListener('scroll',function(){ if(li.classList.contains('is-open')&&Math.abs(window.scrollY-y0)>120) set(false); if(!li.classList.contains('is-open')) y0=window.scrollY; },{passive:true});
 })();
