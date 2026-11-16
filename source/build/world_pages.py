@@ -39,11 +39,11 @@ def fx(name, cur):
     """A price from the rupee list, in another currency (pricing_data.fx_label); 'INR' gives the rupee price itself."""
     if cur == 'INR':
         return price(name).replace('from ', '').split('/')[0]
-    return PD.fx_label(rupees(name), cur, monthly=name == CARE)
+    return PD.fx_label(rupees(name), cur, monthly='/mo' in price(name))
 
 
 def fxn(name, cur):
-    return rupees(name) if cur == 'INR' else PD.fx_amount(rupees(name), cur, monthly=name == CARE)
+    return rupees(name) if cur == 'INR' else PD.fx_amount(rupees(name), cur, monthly='/mo' in price(name))
 
 
 def sym(cur):
@@ -395,7 +395,7 @@ def _offers(site, url, p):
         v = fxn(name, cur) if cur != 'INR' else rupees(name)
         frm = name in (STORE, STORE_BIG)
         spec = {'@type': 'UnitPriceSpecification', 'priceCurrency': cur, ('minPrice' if frm else 'price'): v}
-        if name == CARE: spec.update(aeo.MONTHLY)
+        if '/mo' in price(name): spec.update(aeo.MONTHLY)
         o = {'@type': 'Offer', 'name': PD.label(name), 'priceCurrency': cur, 'priceSpecification': spec, 'url': url + '#prices'}
         if not frm: o['price'] = v
         out.append(o)
@@ -543,13 +543,14 @@ def cookie_demo():
     """UK: the cookie choice we built for uscale.in itself, as a picture. Reject is as easy as accept."""
     html = (f'<div class="ck" data-reveal><div class="ck__site" aria-hidden="true"><span class="ck__bar"><i></i><i></i><i></i><b>yourbusiness.co.uk</b></span>'
             '<span class="ck__line" style="--w:62%"></span><span class="ck__line" style="--w:44%"></span><span class="ck__line ck__line--s" style="--w:80%"></span>'
-            '<div class="ck__box"><b>Cookies</b><p>We use one analytics cookie to see which pages help. Your choice.</p>'
-            '<span class="ck__btns"><span class="ck__b">Reject</span><span class="ck__b ck__b--go">Accept</span></span></div></div>'
+            '<div class="ck__box"><b>Can I count your visit?</b><p>Google Analytics shows which pages are useful. It stays off unless you say yes.</p>'
+            '<span class="ck__btns"><span class="ck__b">No thanks</span><span class="ck__b ck__b--go">Yes, that’s fine</span></span></div></div>'
             f'<div class="ck__copy"><p class="ck__k">{icon("shield")}Built for uscale.in first</p><h3>The choice is real.</h3>'
-            '<p>Reject sits next to Accept, the same size, and nothing loads until you choose. It is the banner on this site, and the one we build for you.</p>'
-            '<p class="ck__small">Since the Data (Use and Access) Act 2025, cookies that only count visits to improve your site can be set without asking, '
-            f'as long as people can switch them off. We set yours up to match. {GP.src_chip("uk-pecr")}</p></div></div>')
-    return html, ('The cookie choice we build: Reject next to Accept, the same size, nothing loads before a choice. Since the Data (Use and Access) Act 2025, '
+            '<p>“No thanks” sits next to “Yes”, the same size, and no analytics cookie is set until someone says yes. Browsers that send Global Privacy Control are never asked: '
+            'their answer is already no. It is the banner on this site, and the one we build for you.</p>'
+            '<p class="ck__small">Since the Data (Use and Access) Act 2025, cookies that only count visits to improve a site can be set without asking, '
+            f'as long as people can switch them off. We still ask on our own site, and set yours up the way you prefer. {GP.src_chip("uk-pecr")}</p></div></div>')
+    return html, ('The cookie choice we build: “No thanks” next to “Yes”, the same size, and no analytics cookie until a yes. Since the Data (Use and Access) Act 2025, '
                   'cookies that only collect statistics to improve a site no longer need consent in the UK, if people can turn them off.')
 
 

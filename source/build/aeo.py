@@ -696,7 +696,9 @@ def privacy_page(ctx, parts):
       <h2 id="who-title">Who else handles your details</h2>
       <ul class="sp-bullets">
         <li><strong>FormSubmit</strong> delivers the audit form to my email.</li>
-        <li><strong>Google</strong> runs my email, Analytics and Tag Manager (only after a yes), and the Maps, Places and PageSpeed services the listing tools use.</li>
+        <li><strong>Google</strong> runs my email, Tag Manager (which loads on every page but keeps Analytics off until you say yes), Analytics (only after a yes), and the Maps, Places and PageSpeed services the listing tools use.</li>
+        <li><strong>Apex36 Technologies</strong>, our sister company, builds the AI chatbots, AI receptionists and larger automations. If you ask about one of those, your enquiry is shared with Apex36 so it can quote and do the work.</li>
+        <li><strong>Wise</strong> receives payments from clients outside India, in their own currency.</li>
         <li><strong>Meta</strong> runs WhatsApp.</li>
         <li><strong>Vercel</strong> hosts the website and <strong>Supabase</strong> hosts its database.</li>
         <li><strong>SerpApi</strong> is the backup for finding a Google listing.</li>

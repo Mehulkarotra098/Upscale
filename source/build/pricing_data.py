@@ -62,7 +62,7 @@ PRESETS = [
 # Prices for clients outside India. Mehul, 16 Nov 2026: the same prices as the rupee list above, converted and rounded to a
 # solid amount. Rates of 16 Nov 2026 (open.er-api.com, units per 1 US dollar). They are fixed here on purpose, so a price
 # abroad only moves when the rupee price above moves or someone updates these rates. One-time prices round to the nearest
-# 50 (dirhams: 100), monthly ones to the nearest 5 (dirhams: 10), halves round up.
+# 50 (dirhams: 100); monthly ones to the nearest 5 under 100, 10 under 500 and 50 above (dirhams: at least 10). Halves round up.
 FX_DATE = '16 November 2026'
 INR_PER_USD = 94.3996
 FX = {  # code: (symbol shown, units per US dollar, currency name)
@@ -74,8 +74,8 @@ FX = {  # code: (symbol shown, units per US dollar, currency name)
 
 def fx_amount(rupees, cur, monthly=False):
     """A rupee price in another currency, rounded to a solid amount."""
-    step = (10 if cur == 'AED' else 5) if monthly else (100 if cur == 'AED' else 50)
     v = rupees / INR_PER_USD * FX[cur][1]
+    step = (50 if v >= 500 else 10 if v >= 100 or cur == 'AED' else 5) if monthly else (100 if cur == 'AED' else 50)
     return int((v / step) + .5) * step
 
 

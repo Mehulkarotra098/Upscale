@@ -20,7 +20,7 @@ def cur_switch(items, curs=('USD', 'GBP', 'EUR', 'AUD', 'CAD', 'SGD', 'AED', 'NZ
     panels = ''
     for c in curs:
         li = ''.join(f'<li style="--i:{i}"><span>{e(lbl)}<small>{e(note)}</small></span><b>{e(val(name, c))}'
-                     f'{"<small> onwards</small>" if name in (STORE, STORE_BIG) else "<small> a month</small>" if name == CARE else ""}</b></li>'
+                     f'{"<small> onwards</small>" if name in (STORE, STORE_BIG) else "<small> a month</small>" if "/mo" in price(name) else ""}</b></li>'
                      for i, (lbl, name, note) in enumerate(items))
         panels += f'<ul class="fxs__p fxs__p--{c.lower()}" aria-label="Prices in {e(c)}">{li}</ul>'
     css = ''.join(f'#{sid}-{c.lower()}:checked~.fxs__tabs label[for={sid}-{c.lower()}]{{background:var(--violet);color:#fff}}'
@@ -161,12 +161,18 @@ def _hub():
         stats=[(fx(LANDING, 'USD'), 'Websites from'), ('8', 'Currencies'), ('60%', 'Paid after launch')], art=board_card, hero_more=('#countries', 'Find your country'),
         wa="Hi Mehul, my business is outside India. I'd like a free audit and a price in my currency.",
         og_alt='Web design from India for businesses abroad, by U Scale: one price list in eight currencies',
-        offers=[(LANDING, 'USD'), (BIZ, 'USD'), (BLOG, 'USD'), (STORE, 'USD'), (LANDING, 'GBP'), (BIZ, 'GBP'), (LANDING, 'EUR'), (BIZ, 'EUR')],
+        offers=[(LANDING, 'USD'), (BIZ, 'USD'), (BLOG, 'USD'), (STORE, 'USD'), (LANDING, 'GBP'), (BIZ, 'GBP'), (LANDING, 'EUR'), (BIZ, 'EUR'),
+                ('Technical + on-page SEO', 'USD'), ('Local SEO / Google Business Profile', 'USD'), ('AI search visibility (GEO)', 'USD'), ('Ads management', 'USD')],
         blocks=[
             sec('trust', 'Why it’s safe', 'Safe to pay a studio on the other side of the world.', '', trust('USD', '.com')),
             work_sec(),
             sec('prices', 'One price list', 'Pick your currency.', 'The same work and the same price everywhere, converted and rounded. Fixed in writing.',
                 cur_switch([(t, n, d) for n, t, d in curs])),
+            sec('monthly', 'Monthly work', 'SEO, ads and AI search, by the month.', 'The same monthly prices as in India, converted. Three months minimum, then month to month.',
+                cur_switch([('Technical and on-page SEO', 'Technical + on-page SEO', 'Speed, page titles and fixes'),
+                            ('Local SEO', 'Local SEO / Google Business Profile', 'Google Business Profile and local rankings'),
+                            ('AI search visibility', 'AI search visibility (GEO)', 'How ChatGPT, Gemini and Google’s AI describe you'),
+                            ('Ads management', 'Ads management', 'Google and Meta; ad spend paid to them directly')], sid='mo')),
             sec('countries', 'Nine countries', 'Find your country.', 'Each page has local prices to compare, the hours we share and the rules your site has to meet.', country_grid(), tone='band'),
             process_sec(),
             sec('more', 'Other ways we help', 'For agencies, designers and owners abroad.', '', (GP.render(GP.Links([
@@ -185,6 +191,7 @@ def _hub():
         facts=[('Who does the work', TEAM.replace('Our own team', 'U Scale’s own team')),
                ('Based in', 'Mumbai, India. No offices abroad: projects run over WhatsApp, email and video calls'),
                ('Prices in US dollars', f'Landing page {fx(LANDING, "USD")} · 5–10 pages {fx(BIZ, "USD")} · 10–20 pages with a blog {fx(BLOG, "USD")} · online store from {fx(STORE, "USD")} · care plan {fx(CARE, "USD")} a month'),
+               ('Monthly work (USD)', f'Technical SEO {fx("Technical + on-page SEO", "USD")} · local SEO {fx("Local SEO / Google Business Profile", "USD")} · AI search visibility {fx("AI search visibility (GEO)", "USD")} · ads management {fx("Ads management", "USD")}, a month'),
                ('Currencies', 'US, Australian, Canadian, Singapore and New Zealand dollars, pounds, euros and dirhams'),
                ('How prices are set', f'Our rupee prices, converted at the rates of {PD.FX_DATE} and rounded'),
                ('Payment', f'20% to start, 20% on design sign-off, 60% on launch, by {PAY_ROUTE.split(", so")[0]}'),

@@ -1371,7 +1371,7 @@ def quote_builder_html(ICON_CHAT):
         <label class="qb__switch"><input type="checkbox" data-redesign><span class="qb__sw" aria-hidden="true"></span><span>I already have a site: redesign it for <em>70% of a fresh build</em></span></label>
         <label class="qb__switch"><input type="checkbox" data-name="Care plan" data-mo="{care[2]}" data-once="0"><span class="qb__sw" aria-hidden="true"></span><span>Care plan for updates, backups and security: <em>{e(care[1])}</em></span></label>
       </div>
-      <p class="qb__fine">{e(PD.WEBSITES_NOTE)}</p>
+      <p class="qb__fine">{e(PD.WEBSITES_NOTE)} Outside India? <a class="tlink" href="/services/outsource-web-design-india#prices">The same prices in dollars, pounds, euros and five more currencies</a>.</p>
     </fieldset>
     <fieldset class="qb__step" id="step-2">
       <legend><span class="qb__num">2</span><span>Monthly growth<small>Combine any of these. 3 months minimum, then month-to-month with 30 days&rsquo; notice.</small></span></legend>
