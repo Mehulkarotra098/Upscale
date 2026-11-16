@@ -280,6 +280,8 @@ rep = {'{{PRICE_PILLARS}}': seo_pages.pricing_pillars_html(), '{{PRICE_TERMS}}':
 import home_parts  # hero, In short, services, built-for cards, how it works, founder photo, tools, contact (see home_parts.py)
 rep.update(home_parts.parts(handset))
 rep.update({'{{' + k + '}}': v for k, v in ICONS.items()})
+import mega_menu
+rep.update({'{{MEGA}}': mega_menu.desktop(), '{{MEGA_M}}': mega_menu.mobile()})  # Services mega menu (16 Nov 2026)
 for k, v in rep.items():
     src = src.replace(k, v)
 src = re.sub(r'\s*<!--T-->.*?<!--/T-->', '', src, flags=re.S) if not rep['{{QUOTES}}'] else src.replace('  <!--T-->\n', '').replace('\n  <!--/T-->', '')

@@ -548,6 +548,67 @@ body.gp-bar-on .cc{bottom:calc(88px + env(safe-area-inset-bottom,0px))}
 .menu a.menu__link:hover,.menu a.menu__link:focus-visible{color:var(--lavender)}
 .menu.is-open a.menu__link{transform:none;transition-delay:calc(.18s + var(--i) * .05s)}
 .menu__foot{margin-top:auto;display:grid;gap:12px;opacity:0;transform:translateY(16px);transition:opacity .5s ease,transform .6s var(--ease-out)}
+
+/* ---------- Services menu (source/build/mega_menu.py): goals, prices, place ---------- */
+.nav__mm{position:static}
+.nav__more{display:inline-flex;align-items:center;gap:5px;padding:8px 0;border:0;background:none;font-family:inherit;font-size:15px;font-weight:500;line-height:inherit;letter-spacing:.005em;color:inherit;cursor:pointer}
+.nav__chev{width:15px;height:15px;transition:transform .3s var(--ease-out)}
+.nav__mm.is-open .nav__chev{transform:rotate(180deg)}
+.mm{position:absolute;left:50%;top:calc(100% - 4px);width:min(1100px,calc(100vw - 48px));translate:-50% 10px;opacity:0;visibility:hidden;pointer-events:none;
+  transition:opacity .25s ease,translate .35s var(--ease-out),visibility 0s .35s;z-index:5}
+.nav__mm.is-open .mm,html:not(.js) .nav__mm:hover .mm,html:not(.js) .nav__mm:focus-within .mm{opacity:1;visibility:visible;pointer-events:auto;translate:-50% 0;transition:opacity .25s ease,translate .35s var(--ease-out)}
+.mm__in{display:grid;grid-template-columns:minmax(0,1fr) 250px;gap:12px;padding:12px;border-radius:20px;max-height:calc(100dvh - var(--header-h) - 16px);overflow-y:auto;overscroll-behavior:contain;background:#fff;color:var(--violet);
+  box-shadow:0 0 0 1px var(--line-light),0 40px 80px -30px rgba(37,30,69,.45)}
+.mm__cols{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:4px;padding:10px 6px}
+.mm__k{margin:0 0 8px 10px;font:400 19px/1 var(--display);text-transform:uppercase;letter-spacing:.01em;color:var(--violet)}
+.nav .mm ul{display:grid;gap:0;margin:0;padding:0;list-style:none}
+.nav .mm a{white-space:normal;text-decoration:none;color:var(--violet)}
+.nav .mm a::after{display:none}
+.nav .mm__col a{display:block;padding:9px 10px;border-radius:10px;transition:background-color .15s}
+.mm__col a b{display:block;font:700 15px/1.25 var(--sans)}
+.mm__col a span{display:block;margin-top:2px;font:500 13px/1.35 var(--sans);color:var(--body)}
+.nav .mm__col a:hover,.nav .mm__col a:focus-visible{background:#F3F0FA}
+.mm__card{display:flex;flex-direction:column;gap:10px;padding:20px;border-radius:14px;background:var(--violet);color:#fff;
+  background-image:radial-gradient(120% 90% at 100% 0%,rgba(99,184,73,.28),rgba(99,184,73,0) 60%)}
+.mm__card-k{margin:0;font:700 11.5px/1 var(--sans);letter-spacing:.12em;text-transform:uppercase;color:#8ED474}
+.mm__card-t{margin:0;font:400 26px/1 var(--display);text-transform:uppercase}
+.nav .mm ul.mm__px{gap:8px;margin:4px 0 6px}
+.mm__px li{display:flex;flex-direction:column;gap:2px;padding-bottom:8px;border-bottom:1px solid rgba(201,188,232,.2)}
+.mm__px span{font:500 12.5px/1.3 var(--sans);color:#C9BCE8}.mm__px b{font:700 17px/1.2 var(--sans);color:#fff}
+.nav .mm a.mm__card-go{margin-top:auto;font:700 14.5px/1 var(--sans);color:#8ED474}
+.nav .mm a.mm__card-go b{display:inline-block;transition:translate .2s}.nav .mm a.mm__card-go:hover b{translate:4px 0}
+.nav .mm a.mm__card-fx{font:500 13px/1.35 var(--sans);color:#DAD3F0;text-decoration:underline;text-decoration-color:rgba(201,188,232,.45);text-underline-offset:3px}
+.mm__strip{grid-column:1 / -1;display:flex;flex-wrap:wrap;gap:6px 28px;padding:12px 16px;border-radius:12px;background:#F6F3FC}
+.mm__place{display:flex;flex-wrap:wrap;align-items:center;gap:4px 14px;margin:0;font:500 14px/1.3 var(--sans)}
+.mm__place-k{font:700 11.5px/1 var(--sans);letter-spacing:.1em;text-transform:uppercase;color:var(--body)}
+.nav .mm .mm__place a{padding:4px 0;border-bottom:1.5px solid transparent;transition:border-color .15s}
+.nav .mm .mm__place a:hover,.nav .mm .mm__place a:focus-visible{border-color:var(--green)}
+.nav .mm .mm__place a.mm__place-all{font-weight:700}
+@media (prefers-reduced-motion:no-preference){.js .nav__mm.is-open .mm__col li{animation:cvRise .35s var(--ease-out) both}
+  .js .nav__mm.is-open .mm__col:nth-child(2) li{animation-delay:.04s}.js .nav__mm.is-open .mm__col:nth-child(3) li{animation-delay:.08s}}
+@media (min-width:1024px) and (max-width:1199px){.mm__in{grid-template-columns:minmax(0,1fr) 210px}.mm__col a span{font-size:12.5px}.mm__card-t{font-size:22px}}
+.rm .mm{transition:none}.rm .mm__col li{animation:none!important}
+
+/* phone menu: Services opens to the same goals and places */
+.menu .mmm summary.menu__link{display:flex;align-items:baseline;justify-content:space-between;list-style:none;cursor:pointer;font-family:var(--display);text-transform:uppercase;
+  font-size:clamp(44px,13vw,64px);line-height:1.05;color:var(--white);padding-block:2px;transform:translateY(105%);transition:transform .6s var(--ease-out),color .25s ease}
+.menu .mmm summary::-webkit-details-marker{display:none}
+.menu .mmm summary.menu__link::after{content:"+";font-family:var(--sans);font-size:30px;line-height:1;color:var(--lavender);opacity:.8;transition:transform .3s var(--ease-out)}
+.menu .mmm[open] summary.menu__link::after{transform:rotate(45deg)}
+.menu.is-open .mmm summary.menu__link{transform:none;transition-delay:.18s}
+.menu .mmm summary.menu__link:hover,.menu .mmm summary.menu__link:focus-visible{color:var(--lavender)}
+.mmm__in{padding:4px 0 14px}
+.mmm__h{margin:18px 0 6px;font:700 12px/1 var(--sans);letter-spacing:.12em;text-transform:uppercase;color:var(--lavender)}
+.menu ul.mmm__l{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:2px 14px}
+.menu .mmm__l li{overflow:visible}
+.menu .mmm__l a{display:block;padding:8px 0;font:500 16px/1.3 var(--sans);color:#fff;text-decoration:none}
+.menu .mmm__l a:hover,.menu .mmm__l a:focus-visible{color:var(--lavender)}
+.mmm__chips{display:flex;flex-wrap:wrap;gap:8px;margin:0}
+.mmm__chips a{padding:8px 12px;border-radius:999px;box-shadow:inset 0 0 0 1px rgba(201,188,232,.4);font:600 14px/1 var(--sans);color:#fff;text-decoration:none}
+.mmm__chips a.is-all{box-shadow:none;background:rgba(142,212,116,.16);color:#8ED474}
+.mmm__all{display:inline-block;margin-top:18px;font:700 16px/1 var(--sans);color:#8ED474;text-decoration:none}
+@media (max-width:359px){.menu ul.mmm__l{grid-template-columns:minmax(0,1fr)}}
+.rm .menu .mmm summary.menu__link{transition:none;transform:none}
 .menu.is-open .menu__foot{opacity:1;transform:none;transition-delay:.5s}
 .menu__foot .btn{width:100%}
 .menu__meta{margin:8px 0 0;font:500 12px/1.4 var(--sans);letter-spacing:.14em;text-transform:uppercase;color:rgba(201,188,232,.75);font-variant-numeric:tabular-nums}

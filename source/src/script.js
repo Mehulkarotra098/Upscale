@@ -879,3 +879,22 @@
     r.addEventListener('input',function(){ box.style.setProperty('--x',r.value+'%'); });
   });
 })();
+
+/* Services menu (source/build/mega_menu.py): opens on hover with a mouse, on click or Enter otherwise; Escape, a click
+   outside, leaving it by keyboard, or scrolling away closes it. */
+(function(){
+  'use strict';
+  var li=document.querySelector('.nav__mm'); if(!li) return;
+  var btn=li.querySelector('.nav__more'), t=0, hover=window.matchMedia('(hover:hover) and (pointer:fine)').matches;
+  function set(open){ li.classList.toggle('is-open',open); btn.setAttribute('aria-expanded',String(open)); }
+  btn.addEventListener('click',function(){ set(!li.classList.contains('is-open')); });
+  if(hover){
+    li.addEventListener('mouseenter',function(){ clearTimeout(t); set(true); });
+    li.addEventListener('mouseleave',function(){ clearTimeout(t); t=setTimeout(function(){ set(false); },180); });
+  }
+  li.addEventListener('focusout',function(e){ if(!li.contains(e.relatedTarget)) set(false); });
+  document.addEventListener('keydown',function(e){ if(e.key==='Escape'&&li.classList.contains('is-open')){ set(false); btn.focus(); } });
+  document.addEventListener('click',function(e){ if(!li.contains(e.target)) set(false); });
+  var y0=window.scrollY;
+  window.addEventListener('scroll',function(){ if(li.classList.contains('is-open')&&Math.abs(window.scrollY-y0)>120) set(false); if(!li.classList.contains('is-open')) y0=window.scrollY; },{passive:true});
+})();
