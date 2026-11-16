@@ -115,8 +115,11 @@ def for_places():
             '<a class="tlink" href="/services/website-design-navi-mumbai">Navi Mumbai</a>')
     links = [f'<a class="tlink" href="/{c["path"]}">{e(c["city"])}</a>' for c in CP.CITIES]
     cities = ', '.join(links[:-1]) + ' and ' + links[-1]
+    abroad = ', '.join(f'<a class="tlink" href="/services/website-design-{s}">{n}</a>' for s, n in
+                       [('uk', 'the UK'), ('usa', 'the US'), ('australia', 'Australia'), ('canada', 'Canada')])
     return (f'      <p class="fp-all home-places" data-reveal>Also near Mumbai: {near}. Outside Mumbai, I build websites for businesses in '
-            f'{cities}.</p>')
+            f'{cities}. Outside India, for clients in {abroad} and five more countries, with '
+            f'<a class="tlink" href="/services/outsource-web-design-india">the same prices in your currency</a>.</p>')
 
 
 def how():

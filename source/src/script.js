@@ -785,3 +785,44 @@
   function ask(){ window.setTimeout(function(){ if(!read()) open(false); },1200); }
   if(doc.readyState==='complete') ask(); else window.addEventListener('load',ask);
 })();
+
+/* Clients abroad (world_pages.py): live clocks, whether we are at work right now, and the visitor's own currency.
+   The currency comes from the time zone the device is set to; nothing is looked up or sent anywhere. Without JavaScript
+   (or Intl) the pages keep their plain text: the route chip, the hours chart and the first currency. */
+(function(){
+  'use strict';
+  var doc=document; if(!window.Intl||!Intl.DateTimeFormat) return;
+  var MUM='Asia/Kolkata';
+  function q(s){ return Array.prototype.slice.call(doc.querySelectorAll(s)); }
+  function parts(tz,d){ try{ var o={}; new Intl.DateTimeFormat('en-GB',{timeZone:tz,hour:'2-digit',minute:'2-digit',weekday:'short',hourCycle:'h23'}).formatToParts(d).forEach(function(p){ o[p.type]=p.value; }); return {h:+o.hour%24,m:+o.minute,wd:o.weekday}; }catch(e){ return null; } }
+  function fmt(tz,h12,d){ var p=parts(tz,d); if(!p) return ''; var mm=(p.m<10?'0':'')+p.m; if(!h12) return (p.h<10?'0':'')+p.h+':'+mm; return (p.h%12||12)+(p.m?':'+mm:'')+(p.h<12?' am':' pm'); }
+  function atWork(d){ var p=parts(MUM,d); if(!p) return false; var t=p.h*60+p.m; return p.wd!=='Sun'&&t>=600&&t<1140; }
+  function nextStart(d){ // the next 10:00 in Mumbai (UTC+5:30, no clock changes), skipping Sunday
+    var ist=new Date(d.getTime()+330*60000), s=Date.UTC(ist.getUTCFullYear(),ist.getUTCMonth(),ist.getUTCDate(),10,0)-330*60000;
+    if(s<=d.getTime()) s+=864e5; var p=parts(MUM,new Date(s)); if(p&&p.wd==='Sun') s+=864e5; return new Date(s); }
+  function tick(){
+    var now=new Date();
+    q('[data-clock]').forEach(function(el){ var t=fmt(el.getAttribute('data-tz'),el.hasAttribute('data-h12'),now); if(t) el.textContent=t; });
+    q('[data-route]').forEach(function(el){ var tz=el.getAttribute('data-tz'),h=el.hasAttribute('data-h12'),a=fmt(tz,h,now),b=fmt(MUM,h,now); if(!a||!b) return;
+      el.textContent=''; el.appendChild(doc.createTextNode(el.getAttribute('data-city')+' ')); var x=doc.createElement('b'); x.textContent=a; el.appendChild(x);
+      el.appendChild(doc.createTextNode(' · Mumbai ')); var y=doc.createElement('b'); y.textContent=b; el.appendChild(y); });
+    q('[data-now]').forEach(function(el){ var p=parts(el.getAttribute('data-tz'),now); if(!p) return; el.style.setProperty('--f',((p.h*60+p.m)/1440).toFixed(4)); el.hidden=false; });
+    q('[data-onair]').forEach(function(el){ var tz=el.getAttribute('data-tz'),h=el.hasAttribute('data-h12'),c=el.getAttribute('data-city'),on=atWork(now);
+      el.textContent=''; var dot=doc.createElement('i'); if(on) dot.className='is-on'; el.appendChild(dot); var sp=doc.createElement('span'); el.appendChild(sp);
+      sp.textContent=on?'It’s '+fmt(tz,h,now)+' in '+c+' and '+fmt(MUM,h,now)+' in Mumbai. We’re at work right now.'
+        :'It’s '+fmt(tz,h,now)+' in '+c+'. We’re back at 10:00 Mumbai time, which is '+fmt(tz,h,nextStart(now))+' your time. Anything you send now is the first thing we read.';
+      el.hidden=false; });
+  }
+  tick(); window.setInterval(tick,30000);
+  var tz=''; try{ tz=Intl.DateTimeFormat().resolvedOptions().timeZone||''; }catch(e){ tz=''; }
+  var CA=/^America\/(Toronto|Vancouver|Edmonton|Winnipeg|Halifax|St_Johns|Regina|Montreal|Moncton|Whitehorse|Yellowknife|Iqaluit|Glace_Bay|Goose_Bay|Swift_Current|Dawson_Creek|Fort_Nelson|Creston|Rankin_Inlet|Cambridge_Bay|Inuvik|Atikokan|Thunder_Bay|Nipigon|Rainy_River|Resolute)$/;
+  var EU=/^Europe\/(Dublin|Amsterdam|Berlin|Paris|Madrid|Rome|Brussels|Vienna|Lisbon|Helsinki|Athens|Luxembourg|Tallinn|Riga|Vilnius|Bratislava|Ljubljana|Malta|Zagreb)$/;
+  var cur=tz==='Europe/London'?'GBP':CA.test(tz)?'CAD':(/^America\//.test(tz)||tz==='Pacific/Honolulu')?'USD':/^Australia\//.test(tz)?'AUD':/^Pacific\/(Auckland|Chatham)$/.test(tz)?'NZD':
+          tz==='Asia/Singapore'?'SGD':tz==='Asia/Dubai'?'AED':EU.test(tz)?'EUR':/^Asia\/(Kolkata|Calcutta)$/.test(tz)?'INR':'';
+  var NAME={GBP:'pounds',USD:'US dollars',AUD:'Australian dollars',CAD:'Canadian dollars',NZD:'New Zealand dollars',SGD:'Singapore dollars',AED:'dirhams',EUR:'euros'};
+  if(!cur) return;
+  q('[data-fxs]').forEach(function(box){ var r=box.querySelector('input[value="'+cur+'"]'),g=box.querySelector('[data-geo]');
+    if(r){ r.checked=true; if(g&&NAME[cur]){ g.textContent='Showing '+NAME[cur]+', because your device is set to that time zone. Tap another currency any time.'; g.hidden=false; } }
+    else if(cur==='INR'&&g){ g.textContent='In India? Our rupee prices are on the price list: '; var a=doc.createElement('a'); a.className='tlink'; a.href='/pricing'; a.textContent='see prices in rupees'; g.appendChild(a); g.hidden=false; } });
+  q('.cg li[data-cur]').forEach(function(li){ if(li.getAttribute('data-tz')===tz||(cur!=='EUR'&&li.getAttribute('data-cur')===cur)) li.classList.add('is-you'); });
+})();

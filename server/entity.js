@@ -8,7 +8,7 @@ export default Object.freeze({
   description:
     'Freelance web design, development and digital marketing in Mumbai by Mehul Karotra: an independent, contract-based alternative to a digital marketing agency. Websites, SEO, social media, Google and Meta ads and AI search visibility, with every price published.',
   disambiguatingDescription:
-    'The independent web design and digital marketing practice of Mehul Karotra, based in Mumbai and working with businesses across India, at uscale.in.',
+    'The independent web design and digital marketing practice of Mehul Karotra, based in Mumbai and working with businesses across India and abroad, at uscale.in.',
   slogan: 'Agency-quality work, without the agency.',
   foundingDate: '2026',
   phone: '+91-79773-60142',
