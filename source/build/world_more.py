@@ -181,7 +181,7 @@ def _hub():
         desc=f'A Mumbai studio that hand-codes websites for businesses in the UK, US, Australia and six more countries. From {fx(LANDING, "USD")}, fixed in your currency.',
         h1='Web design from India, priced in your currency', eyebrow='For businesses outside India',
         lead='A studio in Mumbai that designs and hand-codes websites for businesses in nine countries. One price list, fixed in your currency. You pay most of it after launch.',
-        stats=[(fx(LANDING, 'USD'), 'Websites from'), ('8', 'Currencies'), ('60%', 'Paid after launch')], art=board_card, hero_more=('#countries', 'Find your country'),
+        stats=[(fx(LANDING, 'USD'), 'Websites from'), ('8', 'Currencies'), ('60%', 'Paid after launch')], art=__import__('world_art').hub_clocks, hero_more=('#countries', 'Find your country'),
         wa="Hi Mehul, my business is outside India. I'd like a free audit and a price in my currency.",
         og_alt='Web design from India for businesses abroad, by U Scale: one price list in eight currencies',
         offers=[(LANDING, 'USD'), (BIZ, 'USD'), (BLOG, 'USD'), (STORE, 'USD'), (LANDING, 'GBP'), (BIZ, 'GBP'), (LANDING, 'EUR'), (BIZ, 'EUR'),

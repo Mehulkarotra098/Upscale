@@ -469,6 +469,16 @@ TRAIL = [('Services', '/services'), ('Clients abroad', HUB)]
 
 
 TZ = {'uk': 'Europe/London', 'usa': 'America/New_York', 'australia': 'Australia/Sydney', 'canada': 'America/Toronto', 'singapore': 'Asia/Singapore', 'uae': 'Asia/Dubai', 'ireland': 'Europe/Dublin', 'new-zealand': 'Pacific/Auckland', 'netherlands': 'Europe/Amsterdam'}
+# The order each buyer reads in (DESIGN-TAILORING.md): what that country's buyer checks first comes first.
+ORDER = {'uk': ['trust', 'sig', 'prices', 'cost', 'hours', 'work', 'process', 'rules'],
+         'usa': ['hours', 'sig', 'prices', 'cost', 'work', 'trust', 'process', 'rules'],
+         'australia': ['sig', 'prices', 'cost', 'trust', 'work', 'hours', 'process', 'rules'],
+         'canada': ['sig', 'trust', 'prices', 'cost', 'hours', 'work', 'process', 'rules'],
+         'singapore': ['hours', 'prices', 'cost', 'sig', 'trust', 'work', 'process', 'rules'],
+         'uae': ['sig', 'prices', 'cost', 'trust', 'work', 'hours', 'process', 'rules'],
+         'ireland': ['sig', 'trust', 'rules', 'prices', 'cost', 'hours', 'work', 'process'],
+         'new-zealand': ['hours', 'sig', 'prices', 'cost', 'trust', 'work', 'process', 'rules'],
+         'netherlands': ['sig', 'trust', 'prices', 'cost', 'rules', 'hours', 'work', 'process']}
 ADJ = {'uk': 'UK', 'usa': 'US', 'australia': 'Australian', 'canada': 'Canadian', 'singapore': 'Singapore', 'uae': 'UAE', 'ireland': 'Irish',
        'new-zealand': 'New Zealand', 'netherlands': 'Dutch'}
 HOURS_H = {'uk': 'Your morning is our afternoon.', 'usa': 'We work while you sleep.', 'australia': 'Your afternoon is our morning.',
@@ -483,20 +493,21 @@ def country(slug, name, the, short, cur, lang, tld, city, utc, zone, h12, overla
     p = dict(slug=f'website-design-{slug}', path=f'services/website-design-{slug}', name=name, the=the, short=short, cur=cur, lang=lang, tld=tld, tz=TZ[slug],
              city=city, utc=utc, zone=zone, h12=h12, market=market, scale=scale, ticks=ticks, cost_foot=cost_foot, hours_note=hours_note,
              trail=TRAIL, crumb=short, title=title, desc=desc, h1=h1, eyebrow=f'From Mumbai, for {the}', lead=lead, wa=wa, card=card,
-             art=cost_card, cta_lead=cta_lead, countries=[name], service=f'Website design and development for businesses in {the}',
+             art=__import__('world_art').ART[slug], cta_lead=cta_lead, countries=[name], service=f'Website design and development for businesses in {the}',
              og_alt=f'Website design for businesses in {the}, from U Scale in Mumbai: fixed prices in {PD.FX[cur][2]}',
              offers=[(LANDING, cur), (BIZ, cur), (BLOG, cur), (STORE, cur)], sources=sources)
     p['stats'] = [(fx(LANDING, cur), 'Websites from'), (f'{ov:g} h' if ov else 'Overnight', 'Shared hours' if ov else 'Work while you sleep'), ('60%', 'Paid after launch')]
     pc = price_cards(cur, market_line, where, price_descs)
-    p['blocks'] = [
-        sec('trust', 'Why it’s safe', 'You’re protected at every step.', '', with_review(trust(cur, tld))),
-        work_sec(),
-        sec('prices', f'Prices in {PD.FX[cur][2]}', f'Website prices for {the}', 'Four prices, fixed in writing before work starts.', pc),
-        sec('hours', 'Your time zone', HOURS_H[slug], '', hours_html(p), tone='band'),
-        signature,
-        process_sec(),
-        sec('rules', 'Local rules', f'{ADJ[slug]} rules, handled.', '', rules_html(rules)),
-    ]
+    by = {'trust': sec('trust', 'Why it’s safe', 'You’re protected at every step.', '', with_review(trust(cur, tld))),
+          'work': work_sec(),
+          'prices': sec('prices', f'Prices in {PD.FX[cur][2]}', f'Website prices for {the}', 'Four prices, fixed in writing before work starts.', pc),
+          'cost': sec('cost', 'Compared', f'What a website costs in {the}', '', (f'<div class="cost-sec">{cost_card(p)}<p class="cost-sec__t">{e(market_line)} '
+                      '<a class="tlink" href="#sources">Sources</a></p></div>', market_line), tone='band'),
+          'hours': sec('hours', 'Your time zone', HOURS_H[slug], '', hours_html(p), tone='band'),
+          'sig': signature,
+          'process': process_sec(),
+          'rules': sec('rules', 'Local rules', f'{ADJ[slug]} rules, handled.', '', rules_html(rules))}
+    p['blocks'] = [by[k] for k in ORDER[slug]]
     p['answer'] = (f'U Scale is a web design studio in Mumbai, India, that builds hand-coded websites for businesses in {the} over WhatsApp and '
                    f'video calls. Prices are fixed in {PD.FX[cur][2]} and agreed in writing: {fx(LANDING, cur)} for a landing page, {fx(BIZ, cur)} for a '
                    f'5–10 page business site and from {fx(STORE, cur)} for an online store. You pay 60% only when the site is live, and the domain, '

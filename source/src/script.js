@@ -806,6 +806,7 @@
     q('[data-route]').forEach(function(el){ var tz=el.getAttribute('data-tz'),h=el.hasAttribute('data-h12'),a=fmt(tz,h,now),b=fmt(MUM,h,now); if(!a||!b) return;
       el.textContent=''; el.appendChild(doc.createTextNode(el.getAttribute('data-city')+' ')); var x=doc.createElement('b'); x.textContent=a; el.appendChild(x);
       el.appendChild(doc.createTextNode(' · Mumbai ')); var y=doc.createElement('b'); y.textContent=b; el.appendChild(y); });
+    q('[data-hands]').forEach(function(el){ var p=parts(el.getAttribute('data-tz'),now); if(!p) return; el.style.setProperty('--hr',((p.h%12)*30+p.m*.5)+'deg'); el.style.setProperty('--mn',(p.m*6)+'deg'); });
     q('[data-now]').forEach(function(el){ var p=parts(el.getAttribute('data-tz'),now); if(!p) return; el.style.setProperty('--f',((p.h*60+p.m)/1440).toFixed(4)); el.hidden=false; });
     q('[data-onair]').forEach(function(el){ var tz=el.getAttribute('data-tz'),h=el.hasAttribute('data-h12'),c=el.getAttribute('data-city'),on=atWork(now);
       el.textContent=''; var dot=doc.createElement('i'); if(on) dot.className='is-on'; el.appendChild(dot); var sp=doc.createElement('span'); el.appendChild(sp);
@@ -824,5 +825,6 @@
   q('[data-fxs]').forEach(function(box){ var r=box.querySelector('input[value="'+cur+'"]'),g=box.querySelector('[data-geo]');
     if(r){ r.checked=true; if(g&&NAME[cur]){ g.textContent='Showing '+NAME[cur]+', because your device is set to that time zone. Tap another currency any time.'; g.hidden=false; } }
     else if(cur==='INR'&&g){ g.textContent='In India? Our rupee prices are on the price list: '; var a=doc.createElement('a'); a.className='tlink'; a.href='/pricing'; a.textContent='see prices in rupees'; g.appendChild(a); g.hidden=false; } });
+  q('.wc__g li[data-tz]').forEach(function(li){ if(li.getAttribute('data-tz')===tz) li.classList.add('is-you'); });
   q('.cg li[data-cur]').forEach(function(li){ if(li.getAttribute('data-tz')===tz||(cur!=='EUR'&&li.getAttribute('data-cur')===cur)) li.classList.add('is-you'); });
 })();
