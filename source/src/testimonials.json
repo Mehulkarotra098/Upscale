@@ -1,9 +1,61 @@
 [
- {"name": "Prachi Pandya", "role": "Fashion Designer, Sashe by Prachi", "logo": "sashe", "approved": true, "rating": 5, "url": "https://clutch.co/go-to-review/eca08f5c-a4b3-4095-b8fb-b46d05187051/505521", "url_label": "Read the full review on Clutch", "quote": "Their creativity, professionalism, attention to detail, and customer-focused approach truly set them apart."},
- {"name": "Shashi Rekha", "role": "Architect, Space Studio Chennai", "logo": "spacestudio", "approved": true, "url": "https://www.linkedin.com/posts/architect-shashi_our-website-just-got-a-fresh-new-look-share-7524167344416477184-_xVa/", "url_label": "See the post on LinkedIn", "quote": "We're delighted to have found Mehul Karotra, a website designer whose exceptional commitment and focus helped bring it all together. We're grateful for his splendid support and the care he's poured into every detail."},
- {"name": "Vidhi Parmar", "role": "AI visual artist, Mumbai", "logo": "vidhi", "approved": true, "url": "https://www.instagram.com/reel/De1dXpZiM6j/", "url_label": "See her comment on Instagram", "quote": "I wanted something unique, creative and something that truly feels like me. You understood the vision and brought it to life so beautifully. Couldn't have asked for anything better. Absolutely love what you have created."},
- {"name": "Store owner", "role": "Used the free review QR card maker. Sent on WhatsApp", "logo": "", "approved": true, "lang": "hi-Latn", "quote": "Aapki website se maine apne store ka review card banaya jo bohot hi attractive laga."},
- {"name": "Yash", "role": "Founder, BrandGen", "logo": "brandgen", "approved": false, "quote": "Site and socials came from one person with one plan. Same voice, same visuals, every week, and I never had to chase anyone for an update."},
- {"name": "Raj Patel", "role": "TODO: business name", "logo": "", "approved": false, "quote": "Clear plan, clear price, and a site that was live when Mehul said it would be. Talking on WhatsApp instead of waiting on email made it painless."},
- {"name": "Vrushab Jain", "role": "TODO: business name", "logo": "", "approved": false, "quote": "Mehul designed and built everything himself, so nothing got lost between a designer and a developer. What we approved in Figma is what went live."}
+  {
+    "name": "Prachi Pandya",
+    "role": "Fashion Designer, Sashe by Prachi",
+    "logo": "sashe",
+    "approved": true,
+    "rating": 5,
+    "url": "https://clutch.co/go-to-review/eca08f5c-a4b3-4095-b8fb-b46d05187051/505521",
+    "url_label": "Read the full review on Clutch",
+    "quote": "Their creativity, professionalism, attention to detail, and customer-focused approach truly set them apart."
+  },
+  {
+    "name": "Shashi Rekha",
+    "role": "Architect, Space Studio Chennai",
+    "logo": "spacestudio",
+    "approved": true,
+    "url": "https://www.linkedin.com/posts/architect-shashi_our-website-just-got-a-fresh-new-look-share-7524167344416477184-_xVa/",
+    "url_label": "See the post on LinkedIn",
+    "quote": "We're delighted to have found Mehul Karotra, a website designer whose exceptional commitment and focus helped bring it all together. We're grateful for his splendid support and the care he's poured into every detail.",
+    "source": "From a LinkedIn post"
+  },
+  {
+    "name": "Vidhi Parmar",
+    "role": "AI visual artist, Mumbai",
+    "logo": "vidhi",
+    "approved": true,
+    "url": "https://www.instagram.com/reel/De1dXpZiM6j/",
+    "url_label": "See her comment on Instagram",
+    "quote": "I wanted something unique, creative and something that truly feels like me. You understood the vision and brought it to life so beautifully. Couldn't have asked for anything better. Absolutely love what you have created.",
+    "source": "From an Instagram comment"
+  },
+  {
+    "name": "Store owner",
+    "role": "Used the free review QR card maker. Sent on WhatsApp",
+    "logo": "",
+    "approved": false,
+    "lang": "hi-Latn",
+    "quote": "Aapki website se maine apne store ka review card banaya jo bohot hi attractive laga."
+  },
+  {
+    "name": "Yash",
+    "role": "Founder, BrandGen",
+    "logo": "brandgen",
+    "approved": false,
+    "quote": "Site and socials came from one person with one plan. Same voice, same visuals, every week, and I never had to chase anyone for an update."
+  },
+  {
+    "name": "Raj Patel",
+    "role": "TODO: business name",
+    "logo": "",
+    "approved": false,
+    "quote": "Clear plan, clear price, and a site that was live when Mehul said it would be. Talking on WhatsApp instead of waiting on email made it painless."
+  },
+  {
+    "name": "Vrushab Jain",
+    "role": "TODO: business name",
+    "logo": "",
+    "approved": false,
+    "quote": "Mehul designed and built everything himself, so nothing got lost between a designer and a developer. What we approved in Figma is what went live."
+  }
 ]

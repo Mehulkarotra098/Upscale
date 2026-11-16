@@ -268,7 +268,8 @@ def quotes_html():
         logo=(f'<img class="quote__logo" src="assets/logos/{t["logo"]}.webp" alt="" loading="lazy" decoding="async">' if t.get('logo') else '')
         # optional "url": the whole card opens the public post the quote was taken from
         src=(f'<br><a class="quote__src" href="{e(t["url"])}" target="_blank" rel="noopener">{e(t.get("url_label","See the original post"))}<span class="sr-only"> (opens in a new tab)</span></a>' if t.get('url') else '')
-        stars=(f'<p class="quote__stars" aria-label="Rated {t["rating"]} out of 5">' + ''.join(f'<i style="--s:{k}"></i>' for k in range(int(t['rating']))) + f'<b>{t["rating"]:.1f}</b><span>on Clutch</span></p>' if t.get('rating') else '')
+        stars=(f'<p class="quote__stars" aria-label="Rated {t["rating"]} out of 5">' + ''.join(f'<i style="--s:{k}"></i>' for k in range(int(t['rating']))) + f'<b>{t["rating"]:.1f}</b><span>on Clutch</span></p>' if t.get('rating')
+               else f'<p class="quote__stars quote__from">{e(t["source"])}</p>' if t.get('source') else '')  # every card gets the same top line, so the three quotes start level
         out.append(f'      <li class="quote quote--real" style="--q:{i%3}" data-reveal>{dash}{stars}<blockquote{' lang="'+t["lang"]+'"' if t.get("lang") else ''}><p>{e(t["quote"])}</p></blockquote><p class="quote__by"><span class="quote__av" aria-hidden="true">{ini}</span><span><strong>{e(t["name"])}</strong><br>{e(t["role"])}{src}</span>{logo}</p></li>')
     return '\n'.join(out)
 ICONS_HEAD = ('<link rel="icon" href="/favicon.svg" type="image/svg+xml">\n<link rel="icon" href="/favicon-32.png" sizes="32x32" type="image/png">\n'

@@ -39,13 +39,13 @@
 .plan--pop .plan__badge{position:static;justify-self:start;align-self:flex-start;margin-bottom:-4px}
 
 /* Testimonials: slow drift + animated dashed outline on hover */
-.quote{position:relative;border-color:transparent;animation:drift 9s ease-in-out infinite alternate;animation-delay:calc(var(--q,0) * -3s)}
+.quote{position:relative;border-color:transparent}  /* no drift: the three reviews sit level (Mehul, 17 Nov 2026) */
 .quote svg.dash{position:absolute;inset:0;width:100%;height:100%;pointer-events:none;overflow:visible}
 .quote svg.dash rect{fill:none;stroke:rgba(37,30,69,.22);stroke-width:1.5;stroke-dasharray:6 7;transition:stroke .4s ease}
 .quote:hover svg.dash rect{stroke:var(--violet);animation:march 1.2s linear infinite}
 @keyframes march{to{stroke-dashoffset:-26}}
 @keyframes drift{from{transform:translateY(0)}to{transform:translateY(-10px)}}
-@media (min-width:860px){.quote:nth-child(2){margin-top:24px}}
+
 
 /* FAQ numbers fill violet when open */
 .qa__btn{grid-template-columns:40px 1fr 40px}
