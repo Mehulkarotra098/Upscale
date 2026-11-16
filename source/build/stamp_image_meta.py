@@ -53,6 +53,10 @@ def describe(rel, names):
     if rel.startswith('assets/card/thumbs/'):
         return (f'{words.title()} visiting card design', f'{words.title()} visiting card design from the free U Scale card maker',
                 OURS, OURS_ASCII, 'U Scale', 'U Scale', 'digitalCreation')
+    if rel.startswith('assets/pages/abroad/'):   # the pages abroad: sample designs and photos made and edited for U Scale
+        t = words[0].upper() + words[1:]
+        return (f'{t}, U Scale', f'{t}: an illustrative image for a U Scale page. The businesses and people shown are fictional.',
+                OURS, OURS_ASCII, 'U Scale', 'U Scale', 'digitalCreation')
     kind = 'share image' if 'og' in stem.split('-') or stem.startswith('og') else 'graphic'
     if stem.startswith(('icon', 'favicon', 'apple-touch')):
         return ('U Scale icon', 'U Scale logo icon', OURS, OURS_ASCII, 'U Scale', 'U Scale', 'digitalCreation')

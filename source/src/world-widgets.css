@@ -206,10 +206,58 @@
 .rm .wg li,.rm .wg__ok,.rm .wkp li,.rm .ul2 li{animation:none!important}
 
 /* ---- the ChatGPT images (world_images.py) ---- */
-.ab-sample{max-width:1100px}
-.ab-fig{margin:0}
-.ab-scene{display:grid;gap:16px;max-width:1100px}
-.ab-scene--2{grid-template-columns:minmax(0,1fr) minmax(0,1fr)}
-@media (max-width:799px){.ab-scene--2{grid-template-columns:minmax(0,1fr)}}
-.ab-fig--photo .fp-shot__stage{padding:0;background:none;box-shadow:0 30px 50px -34px rgba(37,30,69,.6)}
-.ab-fig--photo .fp-shot__stage img{display:block;width:100%;height:auto;border-radius:var(--radius-card)}
+/* sample design: the mockup with numbered pins and a numbered list */
+.sp{max-width:1040px}
+.sp__fig{margin:0;display:grid;gap:10px}
+.sp__img{position:relative;border-radius:var(--radius-card);overflow:hidden;background:#F4F1EA;box-shadow:0 0 0 1px var(--line-light),0 34px 64px -44px rgba(37,30,69,.6)}
+.sp__frame{position:relative;margin:-9.8% 0 -4.6%}  /* trims the empty cream above and below the devices; pins stay in the frame */
+.sp__img picture,.sp__img img{display:block;width:100%;height:auto}
+.sp__fig figcaption{font:500 13.5px/1.5 var(--sans);color:var(--body)}
+.sp__pin{position:absolute;left:var(--x);top:var(--y);width:30px;height:30px;margin:-15px 0 0 -15px;border-radius:50%;display:grid;place-items:center;
+  background:var(--green);color:var(--violet);font:800 14px/1 var(--sans);box-shadow:0 0 0 3px #fff,0 8px 16px -6px rgba(37,30,69,.6);transition:transform .25s var(--ease-out)}
+.sp__pin::after{content:"";position:absolute;inset:-4px;border-radius:50%;border:2px solid var(--green);opacity:0;pointer-events:none}
+.sp__keys{list-style:none;margin:16px 0 0;padding:0;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px}
+.sp__keys li{display:flex;gap:12px;align-items:center;padding:13px 15px;border-radius:14px;background:#fff;box-shadow:0 0 0 1px var(--line-light);
+  font:600 15px/1.3 var(--sans);color:var(--violet);transition:box-shadow .2s}
+.sp__keys b{flex:none;display:grid;place-items:center;width:28px;height:28px;border-radius:50%;background:var(--green);color:var(--violet);font:800 13px/1 var(--sans)}
+.sp:has(.sp__keys li[data-n="1"]:hover) .sp__pin[data-n="1"],.sp:has(.sp__keys li[data-n="2"]:hover) .sp__pin[data-n="2"],
+.sp:has(.sp__keys li[data-n="3"]:hover) .sp__pin[data-n="3"]{transform:scale(1.35)}
+.sp__keys li:hover{box-shadow:0 0 0 2px var(--green)}
+@media (max-width:799px){.sp__keys{grid-template-columns:minmax(0,1fr)}}
+@media (max-width:599px){.sp__pin{width:22px;height:22px;margin:-11px 0 0 -11px;font-size:11.5px;box-shadow:0 0 0 2px #fff,0 6px 12px -5px rgba(37,30,69,.6)}}
+@media (prefers-reduced-motion:no-preference){
+  .js .sp.is-in .sp__img{animation:spIn .8s var(--ease-out) both}
+  .js .sp.is-in .sp__pin{animation:cvPop .5s var(--ease-spring) both;animation-delay:calc(.55s + var(--i) * .25s)}
+  .js .sp.is-in .sp__pin::after{animation:spPulse 2.6s ease-out infinite;animation-delay:calc(1.4s + var(--i) * .5s)}
+  .js .sp.is-in .sp__keys li{animation:cvRise .45s var(--ease-out) both;animation-delay:calc(.6s + var(--i) * .25s)}}
+@keyframes spIn{from{opacity:0;translate:0 26px;scale:.985}}
+@keyframes spPulse{0%{opacity:.75;scale:1}70%,100%{opacity:0;scale:1.9}}
+
+/* moment: one photo, one line, one chip */
+.pm{display:grid;grid-template-columns:minmax(0,1.3fr) minmax(0,1fr);gap:clamp(22px,4vw,60px);align-items:center;max-width:1100px}
+.pm--r{grid-template-columns:minmax(0,1fr) minmax(0,1.3fr)}
+.pm--r .pm__fig{order:2}
+.pm__fig{position:relative;margin:0}
+.pm__img{border-radius:var(--radius-card);overflow:hidden;box-shadow:0 34px 64px -40px rgba(37,30,69,.65)}
+.pm__img picture,.pm__img img{display:block;width:100%;height:auto}
+.pm__chip{position:absolute;left:16px;bottom:16px;display:inline-flex;align-items:center;gap:8px;max-width:calc(100% - 32px);padding:10px 14px;border-radius:999px;
+  background:rgba(255,255,255,.95);box-shadow:0 14px 28px -14px rgba(10,6,30,.6);font:700 13.5px/1.1 var(--sans);color:var(--violet)}
+.pm__chip .fp-ic{flex:none;width:17px;height:17px;color:#3D8A2B}
+.pm__h{margin:0 0 14px;font:400 clamp(30px,3.3vw,46px)/1 var(--display);text-transform:uppercase;color:var(--violet)}
+.pm__t p{margin:0;font:500 17px/1.55 var(--sans);color:var(--body)}
+.pm__t p.pm__cap{margin-top:16px;font:500 13px/1.45 var(--sans);opacity:.85}
+@media (max-width:799px){.pm,.pm--r{grid-template-columns:minmax(0,1fr)}.pm--r .pm__fig{order:0}}
+@media (max-width:420px){.pm__chip{left:10px;bottom:10px;padding:8px 11px;font-size:12px;max-width:calc(100% - 20px)}}
+@media (prefers-reduced-motion:no-preference){
+  .js .pm.is-in .pm__img{animation:pmWipe 1s var(--ease-out) both}
+  .js .pm.is-in .pm__img img{animation:pmZoom 1.8s var(--ease-out) both}
+  .js .pm.is-in .pm__chip{animation:cvPop .5s var(--ease-spring) both;animation-delay:.85s}
+  .js .pm.is-in .pm__t>*{animation:cvRise .5s var(--ease-out) both}
+  .js .pm.is-in .pm__t>:nth-child(2){animation-delay:.12s}.js .pm.is-in .pm__t>:nth-child(3){animation-delay:.24s}}
+@keyframes pmWipe{from{clip-path:inset(0 0 100% 0 round var(--radius-card))}to{clip-path:inset(0 0 0 0 round var(--radius-card))}}
+@keyframes pmZoom{from{scale:1.08}}
+
+/* the page's own photo beside the timeline */
+.tlw__img--photo .fp-shot__stage{aspect-ratio:3 / 2;background:#E9E4F4}
+.tlw__img--photo .fp-shot__stage img{object-fit:cover}
+.rm .sp__img,.rm .sp__pin,.rm .sp__pin::after,.rm .sp__keys li,.rm .pm__img,.rm .pm__img img,.rm .pm__chip,.rm .pm__t>*{animation:none!important}

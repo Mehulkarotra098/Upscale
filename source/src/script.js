@@ -167,6 +167,7 @@
   if(!SPROG[0][0]){ SPROG=$$('main > section, main > .hero-shell').map(function(sec){ var ey=$('.eyebrow,.crumbs [aria-current]',sec), h=$('h1,h2',sec); var t=(ey&&(ey.dataset.final||ey.textContent)||h&&(h.getAttribute('aria-label')||h.textContent)||'').trim(); return [sec,t.length>22?t.slice(0,21)+'…':t]; }).filter(function(x){ return x[1]; }); if(!SPROG.length) SPROG=[[null,'']]; }
   SPROG=SPROG.filter(function(x){ return x[0]; });
   function markScroll(){ scrollDirty=true; kick(); }
+  var waReady=false; setTimeout(function(){ waReady=true; markScroll(); },900);  /* the WhatsApp button springs in just after the page settles */
   function setSteps(p,idx){
     steps.forEach(function(s,i){
       var lit=i<=idx; if(lit && !s.classList.contains('is-lit')){ var n=$('.step__num',s); if(n&&motion){ var k=0,t=+n.dataset.n; var iv=setInterval(function(){ k++; n.textContent='0'+Math.min(k,t); if(k>=t) clearInterval(iv); },60); } }
@@ -193,8 +194,8 @@
       sprog.classList.toggle('on-dark',onDark);
       if(Math.abs(y-lastY)>1){ sprog.classList.add('is-active'); clearTimeout(sprogT); sprogT=setTimeout(function(){ sprog.classList.remove('is-active'); },1000); }
     }
-    /* WhatsApp button: out of the way while reading down (like the header), back on the way up */
-    if(waFloat&&heroCta) waFloat.classList.toggle('is-visible', heroCta.getBoundingClientRect().bottom<0 && waVisible.size===0 && !headerEl.classList.contains('is-hidden'));
+    /* WhatsApp button: always in the corner on every page and screen size (Mehul, 16 Nov 2026); away only while the menu is open */
+    if(waFloat) waFloat.classList.toggle('is-visible', waReady && !menuOpen);
     if(motion){
       if(hero) hero.style.setProperty('--sy',Math.min(y,1200).toFixed(0));
       /* work gallery */
