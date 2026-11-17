@@ -25,7 +25,7 @@ ALT = {
     'website-design-jaipur': 'A 3D pink palace facade in Jaipur: rows of small bay windows lighting one by one, shops with awnings in front and a camel cart passing',
     'andheri-east': 'A 3D model of Andheri East: the metro on its viaduct over the highway, traffic below, offices along the road and a plane climbing from the runway',
     'website-design-india': 'A 3D network of Indian cities: pins for Delhi NCR, Jaipur, Ahmedabad, Surat, Pune, Hyderabad, Bengaluru, Chennai and Kolkata, with glowing arcs from Mumbai to each',
-    'outsource-web-design-india': 'A 3D dotted globe turning, with glowing arcs from Mumbai to the UK, USA, Australia, Canada, Singapore, UAE, Ireland, New Zealand and the Netherlands',
+    'outsource-web-design-india': 'A 3D globe of the world drawn in dots of land, turning slowly, with green arcs from Mumbai to the UK, Ireland, the Netherlands, the UAE, Singapore, Australia, New Zealand, the USA and Canada, each labelled with its currency',
     'website-design-usa': 'Two 3D city blocks: New York at night under the moon and Mumbai by day under the sun, joined by an arc carrying a card that says Preview updated',
     'website-design-australia': 'A 3D scene on red earth: a tradie ute with a toolbox and a hard hat, gum trees, and a job card ticking itself: quote A$850 fixed, design approved, site live',
     'website-design-canada': 'A 3D card turning between English and French, Fresh bread and Du pain frais, above a snowy scene with pines and a cabin as snow falls',
