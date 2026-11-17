@@ -447,7 +447,7 @@ def metro_map():
         pins=[('Ghatkopar West', xs[-1], ys[-1], 'base', 'U Scale base')])
     stations = list(zip(st[:-1], xs[:-1], ys[:-1]))
     return diorama(sp, [
-        dict(name='wide', theta=-10, k=.5, slab=(-570, -220, 560, 210), lift=150, radius=36, road_label_at={0: '22%', 1: '78%'},
+        dict(name='wide', theta=-10, k=.5, slab=(-570, -220, 560, 210), lift=150, radius=36, road_label_at={0: '22%', 1: '40%'},
              paint=[('ANDHERI EAST', -250, 182, 10, 'dm-paint--zone'), ('AIRPORT', -208, -150, -2, 'dm-paint--rail'), ('GHATKOPAR', 446, 182, 10, 'dm-paint--zone')],
              clear=[(-250, 178, 160, 30)],
              notes=[(n, x, y, 'm' if i % 2 == 0 else 'm2') for i, (n, x, y) in enumerate(stations)]),
