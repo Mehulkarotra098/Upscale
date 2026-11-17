@@ -309,16 +309,16 @@ CARD_DESC = {
                   'For a D2C brand: up to 50 products, a cart, and UPI and card checkout.'],
     'Chennai': ['For a clinic or tuition centre starting out: services, timings and a WhatsApp button.',
                 'For an architect, CA or clinic: 5–10 pages, in English and Tamil if you need both.',
-                'For practices with many services or projects, and a blog that brings search traffic.',
-                'For a Chennai brand selling online: up to 50 products, a cart, and UPI and card payments.'],
+                'For practices with many services or projects to show, plus a blog people find through search.',
+                'For a Chennai textile or retail shop selling online: up to 50 products, a cart, and UPI and card payments.'],
     'Delhi NCR': ['For a Gurugram consultant or a Noida coaching class: your services, fees and a WhatsApp button.',
                   'For a CA firm or clinic: services with fees, your team, and an enquiry form that asks the right questions.',
                   'For firms with many services across NCR: a page per service, and a blog that answers clients’ questions.',
-                  'For a Delhi brand selling online: up to 50 products, a cart, and UPI and card payments.'],
+                  'For a Delhi shop that wants to sell online: up to 50 products, a cart, and UPI and card payments.'],
     'Hyderabad': ['For a home-collection lab or a Hitech City startup: one page, live in under 2 weeks.',
                   'For a diagnostic lab or clinic: tests or treatments with prices, timings and booking enquiries.',
                   'For groups with several centres: a page per branch, and a blog that answers patients’ questions.',
-                  'For a Hyderabad brand selling online: up to 50 products, a cart, and UPI and card payments.'],
+                  'For a Hyderabad jeweller or bangle shop selling online: up to 50 products, a cart, and UPI and card payments.'],
     'Kolkata': ['For a sweet shop or a home bakery: what you make, your prices and an “Order on WhatsApp” button.',
                 'For a shop, clinic or school: 5–10 pages, in Bengali and English if your customers read both.',
                 'For businesses with many products or branches: a page per range, and a blog for festival season.',
@@ -326,7 +326,7 @@ CARD_DESC = {
     'Ahmedabad': ['For a trader or a new brand: your range, your minimum order and a WhatsApp button.',
                   'For a wholesaler or manufacturer: a catalogue by fabric or product, with “Get price on WhatsApp”.',
                   'For exporters and manufacturers: product pages, certifications, and a blog for buyers outside Gujarat.',
-                  'For an Ahmedabad brand selling online: up to 50 products, a cart, and UPI and card payments.'],
+                  'For an Ahmedabad textile brand selling online: up to 50 products, a cart, and UPI and card payments.'],
     'Surat': ['For a textile trader: your range, your market and shop number, and a WhatsApp button for rates.',
               'For a jeweller or saree maker: collections, certificates, and an enquiry form for retailers.',
               'For traders with large catalogues: a page per range, and a blog that answers bulk buyers’ questions.',
@@ -447,7 +447,7 @@ def trust_bento(keys=('pay', 'own', 'fix', 'me')):
          'All in your name.', 'Domain, code and every login. Yours, always.'),
         ('fix', '<div class="tb__g tb-doc" aria-hidden="true"><span class="tb-doc__paper"><i style="--i:0;--w:88%"></i><i style="--i:1;--w:64%"></i>'
                 f'<i style="--i:2;--w:76%"></i><span class="tb-doc__total"><small>Total</small><b>{e(BIZ)}</b></span></span><span class="tb-doc__stamp">Fixed</span></div>',
-         'Price fixed in writing.', 'Agreed before work starts. No surprise bills.'),
+         'Price fixed in writing.', 'Agreed before work starts. No extra bills later.'),
         ('me', f'<div class="tb__g tb-me" aria-hidden="true"><span class="tb-me__on"><i></i>On WhatsApp</span>{me}'
                '<span class="tb-me__chat"><span class="tb-me__typing"><i></i><i></i><i></i></span><span class="tb-me__msg">Your design is ready. Have a look!</span></span></div>',
          'You talk to me.', 'Mehul, directly. Never an account manager.'),
@@ -739,7 +739,7 @@ def hundred(n, big, label, src):
 CITIES = [
  dict(slug='pune', path='services/website-design-pune', city='Pune', state='Maharashtra', wiki='https://en.wikipedia.org/wiki/Pune',
   crumb='Website design in Pune', service='Website design and development for Pune businesses',
-  card='Fixed-price websites for Pune shops, suppliers, institutes and cafés, built from Mumbai over WhatsApp and video calls.',
+  card='Websites for Pune shops, suppliers, institutes and cafés, in English or Marathi, at a price fixed in writing.',
   title='Website Design & Development in Pune, from ₹25,000',
   desc=f'Website design for Pune shops, suppliers, institutes and cafés, in Marathi or English: landing page {LANDING}, business site {BIZ}, fixed in writing.',
   h1='Website design & development in Pune', eyebrow='For Pune businesses',
@@ -747,13 +747,13 @@ CITIES = [
   stats=[(LANDING, 'Websites from'), ('3–4 wk', 'Live in'), ('60%', 'Paid after launch')],
   art='patya', imgs=['city-pune'], hero_btn='Free audit on WhatsApp', hero_more=('#prices', 'See prices'), wa="Hi Mehul, I run a business in Pune. I'd like a free audit for my website.",
   cta_h='Get a free audit',
-  cta_lead='Tell me about your Pune business. Got a quote from another studio? Send that too, and I’ll tell you honestly if it’s fair. I reply within 24 hours.',
+  cta_lead='Tell me about your Pune business. Got a quote from another studio? Send that too, and I’ll tell you if it’s fair. I reply within 24 hours.',
   cost=dict(scale=150000, ticks=[0, 50000, 100000, 150000], when='Nov 2026', foot='From 4 Pune studios’ own price pages, seen 8 Nov 2026',
             rows=[('Template site', 'Ready-made WordPress or Wix theme', 5000, 18000, '₹5k–₹18k'),
                   ('Business site, 5–10 pages', 'Pune studios', 20000, 60000, '₹20k–₹60k'),
                   ('Custom-designed site', 'Pune studios', 60000, 150000, '₹60k–₹1.5L')]),
   answer='U Scale is Mehul Karotra, a Mumbai web designer who builds hand-coded websites for Pune businesses over WhatsApp and video calls. '
-         f'Prices are fixed in writing: {LANDING} for one page, {BIZ} for 5–10 pages and from {STORE} for an online store, '
+         f'One page costs {LANDING}, 5–10 pages {BIZ} and an online store from {STORE}, each price fixed in writing, '
          'and you pay 60% only after launch.',
   facts=[('Who builds it', 'Mehul Karotra, personally: designed in Figma, then hand-coded'),
          ('Based in', 'Mumbai (Ghatkopar West). No Pune office: the work happens over WhatsApp and video calls'),
@@ -766,9 +766,9 @@ CITIES = [
          ('Ownership', 'Your domain, code and logins, in your name')],
   sections=[
    Sec('Website prices for Pune businesses',
-       price_cards('For comparison, Pune studios’ own price pages put a ready-made theme at ₹5,000–₹18,000 and a custom-designed site at ₹60,000–₹1.5 lakh (seen 8 November 2026).',
+       price_cards('Pune studios’ own price pages (seen 8 November 2026) ask ₹5,000–₹18,000 for a ready-made theme and ₹60,000–₹1.5 lakh for a custom-designed site.',
                    ['pune-p1', 'pune-p2', 'pune-p3', 'pune-p4'], 'Pune'),
-       eyebrow='Pune prices', lead='Four prices, fixed in writing, with no hidden charges. The same as in Mumbai.',
+       eyebrow='Pune prices', lead='Four prices, fixed in writing before you pay anything. No hidden charges, and the same as in Mumbai.',
        layout='wide', sid='prices'),
    Sec('What does your Pune business need?',
        mix_bars([('Manufacturing & trade', 40), ('Food & stays', 9), ('Cabs & travel', 7)],
@@ -785,7 +785,7 @@ CITIES = [
           'An “Order on WhatsApp” button on every product or category', 'Marathi and English, if your customers read both'],
          f'Usually a landing page ({LANDING}) with local SEO ({LSEO}).', ''),
         ('food', 'menu', 'Café or restaurant', 'Cafés and restaurants',
-         'Let regulars order from you directly, not through an app.',
+         'Let regulars order straight from you, without an app in the middle.',
          ['A menu with prices you can update yourself', 'Your own ordering link, so regulars skip the app commission',
           'Timings, map and a one-tap call button', 'Table and party enquiries straight to WhatsApp'],
          f'A restaurant site with your own online ordering: {REST}, fixed. <a class="tlink" href="/services/website-design-mumbai/restaurants-cafes">How that works</a>.', ''),
@@ -814,9 +814,9 @@ CITIES = [
   work_lead='Space Studio is an architecture practice in Chennai; Sashe by Prachi and Vidhi Parmar are Mumbai clients.',
   who='I design and code every site myself, from Mumbai. Pune clients talk to me directly on WhatsApp and video calls, never to an account manager.',
   faq=[('How much does a website cost in Pune?',
-        'Pune studios’ own price pages (seen November 2026) put a template website at ₹5,000–₹18,000, a 5–10 page business website at ₹20,000–₹60,000, '
-        f'a custom-designed site at ₹60,000–₹1.5 lakh and an online store at ₹25,000 to over ₹2.5 lakh. With U Scale, a landing page is {LANDING}, a '
-        f'5–10 page business site {BIZ} and an online store from {STORE}, fixed in writing before work starts.'),
+        'On Pune studios’ own price pages (seen November 2026), a template website costs ₹5,000–₹18,000, a 5–10 page business website ₹20,000–₹60,000, '
+        f'a custom-designed site ₹60,000–₹1.5 lakh and an online store ₹25,000 to over ₹2.5 lakh. U Scale’s prices are {LANDING} for a landing page, '
+        f'{BIZ} for a 5–10 page business site and from {STORE} for an online store, fixed in writing before work starts.'),
        ('Will my website rank in Pune if my designer is in Mumbai?',
         'Yes. Google ranks local results on relevance, distance and prominence, and distance is measured from your business to the person searching, '
         'not from your designer. What matters is that your website and Google Business Profile name your area, services and timings, and match each other.'),
@@ -829,18 +829,18 @@ CITIES = [
         'With U Scale the price is fixed in writing before work starts, and you pay in three parts: 20% to start, 20% when you approve the design and 60% '
         'only when the site is live. Your domain is registered in your name, and every login is handed to you at launch.'),
        ('Do you work with businesses in Pimpri-Chinchwad?',
-        'Yes. Pune district has two big urban centres, Pune and Pimpri-Chinchwad, and U Scale works with businesses in both, remotely. For a Google '
-        'listing, list both as service areas if you visit customers; keep the pin exact if they visit you. Use the same name, phone and area on '
+        'Yes. Pune district has two big urban centres, Pune and Pimpri-Chinchwad, and U Scale works with businesses in both, remotely. On your Google '
+        'listing, add both as service areas if you visit customers, and keep the pin exact if they come to you. Use the same name, phone and area on '
         'Justdial, Sulekha, IndiaMART, your Google listing and your website.')],
   sources=['pune-p1', 'pune-p2', 'pune-p3', 'pune-p4', 'pune-udyam', 'pune-gov', 'local-rank'], related=3),
 
  dict(slug='bengaluru', path='services/website-design-bengaluru', city='Bengaluru', state='Karnataka', wiki='https://en.wikipedia.org/wiki/Bengaluru',
   crumb='Website design in Bengaluru', service='Website design and development for Bengaluru businesses',
-  card='Fixed-price websites for Bengaluru startups, cafés and shops, built from Mumbai over WhatsApp and video calls.',
+  card='Hand-coded sites for Bengaluru startups, cafés and shops. A landing page goes live in under 2 weeks.',
   title='Website Design in Bengaluru (Bangalore), from ₹25,000',
   desc=f'Websites for Bengaluru startups, cafés and shops, hand-coded by Mehul Karotra: landing page {LANDING}, business site {BIZ}, fixed in writing.',
   h1='Website design & development in Bengaluru', eyebrow='For Bengaluru businesses',
-  lead='Hand-coded websites at a fixed price. A landing page goes live in under 2 weeks, and you pay most of it after launch.',
+  lead='A landing page, hand-coded and live in under 2 weeks, at a fixed price. You pay most of it after launch.',
   stats=[(LANDING, 'Websites from'), ('<2 wk', 'Landing page live'), ('60%', 'Paid after launch')],
   art='launch', imgs=['city-bengaluru'], hero_btn='Free audit on WhatsApp', hero_more=('#prices', 'See prices'),
   wa="Hi Mehul, I'm building something in Bengaluru. I'd like a free audit and a price for my website.",
@@ -850,12 +850,12 @@ CITIES = [
                   ('Premium design', 'Up to 10 pages', 19999, 75900, '₹20k–₹76k'),
                   ('Online store', 'Starting prices', 25000, 35000, 'from ₹25k–₹35k')]),
   answer='U Scale is Mehul Karotra, a Mumbai web designer who builds hand-coded websites for Bengaluru startups and small businesses over WhatsApp and '
-         f'video calls. Prices are fixed in writing: {LANDING} for one page, {BIZ} for 5–10 pages and from {STORE} for an online store with UPI '
-         'checkout, and you pay 60% only after launch.',
+         f'video calls. A landing page is {LANDING}, a 5–10 page site {BIZ} and an online store with UPI checkout from {STORE}, '
+         'all fixed in writing. You pay 60% only after launch.',
   facts=[('Who builds it', 'Mehul Karotra, personally: designed in Figma, then hand-coded'),
          ('Based in', 'Mumbai (Ghatkopar West). No Bengaluru office: the work happens over WhatsApp and video calls'),
          ('Website prices', GP.WEB_PRICES + '. The same prices as in Mumbai'),
-         ('Bengaluru market, for comparison', 'Basic site (about 5 pages) ₹8,750–₹22,750 · premium design ₹23,350–₹75,900 · custom design from ₹15,000 at one '
+         ('Bengaluru market, for comparison', 'Basic site (about 5 pages) ₹8,750–₹22,750 · “premium” design ₹23,350–₹75,900 · custom design from ₹15,000 at one '
                                              'studio to ₹64,850+ at another · online store from ₹25,000–₹35,000 (studios’ own pages, seen 8 Nov 2026)'),
          ('Timeline', 'Landing page in under 2 weeks; business site in 3–4 weeks'),
          ('Payment', '20% to start, 20% on design sign-off, 60% on launch'),
@@ -863,9 +863,9 @@ CITIES = [
          ('Ownership', 'Your domain, code and logins, in your name')],
   sections=[
    Sec('Website prices for Bengaluru businesses',
-       price_cards('For comparison, Bengaluru studios’ package pages start a basic five-page site at ₹8,750–₹22,750 and premium designs at ₹23,350–₹75,900, usually plus GST (seen 8 November 2026).',
+       price_cards('Bengaluru studios’ package pages (seen 8 November 2026) start a basic five-page site at ₹8,750–₹22,750 and what they sell as “premium” design at ₹23,350–₹75,900, usually plus GST.',
                    ['blr-p1', 'blr-p2', 'blr-p3'], 'Bengaluru'),
-       eyebrow='Bengaluru prices', lead='Four prices, fixed in writing, with no hidden charges. The same as in Mumbai.', layout='wide', sid='prices'),
+       eyebrow='Bengaluru prices', lead='Every price below is fixed in writing, with no hidden charges, and matches what Mumbai clients pay.', layout='wide', sid='prices'),
    Sec('What does your Bengaluru business need?',
        dot_stat(13649, 500, 'DPIIT-recognised startups in Bengaluru district, to 31 October 2024', 'blr-startups'),
        picker([
@@ -873,14 +873,14 @@ CITIES = [
          ['A landing page that explains the product in one screen', 'Checkout with UPI and cards, or a waitlist',
           'Pages investors and customers can share', 'Fast on mobile data, with nothing extra loading'],
          f'Usually a landing page ({LANDING}), or an online store from {STORE}.', GP.render(Img('city-bengaluru'))),
-        ('cafe', 'menu', 'Café or restaurant', 'Cafés and restaurants', 'Regulars should order from you, not through an app.',
+        ('cafe', 'menu', 'Café or restaurant', 'Cafés and restaurants', 'App orders cost you commission. Give regulars your own link.',
          ['A menu with prices you update yourself', 'Your own ordering link, without app commission',
           'Timings, map and a one-tap call button', 'Table and party enquiries on WhatsApp'],
          f'A restaurant site with your own ordering: {REST}, fixed. <a class="tlink" href="/services/website-design-mumbai/restaurants-cafes">How that works</a>.', ''),
         ('clinic', 'card', 'Clinic, salon or studio', 'Clinics, salons and studios', 'People choose on reviews, prices and how easy it is to book.',
          ['Services with prices and timings', 'Your team, with real photos', 'Book on WhatsApp from every page', 'Reviews and a clear location'],
          f'Usually a 5–10 page business site: {BIZ}, fixed.', ''),
-        ('maker', 'box', 'Manufacturer or wholesaler', 'Manufacturers and wholesalers', 'Buyers check your website before they call.',
+        ('maker', 'box', 'Manufacturer or wholesaler', 'Manufacturers and wholesalers', 'Put your specs and certificates online, where buyers look first.',
          ['A catalogue with specifications and PDF downloads', 'An enquiry form that asks the right questions',
           'Certifications on the first screen', 'A link to your IndiaMART listing'],
          f'Usually a 10–20 page site with a blog: {BLOG}, fixed.', ''),
@@ -900,17 +900,17 @@ CITIES = [
   work_lead='Space Studio is an architecture practice in Chennai; Sashe by Prachi and Vidhi Parmar are Mumbai clients.',
   who='I design and code every site myself, from Mumbai. Bengaluru clients talk to me directly on WhatsApp and video calls, never to an account manager.',
   faq=[('How much does a website cost in Bengaluru?',
-        'Bengaluru studios’ own package pages (seen November 2026) start a basic five-page site at about ₹8,750–₹22,750, premium designs at '
-        '₹23,350–₹75,900 and online stores from ₹25,000–₹35,000, usually plus GST. With U Scale, a landing page is '
-        f'{LANDING}, a 5–10 page business site {BIZ} and an online store from {STORE}, fixed in writing before work starts.'),
+        'Bengaluru studios’ own package pages (seen November 2026) start a basic five-page site at about ₹8,750–₹22,750, “premium” designs at '
+        '₹23,350–₹75,900 and online stores from ₹25,000–₹35,000, usually plus GST. U Scale charges '
+        f'{LANDING} for a landing page, {BIZ} for a 5–10 page business site and from {STORE} for an online store, all fixed in writing before work starts.'),
        ('Can a web designer in Mumbai build a website for my Bengaluru startup?',
-        'Yes. With U Scale you get a free audit on WhatsApp, a written plan agreed on a video call, designs to review in Figma and a hand-coded site with '
-        'every login in your name. For an app or a product with a large engineering team, a Bengaluru agency is the better fit.'),
+        'Yes. You start with a free audit on WhatsApp, agree a written plan on a video call, review the designs in Figma, and get a hand-coded site with '
+        'every login in your name. If you need an app, or a product built by a large engineering team, a Bengaluru agency is the better fit.'),
        ('Is it safe to pay a web designer in another city?',
         'With U Scale the price is fixed in writing before work starts, and you pay in three parts: 20% to start, 20% when you approve the design and 60% '
         'only when the site is live. Your domain is registered in your name, and every login is handed to you at launch.'),
        ('Should my Bengaluru website be in Kannada?',
-        'For most businesses, English should carry the site, with your name, address and key lines in Kannada too: in the 2011 Census, 44.47% of Bangalore '
+        'For most businesses, English should carry the site, with your name, address and key lines in Kannada too. In the 2011 Census, 44.47% of Bangalore '
         'Urban district spoke Kannada as their first language, and Tamil, Telugu and Urdu were next. Since 2024, name boards must be 60% in Kannada, so '
         'keep the same Kannada name on your board, Google listing and website.'),
        ('How do I get my Bengaluru business on Google Maps?', GP.MAPS_FAQ),
@@ -921,7 +921,7 @@ CITIES = [
 
  dict(slug='chennai', path='services/website-design-chennai', city='Chennai', state='Tamil Nadu', wiki='https://en.wikipedia.org/wiki/Chennai',
   crumb='Website design in Chennai', service='Website design and development for Chennai businesses',
-  card='Fixed-price websites for Chennai businesses, from the designer of Space Studio Chennai’s site.',
+  card='Chennai websites at fixed prices, from the designer who rebuilt Space Studio Chennai’s site.',
   title='Website Design & Development in Chennai, from ₹25,000',
   desc=f'Websites for Chennai businesses by Mehul Karotra, who built Space Studio Chennai’s site. Landing page {LANDING}, business site {BIZ}, fixed in writing.',
   h1='Website design & development in Chennai', eyebrow='For Chennai businesses',
@@ -929,7 +929,7 @@ CITIES = [
   stats=[(LANDING, 'Websites from'), ('3–4 wk', 'Live in'), ('60%', 'Paid after launch')],
   art='proof', imgs=['city-chennai'], hero_btn='Free audit on WhatsApp', hero_more=('#case', 'See the Chennai work'),
   wa="Hi Mehul, I run a business in Chennai. I'd like a free audit for my website.",
-  cta_h='Get a free audit', cta_lead='Tell me about your Chennai business. I reply within 24 hours, usually much faster on WhatsApp.',
+  cta_h='Get a free audit', cta_lead='Send me a few lines about your Chennai business, or a link to the site you have now. I reply within 24 hours, usually much faster on WhatsApp.',
   cost=dict(scale=150000, ticks=[0, 50000, 100000, 150000], when='Nov 2026', foot='From 3 Chennai studios’ own price pages, seen 8 Nov 2026',
             rows=[('Template or static site', 'About 5–6 pages', 5000, 30000, '₹5k–₹30k'),
                   ('Custom business site', 'Up to 10 pages', 20000, 100000, '₹20k–₹1L'),
@@ -954,9 +954,9 @@ CITIES = [
        eyebrow='Language', lead='Chennai asks for shop names in Tamil on top. Your website and Google listing should match your board.',
        layout='wide', tone='band', sid='tamil'),
    Sec('Website prices for Chennai businesses',
-       price_cards('For comparison, Chennai studios’ own price pages put a template or static site at ₹5,000–₹30,000 and a custom business site at ₹20,000–₹1 lakh (seen 8 November 2026).',
+       price_cards('For comparison, a template or static site from a Chennai studio costs ₹5,000–₹30,000, and a custom business site ₹20,000–₹1 lakh (their own price pages, seen 8 November 2026).',
                    ['chn-p1', 'chn-p2', 'chn-p3'], 'Chennai'),
-       eyebrow='Chennai prices', lead='Four prices, fixed in writing, with no hidden charges. The same as in Mumbai.', layout='wide', sid='prices'),
+       eyebrow='Chennai prices', lead='Four prices with no hidden charges, each fixed in writing. Chennai pays what Mumbai pays.', layout='wide', sid='prices'),
    Sec('What does your Chennai business need?',
        picker([
         ('auto', 'truck', 'Auto or engineering', 'Auto and engineering suppliers', 'Buyers from other states judge you by your website.',
@@ -988,8 +988,8 @@ CITIES = [
   who='I design and code every site myself, from Mumbai. Chennai clients talk to me directly on WhatsApp and video calls, never to an account manager.',
   faq=[('How much does a website cost in Chennai?',
         'Chennai studios’ own price pages (seen November 2026) put a template or static site at ₹5,000–₹30,000, a custom business site at '
-        '₹20,000–₹1 lakh and most online stores at ₹40,000–₹1.2 lakh. With U Scale, a landing page is '
-        f'{LANDING}, a 5–10 page business site {BIZ} and an online store from {STORE}, fixed in writing before work starts.'),
+        '₹20,000–₹1 lakh and most online stores at ₹40,000–₹1.2 lakh. At U Scale the price is fixed in writing before work starts: '
+        f'{LANDING} for a landing page, {BIZ} for a 5–10 page business site, and from {STORE} for an online store.'),
        ('Have you built websites for Chennai businesses?',
         'Yes. U Scale rebuilt the website of Space Studio, an office-architecture practice in Chennai: 86 hand-coded pages, live at spacestudiochennai.com.'),
        ('Is it safe to pay a web designer in another city?',
@@ -1000,8 +1000,8 @@ CITIES = [
         'English name on your shop board, Google listing and website. Suppliers and exporters selling outside the state usually lead in English.'),
        ('Do I have to show my shop name in Tamil?',
         'On your shop board in Chennai, yes: the Greater Chennai Corporation requires shop names in Tamil on top, followed by English, with a ₹2,000 '
-        'penalty for not complying, and the Madras High Court set 1 November 2026 as the final deadline. Using the same name on Google and your '
-        'website keeps everything consistent.'),
+        'penalty for not complying, and the Madras High Court set 1 November 2026 as the final deadline. Use the same name on Google and your '
+        'website too.'),
        ('How do I get my Chennai business on Google Maps?', GP.MAPS_FAQ)],
   sources=['chn-p1', 'chn-p2', 'chn-p3', 'chn-lang', 'chn-boards', 'tn-msme', 'local-rank']),
 ]
@@ -1040,19 +1040,19 @@ DESC = {
     'jaipur': f'Website design for Jaipur stays, shops and makers, in English for tourists and Hindi for locals: landing page {LANDING}, business site {BIZ}, fixed.',
 }
 CARD = {
-    'delhi-ncr': 'Fixed-price websites for businesses across Delhi, Gurugram and Noida, built from Mumbai over WhatsApp and video calls.',
-    'hyderabad': 'Fixed-price websites for Hyderabad businesses, from Old City shops to Cyberabad firms, with Telugu or Urdu pages from your own text.',
-    'kolkata': 'Fixed-price websites for Kolkata businesses in Bengali and English, built from Mumbai over WhatsApp and video calls.',
-    'ahmedabad': 'Fixed-price websites for Ahmedabad businesses in English or Gujarati, with 60% paid only after launch.',
-    'surat': 'Fixed-price websites for Surat traders and makers, built so buyers across India can find your shop and your stock.',
-    'jaipur': 'Fixed-price websites for Jaipur stays, shops and makers: English for tourists, Hindi for locals.',
+    'delhi-ncr': 'Hand-coded, fixed-price websites for businesses across Delhi, Gurugram and Noida, made over WhatsApp and video calls.',
+    'hyderabad': 'From Old City shops to Cyberabad firms: fixed-price websites, with Telugu or Urdu pages from your own text.',
+    'kolkata': 'Bengali and English websites for Kolkata businesses, made over WhatsApp and video calls at a fixed price.',
+    'ahmedabad': 'Ahmedabad websites in English or Gujarati, with the price fixed in writing and 60% paid only after launch.',
+    'surat': 'Websites for Surat traders and makers that help buyers across India find your shop and your stock.',
+    'jaipur': 'Jaipur stays, shops and makers get English pages for tourists and Hindi ones for locals, at a fixed price.',
 }
 
 
 def _city(slug, city, state, wiki, eyebrow, lead, who, art, img, wa, cta_lead, trust_h, trust_keys, market_line, market_src, market_fact,
           langs, sections_mid, picker_items, lang_demo_args, faq_mid, sources, extra_v2=None, wiki_state=None):
     sec_prices = Sec(f'Website prices for {city} businesses', price_cards(market_line, market_src, city),
-                     eyebrow=f'{city} prices', lead='Four prices, fixed in writing, with no hidden charges. The same as in Mumbai.', layout='wide', sid='prices')
+                     eyebrow=f'{city} prices', lead='The same four prices as in Mumbai, each fixed in writing, with no hidden charges.', layout='wide', sid='prices')
     biz_blocks = list(sections_mid) + [picker(picker_items, 'Your kind of business')] + ([lang_demo(*lang_demo_args)] if lang_demo_args else [])
     sec_biz = Sec(f'What does your {city} business need?', *biz_blocks, eyebrow=f'{city}’s businesses', layout='wide', sid='business')
     v2 = [lambda ctx: _custom_sec('trust', 'Why it’s safe', trust_h, '', trust_bento(trust_keys)),
@@ -1086,11 +1086,11 @@ def _p(k, ic, tab, title, lead, musts, fit, extra=''):
 
 CITIES += [
  _city('delhi-ncr', 'Delhi NCR', 'Delhi', 'https://en.wikipedia.org/wiki/National_Capital_Region_(India)', 'For Delhi NCR businesses',
-       'Hand-coded websites at a price fixed in writing, for businesses across Delhi NCR. You pay most of it after launch.',
+       'A hand-coded website for your Delhi NCR business, at a price fixed in writing. Most of it is paid after launch.',
        'businesses across Delhi NCR', 'ncr', 'city-delhi', "Hi Mehul, I run a business in Delhi NCR. I'd like a free audit for my website.",
-       'Tell me about your Delhi NCR business. I reply within 24 hours, usually much faster on WhatsApp.',
+       'Tell me what you do and which parts of NCR you serve. I reply within 24 hours, usually much faster on WhatsApp.',
        'Fixed in writing. Safe to pay.', ('fix', 'pay', 'own', 'me'),
-       'For comparison, Delhi studios’ own pages list a starter site from ₹9,999, a 1–5 page WordPress site at ₹15,000–₹35,000 and agency CMS sites from ₹1,00,000 plus GST (seen 9 November 2026).',
+       'In Delhi, studios’ own pages list a starter site from ₹9,999 and a 1–5 page WordPress site at ₹15,000–₹35,000, while agency CMS sites start at ₹1,00,000 plus GST (seen 9 November 2026).',
        ['dl-p1', 'dl-p2', 'dl-p3'],
        'Starter site from ₹9,999 · 1–5 page WordPress site ₹15,000–₹35,000 · agency CMS sites from ₹1,00,000 + GST (studios’ own pages, seen 9 Nov 2026)',
        'English and Hindi',
@@ -1099,54 +1099,54 @@ CITIES += [
        [_p('trade', 'store', 'Wholesale trader', 'Wholesale traders', 'Retailers check you online before they visit the market.',
            ['Your product range, with photos', 'Minimum order and prices on request, on WhatsApp', 'Market, lane and shop number, exactly', 'The same name on your board, Google and IndiaMART'],
            f'Usually a 5–10 page catalogue site: {BIZ}, fixed.'),
-        _p('retail', 'tag', 'Retail shop', 'Retail shops', 'Customers find you on Google Maps first. Your site backs it up.',
+        _p('retail', 'tag', 'Retail shop', 'Retail shops', 'Shoppers find you on Google Maps, then check your site for stock and timings.',
            ['Timings, a map pin and one-tap directions', 'What’s in stock, easy to update', '“Order on WhatsApp” on every product', 'Hindi and English, if your customers read both'],
            f'Usually a landing page ({LANDING}) with local SEO ({LSEO}).'),
-        _p('pro', 'file', 'CA or consultant', 'CAs, lawyers and consultants', 'Clients compare fees and trust before they call.',
+        _p('pro', 'file', 'CA or consultant', 'CAs, lawyers and consultants', 'Clients want to see your fees, and who you are, before they call.',
            ['Services with fixed fees', 'Who you are, with real photos', 'Book a call on WhatsApp', 'Your office, and the NCR cities you serve'],
            f'Usually a 5–10 page business site: {BIZ}, fixed.', GP.render(Img('city-delhi'))),
-        _p('make', 'box', 'Small manufacturer', 'Small manufacturers', 'Buyers check your website before they ask for a quote.',
+        _p('make', 'box', 'Small manufacturer', 'Small manufacturers', 'Quote requests start with your catalogue, so make it complete.',
            ['A catalogue with specifications', 'An enquiry form for quantity and drawings', 'Certifications on the first screen', 'A link to your IndiaMART listing'],
            f'Usually a 10–20 page site with a blog: {BLOG}, fixed.'),
-        _p('food', 'menu', 'Restaurant or café', 'Restaurants and cafés', 'Let regulars order from you directly, not through an app.',
+        _p('food', 'menu', 'Restaurant or café', 'Restaurants and cafés', 'Take orders on your own site and keep what the app would charge.',
            ['A menu you update yourself', 'Your own ordering link', 'Timings, map and one-tap call', 'Party orders on WhatsApp'],
            f'A restaurant site with your own ordering: {REST}, fixed.')],
        ('Hindi and English? Tap to switch.', 'हिंदी', 'hi', ('File your ITR on time', 'Fixed fees, written up front'), ('अपना ITR समय पर फ़ाइल करें', 'तय फ़ीस, पहले से लिखित में')),
-       ['Delhi studios’ own pages (seen November 2026) list a starter site from ₹9,999, a 1–5 page WordPress site at ₹15,000–₹35,000 and agency CMS sites '
-        f'from ₹1,00,000 plus GST. With U Scale, a landing page is {LANDING}, a 5–10 page business site {BIZ} and an online store from {STORE}, fixed in writing.',
+       ['Delhi studios’ starter sites begin at ₹9,999, a 1–5 page WordPress site costs ₹15,000–₹35,000, and agency CMS sites start '
+        f'at ₹1,00,000 plus GST (their own pages, seen November 2026). With U Scale, a landing page is {LANDING}, a 5–10 page business site {BIZ} and an online store from {STORE}, fixed in writing.',
         ('Can one Google listing cover Gurugram, Noida and the rest of NCR?',
          'If you visit customers or deliver to them, yes: Google lets a business list up to 20 service areas, so a Delhi business can add Gurugram, Noida, '
          'Ghaziabad and Faridabad. If customers come to you, keep your exact address instead, and name the NCR cities you serve on your website.'),
         ('Should my Delhi website be in Hindi?',
-         'Hindi is the first language of about 81% of Delhi (Census 2011), so Hindi pages help if your customers search in Hindi. Most business sites lead in '
-         f'English and add Hindi for key pages. I build them from your own Hindi text; writing the copy is {COPY}.')],
+         'About 81% of Delhi gave Hindi as their first language in the 2011 Census, so Hindi pages help if your customers search in it. Most business sites still lead in '
+         f'English and add Hindi on the key pages. I build them from your own Hindi text. If you need the copy written, that is {COPY}.')],
        ['dl-p1', 'dl-p2', 'dl-p3', 'dl-ec', 'dl-lang', 'gbp-areas', 'local-rank']),
 
  _city('hyderabad', 'Hyderabad', 'Telangana', 'https://en.wikipedia.org/wiki/Hyderabad', 'For Hyderabad businesses',
-       'Hand-coded websites at a fixed price, for everyone from Old City shops to Cyberabad firms. Over WhatsApp.',
+       'Old City shop or Cyberabad firm, you get a hand-coded website at a fixed price, over WhatsApp.',
        'Hyderabad businesses', 'zones', 'city-hyderabad', "Hi Mehul, I run a business in Hyderabad. I'd like a free audit for my website.",
-       'Tell me about your Hyderabad business. I reply within 24 hours, usually much faster on WhatsApp.',
+       'Tell me what you do and which part of Hyderabad you’re in. You’ll hear back within 24 hours, usually much sooner on WhatsApp.',
        'Built clean. Safe to pay.', ('code', 'pay', 'own', 'me'),
-       'For comparison, Hyderabad studios’ own pages list 5-page static sites at ₹6,999–₹9,900 and 10-page sites at ₹12,999–₹15,000 (seen 9 November 2026).',
+       'For comparison, Hyderabad studios price a 5-page static site at ₹6,999–₹9,900 and a 10-page site at ₹12,999–₹15,000 on their own pages (seen 9 November 2026).',
        ['hy-p1', 'hy-p2', 'hy-p3'],
        '5-page static site ₹6,999–₹9,900 · 10-page site ₹12,999–₹15,000 (studios’ own pages, seen 9 Nov 2026)',
        'English and Hindi; Telugu or Urdu pages built from your own text',
        [mix_bars([('Telugu', 43.35), ('Urdu', 43.24), ('Hindi', 5.86)], 'First languages in Hyderabad district (Census 2011)', 'hy-lang')],
-       [_p('food', 'menu', 'Restaurant', 'Restaurants and caterers', 'Hyderabad is a UNESCO City of Gastronomy. Let regulars order from you directly.',
+       [_p('food', 'menu', 'Restaurant', 'Restaurants and caterers', 'Hyderabad is a UNESCO City of Gastronomy, and your regulars can order straight from your own site.',
            ['A menu with prices you update yourself', 'Your own ordering link, without app commission', 'Timings, map and one-tap call', 'Catering and party orders on WhatsApp'],
            f'A restaurant site with your own ordering: {REST}, fixed.'),
-        _p('lab', 'search', 'Lab or clinic', 'Labs, clinics and pharmacies', 'People book tests and visits on their phones. Make it one tap.',
+        _p('lab', 'search', 'Lab or clinic', 'Labs, clinics and pharmacies', 'Patients book tests and home visits on their phones. Booking should take one tap.',
            ['Tests and packages with prices', 'Book a home visit or slot on WhatsApp', 'Reports sent on WhatsApp', 'Your locality named clearly'],
            f'Usually a 5–10 page business site: {BIZ}, fixed.', GP.render(Img('city-hyderabad'))),
-        _p('pharma', 'box', 'Pharma or supplier', 'Pharma and life-science suppliers', 'Hyderabad has more than 800 pharma and life-science companies. Buyers check you first.',
+        _p('pharma', 'box', 'Pharma or supplier', 'Pharma and life-science suppliers', 'Hyderabad has more than 800 pharma and life-science companies. A buyer will check yours online first.',
            ['Products and certifications, clearly listed', 'An enquiry form for quantities and specs', 'Who you supply, on the first screen', 'English first, for buyers across India'],
            f'Usually a 10–20 page site with a blog: {BLOG}, fixed.'),
-        _p('jewel', 'tag', 'Jeweller', 'Jewellers and bangle shops', 'Show the collection, and take enquiries on WhatsApp.',
+        _p('jewel', 'tag', 'Jeweller', 'Jewellers and bangle shops', 'Put the collection online and let buyers ask about any piece on WhatsApp.',
            ['Collections with photos and prices', '“Ask on WhatsApp” on every piece', 'Your bazaar, lane and timings', 'Telugu, Urdu and English, as your customers read'],
            f'A catalogue site from {BIZ}, or an online store from {STORE}.')],
        None,
-       ['Hyderabad studios’ own pages (seen November 2026) list 5-page static sites at ₹6,999–₹9,900 and 10-page sites at ₹12,999–₹15,000. With U Scale, '
-        f'a landing page is {LANDING}, a 5–10 page business site {BIZ} and an online store from {STORE}, fixed in writing.',
+       ['On their own pages (seen November 2026), Hyderabad studios charge ₹6,999–₹9,900 for a 5-page static site and ₹12,999–₹15,000 for a 10-page site. U Scale’s prices, '
+        f'fixed in writing, are {LANDING} for a landing page, {BIZ} for a 5–10 page business site and from {STORE} for an online store.',
         ('Should my listing say Hyderabad or Cyberabad?',
          'Since 11 February 2026 the old GHMC area is three municipal corporations: Greater Hyderabad, Cyberabad and Malkajgiri. Customers still search '
          '“Hyderabad”, so keep it, and also name your locality (Kukatpally, Gachibowli, Secunderabad and so on) on your website and Google listing.'),
@@ -1156,83 +1156,83 @@ CITIES += [
        ['hy-p1', 'hy-p2', 'hy-p3', 'hy-corp', 'hy-lang', 'hy-pharma', 'local-rank']),
 
  _city('kolkata', 'Kolkata', 'West Bengal', 'https://en.wikipedia.org/wiki/Kolkata', 'For Kolkata businesses',
-       'Websites for Kolkata businesses, in Bengali and English, at a fixed price. You talk to me directly, on WhatsApp.',
+       'A website in Bengali and English for your Kolkata business, at a fixed price. You talk to me directly, on WhatsApp.',
        'Kolkata businesses', 'bboard', 'city-kolkata', "Hi Mehul, I run a business in Kolkata. I'd like a free audit for my website.",
-       'Tell me about your Kolkata business. I reply within 24 hours, usually much faster on WhatsApp.',
+       'Write to me about your Kolkata business, even in a line or two. I reply within 24 hours, usually much faster on WhatsApp.',
        'A person you can talk to.', ('me', 'pay', 'own', 'care'),
-       'For comparison, Kolkata studios’ own pages list one-page sites from ₹2,499–₹2,999 and 8–15 page sites at ₹9,999–₹19,999 (seen 9 November 2026).',
+       'Kolkata studios advertise one-page sites from ₹2,499–₹2,999 and 8–15 page sites at ₹9,999–₹19,999 (their own pages, seen 9 November 2026).',
        ['kol-p1', 'kol-p2', 'kol-p3'],
        'One-page site ₹2,499–₹2,999 · 8–15 page site ₹9,999–₹19,999 (studios’ own pages, seen 9 Nov 2026)',
        'English and Hindi; Bengali pages built from your own text',
        [mix_bars([('Bengali', 61.45), ('Hindi', 22.19), ('Urdu', 13.04)], 'First languages in Kolkata district (Census 2011)', 'kol-lang')],
-       [_p('sweets', 'menu', 'Sweet shop or caterer', 'Sweet shops and caterers', 'Festive orders come in on phones. Make ordering one tap.',
+       [_p('sweets', 'menu', 'Sweet shop or caterer', 'Sweet shops and caterers', 'Festive orders come in on phones. Let customers order in one tap.',
            ['Sweets and gift boxes with prices', '“Order on WhatsApp” on every item', 'Delivery areas and timings', 'Bengali and English'],
            f'Usually a 5–10 page site: {BIZ}, or an online store from {STORE}.', GP.render(Img('city-kolkata'))),
         _p('sari', 'tag', 'Sari or clothing', 'Sari and clothing stores', 'Puja shopping starts online. Show the collection early.',
            ['Collections with prices', '“Order on WhatsApp” on every piece', 'Store timings and a map', 'Bengali and English'],
            f'A catalogue site from {BIZ}, or an online store from {STORE}.'),
-        _p('leather', 'box', 'Leather goods', 'Leather goods makers', 'West Bengal has 26.6% of India’s tanneries. Buyers check you before they order.',
+        _p('leather', 'box', 'Leather goods', 'Leather goods makers', 'West Bengal has 26.6% of India’s tanneries. Buyers see your catalogue before they see you.',
            ['A catalogue with materials and finishes', 'An enquiry form for quantities', 'Export and certification details', 'English first, for buyers abroad'],
            f'Usually a 10–20 page site with a blog: {BLOG}, fixed.'),
         _p('events', 'calendar', 'Decor or events', 'Decor, lighting and events', 'People book you months ahead of the season. Show past work.',
            ['Past work as photo galleries', 'Packages and what they include', 'Enquiry on WhatsApp', 'Your areas and dates'],
            f'Usually a 5–10 page business site: {BIZ}, fixed.')],
        ('Bengali and English? Tap to switch.', 'বাংলা', 'bn', ('Fresh sweets every morning', 'Order on WhatsApp'), ('প্রতিদিন সকালে টাটকা মিষ্টি', 'হোয়াটসঅ্যাপে অর্ডার করুন')),
-       ['Kolkata studios’ own pages (seen November 2026) list one-page sites from ₹2,499–₹2,999 and 8–15 page sites at ₹9,999–₹19,999. With U Scale, '
-        f'a landing page is {LANDING}, a 5–10 page business site {BIZ} and an online store from {STORE}, fixed in writing.',
+       ['Kolkata studios list one-page sites from ₹2,499–₹2,999 and 8–15 page sites at ₹9,999–₹19,999 on their own pages (seen November 2026). With U Scale, '
+        f'you pay {LANDING} for a landing page, {BIZ} for a 5–10 page business site, or from {STORE} for an online store, fixed in writing.',
         ('Do I have to show my shop name in Bengali?',
          'On your shop board in Kolkata, yes: in 2025 the civic body ordered signboards to show Bengali prominently at the top. Google asks that your listing '
          'name matches the name on your storefront, so use the same Bengali and English name on your board, Google listing and website.'),
         ('Should my Kolkata website be in Bengali?',
-         'Bengali is the first language of about 61% of Kolkata district (Census 2011), with Hindi and Urdu next. Lead in the language your customers search in, '
-         f'and add the other for key pages. I build Bengali pages from your own text; writing the copy is {COPY}.')],
+         'For about 61% of Kolkata district, Bengali is the first language (Census 2011), and Hindi and Urdu come next. Lead with the language your customers search in, '
+         f'and add the other on key pages. I build Bengali pages from your own text. Writing the copy is {COPY}.')],
        ['kol-p1', 'kol-p2', 'kol-p3', 'kol-lang', 'kol-boards', 'gbp-guidelines', 'local-rank']),
 
  _city('ahmedabad', 'Ahmedabad', 'Gujarat', 'https://en.wikipedia.org/wiki/Ahmedabad', 'For Ahmedabad businesses',
-       'Websites for Ahmedabad businesses at a price fixed in writing. You pay most of it after launch, and you own everything.',
+       'A website for your Ahmedabad business, priced in writing before any work starts. You pay most of it after launch, and you own everything.',
        'Ahmedabad businesses', 'pin', 'city-ahmedabad', "Hi Mehul, I run a business in Ahmedabad. I'd like a free audit for my website.",
-       'Tell me about your Ahmedabad business. I reply within 24 hours, usually much faster on WhatsApp.',
+       'Tell me what you sell, wholesale or retail, and where in Ahmedabad you are. I reply within 24 hours, usually much faster on WhatsApp.',
        'Value for money, in writing.', ('fix', 'pay', 'own', 'care'),
-       'For comparison, Ahmedabad studios’ own pages list a starter site from ₹24,999–₹25,000 and a 10-page CMS site at ₹50,000 (seen 9 November 2026).',
+       'In Ahmedabad, a starter site costs from ₹24,999–₹25,000 and a 10-page CMS site ₹50,000, going by studios’ own pages (seen 9 November 2026).',
        ['ahd-p1', 'ahd-p2'],
        'Starter site from ₹24,999–₹25,000 · 10-page CMS site ₹50,000 (studios’ own pages, seen 9 Nov 2026)',
        'English and Hindi; Gujarati pages built from your own text',
        [hundred(98, '5.99 lakh', 'registered MSMEs in Ahmedabad district, and 98 of every 100 are micro businesses (March 2026)', 'ahd-msme')],
-       [_p('textile', 'tag', 'Textile or cloth trader', 'Textile and cloth traders', 'Buyers across India check your range before they call.',
+       [_p('textile', 'tag', 'Textile or cloth trader', 'Textile and cloth traders', 'Buyers in other states can’t walk into your shop, so your catalogue has to show the range.',
            ['A catalogue with fabric, width and minimum order', '“Get price on WhatsApp” on every product', 'Market address and shop number', 'Gujarati and English'],
            f'Usually a 5–10 page catalogue site: {BIZ}, fixed.', GP.render(Img('city-ahmedabad'))),
-        _p('jewel', 'star', 'Jeweller', 'Jewellers', 'Manek Chowk’s jewellery market is one of India’s largest. Stand out online.',
+        _p('jewel', 'star', 'Jeweller', 'Jewellers', 'Manek Chowk’s jewellery market is one of India’s largest. Let buyers see your pieces before they walk in.',
            ['Collections with photos', '“Ask on WhatsApp” on every piece', 'Exact pin and landmark in the old city', 'Opening hours that match the market'],
            f'A catalogue site from {BIZ}, or an online store from {STORE}.'),
-        _p('food', 'menu', 'Eatery', 'Eateries and caterers', 'Evening crowds decide on their phones. Be the one they find.',
+        _p('food', 'menu', 'Eatery', 'Eateries and caterers', 'Evening crowds pick where to eat on their phones. Make sure your menu shows up.',
            ['Menu and prices', 'Timings, including late hours', 'An exact map pin', 'Orders on WhatsApp'],
            f'Usually a landing page ({LANDING}) with local SEO ({LSEO}).'),
-        _p('make', 'box', 'Manufacturer or pharma', 'Manufacturers and pharma firms', 'Buyers judge you by your website before they ask for a quote.',
+        _p('make', 'box', 'Manufacturer or pharma', 'Manufacturers and pharma firms', 'Buyers want specs and certificates in hand before they ask for a quote.',
            ['A catalogue with specifications', 'Certifications on the first screen', 'An enquiry form for quantities', 'A link to your IndiaMART listing'],
            f'Usually a 10–20 page site with a blog: {BLOG}, fixed.')],
        ('Gujarati and English? Tap to switch.', 'ગુજરાતી', 'gu', ('Wholesale fabrics from Ahmedabad', 'Get price on WhatsApp'), ('અમદાવાદથી હોલસેલ કાપડ', 'WhatsApp પર ભાવ મેળવો')),
-       ['Ahmedabad studios’ own pages (seen November 2026) list a starter site from ₹24,999–₹25,000 and a 10-page CMS site at ₹50,000. With U Scale, a '
-        f'landing page is {LANDING}, a 5–10 page business site {BIZ} and an online store from {STORE}, fixed in writing.',
+       ['Ahmedabad studios’ own pages (seen November 2026) list a starter site from ₹24,999–₹25,000 and a 10-page CMS site at ₹50,000. A U Scale '
+        f'landing page is {LANDING}, a 5–10 page business site {BIZ} and an online store from {STORE}, each fixed in writing.',
         ('My shop is in the old city. How do customers find it?',
          'Set an exact pin on your Google listing, add a landmark people know (Manek Chowk, a pol name, a gate) to your directions, and keep your hours '
          'exact: in the old city, some markets change trade through the day. Put the same address and landmark on your website.'),
         ('Should my Ahmedabad website be in Gujarati?',
          'Gujarati is the first language of about 75% of Ahmedabad district (Census 2011), with Hindi next. Lead in English or Gujarati, whichever your '
-         f'customers use, and add the other for key pages. I build Gujarati pages from your own text; writing the copy is {COPY}.')],
+         f'customers use, then add the other on key pages. I build Gujarati pages from your own text; copywriting is {COPY} if you want it.')],
        ['ahd-p1', 'ahd-p2', 'ahd-msme', 'ahd-lang', 'ahd-heritage', 'local-rank']),
 
  _city('surat', 'Surat', 'Gujarat', 'https://en.wikipedia.org/wiki/Surat', 'For Surat traders and makers',
-       'Websites for Surat traders and makers at a fixed price, built so buyers across India find your shop and your stock.',
+       'A fixed-price website that helps buyers across India find your Surat shop and your stock.',
        'Surat traders and businesses', 'market', 'city-surat', "Hi Mehul, I run a business in Surat. I'd like a free audit for my website.",
-       'Tell me about your Surat business. I reply within 24 hours, usually much faster on WhatsApp.',
+       'Tell me what you trade or make, and in which market. I reply within 24 hours, usually much faster on WhatsApp.',
        'Pay most after launch.', ('pay', 'fix', 'own', 'me'),
-       'For comparison, Surat studios list a one-page site from ₹2,999, a basic business site from about ₹15,000 and a 5-page WordPress site at ₹20,000 (seen 9 November 2026).',
+       'In Surat, a one-page site starts at ₹2,999, a basic business site at about ₹15,000, and a 5-page WordPress site costs ₹20,000, according to local studios (seen 9 November 2026).',
        ['srt-p1', 'srt-p2', 'srt-p3'],
        'One-page site from ₹2,999 · basic business site from about ₹15,000 · 5-page WordPress site ₹20,000 (studios’ own pages, seen 9 Nov 2026)',
        'English and Hindi; Gujarati pages built from your own text',
        [stat_trio([('layers', '65%', 'of India’s man-made fibre segment is in Surat'), ('store', '70,000+', 'traders in 240 large textile markets'),
                    ('star', '8–10 lakh', 'people work in diamond cutting and polishing')], ['srt-tex', 'srt-dia'])],
-       [_p('trader', 'store', 'Textile trader', 'Textile traders', 'Buyers across India search for your range before they call.',
+       [_p('trader', 'store', 'Textile trader', 'Textile traders', 'Buyers across India search for your designs before they call.',
            ['A catalogue with fabric, design and minimum order', '“Get price on WhatsApp” on every design', 'Market, floor and shop number', 'Hindi, Gujarati and English'],
            f'Usually a 5–10 page catalogue site: {BIZ}, fixed.'),
         _p('unit', 'box', 'Processing or powerloom unit', 'Processing and powerloom units', 'Traders compare capacity and quality before they send work.',
@@ -1241,31 +1241,31 @@ CITIES += [
         _p('diamond', 'star', 'Diamond or jewellery', 'Diamond and jewellery businesses', 'Buyers want proof: certificates, photos and a real address.',
            ['Pieces with certificates and photos', '“Ask on WhatsApp” on every piece', 'Your office or showroom address', 'English first, for buyers everywhere'],
            f'A catalogue site from {BIZ}, or an online store from {STORE}.', GP.render(Img('city-surat'))),
-        _p('food', 'menu', 'Restaurant or farsan', 'Restaurants and farsan shops', 'Let regulars order from you directly.',
+        _p('food', 'menu', 'Restaurant or farsan', 'Restaurants and farsan shops', 'Give regulars a menu and an ordering link of your own.',
            ['A menu you update yourself', 'Your own ordering link', 'Timings and a map pin', 'Orders on WhatsApp'],
            f'A restaurant site with your own ordering: {REST}, fixed.')],
        ('Gujarati and English? Tap to switch.', 'ગુજરાતી', 'gu', ('Certified diamonds', 'Visit our showroom'), ('પ્રમાણિત હીરા', 'અમારા શોરૂમની મુલાકાત લો')),
        ['Surat studios’ own pages (seen November 2026) list a one-page site from ₹2,999, a basic business site from about ₹15,000 and a 5-page WordPress '
-        f'site at ₹20,000. With U Scale, a landing page is {LANDING}, a 5–10 page business site {BIZ} and an online store from {STORE}, fixed in writing.',
+        f'site at ₹20,000. U Scale charges {LANDING} for a landing page, {BIZ} for a 5–10 page business site and from {STORE} for an online store, fixed in writing.',
         ('My shop is in a big textile market. How do buyers find it?',
          'Put the market name, floor and shop number in your address. Google allows suite, floor and building numbers in a business address, and with 240 '
          'markets in Surat, buyers need all three. Use exactly the same address on your website, Google listing and IndiaMART.'),
         ('Should my Surat website be in Gujarati?',
-         'Gujarati is the first language of about 60% of Surat district (Census 2011), with Hindi and Marathi next. Traders selling across India usually '
-         f'lead in English or Hindi; shops serving Surat add Gujarati. I build the pages from your own text; writing the copy is {COPY}.')],
+         'Traders selling across India usually lead in English or Hindi. Shops serving Surat add Gujarati, the first language of about 60% of Surat district '
+         f'(Census 2011), with Hindi and Marathi next. I build the pages from your own text; writing the copy is {COPY}.')],
        ['srt-p1', 'srt-p2', 'srt-p3', 'srt-tex', 'srt-dia', 'srt-lang', 'gbp-guidelines', 'local-rank']),
 
  _city('jaipur', 'Jaipur', 'Rajasthan', 'https://en.wikipedia.org/wiki/Jaipur', 'For Jaipur stays, shops and makers',
-       'Websites for Jaipur stays, shops and makers: English for tourists, Hindi for locals. Fixed price, over WhatsApp.',
+       'Websites that speak English to tourists and Hindi to locals, for Jaipur stays, shops and makers. Fixed price, over WhatsApp.',
        'Jaipur stays, shops and makers', 'book', 'city-jaipur', "Hi Mehul, I run a business in Jaipur. I'd like a free audit for my website.",
-       'Tell me about your Jaipur business. I reply within 24 hours, usually much faster on WhatsApp.',
+       'Tell me about your stay, shop or workshop in Jaipur. I reply within 24 hours, usually much faster on WhatsApp.',
        'Safe to pay. Yours to keep.', ('pay', 'own', 'me', 'care'),
-       'For comparison, Jaipur studios list a 5-page site at ₹9,000 and custom sites from ₹22,000–₹25,000 (seen 9 November 2026).',
+       'Jaipur studios ask ₹9,000 for a 5-page site, and their custom sites start at ₹22,000–₹25,000 (seen 9 November 2026).',
        ['jpr-p1', 'jpr-p2', 'jpr-p3'],
        '5-page site ₹9,000 · custom sites from ₹22,000–₹25,000 (studios’ own pages, seen 9 Nov 2026)',
        'English and Hindi',
        [dot_stat(256293, 10000, 'foreign tourist visits to Jaipur, January to June 2026: the most of any city in Rajasthan', 'jpr-tour', unit='visits')],
-       [_p('stay', 'pin', 'Hotel or homestay', 'Hotels, havelis and homestays', 'Guests compare on their phones, then book the place that answers.',
+       [_p('stay', 'pin', 'Hotel or homestay', 'Hotels, havelis and homestays', 'Guests compare rooms, prices and photos on their phones before they choose.',
            ['Rooms with photos and nightly prices', '“Check availability” on WhatsApp', 'English first, with Hindi', 'Exact location and directions'],
            f'Usually a 5–10 page business site: {BIZ}, fixed.', GP.render(Img('city-jaipur'))),
         _p('gems', 'star', 'Gems or jewellery', 'Gems and jewellery', 'Tourists and buyers want proof before they visit.',
@@ -1278,14 +1278,14 @@ CITIES += [
            ['Routes and prices in plain words', 'One-tap WhatsApp and call', 'Reviews up front', 'Fast on mobile data'],
            f'Usually a landing page: {LANDING}, live in under 2 weeks.')],
        ('Hindi and English? Tap to switch.', 'हिंदी', 'hi', ('Book your stay directly', 'Breakfast on the rooftop'), ('सीधे अपना कमरा बुक करें', 'छत पर नाश्ता')),
-       ['Jaipur studios’ own pages (seen November 2026) list a 5-page site at ₹9,000 and custom sites from ₹22,000–₹25,000. With U Scale, a landing page '
+       ['A 5-page site from a Jaipur studio costs ₹9,000, and custom sites start at ₹22,000–₹25,000 (their own pages, seen November 2026). With U Scale, a landing page '
         f'is {LANDING}, a 5–10 page business site {BIZ} and an online store from {STORE}, fixed in writing.',
         ('My guests are tourists. What should my website do?',
          'Answer in English first: rooms or products, prices, location and how to book. Jaipur recorded 2,56,293 foreign tourist visits from January to '
          'June 2026, the most of any city in Rajasthan, and visitors book the place that answers quickly. A “Check availability on WhatsApp” button helps.'),
         ('Should my Jaipur website be in Hindi?',
          'Hindi was the first language of about 46% of Jaipur district in the 2011 Census, with Rajasthani next. Lead in English if you serve tourists, '
-         f'and add Hindi for local customers. I build Hindi pages from your own text; writing the copy is {COPY}.')],
+         f'and add Hindi for local customers. I build Hindi pages from your own text, and writing the copy is {COPY}.')],
        ['jpr-p1', 'jpr-p2', 'jpr-p3', 'jpr-tour', 'jpr-lang', 'local-rank']),
 ]
 
@@ -1295,7 +1295,7 @@ CITIES += [
 _SAFE = {
     'pune': 'Pune buyers compare quotes hard, so here is the deal in writing before any work starts: a fixed price, 20% to start, 20% when you approve '
             'the design on your phone, and 60% only when the site is live. The domain is registered in your name from day one, and every login is handed '
-            'over at launch, so you never pay for work you haven’t seen.',
+            'over at launch.',
     'bengaluru': 'You never pay for what you haven’t seen. The scope and price are written down first; then it is 20% to start, 20% once you approve the '
                  'screens in Figma, and the last 60% when the site is live. The domain, hosting and code are in your company’s name, not mine.',
     'chennai': 'The terms are the same for every client, near or far: a written scope and fixed price, then 20% to start, 20% after you approve the '
@@ -1378,7 +1378,7 @@ def _uniquify():
                           'Yes, remotely and at the same prices. Gandhinagar and Ahmedabad customers search by their own city names, so if you serve both, '
                           'say so on your website, and if you visit customers there, list both as service areas on your Google listing.'),
             'hyderabad': ('Do you work with businesses in Secunderabad?',
-                          'Yes, remotely and at the same prices. People search “Secunderabad” and “Hyderabad” separately, so name the side of the city you '
+                          'Yes, remotely, at the prices on this page. People search “Secunderabad” and “Hyderabad” separately, so name the side of the city you '
                           'are on, and the localities you serve, in your listing and on your pages.')}
     for p in CITIES:
         k = p['slug']

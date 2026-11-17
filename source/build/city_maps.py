@@ -147,7 +147,7 @@ def draw(spec):
     lines_leg = ''.join(f'<li><i class="ca-ll" style="background:{e(l["color"])}"></i>{e(l["name"])}</li>' for l in spec.get('lines', []))
     city = e(spec['city'])
     html = (f'<div class="ca" data-reveal><div class="ca__fig">{svg}</div><div class="ca__t">'
-            f'<p class="ca__home"><b>Wherever you are in {city}</b><small>Briefs on WhatsApp, reviews on video calls, a site that names your area the way people search for it.</small></p>'
+            f'<p class="ca__home"><b>Wherever you are in {city}</b><small>You send the brief on WhatsApp and I take you through the designs on video calls. Your site names your area the way people nearby search for it.</small></p>'
             f'<ul class="ca__leg">{legend}</ul>' + (f'<ul class="ca__leg ca__leg--lines">{lines_leg}</ul>' if lines_leg else '')
             + '<p class="ca__nb">Schematic map, not to scale.</p></div></div>')
     return html

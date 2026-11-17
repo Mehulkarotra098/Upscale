@@ -27,7 +27,7 @@ RELATED = [('/services/website-design-india/clinics', 'By trade', 'Websites for 
            ('/services/website-design-india/real-estate', 'By trade', 'Real estate websites', 'Projects with RERA details, site visits on WhatsApp.'),
            ('/services/website-design-india/exporters', 'By trade', 'Websites for exporters', 'Catalogues and RFQs that buyers abroad trust.'),
            ('/services/website-design-india/coaching-institutes', 'By trade', 'Websites for coaching institutes', 'Courses, fees and honest results.'),
-           ('/services/website-design-india/ca-and-law-firms', 'By trade', 'Websites for CA and law firms', 'Facts, not ads. Within the rules.'),
+           ('/services/website-design-india/ca-and-law-firms', 'By trade', 'Websites for CA and law firms', 'Services, partners and office, within the rules.'),
            ('/services/website-design-india', 'Across India', 'Website design across India', 'The same prices in every city.')]
 ALL_LINKS = ('<a class="tlink" href="/services/website-design-india">Website design across India</a> · <a class="tlink" href="/services/website-design-mumbai">All website design</a> · '
              '<a class="tlink" href="/pricing">Full price list</a>')
@@ -68,14 +68,14 @@ def export_card(p):
 def coach_card(p):
     body = (_rows([('user', 'Tutors', 'Qualifications listed'), ('tag', 'Fees', '₹68,000 · refund policy linked'), ('users', 'Seats left', '12 of 40')])
             + f'<p class="tr__go">{icon("calendar")}Book a free demo class</p>')
-    return _card('coach', 'JEE 2027 · Weekend batch', 'Sample design · Kota', body, [('check', 'Results stated honestly'), ('chat', 'Parents ask on WhatsApp')],
+    return _card('coach', 'JEE 2027 · Weekend batch', 'Sample design · Kota', body, [('check', 'Real results, with consent'), ('chat', 'Parents ask on WhatsApp')],
                  'A sample coaching batch page with tutor qualifications, fees with a refund policy, seats left and a demo class button', 'cap')
 
 
 def ca_card(p):
     body = (_rows([('file', 'Services', 'GST · Income tax · Audit'), ('users', 'Partners', 'Names and membership numbers'), ('pin', 'Office', 'Andheri East, with map')])
             + f'<p class="tr__go">{icon("chat")}Ask a question</p>')
-    return _card('ca', 'Mehta & Co.', 'Sample design · Chartered accountants', body, [('scale', 'Facts, not ads'), ('shield', 'Client details kept private')],
+    return _card('ca', 'Mehta & Co.', 'Sample design · Chartered accountants', body, [('scale', 'Sticks to the facts'), ('shield', 'Client details kept private')],
                  'A sample chartered accountants’ website: services, partners with membership numbers, the office and a question button', 'scale')
 
 
@@ -113,7 +113,7 @@ def pages():
      _trade('clinics', 'Clinics and doctors', 'Websites for clinics and doctors', 'For clinics and doctors',
         f'Clinic and Doctor Websites in India, from {price(LANDING)} | U Scale',
         f'Websites for clinics, dentists and doctors across India: timings, fees, your registration and booking on WhatsApp. From {price(LANDING)}, fixed in writing.',
-        'Your timings, fees, qualifications and a booking button, on a site patients can use one-handed in a waiting room. Facts, not claims.',
+        'Your timings, fees, qualifications and a booking button, on a site patients can use one-handed in a waiting room. It states facts, the way medical ethics rules expect.',
         clinic_card, "Hi Mehul, I run a clinic and I'd like a website. Can we talk?",
         ('What patients look for, before they call.', [
             ('clock', 'Timings and today’s slots', 'Which doctor is in, and when, without ringing to ask.'),
@@ -136,12 +136,12 @@ def pages():
           'Yes. The simplest way is a WhatsApp booking message that goes to your reception. If you use a practice system with online booking, we link it '
           'from every page instead.'),
          ('What can a doctor put on a website in India?',
-          'Facts: your name, qualifications, registration number, services, fees, timings and how to reach you. Medical ethics rules stop doctors '
+          'You can state the facts: your name, qualifications, registration number, services, fees, timings and how to reach you. Medical ethics rules stop doctors '
           'advertising like a business, so we leave out promised results, before-and-after claims and testimonials that promise outcomes.'),
          ('Do you work with dental and physiotherapy clinics too?',
           'Yes. Dentists, physiotherapists, diagnostic labs and specialist clinics all need the same basics: clear services, fees, timings and booking.')],
-        'U Scale designs and hand-codes websites for clinics and doctors across India: timings, fees, qualifications and registration, and booking on '
-        f'WhatsApp, written within medical ethics rules. A one-page clinic site is {price(LANDING)} and a 5–10 page clinic site {price(BIZ)}, fixed in writing, '
+        'U Scale designs and hand-codes websites for clinics and doctors across India, written within medical ethics rules. Patients see your timings, fees, '
+        f'qualifications and registration, and book on WhatsApp. A one-page clinic site is {price(LANDING)} and a 5–10 page clinic site {price(BIZ)}, fixed in writing, '
         'with 60% paid at launch.',
         [('Covers', 'Clinics, doctors, dentists, physiotherapists and diagnostic labs')],
         'Timings, fees and booking on WhatsApp, within medical ethics rules.'),
@@ -174,10 +174,10 @@ def pages():
          ('Can buyers book site visits online?',
           'Yes. A site visit button on every project opens WhatsApp with the project name filled in, so your sales team knows which project the buyer means.'),
          ('Can you add a WhatsApp chatbot for enquiries?',
-          'Yes. A simple WhatsApp flow that sends brochures, prices and visit slots is set up by us; an AI assistant that answers buyers’ questions is built '
+          'Yes. We set up a simple WhatsApp flow that sends brochures, prices and visit slots. An AI assistant that answers buyers’ questions is built '
           'by our sister company, Apex36.')],
-        'U Scale designs and hand-codes real estate websites for builders and brokers across India: a page per project with configurations, floor plans, '
-        f'prices and the RERA registration number and website, plus site visits on WhatsApp. A project microsite is {price(LANDING)} and a 5–10 page site '
+        'U Scale designs and hand-codes real estate websites for builders and brokers across India. Each project gets its own page with configurations, floor plans, '
+        f'prices and the RERA registration number and website, and buyers book site visits on WhatsApp. A project microsite is {price(LANDING)} and a 5–10 page site '
         f'{price(BIZ)}, fixed in writing.',
         [('RERA', 'Registration number and RERA website on every project page (Section 11(2))')],
         'Project pages with RERA details, and site visits on WhatsApp.', sources=['rera-11']),
@@ -188,10 +188,10 @@ def pages():
         'A website that reads like a supplier buyers abroad already trust: specifications, certifications, a proper RFQ form, and replies in their morning.',
         export_card, "Hi Mehul, we're exporters and we'd like a website that brings enquiries from abroad.",
         ('What a buyer abroad checks first.', [
-            ('box', 'Specs, not slogans', 'Materials, sizes, tolerances and PDFs a buyer can forward to their engineer.'),
+            ('box', 'Specs first', 'Materials, sizes, tolerances and PDFs a buyer can forward to their engineer.'),
             ('check', 'Certifications', 'ISO, CE or whatever your buyers ask for, with the certificates themselves.'),
             ('file', 'A proper RFQ form', 'Quantity, destination port, Incoterms and drawings, in one go.'),
-            ('globe', 'English that reads naturally', 'Written for buyers in the US, Europe or the Gulf, not translated.'),
+            ('globe', 'English that reads naturally', 'Written from scratch for buyers in the US, Europe or the Gulf.'),
             ('factory', 'Your factory, shown', 'Real photos of machines, QC and packing. Buyers want to see the floor.'),
             ('search', 'Found by buyers', 'Pages for each product line, written for the words buyers abroad search.')]),
         [], '',
@@ -209,8 +209,8 @@ def pages():
           'address and certifications everywhere.'),
          ('Can buyers abroad pay through the website?',
           'For samples and small orders, yes, by card. Bulk orders usually go by bank transfer or letter of credit, so the site focuses on getting a good RFQ.')],
-        'U Scale designs and hand-codes websites for Indian exporters and manufacturers: product specifications and PDFs, certifications, a request-for-quote '
-        f'form with quantity, destination port and Incoterms, and English written for buyers abroad. A 5–10 page company site is {price(BIZ)} and a 10–20 page '
+        'U Scale designs and hand-codes websites for Indian exporters and manufacturers. Each one has product specifications and PDFs, certifications, a request-for-quote '
+        f'form that asks for quantity, destination port and Incoterms, and English written for buyers abroad. A 5–10 page company site is {price(BIZ)} and a 10–20 page '
         f'catalogue {price(BLOG)}, fixed in writing.',
         [('Copywriting', f'{price("Website copy")}, in English written for buyers abroad')],
         'Catalogues and RFQs that buyers abroad trust.',
@@ -246,12 +246,12 @@ def pages():
           'duration, hostel facilities, fees, and the exit and refund policy. States bring them into force through their own rules, so check yours; we build '
           'every institute site with these sections anyway.'),
          ('Can we show our toppers and results?',
-          'Yes, honestly: real results, with the student’s consent, the course they actually took and the year. The consumer authority’s 2024 rules target '
+          'Yes, as long as they are real: each result with the student’s consent, the course they actually took and the year. The consumer authority’s 2024 rules target '
           'claims like “100% selection”, so we leave those out.'),
          ('Can parents pay fees online?',
           'Yes. We can add a payment link or a fee page with UPI and cards through your own payment account, with a receipt sent automatically.')],
-        'U Scale designs and hand-codes websites for coaching institutes and schools across India: courses and batches, tutors and qualifications, fees and the '
-        f'refund policy, honest results and demo-class booking on WhatsApp, following the 2024 coaching guidelines. A 5–10 page institute site is {price(BIZ)}, '
+        'U Scale designs and hand-codes websites for coaching institutes and schools across India, following the 2024 coaching guidelines. Each site shows courses '
+        f'and batches, tutors and qualifications, fees and the refund policy, and honest results, with demo-class booking on WhatsApp. A 5–10 page institute site is {price(BIZ)}, '
         'fixed in writing.',
         [('Follows', 'The Ministry of Education’s 2024 coaching guidelines and the 2024 rules on misleading coaching ads')],
         'Courses, fees and honest results, within the 2024 rules.', sources=['coach-moe', 'coach-ccpa']),
@@ -286,8 +286,8 @@ def pages():
          ('How do you handle client confidentiality?',
           'The contact form sends messages privately to you, there is no chat widget storing client conversations, and analytics stays off the contact page. '
           'Nothing about a client appears on the site.')],
-        'U Scale designs and hand-codes websites for chartered accountants and law firms across India that stay within professional advertising rules: '
-        f'services, partners with membership or enrolment numbers, office and a private contact form. A 5–10 page firm website is {price(BIZ)}, fixed in writing.',
+        'U Scale designs and hand-codes websites for chartered accountants and law firms across India, kept within professional advertising rules. '
+        f'Each site shows your services, partners with membership or enrolment numbers, the office and a private contact form. A 5–10 page firm website is {price(BIZ)}, fixed in writing.',
         [('Covers', 'Chartered accountants, company secretaries, advocates and law firms')],
-        'Facts, not ads, within your profession’s rules.'),
+        'Services, partners and office, within your profession’s rules.'),
     ]

@@ -117,8 +117,8 @@ def for_places():
     cities = ', '.join(links[:-1]) + ' and ' + links[-1]
     abroad = ', '.join(f'<a class="tlink" href="/services/website-design-{s}">{n}</a>' for s, n in
                        [('uk', 'the UK'), ('usa', 'the US'), ('australia', 'Australia'), ('canada', 'Canada')])
-    return (f'      <p class="fp-all home-places" data-reveal>Also near Mumbai: {near}. Outside Mumbai, I build websites for businesses in '
-            f'{cities}. Outside India, for clients in {abroad} and five more countries, with '
+    return (f'      <p class="fp-all home-places" data-reveal>I meet clients in {near} too. Further out, I build websites for businesses in '
+            f'{cities}, and outside India for clients in {abroad} and five more countries, with '
             f'<a class="tlink" href="/services/outsource-web-design-india">the same prices in your currency</a>.</p>')
 
 
@@ -139,7 +139,7 @@ def how():
     <div class="wrap">
       <header class="sec-head">
         <p class="eyebrow" data-reveal data-scramble>How it works</p>
-        <h2 class="h2" id="how-title" data-split>Fixed price. No surprises.</h2>
+        <h2 class="h2" id="how-title" data-split>Fixed price, agreed up front.</h2>
         <p class="lead" data-reveal>From a free audit to launch in four steps. Monthly work runs for 3 months minimum, then month-to-month with 30 days&rsquo; notice.</p>
       </header>
       <ol class="fp-steps" data-reveal-group>{li}</ol>

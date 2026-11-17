@@ -154,10 +154,10 @@ SEO = dict(
             eyebrow='How it runs', layout='wide', tone='band'),
         Sec('What I won’t do',
             Cards([('alert', 'Fake or paid reviews', 'They break Google’s rules and can get reviews removed or a listing restricted. ' + GP.src_chip('ugc-policy')),
-                   ('alert', 'Ranking guarantees', 'Nobody controls Google’s results, or how far a searcher is from you. I guarantee the work and an honest report.'),
+                   ('alert', 'Ranking guarantees', 'Nobody controls Google’s results, or how far a searcher is from you. I guarantee the work itself, and a report on what it did.'),
                    ('alert', 'Spammy links and keyword stuffing', 'Bought links and pages stuffed with area names can hurt you. Google asks for content written for people. ' + GP.src_chip('helpful')),
                    ('alert', 'Keywords in your business name', 'Adding “best dentist Mumbai” to your Google name breaks its guidelines. Your real name, as on your board. ' + GP.src_chip('gbp-guidelines'))], cols=2),
-            eyebrow='Honest SEO'),
+            eyebrow='Within Google’s rules'),
         Sec('Check where you stand, free', Tools(), eyebrow='Free tools', layout='wide'),
         Sec('Read these first', guides('seocost', 'verify', 'maps', 'reviews', 'vanish', 'insta'), eyebrow='Guides', layout='wide'),
     ],
@@ -165,7 +165,7 @@ SEO = dict(
              steps=[('search', 'Audit', 'Your website, Google Business Profile and the top local competitors, checked against what customers search.', 'First check free'),
                     ('pen', 'Fix', 'Technical and listing problems fixed first, because nothing else works properly until they are.', 'Month 1'),
                     ('layers', 'Grow', 'Content, reviews, listings and genuine local links, added month by month.', 'Month 2 onwards'),
-                    ('file', 'Report', 'A monthly report and call. Honest about what moved and what did not.', 'Every month')],
+                    ('file', 'Report', 'A monthly report and a call on what moved and what did not.', 'Every month')],
              promise=[('shield', 'No ranking guarantees, ever'), ('key', 'Your listing and accounts stay in your name'), ('refresh', '3 months minimum, then month-to-month')]),
     who='I check your listing, fix your website and write your pages myself. You talk to me directly on WhatsApp, not to an account manager.',
     faq_extra=[('Do you offer monthly SEO packages in Mumbai?',
@@ -207,7 +207,7 @@ SOCIAL = dict(
         Sec('Where your Mumbai customers actually are',
             P('For most local businesses, Instagram is where people discover you and WhatsApp is where they ask the question. Facebook still matters for '
               'older customers and local groups, LinkedIn for B2B services, and YouTube Shorts for anything that is easier to show than to tell. '
-              'Two platforms done well beat four done badly.'),
+              'I would rather run two platforms well than four badly.'),
             Table(['Platform', 'Best for', 'What I post'],
                   [('Instagram', 'Shops, food, fashion, salons, clinics, studios', 'Reels, carousels, stories, highlights'),
                    ('Facebook', 'Local reach, events, older customers', 'Posts, offers, event pages'),
@@ -245,10 +245,10 @@ SOCIAL = dict(
             eyebrow='Who does what', layout='wide'),
         Sec('What I won’t do',
             Cards([('alert', 'Buy followers or likes', 'Fake followers never buy anything, and they make your real reach worse.'),
-                   ('alert', 'Promise you’ll go viral', 'No one can. I promise a steady plan, on time, and an honest monthly report.'),
-                   ('alert', 'Pass off AI images as your products', 'Customers notice. Real products, real places, real people.'),
+                   ('alert', 'Promise you’ll go viral', 'No one can. I promise a steady plan, posted on time, and a plain monthly report.'),
+                   ('alert', 'Pass off AI images as your products', 'Customers notice. I use your real products, places and people.'),
                    ('alert', 'Post without your OK', 'You approve the calendar first, and can check any post before it goes out.')], cols=2),
-            eyebrow='Honest social'),
+            eyebrow='No shortcuts'),
         Sec('A social media marketing agency, or one manager?',
             P('A social media marketing agency in Mumbai will give you a team: someone for strategy, designers, a video editor and an account '
               'manager you talk to. A freelance social media manager is one person doing all of that at a smaller scale. An agency, or one of '
@@ -323,17 +323,17 @@ ADS = dict(
               '<a class="tlink" href="/blog/whatsapp-business-charges-india">WhatsApp Business charges in India</a>.'),
             eyebrow='WhatsApp'),
         Sec('Tracking you can trust',
-            Cards([('search', 'Google Analytics (GA4)', 'Set up to count calls, WhatsApp taps and form enquiries, not just clicks.'),
+            Cards([('search', 'Google Analytics (GA4)', 'Set up to count the calls, WhatsApp taps and form enquiries your ads bring, as well as the clicks.'),
                    ('bolt', 'Conversion tracking', 'Google Ads conversions and the Meta pixel, so each campaign shows what it brought in.'),
                    ('key', 'Your accounts', 'The ad accounts, analytics and pixels are in your name, and stay yours if we stop.'),
-                   ('file', 'A plain monthly report', 'Spend, leads, cost per lead and what changes next month. No vanity numbers.')], cols=2),
+                   ('file', 'A plain monthly report', 'Spend, leads, cost per lead and what changes next month.')], cols=2),
             eyebrow='Measurement'),
         Sec('What I won’t do',
-            Cards([('alert', 'Promise a number of leads', 'Results depend on your offer, budget and market. I test, measure and improve every week.'),
+            Cards([('alert', 'Promise a number of leads', 'Results depend on your offer, budget and market. I test changes and adjust the ads every week.'),
                    ('alert', 'Mark up your ad spend', 'Spend goes straight from you to Google and Meta. My fee is separate and published.'),
                    ('alert', 'Lock you out', 'You own the accounts from day one. Nothing is held back if we part ways.'),
                    ('alert', 'Run misleading ads', 'Claims your business can back up, within Google’s and Meta’s ad policies.')], cols=2),
-            eyebrow='Honest ads'),
+            eyebrow='Ground rules'),
         Sec('Looking for a Google Ads agency in Mumbai?',
             P('Most people looking for help with ads search for an “agency”. With U Scale you get one person who sets up and runs your Google and '
               'Meta ads, not an agency team. Whoever you hire, check these six things first:'),
@@ -414,12 +414,12 @@ AI = dict(
             Cards([('alert', 'A mention in ChatGPT', 'No one controls AI answers. I improve the facts they rely on and track how often and how accurately you appear.'),
                    ('alert', 'The same answer every time', 'AI answers change with wording, location and time. I check the same questions every month to see the trend.'),
                    ('alert', 'Shortcuts', 'No fake reviews, paid mentions or pages written for bots. They put your Google listing at risk too.')], cols=3),
-            eyebrow='Honest GEO'),
+            eyebrow='The limits of GEO'),
         Sec('AI search optimisation agency or consultant?',
             P('Look for AI SEO help in India and you’ll find agencies and consultants offering “GEO”, “AEO” and “AI SEO”. They describe the same work: '
               'making your facts clear, consistent and easy for AI tools to find and repeat. U Scale is one consultant, me, doing the audit and the '
-              'monthly checks myself, with a screenshot of every answer. Whoever you hire, ask to see the actual AI answers before and after, not '
-              'just a score.'),
+              'monthly checks myself, with a screenshot of every answer. Whoever you hire, ask to see the actual AI answers from before and after '
+              'the work, rather than a score.'),
             eyebrow='Who to hire', sid='who-to-hire'),
         Sec('Read these next', guides('chatgpt', 'chatads', 'askmaps', 'maps'), eyebrow='Guides', layout='wide'),
     ],
@@ -438,7 +438,7 @@ AI = dict(
                 'No. Google says its AI features need no special files, and other AI companies have not said they rely on llms.txt. It does no harm to have one, and nothing depends on it.'),
                ('Are there hidden charges in AI search visibility work?',
                 f'No. The audit is {price("AI visibility audit (free if we work together)")} once, or free if we go on to work together, and monthly work is '
-                f'{price("AI search visibility (GEO)")} a month, agreed in writing before it starts. Monthly work runs for 3 months minimum, then month to month '
+                f'{price("AI search visibility (GEO)")}, agreed in writing before it starts. Monthly work runs for 3 months minimum, then month to month '
                 'with 30 days’ notice. No GST is charged right now.')],
     sources=['ai-features', 'openai-bots', 'pplx-bots', 'local-schema', 'helpful'],
     offers=['AI search visibility (GEO)', 'AI visibility audit (free if we work together)'],
@@ -633,7 +633,7 @@ def _fill(p):
     """Title, description, H1, lead, answer, facts and FAQ come from the service's existing data (same URL, same title)."""
     s = svc(p['slug'])
     p.setdefault('title', s['title']); p.setdefault('desc', s['desc']); p.setdefault('h1', s['h1']); p.setdefault('lead', s['lead'])
-    p.setdefault('answer', s['answer']); p.setdefault('facts', s['facts']); p.setdefault('cta_h', s.get('cta_h') or 'Let’s talk about your ' + s['cta'])
+    p.setdefault('answer', s['answer']); p.setdefault('facts', s['facts']); p.setdefault('cta_h', s.get('cta_h') or 'Ask me about your ' + s['cta'])
     return p
 
 
@@ -663,8 +663,8 @@ def about_page(ctx, parts):
     wa = WA + urllib.parse.quote("Hi Mehul, I read about you on uscale.in. I'd like to talk about my business.")
     founder = aeo.FOUNDER
     p = dict(slug='about', crumbs=[], crumb='About', h1='About Mehul Karotra', eyebrow='The person doing your work',
-             lead=('I’m Mehul, a website designer and developer from Mumbai and the person behind U Scale. I started U Scale because small businesses '
-                   'deserve agency-quality work without paying for account managers and middlemen. When you work with U Scale, you work with me.'),
+             lead=('I’m Mehul, a website designer and developer from Mumbai and the person behind U Scale. I started U Scale so that a small business '
+                   'could get agency-quality work without paying for account managers and middlemen. When you work with U Scale, you work with me.'),
              art=dict(kind='portrait', chips=[('pin', 'Ghatkopar West, Mumbai'), ('chat', 'Replies on WhatsApp')]),
              stats=[('2026', 'U Scale founded'), ('1', 'Person does your work'), ('Every', 'Price published')],
              cta_label='Chat with me on WhatsApp',
@@ -685,7 +685,7 @@ def about_page(ctx, parts):
                             ('user', 'You talk to me', 'No account managers. The person who answers your WhatsApp is the person doing the work.'),
                             ('file', 'Fixed price, in writing', 'Websites are 20% to start, 20% on design sign-off and 60% on launch. Monthly work is 3 months minimum, then month-to-month.'),
                             ('key', 'You own everything', 'Your domain, code, logins, ad accounts and listings stay in your name, always.'),
-                            ('shield', 'No promises I can’t keep', 'No guaranteed rankings, leads or AI mentions. Honest monthly reports instead.'),
+                            ('shield', 'No promises I can’t keep', 'No guaranteed rankings, leads or AI mentions. You get a plain monthly report instead.'),
                             ('team', 'Specialists when needed', 'A photographer for a shoot, a developer friend for a tricky build. I stay your single point of contact.')], cols=3),
                      eyebrow='Principles', layout='wide'),
                  Sec('Where I meet clients',
@@ -740,7 +740,7 @@ def _cta_about(wa, icons):
     <div class="wrap">
       <div class="panel on-dark" data-tone="dark">
         <div class="cta__copy">
-          <h2 class="sp-cta__title" id="cta-title">Let’s talk about your business<span class="dot">.</span></h2>
+          <h2 class="sp-cta__title" id="cta-title">Tell me about your business<span class="dot">.</span></h2>
           <p class="lead">I reply personally within 24 hours, usually much faster on WhatsApp.</p>
           <div class="cta__btns" data-wa-zone>
             <a class="btn btn--go" href="{ea(wa)}" target="_blank" rel="noopener" data-magnetic>{icons['ICON_CHAT']}Chat on WhatsApp</a>

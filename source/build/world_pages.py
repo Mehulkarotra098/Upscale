@@ -202,7 +202,7 @@ def hours_html(p):
     ours_txt = _span_txt(off, h12)
     big = f'{ov:g}' if ov else '0'
     note = p['hours_note']
-    html = (f'<div class="hr" data-reveal><div class="hr__top"><p class="hr__big"><b>{e(big)}</b><span>{"hours of your working day we share" if ov else "shared hours, and that works in your favour"}</span></p>'
+    html = (f'<div class="hr" data-reveal><div class="hr__top"><p class="hr__big"><b>{e(big)}</b><span>{"hours of your working day we share" if ov else "shared hours, so the work happens overnight"}</span></p>'
             f'<p class="hr__zone">{icon("clock")}{e(p["zone"])}</p></div>'
             f'<div class="hr__rows"><div class="hr__row"><span class="hr__k">Your day</span><span class="hr__t">{bar([(9, 18)], "hr__you")}'
             + ''.join(f'<i class="hr__both" style="--x:{x / 24 * 100:.2f}%;--w:{(y - x) / 24 * 100:.2f}%"></i>' for x, y in shared)
@@ -248,10 +248,10 @@ def trust(cur, tld, keys=('pay', 'own', 'fix', 'bank')):
                 'Pay most after launch.', 'You pay 60% only when your site is live.'),
         'own': (f'<div class="tb__g tb-own" aria-hidden="true"><span class="tb-own__bar">{CP.LOCK}<span>yourbusiness{e(tld)}</span></span>'
                 f'<span class="tb-own__tag">{icon("key")}<span>Owner</span><b>You</b></span></div>',
-                'All in your name.', 'Domain, code and every login. Yours, always.'),
+                'All in your name.', 'Domain, code and every login are yours to keep.'),
         'fix': ('<div class="tb__g tb-doc" aria-hidden="true"><span class="tb-doc__paper"><i style="--i:0;--w:88%"></i><i style="--i:1;--w:64%"></i>'
                 f'<i style="--i:2;--w:76%"></i><span class="tb-doc__total"><small>Total</small><b>{e(fx(BIZ, cur))}</b></span></span><span class="tb-doc__stamp">Fixed</span></div>',
-                'Price fixed in writing.', 'Agreed before work starts. No surprise bills.'),
+                'Price fixed in writing.', 'Agreed before work starts. The bill matches the quote.'),
         'bank': (f'<div class="tb__g tb-bank" aria-hidden="true"><span class="tb-bank__card"><small>Pay to</small><b>U Scale</b>'
                  f'<span class="tb-bank__cur">{e(cur)}</span><span class="tb-bank__no">Local account details</span></span>'
                  f'<span class="tb-bank__ok">{icon("check")}Paid in {e(s_)}</span></div>',
@@ -260,7 +260,7 @@ def trust(cur, tld, keys=('pay', 'own', 'fix', 'bank')):
                '<span class="tb-me__chat"><span class="tb-me__typing"><i></i><i></i><i></i></span><span class="tb-me__msg">Your design is ready. Have a look!</span></span></div>',
                'You talk to Mehul.', 'The founder leads your project. No account manager.'),
         'nda': ('<div class="tb__g tb-nda" aria-hidden="true"><span class="tb-nda__doc"><b>NDA</b><i></i><i></i><i></i><span class="tb-nda__sig">Signed</span></span></div>',
-                'NDA before the brief.', 'Your client stays your client. We sign first.'),
+                'NDA before the brief.', 'We sign first, and your client never hears our name.'),
     }
     tiles.update({k: (g, h, x) for k, g, h, x in CP.EXTRA_TILES})
     li = ''.join(f'<li class="tb__c tb__c--{k}" data-reveal>{tiles[k][0]}<h3>{e(tiles[k][1])}</h3><p>{e(tiles[k][2])}</p></li>' for k in keys)
@@ -482,8 +482,8 @@ ORDER = {'uk': ['trust', 'sig', 'prices', 'cost', 'hours', 'work', 'process', 'r
 ADJ = {'uk': 'UK', 'usa': 'US', 'australia': 'Australian', 'canada': 'Canadian', 'singapore': 'Singapore', 'uae': 'UAE', 'ireland': 'Irish',
        'new-zealand': 'New Zealand', 'netherlands': 'Dutch'}
 HOURS_H = {'uk': 'Your morning is our afternoon.', 'usa': 'We work while you sleep.', 'australia': 'Your afternoon is our morning.',
-           'canada': 'We work while you sleep.', 'singapore': 'We share your afternoon, all year.', 'uae': 'We share almost your whole day.',
-           'ireland': 'Your morning is our afternoon.', 'new-zealand': 'Your evening is our afternoon.', 'netherlands': 'Your morning is our afternoon.'}
+           'canada': 'Your night is our working day.', 'singapore': 'We share your afternoon, all year.', 'uae': 'We share almost your whole day.',
+           'ireland': 'We share your whole morning.', 'new-zealand': 'Your evening is our afternoon.', 'netherlands': 'We share your morning and early afternoon.'}
 
 
 def country(slug, name, the, short, cur, lang, tld, city, utc, zone, h12, overlap_summer, market, scale, ticks, cost_foot, market_line,
@@ -524,15 +524,15 @@ def country(slug, name, the, short, cur, lang, tld, city, utc, zone, h12, overla
     p['faq'] = [
         (f'How much does a website cost in {the}?',
          f'{market_line} With U Scale the price is fixed in {PD.FX[cur][2]}: a landing page is {fx(LANDING, cur)}, a 5–10 page business site {fx(BIZ, cur)}, '
-         f'a 10–20 page site with a blog {fx(BLOG, cur)} and an online store from {fx(STORE, cur)}. These are our rupee prices, converted. The rest of the gap '
-         'comes from our costs in Mumbai, not from cutting corners: every site is designed for you and hand-coded.'),
+         f'a 10–20 page site with a blog {fx(BLOG, cur)} and an online store from {fx(STORE, cur)}. These are our rupee prices, converted, so the gap '
+         'comes from what things cost in Mumbai. Every site is still designed for you and coded by hand.'),
         (f'How do I pay you from {the}?',
          f'By {PAY_ROUTE}. You pay in three parts: 20% to start, 20% when you approve the design and 60% when the site is live. '
          'No tax is added to our invoice.'),
         (f'What hours do you work in {city} time?',
          f'We work 10:00 to 19:00 in Mumbai, which is {ours} in {city} in standard time. '
          + (f'That gives us about {ov:g} working hours together' + (f', {overlap_summer:g} when the clocks change' if overlap_summer != ov else '') + '. ' if ov else
-            'Our working day ends around the time yours starts, so a short call at the start of your morning works, and the rest happens in writing while you sleep. ')
+            'Our working day ends around the time yours starts, so a short call at the start of your morning works, and the changes happen before you wake up. ')
          + (summer_note + ' ' if summer_note else '') + 'Most of the project runs in writing on WhatsApp and email anyway, with a video call at each stage.'),
         (f'Will my website rank in {the} if you are in India?',
          'Yes. Where your designer sits has nothing to do with it. Google looks at what your pages say, whether they load fast on a phone and who links to you. '
@@ -561,15 +561,15 @@ TRADE_LINKS = {
 }
 
 
-RELATED_COUNTRIES = [('uk', 'the UK', 'Fixed £ prices and 4.5 shared working hours.'),
-                     ('usa', 'the US', 'Fixed $ prices; the work happens while you sleep.'),
-                     ('australia', 'Australia', 'Fixed A$ prices; your afternoon is our morning.'),
-                     ('canada', 'Canada', 'Fixed C$ prices, English and French pages.'),
-                     ('singapore', 'Singapore', 'Fixed S$ prices and 5.5 shared hours all year.'),
-                     ('uae', 'the UAE', 'AED prices and almost all of your working day shared.'),
-                     ('ireland', 'Ireland', 'Fixed € prices, GDPR cookies and the accessibility act.'),
-                     ('new-zealand', 'New Zealand', 'Fixed NZ$ prices; feedback at night, changes by morning.'),
-                     ('netherlands', 'the Netherlands', 'Fixed € prices, in English, with GDPR cookies.')]
+RELATED_COUNTRIES = [('uk', 'the UK', 'Prices in pounds and 4.5 shared working hours.'),
+                     ('usa', 'the US', 'Fixed $ prices, and changes made overnight.'),
+                     ('australia', 'Australia', 'A$ prices, and no GST on our invoice.'),
+                     ('canada', 'Canada', 'C$ prices, in English, French or both.'),
+                     ('singapore', 'Singapore', 'S$ prices and 5.5 shared hours, all year.'),
+                     ('uae', 'the UAE', 'Dirham prices, and almost your whole working day shared.'),
+                     ('ireland', 'Ireland', 'Euro prices, with GDPR cookies and the accessibility act covered.'),
+                     ('new-zealand', 'New Zealand', 'NZ$ prices, with the work done in your evening.'),
+                     ('netherlands', 'the Netherlands', 'We talk in English; your site can be in Dutch.')]
 
 
 def cookie_demo():
@@ -609,15 +609,15 @@ COUNTRIES = [
  country('uk', 'United Kingdom', 'the UK', 'UK', 'GBP', 'en-GB', '.co.uk', 'London', 0, 'London, GMT', False, 5.5,
    [('Freelancer', 'Small business site', 800, 3000, '£800–£3,000'), ('Small agency', 'Small to mid-size', 3000, 15000, '£3,000–£15,000')],
    8000, [0, 2000, 4000, 6000, 8000], 'From UK price guides, 2026',
-   'UK price guides from 2026 put a freelancer’s small business site at £800–£3,000 and a small agency at £3,000–£15,000.',
+   'Going by 2026 UK price guides, a freelancer charges £800–£3,000 for a small business site and a small agency £3,000–£15,000.',
    'Website Design for UK Businesses, from £200 | U Scale',
    f'Hand-coded websites for UK small businesses, built in Mumbai: landing page {fx(LANDING, "GBP")}, 5–10 pages {fx(BIZ, "GBP")}, fixed in pounds. 4.5 shared working hours.',
    'Website design for UK businesses',
-   f'Designed for you and hand-coded, at a fixed price in pounds: {fx(BIZ, "GBP")} for a 5–10 page site. You pay most of it after launch, and you own everything.',
+   f'We design your site and code it by hand for a price fixed in pounds: {fx(BIZ, "GBP")} for 5–10 pages. You pay most of it after launch, and the domain, code and logins are yours.',
    "Hi Mehul, I run a business in the UK. I'd like a free audit and a price in pounds for my website.",
    [('cookie', 'Cookies, UK GDPR', 'A cookie choice that matches the 2025 rules, and a privacy page in plain English.', 'uk-pecr'),
     ('users', 'Accessibility', 'The Equality Act expects reasonable adjustments. We build to WCAG 2.1 AA: contrast, keyboard, screen readers.', 'uk-scope'),
-    ('file', 'An English contract', 'Scope, price and dates in writing, and an NDA if you want one before you share anything.', ''),
+    ('file', 'A contract in plain English', 'Scope, price and dates in writing, and an NDA if you want one before you share anything.', ''),
     ('tag', 'No VAT on our invoice', 'You pay the fixed price. Domain and hosting are billed in your name by UK providers if you prefer.', '')],
    sec('cookies', 'Done properly', 'A cookie banner people can actually say no to.', '', cookie_demo()),
    [('Can you sign an NDA or a UK-style contract?',
@@ -636,11 +636,11 @@ COUNTRIES = [
  country('usa', 'United States', 'the US', 'USA', 'USD', 'en-US', '.com', 'New York', -5, 'New York, Eastern Time', True, 0.5,
    [('Freelancer', 'Small business site', 1500, 8000, '$1,500–$8,000'), ('Agency', 'Small business site', 6000, 15000, 'from $6,000')],
    10000, [0, 2500, 5000, 7500, 10000], 'From US price guides, 2026',
-   'US price guides from 2026 put a freelancer’s small business site at $1,500–$8,000, and agencies start at about $6,000.',
+   'A small business site from a US freelancer runs $1,500–$8,000, and agencies start at about $6,000, according to 2026 price guides.',
    'Website Design for US Small Businesses, from $250 | U Scale',
    f'Hand-coded websites for US small businesses, built in Mumbai while you sleep: landing page {fx(LANDING, "USD")}, 5–10 pages {fx(BIZ, "USD")}, fixed in dollars.',
    'Website design for US small businesses',
-   f'Designed for you and hand-coded, at a fixed price in dollars: {fx(BIZ, "USD")} for a 5–10 page site. We work while you sleep, and you pay most of it after launch.',
+   f'A 5–10 page website for your business, designed and hand-coded for a fixed {fx(BIZ, "USD")}. You send notes at the end of your day, we make the changes overnight, and most of the bill comes after launch.',
    "Hi Mehul, I run a business in the US. I'd like a free audit and a price in dollars for my website.",
    [('users', 'ADA and WCAG 2.1 AA', 'Contrast, alt text, keyboard and screen-reader checks on every page before launch.', 'us-ada'),
     ('cookie', 'State privacy laws', 'A privacy page and cookie settings that fit where your customers are. Most state laws only apply above a size threshold.', ''),
@@ -648,7 +648,7 @@ COUNTRIES = [
     ('tag', 'Paid in dollars', 'An ACH or wire transfer in USD to local account details. No sales tax on our invoice.', 'wise-in')],
    dict(html=CP._custom_sec('ada', 'Accessibility', 'Small businesses get sued too.', '', '<div class="duo">' + hundred(64, '64 of 100', 'ADA website lawsuits in 2025 were against companies with under $25 million in revenue. UsableNet reviewed more than 5,000 of them.', 'us-ada')[0]
                             + chat_html([('out', '4:45 pm ET', 'Can the menu go above the photo on mobile?'), ('in', '11:40 pm ET', 'Done. Preview link updated, before and after attached.'),
-                                         ('out', '7:55 am ET', 'Perfect. Approved!')], 'Your project chat', 'Feedback at the end of your day, changes by morning', 'night')[0] + '</div>', tone=''),
+                                         ('out', '7:55 am ET', 'Perfect. Approved!')], 'Your project chat', 'Times are Eastern', 'night')[0] + '</div>', tone=''),
         text='64 of 100 ADA website lawsuits in 2025 were against companies under $25 million in revenue (UsableNet, more than 5,000 lawsuits reviewed). '
              'Feedback sent at the end of your day is on the preview link by morning.', h='Small businesses get sued too.'),
    [('Is my website ADA compliant if you build it?',
@@ -661,24 +661,24 @@ COUNTRIES = [
    ['us-jim', 'us-le', 'us-ada', 'us-sba', 'wise-in', 'utc'],
    'Send feedback by the end of your day. Our day starts at 11:30 pm Eastern, so changes are usually on your preview link before you wake up.',
    'Fixed $ prices, ADA-ready builds, and the work happens while you sleep.', 'the US',
-   'Tell us about your business. Message us any time; we reply overnight, so the answer is there in your morning.',
+   'Message us whenever it works for you, and tell us about your business. We reply overnight, so the answer is waiting in the morning.',
    extra_facts=[('Accessibility', 'Built to WCAG 2.1 AA and checked with a screen reader before launch')],
    summer_note='From March to November, daylight saving time moves our day to 12:30 am–9:30 am Eastern.'),
 
  country('australia', 'Australia', 'Australia', 'Australia', 'AUD', 'en-AU', '.com.au', 'Sydney', 10, 'Sydney, AEST', True, 2.5,
    [('Small business site', '5–10 pages, local studio', 2000, 6000, 'A$2,000–A$6,000')],
    8000, [0, 2000, 4000, 6000, 8000], 'From an Australian price guide, Jul 2026',
-   'An Australian price guide from July 2026 puts a 5–10 page small business site at A$2,000–A$6,000.',
+   'Australian studios charge A$2,000–A$6,000 for a 5–10 page small business site, says a price guide from July 2026.',
    'Website Design for Australian Businesses, from A$400 | U Scale',
    f'Hand-coded websites for Australian small businesses, built in Mumbai: landing page {fx(LANDING, "AUD")}, 5–10 pages {fx(BIZ, "AUD")}, fixed in Australian dollars.',
    'Website design for Australian businesses',
-   f'Designed for you and hand-coded, at a fixed price in Australian dollars: {fx(BIZ, "AUD")} for a 5–10 page site. Send feedback after lunch and it’s done by morning.',
+   f'Fixed in Australian dollars, with no GST on our invoice: {fx(BIZ, "AUD")} for a 5–10 page site, designed for your business and coded by hand.',
    "Hi Mehul, I run a business in Australia. I'd like a free audit and a price in AUD for my website.",
    [('mail', 'Spam Act', 'Enquiry and newsletter forms ask for clear opt-in consent before anyone gets marketing email.', 'au-spam'),
     ('cookie', 'Privacy Act', 'A privacy page that says what the site collects and why. The Act covers firms with A$3 million+ turnover, and good practice covers everyone.', 'au-spam'),
     ('users', 'Accessibility', 'The Disability Discrimination Act covers private websites too. We build to WCAG 2.1 AA.', ''),
     ('tag', 'No GST on our invoice', 'You pay the fixed price in AUD by bank transfer to local account details.', 'wise-in')],
-   sec('relay', 'Your afternoon, our morning', 'Feedback after lunch. Changes by morning.', '',
+   sec('relay', 'How changes happen', 'Feedback after lunch. Changes by morning.', '',
        chat_html([('out', '1:30 pm', 'Can we swap the hero photo and add our ABN to the footer?'), ('in', '4:10 pm', 'On it. You’ll have it tonight.'),
                   ('in', '9:20 pm', 'Done. Preview link updated with both changes.'), ('out', '8:05 am', 'Love it. Approved.')],
                  'Your project chat', 'Times in Sydney', 'relay')),
@@ -686,24 +686,24 @@ COUNTRIES = [
      'No. No GST or other tax is added to our invoice: you pay the fixed price in Australian dollars. Domain and hosting are bought in your name from '
      'Australian providers if you prefer, and they charge GST as usual.')],
    ['au-wtd', 'au-spam', 'au-abs', 'wise-in', 'utc'],
-   'Our day starts at 2:30 pm in Sydney. Message us after lunch and the changes are usually on your preview link by the next morning.',
+   'We start at 2:30 pm Sydney time, so whatever you send after lunch is usually done the same night.',
    'Fixed A$ prices; send feedback after lunch, see the changes by morning.', 'Australia',
-   'Tell us about your business. Message us in your afternoon and the reply comes the same day.',
+   'Send us a few lines about your business in your afternoon, and you’ll hear back the same day.',
    summer_note='From October to April, daylight saving makes it 3:30 pm to 12:30 am in Sydney.'),
 
  country('canada', 'Canada', 'Canada', 'Canada', 'CAD', 'en-CA', '.ca', 'Toronto', -5, 'Toronto, Eastern Time', True, 0.5,
    [('Freelancer', 'Small business site', 1500, 7000, 'C$1,500–C$7,000'), ('Toronto studio', 'Brochure site', 3000, 7500, 'C$3,000–C$7,500')],
    10000, [0, 2500, 5000, 7500, 10000], 'From Canadian price guides, 2026',
-   'Canadian price guides from 2026 put a freelancer at C$1,500–C$7,000 and a Toronto studio’s brochure site at C$3,000–C$7,500.',
+   'In 2026 guides, Canadian freelancers charge C$1,500–C$7,000, and a Toronto studio asks C$3,000–C$7,500 for a brochure site.',
    'Website Design for Canadian Businesses, from C$400 | U Scale',
    f'Hand-coded websites for Canadian small businesses, in English and French: landing page {fx(LANDING, "CAD")}, 5–10 pages {fx(BIZ, "CAD")}, fixed in Canadian dollars.',
    'Website design for Canadian businesses',
-   f'Designed for you and hand-coded, at a fixed price in Canadian dollars: {fx(BIZ, "CAD")} for a 5–10 page site, in English, French or both.',
+   f'Your site in English, French or both: 5–10 pages, designed for you and hand-coded for {fx(BIZ, "CAD")}, fixed in Canadian dollars.',
    "Hi Mehul, I run a business in Canada. I'd like a free audit and a price in CAD for my website.",
    [('cookie', 'Quebec privacy law', 'Since September 2023, cookies other than the necessary ones must be off until the visitor turns them on.', 'ca-law'),
     ('mail', 'CASL', 'Forms ask for clear consent before marketing email, and keep a record of it.', 'ca-law'),
     ('users', 'AODA', 'Ontario firms with 50+ staff must meet WCAG 2.0 AA. We build to 2.1 AA for everyone.', 'ca-aoda'),
-    ('tag', 'Paid in CAD', 'A bank transfer in Canadian dollars to local account details. No GST/HST on our invoice.', 'wise-in')],
+    ('tag', 'Paid in CAD', 'Canadian dollars by bank transfer, to local account details. No GST/HST added.', 'wise-in')],
    sec('french', 'English and French', 'Bilingual, the way Google reads it.', 'Each language on its own address, with a switch on every page.',
        _lang('English or French? Tap to switch.', 'Français', 'fr', ('Book a free consultation', 'Call or message us today'),
              ('Réservez une consultation gratuite', 'Appelez-nous ou écrivez-nous aujourd’hui'))),
@@ -714,26 +714,26 @@ COUNTRIES = [
      'Yes. Non-essential cookies stay off until the visitor turns them on, which Quebec has required since September 2023. Newsletter and enquiry forms '
      'ask for consent in plain words, so your email list stays within CASL.')],
    ['ca-marvel', 'ca-shift8', 'ca-law', 'ca-aoda', 'wise-in', 'utc'],
-   'Our day starts at 11:30 pm Eastern. Send feedback before you log off, and the changes are on your preview link by morning.',
+   'We start at 11:30 pm Toronto time. Send your notes before you log off, and they are usually done before you are back at your desk.',
    'Fixed C$ prices, English and French pages, Quebec cookie rules handled.', 'Canada',
-   'Tell us about your business. Message us any time; the reply is there in your morning.',
-   summer_note='From March to November, daylight saving moves our day to 12:30 am–9:30 am Eastern.'),
+   'Write to us about your business whenever you like. The reply is there in your morning.',
+   summer_note='Between March and November, daylight saving shifts our day to 12:30 am–9:30 am in Toronto.'),
 
  country('singapore', 'Singapore', 'Singapore', 'Singapore', 'SGD', 'en-SG', '.com.sg', 'Singapore', 8, 'Singapore, SGT', False, 5.5,
    [('Freelancer', 'Template site', 1500, 1600, 'from S$1,500'), ('Small business site', 'Local studios', 3000, 8000, 'S$3,000–S$8,000')],
    8000, [0, 2000, 4000, 6000, 8000], 'From Singapore price guides, 2026',
-   'Singapore guides from 2026 put a small business site at S$3,000–S$8,000, and a freelancer’s template site from S$1,500.',
+   'Local studios in Singapore charge S$3,000–S$8,000 for a small business site, and a freelancer’s template site starts at S$1,500. Both figures are from 2026 guides.',
    'Website Design for Singapore Businesses, from S$350 | U Scale',
    f'Hand-coded websites for Singapore SMEs, built in Mumbai with 5.5 shared hours all year: landing page {fx(LANDING, "SGD")}, 5–10 pages {fx(BIZ, "SGD")}.',
    'Website design for Singapore businesses',
-   f'Designed for you and hand-coded, at a fixed price in Singapore dollars: {fx(BIZ, "SGD")} for a 5–10 page site. We share most of your afternoon, every day of the year.',
+   f'For {fx(BIZ, "SGD")}, fixed, your Singapore business gets a 5–10 page site, designed for you and coded by hand. Our working day covers most of your afternoon.',
    "Hi Mehul, I run a business in Singapore. I'd like a free audit and a price in SGD for my website.",
    [('cookie', 'PDPA', 'Cookies that collect personal data wait for consent, and the privacy notice says what you collect and why.', 'sg-pdpa'),
-    ('users', 'Accessibility', 'Not required by law for private sites in Singapore, but we build to WCAG 2.1 AA anyway.', ''),
-    ('file', 'A written contract', 'Scope, price and dates in writing before you pay anything.', ''),
-    ('tag', 'Paid in SGD', 'A bank transfer in Singapore dollars to local account details. No GST on our invoice.', 'wise-in')],
+    ('users', 'Accessibility', 'Singapore doesn’t require it for private sites. We build to WCAG 2.1 AA anyway.', ''),
+    ('file', 'A written contract', 'You see the scope, price and dates in writing before you pay anything.', ''),
+    ('tag', 'Paid in SGD', 'Singapore dollars by bank transfer, to local account details. No GST on our invoice.', 'wise-in')],
    sec('year', 'No clock changes', 'The same hours, all year.', '',
-       stat3([('clock', '5.5 h', 'shared every working day, all year'), ('chat', 'Same day', 'replies to anything sent before 6 pm'),
+       stat3([('clock', '5.5 h', 'shared every working day'), ('chat', 'Same day', 'replies to anything sent before 6 pm'),
               ('users', '369,500', 'SMEs in Singapore, 2025')], ['sg-stat', 'utc'])),
    [('Does Singapore’s PDPA affect my website?',
      'Yes, if your site collects personal data, and almost every enquiry form does. Cookies that collect personal data need consent first, and your '
@@ -741,7 +741,7 @@ COUNTRIES = [
    ['sg-we', 'sg-mt', 'sg-pdpa', 'sg-stat', 'wise-in', 'utc'],
    'Neither of us changes the clocks, so it is 12:30 to 6 pm together, every working day of the year.',
    'Fixed S$ prices and 5.5 shared working hours, all year.', 'Singapore',
-   'Tell us about your business. We share your afternoon, so the reply usually comes the same day.'),
+   'Tell us what your business does and what you need. We are working through your afternoon, so you’ll usually hear back the same day.'),
 
  country('uae', 'United Arab Emirates', 'the UAE', 'UAE', 'AED', 'en-AE', '.ae', 'Dubai', 4, 'Dubai, GST', False, 8.5,
    [('Cheapest fixed-price shops', '5–6 pages', 999, 2500, 'AED 999–2,500'), ('Agencies', 'Small business site', 5000, 20000, 'AED 5,000–20,000')],
@@ -750,7 +750,7 @@ COUNTRIES = [
    'Website Design for UAE Businesses, from AED 1,000 | U Scale',
    f'Custom, hand-coded websites for businesses in Dubai and the UAE, not templates: landing page {fx(LANDING, "AED")}, 5–10 pages {fx(BIZ, "AED")}, almost your whole day shared.',
    'Website design for UAE businesses',
-   f'Designed for you and hand-coded, not a template, at a fixed price in dirhams: {fx(BIZ, "AED")} for a 5–10 page site. We share almost your whole working day.',
+   f'A 5–10 page site designed for your business in Figma and coded by hand, for a fixed {fx(BIZ, "AED")}. Our working day lines up with almost all of yours.',
    "Hi Mehul, I run a business in the UAE. I'd like a free audit and a price in AED for my website.",
    [('cookie', 'UAE data law', 'A privacy notice and consent on your forms. The PDPL is issued; its detailed regulations were still unpublished in early 2025.', 'ae-pdpl'),
     ('chat', 'WhatsApp first', 'A WhatsApp button on every page, because that is where your customers already are.', ''),
@@ -768,20 +768,20 @@ COUNTRIES = [
    ['ae-twm', 'ae-2m', 'ae-pdpl', 'wise-in', 'utc'],
    'We start at 8:30 am Dubai time and finish at 5:30 pm, so your questions get answered the same hour.',
    'AED prices, custom design instead of templates, and almost your whole working day shared.', 'the UAE',
-   'Tell us about your business. We are online for almost all of your working day.'),
+   'Message us during your working day. We are online for almost all of it.'),
 
  country('ireland', 'Ireland', 'Ireland', 'Ireland', 'EUR', 'en-IE', '.ie', 'Dublin', 0, 'Dublin, GMT', False, 5.5,
    [('Freelancer', 'Most projects', 500, 5000, '€500–€5,000'), ('Small business site', 'Irish studios', 1500, 7000, '€1,500–€7,000')],
    8000, [0, 2000, 4000, 6000, 8000], 'From an Irish price guide, Dec 2025',
-   'An Irish price guide from December 2025 puts a small business site at €1,500–€7,000, and most freelance projects at €500–€5,000.',
+   'Irish studios charge €1,500–€7,000 for a small business site, and most freelance projects come in at €500–€5,000, according to a price guide from December 2025.',
    'Website Design for Irish Businesses, from €250 | U Scale',
    f'Hand-coded websites for Irish small businesses, GDPR and accessibility-ready: landing page {fx(LANDING, "EUR")}, 5–10 pages {fx(BIZ, "EUR")}, fixed in euros.',
    'Website design for Irish businesses',
-   f'Designed for you and hand-coded, at a fixed price in euros: {fx(BIZ, "EUR")} for a 5–10 page site, with GDPR cookies and the accessibility act covered.',
+   f'GDPR cookie consent and the accessibility act are covered from the start. Your 5–10 page site is designed for you, coded by hand and fixed at {fx(BIZ, "EUR")}.',
    "Hi Mehul, I run a business in Ireland. I'd like a free audit and a price in euros for my website.",
    [('cookie', 'GDPR cookies', 'Nothing beyond the strictly necessary loads until the visitor agrees.', 'ie-gdpr'),
     ('users', 'European Accessibility Act', 'In force since 28 June 2025 for online shops and bookings. We build to WCAG 2.1 AA.', 'eu-eaa'),
-    ('file', 'A written contract', 'Scope, price and dates in writing, and an NDA if you want one.', ''),
+    ('file', 'A written contract', 'Scope, price and dates in writing, and we sign your NDA first if you have one.', ''),
     ('tag', 'Paid in euros', 'A SEPA transfer in euros to local account details. No VAT on our invoice.', 'wise-in')],
    sec('eaa', 'Accessibility act', 'Does the accessibility act cover you?', 'Two questions, from the CCPC’s guidance.', eaa_flow()),
    [('Does the European Accessibility Act apply to my website?',
@@ -789,24 +789,24 @@ COUNTRIES = [
      'turnover or balance sheet of €2 million or less, and microenterprises providing services are exempt. We build every site to WCAG 2.1 AA, so you are '
      'covered either way.')],
    ['ie-vimar', 'ie-ccpc', 'ie-gdpr', 'eu-eaa', 'wise-in', 'utc'],
-   'We overlap with your whole morning. Messages after 1:30 pm are the first thing we read the next day.',
+   'Our day ends at 1:30 pm Dublin time. Anything you send in the afternoon is the first thing we read the next day.',
    'Fixed € prices, GDPR cookies and the accessibility act covered.', 'Ireland',
-   'Tell us about your business. We reply within a working day, usually the same morning, your time.',
+   'Drop us a line about your business. You’ll hear back within a working day, usually the same morning.',
    summer_note='In Irish summer time it is 5:30 am to 2:30 pm, so the overlap grows to 5.5 hours.'),
 
  country('new-zealand', 'New Zealand', 'New Zealand', 'New Zealand', 'NZD', 'en-NZ', '.co.nz', 'Auckland', 12, 'Auckland, NZST', True, 0.5,
    [('Small business site', '5–8 pages, before GST', 1500, 6000, 'NZ$1,500–NZ$6,000')],
    8000, [0, 2000, 4000, 6000, 8000], 'From a New Zealand price guide, Jan 2026',
-   'A New Zealand price guide from January 2026 puts a 5–8 page small business site at NZ$1,500–NZ$6,000 before GST.',
+   'In New Zealand, a 5–8 page small business site costs NZ$1,500–NZ$6,000 before GST, says a price guide from January 2026.',
    'Website Design for NZ Businesses, from NZ$500 | U Scale',
    f'Hand-coded websites for New Zealand small businesses, built in Mumbai: landing page {fx(LANDING, "NZD")}, 5–10 pages {fx(BIZ, "NZD")}, fixed in NZ dollars.',
    'Website design for New Zealand businesses',
-   f'Designed for you and hand-coded, at a fixed price in NZ dollars: {fx(BIZ, "NZD")} for a 5–10 page site. Send feedback before you log off, and wake up to the changes.',
+   f'Send feedback before you log off and wake up to the changes. We design and hand-code your 5–10 page site for {fx(BIZ, "NZD")}, fixed in NZ dollars.',
    "Hi Mehul, I run a business in New Zealand. I'd like a free audit and a price in NZD for my website.",
    [('cookie', 'Privacy Act 2020', 'A privacy statement that says what you collect and why, including the new IPP 3A from 1 May 2026.', 'nz-law'),
-    ('users', 'Accessibility', 'Not required by law for private sites, but we build to WCAG 2.1 AA anyway.', ''),
-    ('file', 'A written contract', 'Scope, price and dates in writing before you pay anything.', ''),
-    ('tag', 'Paid in NZD', 'A bank transfer in NZ dollars to local account details. No GST on our invoice.', 'wise-in')],
+    ('users', 'Accessibility', 'No law requires it for private sites. We still build to WCAG 2.1 AA.', ''),
+    ('file', 'A written contract', 'Nothing to pay until the scope, price and dates are agreed in writing.', ''),
+    ('tag', 'Paid in NZD', 'Pay by bank transfer in NZ dollars, to local account details. We add no GST.', 'wise-in')],
    sec('relay', 'You sleep, we work', 'Feedback at night. Changes by morning.', '',
        chat_html([('out', '5:10 pm', 'Can the booking button be bigger on phones?'), ('in', '6:05 pm', 'Yes, doing it now.'),
                   ('in', '10:30 pm', 'Done. Preview link updated.'), ('out', '7:40 am', 'Brilliant. Approved.')], 'Your project chat', 'Times in Auckland', 'relay')),
@@ -816,30 +816,30 @@ COUNTRIES = [
    ['nz-kiwi', 'nz-law', 'wise-in', 'utc'],
    'Our day starts at 4:30 pm in Auckland, so we pick up whatever you send in your afternoon and you see the result in the morning.',
    'Fixed NZ$ prices; send feedback in the afternoon, see the changes by morning.', 'New Zealand',
-   'Tell us about your business. Message us in your afternoon and the reply comes the same evening.',
+   'Message us in your afternoon about your business, and the reply comes the same evening.',
    summer_note='From September to April, daylight saving makes it 5:30 pm to 2:30 am in Auckland.'),
 
  country('netherlands', 'Netherlands', 'the Netherlands', 'Netherlands', 'EUR', 'en-NL', '.nl', 'Amsterdam', 1, 'Amsterdam, CET', False, 6.5,
    [('Freelancer', 'Standard business site', 800, 3000, '€800–€3,000'), ('Agency', 'Professional SME site', 4000, 8000, '€4,000–€8,000')],
    8000, [0, 2000, 4000, 6000, 8000], 'From a Dutch price guide, Feb 2026',
-   'A Dutch price guide from February 2026 puts a freelancer’s business site at €800–€3,000 and an agency’s SME site at €4,000–€8,000.',
+   'Dutch freelancers charge €800–€3,000 for a business site and agencies €4,000–€8,000 for an SME site. The figures come from a February 2026 price guide.',
    'Website Design for Dutch Businesses, from €250 | U Scale',
    f'Hand-coded websites for Dutch small businesses, worked on in English: landing page {fx(LANDING, "EUR")}, 5–10 pages {fx(BIZ, "EUR")}, GDPR cookies done.',
    'Website design for Dutch businesses',
-   f'Designed for you and hand-coded, at a fixed price in euros: {fx(BIZ, "EUR")} for a 5–10 page site. We work in English, and your site can be in Dutch.',
+   f'We talk in English, and your site can be in Dutch. A 5–10 page site costs {fx(BIZ, "EUR")}, fixed in euros, designed for you and coded by hand.',
    "Hi Mehul, I run a business in the Netherlands. I'd like a free audit and a price in euros for my website.",
    [('cookie', 'GDPR and Dutch cookie rules', 'Prior consent for everything except functional cookies.', 'nl-gdpr'),
-    ('users', 'European Accessibility Act', 'In force since 28 June 2025 for online shops and bookings. We build to WCAG 2.1 AA.', 'eu-eaa'),
+    ('users', 'European Accessibility Act', 'Online shops and booking sites have had to meet it since 28 June 2025. We build to WCAG 2.1 AA.', 'eu-eaa'),
     ('globe', 'Dutch pages', 'From your Dutch text or your translator’s, with the tags Google needs. We work with you in English.', ''),
-    ('tag', 'Paid in euros', 'A SEPA transfer in euros to local account details. No VAT on our invoice.', 'wise-in')],
+    ('tag', 'Paid in euros', 'Euros by SEPA transfer, to local account details. We add no VAT.', 'wise-in')],
    sec('english', 'In English', 'We talk in English. Your site can be in Dutch.', '',
        hundred(86, '86%', 'of people in the Netherlands speak English, the highest share in the EU after Ireland.', 'nl-en')),
    [('Can my website be in Dutch?',
      'Yes. We build the Dutch pages from your own text or a translator’s, with a language switch and the tags Google uses, and we talk to you in English '
      'throughout. We don’t write Dutch copy ourselves.')],
    ['nl-sl', 'nl-gdpr', 'nl-en', 'eu-eaa', 'wise-in', 'utc'],
-   'We overlap with your morning and early afternoon, from 9 am to 2:30 pm, Monday to Friday.',
+   'Our hours meet yours from 9 am to 2:30 pm, Monday to Friday.',
    'Fixed € prices, in English, with Dutch pages and GDPR cookies.', 'the Netherlands',
-   'Tell us about your business. We reply within a working day, usually the same morning, your time.',
+   'Write to us in English about your business. We reply within a working day, usually the same morning.',
    summer_note='In Dutch summer time it is 6:30 am to 3:30 pm, so we share 6.5 hours.'),
 ]

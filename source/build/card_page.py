@@ -37,12 +37,12 @@ def page_copy(count):
                ('QR codes', 'Add your own, with your style and logo'),
                ('Privacy', 'Your details and logo stay in your browser'), ('Made by', 'Mehul Karotra, U Scale, Mumbai')],
         faq=[
-            ('Is this visiting card maker really free?', 'Yes, 100% free. Every design and every download format is free. There is no paid version, no watermark and nothing to unlock.'),
+            ('Is this visiting card maker really free?', 'Yes, 100% free. Every design and every download format is free. There is no paid version and no watermark.'),
             ('Do I need to sign up or log in?', 'No. There is no account, no email and no sign-up. Open the editor and start. Your design saves automatically in your browser.'),
             ('Visiting card kaise banaye?', 'Design chunein, apna naam, number aur business likhein, logo ya QR code add karein, aur print PDF ya PNG download karein. Ye bilkul free hai, koi sign-up nahi chahiye, aur phone par bhi chalta hai.'),
             ('Is a visiting card the same as a business card?', 'Yes. They are the same thing. “Visiting card” is the usual name in India, and “business card” is used more widely elsewhere. This tool makes both, at the usual sizes.'),
             ('Can I make a visiting card on my phone?', 'Yes. The editor works in your phone’s browser, with nothing to install. You can type, move things with your finger, and download the files directly.'),
-            ('What is the standard visiting card size in India?', 'The usual size is 3.5 × 2 inches, which is 88.9 × 50.8 mm. That is the size this tool starts with. You can also choose 85 × 55 mm, 90 × 54 mm or a square card. It is worth confirming the size with your print shop before you order.'),
+            ('What is the standard visiting card size in India?', 'The usual size is 3.5 × 2 inches, which is 88.9 × 50.8 mm. That is the size this tool starts with. You can also choose 85 × 55 mm, 90 × 54 mm or a square card. Check the size with your print shop before you order.'),
             ('Which file should I give to the print shop?', 'Give them the Print PDF. It has both sides, 3 mm of bleed, the correct trim size and crop marks if you want them. All text is converted to outlines, so the shop does not need your fonts.'),
             ('What is bleed, and why does my card need it?', 'Bleed is extra background that runs past the cut line, usually 3 mm on each side. Cutting machines can shift slightly, and bleed stops a thin white edge showing when they do. Keep important text at least 4 mm inside the cut line. The editor shows this safe area as a dashed line.'),
             ('Can I make a visiting card in Hindi or Marathi?', 'Yes. Type in Hindi or Marathi anywhere on the card. Joined letters such as क्ष and त्र come out correctly, and you can switch to Marathi letter shapes for words like शाळा. Some designs are made Hindi or Marathi first.'),
@@ -90,7 +90,7 @@ BUSINESSES = [('Doctors and clinics', 'Clean cards that make your name, qualific
               ('Lawyers and advocates', 'Formal cards with room for your court and practice areas.', [('fluted-column', 'Fluted Column')]),
               ('Shops and traders', 'Your shop name first, with your number big enough to read.', [('masala-dabba', 'Masala Dabba'), ('bahi-khata', 'Bahi Khata')]),
               ('Sweets, restaurants and cafés', 'Warm designs with space for your menu QR code and timings.', [('shamiana-edge', 'Shamiana'), ('athangudi-floor', 'Athangudi Floor')]),
-              ('Salons and boutiques', 'Elegant patterns inspired by mehndi and block print.', [('mehndi-corner', 'Mehndi Corner'), ('bagru-block', 'Bagru Block')]),
+              ('Salons and boutiques', 'Fine patterns drawn from mehndi and block print.', [('mehndi-corner', 'Mehndi Corner'), ('bagru-block', 'Bagru Block')]),
               ('Electricians, plumbers and repair', 'Bold cards that people can find in a drawer when something breaks.', [('three-phase', 'Three Phase'), ('wall-paint', 'Wall Paint')]),
               ('Hindi and Marathi cards', 'Designs made for Devanagari, with joined letters that print correctly.', [('shop-sign', 'Shop Sign'), ('patang-string', 'Patang String')])]
 

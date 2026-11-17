@@ -106,7 +106,7 @@ def receipt():
              ('Domain and hosting', 'In your name, paid to your provider', '~₹4,400–9,400 / yr', ''),
              ('Website copy', 'Only if you want it written', price('Website copy'), 'if'),
              ('Photography', 'Only if you need a shoot', 'Quoted first', 'if'),
-             ('Premium plugins', 'Only if a feature needs one', 'At cost', 'if'),
+             ('Paid plugins', 'Only if a feature needs one', 'At cost', 'if'),
              ('Payment gateway', 'Stores only, paid to Razorpay', '~2% + GST', 'if'),
              ('Care plan', 'Optional, after launch', price('Care plan: updates, backups, security'), 'if'),
              ('GST on U Scale prices', 'None charged right now', '₹0', '')]
@@ -220,10 +220,10 @@ def ranges(rows, top=300000, ticks=(0, 100000, 200000, 300000)):
     axis = ''.join(f'<span style="--x:{v / top * 100:.2f}%">{lab(v)}</span>' for v in ticks)
     li = ''.join(f'<li style="--lo:{lo / top * 100:.2f}%;--hi:{hi / top * 100:.2f}%;--us:{_num(ours) / top * 100:.2f}%;--i:{i}"><b>{e(name)}</b>'
                  f'<span class="mv-rg__track"><i class="mv-rg__bar"></i><i class="mv-rg__us"><em>{e(ours)}</em></i></span>'
-                 f'<small>Market ₹{lo:,}–₹{hi:,} · {e(note)}</small></li>' for i, (name, lo, hi, ours, note) in enumerate(rows))
+                 f'<small>Market {GP._fmt(lo)}–{GP._fmt(hi)} · {e(note)}</small></li>' for i, (name, lo, hi, ours, note) in enumerate(rows))
     html = (f'<div class="mv-rg" data-reveal><p class="mv-rg__key"><span class="mv-rg__k1">Market range in published guides</span><span class="mv-rg__k2">U Scale, fixed</span></p>'
             f'<ul>{li}</ul><p class="mv-rg__axis" aria-hidden="true">{axis}</p></div>')
-    text = '; '.join(f'{n}: market ₹{lo:,}–₹{hi:,}, U Scale {o} ({nt})' for n, lo, hi, o, nt in rows)
+    text = '; '.join(f'{n}: market {GP._fmt(lo)}–{GP._fmt(hi)}, U Scale {o} ({nt})' for n, lo, hi, o, nt in rows)
     return html, text
 
 
