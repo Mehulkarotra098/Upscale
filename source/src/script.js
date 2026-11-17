@@ -913,3 +913,13 @@
   function idle(){ if('requestIdleCallback' in window) requestIdleCallback(go,{timeout:1500}); else setTimeout(go,600); }
   if(document.readyState==='complete') idle(); else window.addEventListener('load',idle);
 })();
+
+/* Cards with a little 3D world (data-tilt): the world turns a little toward the mouse. Mouse only; nothing on touch. */
+(function(){
+  'use strict';
+  if(!window.matchMedia('(hover:hover) and (pointer:fine)').matches) return;
+  Array.prototype.forEach.call(document.querySelectorAll('[data-tilt]'),function(c){
+    c.addEventListener('pointermove',function(e){ var r=c.getBoundingClientRect(); c.style.setProperty('--tx',((e.clientX-r.left)/r.width*2-1).toFixed(3)); c.style.setProperty('--ty',((e.clientY-r.top)/r.height*2-1).toFixed(3)); });
+    c.addEventListener('pointerleave',function(){ c.style.setProperty('--tx','0'); c.style.setProperty('--ty','0'); });
+  });
+})();

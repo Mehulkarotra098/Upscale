@@ -12,6 +12,7 @@ SCENES = STATIC / 'assets' / '3d' / 'scenes'
 ALT = {
     'website-design-mumbai': 'A 3D model of the Bandra–Worli Sea Link: car lights crossing between Bandra’s palms and Worli’s lit towers, with a pin on Mumbai',
     'website-design-uk': 'A 3D desk: a cup of tea, a signed quote for £450 fixed coming out of its envelope, a green wax seal, a fountain pen and pound coins',
+    'mumbai-areas': 'A 3D map of Mumbai: the city raised out of the sea with Thane and Navi Mumbai across the water, the Western and Central lines with trains running, a pin for each area from Borivali to Fort and Mulund to Chembur, and the studio pin in Ghatkopar',
     'seo-mumbai': 'A 3D map of a neighbourhood: competitor pins on the blocks, a green pin rising to #1 on Maps, a magnifying glass over the streets and a search bar above',
 }
 _TAG = re.compile(r'<(/?)div\b')
@@ -52,3 +53,11 @@ def apply(public):
             if parts:
                 f.write_text(parts[0] + stage(slug) + '\n    ' + parts[2], encoding='utf-8', newline='\n'); done.append(str(f.relative_to(public)))
     return done
+
+
+def section_stage(scene, cls='h3d--sec'):
+    """A 3D stage inside a page section (not the hero), with its poster; script.js mounts it like the hero's."""
+    poster = STATIC / 'assets' / '3d' / 'posters' / f'{scene}.webp'
+    img = (f'<img class="h3d__poster" src="{GP.vurl(f"/assets/3d/posters/{scene}.webp")}" width="1000" height="820" alt="" loading="lazy" decoding="async">' if poster.exists() else '')
+    return (f'<div class="h3d {cls}" data-scene="{scene}" data-src="{GP.vurl(f"/assets/3d/scenes/{scene}.js")}" data-engine="{GP.vurl("/assets/3d/engine.js")}" '
+            f'role="img" aria-label="{GP.ea(ALT.get(scene, ""))}">{img}</div>')

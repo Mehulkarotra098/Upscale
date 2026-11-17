@@ -165,8 +165,10 @@ export async function mount(el) {
     root.rotation.y = (spec.sway ?? 0.12) * Math.sin(t * 0.35) * amp + look.x * 0.18 * amp + look.drag;
     root.rotation.x = look.y * 0.05 * amp;
     root.position.y = Math.sin(t * 0.9) * 0.05 * amp;
-    if (spec.update) spec.update(t, dt, { calm, intro: Math.min(1, t / Math.max(0.01, introLen)) });
     cam.lookAt(target);
+    if (spec.update) spec.update(t, dt, { calm, intro: Math.min(1, t / Math.max(0.01, introLen)), cam });
+    /* labels marked .userData.face always turn to the camera, so they stay readable as the scene sways */
+    if (spec.faces) for (const f of spec.faces) { f.quaternion.copy(cam.quaternion); if (f.parent) f.quaternion.premultiply(f.parent.getWorldQuaternion(new T.Quaternion()).invert()); }
     renderer.render(scene, cam);
     if (first) { first = false; el.classList.add('is-live'); }
     raf = requestAnimationFrame(loop);
