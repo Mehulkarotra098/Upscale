@@ -1558,7 +1558,7 @@ def pricing_page(ctx, parts):
       </div>
       <p class="sp-hero__who">Quotes are valid for 14 days. Every website and every monthly service starts with a free audit, so you know exactly what you are paying for before you spend a rupee.</p>
       </div>
-      {__import__('depth_art').card_prices()}
+      {__import__('motion_heroes').pricing()}
     </section>
   </div>
 {__import__('aeo').brief_html(PRICING_ANSWER, PRICING_FACTS, 'Key facts: U Scale prices', 'pricing-brief')}

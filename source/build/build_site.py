@@ -218,7 +218,7 @@ def bp(built):
 blueprint = bp(False) + f'<div class="blueprint__built"><div>{bp(True)}</div></div><span class="blueprint__seam"></span>'
 
 src = (SRC / 'index.src.html').read_text()
-css = '\n'.join((SRC / f).read_text() for f in ['styles.css', 'work.css', 'motion.css', 'growth.css', 'seo.css', 'depth.css', 'home.css', 'world.css', 'world-ai.css', 'world-art.css', 'world-widgets.css', 'visuals.css'])
+css = '\n'.join((SRC / f).read_text() for f in ['styles.css', 'work.css', 'motion.css', 'growth.css', 'seo.css', 'depth.css', 'home.css', 'world.css', 'world-ai.css', 'world-art.css', 'world-widgets.css', 'visuals.css', 'motion-heroes.css'])
 def _rules(block):
     out, i, depth, start = [], 0, 0, 0
     for j, ch in enumerate(block):
