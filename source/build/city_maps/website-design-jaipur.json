@@ -1,0 +1,54 @@
+{
+  "city": "Jaipur",
+  "areas": [
+    {"name": "Johari Bazaar", "lat": 26.9195, "lon": 75.8258, "group": "walled"},
+    {"name": "Chandpole", "lat": 26.9262, "lon": 75.8090, "group": "walled"},
+    {"name": "MI Road", "lat": 26.9165, "lon": 75.8090, "group": "central"},
+    {"name": "C-Scheme", "lat": 26.9045, "lon": 75.8020, "group": "central"},
+    {"name": "Bani Park", "lat": 26.9317, "lon": 75.7958, "group": "central"},
+    {"name": "Raja Park", "lat": 26.8975, "lon": 75.8280, "group": "central"},
+    {"name": "Vaishali Nagar", "lat": 26.9096, "lon": 75.7392, "group": "west"},
+    {"name": "Mansarovar", "lat": 26.8700, "lon": 75.7570, "group": "west"},
+    {"name": "Vidyadhar Nagar", "lat": 26.9608, "lon": 75.7748, "group": "west"},
+    {"name": "Malviya Nagar", "lat": 26.8550, "lon": 75.8150, "group": "south"},
+    {"name": "Jagatpura", "lat": 26.8336, "lon": 75.8273, "group": "south"},
+    {"name": "Sanganer", "lat": 26.8170, "lon": 75.7920, "group": "south"},
+    {"name": "Sitapura", "lat": 26.7790, "lon": 75.8360, "group": "south"}
+  ],
+  "groups": [
+    {"key": "walled", "label": "Walled city: Johari Bazaar, Chandpole"},
+    {"key": "central", "label": "Central: MI Road, C-Scheme, Bani Park, Raja Park"},
+    {"key": "west", "label": "West and north: Vaishali Nagar, Mansarovar, Vidyadhar Nagar"},
+    {"key": "south", "label": "South: Malviya Nagar, Jagatpura, Sanganer, Sitapura"}
+  ],
+  "lines": [
+    {
+      "name": "Jaipur Metro Pink Line",
+      "color": "#E8318A",
+      "stations": [
+        [26.8795, 75.7502],
+        [26.8802, 75.7645],
+        [26.8885, 75.7684],
+        [26.8965, 75.7706],
+        [26.9018, 75.7746],
+        [26.9095, 75.7811],
+        [26.9181, 75.7901],
+        [26.9226, 75.7999],
+        [26.9266, 75.8079],
+        [26.9247, 75.8185],
+        [26.9230, 75.8268]
+      ]
+    }
+  ],
+  "water": [
+    {
+      "name": "Man Sagar Lake",
+      "kind": "lake",
+      "points": [[26.9508, 75.8534], [26.9514, 75.8536], [26.9539, 75.8536], [26.9615, 75.8535], [26.9615, 75.8459], [26.9551, 75.8431], [26.9535, 75.8427], [26.9531, 75.8429], [26.9521, 75.8442], [26.9518, 75.8454]]
+    }
+  ],
+  "neighbours": [
+    {"name": "Amer", "lat": 26.9888, "lon": 75.8559}
+  ],
+  "notes": "Pink Line is all 11 stations, Mansarovar to Badi Chaupar, from OSM; no official hex exists (Wikipedia #FFCBDB and OSM #FF748C are both pale), so #E8318A is kept; Man Sagar is a simplified outline without its thin eastern inlets; Sanganer and Mansarovar are large areas placed at an estimated centre (about 0.005 degrees)."
+}

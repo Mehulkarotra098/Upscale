@@ -4,7 +4,7 @@ hero's flat art for a 3D stage: a still poster (assets/3d/posters/<slug>.webp, m
 once, then the live scene, which script.js loads after the page has painted (engine: assets/3d/engine.js). Without
 WebGL, on Save-Data, or for crawlers, the poster stays. The words of the page are untouched.
 ALT describes each scene for screen readers (role="img")."""
-import pathlib, re
+import json, pathlib, re
 import geo_pages as GP
 
 STATIC = pathlib.Path(__file__).resolve().parent.parent / 'static'
@@ -34,8 +34,13 @@ ALT = {
     'website-design-ireland': 'A 3D Irish landscape with green hills, a stone wall and sheep, a large Tab key with a glowing focus ring, an alt-text tag and a contrast badge',
     'website-design-new-zealand': 'A 3D lake below snow-capped peaks with a jetty and a yellow kayak paddling across, and a message saying Changes are live at 6:40 am',
     'website-design-netherlands': 'A 3D Amsterdam canal with gabled houses, bicycles on a bridge, a boat gliding, and a ring showing 86% speak English',
+    'pricing': 'A 3D price ladder: four raised blocks for a landing page, a business site, a 10–20 page site and an online store, each with its fixed price, a 20 / 20 / 60 payment track in front and a green Fixed seal above',
     'seo-mumbai': 'A 3D map of a neighbourhood: competitor pins on the blocks, a green pin rising to #1 on Maps, a magnifying glass over the streets and a search bar above',
 }
+# data a scene needs from the build (data-args): the pricing ladder takes its prices from pricing_data
+ARGS = {'pricing': lambda: {'rows': [[n, ('from ' if n == 'Online store' else '') + GP.price(k)] for n, k in [('Landing page', 'Landing page'), ('Business site', 'Business site, 5–10 pages'),
+                                                               ('10–20 pages', 'Business site, 10–20 pages + blog'), ('Online store', 'E-commerce, under 50 products')]]}}
+
 _TAG = re.compile(r'<(/?)div\b')
 
 
@@ -58,7 +63,9 @@ def stage(slug):
     poster = STATIC / 'assets' / '3d' / 'posters' / f'{slug}.webp'
     img = (f'<img class="h3d__poster" src="{GP.vurl(f"/assets/3d/posters/{slug}.webp")}" width="1000" height="820" alt="" '
            f'fetchpriority="high" decoding="async">' if poster.exists() else '')
-    return (f'\n      <div class="fp-art h3d" data-scene="{slug}" data-src="{GP.vurl(f"/assets/3d/scenes/{slug}.js")}" '
+    args = ARGS[slug]() if slug in ARGS else None
+    data = f' data-args="{GP.ea(json.dumps(args, ensure_ascii=False))}"' if args else ''
+    return (f'\n      <div class="fp-art h3d" data-scene="{slug}"{data} data-src="{GP.vurl(f"/assets/3d/scenes/{slug}.js")}" '
             f'data-engine="{GP.vurl("/assets/3d/engine.js")}" role="img" aria-label="{GP.ea(ALT.get(slug, ""))}">{img}</div>')
 
 

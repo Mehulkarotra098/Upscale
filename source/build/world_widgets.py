@@ -2,6 +2,7 @@
 chat demo, tabs, and do/don't lists for trades with rules. Every widget works without JavaScript: calculators show their
 worked example, the chat shows every answer, tabs show every panel. Script: the end of source/src/script.js."""
 import json
+import geo_pages as GP
 import pricing_data as PD
 from geo_pages import icon, rupees, price, e, ea
 from world_pages import sec
@@ -63,7 +64,7 @@ def compare():
     """Figma to code: the design and the built page on top of each other; drag to compare. Without JS the split stays at the middle."""
     page = lambda cls, tag: (f'<div class="cm__l cm__l--{cls}"><span class="cm__tag">{e(tag)}</span><p class="cm__nav"><b>Ridgeline</b><i></i><i></i><i></i></p>'
                              '<p class="cm__h">Small-batch coffee, roasted Mondays</p><p class="cm__s">Single origins from Coorg and Chikmagalur, posted the same week.</p>'
-                             '<span class="cm__btn">Shop beans</span><span class="cm__img"></span></div>')
+                             '<span class="cm__btn">Shop beans</span>' + (f'<span class="cm__img"><img src="{GP.vurl("/assets/photos/coffee-beans.webp")}" alt="" width="600" height="600" loading="lazy" decoding="async"></span>' if cls == 'built' else '<span class="cm__img"></span>') + '</div>')
     guides = ('<span class="cm__g cm__g--1">48</span><span class="cm__g cm__g--2">24</span><span class="cm__g cm__g--3">Anton 56/58</span>')
     html = (f'<div class="cm" data-compare data-reveal style="--x:50%"><div class="cm__stage">{page("built", "Live site")}'
             f'<div class="cm__top">{page("design", "Your Figma file")}{guides}</div><span class="cm__bar" aria-hidden="true"><i>{icon("code")}</i></span></div>'

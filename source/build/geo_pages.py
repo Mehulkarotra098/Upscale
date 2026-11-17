@@ -779,16 +779,16 @@ IMG = {
                alt='Demo salon website shown in a desktop browser and a mobile preview, with hair, skin and nails services and Book on WhatsApp buttons',
                caption='A demo salon website with desktop and mobile previews and a WhatsApp enquiry action. Mira Studio is a fictional example.'),
  'step-audit': dict(file=A + 'free-website-audit-report-mumbai', w=1200, h=900, small=640,
-               alt='Sample free audit report listing the first three fixes: make the website enquiry easier to find, complete the Google listing\'s hours and contact details, and link Instagram to an enquiry page',
+               alt='Sample free audit report, Your first three fixes: put the website enquiry button up top, add hours, photos and phone to the Google listing, and link Instagram to an enquiry page. Agreed before building.',
                caption='A sample free audit from U Scale: the first three fixes, agreed before any work starts. Illustrative example.'),
  'step-plan': dict(file=A + 'fixed-price-website-quote-mumbai', w=1200, h=900, small=640,
-               alt='Sample written plan for a 5–10 page business website: design and build, mobile-first pages and basic SEO, a 3–4 week timeline, a fixed price of ₹55,000 and a 20%, 20%, 60% payment schedule',
+               alt='Sample written plan for a 5–10 page business website: a 3–4 week timeline, a fixed price of ' + price('Business site, 5–10 pages') + ', and you pay 20% at the start, 20% when the design is OK and 60% at launch. In writing before you pay.',
                caption='A sample written plan from U Scale, with scope, timeline and a fixed price agreed before work starts.'),
  'step-design': dict(file=A + 'website-design-review-approval', w=1200, h=900, small=640,
-               alt='Sample design review in a design tool: a boutique product page with its Order on WhatsApp button selected, the layer list and spacing settings beside it',
+               alt='Sample design review in a design tool: a boutique product page for a floral cotton kurta, on desktop and phone, with its Order on WhatsApp button selected and the client comment Approved',
                caption='A sample design review: you see and approve real screens before the build. Saanjh Studio is fictional.'),
  'step-launch': dict(file=A + 'website-launch-monthly-report', w=1200, h=900, small=640,
-               alt='Sample launched boutique website beside a project handover checklist (mobile checked, enquiry tested, logins handed over) and monthly review topics: website enquiries, Google visibility and next priorities',
+               alt='Sample launched boutique website, Saanjh Studio, live on its own domain, beside a launch checklist: tested on phones, enquiry form tested, Search Console set, logins handed over',
                caption='A sample launch handover and monthly review. Saanjh Studio is fictional.'),
  'tool-checker': dict(file=A + 'google-business-profile-checker-score', w=1200, h=800, small=640,
                alt='The free Google Business Profile checker with a sample score of 71 out of 100 across profile basics, photos and updates, reviews, and website and trust, and three top fixes',
@@ -1282,7 +1282,7 @@ def _how(p):
                  ('Design & build', 'You approve real screens in Figma, desktop and mobile, before I code them and test on phones.', '20% to start · 20% on design sign-off'),
                  ('Launch', 'Domain, hosting, Google Search Console and a final check on real phones. Then I hand over every login.', '60% on launch')]
         promise = [('key', 'Your domain, code and logins, in your name'), ('file', 'Price fixed in writing, no hidden charges'), ('shield', '15–30 day bug-fix window after launch')]
-    shots, sz = ['step-audit', 'step-plan', 'step-design', 'step-launch'], '(max-width: 759px) 82vw, (max-width: 1099px) 46vw, 290px'
+    shots, sz = ['step-audit', 'step-plan', 'step-design', 'step-launch'], '(max-width: 759px) 82vw, (max-width: 1099px) 46vw, 320px'
     li = ''.join(f'<li class="fp-step" data-reveal>{_shot(shots[i], sz, "fp-step__media")}<div class="fp-step__body"><span class="fp-step__n" aria-hidden="true">{i + 1:02d}</span><h3>{e(t)}</h3><p>{e(d)}</p>'
                  + (f'<span class="fp-step__tag">{e(tag)}</span>' if tag else '') + '</div></li>' for i, (t, d, tag) in enumerate(steps))
     pr = ''.join(f'<li>{icon(ic)}<span>{e(x)}</span></li>' for ic, x in promise)

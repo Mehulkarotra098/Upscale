@@ -1,0 +1,101 @@
+{
+  "city": "Thane",
+  "areas": [
+    {"name": "Naupada", "lat": 19.1897, "lon": 72.9697, "group": "west"},
+    {"name": "Panchpakhadi", "lat": 19.1954, "lon": 72.9647, "group": "west"},
+    {"name": "Vartak Nagar", "lat": 19.2155, "lon": 72.9627, "group": "west"},
+    {"name": "Majiwada", "lat": 19.2130, "lon": 72.9785, "group": "west"},
+    {"name": "Wagle Estate", "lat": 19.2000, "lon": 72.9535, "group": "wagle"},
+    {"name": "Lokmanya Nagar", "lat": 19.2122, "lon": 72.9512, "group": "wagle"},
+    {"name": "Manpada", "lat": 19.2314, "lon": 72.9738, "group": "ghodbunder"},
+    {"name": "Kolshet", "lat": 19.2389, "lon": 72.9933, "group": "ghodbunder"},
+    {"name": "Ghodbunder Road", "lat": 19.2494, "lon": 72.9761, "group": "ghodbunder"},
+    {"name": "Hiranandani Estate", "lat": 19.2549, "lon": 72.9821, "group": "ghodbunder"},
+    {"name": "Kasarvadavali", "lat": 19.2700, "lon": 72.9660, "group": "ghodbunder"},
+    {"name": "Thane East", "lat": 19.1840, "lon": 72.9785, "group": "east"},
+    {"name": "Kalwa", "lat": 19.1985, "lon": 72.9975, "group": "east"},
+    {"name": "Mumbra", "lat": 19.1885, "lon": 73.0215, "group": "east"}
+  ],
+  "groups": [
+    {"key": "west", "label": "Thane West: Naupada, Vartak Nagar, Majiwada"},
+    {"key": "wagle", "label": "Wagle Estate, Lokmanya Nagar"},
+    {"key": "ghodbunder", "label": "Ghodbunder Road: Manpada, Hiranandani, Kasarvadavali"},
+    {"key": "east", "label": "East: Thane East, Kalwa, Mumbra"}
+  ],
+  "lines": [
+    {
+      "name": "Central line",
+      "color": "#34B556",
+      "stations": [
+        [19.1721, 72.9567],
+        [19.1865, 72.9758],
+        [19.1952, 72.9963],
+        [19.1899, 73.0231],
+        [19.1888, 73.0414],
+        [19.2119, 73.0786],
+        [19.2180, 73.0861],
+        [19.2263, 73.0980],
+        [19.2352, 73.1345]
+      ]
+    },
+    {
+      "name": "Trans-Harbour line",
+      "color": "#EBAB27",
+      "stations": [
+        [19.1865, 72.9758],
+        [19.1803, 72.9943],
+        [19.1585, 72.9994],
+        [19.1366, 73.0028],
+        [19.1164, 73.0070]
+      ]
+    }
+  ],
+  "water": [
+    {
+      "name": "Thane Creek",
+      "kind": "creek",
+      "points": [
+        [19.1420, 72.9753], [19.1520, 72.9789], [19.1670, 72.9807], [19.1770, 72.9834],
+        [19.1870, 72.9809], [19.1970, 72.9847], [19.2020, 72.9876], [19.2070, 72.9937],
+        [19.2136, 72.9945], [19.2162, 72.9954], [19.2176, 72.9978], [19.2192, 73.0013],
+        [19.2216, 73.0047], [19.2203, 73.0049], [19.2176, 72.9999], [19.2166, 72.9972],
+        [19.2147, 72.9955], [19.2070, 72.9949], [19.2020, 72.9906], [19.1970, 72.9867],
+        [19.1870, 72.9865], [19.1770, 72.9851], [19.1670, 72.9830], [19.1520, 72.9825],
+        [19.1420, 72.9809]
+      ]
+    },
+    {
+      "name": "Ulhas river",
+      "kind": "river",
+      "points": [
+        [19.2410, 73.0778], [19.2315, 73.0669], [19.2063, 73.0651], [19.2024, 73.0589],
+        [19.1982, 73.0286], [19.2001, 73.0253], [19.2151, 73.0164], [19.2240, 73.0063],
+        [19.2510, 72.9993], [19.2654, 72.9917], [19.2796, 72.9900], [19.2889, 72.9810],
+        [19.3000, 72.9624], [19.2963, 72.9444], [19.2882, 72.9371]
+      ]
+    },
+    {
+      "name": "Upvan Lake",
+      "kind": "lake",
+      "points": [
+        [19.2225, 72.9557], [19.2217, 72.9549], [19.2208, 72.9547], [19.2203, 72.9557],
+        [19.2202, 72.9566], [19.2213, 72.9575], [19.2226, 72.9572], [19.2226, 72.9565]
+      ]
+    },
+    {
+      "name": "Masunda Lake",
+      "kind": "lake",
+      "points": [
+        [19.1914, 72.9761], [19.1918, 72.9757], [19.1921, 72.9742], [19.1927, 72.9738],
+        [19.1933, 72.9739], [19.1945, 72.9745], [19.1947, 72.9749], [19.1943, 72.9758],
+        [19.1946, 72.9764], [19.1943, 72.9767], [19.1928, 72.9765]
+      ]
+    }
+  ],
+  "neighbours": [
+    {"name": "Mulund", "lat": 19.1721, "lon": 72.9567},
+    {"name": "Dombivli", "lat": 19.2149, "lon": 73.0910},
+    {"name": "Kalyan", "lat": 19.2397, "lon": 73.1366}
+  ],
+  "notes": "Positions and water from OpenStreetMap (Thane Creek is the real narrow channel, 100-600 m wide); line colours follow Wikipedia's Mumbai Suburban convention as Central Railway publishes no hex codes; Dombivli and Kalyan lie 7-12 km east of the areas, so draw them as edge markers; Metro Line 4 along Ghodbunder Road is left out because it has not opened (target December 2026); 'Ghodbunder Road' is pinned at Patlipada, mid-road."
+}

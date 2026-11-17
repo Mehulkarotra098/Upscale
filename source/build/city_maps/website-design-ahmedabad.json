@@ -1,0 +1,78 @@
+{
+  "city": "Ahmedabad",
+  "areas": [
+    {"name": "Manek Chowk", "lat": 23.0232, "lon": 72.5890, "group": "old"},
+    {"name": "New Cloth Market", "lat": 23.0188, "lon": 72.6005, "group": "old"},
+    {"name": "Navrangpura", "lat": 23.0375, "lon": 72.5640, "group": "centre"},
+    {"name": "CG Road", "lat": 23.0280, "lon": 72.5580, "group": "centre"},
+    {"name": "Vastrapur", "lat": 23.0401, "lon": 72.5290, "group": "west"},
+    {"name": "SG Highway", "lat": 23.0465, "lon": 72.5158, "group": "west"},
+    {"name": "Satellite", "lat": 23.0255, "lon": 72.5220, "group": "west"},
+    {"name": "Prahlad Nagar", "lat": 23.0114, "lon": 72.5093, "group": "west"},
+    {"name": "Bopal", "lat": 23.0300, "lon": 72.4690, "group": "west"},
+    {"name": "Maninagar", "lat": 22.9977, "lon": 72.6067, "group": "east"},
+    {"name": "Odhav", "lat": 23.0230, "lon": 72.6560, "group": "east"},
+    {"name": "Naroda", "lat": 23.0733, "lon": 72.6508, "group": "east"},
+    {"name": "Vatva GIDC", "lat": 22.9620, "lon": 72.6345, "group": "east"}
+  ],
+  "groups": [
+    {"key": "old", "label": "Old city: Manek Chowk, New Cloth Market"},
+    {"key": "centre", "label": "Centre, west bank: Navrangpura, CG Road"},
+    {"key": "west", "label": "West, on SG Highway: Vastrapur, Satellite, Prahlad Nagar, Bopal"},
+    {"key": "east", "label": "East and industrial: Maninagar, Odhav, Naroda, Vatva"}
+  ],
+  "lines": [
+    {
+      "name": "Ahmedabad Metro Blue Line",
+      "color": "#0983CE",
+      "stations": [
+        [23.0502, 72.5070],
+        [23.0481, 72.5245],
+        [23.0448, 72.5435],
+        [23.0407, 72.5531],
+        [23.0375, 72.5671],
+        [23.0392, 72.5810],
+        [23.0288, 72.5867],
+        [23.0247, 72.6031],
+        [23.0155, 72.6069],
+        [23.0107, 72.6182],
+        [23.0035, 72.6477],
+        [22.9971, 72.6675]
+      ]
+    },
+    {
+      "name": "Ahmedabad Metro Red Line",
+      "color": "#F52532",
+      "stations": [
+        [22.9978, 72.5371],
+        [23.0055, 72.5335],
+        [23.0136, 72.5492],
+        [23.0185, 72.5623],
+        [23.0272, 72.5688],
+        [23.0375, 72.5669],
+        [23.0564, 72.5623],
+        [23.0677, 72.5659],
+        [23.0677, 72.5742],
+        [23.0751, 72.5933],
+        [23.0856, 72.5922],
+        [23.0968, 72.5967]
+      ]
+    }
+  ],
+  "water": [
+    {
+      "name": "Sabarmati",
+      "kind": "river",
+      "points": [[23.1009, 72.6474], [23.0905, 72.6322], [23.0920, 72.6094], [23.0890, 72.6026], [23.0683, 72.5966], [23.0576, 72.5804], [23.0494, 72.5753], [23.0174, 72.5759], [23.0051, 72.5713], [22.9950, 72.5637], [22.9920, 72.5543], [22.9825, 72.5450], [22.9732, 72.5210], [22.9580, 72.5127]]
+    },
+    {
+      "name": "Kankaria Lake",
+      "kind": "lake",
+      "points": [[23.0036, 72.6013], [23.0041, 72.6030], [23.0060, 72.6041], [23.0080, 72.6035], [23.0090, 72.6015], [23.0088, 72.6004], [23.0083, 72.5993], [23.0065, 72.5983], [23.0054, 72.5985], [23.0044, 72.5991], [23.0039, 72.5999]]
+    }
+  ],
+  "neighbours": [
+    {"name": "Gandhinagar", "lat": 23.2230, "lon": 72.6500}
+  ],
+  "notes": "Metro points are a route-ordered subset of OSM stops (Blue: Thaltej Gam to Vastral Gam; Red: APMC to Motera Stadium, with the newer extension towards Gandhinagar left off); colours from Wikipedia's Ahmedabad Metro module; SG Highway is a long road placed at its Bodakdev-Thaltej stretch, Satellite is a broad area placed at an estimated centre, and Gandhinagar sits about 12 km north of everything else, so pin it to the top edge rather than fitting the frame to it."
+}

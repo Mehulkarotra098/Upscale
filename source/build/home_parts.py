@@ -130,7 +130,7 @@ def how():
     promise = [('key', 'Your domain, code and logins, in your name'), ('file', 'Every price published and fixed in writing'),
                ('shield', '15–30 day bug-fix window after launch')]
     shots = ['step-audit', 'step-plan', 'step-design', 'step-launch']
-    li = ''.join(f'<li class="fp-step" data-reveal><figure class="fp-step__media">{_pic(GP.IMG[shots[i]], "(max-width: 759px) 92vw, (max-width: 1099px) 46vw, 290px")}</figure>'
+    li = ''.join(f'<li class="fp-step" data-reveal><figure class="fp-step__media">{_pic(GP.IMG[shots[i]], "(max-width: 759px) 92vw, (max-width: 1099px) 46vw, 320px")}</figure>'
                  f'<div class="fp-step__body"><span class="fp-step__n" aria-hidden="true">{i + 1:02d}</span><h3>{e(t)}</h3><p>{e(d)}</p>'
                  f'<span class="fp-step__tag">{e(tag)}</span></div></li>' for i, (t, d, tag) in enumerate(steps))
     pr = ''.join(f'<li>{icon(ic)}<span>{e(x)}</span></li>' for ic, x in promise)

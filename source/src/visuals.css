@@ -436,28 +436,39 @@
 .rm .mv-rg *,.rm .mv-sq *{animation:none!important}
 
 /* ---------- city area maps (source/build/city_maps.py): drawn with depth, like the Mumbai map ---------- */
-.cm{display:grid;grid-template-columns:minmax(0,500px) minmax(0,1fr);gap:clamp(24px,4vw,64px);align-items:center}
-.cm__fig{border-radius:26px;overflow:hidden;box-shadow:0 30px 60px -40px rgba(37,30,69,.6)}
-.cm-svg{display:block;width:100%;height:auto}
-.cm-bg{fill:#E6E0F7}.cm-side{fill:#AFA2DC}.cm-land{stroke:#D3C9EE;stroke-width:1.2}
-.cm-river{fill:none;stroke:#7F8FE0;stroke-width:12;stroke-linecap:round;stroke-linejoin:round;opacity:.9}.cm-river--in{stroke:#A9B6F2;stroke-width:5;opacity:1}
-.cm-lake{fill:#9FAEEE;stroke:#7F8FE0;stroke-width:2}
-.cm-line{fill:none;stroke-width:5;stroke-linecap:round;stroke-linejoin:round}.cm-line--case{stroke:#fff;stroke-width:10}
-.cm-train rect{stroke:#fff;stroke-width:2}
-.cm-a circle{stroke:#fff;stroke-width:2.5}
-.cm-a text,.cm-nb text{font:600 12px/1 var(--sans);fill:#251E45;paint-order:stroke;stroke:#fff;stroke-width:4px;stroke-linejoin:round}
-.cm-nb circle{fill:#fff;stroke:#8C82B5;stroke-width:2;stroke-dasharray:3 2}.cm-nb text{fill:#6b6188;font-style:italic}
-.cm__t{display:grid;gap:16px}
-.cm__home{display:grid;gap:4px;margin:0;padding:16px 18px;border-radius:16px;background:var(--violet);color:#fff}
-.cm__home b{font:700 17px/1.2 var(--sans)}.cm__home small{font:500 14px/1.45 var(--sans);color:#DAD3F0}
-.cm__leg{list-style:none;margin:0;padding:0;display:grid;gap:9px;font:600 15px/1.35 var(--sans);color:var(--violet)}
-.cm__leg li{display:flex;align-items:center;gap:10px}
-.cm__leg i{flex:none;width:14px;height:14px;border-radius:50%;border:2px solid #fff;box-shadow:0 0 0 1px #DCD3F0}
-.cm__leg i.cm-ll{width:22px;height:6px;border-radius:3px;border:0;box-shadow:none}
-.cm__leg--lines{font-size:14px;color:var(--body)}
-.cm__nb{margin:0;font:500 12px/1.3 var(--sans);color:var(--body);opacity:.75}
-@media (max-width:799px){.cm{grid-template-columns:minmax(0,1fr)}.cm__fig{max-width:460px;width:100%;margin-inline:auto}}
-@media (prefers-reduced-motion:no-preference){.js .cm.is-in .cm-a{animation:mvDot .45s var(--ease-spring) both;animation-delay:calc(.2s + var(--i) * .06s);transform-box:fill-box;transform-origin:center}
-  .js .cm.is-in .cm-line{stroke-dasharray:1400;animation:mvDraw 1.8s var(--ease-out) both}}
-@media (prefers-reduced-motion:reduce){.cm-train{display:none}}
-.rm .cm-train{display:none}.rm .cm *{animation:none!important}
+.ca{display:grid;grid-template-columns:minmax(0,500px) minmax(0,1fr);gap:clamp(24px,4vw,64px);align-items:center}
+.ca__fig{border-radius:26px;overflow:hidden;box-shadow:0 30px 60px -40px rgba(37,30,69,.6)}
+.ca-svg{display:block;width:100%;height:auto}
+.ca-bg{fill:#E6E0F7}.ca-side{fill:#AFA2DC}.ca-land{stroke:#D3C9EE;stroke-width:1.2}
+.ca-river{fill:none;stroke:#7F8FE0;stroke-width:12;stroke-linecap:round;stroke-linejoin:round;opacity:.9}.ca-river--in{stroke:#A9B6F2;stroke-width:5;opacity:1}
+.ca-lake{fill:#9FAEEE;stroke:#7F8FE0;stroke-width:2}
+.ca-line{fill:none;stroke-width:5;stroke-linecap:round;stroke-linejoin:round}.ca-line--case{stroke:#fff;stroke-width:10}
+.ca-train rect{stroke:#fff;stroke-width:2}
+.ca-a circle{stroke:#fff;stroke-width:2.5}
+.ca-a text,.ca-nb text{font:600 13px/1 var(--sans);fill:#251E45;paint-order:stroke;stroke:#fff;stroke-width:4px;stroke-linejoin:round}
+.ca-lead{stroke:#8C82B5;stroke-width:1.2}
+.ca-wl{font:italic 600 11px/1 var(--sans);fill:#4F5DB8;letter-spacing:.02em;paint-order:stroke;stroke:rgba(255,255,255,.75);stroke-width:3px}
+.ca-nb circle{fill:#fff;stroke:#8C82B5;stroke-width:2;stroke-dasharray:3 2}.ca-nb text{fill:#6b6188;font-style:italic}
+.ca__t{display:grid;gap:16px}
+.ca__home{display:grid;gap:4px;margin:0;padding:16px 18px;border-radius:16px;background:var(--violet);color:#fff}
+.ca__home b{font:700 17px/1.2 var(--sans)}.ca__home small{font:500 14px/1.45 var(--sans);color:#DAD3F0}
+.ca__leg{list-style:none;margin:0;padding:0;display:grid;gap:9px;font:600 15px/1.35 var(--sans);color:var(--violet)}
+.ca__leg li{display:flex;align-items:center;gap:10px}
+.ca__leg i{flex:none;width:14px;height:14px;border-radius:50%;border:2px solid #fff;box-shadow:0 0 0 1px #DCD3F0}
+.ca__leg i.ca-ll{width:22px;height:6px;border-radius:3px;border:0;box-shadow:none}
+.ca__leg--lines{font-size:14px;color:var(--body)}
+.ca__nb{margin:0;font:500 12px/1.3 var(--sans);color:var(--body);opacity:.75}
+@media (max-width:799px){.ca{grid-template-columns:minmax(0,1fr)}.ca__fig{max-width:460px;width:100%;margin-inline:auto}}
+@media (prefers-reduced-motion:no-preference){.js .ca.is-in .ca-a{animation:mvDot .45s var(--ease-spring) both;animation-delay:calc(.2s + var(--i) * .06s);transform-box:fill-box;transform-origin:center}
+  .js .ca.is-in .ca-line{stroke-dasharray:1400;animation:mvDraw 1.8s var(--ease-out) both}}
+@media (prefers-reduced-motion:reduce){.ca-train{display:none}}
+.rm .ca-train{display:none}.rm .ca *{animation:none!important}
+
+/* the step number on the 'How it works' cards: a small badge, not a full-width bar */
+.home-how .fp-step__n,.fp-steps--media .fp-step__n{align-self:flex-start;min-width:44px;height:28px;padding:0 12px;display:inline-grid;place-items:center}
+
+/* real photos in the sample cards (Pexels licence; credits in each file's metadata) */
+.sv-store__img{background:#fff}.sv-store__img img,.fs__img img,.cm__img img,.rp-ig__img img,.rp-lp__img img{display:block;width:100%;height:100%;object-fit:cover}
+.sv-store__img img{position:absolute;inset:0}.fs__img img{position:absolute;inset:0;object-position:50% 22%}.fs__tag{z-index:1}
+.cm__img{overflow:hidden}.cm__l--built .cm__img{background:#2b2b2b}
+.rp-ig__img,.rp-lp__img{padding:0;overflow:hidden;text-shadow:none}

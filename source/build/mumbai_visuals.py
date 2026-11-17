@@ -123,9 +123,9 @@ def receipt():
 # ---------------------------------------------------------------- landing pages: ad -> page -> WhatsApp, on one phone
 def landing():
     ad = ('<div class="rp-ig"><p class="rp-ig__hd"><span class="rp-ig__av">CK</span><b>chaikona</b><small>Sponsored</small><i>···</i></p>'
-          '<div class="rp-ig__img"><span>☕</span><span>🥯</span></div><p class="rp-ig__cta">Order now<i>›</i></p>'
+          f'<div class="rp-ig__img"><img src="{GP.vurl("/assets/photos/masala-chai.webp")}" alt="" width="500" height="500" loading="lazy" decoding="async"></div><p class="rp-ig__cta">Order now<i>›</i></p>'
           '<p class="rp-ig__ic"><i>♡</i><i>💬</i><i>➤</i></p><p class="rp-ig__cap"><b>chaikona</b> Masala chai + bun maska, ₹149. Pickup in 10 min.</p></div>')
-    page = ('<div class="rp-lp"><p class="rp-lp__url">chaikona.in</p><div class="rp-lp__img"><span>☕</span></div><p class="rp-lp__k">Andheri East · Open till 11 pm</p>'
+    page = (f'<div class="rp-lp"><p class="rp-lp__url">chaikona.in</p><div class="rp-lp__img"><img src="{GP.vurl("/assets/photos/chai-kettle.webp")}" alt="" width="640" height="400" loading="lazy" decoding="async"></div><p class="rp-lp__k">Andheri East · Open till 11 pm</p>'
             '<b class="rp-lp__h">Chai + bun maska combo</b><p class="rp-lp__p">₹149</p><p class="rp-lp__btn"><i></i>Order on WhatsApp</p>'
             '<p class="rp-lp__tr"><span>★ 4.8</span><span>Pickup in 10 min</span></p></div>')
     chat = wa_chat([('out', 'Hi! One combo for pickup, please', '5:31'), ('in', 'Done ✓ Ready at 5:40. Pay by UPI or at the counter.', '5:31'), ('out', 'Perfect, thanks!', '5:32')])

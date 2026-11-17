@@ -1,0 +1,129 @@
+{
+  "city": "Kolkata",
+  "areas": [
+    {"name": "Park Street", "lat": 22.5525, "lon": 88.3535, "group": "central"},
+    {"name": "Esplanade", "lat": 22.5633, "lon": 88.3504, "group": "central"},
+    {"name": "Burrabazar", "lat": 22.5802, "lon": 88.3528, "group": "central"},
+    {"name": "College Street", "lat": 22.5755, "lon": 88.3635, "group": "central"},
+    {"name": "Shyambazar", "lat": 22.6008, "lon": 88.3730, "group": "north"},
+    {"name": "Dum Dum", "lat": 22.6215, "lon": 88.3935, "group": "north"},
+    {"name": "Lake Town", "lat": 22.6057, "lon": 88.4030, "group": "north"},
+    {"name": "Salt Lake", "lat": 22.5875, "lon": 88.4085, "group": "east"},
+    {"name": "Salt Lake Sector V", "lat": 22.5755, "lon": 88.4323, "group": "east"},
+    {"name": "New Town", "lat": 22.5807, "lon": 88.4624, "group": "east"},
+    {"name": "Bhowanipore", "lat": 22.5350, "lon": 88.3475, "group": "south"},
+    {"name": "Ballygunge", "lat": 22.5285, "lon": 88.3662, "group": "south"},
+    {"name": "Gariahat", "lat": 22.5190, "lon": 88.3665, "group": "south"},
+    {"name": "Tollygunge", "lat": 22.4986, "lon": 88.3454, "group": "south"},
+    {"name": "Jadavpur", "lat": 22.4955, "lon": 88.3709, "group": "south"},
+    {"name": "Behala", "lat": 22.4990, "lon": 88.3180, "group": "south"}
+  ],
+  "groups": [
+    {"key": "central", "label": "Central: Park Street, Esplanade, Burrabazar, College Street"},
+    {"key": "north", "label": "North: Shyambazar, Dum Dum, Lake Town"},
+    {"key": "east", "label": "East: Salt Lake, Sector V, New Town"},
+    {"key": "south", "label": "South: Ballygunge, Gariahat, Jadavpur, Behala"}
+  ],
+  "lines": [
+    {
+      "name": "Kolkata Metro Blue Line",
+      "color": "#025EEE",
+      "stations": [
+        [22.6205, 88.3929],
+        [22.6059, 88.3862],
+        [22.6013, 88.3723],
+        [22.5956, 88.3650],
+        [22.5723, 88.3587],
+        [22.5636, 88.3512],
+        [22.5550, 88.3500],
+        [22.4943, 88.3449],
+        [22.4807, 88.3464],
+        [22.4735, 88.3609],
+        [22.4643, 88.3811],
+        [22.4661, 88.3921]
+      ]
+    },
+    {
+      "name": "Kolkata Metro Green Line",
+      "color": "#008100",
+      "stations": [
+        [22.5839, 88.3340],
+        [22.5831, 88.3407],
+        [22.5720, 88.3506],
+        [22.5645, 88.3499],
+        [22.5665, 88.3700],
+        [22.5721, 88.3903],
+        [22.5730, 88.4031],
+        [22.5800, 88.4013],
+        [22.5870, 88.4079],
+        [22.5904, 88.4156],
+        [22.5863, 88.4216],
+        [22.5809, 88.4290]
+      ]
+    },
+    {
+      "name": "Kolkata Metro Purple Line",
+      "color": "#800080",
+      "stations": [
+        [22.4524, 88.3018],
+        [22.4644, 88.3075],
+        [22.4749, 88.3099],
+        [22.4874, 88.3133],
+        [22.4988, 88.3173],
+        [22.5077, 88.3203],
+        [22.5191, 88.3236]
+      ]
+    }
+  ],
+  "water": [
+    {
+      "name": "Hooghly river",
+      "kind": "river",
+      "points": [
+        [22.6411, 88.3577],
+        [22.6312, 88.3613],
+        [22.6184, 88.3651],
+        [22.6091, 88.3612],
+        [22.5965, 88.3505],
+        [22.5852, 88.3479],
+        [22.5792, 88.3452],
+        [22.5722, 88.3412],
+        [22.5604, 88.3296],
+        [22.5577, 88.3270],
+        [22.5534, 88.3223],
+        [22.5508, 88.3187],
+        [22.5497, 88.3130],
+        [22.5495, 88.3047],
+        [22.5521, 88.2957],
+        [22.5529, 88.2893]
+      ]
+    },
+    {
+      "name": "Rabindra Sarobar",
+      "kind": "lake",
+      "points": [
+        [22.5095, 88.3479],
+        [22.5099, 88.3503],
+        [22.5102, 88.3528],
+        [22.5120, 88.3552],
+        [22.5119, 88.3577],
+        [22.5122, 88.3601],
+        [22.5130, 88.3625],
+        [22.5132, 88.3650],
+        [22.5103, 88.3650],
+        [22.5103, 88.3625],
+        [22.5101, 88.3601],
+        [22.5096, 88.3577],
+        [22.5096, 88.3552],
+        [22.5087, 88.3528],
+        [22.5084, 88.3503],
+        [22.5085, 88.3479]
+      ]
+    }
+  ],
+  "neighbours": [
+    {"name": "Howrah", "lat": 22.5736, "lon": 88.3251},
+    {"name": "Garia", "lat": 22.4660, "lon": 88.3928}
+  ],
+  "notes": "Station and river points are from OpenStreetMap (Nov 2026); the Blue Line is drawn Dum Dum to Shahid Khudiram only (it continues north to Dakshineswar), the Purple Line is its open Joka to Majerhat section, the Orange Line on the EM Bypass is left out, and Salt Lake is placed at City Centre."
+}

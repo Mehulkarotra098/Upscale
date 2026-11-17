@@ -167,7 +167,8 @@ export async function mount(el) {
   const rim = new T.DirectionalLight(C.lime, 0.55); rim.position.set(-6, 3, -5); scene.add(rim);
 
   const calm = reduce(); const capture = el.hasAttribute('data-capture');  /* capture: fixed steps, so posters show the finished scene */
-  const spec = mod.default(K, { calm, small });
+  let args = {}; try { args = JSON.parse(el.dataset.args || '{}'); } catch (e) {}
+  const spec = mod.default(K, { calm, small, args });
   const root = new T.Group(); root.add(spec.root); scene.add(root);
   const cam = new T.PerspectiveCamera(spec.fov ?? 30, 1, 0.1, 200);
   const camPos = new T.Vector3(...(spec.cam ?? [6, 5, 8])); const target = new T.Vector3(...(spec.target ?? [0, 0.6, 0]));

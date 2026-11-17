@@ -150,7 +150,7 @@ def menu_card(p):
 
 def fashion_card(p):
     """Indian fashion labels: one product, its price shown in rupees, pounds and dollars in turn, and worldwide shipping."""
-    card = ('<div class="dk__card fs"><div class="fs__img"><span class="fs__drape"></span><span class="fs__tag">New</span></div>'
+    card = (f'<div class="dk__card fs"><div class="fs__img"><img src="{GP.vurl("/assets/photos/kurta-set.webp")}" alt="" width="800" height="600" loading="lazy" decoding="async"><span class="fs__tag">New</span></div>'
             '<p class="fs__n"><b>Chanderi kurta set</b><small>Handwoven · made to measure · sample</small></p>'
             '<p class="fs__p"><span style="--i:0">₹8,450</span><span style="--i:1">£79</span><span style="--i:2">$99</span></p>'
             f'<p class="fs__go">{icon("cart")}Add to bag</p></div>')
