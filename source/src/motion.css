@@ -149,3 +149,5 @@ html.pin-ok .wk{--cw:min(44vw,calc((100vh - 530px) * 1.6),720px)}
 }
 /* Very short laptop screens: keep pinned cards compact (logo, title, link) */
 @media (min-width:1024px) and (max-height:720px){html.pin-ok .wk p{display:none}html.pin-ok .wk__body{gap:4px;padding:12px 16px}}
+/* pinned cards that would not fit the screen: compact card (logo, name, link), set by fitCards() in script.js */
+html.pin-ok [data-track].is-tight .wk p,html.pin-ok [data-track].is-tight .wk .tag{display:none}html.pin-ok [data-track].is-tight .wk__body{gap:4px;padding:12px 16px}html.pin-ok [data-track].is-tight .wk__phone ~ .wk__body,html.pin-ok [data-track].is-tight .wk__media:has(.wk__phone) + .wk__body{padding-top:22px}

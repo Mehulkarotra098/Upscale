@@ -1144,3 +1144,30 @@ html.pin-ok .sp-process .step{opacity:1;transform:none}
 .fp-rel-city .fp-rel b{font-size:14.5px;line-height:1.35}
 }
 .tb:focus-visible{outline:2px solid var(--violet);outline-offset:4px;border-radius:var(--radius-card)}
+
+/* ---------- Footer link groups (17 Nov): one grid on laptops, tap-to-open groups on phones ---------- */
+.footer__cols,.footer__row{--fg:clamp(18px,3vw,48px)}
+.footer__grp > summary{list-style:none}
+.footer__grp > summary::-webkit-details-marker{display:none}
+@media (min-width:900px){
+  .footer__grp > summary{cursor:default;pointer-events:none}
+  /* area rows: label in column 1, links under columns 2-4, first line on the label's baseline */
+  .footer__row{position:relative;padding-left:calc((100% - 3 * var(--fg)) / 4 + var(--fg))}
+  .footer__row > summary{position:absolute;left:0;top:0;margin:0;line-height:1.4}
+  .footer__row ul{gap:8px 22px}
+  .footer__row ul,.footer__row li,.footer__row a{font-size:13.5px;line-height:1.4}
+  .footer__areas{padding-block:0 14px}
+  .footer__areas--abroad{padding-bottom:26px}
+}
+@media (max-width:899px){
+  .footer__cols{display:block;padding-block:6px 0;border-top:1px solid rgba(201,188,232,.14)}
+  .footer__areas{padding-block:0}
+  .footer__grp{border-bottom:1px solid rgba(201,188,232,.14)}
+  .footer__grp > summary{display:flex;align-items:center;justify-content:space-between;gap:16px;min-height:54px;margin:0;cursor:pointer;font:600 15px/1.3 var(--sans);color:var(--white);-webkit-tap-highlight-color:transparent}
+  .footer__grp > summary::after{content:"";flex:none;width:9px;height:9px;margin-right:6px;border-right:2px solid var(--lavender);border-bottom:2px solid var(--lavender);transform:translateY(-3px) rotate(45deg);transition:transform .25s var(--ease-out)}
+  .footer__grp[open] > summary::after{transform:translateY(2px) rotate(-135deg)}
+  .footer__grp > summary:focus-visible{outline:2px solid var(--lavender);outline-offset:2px}
+  .footer__grp ul,.footer__svc .footer__grp ul{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:0 16px;padding:0 0 12px}
+  .footer__grp a,.footer__svc .footer__grp a{display:block;padding-block:9px;font-size:14px}
+  .footer__areas--abroad{margin-bottom:22px}
+}
