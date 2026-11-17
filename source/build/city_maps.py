@@ -122,7 +122,7 @@ def draw(spec):
     for wtr in spec.get('water', []):
         pts = [P(a, b) for a, b in wtr['points']]
         name = wtr['name'].replace(' river', '').replace(' River', '')
-        tw = len(name) * 6.4 + 4
+        tw = len(name) * 7.0 + 4
         cands = ([pts[int(len(pts) * f)] for f in (.5, .35, .65, .2, .8)] if wtr.get('kind') == 'river'
                  else [(sum(x for x, _ in pts) / len(pts), sum(y for _, y in pts) / len(pts))])
         for cx_, cy_ in cands:

@@ -447,7 +447,7 @@
 .ca-a circle{stroke:#fff;stroke-width:2.5}
 .ca-a text,.ca-nb text{font:600 13px/1 var(--sans);fill:#251E45;paint-order:stroke;stroke:#fff;stroke-width:4px;stroke-linejoin:round}
 .ca-lead{stroke:#8C82B5;stroke-width:1.2}
-.ca-wl{font:italic 600 11px/1 var(--sans);fill:#4F5DB8;letter-spacing:.02em;paint-order:stroke;stroke:rgba(255,255,255,.75);stroke-width:3px}
+.ca-wl{font:italic 600 12px/1 var(--sans);fill:#4F5DB8;letter-spacing:.02em;paint-order:stroke;stroke:rgba(255,255,255,.75);stroke-width:3px}
 .ca-nb circle{fill:#fff;stroke:#8C82B5;stroke-width:2;stroke-dasharray:3 2}.ca-nb text{fill:#6b6188;font-style:italic}
 .ca__t{display:grid;gap:16px}
 .ca__home{display:grid;gap:4px;margin:0;padding:16px 18px;border-radius:16px;background:var(--violet);color:#fff}
