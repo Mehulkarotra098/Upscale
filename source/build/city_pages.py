@@ -461,7 +461,7 @@ def trust_bento(keys=('pay', 'own', 'fix', 'me')):
 def work_rail(ctx, keys):
     wmap = {w[0]: w for w in ctx['WORK']}
     li = ''
-    for k in keys[:3]:
+    for k in keys[:6]:  # six projects; the arrows scroll the rail (Mehul, 17 Nov 2026: "only 3, add 3 more")
         w = wmap[k]; lw, lh = ctx['SZ'][k]
         li += (f'<li><a class="wr__c" href="{w[5]}" target="_blank" rel="noopener" data-cursor="view"><span class="wr__img"><img src="{GP.vurl(f"/assets/work/{k}-peek.webp")}" '
                f'width="768" height="480" alt="{ea("Website for " + w[1] + ", designed and built by U Scale")}" loading="lazy" decoding="async"></span>'
