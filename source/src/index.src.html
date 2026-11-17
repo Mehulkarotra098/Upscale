@@ -173,7 +173,7 @@ if(m==='off')d.classList.add('rm');if(navigator.webdriver)d.classList.add('agent
         <div class="wrap work__head">
           <div class="sec-head" style="margin:0">
             <p class="eyebrow" data-reveal data-scramble>Selected work</p>
-            <h2 class="h2" id="work-title" data-split>Live sites you can check yourself.</h2>
+            <h2 class="h2" id="work-title" data-split>Check them live.</h2>
             <p class="lead" data-reveal>Client work, in-house roles, a founder project and one concept, all designed and built by me. Open any of them on your phone. Your site gets built to the same standard.</p>
           </div>
           <p class="work__count" aria-hidden="true"><b data-wk-now>01</b><span> / {{WORK_TOTAL}}</span></p>
@@ -337,8 +337,7 @@ if(m==='off')d.classList.add('rm');if(navigator.webdriver)d.classList.add('agent
     </nav>
   </div>
   <nav class="wrap footer__svc footer__cols" aria-label="Services, tools and pages">
-    <div>
-      <p class="footer__k" id="fk0">Websites</p>
+    <details class="footer__grp" open><summary class="footer__k" id="fk0">Websites</summary>
       <ul aria-labelledby="fk0">
         <li><a href="/services/website-design-mumbai">Website design in Mumbai</a></li>
         <li><a href="/services/ecommerce-website-mumbai">E-commerce websites</a></li>
@@ -346,9 +345,8 @@ if(m==='off')d.classList.add('rm');if(navigator.webdriver)d.classList.add('agent
         <li><a href="/services/website-design-mumbai/boutiques-fashion">Boutique &amp; fashion websites</a></li>
         <li><a href="/freelance-web-designer-mumbai">Freelance web designer in Mumbai</a></li>
       </ul>
-    </div>
-    <div>
-      <p class="footer__k" id="fk1">Monthly marketing</p>
+    </details>
+    <details class="footer__grp" open><summary class="footer__k" id="fk1">Monthly marketing</summary>
       <ul aria-labelledby="fk1">
         <li><a href="/services/seo-mumbai">SEO services in Mumbai</a></li>
         <li><a href="/services/google-business-profile-mumbai">Google Business Profile management</a></li>
@@ -357,9 +355,8 @@ if(m==='off')d.classList.add('rm');if(navigator.webdriver)d.classList.add('agent
         <li><a href="/services/ai-search-visibility">AI search visibility</a></li>
         <li><a href="/services/digital-marketing-mumbai">Digital marketing in Mumbai</a></li>
       </ul>
-    </div>
-    <div>
-      <p class="footer__k" id="fk2">Free tools</p>
+    </details>
+    <details class="footer__grp" open><summary class="footer__k" id="fk2">Free tools</summary>
       <ul aria-labelledby="fk2">
         <li><a href="/tools/google-business-profile-checker">Free Google profile checker</a></li>
         <li><a href="/tools/google-review-qr-code">Free Google review QR maker</a></li>
@@ -368,9 +365,8 @@ if(m==='off')d.classList.add('rm');if(navigator.webdriver)d.classList.add('agent
         <li><a href="/tools/website-cost-calculator">Website cost calculator</a></li>
         <li><a href="/tools">All free tools</a></li>
       </ul>
-    </div>
-    <div>
-      <p class="footer__k" id="fk3">U Scale</p>
+    </details>
+    <details class="footer__grp" open><summary class="footer__k" id="fk3">U Scale</summary>
       <ul aria-labelledby="fk3">
         <li><a href="/services">All services</a></li>
         <li><a href="/pricing">Full price list</a></li>
@@ -378,11 +374,11 @@ if(m==='off')d.classList.add('rm');if(navigator.webdriver)d.classList.add('agent
         <li><a href="/services/white-label-web-design">White label for agencies</a></li>
         <li><a href="/services/whatsapp-chatbot">WhatsApp and AI chatbots</a></li>
       </ul>
-    </div>
+    </details>
   </nav>
   <nav class="wrap footer__svc footer__areas" aria-label="Website design by area and city">
-    <ul>
-      <li class="footer__areas-k" aria-hidden="true">Website design in</li>
+    <details class="footer__grp footer__row" open><summary class="footer__k" id="fk4">Website design in</summary>
+    <ul aria-labelledby="fk4">
       <li><a href="/services/website-design-mumbai/ghatkopar"><span class="sr-only">Website design in </span>Ghatkopar</a></li>
       <li><a href="/services/website-design-mumbai/andheri-east"><span class="sr-only">Website design in </span>Andheri</a></li>
       <li><a href="/services/website-design-thane"><span class="sr-only">Website design in </span>Thane</a></li>
@@ -397,11 +393,11 @@ if(m==='off')d.classList.add('rm');if(navigator.webdriver)d.classList.add('agent
       <li><a href="/services/website-design-surat"><span class="sr-only">Website design in </span>Surat</a></li>
       <li><a href="/services/website-design-jaipur"><span class="sr-only">Website design in </span>Jaipur</a></li>
       <li><a href="/services/website-design-india">All of India</a></li>
-    </ul>
+    </ul></details>
   </nav>
   <nav class="wrap footer__svc footer__areas footer__areas--abroad" aria-label="Website design for businesses outside India">
-    <ul>
-      <li class="footer__areas-k" aria-hidden="true">Clients abroad</li>
+    <details class="footer__grp footer__row" open><summary class="footer__k" id="fk5">Clients abroad</summary>
+    <ul aria-labelledby="fk5">
       <li><a href="/services/website-design-uk"><span class="sr-only">Website design for </span>UK</a></li>
       <li><a href="/services/website-design-usa"><span class="sr-only">Website design for </span>USA</a></li>
       <li><a href="/services/website-design-australia"><span class="sr-only">Website design for </span>Australia</a></li>
@@ -412,7 +408,7 @@ if(m==='off')d.classList.add('rm');if(navigator.webdriver)d.classList.add('agent
       <li><a href="/services/website-design-new-zealand"><span class="sr-only">Website design for </span>New Zealand</a></li>
       <li><a href="/services/website-design-netherlands"><span class="sr-only">Website design for </span>Netherlands</a></li>
       <li><a href="/services/outsource-web-design-india">Prices in your currency</a></li>
-    </ul>
+    </ul></details>
   </nav>
   <div class="footer__big" aria-hidden="true" data-progress="foot"><span class="fb fb-out" data-t="By Mehul Karotra."></span><span class="fb-fill"><span class="fb">By Mehul Karotra.</span></span></div>
   <div class="wrap footer__bottom">

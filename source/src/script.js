@@ -135,15 +135,22 @@
   /* Size the pinned cards from the real screen height, so every card (and the space under it) always fits */
   function fitCards(){
     if(!cards.length) return;
-    var sticky=$('.work__sticky'), head=$('.work__head'), links=$$('.wk__a',track);
-    var padTop=parseFloat(getComputedStyle(sticky).paddingTop)||0, headH=head.offsetHeight+(parseFloat(getComputedStyle(head).marginBottom)||0);
-    var gap=Math.max(26,innerHeight*.04), budget=innerHeight-padTop-2*gap-headH;
+    var sticky=$('.work__sticky'), links=$$('.wk__a',track);
+    /* measure where the cards really start inside the pinned stage (heading, counter and margins included) and keep
+       a clear gap under them, above the progress bar, so the last line of a card never touches the screen edge */
+    var off=track.getBoundingClientRect().top-sticky.getBoundingClientRect().top;
+    var gap=Math.max(32,innerHeight*.05), budget=innerHeight-off-gap;
     var maxW=Math.min(innerWidth*.44,720), minW=Math.min(300,maxW), cw=minW;
     var tallest=function(){ var m=0; links.forEach(function(a){ m=Math.max(m,a.offsetHeight); }); return m; };
     var best=minW, bestH=1e9, found=false;
-    for(var w=Math.round(maxW); w>=minW; w-=16){
-      track.style.setProperty('--cwj',w+'px');
-      var th=tallest(); if(th<=budget){ cw=w; found=true; break; } if(th<bestH){ bestH=th; best=w; }
+    /* first the full card; if even the narrowest one is too tall, the compact card (logo, name, link) */
+    track.classList.remove('is-tight');
+    for(var pass=0; pass<2 && !found; pass++){
+      if(pass===1) track.classList.add('is-tight');
+      for(var w=Math.round(maxW); w>=minW; w-=16){
+        track.style.setProperty('--cwj',w+'px');
+        var th=tallest(); if(th<=budget){ cw=w; found=true; break; } if(th<bestH){ bestH=th; best=w; }
+      }
     }
     if(!found) cw=best;
     track.style.setProperty('--cwj',Math.round(cw)+'px');
@@ -617,6 +624,10 @@
   if(!motion) revealAll();
   layout();
   window.addEventListener('load',layout);
+  /* Footer: link groups open on laptops, folded on phones (tap a heading to open it). Without JS they stay open. */
+  var fq=window.matchMedia('(max-width:899px)'), fgs=$$('.footer__grp');
+  function footerGroups(){ fgs.forEach(function(g){ if(fq.matches) g.removeAttribute('open'); else g.setAttribute('open',''); }); }
+  if(fgs.length){ footerGroups(); if(fq.addEventListener) fq.addEventListener('change',footerGroups); else if(fq.addListener) fq.addListener(footerGroups); }
   if(document.fonts&&document.fonts.ready) document.fonts.ready.then(layout);
   $$('img').forEach(function(im){ if(!im.complete) im.addEventListener('load',function(){ if(im.closest('[data-track]')) layout(); },{once:true}); });
 
