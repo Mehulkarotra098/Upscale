@@ -420,3 +420,6 @@
   .js .rv.is-in .rv__stars i,.js .quote.is-in .quote__stars i{animation:cvPop .45s var(--ease-spring) both;animation-delay:calc(.2s + var(--s) * .1s)}
 }
 .rm .rv__stars i,.rm .quote__stars i{animation:none!important}
+
+/* review cards: the source line has the height of the Clutch stars row, so all three quotes start level */
+.quote__from{min-height:20px;font:600 13px/1.2 var(--sans);letter-spacing:.02em;color:var(--body)}
