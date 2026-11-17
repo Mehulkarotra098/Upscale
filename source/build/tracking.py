@@ -15,8 +15,11 @@ import re
 
 GTM_ID = 'GTM-MXD5KLR3'
 CONSENT = ("window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}(function(){var c='',d='denied',s=1;try{var p=(localStorage.getItem('us-consent')||'').split(':');if(Date.now()-(+p[1]||0)<31536e6)c=p[0];}catch(e){}try{s=/^(Europe\\/|Arctic\\/|Atlantic\\/(Reykjavik|Canary|Madeira|Azores|Faroe)|Asia\\/(Nicosia|Famagusta)|America\\/(Montreal|Toronto|Blanc-Sablon))/.test(Intl.DateTimeFormat().resolvedOptions().timeZone)?1:0;}catch(e){}document.documentElement.setAttribute('data-cc',s?'ask':'note');var on=c==='yes'||(c!=='no'&&!s&&!navigator.globalPrivacyControl);gtag('consent','default',{ad_storage:d,ad_user_data:d,ad_personalization:d,analytics_storage:on?'granted':d});if(!c)gtag('consent','default',{ad_storage:d,ad_user_data:d,ad_personalization:d,analytics_storage:d,region:['AT','BE','BG','HR','CY','CZ','DK','EE','FI','FR','DE','GR','HU','IE','IT','LV','LT','LU','MT','NL','PL','PT','RO','SK','SI','ES','SE','IS','LI','NO','GB','CH','CA-QC']});})();gtag('js',new Date());")
+# Only on the live domain (17 Nov 2026): local test copies and Vercel previews loaded the same tag and were counted as
+# visits from India, which inflated the numbers on test days. Same async load as Google's own snippet.
 HEAD = (f'<script>{CONSENT}</script>\n'
-        f'<script async src="https://www.googletagmanager.com/gtm.js?id={GTM_ID}"></script>')
+        f'<script>if(/(^|\\.)uscale\\.in$/.test(location.hostname)){{var s=document.createElement("script");s.async=true;'
+        f's.src="https://www.googletagmanager.com/gtm.js?id={GTM_ID}";document.head.appendChild(s);}}</script>')
 BODY = ''
 
 _CHARSET = re.compile(r'<meta charset="[^"]*">', re.I)
