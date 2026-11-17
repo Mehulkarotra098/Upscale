@@ -128,14 +128,14 @@ ea = lambda t: html.escape(t, quote=True)
 WORK = [
  ('spacestudio', 'Space Studio Chennai', 'Architecture · Chennai', 'Web Development + SEO', 'Rebuilt website for an office architecture practice in Chennai: 86 hand-coded pages, a live 3D building model on every service page, and every old WordPress link kept for search.', 'https://spacestudiochennai.com', '#A48064', True, '', 'hero film, featured projects and concepts sections'),
  ('tis', 'TIS Admissions 2026–27', 'Education · Kandivali West, Mumbai', 'Concept · Web Development', 'A concept admissions website for an ICSE school: programmes, campus life and a simple enquiry form.', 'https://tis-school-admissions-2026.vercel.app', '#FCC513', True, 'Concept', 'admissions hero, learning stages and campus sections'),
- ('antrah', 'Antrah Wellness', 'Wellness · Mumbai', 'Web Development', 'Launch site for a two-day wellness gathering: five paths to wellbeing, one calm digital home.', 'https://antrah-wellness.vercel.app', '#6B2F0A', True, '', 'hero with the five paths and the story section'),
+ ('antrah', 'Antrah Wellness', 'Wellness · Mumbai', 'Web Development', 'Launch site for a two-day wellness gathering and its five paths to wellbeing.', 'https://antrah-wellness.vercel.app', '#6B2F0A', True, '', 'hero with the five paths and the story section'),
  ('roar', 'Roar Arena', 'Sports · India', 'Web Development', "A live match centre and fan community platform for India's sports watch-party culture.", 'https://roararenaindia.vercel.app', '#FF5428', True, '', 'matchday board hero and what we are building'),
  ('mcm', 'My Country Mobile', 'Telecom · In-house role', 'UI/UX + Web', 'Interface design and web development for an AI-first cloud phone and contact centre platform, built during an in-house role.', 'https://mycountrymobile.com', '#3B82F6', False, 'In-house', 'AI contact center hero, platform and core tools sections'),
- ('callmama', 'Callmama', 'Telecom · In-house role', 'UI/UX + Web', 'Product design and web experience for an international calling brand, built during an in-house role.', 'https://www.callmama.com', '#1B99F9', False, 'In-house', 'calling app hero, country numbers and products'),
+ ('callmama', 'Callmama', 'Telecom · In-house role', 'UI/UX + Web', 'Product design and the website for an international calling brand, built during an in-house role.', 'https://www.callmama.com', '#1B99F9', False, 'In-house', 'calling app hero, country numbers and products'),
  ('growcred', 'GrowCred', 'Climate Tech · Founder project', 'Product Build', 'Founder-built climate-tech platform: plant trees, upload proof, earn TreeCoin.', 'https://greencred.vercel.app', '#22C55E', True, '', 'hero and the plant, prove, protect loop'),
- ('sashe', 'Sashe by Prachi', 'Fashion · Mumbai', 'Web Development', "Digital home for a bespoke fashion label: a magazine-style front page, signature looks, studio enquiry forms and the founder’s story. Built mobile-first, to the founder’s high standards.", 'https://sashebyprachi.in', '#641F2A', True, '', 'editorial hero, signature looks and studio forms'),
+ ('sashe', 'Sashe by Prachi', 'Fashion · Mumbai', 'Web Development', "Website for a made-to-order fashion label: a magazine-style front page, signature looks, studio enquiry forms and the founder’s story, built mobile-first.", 'https://sashebyprachi.in', '#641F2A', True, '', 'editorial hero, signature looks and studio forms'),
  ('vidhi', 'Vidhi Parmar', 'Creative · Mumbai', 'Web Development', 'Portfolio website for a Mumbai AI visual artist: selected AI ad films, a four-step process, services and FAQs.', 'https://www.vidhiparmar.me', '#F0457F', True, '', 'showreel hero and about section'),
- ('brandgen', 'BrandGen', 'AI SaaS · Marketing visuals', 'Social Media + Site', 'Website and social media for an AI tool that turns one brand reference into on-brand marketing visuals.', 'https://www.getbrandgen.com', '#F97015', False, '', 'models and voice prompt sections'),
+ ('brandgen', 'BrandGen', 'AI SaaS · Marketing visuals', 'Social Media + Site', 'Website and social media for an AI tool that turns one brand reference into marketing visuals in that brand’s style.', 'https://www.getbrandgen.com', '#F97015', False, '', 'models and voice prompt sections'),
 ]
 def dom(u): return u.split('//')[1].rstrip('/')
 # Phone mockup for the work cards: titanium edge, glass bezel, Dynamic Island, side keys,
@@ -218,7 +218,7 @@ def bp(built):
 blueprint = bp(False) + f'<div class="blueprint__built"><div>{bp(True)}</div></div><span class="blueprint__seam"></span>'
 
 src = (SRC / 'index.src.html').read_text()
-css = '\n'.join((SRC / f).read_text() for f in ['styles.css', 'work.css', 'motion.css', 'growth.css', 'seo.css', 'depth.css', 'home.css', 'world.css', 'world-ai.css', 'world-art.css', 'world-widgets.css'])
+css = '\n'.join((SRC / f).read_text() for f in ['styles.css', 'work.css', 'motion.css', 'growth.css', 'seo.css', 'depth.css', 'home.css', 'world.css', 'world-ai.css', 'world-art.css', 'world-widgets.css', 'visuals.css'])
 def _rules(block):
     out, i, depth, start = [], 0, 0, 0
     for j, ch in enumerate(block):
@@ -401,6 +401,10 @@ def _img_v(m):
     return p + GP.vurl(a)[len(a):] if (STATIC / a[1:]).is_file() else p
 def _asset_v(markup):
     return _IMG_ATTR.sub(lambda m: f'{m.group(1)}="{_IMG_URL.sub(_img_v, m.group(2))}"', markup)
+import hero3d  # 3D hero scenes: pages with a scene in static/assets/3d/scenes get the 3D stage in place of the flat art
+hero3d.apply(site)
+import city_maps  # area maps on the city pages (data: build/city_maps/<slug>.json)
+city_maps.apply(site)
 import tracking  # Google Tag Manager on every public page (not /admin)
 for _page in site.rglob('*.html'):
     if 'admin' in _page.relative_to(site).parts: continue

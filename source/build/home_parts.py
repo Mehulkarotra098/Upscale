@@ -117,8 +117,8 @@ def for_places():
     cities = ', '.join(links[:-1]) + ' and ' + links[-1]
     abroad = ', '.join(f'<a class="tlink" href="/services/website-design-{s}">{n}</a>' for s, n in
                        [('uk', 'the UK'), ('usa', 'the US'), ('australia', 'Australia'), ('canada', 'Canada')])
-    return (f'      <p class="fp-all home-places" data-reveal>Also near Mumbai: {near}. Outside Mumbai, I build websites for businesses in '
-            f'{cities}. Outside India, for clients in {abroad} and five more countries, with '
+    return (f'      <p class="fp-all home-places" data-reveal>I meet clients in {near} too. Further out, I build websites for businesses in '
+            f'{cities}, and outside India for clients in {abroad} and five more countries, with '
             f'<a class="tlink" href="/services/outsource-web-design-india">the same prices in your currency</a>.</p>')
 
 
@@ -130,7 +130,7 @@ def how():
     promise = [('key', 'Your domain, code and logins, in your name'), ('file', 'Every price published and fixed in writing'),
                ('shield', '15–30 day bug-fix window after launch')]
     shots = ['step-audit', 'step-plan', 'step-design', 'step-launch']
-    li = ''.join(f'<li class="fp-step" data-reveal><figure class="fp-step__media">{_pic(GP.IMG[shots[i]], "(max-width: 759px) 92vw, (max-width: 1099px) 46vw, 290px")}</figure>'
+    li = ''.join(f'<li class="fp-step" data-reveal><figure class="fp-step__media">{_pic(GP.IMG[shots[i]], "(max-width: 759px) 92vw, (max-width: 1099px) 46vw, 320px")}</figure>'
                  f'<div class="fp-step__body"><span class="fp-step__n" aria-hidden="true">{i + 1:02d}</span><h3>{e(t)}</h3><p>{e(d)}</p>'
                  f'<span class="fp-step__tag">{e(tag)}</span></div></li>' for i, (t, d, tag) in enumerate(steps))
     pr = ''.join(f'<li>{icon(ic)}<span>{e(x)}</span></li>' for ic, x in promise)
@@ -139,7 +139,7 @@ def how():
     <div class="wrap">
       <header class="sec-head">
         <p class="eyebrow" data-reveal data-scramble>How it works</p>
-        <h2 class="h2" id="how-title" data-split>Fixed price. No surprises.</h2>
+        <h2 class="h2" id="how-title" data-split>Fixed price, agreed up front.</h2>
         <p class="lead" data-reveal>From a free audit to launch in four steps. Monthly work runs for 3 months minimum, then month-to-month with 30 days&rsquo; notice.</p>
       </header>
       <ol class="fp-steps" data-reveal-group>{li}</ol>

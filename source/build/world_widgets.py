@@ -2,6 +2,7 @@
 chat demo, tabs, and do/don't lists for trades with rules. Every widget works without JavaScript: calculators show their
 worked example, the chat shows every answer, tabs show every panel. Script: the end of source/src/script.js."""
 import json
+import geo_pages as GP
 import pricing_data as PD
 from geo_pages import icon, rupees, price, e, ea
 from world_pages import sec
@@ -63,7 +64,7 @@ def compare():
     """Figma to code: the design and the built page on top of each other; drag to compare. Without JS the split stays at the middle."""
     page = lambda cls, tag: (f'<div class="cm__l cm__l--{cls}"><span class="cm__tag">{e(tag)}</span><p class="cm__nav"><b>Ridgeline</b><i></i><i></i><i></i></p>'
                              '<p class="cm__h">Small-batch coffee, roasted Mondays</p><p class="cm__s">Single origins from Coorg and Chikmagalur, posted the same week.</p>'
-                             '<span class="cm__btn">Shop beans</span><span class="cm__img"></span></div>')
+                             '<span class="cm__btn">Shop beans</span>' + (f'<span class="cm__img"><img src="{GP.vurl("/assets/photos/coffee-beans.webp")}" alt="" width="600" height="600" loading="lazy" decoding="async"></span>' if cls == 'built' else '<span class="cm__img"></span>') + '</div>')
     guides = ('<span class="cm__g cm__g--1">48</span><span class="cm__g cm__g--2">24</span><span class="cm__g cm__g--3">Anton 56/58</span>')
     html = (f'<div class="cm" data-compare data-reveal style="--x:50%"><div class="cm__stage">{page("built", "Live site")}'
             f'<div class="cm__top">{page("design", "Your Figma file")}{guides}</div><span class="cm__bar" aria-hidden="true"><i>{icon("code")}</i></span></div>'
@@ -91,8 +92,8 @@ def checkout():
     li = ''.join(f'<li style="--i:{i}"><span>{e(a)}</span><b>{e(b)}</b></li>' for i, (a, b) in enumerate(rows))
     html = (f'<div class="co" data-reveal><div class="co__card"><p class="co__head">{icon("cart")}<b>Checkout</b><small>sample · prices in £</small></p><ul>{li}</ul>'
             f'<p class="co__tot"><span>Total, nothing more at the door</span><b>£109.20</b></p><span class="co__btn">Pay £109.20</span></div>'
-            '<div class="co__copy"><h3>No surprise bill at the door.</h3><p>A parcel held at customs for unpaid duty is the fastest way to lose a customer abroad. '
-            'Your store shows shipping and duties before checkout, by country, so the buyer pays once.</p></div></div>')
+            '<div class="co__copy"><h3>The buyer pays once.</h3><p>A parcel held at customs for unpaid duty is the fastest way to lose a customer abroad. '
+            'Your store shows shipping and duties for each country before checkout.</p></div></div>')
     return html, 'A sample checkout: kurta set £79, shipping to London £12, duties and taxes £18.20, total £109.20, shown before paying.'
 
 
@@ -143,7 +144,7 @@ def consent_nl():
     html = ('<div class="ck2" data-reveal><div class="ck2__box"><p class="ck2__k">Cookies</p><p>We use one analytics cookie to see which pages help. It stays off unless you say yes.</p>'
             '<p class="ck2__row"><span>Functional (needed for the site to work)</span><b>Always on</b></p><p class="ck2__row"><span>Analytics</span><b class="ck2__off">Off until you say yes</b></p>'
             '<p class="ck2__btns"><span>No thanks</span><span class="ck2__go">Yes, that’s fine</span></p></div>'
-            '<div class="ck2__copy"><h3>Prior consent, done properly.</h3><p>Dutch rules ask for consent before any cookie except the functional ones. Your site asks first, '
+            '<div class="ck2__copy"><h3>No analytics before a yes.</h3><p>Dutch rules ask for consent before any cookie except the functional ones. Your site asks first, '
             'with “no” as easy as “yes”, in Dutch, English or both.</p></div></div>')
     return html, 'Dutch rules ask for prior consent for every cookie except functional ones; the site asks first, with no as easy as yes.'
 

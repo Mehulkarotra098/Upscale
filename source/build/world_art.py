@@ -25,7 +25,7 @@ def uk_letter(p):
     card = (f'<div class="dk__card ql"><p class="ql__head"><b>Quote</b><small>U Scale · Mumbai · for a UK business</small></p><ul class="ql__rows">{li}</ul>'
             f'<p class="ql__total"><span>Total, fixed</span><b>{e(_p("GBP"))}</b></p><p class="ql__sig"><i>Mehul Karotra</i><small>Signed before you pay a penny</small></p>'
             '<span class="ql__seal" aria-hidden="true"><b>FIXED</b></span></div>')
-    return _dk('ql', card, [('clock', 'Sorted before your tea goes cold'), ('shield', 'UK GDPR cookies done')],
+    return _dk('ql', card, [('clock', 'Quick changes, same day'), ('shield', 'UK GDPR cookies done')],
                f'A written, signed quote for a UK business: a 5–10 page website for {_p("GBP")}, fixed, no VAT added')
 
 
@@ -47,7 +47,7 @@ def au_job(p):
     card = (f'<div class="dk__card jsh"><p class="jsh__head"><b>Job sheet</b><small>No. 2051</small></p>'
             f'<dl class="jsh__dl"><div><dt>Job</dt><dd>5–10 page website</dd></div><div><dt>Quote</dt><dd>{e(_p("AUD"))} fixed</dd></div><div><dt>GST</dt><dd>None added</dd></div></dl>'
             f'<ul class="jsh__list">{li}</ul><span class="jsh__stamp" aria-hidden="true">Sorted</span></div>')
-    return _dk('jsh', card, [('chat', 'Feedback at smoko, done by morning')], f'A job sheet for an Australian business: a 5–10 page website for {_p("AUD")} fixed, ticked off step by step')
+    return _dk('jsh', card, [('chat', 'Feedback after lunch, done that night')], f'A job sheet for an Australian business: a 5–10 page website for {_p("AUD")} fixed, ticked off step by step')
 
 
 def ca_flip(p):
@@ -65,7 +65,7 @@ def sg_dash(p):
             f'<div class="sd2__t"><small>Singapore now</small><b data-clock data-tz="Asia/Singapore">14:30</b></div>'
             f'<div class="sd2__t"><small>5–10 page site</small><b>{e(_p("SGD"))}</b></div>'
             f'<div class="sd2__t sd2__t--ok"><small>PDPA</small><b>{icon("check")}Consent first</b></div></div>')
-    return _dk('sd2', card, [('clock', 'Same hours, all year')], f'A dashboard for a Singapore business: 5.5 shared hours all year, PDPA consent, {_p("SGD")} fixed')
+    return _dk('sd2', card, [('clock', 'Your afternoon, our working day')], f'A dashboard for a Singapore business: 5.5 shared hours all year, PDPA consent, {_p("SGD")} fixed')
 
 
 def ae_phone(p):
@@ -93,7 +93,7 @@ def nz_relay(p):
     li = ''.join(f'<li class="nr__m nr__m--{s}" style="--i:{i}"><span>{e(t)}</span><small>{e(tm)}</small></li>' for i, (s, tm, t) in enumerate(msgs))
     card = (f'<div class="dk__card nr"><p class="nr__head"><b>Your project chat</b><small>Times in Auckland</small></p><ol>{li}</ol>'
             '<p class="nr__ruler" aria-hidden="true"><span>Auckland</span><i></i><span>Mumbai</span><b>7.5 h behind</b></p></div>')
-    return _dk('nr', card, [('clock', 'Message at night, changes by morning')], 'A project chat: feedback sent in the Auckland evening, changes done by the morning')
+    return _dk('nr', card, [('clock', 'Done the same evening')], 'A project chat: feedback sent in the Auckland evening, changes done by the morning')
 
 
 def nl_donut(p):

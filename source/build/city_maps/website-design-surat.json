@@ -1,0 +1,77 @@
+{
+  "city": "Surat",
+  "areas": [
+    {"name": "Ring Road textile markets", "lat": 21.1885, "lon": 72.8410, "group": "textile"},
+    {"name": "Udhna", "lat": 21.1700, "lon": 72.8440, "group": "textile"},
+    {"name": "Pandesara", "lat": 21.1500, "lon": 72.8370, "group": "textile"},
+    {"name": "Varachha", "lat": 21.2125, "lon": 72.8580, "group": "diamond"},
+    {"name": "Katargam", "lat": 21.2240, "lon": 72.8330, "group": "diamond"},
+    {"name": "Mahidharpura", "lat": 21.2010, "lon": 72.8320, "group": "diamond"},
+    {"name": "Chowk Bazaar", "lat": 21.1957, "lon": 72.8192, "group": "diamond"},
+    {"name": "Sarthana", "lat": 21.2310, "lon": 72.9010, "group": "diamond"},
+    {"name": "Adajan", "lat": 21.1960, "lon": 72.7920, "group": "west"},
+    {"name": "Pal", "lat": 21.1967, "lon": 72.7732, "group": "west"},
+    {"name": "Rander", "lat": 21.2215, "lon": 72.7960, "group": "west"},
+    {"name": "Athwa", "lat": 21.1810, "lon": 72.8070, "group": "southwest"},
+    {"name": "Citylight", "lat": 21.1680, "lon": 72.7945, "group": "southwest"},
+    {"name": "Piplod", "lat": 21.1600, "lon": 72.7785, "group": "southwest"},
+    {"name": "Vesu", "lat": 21.1425, "lon": 72.7790, "group": "southwest"}
+  ],
+  "groups": [
+    {"key": "textile", "label": "Textile belt: Ring Road, Udhna, Pandesara"},
+    {"key": "diamond", "label": "Diamonds and old city: Varachha, Katargam, Mahidharpura, Chowk"},
+    {"key": "west", "label": "Across the Tapi: Adajan, Pal, Rander"},
+    {"key": "southwest", "label": "South-west: Athwa, Citylight, Piplod, Vesu"}
+  ],
+  "lines": [
+    {
+      "name": "Surat Metro Line 1 (under construction)",
+      "color": "#FF0000",
+      "stations": [
+        [21.2316, 72.9031],
+        [21.2234, 72.8867],
+        [21.2165, 72.8675],
+        [21.2095, 72.8549],
+        [21.2039, 72.8417],
+        [21.1981, 72.8335],
+        [21.1957, 72.8192],
+        [21.1810, 72.8184],
+        [21.1620, 72.8117],
+        [21.1452, 72.8051],
+        [21.1287, 72.7982],
+        [21.1112, 72.7979]
+      ]
+    }
+  ],
+  "water": [
+    {
+      "name": "Tapi river",
+      "kind": "river",
+      "points": [
+        [21.2493, 72.9073],
+        [21.2290, 72.8820],
+        [21.2238, 72.8658],
+        [21.2287, 72.8509],
+        [21.2563, 72.8202],
+        [21.2546, 72.8111],
+        [21.2401, 72.7936],
+        [21.2354, 72.7920],
+        [21.2149, 72.8033],
+        [21.2052, 72.8186],
+        [21.1933, 72.8141],
+        [21.1811, 72.7960],
+        [21.1783, 72.7786],
+        [21.1611, 72.7646],
+        [21.1433, 72.7392],
+        [21.1406, 72.7284],
+        [21.1441, 72.7114]
+      ]
+    }
+  ],
+  "neighbours": [
+    {"name": "Dumas", "lat": 21.0879, "lon": 72.7126},
+    {"name": "Diamond Bourse, Khajod", "lat": 21.1099, "lon": 72.7951},
+    {"name": "Sachin", "lat": 21.0853, "lon": 72.8805}
+  ],
+  "notes": "Surat Metro Line 1 (Sarthana to Dream City) is under construction, with the Dream City to Althan section in trial runs and expected to open around end-November 2026, so draw it as planned; station and river points are from OpenStreetMap, and Pal and Pandesara positions are approximate locality centres."
+}

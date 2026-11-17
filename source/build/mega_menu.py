@@ -14,7 +14,7 @@ import pricing_data as PD
 GOALS = [
     ('Get a website', [
         ('Website design', 'Designed in Figma, live in 3–4 weeks', '/services/website-design-mumbai'),
-        ('Online store', 'Your products, your checkout, your customers', '/services/ecommerce-website-mumbai'),
+        ('Online store', 'Sell from your own site and checkout', '/services/ecommerce-website-mumbai'),
         ('Figma to code', 'Your design, built to match', '/services/figma-to-code'),
         ('White label for agencies', 'Your name on it, ours nowhere', '/services/white-label-web-design')]),
     ('Get customers', [

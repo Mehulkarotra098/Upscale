@@ -21,6 +21,16 @@ LICENCE = 'https://uscale.in/image-license'
 OURS = '© 2026 U Scale by Mehul Karotra. All rights reserved.'
 OURS_ASCII = 'Copyright 2026 U Scale by Mehul Karotra. All rights reserved.'
 SRC_TYPE = 'http://cv.iptc.org/newscodes/digitalsourcetype/'
+# assets/photos: name -> (photographer, Pexels photo id, what it shows)
+COMPOSITES = {'website-design-review-approval': ('Anil Sharma', '35504999', 'Sample design review of a boutique product page'),
+              'website-launch-monthly-report': ('Ravan Yas', '40934299', 'Sample launched boutique website with a launch checklist')}
+PHOTOS = {
+    'block-print-kurta': ('Anil Sharma', '35504991', 'A woman in a red floral block-print kurta'),
+    'kurta-set': ('Muneeb Malhotra', '35902078', 'A woman in a pink embroidered kurta set'),
+    'coffee-beans': ('Justus Menke', '5214207', 'Roasted coffee beans in an open silver bag'),
+    'masala-chai': ('Pitamaas', '16942969', 'A glass of masala chai with rusks and cinnamon'),
+    'chai-kettle': ('krishna prasad', '12865880', 'Glasses of chai beside a brass kettle'),
+}
 
 
 def clients():
@@ -53,6 +63,17 @@ def describe(rel, names):
     if rel.startswith('assets/card/thumbs/'):
         return (f'{words.title()} visiting card design', f'{words.title()} visiting card design from the free U Scale card maker',
                 OURS, OURS_ASCII, 'U Scale', 'U Scale', 'digitalCreation')
+    if rel.startswith('assets/photos/'):   # stock photos by other photographers, used under the Pexels licence
+        who, pid, what = PHOTOS[stem]
+        url = f'https://www.pexels.com/photo/{pid}/'
+        return (f'{what}. Photo by {who} on Pexels', f'{what}. Photo by {who} on Pexels ({url}), used under the Pexels licence in a sample design on uscale.in',
+                f'Photo © {who}. Used under the Pexels licence: {url}', f'Photo copyright {who}. Pexels licence: {url}', who, f'{who} / Pexels', 'digitalCapture')
+    if stem.removesuffix('-640') in COMPOSITES:   # our sample design with someone else's photo inside
+        who, pid, what = COMPOSITES[stem.removesuffix('-640')]
+        url = f'https://www.pexels.com/photo/{pid}/'
+        return (f'{what}, U Scale', f'{what}: an illustrative U Scale graphic. Saanjh Studio is fictional. Photo inside by {who} on Pexels ({url})',
+                f'Design © 2026 U Scale by Mehul Karotra. Photo inside © {who}, used under the Pexels licence: {url}',
+                f'Design copyright 2026 U Scale. Photo copyright {who}, Pexels licence: {url}', 'U Scale', f'U Scale; photo {who} / Pexels', 'compositeCapture')
     if rel.startswith('assets/pages/abroad/'):   # the pages abroad: sample designs and photos made and edited for U Scale
         t = words[0].upper() + words[1:]
         return (f'{t}, U Scale', f'{t}: an illustrative image for a U Scale page. The businesses and people shown are fictional.',

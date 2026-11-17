@@ -25,7 +25,7 @@ def _vs(c):
             f'<p class="fxs__vb"><span>{e(who)}, from</span><i style="--w:100%"></i><b>{e(s)}{lo:,}</b></p>'
             f'<p class="fxs__vb fxs__vb--us"><span>U Scale, fixed</span><i style="--w:{ours / lo * 100:.1f}%"></i><b>{e(s)}{ours:,}</b></p>'
             f'<p class="fxs__vd"><b>{e(s)}{lo - ours:,}</b> less than the cheapest local option we found.</p>'
-            + (f'<p class="fxs__vn">Template shops in Dubai start at AED 999, below us. We win on custom design and hand-written code.</p>' if c == 'AED' else '')
+            + (f'<p class="fxs__vn">Template shops in Dubai start at AED 999, below us. Ours is a custom design with hand-written code.</p>' if c == 'AED' else '')
             + f'{GP.src_chip(src)}</div>')
 
 
@@ -150,7 +150,7 @@ def menu_card(p):
 
 def fashion_card(p):
     """Indian fashion labels: one product, its price shown in rupees, pounds and dollars in turn, and worldwide shipping."""
-    card = ('<div class="dk__card fs"><div class="fs__img"><span class="fs__drape"></span><span class="fs__tag">New</span></div>'
+    card = (f'<div class="dk__card fs"><div class="fs__img"><img src="{GP.vurl("/assets/photos/kurta-set.webp")}" alt="" width="800" height="600" loading="lazy" decoding="async"><span class="fs__tag">New</span></div>'
             '<p class="fs__n"><b>Chanderi kurta set</b><small>Handwoven · made to measure · sample</small></p>'
             '<p class="fs__p"><span style="--i:0">₹8,450</span><span style="--i:1">£79</span><span style="--i:2">$99</span></p>'
             f'<p class="fs__go">{icon("cart")}Add to bag</p></div>')
@@ -260,7 +260,7 @@ def _white_label():
              ('Online store', STORE, True, 'Up to 50 products, a cart and card payments.', '', 'a white-label online store')]
     pc = price_cards('USD', 'For comparison, white-label partners charge agencies $500–$5,000 a site (10Web), a flat $999 (Fryloop) or $2,500–$5,000 for a '
                      'theme-based WordPress site (Web Help Agency).', '', cards=cards,
-                     note='Per site, fixed in writing before we start. You set your own price to your client. No tax is added to our invoice.')
+                     note='Per site, fixed in writing before we start. No tax is added to our invoice.')
     return page_dict(
         slug='white-label-web-design', crumb='White label', service='White label web design and development for agencies', service_type='White label web design',
         countries=['United States', 'United Kingdom', 'Australia', 'Canada'],
@@ -299,7 +299,7 @@ def _white_label():
                ('Design', 'To your brief, or built from your own Figma file'),
                ('Hand-off', 'Code, design files and every login, at the end of each project')],
         faq=[('What does white label web design mean?',
-              'We design and build the website, and you sell and deliver it to your client as your own work. Your client sees your agency’s name, not ours, '
+              'We design and build the website, and you sell and deliver it to your client as your own work. Our name appears nowhere your client can see it, '
               'and we only ever talk to you.'),
              ('How much do you charge agencies?',
               f'A fixed price per site: {fx(LANDING, "USD")} for a landing page, {fx(BIZ, "USD")} for 5–10 pages, {fx(BLOG, "USD")} for 10–20 pages with a '
@@ -339,14 +339,14 @@ def _figma():
         og_alt='Figma to code by U Scale: your design, hand-coded to match at every screen size',
         offers=[(LANDING, 'USD'), (BIZ, 'USD'), (BLOG, 'USD'), (LANDING, 'INR'), (BIZ, 'INR')],
         blocks=[
-            sec('trust', 'Why it’s safe', 'Your design, exactly. In writing.', '', trust('USD', '.com', keys=('code', 'fix', 'own', 'pay'))),
+            sec('trust', 'Why it’s safe', 'The price is fixed and the code is yours.', '', trust('USD', '.com', keys=('code', 'fix', 'own', 'pay'))),
             sec('prices', 'Prices', 'The same price list as our own designs.', 'Fixed per site, in your currency.',
                 cur_switch([('Single page', LANDING, 'One page'), ('Business site', BIZ, '5–10 pages'), ('Bigger site + blog', BLOG, '10–20 pages'),
                             ('Online store', STORE, 'Under 50 products')], curs=('USD', 'GBP', 'EUR', 'AUD', 'CAD'), sid='fc', inr=True)),
             sec('get', 'What you get', 'Your design, exactly. Then a bit more.', '', features([
                 ('layers', 'Matches your file', 'Spacing, type and colour from your Figma styles, checked side by side.'),
                 ('phone', 'Every screen size', 'Checked at 16 sizes, from a small phone to a wide monitor, including the ones you didn’t design.'),
-                ('bolt', 'Fast pages', 'Images in modern formats, fonts served from your own site, no bloat.'),
+                ('bolt', 'Fast pages', 'Images in modern formats and fonts served from your own site, so pages stay light.'),
                 ('users', 'Accessible', 'Headings, alt text, contrast and keyboard checks to WCAG 2.1 AA.'),
                 ('search', 'Ready for Google', 'Page titles, descriptions, a sitemap and Search Console at launch.'),
                 ('key', 'Yours to keep', 'Clean, commented code in your repository, with every login.')])),
@@ -376,8 +376,8 @@ def _figma():
               'No. We write the code by hand, which keeps pages light and means you are not paying a builder every month. If you need to edit content '
               'yourself, we add a simple editor for the parts that change.'),
              ('How close will the site be to my design?',
-              'Very close. We take spacing, type and colours from your Figma styles and compare the build with the design side by side. Anything that '
-              'can’t work in a browser, we raise before we build, not after.'),
+              'Very close. We take spacing, type and colours from your Figma styles and compare the build with the design side by side. If something in '
+              'the file can’t work in a browser, we tell you before we build it.'),
              ('Can you work with my developer or agency?',
               'Yes. We can push to your repository and follow your conventions. For agencies, we also work white label.')],
         sources=[],
@@ -467,7 +467,7 @@ def _fashion():
             sec('does', 'What it does', 'Shows the drape. Sells abroad.', '', features([
                 ('photo', 'Photos that sell fabric', 'Zoom on weave and embroidery, and the drape on a real person.'),
                 ('globe', 'Their currency', 'Prices in rupees at home, and in pounds, dollars or dirhams abroad.'),
-                ('plane', 'Shipping, said plainly', 'Delivery times and duties shown before checkout, not after.'),
+                ('plane', 'Shipping, said plainly', 'Delivery times and duties for each country, shown before checkout.'),
                 ('pen', 'Made to measure', 'A size form that asks the right questions, sent straight to you.'),
                 ('chat', 'WhatsApp for questions', 'A button on every product, because people ask before they buy.'),
                 ('search', 'Found on Google', 'Product pages written for what people search, like “indian clothing store online uk”.')])),
@@ -491,7 +491,7 @@ def _fashion():
              ('Can my store show prices in pounds and dollars?',
               'Yes. Customers abroad see prices in their own currency and pay by card or PayPal; customers in India see rupees and pay by UPI or card.'),
              ('How do I handle shipping and customs duties abroad?',
-              'We set up shipping rates by country and show delivery times and duties before checkout, so nobody gets a surprise bill at the door. Your courier '
+              'We set up shipping rates by country and show delivery times and duties before checkout, so nobody is asked to pay more at the door. Your courier '
               'account handles the actual shipping.'),
              ('Have you built websites for fashion brands?',
               'Yes. We designed and built the website for Sashe by Prachi, a made-to-order fashion label in Mumbai, with its signature looks, studio enquiry forms and '

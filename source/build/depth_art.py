@@ -712,7 +712,7 @@ def card_store():
     """Online stores: a product page on your own domain, the cart and a UPI payment floating in front. Illustrative product and prices."""
     sizes = ''.join(('<li class="is-on">' if z == 'M' else '<li>') + z + '</li>' for z in ('S', 'M', 'L', 'XL'))
     card = (f'<div class="dk__card sv-card sv-store"><p class="dk-win" aria-hidden="true"><i></i><i></i><i></i><span>yourstore.in</span></p>'
-            f'<div class="sv-store__p"><span class="sv-store__img" aria-hidden="true"><i></i></span>'
+            f'<div class="sv-store__p"><span class="sv-store__img" aria-hidden="true"><img src="{GP.vurl("/assets/photos/block-print-kurta.webp")}" alt="" width="400" height="500" loading="lazy" decoding="async"></span>'
             f'<span class="sv-store__t"><b>Block-print cotton kurta</b><small>In stock · ships in 2 days</small><em>₹1,450</em></span></div>'
             f'<p class="sv-card__h">Size</p><ul class="sv-store__sz" aria-hidden="true">{sizes}</ul>'
             f'<p class="sv-store__btn" aria-hidden="true">{icon("cart")}Add to cart</p>'

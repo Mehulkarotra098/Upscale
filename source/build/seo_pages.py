@@ -24,7 +24,7 @@ SERVICES = [
   desc='Website designing company in Mumbai? One designer-developer, every price published: landing page ₹25,000, business site ₹55,000, online store from ₹95,000.',
   h1='Website design & development in Mumbai',
   og='assets/pages/og-website-design-mumbai.jpg', og_alt='Website design and development in Mumbai by Mehul Karotra of U Scale: websites from ₹25,000, fixed price',
-  lead='I design and build websites for Mumbai businesses: landing pages, 5–10 page business sites, online stores and restaurant ordering. Every page is designed in Figma and coded by hand, so what you approve is exactly what goes live, at a fixed price agreed before I start.',
+  lead='I design and build websites for Mumbai businesses: landing pages, 5–10 page business sites, online stores and restaurant ordering. Every page is designed in Figma and coded by hand, so what you approve is exactly what goes live. The price is fixed before I start.',
   who='For cafés, restaurants, salons, boutiques, clinics, schools, studios and founders who need a site that looks the part, opens fast on a phone and gets people to message or call.',
   items=[('Custom design, not templates','Your brand, your layout. Designed screen by screen in Figma before a line of code is written.'),
          ('Mobile-first build','Most of your visitors are on a phone, so the mobile version is designed first and tested on real devices.'),
@@ -63,7 +63,7 @@ SERVICES = [
   related='<p class="sp-price" data-reveal><strong>Local SEO near you.</strong> Website design and local SEO for businesses in <a class="tlink" href="/services/website-design-mumbai/ghatkopar">Ghatkopar</a> and <a class="tlink" href="/services/website-design-mumbai/andheri-east">Andheri East</a>.</p>',
   work=['tis','antrah','sashe'],
   faq=[('How long does SEO take to show results?','Usually 3 to 6 months before you see real progress. Be careful of anyone who promises page one in 30 days. Every month I show you what has moved.'),
-       ('What is local SEO?','Local SEO is making sure your business shows up when people nearby search for what you sell, in Google Maps, the top three map results on Google, and “near me” searches. Google says it ranks local results on relevance, distance and prominence. In practice the work is: a complete, verified Google Business Profile with the right primary category, the same name, address and phone on your website and directories, steady genuine reviews with replies, and service pages that name your area. You can check your own listing free with the Google Business Profile checker. Step by step: How to get more Google reviews in 2026 and Why is my business not showing on Google Maps?'),
+       ('What is local SEO?','Local SEO is making sure your business shows up when people nearby search for what you sell, in Google Maps, the top three map results on Google, and “near me” searches. Google says it ranks local results on relevance, distance and prominence. In practice that means a complete, verified Google Business Profile with the right primary category, the same name, address and phone on your website and directories, steady genuine reviews with replies, and service pages that name your area. You can check your own listing free with the Google Business Profile checker. For step-by-step help, read How to get more Google reviews in 2026 and Why is my business not showing on Google Maps?'),
        ('Do you guarantee first-page rankings?','No, and nobody honestly can. What I do guarantee is the work, and a clear report of results every month.'),
        ('Do I need a new website for SEO?','Not always. I start by auditing your current site; if it can be fixed, I fix it.')]),
  dict(slug='social-media-management-mumbai', short='Social media', cta='social media', name='Social Media Management',
@@ -107,7 +107,7 @@ SERVICES = [
   price='Ads management is ₹20,000/month flat up to ₹1.5 lakh of monthly ad spend, then 12% of spend, plus a one-time ₹10,000 setup. Ad spend is paid directly to Google and Meta, so you always see it.',
   work=['brandgen','roar'],
   faq=[('How much should I spend on ads in Mumbai?','It depends on your industry and goal. I recommend a test budget first, then scale what works. Ad spend goes directly to Google and Meta.'),
-       ('What are click-to-WhatsApp ads?','Facebook and Instagram ads that open a WhatsApp chat with your business instead of a website, ideal for customers who would rather chat than fill in a form or call.'),
+       ('What are click-to-WhatsApp ads?','Facebook and Instagram ads that open a WhatsApp chat with your business instead of a website. They suit customers who would rather chat than fill in a form or call.'),
        ('Google Ads or Meta ads, which is better?','Google catches people who are already searching; Meta reaches people nearby who are not searching yet. Many local businesses use both.'),
        ('Will I see where my money goes?','Yes. You own the ad accounts and get a monthly report showing spend, leads and cost per lead.')]),
  dict(slug='ai-search-visibility', short='AI search', cta='AI search visibility', name='AI Search Visibility (GEO)', cta_h='Let’s see what AI says about you', wa="Hi Mehul, I'd like to check what ChatGPT and Google say about my business.",
@@ -129,9 +129,9 @@ SERVICES = [
   price='AI search visibility is ₹12,000/month, on its own or alongside other services. Your first check is free; a full AI visibility audit is ₹2,500, or free if we go on to work together.',
   work=['brandgen','growcred','vidhi'],
   faq=[('What is GEO (generative engine optimisation)?','GEO is work that helps AI assistants like ChatGPT, Gemini and Perplexity find accurate, consistent facts about your business, so they are more likely to mention it correctly when someone asks for a recommendation.'),
-       ('Is AI search replacing Google?','Not replacing, adding to it. More people now ask AI tools for recommendations, so it pays to show up in both.'),
+       ('Is AI search replacing Google?','No, it sits alongside Google. More people now ask AI tools for recommendations, so it pays to show up in both.'),
        ('Can you guarantee ChatGPT will recommend me?','No one controls AI answers. I improve the information they rely on and track how often and how accurately you appear.'),
-       ('Does this help normal SEO too?','Mostly it is the same work: clear pages, accurate facts, a complete Google Business Profile and genuine reviews. Google says its AI features have no extra requirements beyond normal SEO, so AI visibility work builds on SEO rather than replacing it.')]),
+       ('Does this help normal SEO too?','Mostly it is the same work: clear pages, accurate facts, a complete Google Business Profile and genuine reviews. Google says its AI features have no extra requirements beyond normal SEO, so AI visibility work builds on SEO.')]),
 ]
 
 def svc_url(site, s): return f'{site}services/{s["slug"]}'
@@ -352,7 +352,7 @@ def service_page(ctx, s, parts):
       <p class="sp-hero__who">{e(s['who'])}</p>{'</div>' + art if art else ''}
     </section>
   </div>
-{__import__('aeo').brief_html(s['answer'], s['facts'], 'Key facts: ' + s['name'], 'brief-title', fold=3 if art else 0)}
+{'' if s['slug'] == 'website-design-mumbai' else __import__('aeo').brief_html(s['answer'], s['facts'], 'Key facts: ' + s['name'], 'brief-title', fold=3 if art else 0)}
 
   <section class="section" aria-labelledby="inc-title">
     <div class="wrap">
@@ -361,11 +361,12 @@ def service_page(ctx, s, parts):
         <h2 class="h2" id="inc-title" data-split>Website design services, handled by one person.</h2>
         <p class="lead" data-reveal>You work directly with me, Mehul Karotra. No account managers, no middlemen.</p>
       </header>
-      <ul class="bento sp-grid" data-reveal-group>{items}</ul>
+      {__import__('mumbai_visuals').included()[0] if s['slug'] == 'website-design-mumbai' else '<ul class="bento sp-grid" data-reveal-group>' + items + '</ul>'}
     </div>
   </section>
 {GP._sections(dict(sections=GP.parent_sections())) if GP else ''}
 {how_html}
+{__import__('aeo').brief_html(s['answer'], s['facts'], 'Key facts: ' + s['name'], 'brief-title', fold=3) if s['slug'] == 'website-design-mumbai' else ''}
 
   <section class="section" aria-labelledby="work-title">
     <div class="wrap">
@@ -711,7 +712,7 @@ def tool_page(ctx, parts, tv):
                   <li>Click <b>Read reviews</b>, then <b>Get more reviews</b>.</li>
                   <li>Click <b>Copy</b>. The link looks like <code>g.page/r/&hellip;/review</code>. Paste it in step 1.</li>
                 </ol>
-                <p class="rq-pane__note">On a phone, the Google Maps method is quicker and gives the same review box. Google&rsquo;s own help page: <a class="tlink" href="https://support.google.com/business/answer/16816815?hl=en" target="_blank" rel="noopener">Create a Google link or QR code to request reviews</a>.</p>
+                <p class="rq-pane__note">On a phone, the Google Maps method is quicker and gives the same review box. Google&rsquo;s steps for owners are on its help page, <a class="tlink" href="https://support.google.com/business/answer/16816815?hl=en" target="_blank" rel="noopener">Create a Google link or QR code to request reviews</a>.</p>
               </div>
             </details>
           </div>
@@ -761,7 +762,7 @@ def tool_page(ctx, parts, tv):
             <p>Opens this design in the full editor: move, resize or turn any part, change fonts and colours, add photos, icons and shapes, then download a PNG, SVG or print PDF.</p>
           </div>
           <a class="tlink rq-test" id="rq-test" href="#" target="_blank" rel="noopener" hidden>Test my review link</a>
-          <p class="rq-private"><span aria-hidden="true">&#128274;</span><span>Private by design: your name, logo and wording stay in this browser. A short Maps link is only checked once to find your business, and nothing is stored.</span></p>
+          <p class="rq-private"><span aria-hidden="true">&#128274;</span><span>Your name, logo and wording stay in this browser. Only a short Maps link is checked, once, to find your business, and nothing is stored.</span></p>
         </aside>
       </div>
 
@@ -891,8 +892,8 @@ GBP = dict(slug='google-business-profile-checker',
                                      'Google Business Profile management.'),
        ('Is this an official Google score?', 'No. Google doesn’t publish a score. This checker is U Scale’s checklist, built on what Google says improves local ranking (verify your business, keep information complete and accurate, respond to reviews, add photos) and on the gaps I most often find when I check local listings.'),
        ('Do I need to be the owner to use it?', 'No. You can check almost every item by looking at the listing on Google Maps or Google Search. To fix things you need the Google account that manages the profile, or you can claim the profile if nobody has.'),
-       ('Is Google My Business the same as Google Business Profile?', 'Yes. Google renamed Google My Business to Google Business Profile in 2021. It is the same listing that shows on Google Search and Google Maps.'),
-       ('Why doesn’t my business show up on Google Maps?', 'The usual reasons are: the profile isn’t verified, the main category is too broad or wrong, the person searching is far away (distance matters), nearby competitors have many more reviews, or the profile was suspended for breaking a guideline. Fix the basics first, then build reviews every week.'),
+       ('Is Google My Business the same as Google Business Profile?', 'Yes, it is the same listing, the one that shows on Google Search and Google Maps. Google My Business was its name until 2021.'),
+       ('Why doesn’t my business show up on Google Maps?', 'Usually the profile isn’t verified, the main category is too broad or wrong, the person searching is far away (distance matters), nearby competitors have many more reviews, or the profile was suspended for breaking a guideline. Fix the basics first, then build reviews every week.'),
        ('Can I pay Google to rank higher on Maps?', 'No. Google says there is no way to request or pay for a better local ranking. Google Ads can show your business as a sponsored result, but that is separate from the free listing.'),
        ('How many Google reviews do I need?', 'There is no fixed number. What matters is having more genuine, recent reviews than the businesses around you, with a good rating. The review goal calculator in your report shows how many 5-star reviews you need for your target rating and how long it takes to catch a competitor.'),
        ('How long before I see results?', 'Edits like hours, category and description usually appear within a few days once Google checks them. The effect of more reviews, photos and posts builds over weeks and months, so keep at it every week.'),
@@ -1050,7 +1051,7 @@ def gbp_page(ctx, parts, tv):
       <div class="gp-checklist">
         <article><h3>Profile basics</h3><ul><li>Profile claimed and verified</li><li>Most specific main category, plus 2&ndash;4 extra categories that really fit</li><li>Correct hours, with holiday and festival hours</li><li>Phone number that gets answered, and a website link</li><li>Description up to 750 characters: what you sell, who for, which area</li><li>Top products or services with photos and prices</li></ul></article>
         <article><h3>Photos &amp; updates</h3><ul><li>20+ real photos: shop front, inside, products, team</li><li>2&ndash;3 new photos every month</li><li>One update or offer every week</li><li>Every attribute that applies, ticked: UPI and card payments, accessibility, Wi-Fi, parking</li></ul></article>
-        <article><h3>Reviews</h3><ul><li>More genuine reviews than nearby competitors</li><li>New reviews every month, not just old ones</li><li>A reply to every review, good and bad</li><li>Never pay or give discounts for reviews</li></ul></article>
+        <article><h3>Reviews</h3><ul><li>More genuine reviews than nearby competitors</li><li>New reviews coming in every month</li><li>A reply to every review, good and bad</li><li>Never pay or give discounts for reviews</li></ul></article>
         <article><h3>Website &amp; trust</h3><ul><li>A fast, mobile-friendly website with the same name, address and phone</li><li>The same details on Justdial, Sulekha, Bing Places and Apple Maps</li><li>A review QR at the counter, and the link sent on WhatsApp after each sale</li></ul></article>
       </div>
     </div>
@@ -1143,9 +1144,9 @@ def _tool_card(which):
 # Answer-first "In short" blocks for the tools pages (visible text; AI tools and Google quote these).
 TOOLS_ANSWER = ('U Scale has five free tools for local businesses in India. The Google Business Profile checker scores your Google listing '
                 'out of 100 in about 2 minutes and gives you a fix list and a review goal. The Google review QR code maker finds your review '
-                'link and turns it into a QR code and a printable counter standee. The visiting card maker lets you edit a design and download a PNG, SVG and print PDF. '
-                'The QR code generator makes codes for links, contacts, UPI and Wi-Fi, with your own style and logo. '
-                'The website cost calculator estimates what a website costs, from published prices and market ranges. '
+                'link and turns it into a QR code and a printable counter standee. With the visiting card maker you edit a design and download a PNG, SVG and print PDF. '
+                'The QR code generator makes codes for links, contacts, UPI and Wi-Fi, with your own style and logo, and the website cost calculator '
+                'estimates what a website costs from published prices and market ranges. '
                 'All five are free and need no sign-up.')
 TOOLS_FACTS = [('Google Business Profile checker', 'A score out of 100, a fix list and a review goal, in about 2 minutes'),
                ('Google review QR code maker', 'Your review link, a QR code and a printable counter standee'),
@@ -1428,10 +1429,10 @@ PRICING_FAQ_MORE = [
      'and you pay Meta for the ad spend yourself.'),
     ('Are there any hidden charges?',
      'No. Every price is on this page, and the price of your project is fixed in writing before work starts. The costs that are not part of '
-     'a U Scale price are listed here too, and quoted before I begin: website copy, photography, premium plugins, the payment gateway’s own '
+     'a U Scale price are listed here too, and quoted before I begin: website copy, photography, paid plugins, the payment gateway’s own '
      'fee, and the domain and hosting you pay your provider. No GST is charged right now.'),
     ('Do you charge by the hour?',
-     'No. Websites are a fixed price agreed in writing before work starts, monthly services are a fixed monthly fee, and every single piece of '
+     'No. A website has one fixed price, a monthly service has a fixed monthly fee, and every single piece of '
      'work has its own price on this page. Nothing is billed by the hour, so the price can’t grow because a task took longer than planned. '
      'For comparison, freelance developers in India charge from about ₹300 an hour early in their careers to ₹800–₹2,000 an hour with '
      'experience (OnJob, June 2026).'),

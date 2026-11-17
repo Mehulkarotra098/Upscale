@@ -1,0 +1,118 @@
+{
+  "city": "Pune",
+  "areas": [
+    {"name": "Kothrud", "lat": 18.5074, "lon": 73.8077, "group": "west"},
+    {"name": "Baner", "lat": 18.5590, "lon": 73.7845, "group": "west"},
+    {"name": "Aundh", "lat": 18.5619, "lon": 73.8102, "group": "west"},
+    {"name": "Wakad", "lat": 18.6022, "lon": 73.7644, "group": "west"},
+    {"name": "Hinjewadi", "lat": 18.5928, "lon": 73.7382, "group": "west"},
+    {"name": "Shivajinagar", "lat": 18.5295, "lon": 73.8478, "group": "central"},
+    {"name": "Deccan", "lat": 18.5159, "lon": 73.8412, "group": "central"},
+    {"name": "Sadashiv Peth", "lat": 18.5108, "lon": 73.8502, "group": "central"},
+    {"name": "Swargate", "lat": 18.5007, "lon": 73.8586, "group": "central"},
+    {"name": "Camp", "lat": 18.5150, "lon": 73.8790, "group": "central"},
+    {"name": "Koregaon Park", "lat": 18.5377, "lon": 73.8930, "group": "east"},
+    {"name": "Kalyani Nagar", "lat": 18.5481, "lon": 73.9026, "group": "east"},
+    {"name": "Viman Nagar", "lat": 18.5704, "lon": 73.9133, "group": "east"},
+    {"name": "Kharadi", "lat": 18.5513, "lon": 73.9417, "group": "east"},
+    {"name": "Hadapsar", "lat": 18.5008, "lon": 73.9379, "group": "southeast"},
+    {"name": "Kondhwa", "lat": 18.4780, "lon": 73.8941, "group": "southeast"}
+  ],
+  "groups": [
+    {"key": "west", "label": "West: Kothrud, Baner, Hinjewadi"},
+    {"key": "central", "label": "Centre: Shivajinagar, Deccan, Swargate"},
+    {"key": "east", "label": "East: Koregaon Park, Viman Nagar, Kharadi"},
+    {"key": "southeast", "label": "South-east: Hadapsar, Kondhwa"}
+  ],
+  "lines": [
+    {
+      "name": "Pune Metro Purple Line",
+      "color": "#903373",
+      "stations": [
+        [18.6293, 73.8033],
+        [18.6145, 73.8157],
+        [18.6093, 73.8201],
+        [18.5996, 73.8273],
+        [18.5837, 73.8338],
+        [18.5701, 73.8379],
+        [18.5623, 73.8421],
+        [18.5322, 73.8497],
+        [18.5268, 73.8569],
+        [18.5214, 73.8596],
+        [18.5129, 73.8570],
+        [18.4998, 73.8574]
+      ]
+    },
+    {
+      "name": "Pune Metro Aqua Line",
+      "color": "#007CB0",
+      "stations": [
+        [18.5072, 73.8052],
+        [18.5096, 73.8141],
+        [18.5074, 73.8288],
+        [18.5120, 73.8381],
+        [18.5164, 73.8444],
+        [18.5225, 73.8528],
+        [18.5264, 73.8576],
+        [18.5297, 73.8726],
+        [18.5327, 73.8778],
+        [18.5453, 73.8866],
+        [18.5445, 73.9057],
+        [18.5567, 73.9081]
+      ]
+    },
+    {
+      "name": "Pune Metro Line 3 (Pink)",
+      "color": "#F91C91",
+      "stations": [
+        [18.5789, 73.6881],
+        [18.5966, 73.7172],
+        [18.5924, 73.7373],
+        [18.5910, 73.7463],
+        [18.5904, 73.7575],
+        [18.5797, 73.7615],
+        [18.5744, 73.7718],
+        [18.5503, 73.8083],
+        [18.5463, 73.8197],
+        [18.5423, 73.8272],
+        [18.5330, 73.8415],
+        [18.5284, 73.8560]
+      ]
+    }
+  ],
+  "water": [
+    {
+      "name": "Mula river",
+      "kind": "river",
+      "points": [
+        [18.5654, 73.7207], [18.5745, 73.7503], [18.5884, 73.7623], [18.5878, 73.7770],
+        [18.5634, 73.7926], [18.5696, 73.8017], [18.5681, 73.8277], [18.5753, 73.8368],
+        [18.5725, 73.8467], [18.5814, 73.8540], [18.5838, 73.8634], [18.5740, 73.8733],
+        [18.5574, 73.8732], [18.5506, 73.8571], [18.5342, 73.8548], [18.5316, 73.8603]
+      ]
+    },
+    {
+      "name": "Mutha river",
+      "kind": "river",
+      "points": [
+        [18.4514, 73.7703], [18.4599, 73.7749], [18.4629, 73.7846], [18.4626, 73.7945],
+        [18.4722, 73.8080], [18.4790, 73.8118], [18.4833, 73.8251], [18.4989, 73.8359],
+        [18.5075, 73.8372], [18.5205, 73.8487], [18.5250, 73.8580], [18.5281, 73.8607],
+        [18.5316, 73.8603]
+      ]
+    },
+    {
+      "name": "Mula-Mutha river",
+      "kind": "river",
+      "points": [
+        [18.5316, 73.8603], [18.5381, 73.8660], [18.5426, 73.8794], [18.5438, 73.8917],
+        [18.5410, 73.9017], [18.5400, 73.9106], [18.5390, 73.9237], [18.5357, 73.9370],
+        [18.5446, 73.9448], [18.5467, 73.9595]
+      ]
+    }
+  ],
+  "neighbours": [
+    {"name": "Pimpri-Chinchwad", "lat": 18.6279, "lon": 73.8010}
+  ],
+  "notes": "Metro stations and rivers from OpenStreetMap route and river relations; colours follow Wikipedia's Pune Metro templates (MahaMetro publishes no hex codes); Line 3 opened 4 Nov 2026 with six stations (Baner, Balewadi Phata, Baner Gaon, Laxmi Nagar, RBI, Shivajinagar) still shut, so its Balewadi-Aundh stretch is drawn straight; it starts at Maan, 5 km west of Hinjewadi; Chakan (18.7623, 73.8625), named on the page, is left out because it is 18 km north and would squash the map."
+}

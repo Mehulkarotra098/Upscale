@@ -1,0 +1,83 @@
+{
+  "city": "Navi Mumbai",
+  "areas": [
+    {"name": "Airoli", "lat": 19.1583, "lon": 72.9967, "group": "north"},
+    {"name": "Ghansoli", "lat": 19.1193, "lon": 72.9995, "group": "north"},
+    {"name": "Rabale", "lat": 19.1380, "lon": 73.0080, "group": "midc"},
+    {"name": "Mahape", "lat": 19.1093, "lon": 73.0236, "group": "midc"},
+    {"name": "Koparkhairane", "lat": 19.1030, "lon": 73.0050, "group": "midc"},
+    {"name": "Turbhe", "lat": 19.0786, "lon": 73.0135, "group": "midc"},
+    {"name": "Vashi", "lat": 19.0758, "lon": 72.9952, "group": "central"},
+    {"name": "Sanpada", "lat": 19.0607, "lon": 73.0117, "group": "central"},
+    {"name": "Nerul", "lat": 19.0360, "lon": 73.0160, "group": "central"},
+    {"name": "Seawoods", "lat": 19.0195, "lon": 73.0170, "group": "central"},
+    {"name": "CBD Belapur", "lat": 19.0180, "lon": 73.0380, "group": "south"},
+    {"name": "Kharghar", "lat": 19.0420, "lon": 73.0690, "group": "south"},
+    {"name": "Kamothe", "lat": 19.0200, "lon": 73.0930, "group": "south"},
+    {"name": "Kalamboli", "lat": 19.0358, "lon": 73.1035, "group": "south"},
+    {"name": "Panvel", "lat": 18.9895, "lon": 73.1222, "group": "south"}
+  ],
+  "groups": [
+    {"key": "north", "label": "North: Airoli, Ghansoli"},
+    {"key": "midc", "label": "TTC MIDC belt: Rabale, Mahape, Turbhe"},
+    {"key": "central", "label": "Central: Vashi, Sanpada, Nerul, Seawoods"},
+    {"key": "south", "label": "South: CBD Belapur, Kharghar, Panvel"}
+  ],
+  "lines": [
+    {
+      "name": "Harbour line",
+      "color": "#5664AE",
+      "stations": [
+        [19.0482, 72.9317],
+        [19.0632, 72.9988],
+        [19.0660, 73.0095],
+        [19.0559, 73.0182],
+        [19.0336, 73.0182],
+        [19.0218, 73.0192],
+        [19.0190, 73.0391],
+        [19.0258, 73.0592],
+        [19.0164, 73.0807],
+        [19.0073, 73.0953],
+        [18.9894, 73.1227]
+      ]
+    },
+    {
+      "name": "Trans-Harbour line",
+      "color": "#EBAB27",
+      "stations": [
+        [19.1865, 72.9758],
+        [19.1803, 72.9943],
+        [19.1585, 72.9994],
+        [19.1366, 73.0028],
+        [19.1164, 73.0070],
+        [19.1032, 73.0112],
+        [19.0762, 73.0177],
+        [19.0660, 73.0095],
+        [19.0632, 72.9988]
+      ]
+    }
+  ],
+  "water": [
+    {
+      "name": "Thane Creek",
+      "kind": "creek",
+      "points": [
+        [18.9750, 72.9100], [19.0000, 72.9225], [19.0200, 72.9514], [19.0300, 72.9600],
+        [19.0450, 72.9636], [19.0650, 72.9617], [19.0850, 72.9604], [19.1100, 72.9648],
+        [19.1200, 72.9695], [19.1320, 72.9714], [19.1420, 72.9753], [19.1520, 72.9789],
+        [19.1650, 72.9806], [19.1770, 72.9834], [19.1870, 72.9809],
+        [19.1870, 72.9865], [19.1770, 72.9851], [19.1650, 72.9828], [19.1520, 72.9825],
+        [19.1200, 72.9792], [19.1050, 72.9787], [19.0900, 72.9840], [19.0800, 72.9868],
+        [19.0700, 72.9824], [19.0650, 72.9793], [19.0600, 72.9905], [19.0500, 72.9968],
+        [19.0400, 73.0000], [19.0300, 73.0029], [19.0150, 73.0006], [19.0000, 73.0078],
+        [18.9950, 73.0271], [18.9850, 73.0171], [18.9750, 73.0032]
+      ]
+    }
+  ],
+  "neighbours": [
+    {"name": "Thane", "lat": 19.1865, "lon": 72.9758},
+    {"name": "Ghatkopar", "lat": 19.0842, "lon": 72.9186},
+    {"name": "Navi Mumbai International Airport", "lat": 18.9914, "lon": 73.0657}
+  ],
+  "notes": "Creek banks traced from OpenStreetMap coastline (it narrows to about 300 m at Airoli and its south edge is closed at 18.975 in the open harbour); line colours follow Wikipedia's Mumbai Suburban convention as there are no official hex codes; the Trans-Harbour line is drawn on its Thane-Vashi branch only (the Turbhe-Juinagar-Nerul-Panvel branch shares Harbour line track south of Juinagar); Nerul and Seawoods sit only 1.8 km apart."
+}

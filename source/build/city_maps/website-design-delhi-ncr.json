@@ -1,0 +1,94 @@
+{
+  "city": "Delhi NCR",
+  "areas": [
+    {"name": "Chandni Chowk", "lat": 28.6560, "lon": 77.2310, "group": "central"},
+    {"name": "Connaught Place", "lat": 28.6318, "lon": 77.2194, "group": "central"},
+    {"name": "Karol Bagh", "lat": 28.6520, "lon": 77.1900, "group": "central"},
+    {"name": "Rajouri Garden", "lat": 28.6451, "lon": 77.1239, "group": "central"},
+    {"name": "Pitampura", "lat": 28.6995, "lon": 77.1301, "group": "central"},
+    {"name": "Lajpat Nagar", "lat": 28.5685, "lon": 77.2411, "group": "south"},
+    {"name": "Nehru Place", "lat": 28.5495, "lon": 77.2525, "group": "south"},
+    {"name": "Saket", "lat": 28.5244, "lon": 77.2137, "group": "south"},
+    {"name": "Okhla Industrial Area", "lat": 28.5366, "lon": 77.2756, "group": "south"},
+    {"name": "Laxmi Nagar", "lat": 28.6360, "lon": 77.2751, "group": "east"},
+    {"name": "Noida Sector 18", "lat": 28.5705, "lon": 77.3229, "group": "east"},
+    {"name": "Noida Sector 62", "lat": 28.6211, "lon": 77.3643, "group": "east"},
+    {"name": "Cyber City", "lat": 28.4960, "lon": 77.0900, "group": "gurugram"},
+    {"name": "Golf Course Road", "lat": 28.4480, "lon": 77.0996, "group": "gurugram"},
+    {"name": "Sohna Road", "lat": 28.4200, "lon": 77.0430, "group": "gurugram"}
+  ],
+  "groups": [
+    {"key": "central", "label": "Central and west Delhi: Chandni Chowk, Connaught Place, Karol Bagh"},
+    {"key": "south", "label": "South Delhi: Lajpat Nagar, Nehru Place, Saket, Okhla"},
+    {"key": "east", "label": "East Delhi and Noida: Laxmi Nagar, Sector 18, Sector 62"},
+    {"key": "gurugram", "label": "Gurugram: Cyber City, Golf Course Road, Sohna Road"}
+  ],
+  "lines": [
+    {
+      "name": "Delhi Metro Yellow Line",
+      "color": "#F2C200",
+      "stations": [
+        [28.7071, 77.1804],
+        [28.6675, 77.2282],
+        [28.6584, 77.2304],
+        [28.6327, 77.2194],
+        [28.5742, 77.2093],
+        [28.5443, 77.2067],
+        [28.5209, 77.2019],
+        [28.5068, 77.1749],
+        [28.4807, 77.1258],
+        [28.4820, 77.1023],
+        [28.4723, 77.0725],
+        [28.4593, 77.0727]
+      ]
+    },
+    {
+      "name": "Delhi Metro Blue Line",
+      "color": "#4169E1",
+      "stations": [
+        [28.6296, 77.0781],
+        [28.6491, 77.1227],
+        [28.6558, 77.1507],
+        [28.6440, 77.1885],
+        [28.6328, 77.2197],
+        [28.6233, 77.2680],
+        [28.6041, 77.2896],
+        [28.5708, 77.3262],
+        [28.5640, 77.3344],
+        [28.5748, 77.3562],
+        [28.5868, 77.3728],
+        [28.6283, 77.3750]
+      ]
+    },
+    {
+      "name": "Delhi Metro Magenta Line",
+      "color": "#CC338B",
+      "stations": [
+        [28.6290, 77.0780],
+        [28.5889, 77.0831],
+        [28.5649, 77.1227],
+        [28.5579, 77.1611],
+        [28.5504, 77.1855],
+        [28.5434, 77.2050],
+        [28.5411, 77.2303],
+        [28.5504, 77.2569],
+        [28.5631, 77.2863],
+        [28.5458, 77.2967],
+        [28.5429, 77.3101],
+        [28.5639, 77.3338]
+      ]
+    }
+  ],
+  "water": [
+    {
+      "name": "Yamuna",
+      "kind": "river",
+      "points": [[28.7284, 77.2368], [28.7227, 77.2418], [28.7109, 77.2317], [28.6903, 77.2300], [28.6663, 77.2378], [28.6601, 77.2567], [28.6521, 77.2627], [28.6402, 77.2628], [28.6255, 77.2539], [28.6049, 77.2582], [28.5813, 77.2885], [28.5445, 77.3149], [28.5169, 77.3436], [28.4767, 77.3686]]
+    }
+  ],
+  "neighbours": [
+    {"name": "Ghaziabad", "lat": 28.6712, "lon": 77.4120},
+    {"name": "Faridabad", "lat": 28.4031, "lon": 77.3106}
+  ],
+  "notes": "Metro points are a route-ordered subset of OSM stops (Yellow: Azadpur to Millennium City Centre; Blue: Janakpuri West to Noida Electronic City, Dwarka end left off; Magenta: Janakpuri West to Botanical Garden); area points are locality centres, and Sohna Road and Golf Course Road are long roads placed at their business stretch."
+}

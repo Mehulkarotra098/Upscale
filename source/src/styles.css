@@ -519,20 +519,27 @@ body.gp-bar-on .cc{bottom:calc(88px + env(safe-area-inset-bottom,0px))}
 @media (prefers-reduced-motion:reduce){.cc{animation:none}}
 @media print{.cc{display:none}}
 
-/* ---------- WhatsApp float: every page, every screen size ---------- */
-.wa-float{position:fixed;right:calc(16px + env(safe-area-inset-right,0px));bottom:calc(16px + env(safe-area-inset-bottom,0px));z-index:55;height:56px;min-width:56px;border-radius:999px;display:inline-flex;align-items:center;background:var(--green);color:var(--violet);box-shadow:0 16px 32px -14px rgba(37,30,69,.55);text-decoration:none;font:700 15px/1 var(--sans);transform:translateY(140%) scale(.6);opacity:0;pointer-events:none;transition:transform .55s var(--ease-spring),opacity .3s ease,box-shadow .2s ease}
-.wa-float__ic{flex:none;display:grid;place-items:center;width:56px;height:56px}
-.wa-float svg{width:27px;height:27px}
-.wa-float__t{display:none;white-space:nowrap}
+/* ---------- WhatsApp float: every page, every screen size. Only the WhatsApp logo (Mehul, 17 Nov), with a green
+   dot that blinks to say Mehul is online. The label stays for screen readers (aria-label). ---------- */
+.wa-float{position:fixed;right:calc(16px + env(safe-area-inset-right,0px));bottom:calc(16px + env(safe-area-inset-bottom,0px));z-index:55;width:58px;height:58px;border-radius:999px;display:grid;place-items:center;background:#25D366;color:#fff;box-shadow:0 16px 32px -14px rgba(37,30,69,.55);text-decoration:none;transform:translateY(140%) scale(.6);opacity:0;pointer-events:none;transition:transform .55s var(--ease-spring),opacity .3s ease,box-shadow .2s ease}
+.wa-float__ic{display:grid;place-items:center}
+.wa-float svg{width:31px;height:31px}
 .wa-float.is-visible{transform:none;opacity:1;pointer-events:auto}
-.wa-float.is-visible:hover{transform:translateY(-2px);box-shadow:0 22px 38px -14px rgba(37,30,69,.6)}
+.wa-float.is-visible:hover{transform:translateY(-2px) scale(1.04);box-shadow:0 22px 38px -14px rgba(37,30,69,.6)}
 .wa-float:focus-visible{outline:3px solid var(--violet);outline-offset:3px}
-.wa-float::after{content:"";position:absolute;inset:0;border-radius:inherit;border:2px solid var(--green);animation:none;opacity:0}
+.wa-float::after{content:"";position:absolute;inset:0;border-radius:inherit;border:2px solid #25D366;animation:none;opacity:0}
 .wa-float.is-visible::after{animation:ring 2.8s ease-out .6s 2}
 @keyframes ring{0%{transform:scale(1);opacity:.7}70%,100%{transform:scale(1.5);opacity:0}}
-@media (min-width:1024px){.wa-float{right:calc(28px + env(safe-area-inset-right,0px));bottom:calc(28px + env(safe-area-inset-bottom,0px));padding-right:22px}
-  .wa-float.is-visible::after{animation-name:ringWide}.wa-float__ic{width:50px;margin-left:3px}.wa-float__t{display:inline}}
-@keyframes ringWide{0%{transform:scale(1);opacity:.7}70%,100%{transform:scale(1.15,1.5);opacity:0}}
+/* the online dot: top right, white rim so it reads on the green, blinking with a soft halo */
+.wa-float__dot{position:absolute;right:1px;top:1px;width:15px;height:15px;border-radius:50%;background:#3BE477;box-shadow:0 0 0 3px #fff;z-index:1}
+.wa-float__dot::before{content:"";position:absolute;inset:0;border-radius:50%;background:#3BE477;animation:waOnline 1.6s ease-out infinite}
+.wa-float__dot{animation:waBlink 1.6s ease-in-out infinite}
+@keyframes waBlink{0%,100%{background:#3BE477}50%{background:#1FAF55}}
+@keyframes waOnline{0%{transform:scale(1);opacity:.75}80%,100%{transform:scale(2.4);opacity:0}}
+@media (min-width:1024px){.wa-float{right:calc(28px + env(safe-area-inset-right,0px));bottom:calc(28px + env(safe-area-inset-bottom,0px));width:62px;height:62px}.wa-float svg{width:33px;height:33px}}
+/* reduced motion: calm, not off. The dot breathes slowly, no halo */
+@media (prefers-reduced-motion:reduce){.wa-float__dot{animation:waBlink 3.2s ease-in-out infinite}.wa-float__dot::before{animation:none;opacity:0}}
+.rm .wa-float__dot{animation:waBlink 3.2s ease-in-out infinite}.rm .wa-float__dot::before{animation:none;opacity:0}
 .cc-open .wa-float{opacity:0;pointer-events:none}
 .menu-open .wa-float{opacity:0;pointer-events:none}
 

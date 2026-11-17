@@ -163,7 +163,7 @@ def _whatsapp():
                 ['AI chatbots that answer from your own price list and documents', 'Bookings and orders connected to your calendar or store',
                  'A fixed quote after a free call, before any work starts'],
                 'https://apex36tech.com/services/ai-development', 'Apex36: AI development')),
-            sec('costs', 'What it costs elsewhere', 'What a WhatsApp chatbot costs in 2026.', 'Vendors’ own published prices. A useful guide to what’s fair.', ranges_html([
+            sec('costs', 'What it costs elsewhere', 'What a WhatsApp chatbot costs in 2026.', 'Prices the vendors publish themselves, so you can tell what’s fair.', ranges_html([
                 ('chat', 'Platform with AI replies', 'India, monthly, includes 1,000 AI messages', '₹1,350 a month', 'ai-aisensy'),
                 ('tag', 'WhatsApp’s message fees', 'India, per message, at the platform’s rate', '₹1.09 marketing · ₹0.145 service', 'ai-aisensy'),
                 ('bot', 'Rule-based bot, built for you', 'India, one-time', '₹50,000–₹1.5 lakh', 'ai-decipher'),
@@ -220,9 +220,9 @@ def _site_bot():
                 ('search', 'Shows what people ask', 'A monthly list of questions, so you know what to put on the site.')])),
             sec('start', 'Who builds it', 'We design it into your site. Apex36 builds the AI.', '', split_html(
                 ['How the chat looks and where it sits on your site', 'What it should and shouldn’t say, written with you', 'Testing on phones before launch'],
-                ['The AI that reads your pages and price list', 'Guardrails, so it answers only from your content', 'A fixed quote after a free call'],
+                ['The AI that reads your pages and price list', 'Rules that keep its answers to your own content', 'A fixed quote after a free call'],
                 'https://apex36tech.com/services/ai-development', 'Apex36: AI development')),
-            sec('costs', 'What it costs elsewhere', 'What a website chatbot costs in 2026.', 'Vendors’ own published prices, as a guide.', ranges_html([
+            sec('costs', 'What it costs elsewhere', 'What a website chatbot costs in 2026.', 'What vendors charge, from their own price pages.', ranges_html([
                 ('bot', 'Rule-based chatbot', 'India, one-time', '₹50,000–₹1.5 lakh', 'ai-decipher'),
                 ('spark', 'AI chatbot on your own content', 'India, one-time', '₹3–8 lakh', 'ai-decipher'),
                 ('tag', 'Chatbot on an existing platform, set up by an agency', 'UK', 'from £1,500 + £99 a month', 'ai-softomate'),
@@ -249,8 +249,8 @@ def _site_bot():
               'They are yours. Leads go to your WhatsApp or email, and you get a list of what people asked each month. The privacy page on your site is '
               'updated to say the chat exists and how its data is used.'),
              ('Who is Apex36?',
-              'Apex36 Technologies is our sister company, an AI and software studio in India. We handle the design and how it fits your site; Apex36 builds the '
-              'AI. You deal with us throughout.')],
+              'Apex36 Technologies is our sister company, an AI and software studio in India. We handle the design and how it fits your site, Apex36 builds the '
+              'AI, and you deal with us from start to finish.')],
         sources=['ai-decipher', 'ai-softomate', 'ai-expertsure', 'apex36'],
         cta_h='Show us your website', cta_lead='Send us your site. We reply with the questions a chatbot should answer on it, and what it would cost.')
 
@@ -272,10 +272,10 @@ def _receptionist():
                 ('phone', 'Answers every call', 'After hours, on busy days, when you’re with a customer.'),
                 ('calendar', 'Books appointments', 'Into your calendar, with a confirmation to the caller.'),
                 ('chat', 'Answers the usual questions', 'Timings, prices, location and what to bring.'),
-                ('alert', 'Passes on urgent calls', 'To your phone, straight away, when it matters.'),
+                ('alert', 'Passes on urgent calls', 'To your phone, straight away.'),
                 ('mail', 'Sends you a summary', 'Who called, what they wanted and what was booked.'),
                 ('users', 'Says it’s an assistant', 'Callers know they are talking to an AI, and can ask for you.')])),
-            sec('costs', 'What it costs elsewhere', 'What an AI receptionist costs in 2026.', 'Vendors’ own published prices, as a guide.', ranges_html([
+            sec('costs', 'What it costs elsewhere', 'What an AI receptionist costs in 2026.', 'What vendors publish, country by country.', ranges_html([
                 ('globe', 'Market range', 'US, per month', '$25–$300+', 'ai-findskill'),
                 ('globe', 'Market range', 'UK, per month; custom setups £2,000–£4,000+', '£30–£500+', 'ai-fasthosts'),
                 ('globe', 'Market range', 'Australia, per month', 'A$60–A$500', 'ai-bevoice'),
@@ -300,7 +300,7 @@ def _receptionist():
              ('Does it work for callers in India, in Hindi?',
               'Tell us your callers’ languages and your phone setup on the first call. We confirm what Convo AI supports for your setup, in writing, before you pay anything.'),
              ('Will callers know it’s an AI?',
-              'Yes. It introduces itself as an assistant, and anyone can ask to speak to you. We think that’s the only honest way to do it.'),
+              'Yes. It introduces itself as an assistant, and anyone can ask to speak to you.'),
              ('What happens with urgent calls?',
               'You choose what counts as urgent. Those calls are passed to your phone straight away; everything else gets booked or noted, with a summary to you.'),
              ('Who is Apex36?',
@@ -316,7 +316,7 @@ def _automation():
         title='n8n, Make and Zapier Automation for Small Businesses | U Scale',
         desc='The repetitive jobs, automated with n8n, Make or Zapier: enquiries into a sheet, WhatsApp alerts, reminders and review requests. Bigger ones built by Apex36.',
         h1='Automation with n8n, Make and Zapier', eyebrow='Automation, with Apex36',
-        lead='Enquiries into a sheet, a WhatsApp alert to you, the reply email, the invoice reminder: the jobs you do by hand every day, done automatically and correctly.',
+        lead='Enquiries into a sheet, a WhatsApp alert to you, the reply email, the invoice reminder. The jobs you do by hand every day can run by themselves, the same way every time.',
         stats=[('n8n', 'Make · Zapier'), ('24/7', 'Runs'), ('Free', 'First call')], art=flow_card, hero_more=('#does', 'What we automate'),
         wa="Hi Mehul, I'd like to automate some work in my business. Can we talk?", hero_btn='Ask on WhatsApp',
         og_alt='n8n, Make and Zapier automation for small businesses, by U Scale and Apex36', offers=[],
@@ -331,9 +331,9 @@ def _automation():
                 ('layers', 'Reports', 'Leads, sales and ad results in one weekly summary.')])),
             sec('start', 'Who builds it', 'Small jobs by us. Big ones by Apex36.', '', split_html(
                 ['Simple automations: forms, sheets, WhatsApp and email', 'Set up in your own n8n, Make or Zapier account', 'A fixed quote after a free call'],
-                ['Workflows across several systems, or with AI in them', 'Built as software in your own cloud account when needed', 'Audit trails for sensitive data'],
+                ['Workflows across several systems, or with AI in them', 'Built as software in your own cloud account when needed', 'A log of every step, where the data is sensitive'],
                 'https://apex36tech.com/services/workflow-automation', 'Apex36: workflow automation')),
-            sec('costs', 'What it costs elsewhere', 'What automation costs in 2026.', 'Published prices, as a guide.', ranges_html([
+            sec('costs', 'What it costs elsewhere', 'What automation costs in 2026.', 'What freelancers and agencies publish.', ranges_html([
                 ('flow', 'Simple workflow, freelancer', 'India, 2–3 steps, one trigger', '₹10,000–₹15,000', 'ai-growai'),
                 ('spark', 'AI-powered workflow, freelancer', 'India', '₹35,000–₹75,000', 'ai-growai'),
                 ('layers', 'Single workflow, agency', 'India; multi-flow project ₹1 lakh', '₹40,000', 'ai-edesy'),
@@ -351,7 +351,7 @@ def _automation():
               'We quote each job after a free call. As a guide, published prices in India run from ₹10,000–₹15,000 for a simple workflow by a freelancer to '
               'about ₹40,000 for a single workflow by an agency, and ₹35,000–₹75,000 for one with AI in it.'),
              ('n8n, Make or Zapier: which one?',
-              'Zapier is the easiest to start with, Make handles more complex logic for less, and n8n can run on your own server, which suits data you want '
+              'Zapier is the easiest to start with, Make copes with more steps and conditions for less money, and n8n can run on your own server, which suits data you want '
               'to keep in-house. We pick with you, based on what you already use and the monthly cost.'),
              ('Do I need to pay for the tools?',
               'Usually yes, a monthly plan on the tool you choose, billed to you directly. Small automations often fit on a free or starter plan.'),
@@ -379,14 +379,14 @@ def _marketing():
         blocks=[
             sec('does', 'How it works', 'AI for speed. People for taste.', '', features([
                 ('spark', 'AI drafts', 'Ideas, captions and ad variations, in minutes instead of hours.'),
-                ('pen', 'A person edits', 'In your voice, with your facts. Nothing goes out sounding like a robot.'),
+                ('pen', 'A person edits', 'Rewritten in your voice, with your own facts.'),
                 ('photo', 'Reels', 'Edited from your own footage, with captions people can read on mute.'),
                 ('bolt', 'More ad tests', 'More headlines and images tested, so the budget goes to what works.'),
-                ('search', 'AI search', 'How ChatGPT, Gemini and Google’s AI describe your business, and fixing what’s wrong.'),
+                ('search', 'AI search', 'Checking how ChatGPT, Gemini and Google’s AI describe your business, and fixing what’s wrong.'),
                 ('check', 'You approve', 'Every post and ad, before it goes out.')])),
             work_sec(('brandgen', 'sashe', 'vidhi', 'spacestudio', 'antrah', 'roar'), h='Including an AI brand.',
-                     lead='BrandGen, an AI tool for on-brand marketing visuals: its website and social media are ours.'),
-            sec('prices', 'Prices', 'Every price, published.', '', price_list(items, 'One-off pieces or a monthly plan: 3 months minimum, then month to month.')),
+                     lead='BrandGen is an AI tool that makes marketing visuals in a brand’s own style. Its website and social media are our work.'),
+            sec('prices', 'Prices', 'Every price, published.', '', price_list(items, 'Buy single pieces, or take a monthly plan: 3 months minimum, then month to month.')),
             process_sec('From a free audit to your first posts in a week.'),
         ],
         answer=('U Scale runs marketing for small businesses with AI doing the first draft and a person writing the final one: social posts, reels, Google and '
@@ -398,8 +398,8 @@ def _marketing():
                ('Approval', 'Every post and ad, by you, before it goes out'),
                ('Terms', '3 months minimum for monthly plans, then month to month with 30 days’ notice')],
         faq=[('What is AI marketing for a small business?',
-              'Using AI for the slow parts, like first drafts, ideas and ad variations, so a person can spend their time on what makes your marketing yours. '
-              'You get more, and better, for the same budget.'),
+              'It means using AI for the slow parts, like first drafts, ideas and ad variations, so a person has more time for the parts that need to know your '
+              'business. You get more done for the same budget.'),
              ('Will my posts sound like AI?',
               'No. A person rewrites every draft in your voice, with your facts and your way of talking, and you approve it before it goes out.'),
              ('How much does it cost?',

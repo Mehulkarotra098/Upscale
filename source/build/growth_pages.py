@@ -69,7 +69,7 @@ ECOM = dict(
                                                                        ('Customers belong to', 'You'), ('Good for', 'Owners who want to run everything themselves from day one')]),
                      dict(name='Your own store', tag='Built by U Scale', hi=True, rows=[('You pay', f'{STORE} once for under 50 products, then only the gateway fee per order'),
                                                                                        ('Customers belong to', 'You'), ('Good for', 'Brands that want their own look, speed and customer list')])],
-                    note='Many brands use more than one: a marketplace for reach, and their own store for repeat customers and better margins.'),
+                    note='You can use both: a marketplace for reach, and your own store for repeat customers and better margins.'),
             P('Shopify’s Basic plan costs about ₹1,500–₹1,800 a month billed yearly (on 10 Nov 2026 Shopify’s India page showed ₹1,800, and some visitors a ₹1,499 offer). '
               'Because Shopify Payments isn’t available in India, Shopify adds its own 2% to each sale on top of the payment gateway’s fee. ' + GP.src_chip('shopify')),
             eyebrow='Choose your model', layout='wide'),
@@ -84,7 +84,7 @@ ECOM = dict(
         Sec('Delivery, cash on delivery and GST',
             P('Who delivers is your choice: your own staff, a courier you book, or a shipping service. Cash on delivery, delivery charges and how '
               'invoices show GST depend on how you run your business, so they are agreed in the written plan before the build, with any cost they '
-              'add. Nothing is decided for you later.'),
+              'add.'),
             Check(['How you will deliver, and to which pin codes', 'Whether you offer cash on delivery', 'Delivery charges and free-delivery rules',
                    'Returns and exchanges, in writing on the site', 'Your GST details for invoices, if you are registered', 'Who updates products and prices after launch']),
             eyebrow='Decided up front', layout='wide', tone='dark', sid='delivery'),
@@ -92,7 +92,7 @@ ECOM = dict(
             P('Google Merchant Center lets shops list products for free across Google Search, the Shopping tab, Images and Lens. Google asks for a '
               'product page on your own website for each item, with the price, availability and a way to buy. A marketplace listing doesn’t give '
               'you that; your own store does. Google does not promise that every product is shown. ' + GP.src_chip('free-listings')),
-            P('Made-to-order or bespoke pieces? A catalogue with “Order on WhatsApp” may suit you better: see '
+            P('If you sell made-to-order or one-off pieces, a catalogue with “Order on WhatsApp” may suit you better. See '
               + _link('/services/website-design-mumbai/boutiques-fashion', 'boutique and clothing store websites') + '.'),
             eyebrow='Free listings'),
     ],
@@ -219,11 +219,11 @@ def freelancer_dict(ctx=None):
         title='Freelance Web Designer in Mumbai: Hire Mehul, from ₹25,000',
         desc='Hire a freelance web designer and developer in Mumbai: Mehul Karotra designs in Figma and hand-codes your site at a fixed price. 21+ projects shipped.',
         h1='Freelance web designer in Mumbai', eyebrow='Hire a person, not an agency',
-        lead='I’m Mehul Karotra, a freelance web designer and developer based in Ghatkopar West, Mumbai. You hire me, not a team behind me: I design your site in Figma, code it by hand and answer your WhatsApp myself, at a fixed price agreed before I start.',
+        lead='I’m Mehul Karotra, a freelance web designer and developer based in Ghatkopar West, Mumbai. You hire me, not a team behind me. I design your site in Figma, code it by hand and answer your WhatsApp myself, for a fixed price we agree before I start.',
         stats=[('21+', 'Projects shipped'), (price('Landing page'), 'Websites from'), ('1', 'Person does the work')],
         art=dict(kind='portrait', chips=[('pen', 'Designs in Figma'), ('bolt', 'Hand-codes every site')]),
         answer=(f'Mehul Karotra is a freelance web designer and developer in Mumbai, based in Ghatkopar West. He designs every website in Figma and '
-                f'hand-codes it himself, at a fixed price agreed in writing before work starts: a landing page {price("Landing page")}, a 5–10 page business '
+                f'hand-codes it himself. The price is fixed in writing before work starts: a landing page {price("Landing page")}, a 5–10 page business '
                 f'site {price("Business site, 5–10 pages")} and an online store from {STORE}. Clients deal with him directly, from the first WhatsApp '
                 'message to launch, and own the domain, code and every login.'),
         facts=[('Who', 'Mehul Karotra, freelance web designer and developer; founder of U Scale'),
@@ -250,8 +250,8 @@ def freelancer_dict(ctx=None):
                          dict(name='An agency', tag='A team', rows=[('Good for', 'Large sites that need several specialists at once'),
                                                                     ('You deal with', 'Usually an account manager'),
                                                                     ('Ask about', 'Who actually designs and builds your site')])]),
-                P('Prices from 16 published guides, and six checks before you hire anyone, are in the guide: '
-                  + _link('/services/website-design-mumbai/freelancer-vs-agency-vs-website-builder', 'freelancer vs agency vs website builder') + '.'),
+                P('For prices from 16 published guides, and six checks to make before you hire anyone, read the '
+                  + _link('/services/website-design-mumbai/freelancer-vs-agency-vs-website-builder', 'freelancer vs agency vs website builder') + ' guide.'),
                 eyebrow='Compared', layout='wide', tone='band', sid='compared'),
             Sec('Fixed prices',
                 Table(['Website', 'Price', 'Usually live in'],
@@ -280,7 +280,7 @@ def freelancer_dict(ctx=None):
               'Yes. Besides websites I run local SEO and Google Business Profiles, social media, Google and Meta ads and AI search visibility, on monthly '
               'plans with published prices.'),
              ('Do you work with businesses outside Mumbai?',
-              'Yes. I meet clients across Mumbai, Thane and Navi Mumbai, and work with businesses across India over WhatsApp and video calls, at the same prices.'),
+              'Yes. I meet clients in person across Mumbai, Thane and Navi Mumbai. With businesses elsewhere in India I work over WhatsApp and video calls, at the same prices.'),
              ('Will I own my website?',
               'Yes. The domain, hosting account, code and design files are yours, and every login is handed over at launch.')],
         sources=['g-pac', 'g-mwd', 'g-webbird', 'g-hostinger', 'g-goodfirms'],
@@ -366,7 +366,7 @@ def calc_dict():
         title='Website Cost Calculator for Mumbai & India: Free, 1 Minute',
         desc='Free website cost calculator for Mumbai and the rest of India: pick your pages and features to see the market range and a fixed U Scale price. No sign-up.',
         h1='Website cost calculator', eyebrow='Free tool · no sign-up',
-        lead='What will your website cost, in Mumbai or anywhere else in India? Pick the kind of site and what you want added, and see a fixed U Scale price, the market range from 16 published price guides, and what you will pay every year after.',
+        lead='Work out what your website will cost, in Mumbai or anywhere else in India. Pick the kind of site and anything you want added. You’ll see a fixed U Scale price, the market range from 16 published price guides, and what you will pay every year after.',
         stats=[('1 min', 'To an estimate'), (price('Landing page'), 'Websites from'), ('Free', 'No sign-up')],
         art=dict(kind='card', card='estimate'),
         answer=(f'A website in India costs about ₹8,000–₹30,000 for a basic template site, ₹40,000–₹2 lakh for a custom design and ₹25,000–₹3 lakh for an '
@@ -515,7 +515,7 @@ def digital_dict():
                 Cards([('shield', 'Promise a ranking', 'Nobody controls Google. I report what was done and what changed, every month.'),
                        ('star', 'Buy reviews or followers', 'Bought reviews break Google’s rules and can get reviews removed or a listing restricted. Bought followers don’t buy from you.'),
                        ('key', 'Hold your accounts', 'Your Google listing, ad accounts and pages stay in your name. You add me, and can remove me any time.')], cols=3),
-                eyebrow='Straight talk', layout='wide', tone='dark', sid='wont'),
+                eyebrow='Ground rules', layout='wide', tone='dark', sid='wont'),
             Sec('Check where you stand first, free', Tools(), eyebrow='Free tools', layout='wide'),
         ],
         faq=[('How much does digital marketing cost in Mumbai?',
@@ -568,7 +568,7 @@ def india_dict():
         title='Website Design & Development Company in India? From ₹25,000',
         desc=f'A web design and development company of one, working across India from Mumbai: landing page {price("Landing page")}, business site {price("Business site, 5–10 pages")}, fixed in writing, over WhatsApp.',
         h1='Website design & development in India', eyebrow='For businesses anywhere in India',
-        lead='I’m Mehul Karotra, a website designer and developer in Mumbai. I build websites for businesses across India over WhatsApp and video calls, at the same fixed prices I charge in Mumbai, agreed in writing before I start.',
+        lead='I’m Mehul Karotra, a website designer and developer in Mumbai. I build websites for businesses across India over WhatsApp and video calls. The prices are the same fixed ones I charge in Mumbai, agreed in writing before I start.',
         stats=[(price('Landing page'), 'Websites from'), ('3–4 wk', 'Live in'), ('60%', 'Paid after launch')],
         art=dict(kind='card', card='prices'),
         answer=(f'U Scale is Mehul Karotra, a website designer and developer based in Mumbai who works with businesses across India over WhatsApp and video '
@@ -587,12 +587,10 @@ def india_dict():
                ('Languages', 'English and Hindi')],
         sections=[
             Sec('What a website costs in India',
-                Table(['Kind of website', 'Market range in India', 'U Scale, fixed'],
-                      [('One-page or basic template site', '₹8,000–₹30,000', price('Landing page') + ' for a custom landing page'),
-                       ('Custom-designed business site', '₹40,000–₹2,00,000', price('Business site, 5–10 pages') + ' for 5–10 pages'),
-                       ('Larger site with a blog', '₹40,000–₹2,00,000', price('Business site, 10–20 pages + blog') + ' for 10–20 pages'),
-                       ('Online store', '₹25,000–₹3,00,000', f'{STORE} under 50 products · {STORE_BIG} for 50–500')],
-                      'What a website costs in India: market ranges from published price guides, beside U Scale’s fixed prices'),
+                Html(*__import__('mumbai_visuals').ranges([('One-page or template site', 8000, 30000, price('Landing page'), 'a custom landing page'),
+                    ('Custom business site', 40000, 200000, price('Business site, 5–10 pages'), '5–10 pages'),
+                    ('Larger site with a blog', 40000, 200000, price('Business site, 10–20 pages + blog'), '10–20 pages'),
+                    ('Online store', 25000, 300000, STORE, f'under 50 products; {STORE_BIG} for 50–500')])),
                 P('These ranges are what web development companies and web design firms in India publish themselves. '
                   + GP.GUIDES_NOTE.replace(' and listed under Sources below', '') + ' The full list is in the '
                   + _link('/services/website-design-mumbai/freelancer-vs-agency-vs-website-builder#sources', 'freelancer vs agency guide')
@@ -607,7 +605,7 @@ def india_dict():
                        ('shield', 'Bug fixes after launch', 'A 15–30 day window to fix anything that doesn’t work as agreed.')], cols=3),
                 eyebrow='Working remotely', layout='wide', tone='band', sid='remote'),
             Sec('Website design by city',
-                P('Each city has its own page, with what local studios charge there, from their own price pages, and how customers in that city search.'),
+                P('Every city below has its own page, with what local studios charge there (from their own price pages) and how customers in that city search.'),
                 Links(cities),
                 P('In and around Mumbai I also meet clients in person:'),
                 Links(near),
@@ -619,7 +617,7 @@ def india_dict():
                          dict(name='U Scale, from Mumbai', tag='Remote', hi=True, rows=[('Good for', 'Owners happy to work over WhatsApp and video calls'),
                                                                                         ('Ask about', 'When I can start; I take a few projects at a time'),
                                                                                         ('Price', f'Fixed in writing, from {price("Landing page")}')])],
-                        note='Not sure? The first audit is free either way, and I will tell you honestly if a local studio suits you better.'),
+                        note='If you can’t decide, the first audit is free either way, and I will tell you if a local studio would suit you better.'),
                 eyebrow='Compared', layout='wide', sid='compared'),
             Sec('Websites by trade, anywhere in India',
                 P('Each trade works under its own rules, from RERA for property to the 2024 coaching guidelines, so each has its own page.'),
@@ -627,8 +625,8 @@ def india_dict():
                        ('/services/website-design-india/real-estate', 'pin', 'Real estate', 'Project pages with RERA details and site visits on WhatsApp.', f'From {price("Landing page")}'),
                        ('/services/website-design-india/exporters', 'pin', 'Exporters and manufacturers', 'Catalogues and RFQs that buyers abroad trust.', f'From {price("Landing page")}'),
                        ('/services/website-design-india/coaching-institutes', 'pin', 'Coaching institutes', 'Courses, fees and honest results, within the 2024 rules.', f'From {price("Landing page")}'),
-                       ('/services/website-design-india/ca-and-law-firms', 'pin', 'CA and law firms', 'Facts, not ads, within your profession’s rules.', f'From {price("Landing page")}')]),
-                P('Outside India? We work with businesses in nine countries, at the same prices converted to your currency: '
+                       ('/services/website-design-india/ca-and-law-firms', 'pin', 'CA and law firms', 'Plain facts about your practice, within your profession’s rules.', f'From {price("Landing page")}')]),
+                P('We also work with businesses in nine countries outside India, at the same prices converted to your currency. See '
                   + _link('/services/outsource-web-design-india', 'web design for clients abroad') + '.'),
                 eyebrow='By trade', layout='wide', sid='trades'),
             Sec('Websites by type of business',
@@ -643,7 +641,7 @@ def india_dict():
               f'{price("Business site, 5–10 pages")} for a 5–10 page business site and from {STORE} for an online store.'),
              ('Is U Scale a web development company in India?',
               'A very small one. U Scale is me, Mehul Karotra, in Mumbai. I design each site in Figma and write the code myself. You get the same '
-              'website development services a larger web design company offers, which is design, build, launch and care afterwards, and the '
+              'website development services a larger web design company offers: design, build, launch and care afterwards. And the '
               'person you message is the person doing the work.'),
              ('Can you build my website if I am not in Mumbai?',
               'Yes. The whole project runs over WhatsApp and video calls: a free audit, a written plan with a fixed price, designs you review in Figma on '
@@ -718,12 +716,12 @@ THANE = dict(
     title='Website Design & SEO in Thane, Kalyan & Dombivli | U Scale',
     desc='Websites, Google Maps and local SEO for Thane businesses, from Ghodbunder Road to Kalyan and Dombivli. Fixed prices from ₹25,000, meetings in person.',
     h1='Website design in Thane', eyebrow='Thane, Kalyan and Dombivli',
-    lead='I’m Mehul Karotra, a website designer based in Ghatkopar West, a short ride down the Central line from Thane. I design and build websites and run Google listings and local SEO for businesses in Thane, Kalyan and Dombivli, and I can meet you at your shop or office.',
+    lead='I’m Mehul Karotra, a website designer based in Ghatkopar West, a short ride down the Central line from Thane. If your business is in Thane, Kalyan or Dombivli, I can design and build your website, look after your Google listing and local SEO, and meet you at your shop or office.',
     stats=[(price('Landing page'), 'Websites from'), (LOCAL.split('/')[0], 'Local SEO, per month'), ('In person', 'Meetings at your shop')],
     art=dict(kind='map', map='th-map'),
-    answer=(f'U Scale is Mehul Karotra, a website designer and digital marketer based in Ghatkopar West, Mumbai, who works in person with businesses in '
-            f'Thane, Kalyan and Dombivli. He designs and hand-codes websites at fixed prices (a landing page {price("Landing page")}, a 5–10 page business '
-            f'site {price("Business site, 5–10 pages")}, an online store from {STORE}) and runs Google Business Profile and local SEO work at '
+    answer=(f'U Scale is Mehul Karotra, a website designer and digital marketer based in Ghatkopar West, Mumbai, who meets clients in Thane, Kalyan '
+            f'and Dombivli in person. His websites are designed and hand-coded at fixed prices: a landing page {price("Landing page")}, a 5–10 page business '
+            f'site {price("Business site, 5–10 pages")}, an online store from {STORE}. Google Business Profile and local SEO work costs '
             f'{LOCAL.replace("/mo", " a month")}. Every project starts with a free audit.'),
     facts=[('Based in', 'Ghatkopar West, Mumbai, on the Central line to Thane'),
            ('Areas', 'Thane West (Naupada, Vartak Nagar, Majiwada, Ghodbunder Road), Thane East, Wagle Estate, Kalyan and Dombivli'),
@@ -738,39 +736,37 @@ THANE = dict(
                    ('pin', 'Ghodbunder Road', 'Newer housing societies, and the salons, clinics, gyms and cafés that serve them. A complete Google listing matters most here.'),
                    ('box', 'Wagle Estate', 'An MIDC industrial estate of manufacturers and suppliers, whose buyers check a website before they ask for a quote. ' + GP.src_chip('mpcb-thane')),
                    ('truck', 'Kalyan and Dombivli', 'Retail and wholesale traders, and the textile, chemical and engineering units of Dombivli MIDC, set up in 1964. ' + GP.src_chip('mpcb-dombivli')),
-                   ('pin', 'Thane East', 'Shops, clinics and services east of the station, which people search for as “Thane East”, not just Thane.'),
+                   ('pin', 'Thane East', 'Shops, clinics and services east of the station, which people look for by typing “Thane East”.'),
                    ('layers', 'Kalwa and Mumbra', 'Across the creek but inside Thane’s municipal limits, with busy markets of their own and their own names in search.')], cols=2),
             eyebrow='By area', layout='wide', sid='areas'),
         Sec('How Thane customers search',
-            P('Thane, Navi Mumbai and Kalyan-Dombivli each have their own municipal corporation, and people search by their own area names, not “Mumbai”: '
-              '“dentist in Thane West”, “CA near Thane station”, “cake shop Dombivli East”. Many search in Marathi, Hindi or Hinglish too. Your Google '
+            P('Thane, Navi Mumbai and Kalyan-Dombivli each have their own municipal corporation, and people here search by their own area names, not “Mumbai”. '
+              'They type “dentist in Thane West”, “CA near Thane station” or “cake shop Dombivli East”, and many search in Marathi, Hindi or Hinglish too. Your Google '
               'listing and your pages should use the words customers type and name the areas you actually serve. ' + GP.src_chip('tmc-list')),
             Chips(['Thane West', 'Thane East', 'Naupada', 'Vartak Nagar', 'Majiwada', 'Ghodbunder Road', 'Wagle Estate', 'Kalwa', 'Mumbra', 'Dombivli', 'Kalyan'],
                   'Area names Thane customers type'),
             eyebrow='Search in Thane'),
         Sec('Prices: the same as in Mumbai',
-            Table(['Website', 'U Scale price'], [('Landing page', price('Landing page')), ('Business site, 5–10 pages', price('Business site, 5–10 pages')),
-                                                 ('Business site, 10–20 pages + blog', price('Business site, 10–20 pages + blog')), ('Online store, under 50 products', STORE),
-                                                 ('Local SEO and Google Business Profile', LOCAL)], 'U Scale prices for Thane businesses'),
-            Note('Thane market, for comparison: one Thane studio lists packages from ₹3,999 to ₹20,000 and more; another lists brochure sites at ₹15,000–₹30,000, '
-                 'business sites at ₹35,000–₹75,000 and online stores from ₹60,000; a third quotes ₹15,000 to ₹1,50,000 and more (studios’ own pages, seen '
-                 '10 Nov 2026). Cheaper packages are usually templates: ask what you get, and whose name the domain is in.'),
+            Html(*__import__('mumbai_visuals').packages()),
+            Note('For comparison, here is what three Thane studios list on their own pages, seen 10 Nov 2026. One has packages from ₹3,999 to ₹20,000 and more. '
+                 'Another lists brochure sites at ₹15,000–₹30,000, business sites at ₹35,000–₹75,000 and online stores from ₹60,000. A third quotes ₹15,000 '
+                 'to ₹1,50,000 and more. The cheaper packages are usually templates, so ask what you get, and whose name the domain is in.'),
             eyebrow='Prices', layout='wide', tone='band', sid='prices'),
         Sec('Websites, SEO and Google Maps for Thane businesses',
-            P('Most Thane customers find a local business on Google Maps first, then check its website or Instagram before they call. So the work is '
-              'usually three things together: a website that names your area and services, a complete Google Business Profile, and a steady flow of '
-              'genuine reviews. For factories and suppliers in Wagle Estate or Dombivli MIDC, a website with your products, capacity and certifications '
-              'often matters more than the map. Check where your listing stands first with the free '
+            P('Most Thane customers find you on Google Maps first, then look at your website or Instagram before they call. So I usually work on '
+              'three things together: a website that names your area and services, a complete Google Business Profile, and a steady flow of '
+              'genuine reviews. Factories and suppliers in Wagle Estate or Dombivli MIDC are different. For them, a website with products, capacity and '
+              'certifications often matters more than the map. Check where your listing stands first with the free '
               + _link('/tools/google-business-profile-checker', 'Google Business Profile checker') + '.'),
             Links([('/services/website-design-mumbai', 'globe', 'A website for your Thane business', 'Designed in Figma, hand-coded, with your areas and services named the way customers search.', f'From {price("Landing page")}'),
-                   ('/services/google-business-profile-mumbai', 'pin', 'Your Google listing, managed', 'Verified, the right categories, hours, photos, weekly posts and replies to reviews.', LOCAL),
-                   ('/services/ecommerce-website-mumbai', 'cart', 'An online store', 'For Thane brands selling across India: products, cart, UPI and card payments.', f'From {STORE}')]),
+                   ('/services/google-business-profile-mumbai', 'pin', 'Your Google listing, managed', 'Verified at your Thane address, with the right categories, hours, photos, weekly posts and replies to reviews.', LOCAL),
+                   ('/services/ecommerce-website-mumbai', 'cart', 'An online store', 'If you sell from Thane to the rest of India: products, cart, UPI and card payments.', f'From {STORE}')]),
             eyebrow='Services', layout='wide', sid='services'),
     ],
     faq=[('Is there a website designer near me in Thane?',
-          'Yes. Mehul Karotra of U Scale is based in Ghatkopar West, a short ride down the Central line, and designs and builds websites for businesses '
-          'across Thane, Kalyan and Dombivli. He can meet you at your shop or office, and every project starts with a free audit.'),
-         ('How much does a website cost in Thane?', WEB_FAQ + ' Thane studios’ own pages, seen in November 2026, range from about ₹4,000 template packages to over ₹1.5 lakh.'),
+          'Yes. I’m Mehul Karotra of U Scale, based in Ghatkopar West, a short ride down the Central line. I design and build websites for businesses '
+          'across Thane, Kalyan and Dombivli, I can meet you at your shop or office, and every project starts with a free audit.'),
+         ('How much does a website cost in Thane?', WEB_FAQ + ' Other Thane studios list anything from about ₹4,000 for a template package to over ₹1.5 lakh, going by their own pages in November 2026.'),
          ('Do you work with businesses on Ghodbunder Road?',
           'Yes. Ghodbunder Road’s housing societies keep salons, clinics, gyms, tuition classes and cafés busy, and most of their customers search on '
           'Google Maps by society or landmark. A complete listing with real photos, a website with your services and prices, and steady reviews '
@@ -781,8 +777,8 @@ THANE = dict(
          ('Do you work in Kalyan and Dombivli?',
           'Yes. Kalyan and Dombivli are further up the same Central line, and the prices are the same. Meetings can be at your shop or office, or over WhatsApp and video calls.'),
          ('Do you build websites for manufacturers in Wagle Estate and Dombivli MIDC?',
-          f'Yes. A website for a manufacturer or supplier usually needs product or capability pages, certifications, clients you are allowed to show and '
-          f'a clear enquiry form. It is priced as a business site, from {price("Business site, 5–10 pages")} for 5–10 pages.'),
+          f'Yes. A manufacturer’s or supplier’s website usually needs product or capability pages, certifications, the clients you are allowed to show '
+          f'and a clear enquiry form. I price it as a business site, from {price("Business site, 5–10 pages")} for 5–10 pages.'),
          ('How do I get my Thane business on Google Maps?',
           'Verify your Google Business Profile at your exact Thane address, with the area customers use, Naupada or Ghodbunder Road, in the address. '
           'If you serve customers at home across Thane, Kalyan and Dombivli, list those as service areas instead. Then complete the hours, photos and '
@@ -797,20 +793,20 @@ THANE = dict(
 NAVI = dict(
     slug='website-design-navi-mumbai', path='services/website-design-navi-mumbai', kind='area', crumb='Navi Mumbai',
     service='Website design and local SEO in Navi Mumbai', service_type='Website design',
-    card='Websites, Google Maps and local SEO from Airoli and Vashi to Kharghar and Panvel, with meetings at your shop.',
+    card='Websites, Google Maps and local SEO across Navi Mumbai, from Airoli and Vashi to Kharghar and Panvel. I come to your shop for meetings.',
     places=['Vashi', 'Airoli', 'Nerul', 'CBD Belapur', 'Kharghar', 'Panvel'],
     area_ld=[aeo.place('Navi Mumbai'), {'@type': 'City', 'name': 'Panvel'}],
     wa_msg="Hi Mehul, I run a business in Navi Mumbai. I'd like a free audit for my website and Google listing.",
     title='Website Design & SEO in Navi Mumbai: Vashi to Panvel',
     desc='Websites, Google Maps and local SEO for Navi Mumbai businesses in Vashi, Nerul, Belapur, Kharghar, Airoli and Panvel. Fixed prices from ₹25,000.',
     h1='Website design in Navi Mumbai', eyebrow='Vashi to Panvel',
-    lead='I’m Mehul Karotra, a website designer based in Ghatkopar West, across Thane Creek from Navi Mumbai. I design and build websites and run Google listings and local SEO for businesses from Airoli and Vashi to Nerul, Belapur, Kharghar and Panvel, and I can meet you at your shop or office.',
+    lead='I’m Mehul Karotra, a website designer based in Ghatkopar West, across Thane Creek from Navi Mumbai. From Airoli and Vashi down to Nerul, Belapur, Kharghar and Panvel, I design and build websites and run Google listings and local SEO. We can meet at your shop or office.',
     stats=[(price('Landing page'), 'Websites from'), (LOCAL.split('/')[0], 'Local SEO, per month'), ('In person', 'Meetings at your shop')],
     art=dict(kind='map', map='nm-map'),
-    answer=(f'U Scale is Mehul Karotra, a website designer and digital marketer based in Ghatkopar West, Mumbai, who works in person with businesses across '
-            f'Navi Mumbai, from Airoli and Vashi to Nerul, CBD Belapur, Kharghar and Panvel. He designs and hand-codes websites at fixed prices (a landing page '
-            f'{price("Landing page")}, a 5–10 page business site {price("Business site, 5–10 pages")}, an online store from {STORE}) and runs Google '
-            f'Business Profile and local SEO work at {LOCAL.replace("/mo", " a month")}. Every project starts with a free audit.'),
+    answer=(f'U Scale is Mehul Karotra, a website designer and digital marketer based in Ghatkopar West, Mumbai, across Thane Creek from Navi Mumbai. '
+            f'He works in person with businesses from Airoli and Vashi to Nerul, CBD Belapur, Kharghar and Panvel. A landing page costs {price("Landing page")}, '
+            f'a 5–10 page business site {price("Business site, 5–10 pages")} and an online store from {STORE}, each designed and hand-coded at a fixed price. '
+            f'Google Business Profile and local SEO run at {LOCAL.replace("/mo", " a month")}. Each project begins with a free audit.'),
     facts=[('Based in', 'Ghatkopar West, Mumbai, across Thane Creek'),
            ('Areas', 'Airoli, Ghansoli, Vashi, Sanpada, Nerul, CBD Belapur, Kharghar, Panvel and the TTC MIDC belt'),
            ('Meetings', 'At your shop or office, or over WhatsApp and video calls'),
@@ -819,60 +815,54 @@ NAVI = dict(
            ('Free audit', 'Your website, Google listing and Instagram, checked before you pay anything'),
            ('Languages', 'English and Hindi')],
     sections=[
-        Sec('Navi Mumbai by area: what businesses here need online',
+        Sec('Navi Mumbai node by node: what each area needs online',
             Cards([('store', 'Vashi', 'Shops, clinics and restaurants, and the wholesale trade around the APMC markets, whose head office is in Vashi. ' + GP.src_chip('apmc')),
-                   ('box', 'The TTC MIDC belt', 'Turbhe, Mahape, Koparkhairane and Rabale: manufacturers and suppliers whose buyers check a website before they ask for a quote. ' + GP.src_chip('mpcb-ttc')),
+                   ('box', 'The TTC MIDC belt', 'Manufacturers and suppliers in Turbhe, Mahape, Koparkhairane and Rabale. Their buyers look at your website before they ask for a quote. ' + GP.src_chip('mpcb-ttc')),
                    ('layers', 'Airoli', 'The Mindspace IT parks, and the cafés, gyms and services around the offices. ' + GP.src_chip('mindspace')),
                    ('pin', 'Nerul, Belapur and Kharghar', 'CBD Belapur’s offices, and the clinics, coaching classes and cafés of Nerul and Kharghar.'),
                    ('truck', 'Panvel', 'A growing town at the end of the Harbour line, near the new Navi Mumbai International Airport, open since December 2025. ' + GP.src_chip('nmia')),
-                   ('chat', 'Customers who ask first', 'Wherever you are in Navi Mumbai, a WhatsApp button and a complete Google listing turn searches into enquiries.')], cols=3),
+                   ('chat', 'Customers who ask first', 'In every node, a WhatsApp button and a complete Google listing turn a search into an enquiry.')], cols=3),
             eyebrow='By area', layout='wide', sid='areas'),
         Sec('How Navi Mumbai customers search',
             P('Navi Mumbai is a planned city, developed by CIDCO since 1970, and its addresses run by node and sector. People search the way they give '
-              'directions: “dentist Sector 17 Vashi”, “cafe in Kharghar”, “CA near Belapur station”, not “Mumbai”. Your Google listing and your website '
-              'should name your node and sector exactly as customers type them. ' + GP.src_chip('cidco')),
-            Table(['Node', 'How people search', 'Name it on your listing as'],
-                  [('Vashi', '“physiotherapist sector 17 vashi”', 'Sector and node, e.g. “Sector 17, Vashi”'),
-                   ('Kharghar', '“cafe in kharghar sector 35”', 'Sector and node, with the nearest landmark'),
-                   ('CBD Belapur', '“ca near belapur station”', 'Node and station, for offices'),
-                   ('Airoli', '“gym airoli sector 5”', 'Sector and node; Mindspace for office-park businesses')],
-                  'How Navi Mumbai customers search by node and sector: illustrative searches'),
+              'directions: “dentist Sector 17 Vashi”, “cafe in Kharghar”, “CA near Belapur station”. So put your node and sector on your Google listing '
+              'and your website, spelt the way customers type them. ' + GP.src_chip('cidco')),
+            Html(*__import__('mumbai_visuals').searches([('Vashi', 'physiotherapist sector 17 vashi', 'Sector 17, Vashi'), ('Kharghar', 'cafe in kharghar sector 35', 'Sector 35, Kharghar, near the landmark'),
+                ('CBD Belapur', 'ca near belapur station', 'CBD Belapur, near the station'), ('Airoli', 'gym airoli sector 5', 'Sector 5, Airoli (Mindspace for office parks)')])),
             eyebrow='Search in Navi Mumbai', layout='wide'),
         Sec('Prices: the same as in Mumbai',
-            Table(['Website', 'U Scale price'], [('Landing page', price('Landing page')), ('Business site, 5–10 pages', price('Business site, 5–10 pages')),
-                                                 ('Business site, 10–20 pages + blog', price('Business site, 10–20 pages + blog')), ('Online store, under 50 products', STORE),
-                                                 ('Local SEO and Google Business Profile', LOCAL)], 'U Scale prices for Navi Mumbai businesses'),
-            Note('Navi Mumbai market, for comparison: a Kharghar studio lists packages at ₹4,999, ₹9,999 and ₹24,999; a Kalamboli studio lists static sites '
-                 'from ₹8,000, dynamic sites at ₹20,000–₹50,000 and online stores from ₹30,000; a CBD Belapur studio starts at ₹7,999 (studios’ own pages, '
-                 'seen 10 Nov 2026). A ₹5,000 package is almost always a template, so compare what you get, not just the price.'),
+            Html(*__import__('mumbai_visuals').packages()),
+            Note('Navi Mumbai market, for comparison (studios’ own pages, seen 10 Nov 2026): a Kharghar studio lists packages at ₹4,999, ₹9,999 and ₹24,999. '
+                 'A Kalamboli studio lists static sites from ₹8,000, dynamic sites at ₹20,000–₹50,000 and online stores from ₹30,000, and a CBD Belapur '
+                 'studio starts at ₹7,999. A ₹5,000 package is almost always a template, so check what is included before you look at the price.'),
             eyebrow='Prices', layout='wide', tone='band', sid='prices'),
         Sec('Websites, SEO and Google Maps for Navi Mumbai businesses',
-            P('In a city of nodes and sectors, people look you up on Google Maps, check your page, then call or message. Three things decide whether they '
-              'pick you: a site that names your node and what you do, a Google listing with the right sector and pin, and reviews from people nearby. '
-              'B2B buyers in the TTC MIDC belt work differently: they want products, capacity and certifications before they ask for a quote. '
-              'Check where your listing stands first with the free ' + _link('/tools/google-business-profile-checker', 'Google Business Profile checker') + '.'),
+            P('In a city of nodes and sectors, people look you up on Google Maps, check your page, then call or message. Whether they pick you comes down '
+              'to a site that names your node and what you do, a Google listing with the right sector and pin, and reviews from people nearby. '
+              'B2B buyers in the TTC MIDC belt start somewhere else. They want products, capacity and certifications before they ask for a quote. '
+              'To see where your listing stands today, run the free ' + _link('/tools/google-business-profile-checker', 'Google Business Profile checker') + '.'),
             Links([('/services/website-design-mumbai', 'globe', 'A website for your Navi Mumbai business', 'Designed in Figma, hand-coded, with your node and sector named the way customers search.', f'From {price("Landing page")}'),
-                   ('/services/google-business-profile-mumbai', 'pin', 'Your Google listing, managed', 'Verified, the right categories, hours, photos, weekly posts and replies to reviews.', LOCAL),
+                   ('/services/google-business-profile-mumbai', 'pin', 'Your Google listing, managed', 'Verified with your sector and node, the right categories, hours, photos, weekly posts and replies to reviews.', LOCAL),
                    ('/services/website-design-mumbai/restaurants-cafes', 'menu', 'Restaurant and café websites', 'Your own menu and ordering for Vashi, Nerul and Kharghar regulars, no app commission.', price('Restaurant site + own online ordering'))]),
             eyebrow='Services', layout='wide', sid='services'),
     ],
     faq=[('Is there a website designer near me in Navi Mumbai?',
-          'Yes. Mehul Karotra of U Scale is based in Ghatkopar West, across Thane Creek, and designs and builds websites for businesses from Airoli and '
+          'Yes, across Thane Creek in Ghatkopar West. I’m Mehul Karotra of U Scale, and I design and build websites for businesses from Airoli and '
           'Vashi to Nerul, CBD Belapur, Kharghar and Panvel. The first audit is free, in person or on a video call.'),
-         ('How much does a website cost in Navi Mumbai?', WEB_FAQ + ' Navi Mumbai studios’ own pages, seen in November 2026, start from about ₹5,000 for template packages.'),
+         ('How much does a website cost in Navi Mumbai?', WEB_FAQ + ' Template packages from Navi Mumbai studios start at about ₹5,000, according to their own pages in November 2026.'),
          ('Do you work in Panvel and Kharghar?',
           'Yes, at the same prices as Vashi or Mumbai. Kharghar and Panvel are further along the Harbour line, so we can meet at your place or do most of '
           'the work on WhatsApp and video calls, whichever suits you.'),
          ('Do you build websites for suppliers in the TTC MIDC area?',
-          f'Yes. A website for a manufacturer or supplier usually needs product or capability pages, certifications, clients you are allowed to show and '
-          f'a clear enquiry form. It is priced as a business site, from {price("Business site, 5–10 pages")} for 5–10 pages.'),
+          f'Yes. Buyers want to see what you make before they call, so a supplier’s site usually needs product or capability pages, certifications, '
+          f'the clients you are allowed to show and a clear enquiry form. It is priced as a business site, from {price("Business site, 5–10 pages")} for 5–10 pages.'),
          ('How do I get my Navi Mumbai business on Google Maps?',
           'Write the address the way Navi Mumbai does: building, sector and node, like “Sector 17, Vashi”, and place the pin on your door, not the '
           'sector’s centre. Pick the most specific category, add hours and photos, and ask customers for reviews. Distance from the searcher still '
           'decides part of the ranking, so nobody can promise a top-3 spot.'),
          ('Do you work with APMC traders and MIDC suppliers?',
-          'Yes. Wholesale traders around the APMC markets and suppliers in the TTC MIDC belt usually need a catalogue their buyers can check before '
-          'they call: products, capacity, certifications and a clear enquiry form. That is a business site, from '
+          'Yes. Wholesale traders around the APMC markets and suppliers in the TTC MIDC belt both sell to buyers who check first, so what they usually '
+          'need is a catalogue: products, capacity, certifications and a clear enquiry form. In my price list that is a business site, from '
           f'{price("Business site, 5–10 pages")} for 5–10 pages.')],
     sources=['cidco', 'apmc', 'mpcb-ttc', 'mindspace', 'nmia', 'local-rank', 'nm-go1', 'nm-sysmic', 'nm-collegare'],
     offers=['Landing page', 'Business site, 5–10 pages', 'Business site, 10–20 pages + blog', 'Local SEO / Google Business Profile'],

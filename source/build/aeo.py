@@ -271,7 +271,7 @@ BRIEF = {
   offers=['Landing page', 'Portfolio site', 'Business site, 5–10 pages', 'Business site, 10–20 pages + blog', 'E-commerce, under 50 products',
           'Restaurant site + own online ordering', 'Care plan: updates, backups, security']),
  'seo-mumbai': dict(
-  answer='U Scale offers SEO in Mumbai done personally by Mehul Karotra: local SEO and Google Business Profile, technical and on-page SEO, '
+  answer='U Scale offers SEO in Mumbai, done by Mehul Karotra himself: local SEO and Google Business Profile, technical and on-page SEO, '
          'and content. Local SEO costs ₹15,000 a month and technical + on-page SEO ₹25,000 a month. SEO usually takes '
          '3–6 months to show real progress, and you get a clear report every month.',
   facts=[('Who does the work', 'Mehul Karotra, personally'),
@@ -299,7 +299,7 @@ BRIEF = {
              'Does your listing stay in your name? Can you stop after the minimum term? Anyone good will answer all six plainly.')],
   offers=['Local SEO / Google Business Profile', 'Technical + on-page SEO', 'SEO deep-dive audit (free if we work together)', 'SEO blog (~1,000 words)']),
  'social-media-management-mumbai': dict(
-  answer='U Scale manages social media for Mumbai businesses on Instagram, Facebook, LinkedIn and YouTube: a monthly content calendar, '
+  answer='U Scale runs social media for Mumbai businesses on Instagram, Facebook, LinkedIn and YouTube: a monthly content calendar, '
          'designed posts, reels, posting and engagement, all by Mehul Karotra. Community and inbox management costs ₹12,000 a month, '
          'and content is priced per piece: ₹800 per post, ₹1,500 per carousel and ₹2,500 per reel edit.',
   facts=[('Who does the work', 'Mehul Karotra; a trusted photographer joins only when a shoot is needed'),
@@ -313,8 +313,8 @@ BRIEF = {
              'With U Scale, community and inbox management is ₹12,000 a month and content is priced per piece: ₹800 per post, ₹1,500 per '
              'carousel and ₹2,500 per reel edit. A typical starting month of 12 posts, 4 carousels and 4 reels comes to ₹25,600 in content.'),
             ('How many posts a month should a small business publish?',
-             'Consistency matters more than volume. A practical starting point is about 12 posts, 4 carousels and 4 reels a month, then '
-             'adjust to what your audience responds to.'),
+             'About 12 posts, 4 carousels and 4 reels a month is a practical starting point. Posting steadily matters more than posting a lot, '
+             'and you can adjust once you see what your audience responds to.'),
             ('Can you edit reels from my own footage?',
              'Yes. A reel edit from your own footage is ₹2,500, and a premium edit with colour grading and motion graphics is ₹5,000.')],
   offers=['Community & inbox management', 'Social post', 'Carousel', 'Designed story', 'Reel edit (your footage)',
@@ -366,7 +366,7 @@ BRIEF = {
              'a business easier to recommend. Step-by-step guide: How to get your business recommended by ChatGPT and Google AI Mode.'),
             ('What is llms.txt?',
              'llms.txt is an optional plain-text summary that some sites publish for AI tools. Google says its AI features don’t need it, '
-             'and other AI companies have not said they rely on it, so treat it as a tidy extra, not a requirement. '
+             'and other AI companies have not said they rely on it, so treat it as a tidy extra. '
              'U Scale’s own is at uscale.in/llms.txt.')],
   offers=['AI search visibility (GEO)', 'AI visibility audit (free if we work together)']),
 }
@@ -538,7 +538,7 @@ ABOUT_FAQ = [
      'directly, on fixed-price contracts for websites or monthly plans for marketing, and every price is published at uscale.in/pricing.'),
     ('Is U Scale an agency or a freelancer?', 'A bit of both. U Scale is one person, Mehul Karotra, working as an independent, contract-based partner. '
      'You get the design, development and marketing an agency offers, but you sign with him and talk to him directly. If a project needs a specialist, '
-     'like a photographer, he brings them in and stays your single point of contact. More on digital marketing in Mumbai with one specialist.'),
+     'like a photographer, he brings them in and you still deal only with him. More on digital marketing in Mumbai with one specialist.'),
     ('Where is U Scale based?', 'U Scale is based in Mumbai. Mehul meets clients across Mumbai, Thane and Navi Mumbai, and works '
      'with businesses across India remotely.'),
     ('How do I contact Mehul Karotra?', f'WhatsApp or call {SP.PHONE_D}, or email {SP.EMAIL}. He replies personally within 24 hours, usually much faster on WhatsApp.'),
@@ -570,7 +570,7 @@ def about_page(ctx, parts):
     svcs = ''.join(f'<li><a class="tlink" href="/services/{s["slug"]}">{e(s["name"])}</a></li>' for s in SP.SERVICES)
     steps = ''.join(f'<li class="step" data-reveal><span class="step__num" aria-hidden="true" data-n="{i+1}">{i+1:02d}</span><h3><span class="sr-only">Step {i+1}: </span>{e(t)}</h3><p>{e(d)}</p></li>'
                     for i, (t, d) in enumerate(HOW))
-    body = f'''{_hero('About', 'About Mehul Karotra', 'I’m Mehul, a website designer and developer from Mumbai and the person behind U Scale. I started U Scale because small businesses deserve agency-quality work without paying for account managers and middlemen. When you work with U Scale, you work with me: I design it, build it, market it, and answer your WhatsApp myself.', eyebrow='The person doing your work')}
+    body = f'''{_hero('About', 'About Mehul Karotra', 'I’m Mehul, a website designer and developer from Mumbai and the person behind U Scale. I started U Scale so that small businesses can get agency-quality work without paying for account managers and middlemen. When you work with U Scale, you work with me: I design it, build it, market it, and answer your WhatsApp myself.', eyebrow='The person doing your work')}
 {brief_html(ABOUT_ANSWER, ABOUT_FACTS, 'Key facts about Mehul Karotra', 'about-brief')}
 
   <section class="section sp-q sp-q--img" aria-label="Photo">
@@ -584,7 +584,7 @@ def about_page(ctx, parts):
         <h2 class="h2" id="what-title" data-split>Agency-quality work, without the agency.</h2>
       </header>
       <p>U Scale is not an agency with account managers. It is me, working as an independent, contract-based partner. Websites and branding are fixed-price contracts: 20% to start, 20% on design sign-off and 60% on launch. Marketing runs as a monthly plan: 3 months minimum, then month-to-month with 30 days’ notice. Every price is on the <a class="tlink" href="/pricing">pricing page</a>.</p>
-      <p>If a project ever needs a specialist, like a photographer, I bring them in and stay your single point of contact. I reply personally within 24 hours, usually much faster on WhatsApp.</p>
+      <p>If a project ever needs a specialist, like a photographer, I bring them in, and you still deal only with me. I reply personally within 24 hours, usually much faster on WhatsApp.</p>
       <p>Websites and marketing are what I do. When a business needs custom software or an AI product built, I point them to U Scale’s sister company, <a class="tlink" href="https://www.apex36tech.com/" target="_blank" rel="noopener">Apex36 Technologies</a><span class="sr-only"> (opens in a new tab)</span>, a separate Mumbai studio for software and AI.</p>
       <h3>What I do</h3>
       <ul class="sp-list">{svcs}<li><a class="tlink" href="/services">All services and prices</a></li></ul>
@@ -747,7 +747,7 @@ HUB_FAQ = [
     ('Can I combine services?', 'Yes. Nothing is bundled: you pick only the packages you need and the quote builder on the pricing page adds it up. '
      'Monthly services run for 3 months minimum, then month-to-month with 30 days’ notice.'),
     ('Who does the work?', 'Mehul Karotra, personally. If a project needs a specialist like a photographer, he brings them in and '
-     'stays your single point of contact.'),
+     'you still deal only with him.'),
     ('Are there any hidden charges?', 'No. Every price is published on the pricing page and agreed in writing before work starts. A website’s only other costs, '
      'such as the yearly domain and hosting paid to your provider in your name, are listed upfront, and ad spend is paid by you to Google or Meta directly. '
      'No GST is charged right now.'),
