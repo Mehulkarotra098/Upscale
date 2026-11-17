@@ -76,6 +76,66 @@ export const K = {
   /* soft floor shadow under a scene */
   floor(size = 14, opacity = 0.22) { const m = new T.Mesh(new T.PlaneGeometry(size, size), new T.ShadowMaterial({ opacity })); m.rotation.x = -Math.PI / 2; m.receiveShadow = true; return m; },
   ease: { out: (x) => 1 - Math.pow(1 - x, 3), back: (x) => { const c = 1.6; return 1 + (c + 1) * Math.pow(x - 1, 3) + c * Math.pow(x - 1, 2); }, inOut: (x) => (x < 0.5 ? 4 * x * x * x : 1 - Math.pow(-2 * x + 2, 3) / 2) },
+
+  /* ---------- shared pieces the city and country scenes build with ---------- */
+  /* a straight bar from a to b (cables, legs, beams) */
+  rod(a, b, r, m, seg = 10) {
+    const A = new T.Vector3(...a), B = new T.Vector3(...b); const len = A.distanceTo(B);
+    const g = new T.CylinderGeometry(r, r, len, seg); g.translate(0, len / 2, 0);
+    const o = new T.Mesh(g, m); o.position.copy(A); o.quaternion.setFromUnitVectors(new T.Vector3(0, 1, 0), B.clone().sub(A).normalize()); o.castShadow = true; return o;
+  },
+  /* a box whose base sits on y = 0, so it can grow upward in the intro */
+  up(w, h, d, m, r = 0.05) { const o = K.box(w, h, d, m, r); o.geometry.translate(0, h / 2, 0); return o; },
+  /* a tower with rows of lit windows on its front (and one side) */
+  tower(w, h, d, color, o = {}) {
+    const g = K.group(K.up(w, h, d, K.clay(color, { rough: o.rough ?? 0.5 }), o.r ?? 0.05));
+    const lit = K.glow(o.lit ?? 0xffe6a8); const alt = K.glow(o.alt ?? C.lime); const step = o.step ?? 0.2;
+    for (let y = step; y < h - 0.08; y += step) {
+      const k = Math.round(y / step);
+      if ((k + (o.seed ?? 0)) % 3) g.add(K.place(K.box(w * 0.66, 0.045, 0.01, (k * 7 + (o.seed ?? 0)) % 5 ? lit : alt, 0), [0, y, d / 2 + 0.006]));
+      if (o.side && (k + (o.seed ?? 0)) % 2) g.add(K.place(K.box(0.01, 0.045, d * 0.62, lit, 0), [w / 2 + 0.006, y, 0]));
+    }
+    return g;
+  },
+  /* a rounded tree: trunk and two or three soft balls */
+  tree(s = 1, color = C.green) {
+    const leaf = K.clay(color, { rough: 0.6 });
+    const t = K.group(K.place(K.cyl(0.04 * s, 0.06 * s, 0.4 * s, K.clay(0x7b5a3c), 8), [0, 0.2 * s, 0]),
+      K.place(K.ball(0.26 * s, leaf, 20), [0, 0.52 * s, 0]), K.place(K.ball(0.19 * s, leaf, 18), [0.14 * s, 0.42 * s, 0.06 * s]), K.place(K.ball(0.17 * s, leaf, 18), [-0.13 * s, 0.44 * s, -0.04 * s]));
+    return t;
+  },
+  /* a palm: thin trunk, a crown of leaves */
+  palm(s = 1) {
+    const p = K.group(K.place(K.cyl(0.03 * s, 0.045 * s, 0.75 * s, K.clay(0x8b6b4a), 8), [0, 0.37 * s, 0], [0, 0, 0.12]));
+    for (let k = 0; k < 6; k++) p.add(K.place(K.box(0.42 * s, 0.02, 0.1 * s, K.clay(C.green, { rough: 0.5 }), 0.01), [Math.cos(k) * 0.16 * s + 0.05, 0.78 * s, Math.sin(k) * 0.16 * s], [0, -k * 1.05, -0.45]));
+    return p;
+  },
+  /* a soft cloud */
+  cloud(s = 1) {
+    const m = K.clay(C.white, { rough: 0.9 });
+    const c = K.group(K.place(K.ball(0.4, m), [0, 0, 0]), K.place(K.ball(0.3, m), [0.42, -0.06, 0.05]), K.place(K.ball(0.28, m), [-0.4, -0.08, 0]), K.place(K.ball(0.22, m), [0.1, 0.18, 0.1]));
+    c.traverse((x) => { x.castShadow = false; }); c.scale.setScalar(s); return c;
+  },
+  /* a map pin with an optional label above it */
+  pin(color = C.green, s = 1, text) {
+    const m = K.clay(color, { rough: 0.35 });
+    const p = K.group(K.place(K.ball(0.26 * s, m), [0, 0.42 * s, 0]), K.place(K.cone(0.2 * s, 0.42 * s, m), [0, 0.13 * s, 0], [Math.PI, 0, 0]), K.place(K.ball(0.1 * s, K.clay(C.white)), [0, 0.45 * s, 0.2 * s]));
+    if (text) p.add(K.place(K.label(text, { px: 56, bg: '#ffffff', color: '#251E45', height: 0.3 * s }), [0, 0.95 * s, 0]));
+    return p;
+  },
+  /* water: a glossy slab, with expanding ripple rings returned for update() */
+  water(w, d, color = 0x5563cc) { return K.box(w, 0.3, d, K.clay(color, { rough: 0.25, env: 0.4 }), 0.3); },
+  ripples(points, y = 0.01) {
+    const mat = new T.MeshBasicMaterial({ color: C.white, transparent: true, opacity: 0.4, toneMapped: false, depthWrite: false });
+    return points.map(([x, z], i) => { const r = new T.Mesh(new T.RingGeometry(0.2, 0.24, 48), mat.clone()); r.rotation.x = -Math.PI / 2; r.position.set(x, y, z); return { r, o: i * 0.9 }; });
+  },
+  stepRipples(rs, t) { for (const q of rs) { const k = ((t + q.o) % 2.7) / 2.7; q.r.scale.setScalar(1 + k * 2.4); q.r.material.opacity = 0.45 * (1 - k); } },
+  /* a short train of rounded carriages */
+  train(n, color, len = 0.42) {
+    const g = K.group(); const m = K.clay(color, { rough: 0.35 }); const win = K.glow(0xfff1c9);
+    for (let i = 0; i < n; i++) { const c = K.place(K.box(len, 0.2, 0.2, m, 0.07), [-i * (len + 0.04), 0.1, 0]); c.add(K.place(K.box(len * 0.8, 0.05, 0.01, win, 0), [0, 0.03, 0.101])); g.add(c); }
+    return g;
+  },
 };
 
 /* ---------- the engine ---------- */

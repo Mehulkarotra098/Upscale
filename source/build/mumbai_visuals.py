@@ -3,6 +3,7 @@ lazy to read; make visuals, images, motion"). Each block shows what the old tabl
 with a plain-text version kept for llms-full.txt and answer engines. Prices come from pricing_data through
 geo_pages.price, so they can't drift. Styles: source/src/visuals.css (classes mv-*). Motion runs once the block is
 revealed (.is-in) and stays calm when motion is reduced."""
+import re
 import geo_pages as GP
 from geo_pages import e, icon, price, src_chip
 
@@ -206,3 +207,28 @@ def samples():
                    f'<figcaption>{e(GP.IMG[k]["caption"])}</figcaption></figure>' for i, k in enumerate(SAMPLES))
     html = f'<div class="mv-smp fp-snap" data-reveal data-snap>{figs}</div>'
     return html, 'Sample designs: ' + ' '.join(GP.IMG[k]['alt'] + '.' for k in SAMPLES)
+
+
+# ---------------------------------------------------------------- shared by other pages: ranges and searches
+def _num(s):
+    d = re.sub(r'[^0-9]', '', s.split('–')[0]); return int(d) if d else 0
+
+
+def ranges(rows, top=300000, ticks=(0, 100000, 200000, 300000)):
+    """Market price ranges as bars, with U Scale's fixed price as a marker on each. rows: (label, lo, hi, ours, note)."""
+    lab = lambda v: '₹0' if v == 0 else f'₹{v // 100000}L' if v % 100000 == 0 else f'₹{v // 1000}k'
+    axis = ''.join(f'<span style="--x:{v / top * 100:.2f}%">{lab(v)}</span>' for v in ticks)
+    li = ''.join(f'<li style="--lo:{lo / top * 100:.2f}%;--hi:{hi / top * 100:.2f}%;--us:{_num(ours) / top * 100:.2f}%;--i:{i}"><b>{e(name)}</b>'
+                 f'<span class="mv-rg__track"><i class="mv-rg__bar"></i><i class="mv-rg__us"><em>{e(ours)}</em></i></span>'
+                 f'<small>Market ₹{lo:,}–₹{hi:,} · {e(note)}</small></li>' for i, (name, lo, hi, ours, note) in enumerate(rows))
+    html = (f'<div class="mv-rg" data-reveal><p class="mv-rg__key"><span class="mv-rg__k1">Market range in published guides</span><span class="mv-rg__k2">U Scale, fixed</span></p>'
+            f'<ul>{li}</ul><p class="mv-rg__axis" aria-hidden="true">{axis}</p></div>')
+    text = '; '.join(f'{n}: market ₹{lo:,}–₹{hi:,}, U Scale {o} ({nt})' for n, lo, hi, o, nt in rows)
+    return html, text
+
+
+def searches(rows):
+    """How people search, as search bars typing themselves, each with how to name the listing. rows: (place, query, name it as)."""
+    li = ''.join(f'<li style="--i:{i};--n:{len(q)}"><p class="mv-sq__k">{e(p)}</p><p class="mv-sq__bar"><span class="mv-sq__q">{e(q)}</span><i class="mv-sq__go"></i></p>'
+                 f'<p class="mv-sq__as"><small>Name it on your listing as</small>{e(a)}</p></li>' for i, (p, q, a) in enumerate(rows))
+    return f'<ul class="mv-sq" data-reveal>{li}</ul>', '; '.join(f'{p}: people search {q}; name it as {a}' for p, q, a in rows)

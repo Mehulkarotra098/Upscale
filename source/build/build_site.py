@@ -402,6 +402,8 @@ def _asset_v(markup):
     return _IMG_ATTR.sub(lambda m: f'{m.group(1)}="{_IMG_URL.sub(_img_v, m.group(2))}"', markup)
 import hero3d  # 3D hero scenes: pages with a scene in static/assets/3d/scenes get the 3D stage in place of the flat art
 hero3d.apply(site)
+import city_maps  # area maps on the city pages (data: build/city_maps/<slug>.json)
+city_maps.apply(site)
 import tracking  # Google Tag Manager on every public page (not /admin)
 for _page in site.rglob('*.html'):
     if 'admin' in _page.relative_to(site).parts: continue

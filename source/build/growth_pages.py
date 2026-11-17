@@ -587,12 +587,10 @@ def india_dict():
                ('Languages', 'English and Hindi')],
         sections=[
             Sec('What a website costs in India',
-                Table(['Kind of website', 'Market range in India', 'U Scale, fixed'],
-                      [('One-page or basic template site', '₹8,000–₹30,000', price('Landing page') + ' for a custom landing page'),
-                       ('Custom-designed business site', '₹40,000–₹2,00,000', price('Business site, 5–10 pages') + ' for 5–10 pages'),
-                       ('Larger site with a blog', '₹40,000–₹2,00,000', price('Business site, 10–20 pages + blog') + ' for 10–20 pages'),
-                       ('Online store', '₹25,000–₹3,00,000', f'{STORE} under 50 products · {STORE_BIG} for 50–500')],
-                      'What a website costs in India: market ranges from published price guides, beside U Scale’s fixed prices'),
+                Html(*__import__('mumbai_visuals').ranges([('One-page or template site', 8000, 30000, price('Landing page'), 'a custom landing page'),
+                    ('Custom business site', 40000, 200000, price('Business site, 5–10 pages'), '5–10 pages'),
+                    ('Larger site with a blog', 40000, 200000, price('Business site, 10–20 pages + blog'), '10–20 pages'),
+                    ('Online store', 25000, 300000, STORE, f'under 50 products; {STORE_BIG} for 50–500')])),
                 P('These ranges are what web development companies and web design firms in India publish themselves. '
                   + GP.GUIDES_NOTE.replace(' and listed under Sources below', '') + ' The full list is in the '
                   + _link('/services/website-design-mumbai/freelancer-vs-agency-vs-website-builder#sources', 'freelancer vs agency guide')
@@ -749,9 +747,7 @@ THANE = dict(
                   'Area names Thane customers type'),
             eyebrow='Search in Thane'),
         Sec('Prices: the same as in Mumbai',
-            Table(['Website', 'U Scale price'], [('Landing page', price('Landing page')), ('Business site, 5–10 pages', price('Business site, 5–10 pages')),
-                                                 ('Business site, 10–20 pages + blog', price('Business site, 10–20 pages + blog')), ('Online store, under 50 products', STORE),
-                                                 ('Local SEO and Google Business Profile', LOCAL)], 'U Scale prices for Thane businesses'),
+            Html(*__import__('mumbai_visuals').packages()),
             Note('Thane market, for comparison: one Thane studio lists packages from ₹3,999 to ₹20,000 and more; another lists brochure sites at ₹15,000–₹30,000, '
                  'business sites at ₹35,000–₹75,000 and online stores from ₹60,000; a third quotes ₹15,000 to ₹1,50,000 and more (studios’ own pages, seen '
                  '10 Nov 2026). Cheaper packages are usually templates: ask what you get, and whose name the domain is in.'),
@@ -831,17 +827,11 @@ NAVI = dict(
             P('Navi Mumbai is a planned city, developed by CIDCO since 1970, and its addresses run by node and sector. People search the way they give '
               'directions: “dentist Sector 17 Vashi”, “cafe in Kharghar”, “CA near Belapur station”, not “Mumbai”. Your Google listing and your website '
               'should name your node and sector exactly as customers type them. ' + GP.src_chip('cidco')),
-            Table(['Node', 'How people search', 'Name it on your listing as'],
-                  [('Vashi', '“physiotherapist sector 17 vashi”', 'Sector and node, e.g. “Sector 17, Vashi”'),
-                   ('Kharghar', '“cafe in kharghar sector 35”', 'Sector and node, with the nearest landmark'),
-                   ('CBD Belapur', '“ca near belapur station”', 'Node and station, for offices'),
-                   ('Airoli', '“gym airoli sector 5”', 'Sector and node; Mindspace for office-park businesses')],
-                  'How Navi Mumbai customers search by node and sector: illustrative searches'),
+            Html(*__import__('mumbai_visuals').searches([('Vashi', 'physiotherapist sector 17 vashi', 'Sector 17, Vashi'), ('Kharghar', 'cafe in kharghar sector 35', 'Sector 35, Kharghar, near the landmark'),
+                ('CBD Belapur', 'ca near belapur station', 'CBD Belapur, near the station'), ('Airoli', 'gym airoli sector 5', 'Sector 5, Airoli (Mindspace for office parks)')])),
             eyebrow='Search in Navi Mumbai', layout='wide'),
         Sec('Prices: the same as in Mumbai',
-            Table(['Website', 'U Scale price'], [('Landing page', price('Landing page')), ('Business site, 5–10 pages', price('Business site, 5–10 pages')),
-                                                 ('Business site, 10–20 pages + blog', price('Business site, 10–20 pages + blog')), ('Online store, under 50 products', STORE),
-                                                 ('Local SEO and Google Business Profile', LOCAL)], 'U Scale prices for Navi Mumbai businesses'),
+            Html(*__import__('mumbai_visuals').packages()),
             Note('Navi Mumbai market, for comparison: a Kharghar studio lists packages at ₹4,999, ₹9,999 and ₹24,999; a Kalamboli studio lists static sites '
                  'from ₹8,000, dynamic sites at ₹20,000–₹50,000 and online stores from ₹30,000; a CBD Belapur studio starts at ₹7,999 (studios’ own pages, '
                  'seen 10 Nov 2026). A ₹5,000 package is almost always a template, so compare what you get, not just the price.'),
