@@ -352,7 +352,7 @@ def service_page(ctx, s, parts):
       <p class="sp-hero__who">{e(s['who'])}</p>{'</div>' + art if art else ''}
     </section>
   </div>
-{__import__('aeo').brief_html(s['answer'], s['facts'], 'Key facts: ' + s['name'], 'brief-title', fold=3 if art else 0)}
+{'' if s['slug'] == 'website-design-mumbai' else __import__('aeo').brief_html(s['answer'], s['facts'], 'Key facts: ' + s['name'], 'brief-title', fold=3 if art else 0)}
 
   <section class="section" aria-labelledby="inc-title">
     <div class="wrap">
@@ -361,11 +361,12 @@ def service_page(ctx, s, parts):
         <h2 class="h2" id="inc-title" data-split>Website design services, handled by one person.</h2>
         <p class="lead" data-reveal>You work directly with me, Mehul Karotra. No account managers, no middlemen.</p>
       </header>
-      <ul class="bento sp-grid" data-reveal-group>{items}</ul>
+      {__import__('mumbai_visuals').included()[0] if s['slug'] == 'website-design-mumbai' else '<ul class="bento sp-grid" data-reveal-group>' + items + '</ul>'}
     </div>
   </section>
 {GP._sections(dict(sections=GP.parent_sections())) if GP else ''}
 {how_html}
+{__import__('aeo').brief_html(s['answer'], s['facts'], 'Key facts: ' + s['name'], 'brief-title', fold=3) if s['slug'] == 'website-design-mumbai' else ''}
 
   <section class="section" aria-labelledby="work-title">
     <div class="wrap">

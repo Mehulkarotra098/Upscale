@@ -728,64 +728,21 @@ PAGES = [
 
 # ---------------------------------------------------------------- the main website-design page
 def parent_sections():
-    """Sections for /services/website-design-mumbai (built by seo_pages.service_page), after "What's included"."""
+    """Sections for /services/website-design-mumbai (built by seo_pages.service_page), after "What's included".
+    Shown as moving pictures, not tables (Mehul, 17 Nov 2026); the words live on in each block's text for llms-full.txt."""
+    import mumbai_visuals as MV
     return [
-        Sec('Website design packages and prices in Mumbai',
-            Table(['Package', 'Good for', 'Usually live in', 'Price'],
-                  [('Landing page', 'One offer, an ad campaign or a new shop', 'Under 2 weeks', price('Landing page')),
-                   ('Portfolio site', 'Creators, consultants and freelancers', '2–3 weeks', price('Portfolio site')),
-                   ('Business site, 5–10 pages', 'Clinics, salons, studios and service businesses', '3–4 weeks', price('Business site, 5–10 pages')),
-                   ('Business site, 10–20 pages + blog', 'Firms that publish guides to be found for more searches', 'Agreed in the plan', price('Business site, 10–20 pages + blog')),
-                   ('Restaurant site + own online ordering', 'Restaurants and cafés taking their own orders', '3–4 weeks', price('Restaurant site + own online ordering')),
-                   ('Online store, under 50 products', 'Brands selling a focused range', 'Agreed in the plan', price('E-commerce, under 50 products')),
-                   ('Online store, 50–500 products', 'Larger catalogues', 'Agreed in the plan', price('E-commerce, 50–500 products')),
-                   ('Redesign of your current site', 'A site that looks dated or loses enquiries', 'Agreed in the plan', price('Redesign of your current site'))],
-                  'U Scale website design packages in Mumbai, with published prices'),
-            P(f'Every package includes {INCLUDED}. You pay 20% to start, 20% when you approve the design and 60% when the site is live. '
-              'The same list, with a quote builder, is on the ' + _link('/pricing', 'pricing page') + '.'),
-            eyebrow='Packages and prices', layout='wide', sid='packages'),
-        Sec('No hidden charges: every other cost, said upfront',
-            P('The package price is the price of the website. These are the only other costs a website can bring, and each one is in your written '
-              'plan before you pay anything.'),
-            Table(['Cost', 'When it applies', 'Amount'],
-                  [('Website copy', 'Only if you want the text written for you', price('Website copy')),
-                   ('Photography', 'Only if you need a shoot', 'Quoted before the shoot'),
-                   ('Premium plugins', 'Only if a feature needs a paid one', 'At cost, quoted first'),
-                   ('Payment gateway fee', 'Online stores and ordering sites; paid to the gateway, not to me', 'About 2% + GST per payment on Razorpay’s standard plan'),
-                   ('Domain and hosting', 'Every website; paid to your provider, in your name', 'About ₹4,400–₹9,400 a year before GST'),
-                   ('Care plan', 'Optional: updates, backups and security after launch', price('Care plan: updates, backups, security')),
-                   ('GST', 'On U Scale prices', 'None charged right now')],
-                  'Every cost outside a U Scale website package, and when it applies'),
-            P('Yearly domain and hosting figures are renewal prices from the providers’ own pages, explained in the '
-              + _link('/blog/website-design-cost-mumbai', 'website design cost guide') + '. ' + src_chip('razorpay-pricing')),
-            eyebrow='Total transparency', layout='wide', tone='band', sid='no-hidden-charges'),
+        Sec('Sample designs for Mumbai businesses', Html(*MV.samples()), eyebrow='What yours could look like', layout='wide', sid='samples'),
+        Sec('Website design packages and prices in Mumbai', Html(*MV.packages()), eyebrow='Packages and prices', layout='wide', sid='packages'),
+        Sec('No hidden charges: every other cost, said upfront', Html(*MV.receipt()), eyebrow='Total transparency', layout='wide', tone='band', sid='no-hidden-charges'),
         Sec('Landing pages for ads and launches',
-            P(f'A landing page is a single page built for one job: an ad campaign, a launch, an offer or a new branch. It costs {price("Landing page")}, '
-              'fixed, and can be live in under two weeks. It loads fast on a phone, says what you sell and what it costs, and ends in one clear action, '
-              'usually a WhatsApp message.',
-              'Running Google or Meta ads? A page that matches the ad is part of ' + _link('/services/google-meta-ads-mumbai', 'ads management') + ' too.'),
-            Cards([('bolt', 'One goal', 'One offer and one next step, so visitors don’t wander off.'),
-                   ('phone', 'Fast on a phone', 'Most ad clicks come from phones, so it is designed for one first.'),
-                   ('chat', 'One clear action', 'WhatsApp, a call or a short form, right where people decide.')], cols=3),
-            eyebrow='Landing pages', sid='landing'),
-        Sec(f'Why {price("Business site, 5–10 pages")} and not a ₹25,000 template?',
-            Table(['', 'U Scale business site', 'Template package'],
-                  [('Price', f'{price("Business site, 5–10 pages")}, fixed, for 5–10 pages', '₹8,000–₹30,000 in 2025–26 price guides'),
-                   ('Design', 'Designed for you in Figma, screen by screen', 'A ready-made theme with your logo and colours'),
-                   ('Code', 'Hand-coded, with nothing the site doesn’t use', 'A theme and plugins, often more than the site needs'),
-                   ('Speed on a phone', 'Built and tested to pass Google’s Core Web Vitals', 'Depends on the theme and plugins'),
-                   ('Domain and logins', 'In your name from day one', 'Ask: sometimes held by the seller'),
-                   ('SEO set-up', 'Titles, headings, structured data and Search Console at launch', 'Often extra, or not included')],
-                  'What a U Scale business website includes compared with a typical template package'),
-            P('A template package can be the right call on a tight budget; just know what you are buying. The market ranges come from 16 published '
-              'price guides, listed in the ' + _link('/services/website-design-mumbai/freelancer-vs-agency-vs-website-builder#sources', 'freelancer vs agency guide')
-              + ', with six checks to make before you hire anyone. For your own estimate, try the '
-              + _link('/tools/website-cost-calculator', 'website cost calculator') + '.'),
-            eyebrow='The price gap', layout='wide', tone='band', sid='value'),
+            P(f'One page built for one job: an ad, a launch or an offer. {price("Landing page")}, fixed, live in under two weeks. '
+              'Running ads? A page that matches the ad is part of ' + _link('/services/google-meta-ads-mumbai', 'ads management') + ' too.'),
+            Html(*MV.landing()), eyebrow='Landing pages', sid='landing'),
+        Sec(f'Why {price("Business site, 5–10 pages")} and not a ₹25,000 template?', Html(*MV.versus()), eyebrow='The price gap', layout='wide', tone='band', sid='value'),
         Sec('Looking for a website designing company in Mumbai?',
-            P('People usually search for a website designing company, a web development company or a web design firm, so let me be plain about '
-              'what you get here. U Scale is one person. I design your site and I write its code, which covers the website development services '
-              'a larger company would split across a team. Before you pay any web designing company in Mumbai, me included, check six things:'),
+            P('U Scale is one person: I design your site and write its code, the work a larger company splits across a team. '
+              'Before you pay any web designing company in Mumbai, me included, check these six things:'),
             Check(['The domain and hosting are registered in your name, not the company’s.',
                    'You see the phone and desktop designs before any code is written.',
                    'The price and the number of pages are in writing, and so is what counts as extra.',
@@ -793,15 +750,7 @@ def parent_sections():
                    'Somebody tests the site on an ordinary phone as well as on the designer’s laptop.',
                    'At launch you get the code, the design files and every login.']),
             eyebrow='Choosing a web design company', layout='wide', tone='dark', sid='company'),
-        Sec('Areas I work in across Mumbai',
-            P('I’m based in Ghatkopar West and meet clients across Mumbai: the western suburbs from Bandra to Borivali, the island city from Dadar '
-              'and Lower Parel to Worli and Fort, and the eastern suburbs around me, from Kurla and Chembur to Powai and Mulund.',
-              'Two areas have their own pages: ' + _link('/services/website-design-mumbai/ghatkopar', 'Ghatkopar, where I’m based') + ', and '
-              + _link('/services/website-design-mumbai/andheri-east', 'Andheri') + '. Beyond Mumbai, I work in person with businesses in '
-              + _link('/services/website-design-thane', 'Thane') + ' and ' + _link('/services/website-design-navi-mumbai', 'Navi Mumbai') + ', and '
-              'across India over WhatsApp and video calls.'),
-            Chips(['Borivali', 'Kandivali', 'Malad', 'Goregaon', 'Andheri', 'Bandra', 'Dadar', 'Lower Parel', 'Worli', 'Ghatkopar', 'Powai', 'Mulund', 'Chembur', 'Thane', 'Navi Mumbai'], 'Areas I visit'),
-            eyebrow='Near you', sid='areas'),
+        Sec('Areas I work in across Mumbai', Html(*MV.areas()), eyebrow='Near you', layout='wide', sid='areas'),
     ]
 
 
