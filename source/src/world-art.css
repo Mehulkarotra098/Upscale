@@ -231,3 +231,6 @@
 .h3d.is-live .h3d__poster{opacity:0}
 @media (max-width:1023px){.fp-hero>.h3d{height:clamp(280px,64vw,470px)}}
 @media (max-width:559px){.fp-hero>.h3d{height:clamp(260px,84vw,380px);width:calc(100% + 16px);margin:2px -8px}}
+/* Country price comparison (Mehul, 17 Nov): text on the left, the card on the right, facing front (no tilt) */
+.cost-sec .dk{order:2}.cost-sec .dk__tilt{transform:none!important}
+@media (min-width:900px){.cost-sec .dk{justify-self:end;margin-right:clamp(40px,4vw,64px)}}
