@@ -36,35 +36,31 @@ def wa_chat(msgs, name='Chai Kona', ini='CK'):
 
 
 def _scene(k):
-    """Each card's little world, built as layers lifting off a tilted plane (real depth, soft shadows), turning a
-    little with the mouse (data-tilt in script.js)."""
-    L = lambda cls, z, inner='': f'<span class="mv-ly {cls}" style="--z:{z}px">{inner}</span>'
     if k == 'figma':
-        inner = (L('mv-ly--base mv-ly--frame', 0, '<i class="mv-dots"></i>') + L('mv-ly--hero', 22) + L('mv-ly--lines', 12, '<i></i><i></i><i></i>')
-                 + L('mv-ly--cta', 32) + L('mv-ly--cur', 58, '<svg viewBox="0 0 24 24"><path d="M5 3l14 7-6 2-2 6z"/></svg>'))
-    elif k == 'phone':
-        return ('<div class="mv-sc mv-sc--phone" aria-hidden="true"><span class="mv-floor"></span>'
-                + phone([('<div class="rp-site"><i class="rp-site__hero"></i><b>Mira Studio</b><i class="rp-site__l"></i><i class="rp-site__l rp-site__l--s"></i>'
-                          '<i class="rp-site__btn">Book on WhatsApp</i></div>')], w=86, cls='rp--mini rp--mini-a')
-                + '<span class="mv-badge">' + icon('check') + '</span></div>')
-    elif k == 'speed':
-        inner = (L('mv-ly--base mv-ly--dial', 0, '<svg viewBox="0 0 120 120"><circle cx="60" cy="60" r="46" class="mv-dial__bg"/><circle cx="60" cy="60" r="46" class="mv-dial__on"/></svg>')
-                 + L('mv-ly--needle', 14, '<i></i>') + L('mv-ly--cap', 20) + L('mv-ly--fast', 30, 'Fast'))
-    elif k == 'google':
-        inner = (L('mv-ly--base mv-ly--card', 0) + L('mv-ly--q', 10, 'website designer near me') + L('mv-ly--res', 22, '<i class="mv-res__u"></i><i class="mv-res__t"></i><i class="mv-res__s">★★★★★</i>')
-                 + L('mv-ly--pin', 44, icon('pin')))
-    elif k == 'reach':
-        return ('<div class="mv-sc mv-sc--reach" aria-hidden="true"><span class="mv-floor"></span>'
-                + phone([wa_chat([('in', 'Hi, can I get a quote?', '10:02'), ('out', 'Sure! Sending it now.', '10:03')], 'Your business', 'YB')], w=96, cls='rp--mini rp--mini-b')
-                + '</div>')
-    else:
-        inner = (L('mv-ly--base mv-ly--folder', 0) + L('mv-ly--file mv-ly--f1', 10, 'Code') + L('mv-ly--file mv-ly--f2', 20, 'Figma') + L('mv-ly--file mv-ly--f3', 30, 'Logins')
-                 + L('mv-ly--key', 50, icon('key')))
-    return f'<div class="mv-sc mv-sc--{k}" aria-hidden="true"><span class="mv-floor"></span><div class="mv-st"><div class="mv-pl">{inner}</div></div></div>'
+        return ('<div class="mv-sc mv-sc--figma" aria-hidden="true"><span class="mv-fr"><i class="mv-fr__bar"></i><i class="mv-fr__hero"></i>'
+                '<i class="mv-fr__l mv-fr__l--1"></i><i class="mv-fr__l mv-fr__l--2"></i><i class="mv-fr__btn"></i></span>'
+                '<span class="mv-cur"><svg viewBox="0 0 24 24"><path d="M5 3l14 7-6 2-2 6z"/></svg></span><span class="mv-layers"><i></i><i></i><i></i></span></div>')
+    if k == 'phone':
+        return ('<div class="mv-sc mv-sc--phone" aria-hidden="true"><span class="mv-ph"><i class="mv-ph__n"></i><i class="mv-ph__b mv-ph__b--1"></i>'
+                '<i class="mv-ph__b mv-ph__b--2"></i><i class="mv-ph__b mv-ph__b--3"></i><i class="mv-ph__cta"></i></span>'
+                '<span class="mv-tick">' + icon('check') + '</span></div>')
+    if k == 'speed':
+        return ('<div class="mv-sc mv-sc--speed" aria-hidden="true"><svg class="mv-gauge" viewBox="0 0 120 70"><path class="mv-gauge__bg" d="M10 62a50 50 0 0 1 100 0"/>'
+                '<path class="mv-gauge__on" d="M10 62a50 50 0 0 1 100 0"/><line class="mv-gauge__n" x1="60" y1="62" x2="60" y2="22"/><circle cx="60" cy="62" r="5"/></svg>'
+                '<b class="mv-gauge__t">Fast</b></div>')
+    if k == 'google':
+        return ('<div class="mv-sc mv-sc--google" aria-hidden="true"><span class="mv-serp"><i class="mv-serp__q">website designer near me</i>'
+                '<span class="mv-serp__r"><i class="mv-serp__u"></i><i class="mv-serp__t"></i><i class="mv-serp__s">★★★★★</i></span>'
+                '<span class="mv-serp__pin">' + icon('pin') + '</span></span></div>')
+    if k == 'reach':
+        return ('<div class="mv-sc mv-sc--reach" aria-hidden="true"><span class="mv-bub mv-bub--in">Hi, can I get a quote?</span>'
+                '<span class="mv-bub mv-bub--out">Sure! Sending it now.</span><span class="mv-btns"><i>' + icon('chat') + '</i><i>' + icon('phone') + '</i></span></div>')
+    return ('<div class="mv-sc mv-sc--keys" aria-hidden="true"><span class="mv-key">' + icon('key') + '</span>'
+            '<span class="mv-files"><i>Code</i><i>Figma</i><i>Logins</i></span></div>')
 
 
 def included():
-    li = ''.join(f'<li class="mv-inc__c" style="--i:{i}" data-tilt>{_scene(k)}<h3>{e(t)}</h3><p>{e(d)}</p></li>' for i, (k, t, d) in enumerate(INC))
+    li = ''.join(f'<li class="mv-inc__c" style="--i:{i}">{_scene(k)}<h3>{e(t)}</h3><p>{e(d)}</p></li>' for i, (k, t, d) in enumerate(INC))
     html = f'<ul class="mv-inc" data-reveal>{li}</ul>'
     return html, 'Included in every website: ' + '; '.join(f'{t}: {d}' for _, t, d in INC)
 
@@ -170,23 +166,32 @@ def areas():
     dots = ''.join(
         f'<g class="mv-map__a mv-map__a--{z}{" is-home" if n == "Ghatkopar" else ""}" style="--i:{i}"><circle cx="{x}" cy="{y}" r="{7 if n == "Ghatkopar" else 4.5}"/>'
         f'<text x="{x + (-12 if z == "w" or n == "Worli" else 12)}" y="{y + 4}" text-anchor="{"end" if z == "w" or n == "Worli" else "start"}">{e(n)}</text></g>' for i, (n, x, y, z) in enumerate(AREAS))
+    far1 = 'M322 64 C346 42 392 44 410 70 L410 236 C384 252 344 236 330 206 C320 170 316 104 322 64Z'
+    far2 = 'M326 300 C350 286 396 292 410 312 L410 470 C384 488 344 474 330 444 C318 404 318 340 326 300Z'
+    waves = ''.join(f'<path d="M{x} {y} q12 -6 24 0 t24 0" class="mv-map__wave" style="--i:{k}"/>' for k, (x, y) in enumerate([(20, 120), (36, 330), (250, 520), (300, 270), (22, 500), (340, 540)]))
     svg = (f'<svg class="mv-map__svg" viewBox="0 0 420 570" role="img" aria-label="Schematic map of the Mumbai areas U Scale works in, from Borivali to Fort and Mulund to Chembur, with the studio in Ghatkopar">'
-           f'<rect x="0" y="0" width="420" height="570" rx="26" class="mv-map__sea"/><path d="{land}" class="mv-map__land"/>'
-           f'<path d="M322 64 C346 42 392 44 410 70 L410 236 C384 252 344 236 330 206 C320 170 316 104 322 64Z" class="mv-map__land mv-map__land--far"/>'
-           f'<path d="M326 300 C350 286 396 292 410 312 L410 470 C384 488 344 474 330 444 C318 404 318 340 326 300Z" class="mv-map__land mv-map__land--far"/>'
+           '<defs><linearGradient id="mvLand" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#ffffff"/><stop offset="1" stop-color="#EDE8F8"/></linearGradient>'
+           '<linearGradient id="mvSea" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#E6E0F7"/><stop offset="1" stop-color="#CBC1EC"/></linearGradient>'
+           '<filter id="mvDrop" x="-20%" y="-20%" width="140%" height="150%"><feDropShadow dx="0" dy="16" stdDeviation="12" flood-color="#1B1535" flood-opacity=".3"/></filter>'
+           '<filter id="mvPinS" x="-60%" y="-60%" width="220%" height="220%"><feDropShadow dx="0" dy="3" stdDeviation="2.2" flood-color="#1B1535" flood-opacity=".45"/></filter></defs>'
+           f'<rect width="420" height="570" rx="26" fill="url(#mvSea)"/>{waves}'
+           f'<g filter="url(#mvDrop)"><path d="{far1}" transform="translate(0 8)" class="mv-map__side mv-map__side--far"/><path d="{far1}" class="mv-map__land mv-map__land--far"/>'
+           f'<path d="{far2}" transform="translate(0 8)" class="mv-map__side mv-map__side--far"/><path d="{far2}" class="mv-map__land mv-map__land--far"/>'
+           f'<path d="{land}" transform="translate(0 14)" class="mv-map__side"/><path d="{land}" class="mv-map__land"/></g>'
            f'<text x="364" y="150" class="mv-map__far">Thane</text><text x="364" y="390" class="mv-map__far">Navi Mumbai</text>'
+           f'<path d="{west}" class="mv-map__rail mv-map__rail--case"/><path d="{cent}" class="mv-map__rail mv-map__rail--case"/>'
            f'<path d="{west}" class="mv-map__rail mv-map__rail--w"/><path d="{cent}" class="mv-map__rail mv-map__rail--c"/>'
-           f'<circle r="5" class="mv-map__train"><animateMotion dur="9s" repeatCount="indefinite" path="{west}"/></circle>'
-           f'<circle r="5" class="mv-map__train mv-map__train--c"><animateMotion dur="7s" repeatCount="indefinite" path="{cent}"/></circle>'
-           f'{dots}<circle cx="236" cy="262" r="16" class="mv-map__pulse"/></svg>')
+           f'<g class="mv-map__train"><rect x="-8" y="-4" width="16" height="8" rx="4"/><animateMotion dur="9s" repeatCount="indefinite" rotate="auto" path="{west}"/></g>'
+           f'<g class="mv-map__train mv-map__train--c"><rect x="-8" y="-4" width="16" height="8" rx="4"/><animateMotion dur="7s" repeatCount="indefinite" rotate="auto" path="{cent}"/></g>'
+           f'<circle cx="236" cy="262" r="16" class="mv-map__pulse"/><g filter="url(#mvPinS)">{dots}</g></svg>')
     side = ('<div class="mv-map__t"><p class="mv-map__home"><span>' + icon('pin') + '</span><span class="mv-map__hw"><b>Studio in Ghatkopar West</b><small>Meetings across Mumbai, Thane and Navi Mumbai</small></span></p>'
             '<ul class="mv-map__leg"><li><i class="mv-map__dot mv-map__dot--w"></i>Western suburbs: Bandra to Borivali</li><li><i class="mv-map__dot mv-map__dot--c"></i>Island city: Dadar, Lower Parel, Worli, Fort</li>'
             '<li><i class="mv-map__dot mv-map__dot--e"></i>Eastern suburbs: Kurla, Chembur, Powai, Mulund</li></ul>'
             '<p class="mv-map__links">Own pages: ' + GP._link('/services/website-design-mumbai/ghatkopar', 'Ghatkopar') + ', ' + GP._link('/services/website-design-mumbai/andheri-east', 'Andheri')
             + ', ' + GP._link('/services/website-design-thane', 'Thane') + ' and ' + GP._link('/services/website-design-navi-mumbai', 'Navi Mumbai') + '. Elsewhere in India, over WhatsApp and video.</p>'
             '<p class="mv-map__nb">Schematic, not to scale.</p></div>')
-    import hero3d  # the 3D map (assets/3d/scenes/mumbai-areas.js); its poster shows first and stays without WebGL
-    html = f'<div class="mv-map" data-reveal><div class="mv-map__fig">{hero3d.section_stage("mumbai-areas")}</div>{side}</div>'
+    # a drawn map with depth, not 3D (Mehul, 17 Nov 2026): labels stay sharp on every phone, it shows at once, and crawlers read the area names
+    html = f'<div class="mv-map" data-reveal><div class="mv-map__fig">{svg}</div>{side}</div>'
     text = ('Based in Ghatkopar West; meets clients across Mumbai: the western suburbs from Bandra to Borivali, the island city from Dadar and Lower Parel to Worli and Fort, '
             'and the eastern suburbs from Kurla and Chembur to Powai and Mulund; also Thane and Navi Mumbai in person, and the rest of India over WhatsApp and video.')
     return html, text

@@ -17,7 +17,78 @@
 @media (max-width:899px){.mv-inc{grid-template-columns:repeat(2,minmax(0,1fr))}}
 @media (max-width:519px){.mv-inc{grid-template-columns:minmax(0,1fr)}.mv-sc{height:128px}}
 
-/* (the card scenes are below: "Depth for the six cards") */
+/* figma: a frame builds itself while the cursor works */
+.mv-fr{position:absolute;left:30%;top:18px;width:56%;height:104px;border-radius:8px;background:#fff;box-shadow:0 10px 24px -12px rgba(0,0,0,.6)}
+.mv-fr i{position:absolute;display:block;border-radius:4px}
+.mv-fr__bar{left:8px;right:8px;top:7px;height:6px;background:#E7E0F7}
+.mv-fr__hero{left:8px;width:46%;top:20px;height:40px;background:#C9BCE8}
+.mv-fr__l{left:58%;right:8px;height:6px;background:#E7E0F7}.mv-fr__l--1{top:24px}.mv-fr__l--2{top:36px;right:22px}
+.mv-fr__btn{left:58%;width:28%;top:50px;height:10px;background:#63B849}
+.mv-layers{position:absolute;left:12px;top:22px;display:grid;gap:7px;width:20%}
+.mv-layers i{display:block;height:6px;border-radius:3px;background:rgba(201,188,232,.45)}.mv-layers i:nth-child(2){width:75%}.mv-layers i:nth-child(3){width:55%}
+.mv-cur{position:absolute;left:62%;top:62%;width:18px;height:18px}.mv-cur svg{width:100%;height:100%;fill:#8ED474;stroke:#fff;stroke-width:1.2}
+/* phone: blocks stack into a mobile page */
+.mv-ph{position:absolute;left:50%;top:14px;width:68px;height:128px;margin-left:-34px;border-radius:14px;background:#fff;box-shadow:0 0 0 3px #1B1535,0 14px 24px -10px rgba(0,0,0,.6)}
+.mv-ph i{position:absolute;left:7px;right:7px;display:block;border-radius:4px}
+.mv-ph__n{top:5px;left:24px!important;right:24px!important;height:4px;background:#1B1535}
+.mv-ph__b--1{top:16px;height:30px;background:#C9BCE8}.mv-ph__b--2{top:52px;height:7px;background:#E7E0F7}.mv-ph__b--3{top:64px;height:7px;right:20px!important;background:#E7E0F7}
+.mv-ph__cta{top:80px;height:12px;background:#63B849}
+.mv-tick{position:absolute;left:calc(50% + 30px);top:22px;display:grid;place-items:center;width:28px;height:28px;border-radius:50%;background:#63B849;color:#251E45}.mv-tick .fp-ic{width:16px;height:16px;stroke-width:2.6}
+/* speed: a gauge needle sweeps up */
+.mv-gauge{position:absolute;left:50%;top:22px;width:150px;margin-left:-75px;overflow:visible}
+.mv-gauge path{fill:none;stroke-width:10;stroke-linecap:round}
+.mv-gauge__bg{stroke:rgba(201,188,232,.22)}.mv-gauge__on{stroke:#63B849;stroke-dasharray:157;stroke-dashoffset:14}
+.mv-gauge__n{stroke:#fff;stroke-width:4;stroke-linecap:round;transform-origin:60px 62px;transform:rotate(62deg)}
+.mv-gauge circle{fill:#fff}
+.mv-gauge__t{position:absolute;left:0;right:0;bottom:12px;text-align:center;font:400 22px/1 var(--display);letter-spacing:.04em;color:#8ED474;text-transform:uppercase}
+/* google: a search result arrives, with a pin */
+.mv-serp{position:absolute;left:12%;right:12%;top:16px;bottom:14px;padding:10px 12px;border-radius:10px;background:#fff}
+.mv-serp i{display:block;font-style:normal}
+.mv-serp__q{padding:5px 10px;border-radius:999px;background:#F3F0FA;font:600 11px/1 var(--sans);color:#251E45;white-space:nowrap;overflow:hidden}
+.mv-serp__r{display:grid;gap:5px;margin-top:10px}
+.mv-serp__u{width:42%;height:5px;border-radius:3px;background:#63B849}.mv-serp__t{width:78%;height:9px;border-radius:4px;background:#3B2F70}
+.mv-serp__s{font:700 11px/1 var(--sans);color:#F2C14E;letter-spacing:2px}
+.mv-serp__pin{position:absolute;right:10px;bottom:10px;width:30px;height:30px;color:#63B849}.mv-serp__pin .fp-ic{width:30px;height:30px;stroke-width:2.2}
+/* reach: a chat comes in, the reply goes out */
+.mv-bub{position:absolute;max-width:72%;padding:8px 11px;border-radius:12px;font:600 12px/1.3 var(--sans);font-style:normal}
+.mv-sc--reach .mv-bub--in{left:12px;top:18px;background:#fff;color:#251E45;border-bottom-left-radius:4px}
+.mv-sc--reach .mv-bub--out{right:12px;top:60px;background:#63B849;color:#251E45;border-bottom-right-radius:4px}
+.mv-btns{position:absolute;left:12px;bottom:12px;display:flex;gap:8px}
+.mv-btns i{display:grid;place-items:center;width:30px;height:30px;border-radius:50%;background:rgba(255,255,255,.12);color:#fff}.mv-btns .fp-ic{width:16px;height:16px}
+/* keys: the keys and files handed over */
+.mv-key{position:absolute;left:18%;top:36px;display:grid;place-items:center;width:64px;height:64px;border-radius:18px;background:#63B849;color:#251E45;box-shadow:0 14px 26px -12px rgba(0,0,0,.6)}
+.mv-key .fp-ic{width:34px;height:34px;stroke-width:2.2}
+.mv-files{position:absolute;left:48%;top:28px;display:grid;gap:8px}
+.mv-files i{padding:6px 12px;border-radius:999px;background:#fff;font:700 12px/1 var(--sans);font-style:normal;color:#251E45}
+@media (prefers-reduced-motion:no-preference){
+  .js .mv-inc.is-in .mv-inc__c{animation:cvRise .5s var(--ease-out) both;animation-delay:calc(var(--i) * .08s)}
+  .js .mv-inc.is-in .mv-fr i{animation:mvGrowX .6s var(--ease-out) both;animation-delay:.4s}
+  .js .mv-inc.is-in .mv-fr__hero{animation-delay:.55s}.js .mv-inc.is-in .mv-fr__btn{animation-delay:.8s}
+  .js .mv-inc.is-in .mv-cur{animation:mvCursor 4s ease-in-out .3s infinite}
+  .js .mv-inc.is-in .mv-ph i:not(.mv-ph__n){animation:mvDrop .5s var(--ease-spring) both}
+  .js .mv-inc.is-in .mv-ph__b--1{animation-delay:.45s}.js .mv-inc.is-in .mv-ph__b--2{animation-delay:.6s}.js .mv-inc.is-in .mv-ph__b--3{animation-delay:.7s}.js .mv-inc.is-in .mv-ph__cta{animation-delay:.85s}
+  .js .mv-inc.is-in .mv-tick{animation:cvPop .45s var(--ease-spring) 1.1s both}
+  .js .mv-inc.is-in .mv-gauge__on{animation:mvArc 1.4s var(--ease-out) .4s both}
+  .js .mv-inc.is-in .mv-gauge__n{animation:mvNeedle 1.4s var(--ease-out) .4s both}
+  .js .mv-inc.is-in .mv-serp__r{animation:cvRise .5s var(--ease-out) .6s both}.js .mv-inc.is-in .mv-serp__s{animation:cvPop .4s var(--ease-spring) 1s both}
+  .js .mv-inc.is-in .mv-serp__pin{animation:mvBob 2.4s ease-in-out 1.2s infinite}
+  .js .mv-inc.is-in .mv-sc--reach .mv-bub--in{animation:mvChat .45s var(--ease-spring) .5s both}
+  .js .mv-inc.is-in .mv-sc--reach .mv-bub--out{animation:mvChat .45s var(--ease-spring) 1.2s both}
+  .js .mv-inc.is-in .mv-btns i:first-child{animation:mvPing 2.4s ease-out 1.6s infinite}
+  .js .mv-inc.is-in .mv-key{animation:mvKey .8s var(--ease-spring) .4s both}
+  .js .mv-inc.is-in .mv-files i{animation:cvRise .4s var(--ease-out) both}
+  .js .mv-inc.is-in .mv-files i:nth-child(1){animation-delay:.8s}.js .mv-inc.is-in .mv-files i:nth-child(2){animation-delay:.95s}.js .mv-inc.is-in .mv-files i:nth-child(3){animation-delay:1.1s}
+}
+@keyframes mvGrowX{from{transform:scaleX(0);transform-origin:left}}
+@keyframes mvDrop{from{opacity:0;transform:translateY(-14px)}}
+@keyframes mvCursor{0%,100%{transform:translate(0,0)}25%{transform:translate(-46px,-40px)}50%{transform:translate(-10px,-18px)}75%{transform:translate(-30px,6px)}}
+@keyframes mvArc{from{stroke-dashoffset:157}}
+@keyframes mvNeedle{from{transform:rotate(-90deg)}}
+@keyframes mvBob{0%,100%{transform:translateY(0)}50%{transform:translateY(-6px)}}
+@keyframes mvChat{from{opacity:0;transform:translateY(10px) scale(.9)}}
+@keyframes mvPing{0%{box-shadow:0 0 0 0 rgba(142,212,116,.7)}80%,100%{box-shadow:0 0 0 12px rgba(142,212,116,0)}}
+@keyframes mvKey{from{opacity:0;transform:rotate(-40deg) scale(.6)}}
+
 
 /* ---------- Packages: three cards with page stacks, more options, what's included, how you pay ---------- */
 .mv-pks__main{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px}
@@ -269,66 +340,9 @@
 .mv-lp__steps b{flex:none;display:grid;place-items:center;width:30px;height:30px;border-radius:50%;background:#E7E0F7;color:#251E45;font:400 16px/1 var(--display)}
 @media (max-width:599px){.mv-lp{grid-template-columns:minmax(0,1fr);justify-items:center}.mv-lp__steps{width:100%}}
 
-/* ==========================================================================
-   Depth for the six cards: each little world is layers lifting off a tilted plane, with soft shadows;
-   the card turns a little with the mouse (--tx/--ty from script.js, data-tilt)
-   ========================================================================== */
-.mv-sc{position:relative;height:150px;border-radius:14px;overflow:hidden;background:radial-gradient(130% 120% at 80% -10%,#4a3d86,#251E45 62%)}
-.mv-floor{position:absolute;left:12%;right:12%;bottom:14px;height:34px;border-radius:50%;background:radial-gradient(closest-side,rgba(5,2,20,.55),rgba(5,2,20,0));filter:blur(3px)}
-.mv-st{position:absolute;inset:0;perspective:560px}
-.mv-pl{position:absolute;left:50%;top:50%;width:150px;height:96px;margin:-44px 0 0 -75px;transform-style:preserve-3d;
-  transform:rotateX(calc(54deg - var(--ty,0) * 6deg)) rotateZ(calc(-28deg + var(--tx,0) * 9deg));transition:transform .5s var(--ease-out)}
-.mv-ly{position:absolute;display:block;transform-style:preserve-3d;transform:translateZ(var(--z));border-radius:8px}
-.mv-ly::after{content:"";position:absolute;inset:4px;border-radius:inherit;background:rgba(5,2,20,.45);filter:blur(5px);transform:translateZ(calc(var(--z) * -1 - 1px))}
-.mv-ly--base::after{inset:6px -2px -6px 6px;background:rgba(5,2,20,.6);filter:blur(9px)}
-.mv-ly--frame{inset:0;background:#fff;box-shadow:inset 0 -3px 0 #DCD3F0}
-.mv-dots{position:absolute;left:8px;top:7px;width:30px;height:6px;background:radial-gradient(circle,#F08A6C 2.5px,transparent 3px) 0 0/10px 6px no-repeat,radial-gradient(circle,#F2C14E 2.5px,transparent 3px) 10px 0/10px 6px no-repeat,radial-gradient(circle,#63B849 2.5px,transparent 3px) 20px 0/10px 6px no-repeat}
-.mv-ly--hero{left:10px;top:20px;width:64px;height:44px;background:linear-gradient(135deg,#C9BCE8,#8F7FD0)}
-.mv-ly--lines{left:82px;top:24px;width:56px;display:grid;gap:6px}.mv-ly--lines i{display:block;height:6px;border-radius:3px;background:#B9ADE0}.mv-ly--lines i:nth-child(2){width:80%}.mv-ly--lines i:nth-child(3){width:60%}
-.mv-ly--cta{left:82px;top:62px;width:48px;height:14px;border-radius:7px;background:#63B849}
-.mv-ly--cur{left:104px;top:56px;width:22px;height:22px}.mv-ly--cur svg{width:100%;height:100%;fill:#8ED474;stroke:#fff;stroke-width:1.4;transform:rotateZ(28deg) rotateX(-54deg)}.mv-ly--cur::after{display:none}
-.mv-ly--dial{left:27px;top:0;width:96px;height:96px;border-radius:50%;background:#fff;box-shadow:inset 0 -4px 0 #DCD3F0}
-.mv-ly--dial svg{position:absolute;inset:0;width:100%;height:100%;transform:rotate(135deg)}
-.mv-dial__bg,.mv-dial__on{fill:none;stroke-width:10;stroke-linecap:round;stroke-dasharray:217 289}.mv-dial__bg{stroke:#ECE7F7}.mv-dial__on{stroke:#63B849;stroke-dasharray:196 289}
-.mv-ly--needle{left:73px;top:20px;width:4px;height:30px;border-radius:2px;background:#251E45;transform-origin:50% 100%;transform:translateZ(var(--z)) rotate(52deg)}
-.mv-ly--cap{left:68px;top:42px;width:14px;height:14px;border-radius:50%;background:#251E45}
-.mv-ly--fast{left:50px;top:62px;padding:3px 9px;border-radius:999px;background:#63B849;font:400 15px/1 var(--display);letter-spacing:.06em;text-transform:uppercase;color:#251E45}
-.mv-ly--card{inset:0;background:#fff;box-shadow:inset 0 -3px 0 #DCD3F0}
-.mv-ly--q{left:10px;top:9px;right:10px;padding:5px 9px;border-radius:999px;background:#F1EDFA;font:700 10.5px/1 var(--sans);color:#251E45;white-space:nowrap;overflow:hidden}
-.mv-ly--res{left:10px;top:34px;width:100px;display:grid;gap:5px;padding:7px;background:#fff;box-shadow:0 0 0 1px #E7E0F7}
-.mv-res__u{display:block;width:50%;height:4px;border-radius:2px;background:#63B849}.mv-res__t{display:block;height:8px;border-radius:4px;background:#3B2F70}.mv-res__s{font:700 10px/1 var(--sans);font-style:normal;color:#F2C14E;letter-spacing:1px}
-.mv-ly--pin{left:112px;top:30px;width:30px;height:38px;color:#63B849}.mv-ly--pin .fp-ic{width:32px;height:32px;stroke-width:2.4;transform:rotateZ(28deg) rotateX(-60deg);filter:drop-shadow(0 4px 4px rgba(0,0,0,.4))}.mv-ly--pin::after{display:none}
-.mv-ly--folder{inset:6px 10px;background:linear-gradient(180deg,#F2C14E,#E1A93A);border-radius:6px 10px 10px 10px;box-shadow:inset 0 -4px 0 rgba(0,0,0,.12)}
-.mv-ly--file{left:22px;width:84px;padding:7px 10px;border-radius:7px;background:#fff;font:800 11px/1 var(--sans);color:#251E45;box-shadow:inset 3px 0 0 #63B849}
-.mv-ly--f1{top:58px}.mv-ly--f2{top:38px;left:30px}.mv-ly--f3{top:18px;left:38px}
-.mv-ly--key{left:100px;top:22px;width:40px;height:40px;display:grid;place-items:center;border-radius:12px;background:#63B849;color:#251E45;box-shadow:inset 0 -4px 0 #3D8A2B}
-.mv-ly--key .fp-ic{width:24px;height:24px;stroke-width:2.4}
-.mv-sc .rp--mini{position:absolute;left:50%;top:10px;margin-left:calc(var(--w) / -2)}
-.mv-sc .rp--mini .rp__shadow{display:none}
-.mv-sc--phone .rp--mini{top:12px}
-.mv-badge{position:absolute;left:calc(50% + 38px);top:20px;display:grid;place-items:center;width:30px;height:30px;border-radius:50%;background:#63B849;color:#251E45;box-shadow:0 8px 14px -6px rgba(0,0,0,.6)}.mv-badge .fp-ic{width:17px;height:17px;stroke-width:2.6}
-.mv-sc--reach .rp--mini{top:10px}
-@media (max-width:519px){.mv-sc{height:142px}}
-@media (prefers-reduced-motion:no-preference){
-  .js .mv-inc.is-in .mv-inc__c{animation:cvRise .5s var(--ease-out) both;animation-delay:calc(var(--i) * .08s)}
-  .js .mv-inc.is-in .mv-ly:not(.mv-ly--base){animation:mvLift .9s var(--ease-spring) both;animation-delay:calc(.35s + var(--i) * .05s)}
-  .js .mv-inc.is-in .mv-ly--cur{animation:mvLift .9s var(--ease-spring) .5s both,mvHover 3.2s ease-in-out 1.4s infinite}
-  .js .mv-inc.is-in .mv-ly--pin{animation:mvLift .9s var(--ease-spring) .5s both,mvHover 2.6s ease-in-out 1.4s infinite}
-  .js .mv-inc.is-in .mv-ly--needle{animation:mvNeedle2 1.6s var(--ease-out) .5s both}
-  .js .mv-inc.is-in .mv-dial__on{animation:mvDial 1.6s var(--ease-out) .5s both}
-  .js .mv-inc.is-in .mv-badge{animation:cvPop .45s var(--ease-spring) 1s both}
-  .js .mv-inc.is-in .mv-sc--reach .rp-wa__m{animation:rpMsg 1s both;animation-delay:calc(.8s + var(--i) * .7s)}
-}
-@keyframes mvLift{from{transform:translateZ(0)}}
-@keyframes mvHover{0%,100%{transform:translateZ(var(--z))}50%{transform:translateZ(calc(var(--z) + 10px))}}
-@keyframes mvNeedle2{from{transform:translateZ(var(--z)) rotate(-130deg)}}
-@keyframes mvDial{from{stroke-dasharray:0 289}}
-.rm .rp,.rm .rp *,.rm .mv-ly,.rm .mv-pl{animation:none!important}
+.rm .rp,.rm .rp *{animation:none!important}
 .rm .rp--lp .rp__app{opacity:0}.rm .rp--lp .rp__app--1{opacity:1}
 
-/* fixes: the tiny phones show the island without the clock, and the speed label stands up to face you */
-.rp--mini .rp__st{display:none}
-.mv-ly--fast{left:42px;top:66px;transform:translateZ(var(--z)) rotateZ(28deg) rotateX(-54deg)}.mv-ly--fast::after{display:none}
 
 /* the 3D map gets the bigger column; the studio card text sits left */
 .mv-map{grid-template-columns:minmax(0,1.2fr) minmax(0,1fr)}
@@ -336,3 +350,49 @@
 .mv-map__home .mv-map__hw{place-items:start;justify-items:start;text-align:left}
 @media (max-width:799px){.mv-map{grid-template-columns:minmax(0,1fr)}.mv-map__fig{max-width:none}}
 .h3d--sec{aspect-ratio:1 / 1;max-height:min(720px,90svh)}
+
+/* depth for the six card scenes (Mehul, 17 Nov 2026: the flat cards looked better; depth is enough, no 3D tilt):
+   lifted surfaces with top light and an edge, raised buttons, and soft contact shadows on the floor */
+.mv-sc{background:radial-gradient(120% 110% at 82% -10%,#4a3d86,#2a2152 55%,#1f183c);box-shadow:inset 0 1px 0 rgba(255,255,255,.08),inset 0 -34px 40px -32px rgba(0,0,0,.5)}
+.mv-fr,.mv-serp{background:linear-gradient(180deg,#fff 0%,#F2EEFA 100%);box-shadow:inset 0 1px 0 #fff,0 2px 0 #D2C8EE,0 3px 0 #BDB0E4,0 24px 30px -14px rgba(5,2,20,.75),0 8px 12px -8px rgba(5,2,20,.5)}
+.mv-fr__hero{background:linear-gradient(135deg,#DCD3F3,#9C8DD8);box-shadow:inset 0 1px 0 rgba(255,255,255,.5),0 6px 10px -6px rgba(37,30,69,.6)}
+.mv-fr__btn,.mv-ph__cta{background:linear-gradient(180deg,#7ACB5E,#58AA3E);box-shadow:inset 0 1px 0 rgba(255,255,255,.4),0 5px 8px -4px rgba(45,110,30,.8)}
+.mv-layers i{box-shadow:0 2px 4px -2px rgba(0,0,0,.5)}
+.mv-cur{filter:drop-shadow(0 6px 4px rgba(5,2,20,.55))}
+.mv-ph{background:linear-gradient(180deg,#fff,#F3F0FA);box-shadow:0 0 0 3px #1B1535,0 0 0 4.5px #55555e,0 2px 0 5px #2a2a31,0 28px 34px -14px rgba(5,2,20,.8)}
+.mv-ph__n{top:5px!important;left:23px!important;right:23px!important;height:6px!important;border-radius:999px!important;background:#000!important}
+.mv-ph__b--1{background:linear-gradient(135deg,#DCD3F3,#9C8DD8)}
+.mv-tick,.mv-key{box-shadow:inset 0 2px 0 rgba(255,255,255,.35),inset 0 -3px 0 rgba(0,0,0,.18),0 12px 18px -8px rgba(5,2,20,.75)}
+.mv-tick{background:linear-gradient(180deg,#7ACB5E,#58AA3E)}.mv-key{background:linear-gradient(180deg,#7ACB5E,#58AA3E)}
+.mv-gauge{filter:drop-shadow(0 10px 8px rgba(5,2,20,.6))}
+.mv-gauge__t{text-shadow:0 4px 10px rgba(0,0,0,.45)}
+.mv-serp__q{box-shadow:inset 0 1px 2px rgba(37,30,69,.12)}
+.mv-serp__pin{filter:drop-shadow(0 7px 5px rgba(5,2,20,.5))}
+.mv-bub{box-shadow:inset 0 1px 0 rgba(255,255,255,.45),0 14px 18px -10px rgba(5,2,20,.75)}
+.mv-btns i{box-shadow:inset 0 1px 0 rgba(255,255,255,.2),0 8px 12px -6px rgba(0,0,0,.65)}
+.mv-files i{background:linear-gradient(180deg,#fff,#F2EEFA);box-shadow:inset 0 -2px 0 #D2C8EE,0 10px 14px -8px rgba(5,2,20,.75)}
+.mv-serp__q,.mv-serp__s{font-size:12px}
+@media (max-width:519px){.mv-gauge{width:118px;margin-left:-59px;top:14px}.mv-gauge__t{bottom:10px;font-size:19px}}
+
+/* the phone faces you straight on (Mehul: "show front"); the side buttons still show its edges */
+.rp__body{transform:none}
+.rp__edge{display:none}
+.rp__shadow{left:6%;right:6%}
+
+/* the map, drawn with depth (no 3D): raised land with a side edge and a drop shadow, raised rails, pins with shadows,
+   trains running, waves drifting */
+.mv-map{grid-template-columns:minmax(0,480px) minmax(0,1fr)}
+.mv-map__fig{max-width:480px;border-radius:26px;overflow:hidden;box-shadow:0 30px 60px -40px rgba(37,30,69,.6)}
+.mv-map__land{fill:url(#mvLand);stroke:#D3C9EE;stroke-width:1.2}
+.mv-map__land--far{fill:#F7F4FD}
+.mv-map__side{fill:#AFA2DC}.mv-map__side--far{fill:#CFC5EC}
+.mv-map__rail{fill:none;stroke-linecap:round;stroke-linejoin:round}
+.mv-map__rail--case{stroke:#fff;stroke-width:10}
+.mv-map__rail--w{stroke:#9C8DD8;stroke-width:5}.mv-map__rail--c{stroke:#74C259;stroke-width:5}
+.mv-map__train rect{fill:#251E45;stroke:#fff;stroke-width:2}.mv-map__train--c rect{fill:#2F7D22}
+.mv-map__a circle{stroke:#fff;stroke-width:2.5}
+.mv-map__a text{paint-order:stroke;stroke:#fff;stroke-width:4px;stroke-linejoin:round}
+.mv-map__wave{fill:none;stroke:#fff;stroke-width:2;stroke-linecap:round;opacity:.55}
+@media (prefers-reduced-motion:no-preference){.js .mv-map.is-in .mv-map__wave{animation:mvWave 5s ease-in-out infinite;animation-delay:calc(var(--i) * -.8s)}}
+@keyframes mvWave{0%,100%{transform:translateX(0);opacity:.55}50%{transform:translateX(10px);opacity:.25}}
+@media (max-width:799px){.mv-map{grid-template-columns:minmax(0,1fr)}.mv-map__fig{margin-inline:auto;width:100%;max-width:440px}}
