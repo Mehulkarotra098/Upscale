@@ -71,6 +71,7 @@ def faq_of(slug, extra=()):
 
 # ---------------------------------------------------------------- hero graphics, one per page, drawn with depth in depth_art.py
 ARTS = {k: __import__('depth_art').CARDS[k] for k in ('pack', 'calendar', 'answer', 'menu', 'prices')}  # the cards with depth
+ARTS['serp'] = __import__('motion_heroes').seo  # SEO page: 2D motion hero (Mehul, 17 Nov: no 3D here)
 
 
 def hero_art(p):
@@ -83,7 +84,7 @@ LOCAL, TECH = price('Local SEO / Google Business Profile'), price('Technical + o
 
 SEO = dict(
     slug='seo-mumbai', path='services/seo-mumbai', crumbs=[('Services', '/services')], crumb='SEO services', service='SEO services in Mumbai',
-    eyebrow='Local and technical SEO', art=dict(kind='pack'),
+    eyebrow='Local and technical SEO', art=dict(kind='serp'),
     stats=[(LOCAL.split('/')[0], 'Local SEO, per month'), ('3–6 mo', 'To real progress'), ('Free', 'First check')],
     wa="Hi Mehul, I'd like to talk about SEO for my business.",
     sections=[
