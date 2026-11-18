@@ -71,7 +71,7 @@ MAIN = [('Landing page', 'Landing page', 'One page for one offer or ad', '1 page
         ('Business site', 'Business site, 5–10 pages', 'Clinics, salons, studios, services', '5–10 pages', '3–4 weeks', 5),
         ('Online store', 'E-commerce, under 50 products', 'A focused range, UPI and cards', 'Up to 50 products', 'Agreed in the plan', 0)]
 MORE = [('Portfolio site', 'Portfolio site'), ('10–20 pages + blog', 'Business site, 10–20 pages + blog'), ('Restaurant + own ordering', 'Restaurant site + own online ordering'),
-        ('Store, 50–500 products', 'E-commerce, 50–500 products'), ('Redesign', 'Redesign of your current site')]
+        ('Store, 51–500 products', 'E-commerce, 50–500 products'), ('Redesign', 'Redesign of your current site')]
 
 
 def _stack(n):
@@ -80,13 +80,13 @@ def _stack(n):
     return '<span class="mv-stack" aria-hidden="true">' + ''.join(f'<i class="mv-sheet" style="--k:{k};--n:{n}"></i>' for k in range(n)) + '</span>'
 
 
-def packages():
+def packages(bugfix='15–30 day bug-fix window'):
     cards = ''.join(f'<li class="mv-pk{" mv-pk--hi" if i == 1 else ""}" style="--i:{i}">{_stack(n)}<p class="mv-pk__k">{e(name)}</p>'
                     f'<b class="mv-pk__p">{e(price(key))}</b><p class="mv-pk__for">{e(good)}</p>'
                     f'<p class="mv-pk__m"><span>{icon("layers")}{e(size)}</span><span>{icon("clock")}{e(live)}</span></p></li>'
                     for i, (name, key, good, size, live, n) in enumerate(MAIN))
     more = ''.join(f'<li><span>{e(n)}</span><b>{e(price(k))}</b></li>' for n, k in MORE)
-    inc = ['Mobile-first design', 'Enquiry forms', 'Basic SEO', 'Google Maps', 'Social links', '2–3 revision rounds', '15–30 day bug-fix window']
+    inc = ['Mobile-first design', 'Enquiry forms', 'Basic SEO', 'Google Maps', 'Social links', '2–3 revision rounds', bugfix]
     pay = ('<div class="mv-pay" aria-label="Payment: 20% to start, 20% when you approve the design, 60% when the site is live">'
            '<span style="--w:20;--i:0"><b>20%</b>to start</span><span style="--w:20;--i:1"><b>20%</b>design approved</span><span class="mv-pay__go" style="--w:60;--i:2"><b>60%</b>when it’s live</span></div>')
     html = (f'<div class="mv-pks" data-reveal><ul class="mv-pks__main">{cards}</ul>'

@@ -258,3 +258,15 @@ h1,h2,h3,h4,.h2,summary,.sp-cta__title,.stat__label,.eyebrow{text-wrap:balance}
 p,li,dd,figcaption,.fp-note{text-wrap:pretty}
 .svc3__links{align-content:start}
 .h2,.fp-h2{line-height:1.1}
+/* Copy rewrite (19 Nov): the founder note runs to two paragraphs, the brand line gets its own short section, and a
+   service card can carry one line of proof inside its description (the card is a seven-row subgrid). */
+.founder__quote p{margin:0}
+.founder__quote p+p{margin-top:.7em}
+.home-line .sec-head{margin-bottom:clamp(22px,3vw,34px)}
+.home-line__defs{max-width:860px}
+.home-line__defs dd{font-weight:500;line-height:1.55;max-width:62ch}
+.home-line__end{margin-top:clamp(22px,2.6vw,30px)}
+.svc3__proof{display:block;margin-top:10px;padding-top:10px;border-top:1px dashed rgba(37,30,69,.16);font-size:14px;line-height:1.55}
+.svc3__proof b{color:var(--violet)}
+.svc3__card--web .svc3__proof{border-top-color:var(--line-dark)}
+.svc3__card--web .svc3__proof b{color:var(--white)}

@@ -733,7 +733,7 @@ def parent_sections():
     import mumbai_visuals as MV
     return [
         Sec('Sample designs for Mumbai businesses', Html(*MV.samples()), eyebrow='What yours could look like', layout='wide', sid='samples'),
-        Sec('Website design packages and prices in Mumbai', Html(*MV.packages()), eyebrow='Packages and prices', layout='wide', sid='packages'),
+        Sec('Website design packages and prices in Mumbai', Html(*MV.packages('30 days of bug fixes')), eyebrow='Packages and prices', layout='wide', sid='packages'),
         Sec('No hidden charges: every other cost, said upfront', Html(*MV.receipt()), eyebrow='The full cost', layout='wide', tone='band', sid='no-hidden-charges'),
         Sec('Landing pages for ads and launches',
             P(f'One page built for one job: an ad, a launch or an offer. {price("Landing page")}, fixed, live in under two weeks. '
@@ -741,8 +741,8 @@ def parent_sections():
             Html(*MV.landing()), eyebrow='Landing pages', sid='landing'),
         Sec(f'Why {price("Business site, 5–10 pages")} and not a ₹25,000 template?', Html(*MV.versus()), eyebrow='The price gap', layout='wide', tone='band', sid='value'),
         Sec('Looking for a website designing company in Mumbai?',
-            P('U Scale is one person: I design your site and write its code, the work a larger company splits across a team. '
-              'Before you pay any web designing company in Mumbai, me included, check these six things:'),
+            P('U Scale is a studio led by its founder: my team and I design your site and write its code, and you talk to me. '
+              'Before you pay any web designing company in Mumbai, us included, check these six things:'),
             Check(['The domain and hosting are registered in your name, not the company’s.',
                    'You see the phone and desktop designs before any code is written.',
                    'The price and the number of pages are in writing, and so is what counts as extra.',
@@ -750,7 +750,7 @@ def parent_sections():
                    'Somebody tests the site on an ordinary phone as well as on the designer’s laptop.',
                    'At launch you get the code, the design files and every login.']),
             eyebrow='Choosing a web design company', layout='wide', tone='dark', sid='company'),
-        Sec('Areas I work in across Mumbai', Html(*MV.areas()), eyebrow='Near you', layout='wide', sid='areas'),
+        Sec('Areas we work in across Mumbai', Html(*MV.areas()), eyebrow='Near you', layout='wide', sid='areas'),
     ]
 
 
@@ -1247,6 +1247,9 @@ def _who(p):
                                                                         'and you talk to me directly on WhatsApp, not to an account manager.')
         badges = [f'Based in {base}', 'Designs in Figma, hand-codes', 'English and Hindi']
         more = 'More about Mehul'
+        if p.get('kind') == 'parent':  # the website design page speaks for the team (19 Nov 2026); the area and industry pages follow in a later pass
+            h, d = 'Mehul Karotra leads your project.', ('My team and I design every site in Figma and code it by hand. I’m based in Mumbai, '
+                                                         'and you talk to me directly on WhatsApp, not to an account manager.')
     li = ''.join(f'<li>{icon("check")}{e(x)}</li>' for x in badges)
     return f'''
   <section class="section fp-sec fp-sec--who" aria-labelledby="who-title">
@@ -1282,6 +1285,13 @@ def _how(p):
                  ('Design & build', 'You approve real screens in Figma, desktop and mobile, before I code them and test on phones.', '20% to start · 20% on design sign-off'),
                  ('Launch', 'Domain, hosting, Google Search Console and a final check on real phones. Then I hand over every login.', '60% on launch')]
         promise = [('key', 'Your domain, code and logins, in your name'), ('file', 'Price fixed in writing, no hidden charges'), ('shield', '15–30 day bug-fix window after launch')]
+        if not p:  # called with an empty page by the website design page only: team wording (19 Nov 2026); the area and industry pages follow in a later pass
+            head = 'Fixed price, agreed before we start.'
+            steps = [('Free audit', 'I check your website, Google listing and Instagram, and we agree the goals, pages and must-haves.', 'Free'),
+                     ('Written plan', 'What we will build, by when, and the exact price, in writing before you pay anything.', 'Fixed price'),
+                     ('Design & build', 'You approve real screens in Figma, desktop and mobile, before we code them and test on phones.', '20% to start · 20% on design sign-off'),
+                     ('Launch', 'Domain, hosting, Google Search Console and a final check on real phones. Then we hand over every login.', '60% on launch')]
+            promise = [('key', 'Your domain, code and logins, in your name'), ('file', 'Price fixed in writing, no hidden charges'), ('shield', '30 days of bug fixes after launch')]
     shots, sz = ['step-audit', 'step-plan', 'step-design', 'step-launch'], '(max-width: 759px) 82vw, (max-width: 1099px) 46vw, 320px'
     li = ''.join(f'<li class="fp-step" data-reveal>{_shot(shots[i], sz, "fp-step__media")}<div class="fp-step__body"><span class="fp-step__n" aria-hidden="true">{i + 1:02d}</span><h3>{e(t)}</h3><p>{e(d)}</p>'
                  + (f'<span class="fp-step__tag">{e(tag)}</span>' if tag else '') + '</div></li>' for i, (t, d, tag) in enumerate(steps))
