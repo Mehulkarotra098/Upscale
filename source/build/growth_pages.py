@@ -43,7 +43,7 @@ def _rel(items):
 ECOM = dict(
     slug='ecommerce-website-mumbai', path='services/ecommerce-website-mumbai', kind='business', crumb='Online stores',
     service='E-commerce website development in Mumbai', service_type='E-commerce website development',
-    card=f'Your own online store with UPI and card payments, from {STORE} for under 50 products.',
+    card=f'Your own online store with UPI and card payments, from {STORE} for up to 50 products.',
     title='E-commerce Website Development in Mumbai from ₹95,000',
     desc=f'Your own online store, built in Mumbai: under 50 products {STORE}, 50–500 products {STORE_BIG}. UPI and card payments, product pages Google can find.',
     h1='E-commerce websites in Mumbai', eyebrow='Website development',

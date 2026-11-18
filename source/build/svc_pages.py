@@ -122,22 +122,23 @@ SEO = dict(
               'decide whether the second is worth adding. After those 3 months every plan is month to month. For what SEO costs elsewhere in '
               'India, with the market ranges, read ' + SP.post_link('/blog/seo-cost-in-india', 'SEO cost in India (2026)') + '.'),
             eyebrow='Packages', layout='wide', sid='packages'),
-        Sec('SEO company, SEO agency or one consultant?',
+        Sec('SEO company, SEO agency or a founder-led studio?',
             P('If you came here looking for an SEO company in Mumbai (or an SEO agency, or an SEO firm in Bombay, as plenty of people still call '
-              'it), you should know what U Scale is before we talk. It is me. I do the audit, I make the fixes and I write the report you get '
-              'each month. There is no sales team, and nobody sits between you and the person doing the work. That suits some businesses and not others.'),
+              'it), you should know what U Scale is before we talk. It is a studio that I, Mehul Karotra, started and lead. My team and I do the audit, '
+              'make the fixes and write the report you get each month, and you talk to me. There is no sales team, and nobody sits between you and the '
+              'people doing the work. That suits some businesses and not others.'),
             Options([dict(name='An SEO company or agency', tag='A team', rows=[('Good for', 'Large sites, many locations, content at volume'),
                                                                                ('You deal with', 'An account manager'), ('Ask about', 'Contract length and who actually does the work')]),
-                     dict(name='A freelance SEO consultant', tag='One person', hi=True, rows=[('Good for', 'Local businesses and small service sites'),
-                                                                                             ('You deal with', 'The person doing the work'), ('Ask about', 'How many clients they take on at once')])],
+                     dict(name='A founder-led studio', tag='How U Scale works', hi=True, rows=[('Good for', 'Local businesses and small service sites'),
+                                                                                             ('You deal with', 'The founder, who works on it with the team'), ('Ask about', 'How many clients they take on at once')])],
                     note='If you are comparing a few SEO companies in Mumbai, ask all of them the same four questions. Who will actually do the work? '
                          'What is in the monthly report? How long is the contract? And does the Google listing stay in my name?'),
             eyebrow='Company, agency or consultant', sid='company'),
         Sec('Local SEO across Mumbai',
             P('Local results depend on where the searcher is, so local SEO is done area by area: your listing, your pages and your reviews have to '
-              'name the places you serve. I work with businesses across Mumbai, from Andheri, Borivali and Kandivali in the west to Ghatkopar, '
+              'name the places you serve. We work with businesses across Mumbai, from Andheri, Borivali and Kandivali in the west to Ghatkopar, '
               'Powai and Mulund in the east, and in Thane and Navi Mumbai.'),
-            Chips(['Andheri', 'Borivali', 'Kandivali', 'Malad', 'Goregaon', 'Bandra', 'Dadar', 'Ghatkopar', 'Powai', 'Vikhroli', 'Mulund', 'Chembur', 'Thane', 'Navi Mumbai'], 'Areas I work in'),
+            Chips(['Andheri', 'Borivali', 'Kandivali', 'Malad', 'Goregaon', 'Bandra', 'Dadar', 'Ghatkopar', 'Powai', 'Vikhroli', 'Mulund', 'Chembur', 'Thane', 'Navi Mumbai'], 'Areas we work in'),
             P('Pages that go deeper: <a class="tlink" href="/services/website-design-mumbai/ghatkopar">Ghatkopar</a>, '
               '<a class="tlink" href="/services/website-design-mumbai/andheri-east">Andheri</a>, '
               '<a class="tlink" href="/services/website-design-thane">Thane</a> and '
@@ -153,9 +154,9 @@ SEO = dict(
                   'What a typical month of SEO looks like with U Scale'),
             P('SEO is slow. Expect about 3 to 6 months before real progress, and be wary of anyone promising page one in 30 days.'),
             eyebrow='How it runs', layout='wide', tone='band'),
-        Sec('What I won’t do',
+        Sec('What we won’t do',
             Cards([('alert', 'Fake or paid reviews', 'They break Google’s rules and can get reviews removed or a listing restricted. ' + GP.src_chip('ugc-policy')),
-                   ('alert', 'Ranking guarantees', 'Nobody controls Google’s results, or how far a searcher is from you. I guarantee the work itself, and a report on what it did.'),
+                   ('alert', 'Ranking guarantees', 'Nobody controls Google’s results, or how far a searcher is from you. We guarantee the work itself, and a report on what it did.'),
                    ('alert', 'Spammy links and keyword stuffing', 'Bought links and pages stuffed with area names can hurt you. Google asks for content written for people. ' + GP.src_chip('helpful')),
                    ('alert', 'Keywords in your business name', 'Adding “best dentist Mumbai” to your Google name breaks its guidelines. Your real name, as on your board. ' + GP.src_chip('gbp-guidelines'))], cols=2),
             eyebrow='Within Google’s rules'),
@@ -168,7 +169,7 @@ SEO = dict(
                     ('layers', 'Grow', 'Content, reviews, listings and genuine local links, added month by month.', 'Month 2 onwards'),
                     ('file', 'Report', 'A monthly report and a call on what moved and what did not.', 'Every month')],
              promise=[('shield', 'No ranking guarantees, ever'), ('key', 'Your listing and accounts stay in your name'), ('refresh', '3 months minimum, then month-to-month')]),
-    who='I check your listing, fix your website and write your pages myself. You talk to me directly on WhatsApp, not to an account manager.',
+    who='My team and I check your listing, fix your website and write your pages. You talk to me directly on WhatsApp, not to an account manager.',
     faq_extra=[('Do you offer monthly SEO packages in Mumbai?',
                 f'Yes. Local SEO with Google Business Profile management is {LOCAL.replace("/mo", " a month")}, and technical and on-page SEO is '
                 f'{TECH.replace("/mo", " a month")}. Take one or both. Plans run for 3 months, then month to month with 30 days’ notice.'),
@@ -176,16 +177,16 @@ SEO = dict(
                 f'No. The monthly price is published and agreed in writing before work starts, and the monthly report shows what was done for it. '
                 f'Extra pieces, such as a blog post at {price("SEO blog (~1,000 words)")}, are optional and quoted first. No GST is charged right now.'),
                ('Is U Scale an SEO company or an SEO agency in Mumbai?',
-                'Neither, if you mean an office with a team. U Scale is me, Mehul Karotra, a freelance SEO consultant working from Ghatkopar West. '
+                'It is a studio, founded and led by me, Mehul Karotra, working from Ghatkopar West. '
                 'The work is what an SEO company in Mumbai would sell you: an audit, local SEO, technical fixes, content and a monthly report. '
-                'The difference is that I do it myself and you can message me directly. If your site has hundreds of pages, or you need several '
-                'cities handled at once, hire an SEO agency. I will tell you that in the free check rather than take the job.'),
+                'The difference is that I stay on your account with my team, and you can message me directly. If your site has hundreds of pages, or you need several '
+                'cities handled at once, a large SEO agency will suit you better. I will tell you that in the free check rather than take the job.'),
                ('Do you have an e-commerce SEO package?',
                 f'There isn’t a separate one. For an online store, take the technical and on-page SEO package at {TECH.replace("/mo", " a month")}. '
                 'Most of what a store needs sits there: titles for product and category pages, structured data, speed, and checking that Google '
                 'can crawl and index every product. If you also sell from a shop, add the local SEO package.'),
                ('Can you help if my Google listing is suspended?',
-                'Yes. I check what triggered it, fix what goes against Google’s guidelines, and help you file a reinstatement request through Google’s own form. '
+                'Yes. We check what triggered it, fix what goes against Google’s guidelines, and help you file a reinstatement request through Google’s own form. '
                 'No one can guarantee Google will reinstate a listing, and anyone who promises to do it for a fee “through contacts” is not being honest. '
                 'Verification problems are covered step by step in my Google Business Profile verification guide.'),
                ('Do I need a Google listing if I don’t have a shop?',
@@ -208,8 +209,8 @@ SOCIAL = dict(
         Sec('Where your Mumbai customers actually are',
             P('For most local businesses, Instagram is where people discover you and WhatsApp is where they ask the question. Facebook still matters for '
               'older customers and local groups, LinkedIn for B2B services, and YouTube Shorts for anything that is easier to show than to tell. '
-              'I would rather run two platforms well than four badly.'),
-            Table(['Platform', 'Best for', 'What I post'],
+              'We would rather run two platforms well than four badly.'),
+            Table(['Platform', 'Best for', 'What we post'],
                   [('Instagram', 'Shops, food, fashion, salons, clinics, studios', 'Reels, carousels, stories, highlights'),
                    ('Facebook', 'Local reach, events, older customers', 'Posts, offers, event pages'),
                    ('LinkedIn', 'CAs, consultants, B2B services', 'Posts and articles that show expertise'),
@@ -225,37 +226,37 @@ SOCIAL = dict(
                    ('Reel edits from your footage', str(REELS), _fmt(REELS * GP.rupees('Reel edit (your footage)'))),
                    ('Content for the month', '20 pieces', _fmt(_content)),
                    ('Community and inbox management', 'Monthly', price('Community & inbox management'))],
-                  'A typical starting month of social media with U Scale, priced from the published price list'),
+                  'An example month of social media with U Scale, priced from the published price list'),
             P(f'Content is priced per piece, so you pay only for what you post. Need footage? A half-day shoot with 3 reels is {price("Half-day shoot + 3 reels")} '
               f'and a full day with 6 reels {price("Full-day shoot + 6 reels")}, at your shop or studio anywhere in Mumbai, Thane or Navi Mumbai.'),
             eyebrow='Prices', tone='band', sid='packages'),
         Sec('Social media optimisation (SMO), before any posting',
             P('Social media optimisation (SMO) is the unglamorous part. It means setting up the profile so that someone who lands on it can tell '
               'what you sell, where you are and how to reach you. A good feed does little if the profile has no phone number or a dead link. '
-              'I go through these four things in the free audit and fix them in the first month.'),
+              'I go through these four things in the free audit, and we fix them in the first month.'),
             Cards([('user', 'Profile basics', 'The name people search for, the right category, a bio that says what you sell and where, and call, WhatsApp and direction buttons that work.'),
                    ('search', 'The words customers type', 'Captions and highlights in plain words, so your posts turn up in Instagram search and on Google.'),
                    ('pin', 'The same details everywhere', 'Name, address, phone number and timings that match your Google Business Profile and your website.'),
                    ('layers', 'A profile that answers', 'Pinned posts and highlights for prices, timings, location and reviews, so a new visitor doesn’t have to ask.')], cols=2),
             eyebrow='SMO', sid='smo'),
-        Sec('What you do, and what I handle',
+        Sec('What you do, and what we handle',
             Options([dict(name='You', tag='About 30 minutes a month', rows=[('Approve', 'The monthly calendar, before anything goes live'), ('Share', 'Offers, new stock, events, photos you already have'),
-                                                                          ('Answer', 'Serious enquiries I pass on to you')]),
-                     dict(name='Me', tag='Everything else', hi=True, rows=[('Plan', 'Calendar, ideas and visual direction'), ('Create', 'Posts, carousels and reel edits'),
+                                                                          ('Answer', 'Serious enquiries we pass on to you')]),
+                     dict(name='Us', tag='Everything else', hi=True, rows=[('Plan', 'Calendar, ideas and visual direction'), ('Create', 'Posts, carousels and reel edits'),
                                                                             ('Post and reply', 'Publishing, comments and DMs in your voice'), ('Report', 'Reach, saves and enquiries, and what changes next month')])]),
             eyebrow='Who does what', layout='wide'),
-        Sec('What I won’t do',
+        Sec('What we won’t do',
             Cards([('alert', 'Buy followers or likes', 'Fake followers never buy anything, and they make your real reach worse.'),
-                   ('alert', 'Promise you’ll go viral', 'No one can. I promise a steady plan, posted on time, and a plain monthly report.'),
-                   ('alert', 'Pass off AI images as your products', 'Customers notice. I use your real products, places and people.'),
+                   ('alert', 'Promise you’ll go viral', 'No one can. We promise a steady plan, posted on time, and a plain monthly report.'),
+                   ('alert', 'Pass off AI images as your products', 'Customers notice. We use your real products, places and people.'),
                    ('alert', 'Post without your OK', 'You approve the calendar first, and can check any post before it goes out.')], cols=2),
             eyebrow='No shortcuts'),
-        Sec('A social media marketing agency, or one manager?',
-            P('A social media marketing agency in Mumbai will give you a team: someone for strategy, designers, a video editor and an account '
-              'manager you talk to. A freelance social media manager is one person doing all of that at a smaller scale. An agency, or one of '
-              'the larger marketing companies, earns its fee when you need shoots every week or influencer campaigns.',
-              'For most local businesses, one person is enough. The feed stays consistent and you approve everything on WhatsApp. When a shoot '
-              'needs a photographer I bring one in, and you still deal only with me.'),
+        Sec('A social media marketing agency, or a studio like ours?',
+            P('A social media marketing agency in Mumbai will give you a large team: someone for strategy, designers, a video editor and an account '
+              'manager you talk to. An agency, or one of the larger marketing companies, earns its fee when you need shoots every week or '
+              'influencer campaigns.',
+              'Most local businesses need less than that: a steady monthly plan and one person to talk to. That is how we work. The feed stays '
+              'consistent, you approve everything on WhatsApp, and you talk to me, Mehul. When a shoot needs a photographer we bring one in and quote it first.'),
             eyebrow='Who to hire', sid='who-to-hire'),
         Sec('Read these next', guides('igalgo', 'insta', 'wa', 'wedding', 'diwali'), eyebrow='Guides', layout='wide'),
     ],
@@ -265,22 +266,22 @@ SOCIAL = dict(
                     ('pen', 'Create', 'Posts, carousels and reels designed and edited.', 'Priced per piece'),
                     ('refresh', 'Post and improve', 'Publishing, replies, and a monthly look at what worked.', 'Every month')],
              promise=[('key', 'Your accounts stay in your name'), ('file', 'Every price per piece, published'), ('refresh', '3 months minimum, then month-to-month')]),
-    who='I plan your calendar, design your posts and edit your reels myself. When a shoot needs a photographer, I bring one in and stay your single point of contact.',
-    work=['brandgen', 'vidhi', 'sashe'], work_h='Brands I’ve designed for.',
-    work_lead='U Scale started in 2026, so my work so far is mostly websites and marketing visuals. Here are three.',
+    who='My team and I plan your calendar, design your posts and edit your reels. When a shoot needs a photographer, we bring one in, and you still talk to me.',
+    work=['brandgen', 'vidhi', 'sashe'], work_h='Brands we’ve designed for.',
+    work_lead='U Scale started in 2026, so our work so far is mostly websites and marketing visuals. Here are three.',
     faq_extra=[('Do you have social media marketing packages in Mumbai?',
-                f'Yes, built from published prices. A typical starting month is {POSTS} designed posts, {CAROUSELS} carousels and {REELS} reel edits '
-                f'from your footage for {_fmt(_content)}, with community and inbox management at {price("Community & inbox management").replace("/mo", " a month")} '
+                f'Yes, built from published prices. As an example, a month of {POSTS} designed posts, {CAROUSELS} carousels and {REELS} reel edits '
+                f'from your footage comes to {_fmt(_content)}, with community and inbox management at {price("Community & inbox management").replace("/mo", " a month")} '
                 'if you want replies handled too. You can start smaller: content is priced by the piece.'),
                ('What is social media optimisation (SMO)?',
                 'Social media optimisation (social media optimization, if you spell it the American way) is setting up your profiles so people can '
                 'find them and make sense of them. That means the right name and category, a clear bio, contact buttons that work, captions in '
-                'the words customers search, and the same details as your Google listing and website. I check it in the free audit and fix it in '
+                'the words customers search, and the same details as your Google listing and website. I check it in the free audit, and we fix it in '
                 'the first month, before any posting plan starts.'),
                ('Is U Scale a social media marketing agency?',
-                'No. It is me, Mehul Karotra, working as your social media manager. I plan the month, design the posts, edit the reels and '
+                'Not a large one. U Scale is a studio that I, Mehul Karotra, started and lead. My team and I plan the month, design the posts, edit the reels and '
                 'publish them, at published prices. If you need shoots every day, influencer campaigns or a big team, a social media agency in '
-                'Mumbai is the right choice. For a steady monthly plan, one person usually does the job.'),
+                'Mumbai is the right choice. For a steady monthly plan, we are usually enough.'),
                ('Are there hidden charges in social media management?',
                 'No. Every post, carousel, reel edit and shoot has a published price, and you approve the month’s plan and its cost before anything is '
                 'made. Ad spend, if you run ads, is paid by you to Meta directly. No GST is charged right now.')],
@@ -315,7 +316,7 @@ ADS = dict(
                   [(_fmt(s), _fmt(_fee(s)), 'Paid by you to Google or Meta') for s in (30000, 150000, 200000, 300000)],
                   'U Scale ads management fee at different monthly ad budgets'),
             P(f'The fee is {price("Ads management")} flat up to ₹1.5 lakh of monthly spend, then 12% of spend, plus a one-time {_fmt(10000)} setup. '
-              'Your ad spend is never routed through me: you pay Google and Meta directly from accounts in your name, so you always see every rupee.'),
+              'Your ad spend is never routed through us: you pay Google and Meta directly from accounts in your name, so you always see every rupee.'),
             eyebrow='Prices', tone='band'),
         Sec('Click-to-WhatsApp ads, explained',
             P('A click-to-WhatsApp ad runs on Facebook or Instagram and opens a WhatsApp chat with your business, with a message already typed. For many '
@@ -329,15 +330,15 @@ ADS = dict(
                    ('key', 'Your accounts', 'The ad accounts, analytics and pixels are in your name, and stay yours if we stop.'),
                    ('file', 'A plain monthly report', 'Spend, leads, cost per lead and what changes next month.')], cols=2),
             eyebrow='Measurement'),
-        Sec('What I won’t do',
-            Cards([('alert', 'Promise a number of leads', 'Results depend on your offer, budget and market. I test changes and adjust the ads every week.'),
-                   ('alert', 'Mark up your ad spend', 'Spend goes straight from you to Google and Meta. My fee is separate and published.'),
+        Sec('What we won’t do',
+            Cards([('alert', 'Promise a number of leads', 'Results depend on your offer, budget and market. We test changes and adjust the ads every week.'),
+                   ('alert', 'Mark up your ad spend', 'Spend goes straight from you to Google and Meta. Our fee is separate and published.'),
                    ('alert', 'Lock you out', 'You own the accounts from day one. Nothing is held back if we part ways.'),
                    ('alert', 'Run misleading ads', 'Claims your business can back up, within Google’s and Meta’s ad policies.')], cols=2),
             eyebrow='Ground rules'),
         Sec('Looking for a Google Ads agency in Mumbai?',
-            P('Most people looking for help with ads search for an “agency”. With U Scale you get one person who sets up and runs your Google and '
-              'Meta ads, not an agency team. Whoever you hire, check these six things first:'),
+            P('Most people looking for help with ads search for an “agency”. U Scale is a studio led by its founder: my team and I set up and run your '
+              'Google and Meta ads, and you talk to me. Whoever you hire, check these six things first:'),
             Check(['The Google Ads and Meta ad accounts are created in your business’s name, and you are the owner.',
                    'Your ad spend is paid by you to Google and Meta directly, never marked up.',
                    'Conversion tracking for calls, WhatsApp taps and forms is set up before the first rupee is spent.',
@@ -353,15 +354,15 @@ ADS = dict(
                     ('bolt', 'Launch', 'Ads go live on a test budget, watched closely in week one.', 'Week 1'),
                     ('refresh', 'Optimise', 'Budgets, keywords and creatives adjusted weekly; a clear report monthly.', 'Every week')],
              promise=[('key', 'Ad accounts in your name'), ('rupee', 'Spend paid directly to Google and Meta'), ('refresh', '3 months minimum, then month-to-month')]),
-    who='I set up the tracking, build the campaigns and watch them every week myself. You get one person who knows your account, on WhatsApp.',
+    who='My team and I set up the tracking, build the campaigns and watch them every week. You talk to me on WhatsApp, and I know your account.',
     faq_extra=[('Can you run ads in Hindi or Marathi?',
                 'Yes. Ads, landing pages and WhatsApp replies can be in English, Hindi or Hinglish, or Marathi where your customers prefer it.'),
                ('Do you have social media advertising packages?',
-                f'Just one, and it is short. I manage your Facebook and Instagram advertising for {price("Ads management").replace("/mo", " a month")} '
-                f'while your ad spend is under ₹1.5 lakh a month, and for 12% of spend above that. Setting up costs {_fmt(10000)}, once. The fee '
+                f'Just one, and it is short. We manage your Facebook and Instagram advertising for {price("Ads management").replace("/mo", " a month")} '
+                f'while your ad spend is up to ₹1.5 lakh a month. Above that, the fee is 12% of your ad spend. Setting up costs {_fmt(10000)}, once. The fee '
                 'depends on the total you spend on ads, on whichever platforms. Posts and reels for your own feed are a different thing, priced by the piece.'),
                ('Are there hidden charges in ads management?',
-                f'No. There are three costs and all three are published: the monthly fee of {price("Ads management")} up to ₹1.5 lakh of ad spend (12% of spend above that), '
+                f'No. There are three costs and all three are published: the monthly fee of {price("Ads management")} up to ₹1.5 lakh of ad spend (above that, 12% of your ad spend), '
                 f'a one-time {_fmt(10000)} setup, and your ad spend, which you pay to Google or Meta directly from accounts in your name. '
                 'Everything is agreed in writing before the first ad runs. No GST is charged right now.')],
     sources=['pmax', 'ctwa'],
@@ -376,7 +377,7 @@ AI = dict(
     wa="Hi Mehul, I'd like to check what ChatGPT and Google say about my business.",
     sections=[
         Sec('What an AI visibility audit checks',
-            Table(['Check', 'What I look for'],
+            Table(['Check', 'What we look for'],
                   [('Are you named?', 'Real questions your customers ask, put to ChatGPT, Gemini, Perplexity and Google’s AI Overviews and AI Mode'),
                    ('Are the facts right?', 'Name, area, services, prices, timings and phone in each answer'),
                    ('Which sources are cited?', 'Your site, your Google listing, directories, reviews, or a competitor’s page'),
@@ -406,20 +407,20 @@ AI = dict(
             eyebrow='GEO vs SEO', layout='wide', tone='band'),
         Sec('Make sure AI tools can read your site',
             Cards([('globe', 'Crawlers allowed', 'Your robots.txt and hosting let search and AI crawlers in, such as OpenAI’s OAI-SearchBot and PerplexityBot. ' + GP.src_chip('openai-bots')),
-                   ('shield', 'No accidental blocks', 'Firewalls and bot protection often block AI crawlers by default. I check what they actually see. ' + GP.src_chip('pplx-bots')),
+                   ('shield', 'No accidental blocks', 'Firewalls and bot protection often block AI crawlers by default. We check what they actually see. ' + GP.src_chip('pplx-bots')),
                    ('file', 'Facts in the text', 'Prices, timings and services written as text on the page, not only inside images or PDFs.'),
                    ('layers', 'Business details in the code', 'Structured data for your business, the format Google documents for local businesses. ' + GP.src_chip('local-schema'))], cols=2),
             P('This site follows the same rules: every AI crawler is welcome, and a plain-text summary sits at <a class="tlink" href="/llms.txt">uscale.in/llms.txt</a>.'),
             eyebrow='Readable by AI'),
-        Sec('What I can’t promise',
-            Cards([('alert', 'A mention in ChatGPT', 'No one controls AI answers. I improve the facts they rely on and track how often and how accurately you appear.'),
-                   ('alert', 'The same answer every time', 'AI answers change with wording, location and time. I check the same questions every month to see the trend.'),
+        Sec('What we can’t promise',
+            Cards([('alert', 'A mention in ChatGPT', 'No one controls AI answers. We improve the facts they rely on and track how often and how accurately you appear.'),
+                   ('alert', 'The same answer every time', 'AI answers change with wording, location and time. We check the same questions every month to see the trend.'),
                    ('alert', 'Shortcuts', 'No fake reviews, paid mentions or pages written for bots. They put your Google listing at risk too.')], cols=3),
             eyebrow='The limits of GEO'),
         Sec('AI search optimisation agency or consultant?',
             P('Look for AI SEO help in India and you’ll find agencies and consultants offering “GEO”, “AEO” and “AI SEO”. They describe the same work: '
-              'making your facts clear, consistent and easy for AI tools to find and repeat. U Scale is one consultant, me, doing the audit and the '
-              'monthly checks myself, with a screenshot of every answer. Whoever you hire, ask to see the actual AI answers from before and after '
+              'making your facts clear, consistent and easy for AI tools to find and repeat. At U Scale, my team and I do the audit and the '
+              'monthly checks, and you get a screenshot of every answer. Whoever you hire, ask to see the actual AI answers from before and after '
               'the work, rather than a score.'),
             eyebrow='Who to hire', sid='who-to-hire'),
         Sec('Read these next', guides('chatgpt', 'chatads', 'askmaps', 'maps'), eyebrow='Guides', layout='wide'),
@@ -430,10 +431,10 @@ AI = dict(
                     ('file', 'Content', 'Answer-ready pages and FAQs that AI tools can quote.', 'Month by month'),
                     ('refresh', 'Monitor', 'The same questions re-asked every month, and fixes where answers are wrong.', 'Every month')],
              promise=[('shield', 'No promised mentions'), ('file', 'Screenshots of every answer'), ('refresh', '3 months minimum, then month-to-month')]),
-    who='I ask the AI tools, read the answers and fix your facts and pages myself. You talk to me directly on WhatsApp.',
+    who='My team and I ask the AI tools, read the answers and fix your facts and pages. You talk to me directly on WhatsApp.',
     faq_extra=[('Which agency in India can audit how my brand shows up in ChatGPT, Gemini and Perplexity?',
                 f'U Scale does, from Mumbai, for businesses across India. An AI visibility audit is {price("AI visibility audit (free if we work together)")}: '
-                'Mehul Karotra puts the questions your customers ask to ChatGPT, Gemini, Perplexity and Google’s AI features, and shows you the answers, '
+                'we put the questions your customers ask to ChatGPT, Gemini, Perplexity and Google’s AI features, and show you the answers, '
                 'the sources they cite and what to fix.'),
                ('Do I need llms.txt for AI search?',
                 'No. Google says its AI features need no special files, and other AI companies have not said they rely on llms.txt. It does no harm to have one, and nothing depends on it.'),
@@ -498,7 +499,7 @@ def _who(p):
         <picture class="fp-who__img"><source type="image/avif" srcset="{GP.vurl(img['file'] + '-480.avif')}"><img src="{GP.vurl(img['file'] + '-480.webp')}" width="480" height="480" alt="{ea(img['alt'])}" loading="lazy" decoding="async"></picture>
         <div class="fp-who__body">
           <p class="eyebrow">Who you’ll work with</p>
-          <h2 class="fp-who__h" id="who-title">Mehul Karotra, personally.</h2>
+          <h2 class="fp-who__h" id="who-title">Mehul Karotra leads your project.</h2>
           <p>{e(p['who'])}</p>
           <ul class="fp-who__badges">{li}</ul>
           <a class="tlink" href="/about">More about Mehul</a>
@@ -659,46 +660,81 @@ def about_page(ctx, parts):
     site = ctx['SITE_URL']; url = site + 'about'
     icons = ctx['ICONS']
     title = 'About Mehul Karotra, Founder of U Scale | Mumbai'
-    desc = ('Mehul Karotra is a Mumbai website designer and developer, and founder of U Scale: websites, SEO, social media, ads and '
-            'AI search visibility, done personally.')
+    desc = ('Why Mehul Karotra started U Scale, a web design and digital marketing studio in Ghatkopar West, Mumbai, and what working '
+            'with him and the team is like.')
     wa = WA + urllib.parse.quote("Hi Mehul, I read about you on uscale.in. I'd like to talk about my business.")
     founder = aeo.FOUNDER
-    p = dict(slug='about', crumbs=[], crumb='About', h1='About Mehul Karotra', eyebrow='The person doing your work',
-             lead=('I’m Mehul, a website designer and developer from Mumbai and the person behind U Scale. I started U Scale so that a small business '
-                   'could get agency-quality work without paying for account managers and middlemen. When you work with U Scale, you work with me.'),
+    p = dict(slug='about', crumbs=[], crumb='About', h1='About Mehul Karotra', eyebrow='Founder of U Scale',
+             lead=('I’m Mehul. I started U Scale in 2026, in Ghatkopar West, Mumbai. My team and I build websites and run online marketing '
+                   'for independent businesses, at prices you can read before you call.'),
              art=dict(kind='portrait', chips=[('pin', 'Ghatkopar West, Mumbai'), ('chat', 'Replies on WhatsApp')]),
-             stats=[('2026', 'U Scale founded'), ('1', 'Person does your work'), ('Every', 'Price published')],
+             stats=[('2026', 'U Scale founded'), ('5', 'Free tools, no sign-up'), ('Every', 'Price published')],
              cta_label='Chat with me on WhatsApp',
              sections=[
                  Sec('Why I started U Scale',
-                     P('Before U Scale, I designed and built digital products in-house: interface design and web development at My Country Mobile and Callmama, '
-                       'two telecom brands, and work at ApplQ Innovations and Threepin Info Tec. I learnt how good products are made, and how much small '
-                       'businesses pay agencies for meetings, hand-offs and account managers instead of the work itself.'),
-                     P('U Scale is my answer: one person, fixed prices you can read before you call, and the same care a funded product gets. I design in Figma, '
-                       'build every site by hand, and run the SEO, social media, ads and AI search work myself. When a project needs a photographer, I bring '
-                       'one in and stay your single point of contact.'),
-                     P('I also work as a UI/UX developer at <a class="tlink" href="https://www.apex36tech.com/" target="_blank" rel="noopener">Apex36 Technologies</a>'
-                       '<span class="sr-only"> (opens in a new tab)</span>, a separate sister company for custom software and AI. When a business needs an app '
-                       'or an AI product built, that is where I point them; websites and marketing stay with U Scale.'),
+                     P('A small business can be very good at what it does and still lose the customer.',
+                       'It happens before anyone walks in. Someone searches, and the hours aren’t there. There’s no menu, no photos of the work, no prices '
+                       'and no clear way to book. So they go with the bigger name, where all of that was easy to find.',
+                       'The chain isn’t always better. It can afford to get those details right.',
+                       'I started U Scale to give an independent business, or someone opening their first one, a fair chance against those names: '
+                       'the same standard of care in the work, at a price you can see and plan for.',
+                       'That is why every price is published, including the costs that go to someone else. It is why we built free tools you can use '
+                       'without ever hiring us.',
+                       'And it is why my team and I stay with you through every decision, the launch and the handover. We don’t do that because you’ve paid us. '
+                       'We do it because we care how it turns out. The work carries our name, and your livelihood depends on it.'),
                      eyebrow='The story'),
-                 Sec('How I work',
-                     Cards([('rupee', 'Every price published', 'Websites, SEO, ads and single pieces, all on the <a class="tlink" href="/pricing">pricing page</a>. No “call for a quote”, and no hidden charges.'),
-                            ('user', 'You talk to me', 'No account managers. The person who answers your WhatsApp is the person doing the work.'),
-                            ('file', 'Fixed price, in writing', 'Websites are 20% to start, 20% on design sign-off and 60% on launch. Monthly work is 3 months minimum, then month-to-month.'),
-                            ('key', 'You own everything', 'Your domain, code, logins, ad accounts and listings stay in your name, always.'),
-                            ('shield', 'No promises I can’t keep', 'No guaranteed rankings, leads or AI mentions. You get a plain monthly report instead.'),
-                            ('team', 'Specialists when needed', 'A photographer for a shoot, a developer friend for a tricky build. I stay your single point of contact.')], cols=3),
+                 Sec('U Scale means you scale, and we scale with you',
+                     P('Most owners don’t need everything at once. Today it might be one good page. A store, better visibility on Google or a better way '
+                       'to handle enquiries can come later, when it makes sense.',
+                       f'A first project can be small. A landing page is {price("Landing page")} and can be live in under two weeks. Some first steps cost nothing: '
+                       'our <a class="tlink" href="/tools/google-business-profile-checker">free checker</a> shows what to fix on your Google listing, and the free audit tells you what I would do first.',
+                       'What comes next depends on what the first step shows. If people find you and don’t enquire, it may be the website. If the website works '
+                       'and too few people see it, it may be local SEO or ads. If the enquiries are more than you can answer, it may be a WhatsApp chatbot, '
+                       'which our sister company Apex36 builds.',
+                       'Nothing is bundled. Tell me your business and your budget, and I will tell you what I would start with, even if it is the smallest '
+                       'thing on the <a class="tlink" href="/pricing">price list</a>.'),
+                     eyebrow='The name'),
+                 Sec('Who you’ll work with',
+                     P('I lead every project, and I’m the person you talk to. The first audit is mine: I go through your website, your Google listing and '
+                       'your Instagram myself.',
+                       'From there, my team and I work on the project together. If your project needs someone from outside the team, such as a photographer, '
+                       'we tell you first and quote it before any work starts.'),
+                     P('Chatbots, AI receptionists and larger automations are built by <a class="tlink" href="https://www.apex36tech.com/" target="_blank" rel="noopener">Apex36 Technologies</a>'
+                       '<span class="sr-only"> (opens in a new tab)</span>, our sister company for custom software and AI. I work there too, as a UI/UX developer. '
+                       'Websites and marketing stay with U Scale.'),
+                     eyebrow='The team'),
+                 Sec('From the free audit to the handover',
+                     P('You get hand-holding from the first audit to the handover. In practice, it means this.'),
+                     Cards([('user', 'Who you talk to', 'Me. There’s no account manager in between. You can WhatsApp me at any stage, and I reply within 24 hours, usually much faster.'),
+                            ('file', 'What you approve', 'First the written plan: what we’ll do, by when, and the exact price. Then the design, as real screens in Figma, before we build anything.'),
+                            ('rupee', 'What you pay, and when', '20% to start, 20% when you approve the design and 60% at launch. On a ₹55,000 business site that is ₹11,000, ₹11,000 and ₹33,000.'),
+                            ('key', 'What you receive', 'A site tested on phones, with the enquiry form tested and Google Search Console set up. The domain and hosting are in your name from the start. The code, design files and logins are yours once the final payment is made.'),
+                            ('shield', 'If something goes wrong', 'Bug fixes are included for 30 days after launch. If something we built doesn’t work as agreed, we fix it at no charge.'),
+                            ('refresh', 'After that', f'It’s your choice. Look after the site yourself, or take the care plan for updates, backups and security at {price("Care plan: updates, backups, security").replace("/mo", " a month")}. Monthly marketing starts only if you want it.')], cols=3),
+                     eyebrow='What to expect', layout='wide'),
+                 Sec('What you can count on',
+                     Cards([('rupee', 'Every price published', 'Websites, SEO, ads and single pieces are all on the <a class="tlink" href="/pricing">pricing page</a>, and yours is fixed in writing before we start.'),
+                            ('key', 'You own everything', 'Your domain, code, logins, ad accounts and listings stay in your name.'),
+                            ('shield', 'No promises we can’t keep', 'No guaranteed rankings, leads or AI mentions. You get a plain monthly report of what we did and what changed.')], cols=3),
                      eyebrow='Principles', layout='wide'),
-                 Sec('Where I meet clients',
+                 Sec('My background',
+                     P('I’m a website designer and developer. I design the screens and I write the code.',
+                       'Before U Scale, I designed and built digital products in-house: interface design and web development at My Country Mobile and Callmama, '
+                       'two telecom brands, and work at ApplQ Innovations and Threepin Info Tec. Both telecom sites are live, and they are in the work section '
+                       'below, marked as in-house roles.'),
+                     eyebrow='Background'),
+                 Sec('Where we meet clients',
                      Svg('about-map'),
-                     Chips(['Ghatkopar', 'Vikhroli', 'Powai', 'Kurla', 'Chembur', 'Mulund', 'Andheri East'], 'Areas I visit'),
-                     P('I’m based in Ghatkopar West. I meet clients across Mumbai, Thane and Navi Mumbai, and work with businesses across India over WhatsApp and video calls.'),
+                     Chips(['Ghatkopar', 'Vikhroli', 'Powai', 'Kurla', 'Chembur', 'Mulund', 'Andheri East'], 'Areas we visit'),
+                     P('We’re based in Ghatkopar West. We meet clients across Mumbai, Thane and Navi Mumbai, and work with businesses across India and abroad over WhatsApp and video calls.'),
                      eyebrow='Mumbai', tone='band', sid='areas'),
-                 Sec('Free tools I built for local businesses',
+                 Sec('Free tools we made for local businesses',
+                     P('You can use all of these without hiring us.'),
                      Links([('/tools/google-business-profile-checker', 'search', 'Google Business Profile checker', 'A score out of 100 and a fix list in about 2 minutes.', 'Free'),
                             ('/tools/google-review-qr-code', 'qr', 'Google review QR code maker', 'Your review link, a QR code and a printable standee.', 'Free'),
                             ('/tools/visiting-card-maker', 'card', 'Visiting card maker', 'Designs in English, Hindi and Marathi, with print-ready PDF.', 'Free'),
-                            ('/tools/qr-code-generator', 'qr', 'QR code generator', 'Links, UPI, WhatsApp and Wi-Fi codes with your logo.', 'Free')]),
+                            ('/tools/qr-code-generator', 'qr', 'QR code generator', 'Links, UPI, WhatsApp and Wi-Fi codes with your logo.', 'Free'),
+                            ('/tools/website-cost-calculator', 'layers', 'Website cost calculator', 'Our fixed price, the market range and the yearly costs.', 'Free')]),
                      eyebrow='Free tools', layout='wide'),
                  Sec('Elsewhere',
                      Links([(aeo.LINKEDIN, 'user', 'LinkedIn', 'Work history and posts.', ''),
@@ -708,7 +744,7 @@ def about_page(ctx, parts):
                      eyebrow='Find me', layout='wide'),
              ])
     work_keys = [w[0] for w in ctx['WORK']]
-    p.update(work=work_keys[1:], work_feature=work_keys[0], work_h='Work I’ve designed and built.',
+    p.update(work=work_keys[1:], work_feature=work_keys[0], work_h='Work you can open and check.',
              work_lead='Client websites, in-house product work and my own projects. Each card opens the live site.')
     faq = list(aeo.ABOUT_FAQ) + [('Who owns U Scale?', 'Mehul Karotra owns U Scale. Apex36 Technologies is a separate sister company for custom software and AI.')]
     body = (_hero(p, wa, icons) + aeo.brief_html(aeo.ABOUT_ANSWER, aeo.ABOUT_FACTS, 'Key facts about Mehul Karotra', 'brief-title',
@@ -751,7 +787,7 @@ def _cta_about(wa, icons):
           <p class="sp-cta__mail">Email: {SP.EMAIL}</p>
         </div>
       </div>
-      <nav class="fp-related" aria-label="Services"><p class="eyebrow">What I do</p><ul class="fp-snap" data-snap>{li}</ul></nav>
+      <nav class="fp-related" aria-label="Services"><p class="eyebrow">What we do</p><ul class="fp-snap" data-snap>{li}</ul></nav>
     </div>
   </section>'''
 

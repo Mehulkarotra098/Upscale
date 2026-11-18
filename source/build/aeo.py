@@ -86,8 +86,8 @@ def person_full(site):
     """The one full description of Mehul Karotra. Used on the home page and /about; other pages refer to it by @id."""
     return {'@type': 'Person', '@id': site + '#mehul', 'name': FOUNDER['name'], 'givenName': FOUNDER['givenName'], 'familyName': FOUNDER['familyName'],
             'jobTitle': FOUNDER['jobTitle'], 'url': site + 'about',
-            'description': 'Mumbai-based website designer and developer who personally designs and builds websites and runs SEO, social media, '
-                           'Google and Meta ads and AI search visibility for businesses through U Scale.',
+            'description': 'Mumbai-based website designer and developer, and founder of U Scale. He leads every U Scale project and works on it with '
+                           'the team: websites, SEO, social media, Google and Meta ads and AI search visibility for independent businesses.',
             'worksFor': [{'@id': site + '#business'},
                          {'@type': 'Organization', 'name': 'Apex36 Technologies', 'url': 'https://www.apex36tech.com/'}],
             'homeLocation': place('Mumbai'),
@@ -209,15 +209,15 @@ def offers_ld(site, names):
 CONTRACT = '3 months minimum, then month-to-month with 30 days’ notice'
 BRIEF = {
  'website-design-mumbai': dict(
-  answer='U Scale is Mehul Karotra, a freelance website designer and developer in Mumbai. Every site is designed in Figma and hand-coded, '
+  answer='U Scale is a web design studio in Mumbai, founded and led by Mehul Karotra, a website designer and developer. Every site is designed in Figma and hand-coded, '
          'at a fixed price agreed in writing before work starts: a landing page is ₹25,000, a 5–10 page business site ₹55,000 and '
          'an online store starts at ₹95,000. Most business sites go live in 3–4 weeks.',
-  facts=[('Who does the work', 'Mehul Karotra designs and codes every site himself. No templates.'),
+  facts=[('Who does the work', 'Mehul Karotra and the U Scale team. Mehul leads every project. No templates.'),
          ('Price', 'Landing page ₹25,000 · Portfolio ₹40,000 · Business site, 5–10 pages ₹55,000 · 10–20 pages + blog ₹85,000 · '
                    'Restaurant site + online ordering ₹90,000 · Online store from ₹95,000'),
          ('Timeline', '3–4 weeks for a business site; a landing page can be live in under two weeks'),
          ('Payment', '20% to start, 20% on design sign-off, 60% on launch; no GST charged right now'),
-         ('Included', 'Mobile-first design, enquiry forms, basic SEO, Google Maps, social links, 2–3 revision rounds and a 15–30 day bug-fix window'),
+         ('Included', 'Mobile-first design, enquiry forms, basic SEO, Google Maps, social links, 2–3 revision rounds and 30 days of bug fixes after launch'),
          ('Ownership', 'Your domain, hosting, code and design files belong to you'),
          ('Where', 'Mumbai; remote work with businesses across India')],
   faq_replace={'How much does a website cost in Mumbai?':
@@ -225,11 +225,10 @@ BRIEF = {
       'online store from ₹95,000. Every price is fixed and agreed in writing before work starts, with no hourly billing. Market prices and '
       'yearly costs are in the website design cost guide, and the website cost calculator gives a quick estimate.'},
   faq_more=[('Should I hire a freelance web designer or an agency?',
-             'It depends on the project. A freelancer often suits a small business: you talk directly to the person designing and coding '
-             'your site, and you are not paying for account managers. An agency makes sense when you need a large team working in parallel, '
-             'and a website builder can work if your budget is very small and you are happy to do it yourself. I compare all three, with '
-             'price ranges, in my guide: freelancer vs agency vs website builder. If one person suits you, here is what to expect when you '
-             'hire me as a freelance web designer.'),
+             'It depends on the project. A freelancer often suits a small site with a clear brief: you talk directly to the person designing '
+             'and coding it. An agency makes sense when you need a large team working in parallel, and a website builder can work if your '
+             'budget is very small and you are happy to do it yourself. U Scale sits between the two: a studio where you talk to the founder '
+             'and the price is fixed in writing. All of them are compared, with price ranges, in the guide: freelancer vs agency vs website builder.'),
             ('Do I need a website if I already have Instagram?',
              'Instagram is good for discovery, but you don’t own it. A simple website gives people one place to check prices, timings and '
              'your work, and it keeps working if your reach drops or your account is restricted. Start small: a ₹25,000 landing page linked '
@@ -237,44 +236,44 @@ BRIEF = {
              'Your Instagram posts now show up on Google.'),
             ('What is included in every website?',
              'Every U Scale website includes a mobile-responsive design, enquiry forms, basic SEO, Google Maps, social links, 2–3 rounds of '
-             'revisions and a 15–30 day bug-fix window after launch. For what India’s data protection rules ask of a website with forms, see '
+             'revisions and 30 days of bug fixes after launch. For what India’s data protection rules ask of a website with forms, see '
              'the DPDP checklist for small business websites.'),
             ('How much does a landing page cost?',
              'With U Scale, a landing page is ₹25,000, fixed, and can be live in under two weeks. It is one page built for one job, such as an '
              'ad campaign, a launch or an offer, with your photos, your prices and a WhatsApp button, and it includes the same basics as every '
              'site: mobile-first design, an enquiry form, basic SEO and a bug-fix window after launch.'),
             ('Do you design websites in Thane and Navi Mumbai?',
-             'Yes. I’m based in Ghatkopar West, a short train ride from both, and meet clients at their shop or office. Prices are the same as '
+             'Yes. We’re based in Ghatkopar West, a short train ride from both, and meet clients at their shop or office. Prices are the same as '
              'in Mumbai. More on website design in Thane and website design in Navi Mumbai.'),
             ('Do you build websites for businesses outside Mumbai?',
-             'Yes. I’m based in Mumbai and work with businesses across India remotely, over WhatsApp, calls and video meetings, at the same '
+             'Yes. We’re based in Mumbai and work with businesses across India remotely, over WhatsApp, calls and video meetings, at the same '
              'fixed prices. More on website design across India, with a page for each major city.'),
             ('Are there any hidden charges?',
              'No. The price of your website is fixed in writing before work starts. The only other costs are listed on this page and quoted '
-             'before I begin: website copy at ₹2,000 a page if you want it written, photography, premium plugins and the payment gateway’s own '
+             'before we begin: website copy at ₹2,000 a page if you want it written, photography, premium plugins and the payment gateway’s own '
              'fee. Domain and hosting are paid by you to your provider, in your name. No GST is charged right now.'),
             ('Is there a website designer near me in Mumbai?',
-             'I’m based in Ghatkopar West and meet clients at their shop or office across Mumbai, Thane and Navi Mumbai. Anywhere else, the '
+             'We’re based in Ghatkopar West and meet clients at their shop or office across Mumbai, Thane and Navi Mumbai. Anywhere else, the '
              'work happens over WhatsApp and video calls, at the same prices.'),
             ('Do you offer affordable website design in Mumbai?',
              'It depends what you compare. Template packages in Mumbai cost about ₹8,000–₹30,000 in 2025–26 price guides. A U Scale landing page, '
              'designed for you and hand-coded, is ₹25,000 and a 5–10 page business site ₹55,000, fixed in writing, with 60% paid only when the '
              'site is live. The website cost calculator shows the market range beside each price.'),
             ('Is U Scale a website design company in Mumbai?',
-             'U Scale is the practice of one website designer and developer, Mehul Karotra, run the way a website design company runs a '
-             'project: a written scope, a fixed price, payment in stages and every login handed over at launch. You get a company’s process, '
-             'with one person accountable for the work.'),
+             'U Scale is a web design studio in Mumbai, founded and led by Mehul Karotra, a website designer and developer. It runs a project '
+             'the way a website design company does: a written scope, a fixed price, payment in stages and every login handed over at launch. '
+             'The difference is that you talk to the founder throughout.'),
             ('Is website hosting included?',
-             'The set-up is included; the yearly fee is not. I arrange website hosting and the domain for every site I build, in your name, '
+             'The set-up is included; the yearly fee is not. We arrange website hosting and the domain for every site we build, in your name, '
              'and give you the logins. You then pay the provider directly each year, about ₹4,400–₹9,400 before GST for the domain and '
              'hosting together at renewal prices. Where those figures come from is in the website design cost guide.')],
   offers=['Landing page', 'Portfolio site', 'Business site, 5–10 pages', 'Business site, 10–20 pages + blog', 'E-commerce, under 50 products',
           'Restaurant site + own online ordering', 'Care plan: updates, backups, security']),
  'seo-mumbai': dict(
-  answer='U Scale offers SEO in Mumbai, done by Mehul Karotra himself: local SEO and Google Business Profile, technical and on-page SEO, '
+  answer='U Scale offers SEO in Mumbai, led by its founder Mehul Karotra: local SEO and Google Business Profile, technical and on-page SEO, '
          'and content. Local SEO costs ₹15,000 a month and technical + on-page SEO ₹25,000 a month. SEO usually takes '
          '3–6 months to show real progress, and you get a clear report every month.',
-  facts=[('Who does the work', 'Mehul Karotra, personally'),
+  facts=[('Who does the work', 'Mehul Karotra and the U Scale team; Mehul leads every project'),
          ('Price', 'Local SEO / Google Business Profile ₹15,000/month · Technical + on-page SEO ₹25,000/month'),
          ('SEO audit', 'First check free; full deep-dive audit ₹7,500, free if we go on to work together'),
          ('Results', 'Usually 3–6 months to show real progress; no ranking guarantees'),
@@ -300,9 +299,9 @@ BRIEF = {
   offers=['Local SEO / Google Business Profile', 'Technical + on-page SEO', 'SEO deep-dive audit (free if we work together)', 'SEO blog (~1,000 words)']),
  'social-media-management-mumbai': dict(
   answer='U Scale runs social media for Mumbai businesses on Instagram, Facebook, LinkedIn and YouTube: a monthly content calendar, '
-         'designed posts, reels, posting and engagement, all by Mehul Karotra. Community and inbox management costs ₹12,000 a month, '
+         'designed posts, reels, posting and engagement. Mehul Karotra leads the work with the U Scale team. Community and inbox management costs ₹12,000 a month, '
          'and content is priced per piece: ₹800 per post, ₹1,500 per carousel and ₹2,500 per reel edit.',
-  facts=[('Who does the work', 'Mehul Karotra; a trusted photographer joins only when a shoot is needed'),
+  facts=[('Who does the work', 'Mehul Karotra and the U Scale team; a photographer joins only when a shoot is needed'),
          ('Platforms', 'Instagram, Facebook, LinkedIn and YouTube'),
          ('Price', 'Community & inbox management ₹12,000/month'),
          ('Content', 'Post ₹800 · Carousel ₹1,500 · Designed story ₹800 · Reel edit ₹2,500 · Premium reel edit ₹5,000'),
@@ -323,7 +322,7 @@ BRIEF = {
   answer='U Scale manages Google Ads and Meta (Facebook and Instagram) ads for Mumbai businesses, including click-to-WhatsApp campaigns. '
          'The fee is ₹20,000 a month flat for up to ₹1.5 lakh of monthly ad spend, then 12% of spend, plus a one-time ₹10,000 setup. '
          'Ad spend is paid directly to Google and Meta, and you own the ad accounts.',
-  facts=[('Who does the work', 'Mehul Karotra, personally'),
+  facts=[('Who does the work', 'Mehul Karotra and the U Scale team; Mehul leads every project'),
          ('Management fee', '₹20,000/month flat up to ₹1.5 lakh monthly ad spend, then 12% of spend'),
          ('Setup', '₹10,000 one-time'),
          ('Ad spend', 'Paid directly to Google and Meta from accounts you own'),
@@ -347,7 +346,7 @@ BRIEF = {
          'your business accurately when people ask for a recommendation. Mehul Karotra checks what AI tools say about you, '
          'corrects the facts, listings and pages they draw on, helps you earn genuine reviews, and re-checks every month, for ₹12,000 a month. A one-off AI '
          'visibility audit is ₹2,500. No one can guarantee a mention.',
-  facts=[('Who does the work', 'Mehul Karotra, personally'),
+  facts=[('Who does the work', 'Mehul Karotra and the U Scale team; Mehul leads every project'),
          ('Price', '₹12,000/month, on its own or with other services'),
          ('AI visibility audit', 'First check free; full audit ₹2,500, free if we go on to work together'),
          ('AI tools covered', 'ChatGPT, Gemini, Perplexity, and Google’s AI Overviews and AI Mode'),
@@ -532,20 +531,20 @@ ABOUT_FACTS = [('Name', 'Mehul Karotra'), ('Role', 'Founder of U Scale; website 
                ('Formerly', 'My Country Mobile · ApplQ Innovations · Threepin Info Tec.'),
                ('Languages', 'English and Hindi'), ('Contact', f'WhatsApp or call {SP.PHONE_D} · {SP.EMAIL}')]
 ABOUT_FAQ = [
-    ('Who is Mehul Karotra?', 'Mehul Karotra is a website designer and developer based in Mumbai, India, and the founder of U Scale. He personally designs '
-     'and builds websites and runs SEO, social media, Google and Meta ads and AI search visibility for businesses.'),
-    ('What is U Scale?', 'U Scale is Mehul Karotra’s independent web design and digital marketing practice in Mumbai. Clients sign with him '
-     'directly, on fixed-price contracts for websites or monthly plans for marketing, and every price is published at uscale.in/pricing.'),
-    ('Is U Scale an agency or a freelancer?', 'A bit of both. U Scale is one person, Mehul Karotra, working as an independent, contract-based partner. '
-     'You get the design, development and marketing an agency offers, but you sign with him and talk to him directly. If a project needs a specialist, '
-     'like a photographer, he brings them in and you still deal only with him. More on digital marketing in Mumbai with one specialist.'),
-    ('Where is U Scale based?', 'U Scale is based in Mumbai. Mehul meets clients across Mumbai, Thane and Navi Mumbai, and works '
-     'with businesses across India remotely.'),
+    ('Who is Mehul Karotra?', 'Mehul Karotra is a website designer and developer based in Mumbai, India, and the founder of U Scale. He leads '
+     'every U Scale project and works on it with his team.'),
+    ('What is U Scale?', 'U Scale is a web design and digital marketing studio in Ghatkopar West, Mumbai, founded by Mehul Karotra in 2026. It builds '
+     'websites on fixed-price contracts and runs marketing on monthly plans, and every price is published at uscale.in/pricing.'),
+    ('Is U Scale an agency or a freelancer?', 'It is a studio led by its founder. Mehul Karotra and the team work on each project together, and Mehul '
+     'stays involved from the first audit to the handover. You can message him directly at any stage. If a project needs a specialist, '
+     'like a photographer, you are told first and it is quoted before work starts. More on digital marketing in Mumbai.'),
+    ('Where is U Scale based?', 'U Scale is based in Ghatkopar West, Mumbai. The team meets clients across Mumbai, Thane and Navi Mumbai, and works '
+     'with businesses across India and abroad remotely.'),
     ('How do I contact Mehul Karotra?', f'WhatsApp or call {SP.PHONE_D}, or email {SP.EMAIL}. He replies personally within 24 hours, usually much faster on WhatsApp.'),
 ]
-ABOUT_ANSWER = ('Mehul Karotra is a website designer and developer based in Mumbai, India, and the founder of U Scale. He personally designs and '
-                'builds websites and runs SEO, social media, Google and Meta ads and AI search visibility for businesses, on fixed-price '
-                'contracts or monthly plans, with every price published at uscale.in/pricing.')
+ABOUT_ANSWER = ('Mehul Karotra is a website designer and developer based in Mumbai, India, and the founder of U Scale, a web design and digital '
+                'marketing studio. He leads every project and works on it with the U Scale team: websites, SEO, social media, Google and Meta ads '
+                'and AI search visibility, on fixed-price contracts or monthly plans, with every price published at uscale.in/pricing.')
 HOW = [('Audit', 'I go through your website, Google listing and social media and show you exactly where you are losing enquiries.'),
        ('Written plan', 'What I will do, by when, and the exact price, all in writing. No jargon.'),
        ('Build', 'I design, build and launch it myself, and you see progress every week.'),
@@ -736,18 +735,18 @@ EXTRA_SERVICES = [  # offered on the price list, without a page of their own
     ('Review & reputation management', 'Reviews monitored and answered, and new ones requested from real customers.', ['Review & reputation management']),
     ('Writing', 'SEO blogs, website copy and LinkedIn articles.', ['SEO blog (~1,000 words)', 'Website copy', 'LinkedIn article']),
 ]
-SVC_FROM = {'website-design-mumbai': 'From ₹25,000 one-time', 'seo-mumbai': 'From ₹15,000/month', 'social-media-management-mumbai': '₹12,000/month + content from ₹800',
+SVC_FROM = {'website-design-mumbai': 'From ₹25,000 one-time', 'seo-mumbai': 'From ₹15,000/month', 'social-media-management-mumbai': 'Posts from ₹800 · inbox ₹12,000/month',
             'google-meta-ads-mumbai': '₹20,000/month + ₹10,000 setup', 'ai-search-visibility': '₹12,000/month'}
-HUB_ANSWER = ('U Scale offers website design and development (from ₹25,000), SEO (from ₹15,000 a month), social media management '
-              '(₹12,000 a month plus content), Google & Meta ads management (₹20,000 a month) and AI search visibility (₹12,000 a month), '
-              'plus branding, reels, WhatsApp automation and reputation management. Every service is handled personally by Mehul Karotra in Mumbai.')
+HUB_ANSWER = ('U Scale offers website design and development (from ₹25,000), SEO (from ₹15,000 a month), social media content '
+              '(from ₹800 a post) with inbox management at ₹12,000 a month, Google & Meta ads management (₹20,000 a month, plus your ad spend) and AI search visibility (₹12,000 a month), '
+              'plus branding, reels, WhatsApp automation and reputation management. Mehul Karotra leads every project and works on it with the U Scale team in Mumbai.')
 HUB_FAQ = [
     ('What services does U Scale offer?', 'Website design and development, SEO, social media management, Google and Meta ads, AI search visibility (GEO), '
      'branding and identity, content and reels production, WhatsApp automation, email marketing, review and reputation management, and writing.'),
     ('Can I combine services?', 'Yes. Nothing is bundled: you pick only the packages you need and the quote builder on the pricing page adds it up. '
      'Monthly services run for 3 months minimum, then month-to-month with 30 days’ notice.'),
-    ('Who does the work?', 'Mehul Karotra, personally. If a project needs a specialist like a photographer, he brings them in and '
-     'you still deal only with him.'),
+    ('Who does the work?', 'Mehul Karotra leads every project and works on it with the U Scale team. You can talk to him directly at any stage. '
+     'If a project needs a specialist like a photographer, you are told first and it is quoted before work starts.'),
     ('Are there any hidden charges?', 'No. Every price is published on the pricing page and agreed in writing before work starts. A website’s only other costs, '
      'such as the yearly domain and hosting paid to your provider in your name, are listed upfront, and ad spend is paid by you to Google or Meta directly. '
      'No GST is charged right now.'),
@@ -757,8 +756,8 @@ HUB_FAQ = [
 def services_hub(ctx, parts):
     site = ctx['SITE_URL']; url = site + 'services'
     title = 'Web Design, SEO & Ads Services in Mumbai, With Prices'
-    desc = ('Websites, SEO, social media, Google and Meta ads and AI search visibility from one person, Mehul Karotra, '
-            'with every price published. Free audit on WhatsApp.')
+    desc = ('Websites, SEO, social media, Google and Meta ads and AI search visibility from U Scale in Mumbai. '
+            'Every price published. Free first audit on WhatsApp.')
     # No Offers here: most of those prices are not on this page. Each service page and /pricing carry the priced Offers.
     items = []
     for i, s in enumerate(SP.SERVICES):
@@ -787,11 +786,11 @@ def services_hub(ctx, parts):
     extra = GP._cards(dict(cols=3, numbered=False, items=[
         (EXTRA_ICON[n], n, f'{e(d)}<span class="sv-from sv-from--list">' + ''.join(f'<span>{"" if x == n else e(x) + " "}<b>{e(_price(x)[0])}</b></span>' for x in names) + '</span>') for n, d, names in EXTRA_SERVICES]))
     hub = dict(crumbs=[], crumb='Services', eyebrow='Web design and digital marketing', h1='Services and prices',
-               lead='Web design, SEO and digital marketing for Mumbai businesses, done by me, Mehul Karotra. No account managers, nothing comes out of a template, and every price is published.',
+               lead='Web design, SEO and digital marketing for businesses in Mumbai and across India. Start with the one thing your business needs now. Every price is published, and the first audit is free.',
                art=dict(kind='menu'), stats=[('5', 'Core services'), ('₹800', 'Single pieces from'), ('Free', 'First audit')])
     hero = SVP._hero(hub, 'https://wa.me/' + ENTITY['whatsapp'] + '?text=' + urllib.parse.quote("Hi Mehul, I'd like to talk about my business."), ctx['ICONS'])
     body = f'''{hero}
-{brief_html(HUB_ANSWER, [('Who does the work', 'Mehul Karotra, personally'), ('Where', 'Mumbai, and businesses across India'),
+{brief_html(HUB_ANSWER, [('Who does the work', 'Mehul Karotra and the U Scale team; Mehul leads every project'), ('Where', 'Mumbai, and businesses across India'),
                          ('Websites', 'Fixed price: 20% to start, 20% on design sign-off, 60% on launch'), ('Monthly services', CONTRACT),
                          ('Free audit', 'Every project starts with a free audit of your website, Google listing and social media')],
             'Key facts about U Scale services', 'brief-title')}
@@ -800,7 +799,7 @@ def services_hub(ctx, parts):
     <div class="wrap">
       <header class="sec-head">
         <p class="eyebrow" data-reveal data-scramble>Core services</p>
-        <h2 class="h2" id="svc-title" data-split>Five ways I can help your business grow.</h2>
+        <h2 class="h2" id="svc-title" data-split>Five ways we can help your business grow.</h2>
       </header>
       {cards}
     </div>
