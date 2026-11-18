@@ -813,6 +813,7 @@ def tool_page(ctx, parts, tv):
     <div class="wrap">
       <header class="sec-head"><p class="eyebrow">More free tools</p><h2 class="h2" id="more-title">Check your Google profile next, or make any QR code</h2></header>
       <div class="th-grid">{more}</div>
+      <p class="lb-badge"><a href="https://launchbuff.com/products/google-review-qr-maker-frbwzt" target="_blank" rel="noopener noreferrer" title="Featured on LaunchBuff"><img src="https://launchbuff.com/badge-featured-dark.svg" alt="Featured on LaunchBuff" width="256" height="80" loading="lazy" decoding="async"></a></p>
     </div>
   </section>
 
