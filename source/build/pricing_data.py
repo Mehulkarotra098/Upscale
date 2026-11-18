@@ -3,13 +3,13 @@ From Mehul's published price sheet. Edit here, rebuild, and every page updates."
 
 # The three ways to buy, shown as cards on the home page. Rows reference real items from the sheet below.
 PILLARS = [
-    dict(key='web', kick='One-time', name='Websites', lead='Designed in Figma, hand-built, fixed price agreed before I start.',
+    dict(key='web', kick='One-time', name='Websites', lead='Designed with you in Figma, then built and tested on phones. The price is fixed in writing before we start.',
          start='25,000', unit='', noun='website prices', step='step-1', cta='Price my website',
          rows=['Landing page', 'Business site, 5–10 pages', 'E-commerce, under 50 products']),
     dict(key='add', kick='Monthly', name='Growth', lead='SEO, ads, social, email and more, paid monthly. Combine only what you need.', pop=True,
          start='8,000', unit='/mo', noun='monthly services', step='step-2', cta='Build my monthly mix',
          rows=['Local SEO / Google Business Profile', 'Ads management', 'AI search visibility (GEO)']),
-    dict(key='unit', kick='One-off', name='Single pieces', lead='Need just one thing? A post, a reel, a logo, a blog.',
+    dict(key='unit', kick='One-off', name='Single pieces', lead='For when you need one thing: a post, a reel, a logo or a blog.',
          start='800', unit='', noun='single-piece prices', step='step-3', cta='Pick single pieces',
          rows=['Social post', 'Reel edit (your footage)', 'Logo']),
 ]
@@ -27,9 +27,9 @@ WEBSITES = [  # one-time, fixed price after a free audit
 ]
 def label(name):
     """Name shown to visitors. Keys above stay as they are (pages look prices up by them); only the visible wording changes."""
-    return name.replace('E-commerce', 'Online store')
+    return name.replace('E-commerce', 'Online store').replace('under 50 products', 'up to 50 products').replace('50–500 products', '51–500 products')
 
-WEBSITES_NOTE ='Copywriting (₹2,000/page), photography, premium plugins and payment gateway fees are quoted separately, always before I start.'
+WEBSITES_NOTE ='Copywriting (₹2,000/page), photography, premium plugins and payment gateway fees are quoted separately, always before we start.'
 
 ADDONS = [  # monthly; stack on any plan or buy on their own
     ('Local SEO / Google Business Profile', '₹15,000/mo', None, 15000),
@@ -85,8 +85,8 @@ def fx_label(rupees, cur, monthly=False):
 
 TERMS = [
     '20% advance to start, 20% on design sign-off, 60% on launch. Final files are released after the final payment.',
-    '2–3 revision rounds included on every project, agreed in writing before I start.',
-    'Every website includes mobile-responsive design, enquiry forms, basic SEO, Google Maps, social links and a 15–30 day bug-fix window.',
+    '2–3 revision rounds included on every project, agreed in writing before we start.',
+    'Every website includes mobile-responsive design, enquiry forms, basic SEO, Google Maps, social links and 30 days of bug fixes after launch.',
     'Free audit first, 3 months minimum, then month-to-month. 30 days’ notice to pause or cancel.',
     'Quotes are valid for 14 days.',
     'No GST is charged on these prices right now.',

@@ -31,18 +31,18 @@ def _pic(img, sizes, eager=False, small=None):
 
 
 def brief():
-    answer = ('U Scale is the web design and digital marketing practice of Mehul Karotra, based in Mumbai. He designs and '
-              f'hand-codes websites at fixed prices, from a {price("Landing page")} landing page to an online store from '
+    answer = ('U Scale is a web design and digital marketing studio in Mumbai, founded and led by Mehul Karotra. It builds '
+              f'websites at fixed prices, from a {price("Landing page")} landing page to an online store from '
               f'{price("E-commerce, under 50 products")}, and runs local SEO, Google Business Profile, social media, ads and AI search '
-              'visibility on monthly plans for businesses across Mumbai, Thane and Navi Mumbai, and for clients across India. Every price is published, and every project '
+              'visibility on monthly plans for independent businesses across Mumbai, Thane and Navi Mumbai, and for clients across India and abroad. Every price is published, and every project '
               'starts with a free audit.')
-    facts = [('Who', 'Mehul Karotra, personally: he designs, builds and markets every project'),
-             ('Based in', 'Mumbai; meets clients across Mumbai, Thane and Navi Mumbai, and works remotely with businesses across India'),
+    facts = [('Who', 'Mehul Karotra and the U Scale team; Mehul leads every project and is the person you talk to'),
+             ('Based in', 'Ghatkopar West, Mumbai; meets clients across Mumbai, Thane and Navi Mumbai, and works remotely with businesses across India and abroad'),
              ('Websites', f'Landing page {price("Landing page")} · Business site {price("Business site, 5–10 pages")} · '
                           f'Online store from {price("E-commerce, under 50 products")}, all fixed'),
              ('Monthly growth', f'Local SEO {price("Local SEO / Google Business Profile")} · Ads management {price("Ads management")} · '
                                 f'AI search visibility {price("AI search visibility (GEO)")}'),
-             ('Timeline', 'Most websites go live in 3–4 weeks; a landing page in under two weeks'),
+             ('Timeline', 'Most business sites go live in 3–4 weeks; a landing page in under two weeks'),
              ('Payment', '20% to start, 20% on design sign-off, 60% on launch; monthly work is 3 months minimum, then month-to-month'),
              ('First step', 'A free audit of your website, Google listing and Instagram')]
     chips = ''  # the hero already shows these proof points; repeating them here read as filler
@@ -65,28 +65,32 @@ def svc_media(key, wide=False):
 
 def services3():
     cards = [
-        dict(cls=' svc3__card--web on-dark', viz='web', ic='globe', k='Get a website', h='A website that brings you enquiries',
-             p='Designed in Figma and hand-coded, mobile first, with WhatsApp and call buttons right where people are ready to contact you.',
+        dict(cls=' svc3__card--web on-dark', viz='web', ic='globe', k='Get a website', h='A website people can decide from',
+             p='You see every screen in Figma and approve the design before we build anything. We test the site on phones before it goes live, and the domain is registered in your name.',
+             proof='Space Studio Chennai’s menu ends in “Start a project”. The enquiry begins with what you want to build, then asks for the site, the area and the start date.',
              chips=['Landing pages', 'Business sites', 'Online stores', 'Restaurant ordering'],
              price=f'From {price("Landing page")}, fixed',
              links=[('/services/website-design-mumbai', 'Website design in Mumbai')]),
         dict(cls='', viz='found', ic='pin', k='Get found', h='Show up on Google, Maps and AI answers',
-             p='Your Google Business Profile (your listing on Google and Maps), local and technical SEO, and working to get you named when people ask ChatGPT or Gemini.',
+             p='Your Google Business Profile is your listing on Google and Maps. We set it up, keep the hours, photos and posts current, and plan how you ask customers for reviews. We also fix what stops Google reading your website, and check what ChatGPT and Gemini say about you.',
+             proof='When Space Studio Chennai’s website was rebuilt, every old address was kept working, so a link or a search result that pointed to the old site still opens the right page.',
              chips=['Google Business Profile', 'Local SEO', 'Technical SEO', 'AI search (GEO)'],
              price=f'Local SEO {price("Local SEO / Google Business Profile")} · AI search {price("AI search visibility (GEO)")}',
              links=[('/services/seo-mumbai', 'SEO services in Mumbai'), ('/services/ai-search-visibility', 'AI search visibility')]),
-        dict(cls='', viz='customers', ic='camera', k='Get customers', h='More customers from social media and ads',
-             p='A monthly calendar of posts and reels, and Google and Meta ads that send people to WhatsApp, with a clear report every month.',
+        dict(cls='', viz='customers', ic='camera', k='Get customers', h='Reach people on social media and through ads',
+             p='A monthly calendar of posts and reels, and Google and Meta ads that open a WhatsApp chat with you. Each month you get a report of what ran and what came in. Your ad budget goes straight from you to Google or Meta.',
              chips=['Instagram & Facebook', 'Reels', 'Google & Meta ads', 'WhatsApp follow-ups'],
-             price=f'Ads management {price("Ads management")} · posts from ₹800',
+             price=f'Ads management {price("Ads management")}, plus ad spend · posts from ₹800',
              links=[('/services/social-media-management-mumbai', 'Social media management'), ('/services/google-meta-ads-mumbai', 'Google & Meta ads')]),
     ]
     li = ''
     for c in cards:
         chips = ''.join(f'<li>{e(x)}</li>' for x in c['chips'])
         links = ''.join(f'<a class="svc3__link" href="{ea(h)}">{e(t)} {icon("arrow")}</a>' for h, t in c['links'])
+        # the proof line stays inside the description paragraph: the card is a seven-row subgrid, so it cannot take another child
+        proof = f'<span class="svc3__proof"><b>On a live site.</b> {e(c["proof"])}</span>' if c.get('proof') else ''
         li += (f'<li class="svc3__card{c["cls"]}" data-reveal>{svc_media(c["viz"], wide=c["viz"] == "web")}<p class="svc3__k">{icon(c["ic"])}{e(c["k"])}</p>'
-               f'<h3>{e(c["h"])}</h3><p class="svc3__p">{e(c["p"])}</p><ul class="svc3__chips">{chips}</ul>'
+               f'<h3>{e(c["h"])}</h3><p class="svc3__p">{e(c["p"])}{proof}</p><ul class="svc3__chips">{chips}</ul>'
                f'<p class="svc3__price">{e(c["price"])}</p><div class="svc3__links">{links}</div></li>')
     also = ['Branding & identity', 'Content & reels', 'WhatsApp & email automation', 'Reviews & reputation', 'Analytics & reporting']
     also_li = ''.join(f'<li>{icon("check")}{e(x)}</li>' for x in also)
@@ -117,18 +121,18 @@ def for_places():
     cities = ', '.join(links[:-1]) + ' and ' + links[-1]
     abroad = ', '.join(f'<a class="tlink" href="/services/website-design-{s}">{n}</a>' for s, n in
                        [('uk', 'the UK'), ('usa', 'the US'), ('australia', 'Australia'), ('canada', 'Canada')])
-    return (f'      <p class="fp-all home-places" data-reveal>I meet clients in {near} too. Further out, I build websites for businesses in '
+    return (f'      <p class="fp-all home-places" data-reveal>We meet clients in {near} too. Further out, we build websites for businesses in '
             f'{cities}, and outside India for clients in {abroad} and five more countries, with '
             f'<a class="tlink" href="/services/outsource-web-design-india">the same prices in your currency</a>.</p>')
 
 
 def how():
-    steps = [('Free audit', 'I check your website, Google listing and Instagram, and show you where you are losing enquiries.', 'Free'),
-             ('Written plan', 'What I will do, by when, and the exact price, in writing before you pay anything.', 'Fixed price'),
-             ('Design & build', 'You see real screens in Figma and approve them before I build. You see progress every week.', '20% to start · 20% on design sign-off'),
-             ('Launch & grow', 'Launch, then monthly SEO, social or ads only if you want them, with a clear report every month.', '60% on launch')]
+    steps = [('Free audit', 'Mehul checks your website, Google listing and Instagram himself, and shows you where you are losing enquiries.', 'Free'),
+             ('Written plan', 'What we will do, by when, and the exact price, in writing before you pay anything.', 'Fixed price'),
+             ('Design & build', 'You see real screens in Figma and approve them before we build. You get a progress update every week.', '20% to start · 20% on design sign-off'),
+             ('Launch & handover', 'We test the site on phones, test the enquiry form, set up Google Search Console and hand over every login.', '60% on launch')]
     promise = [('key', 'Your domain, code and logins, in your name'), ('file', 'Every price published and fixed in writing'),
-               ('shield', '15–30 day bug-fix window after launch')]
+               ('shield', '30 days of bug fixes after launch')]
     shots = ['step-audit', 'step-plan', 'step-design', 'step-launch']
     li = ''.join(f'<li class="fp-step" data-reveal><figure class="fp-step__media">{_pic(GP.IMG[shots[i]], "(max-width: 759px) 92vw, (max-width: 1099px) 46vw, 320px")}</figure>'
                  f'<div class="fp-step__body"><span class="fp-step__n" aria-hidden="true">{i + 1:02d}</span><h3>{e(t)}</h3><p>{e(d)}</p>'
@@ -140,7 +144,7 @@ def how():
       <header class="sec-head">
         <p class="eyebrow" data-reveal data-scramble>How it works</p>
         <h2 class="h2" id="how-title" data-split>Fixed price, agreed up front.</h2>
-        <p class="lead" data-reveal>From a free audit to launch in four steps. Monthly work runs for 3 months minimum, then month-to-month with 30 days&rsquo; notice.</p>
+        <p class="lead" data-reveal>Four steps from a free audit to launch. After that, monthly SEO, social media or ads start only if you want them, and so does the care plan for updates, backups and security.</p>
       </header>
       <ol class="fp-steps" data-reveal-group>{li}</ol>
       <ul class="fp-promise" data-reveal>{pr}</ul>
