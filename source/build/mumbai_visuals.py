@@ -80,7 +80,7 @@ def _stack(n):
     return '<span class="mv-stack" aria-hidden="true">' + ''.join(f'<i class="mv-sheet" style="--k:{k};--n:{n}"></i>' for k in range(n)) + '</span>'
 
 
-def packages(bugfix='15–30 day bug-fix window'):
+def packages(bugfix='30 days of bug fixes'):
     cards = ''.join(f'<li class="mv-pk{" mv-pk--hi" if i == 1 else ""}" style="--i:{i}">{_stack(n)}<p class="mv-pk__k">{e(name)}</p>'
                     f'<b class="mv-pk__p">{e(price(key))}</b><p class="mv-pk__for">{e(good)}</p>'
                     f'<p class="mv-pk__m"><span>{icon("layers")}{e(size)}</span><span>{icon("clock")}{e(live)}</span></p></li>'

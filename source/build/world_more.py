@@ -173,7 +173,7 @@ def hotel_card(p):
 # ================================================================ the hub
 def _hub():
     curs = [(LANDING, 'Single page', 'One page that sells'), (BIZ, 'Business site', '5–10 pages'), (BLOG, 'Bigger site + blog', '10–20 pages'),
-            (STORE, 'Online store', 'Under 50 products'), (CARE, 'Care plan', 'Updates, backups, security')]
+            (STORE, 'Online store', 'Up to 50 products'), (CARE, 'Care plan', 'Updates, backups, security')]
     return page_dict(
         slug='outsource-web-design-india', trail=[('Services', '/services')], crumb='Clients abroad',
         service='Web design and development for businesses outside India', countries=[c['name'] for c in COUNTRIES],
@@ -239,7 +239,7 @@ def _hub():
               'You do. The domain and hosting are in your name from the start, and you get the code, the design files and every login at launch. We sign '
               'your NDA before you share anything, if you want one.'),
              ('What happens after launch?',
-              f'Every site has a 15–30 day bug-fix window. After that, the optional care plan covers updates, backups and security for {fx(CARE, "USD")} a '
+              f'Every site includes 30 days of bug fixes after launch. After that, the optional care plan covers updates, backups and security for {fx(CARE, "USD")} a '
               'month, or you look after the site yourself: it is hand-written code with no plugins to update.')],
         sources=['wise-in', 'utc'],
         related=[('/services/website-design-uk', 'Country', 'Website design for UK businesses', 'Fixed £ prices and 4.5 shared hours.'),
@@ -342,7 +342,7 @@ def _figma():
             sec('trust', 'Why it’s safe', 'The price is fixed and the code is yours.', '', trust('USD', '.com', keys=('code', 'fix', 'own', 'pay'))),
             sec('prices', 'Prices', 'The same price list as our own designs.', 'Fixed per site, in your currency.',
                 cur_switch([('Single page', LANDING, 'One page'), ('Business site', BIZ, '5–10 pages'), ('Bigger site + blog', BLOG, '10–20 pages'),
-                            ('Online store', STORE, 'Under 50 products')], curs=('USD', 'GBP', 'EUR', 'AUD', 'CAD'), sid='fc', inr=True)),
+                            ('Online store', STORE, 'Up to 50 products')], curs=('USD', 'GBP', 'EUR', 'AUD', 'CAD'), sid='fc', inr=True)),
             sec('get', 'What you get', 'Your design, exactly. Then a bit more.', '', features([
                 ('layers', 'Matches your file', 'Spacing, type and colour from your Figma styles, checked side by side.'),
                 ('phone', 'Every screen size', 'Checked at 16 sizes, from a small phone to a wide monitor, including the ones you didn’t design.'),
@@ -448,8 +448,8 @@ def _restaurants():
 
 
 def _fashion():
-    items = [('Business site', BIZ, 'Lookbook, collections, enquiries'), ('Online store', STORE, 'Under 50 products'),
-             ('Bigger online store', STORE_BIG, '50–500 products')]
+    items = [('Business site', BIZ, 'Lookbook, collections, enquiries'), ('Online store', STORE, 'Up to 50 products'),
+             ('Bigger online store', STORE_BIG, '51–500 products')]
     return page_dict(
         slug='website-design-for-indian-fashion-brands', crumb='Indian fashion labels', service='Online stores for Indian fashion and ethnic wear labels',
         service_type='E-commerce website development', countries=['India', 'United Kingdom', 'United States', 'Canada', 'United Arab Emirates'],
@@ -476,18 +476,18 @@ def _fashion():
             process_sec(),
         ],
         answer=(f'U Scale is a web design studio in Mumbai that builds online stores for Indian fashion and ethnic wear labels selling in India and abroad, '
-                f'and for boutiques abroad selling Indian wear. An online store with under 50 products is {price(STORE)} in India or {fx(STORE, "USD")} '
+                f'and for boutiques abroad selling Indian wear. An online store with up to 50 products is {price(STORE)} in India or {fx(STORE, "USD")} '
                 f'({fx(STORE, "GBP")}) abroad, fixed, with prices in the customer’s currency and shipping and duties shown before checkout. U Scale built '
                 'the website for Sashe by Prachi, a Mumbai fashion label.'),
         facts=[('Who does the work', TEAM.replace('Our own team', 'U Scale’s own team')),
-               ('Online store, under 50 products', f'{price(STORE)} · {fx(STORE, "USD")} · {fx(STORE, "GBP")}'),
-               ('Online store, 50–500 products', f'{price(STORE_BIG)} · {fx(STORE_BIG, "USD")} · {fx(STORE_BIG, "GBP")}'),
+               ('Online store, up to 50 products', f'{price(STORE)} · {fx(STORE, "USD")} · {fx(STORE, "GBP")}'),
+               ('Online store, 51–500 products', f'{price(STORE_BIG)} · {fx(STORE_BIG, "USD")} · {fx(STORE_BIG, "GBP")}'),
                ('Payments', 'UPI and cards in India; cards and PayPal abroad, through your own payment account'),
                ('Fashion work', 'Sashe by Prachi, Mumbai (sashebyprachi.in)'),
                ('You own', 'Your domain, store, customer list and every login')],
         faq=[('How much does an online store for a fashion label cost?',
-              f'{price(STORE)} in India, or {fx(STORE, "USD")} ({fx(STORE, "GBP")}) abroad, for a store with under 50 products, and {price(STORE_BIG)} '
-              f'({fx(STORE_BIG, "USD")}) for 50–500 products. Fixed in writing, with 60% paid at launch.'),
+              f'{price(STORE)} in India, or {fx(STORE, "USD")} ({fx(STORE, "GBP")}) abroad, for a store with up to 50 products, and {price(STORE_BIG)} '
+              f'({fx(STORE_BIG, "USD")}) for 51–500 products. Fixed in writing, with 60% paid at launch.'),
              ('Can my store show prices in pounds and dollars?',
               'Yes. Customers abroad see prices in their own currency and pay by card or PayPal; customers in India see rupees and pay by UPI or card.'),
              ('How do I handle shipping and customs duties abroad?',

@@ -45,17 +45,17 @@ ECOM = dict(
     service='E-commerce website development in Mumbai', service_type='E-commerce website development',
     card=f'Your own online store with UPI and card payments, from {STORE} for up to 50 products.',
     title='E-commerce Website Development in Mumbai from ₹95,000',
-    desc=f'Your own online store, built in Mumbai: under 50 products {STORE}, 50–500 products {STORE_BIG}. UPI and card payments, product pages Google can find.',
+    desc=f'Your own online store, built in Mumbai: up to 50 products {STORE}, 51–500 products {STORE_BIG}. UPI and card payments, product pages Google can find.',
     h1='E-commerce websites in Mumbai', eyebrow='Website development',
     lead='Your own online store, designed in Figma and coded by hand: product pages Google can find, a cart, and payments by UPI and cards through a payment gateway. Fixed price, agreed in writing before I start.',
-    stats=[(STORE, 'Online store, under 50 products'), ('₹1.5L', '50–500 products, from'), ('0%', 'Marketplace commission')],
+    stats=[(STORE, 'Online store, up to 50 products'), ('₹1.5L', '51–500 products, from'), ('0%', 'Marketplace commission')],
     art=dict(kind='card', card='store'),
     answer=(f'U Scale builds e-commerce websites for Mumbai businesses: your own online store with product pages, a cart and online payments by UPI '
-            f'and cards, for {STORE} with under 50 products or {STORE_BIG} for 50–500 products, fixed and agreed in writing. You pay the payment '
+            f'and cards, for {STORE} with up to 50 products or {STORE_BIG} for 51–500 products, fixed and agreed in writing. You pay the payment '
             'gateway a small fee on each order, about 2% plus GST on Razorpay’s standard plan, and no marketplace commission. Mehul Karotra designs '
             'and builds every store himself.'),
-    facts=[('Price', f'Under 50 products {STORE} · 50–500 products {STORE_BIG}'),
-           ('Who builds it', 'Mehul Karotra, personally: designed in Figma, then hand-coded'),
+    facts=[('Price', f'Up to 50 products {STORE} · 51–500 products {STORE_BIG}'),
+           ('Who builds it', 'Mehul Karotra and the U Scale team; designed in Figma, then hand-coded'),
            ('Payments', 'UPI, cards and netbanking through a payment gateway; gateway fees are separate (Razorpay standard: 2% + GST per payment)'),
            ('Every product', 'Its own page with photos, price and availability, readable by Google'),
            ('Ownership', 'Your domain, your store, your customer list'),
@@ -67,7 +67,7 @@ ECOM = dict(
                                                                                         ('Customers belong to', 'The marketplace'), ('Good for', 'Reach: people already shopping there')]),
                      dict(name='Shopify', tag='Do it yourself', rows=[('You pay', 'about ₹1,500–₹1,800 a month on Basic, billed yearly, plus 2% on each sale on top of the gateway fee in India'),
                                                                        ('Customers belong to', 'You'), ('Good for', 'Owners who want to run everything themselves from day one')]),
-                     dict(name='Your own store', tag='Built by U Scale', hi=True, rows=[('You pay', f'{STORE} once for under 50 products, then only the gateway fee per order'),
+                     dict(name='Your own store', tag='Built by U Scale', hi=True, rows=[('You pay', f'{STORE} once for up to 50 products, then only the gateway fee per order'),
                                                                                        ('Customers belong to', 'You'), ('Good for', 'Brands that want their own look, speed and customer list')])],
                     note='You can use both: a marketplace for reach, and your own store for repeat customers and better margins.'),
             P('Shopify’s Basic plan costs about ₹1,500–₹1,800 a month billed yearly (on 10 Nov 2026 Shopify’s India page showed ₹1,800, and some visitors a ₹1,499 offer). '
@@ -97,7 +97,7 @@ ECOM = dict(
             eyebrow='Free listings'),
     ],
     faq=[('How much does an e-commerce website cost in Mumbai?',
-          f'With U Scale, an online store with under 50 products is {STORE} and a store with 50–500 products is {STORE_BIG}, fixed and agreed in writing '
+          f'With U Scale, an online store with up to 50 products is {STORE} and a store with 51–500 products is {STORE_BIG}, fixed and agreed in writing '
           'before work starts. The payment gateway charges a small fee on each order, and a care plan for updates and backups is optional. Market '
           'prices for online stores range from about ₹25,000 to ₹3 lakh, according to the 16 published price guides U Scale compared in 2026.'),
          ('Do you build on Shopify?',
@@ -138,7 +138,7 @@ def gbp_page_dict():
                 f'listing is suspended or missing. Review and reputation management on its own is {REVIEWS.replace("/mo", " a month")}. Mehul Karotra does the '
                 'work himself, and the listing always stays in your name.'),
         facts=[('Price', f'Part of local SEO, {LOCAL}; review and reputation management {REVIEWS}'),
-               ('Who does the work', 'Mehul Karotra, personally'),
+               ('Who does the work', 'Mehul Karotra and the U Scale team; Mehul leads every project'),
                ('Includes', 'Set-up and verification, categories and services, hours, photos, weekly posts, review plan and replies, monthly report'),
                ('Suspended or missing listings', 'What triggered it checked and fixed, then a reinstatement request through Google’s own form'),
                ('Ownership', 'The listing stays in your name; you add me as a manager, and can remove me any time'),
@@ -240,7 +240,7 @@ def freelancer_dict(ctx=None):
                        ('rupee', 'A fixed price, in writing', 'Agreed before work starts: 20% to start, 20% on design sign-off, 60% on launch.'),
                        ('key', 'Everything in your name', 'Your domain, hosting, code and logins, handed over at launch.'),
                        ('calendar', 'A start date before you pay', 'One person can only take a few projects at a time, so you get a start date in writing before the advance.'),
-                       ('shield', 'Bug fixes after launch', 'A 15–30 day window to fix anything that doesn’t work as agreed.'),
+                       ('shield', 'Bug fixes after launch', 'For 30 days after launch, we fix anything that doesn’t work as agreed, at no charge.'),
                        ('team', 'Specialists when needed', 'A photographer for a shoot, a developer friend for a tricky build. I stay your single point of contact.')], cols=3),
                 eyebrow='What you get', layout='wide'),
             Sec('A freelancer or an agency?',
@@ -259,7 +259,7 @@ def freelancer_dict(ctx=None):
                        ('Business site, 5–10 pages', price('Business site, 5–10 pages'), '3–4 weeks'),
                        ('Business site, 10–20 pages + blog', price('Business site, 10–20 pages + blog'), 'Agreed in the plan'),
                        ('Restaurant site + own online ordering', price('Restaurant site + own online ordering'), '3–4 weeks'),
-                       ('Online store, under 50 products', STORE, 'Agreed in the plan')],
+                       ('Online store, up to 50 products', STORE, 'Agreed in the plan')],
                       'Freelance website prices from Mehul Karotra of U Scale'),
                 P('Every price is published on the ' + _link('/pricing', 'pricing page') + '. For a quick estimate with your own choices, try the '
                   + _link('/tools/website-cost-calculator', 'website cost calculator') + '.'),
@@ -301,8 +301,8 @@ TYPES = [  # key, label shown, pricing_data name, market row key, pages for copy
     ('business', 'Business site, 5–10 pages', 'Business site, 5–10 pages', 'custom', 7),
     ('business20', 'Business site, 10–20 pages + blog', 'Business site, 10–20 pages + blog', 'custom', 14),
     ('restaurant', 'Restaurant site + own online ordering', 'Restaurant site + own online ordering', 'custom', 5),
-    ('store', 'Online store, under 50 products', 'E-commerce, under 50 products', 'store', 5),
-    ('store500', 'Online store, 50–500 products', 'E-commerce, 50–500 products', 'store', 6),
+    ('store', 'Online store, up to 50 products', 'E-commerce, under 50 products', 'store', 5),
+    ('store500', 'Online store, 51–500 products', 'E-commerce, 50–500 products', 'store', 6),
 ]
 # market ranges from the 16 price guides compared in Oct 2026 (the same numbers as the Hinglish cost guide)
 MARKET = {'template': (8000, 30000, 'a basic template website'), 'custom': (40000, 200000, 'a custom-designed website'),
@@ -371,7 +371,7 @@ def calc_dict():
         art=dict(kind='card', card='estimate'),
         answer=(f'A website in India costs about ₹8,000–₹30,000 for a basic template site, ₹40,000–₹2 lakh for a custom design and ₹25,000–₹3 lakh for an '
                 f'online store, according to 16 published price guides. U Scale’s fixed prices are {price("Landing page")} for a landing page, '
-                f'{price("Business site, 5–10 pages")} for a 5–10 page business site and {STORE} for an online store with under 50 products. '
+                f'{price("Business site, 5–10 pages")} for a 5–10 page business site and {STORE} for an online store with up to 50 products. '
                 f'Every year after, domain and hosting cost about {_fmt(YEARLY[0])}–{_fmt(YEARLY[1])} before GST.'),
         facts=[('Basic template website', '₹8,000–₹30,000 (market range)'), ('Custom-designed website', '₹40,000–₹2,00,000 (market range)'),
                ('Online store', '₹25,000–₹3,00,000 (market range)'), ('U Scale fixed prices', WEB_PRICES),
@@ -403,7 +403,7 @@ def calc_dict():
               f'After the first-year offer ends, a domain and shared hosting cost about {_fmt(YEARLY[0])}–{_fmt(YEARLY[1])} a year before GST. Online stores '
               'also pay a payment gateway fee on each order, and a platform fee if they use one like Shopify.'),
              ('How much does an e-commerce website cost?',
-              f'Online stores range from about ₹25,000 to ₹3 lakh in the market. With U Scale, a store with under 50 products is {STORE} and 50–500 '
+              f'Online stores range from about ₹25,000 to ₹3 lakh in the market. With U Scale, a store with up to 50 products is {STORE} and 51–500 '
               f'products is {STORE_BIG}. More on the online store page.'),
              ('Is this estimate the final price?',
               'No. It is an estimate from published prices. The price is fixed in writing after a free audit of what you actually need, before you pay anything.'),
@@ -576,7 +576,7 @@ def india_dict():
                 f'{price("Business site, 5–10 pages")}, a 10–20 page site with a blog {price("Business site, 10–20 pages + blog")} and an online store from '
                 f'{STORE}. Most business sites go live in 3–4 weeks, 60% of the price is paid at launch, and the domain, code and logins are in your name. '
                 'For comparison, 16 published price guides put a custom-designed website in India at about ₹40,000 to ₹2 lakh.'),
-        facts=[('Who builds it', 'Mehul Karotra, personally: designed in Figma, then hand-coded'),
+        facts=[('Who builds it', 'Mehul Karotra and the U Scale team; designed in Figma, then hand-coded'),
                ('Based in', 'Mumbai (Ghatkopar West). No offices in other cities: the work happens over WhatsApp and video calls'),
                ('Website prices', WEB_PRICES + '. The same in every city'),
                ('India market, for comparison', 'Basic template website ₹8,000–₹30,000 · custom-designed website ₹40,000–₹2,00,000 · online store ₹25,000–₹3,00,000 (16 published price guides, compared in October 2026)'),
@@ -590,7 +590,7 @@ def india_dict():
                 Html(*__import__('mumbai_visuals').ranges([('One-page or template site', 8000, 30000, price('Landing page'), 'a custom landing page'),
                     ('Custom business site', 40000, 200000, price('Business site, 5–10 pages'), '5–10 pages'),
                     ('Larger site with a blog', 40000, 200000, price('Business site, 10–20 pages + blog'), '10–20 pages'),
-                    ('Online store', 25000, 300000, STORE, f'under 50 products; {STORE_BIG} for 50–500')])),
+                    ('Online store', 25000, 300000, STORE, f'up to 50 products; {STORE_BIG} for 51–500')])),
                 P('These ranges are what web development companies and web design firms in India publish themselves. '
                   + GP.GUIDES_NOTE.replace(' and listed under Sources below', '') + ' The full list is in the '
                   + _link('/services/website-design-mumbai/freelancer-vs-agency-vs-website-builder#sources', 'freelancer vs agency guide')
@@ -602,7 +602,7 @@ def india_dict():
                        ('rupee', 'Most of the price after launch', '20% to start, 20% when you approve the design and 60% when the site is live.'),
                        ('key', 'Everything in your name', 'Your domain, hosting, code and logins, handed over at launch.'),
                        ('file', 'A written plan first', 'Pages, timeline and the exact price, agreed before you pay anything.'),
-                       ('shield', 'Bug fixes after launch', 'A 15–30 day window to fix anything that doesn’t work as agreed.')], cols=3),
+                       ('shield', 'Bug fixes after launch', 'For 30 days after launch, we fix anything that doesn’t work as agreed, at no charge.')], cols=3),
                 eyebrow='Working remotely', layout='wide', tone='band', sid='remote'),
             Sec('Website design by city',
                 P('Every city below has its own page, with what local studios charge there (from their own price pages) and how customers in that city search.'),
