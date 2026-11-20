@@ -209,24 +209,25 @@ def gbp_page_dict():
 def freelancer_dict(ctx=None):
     import svc_pages as SVP
     work = '' if ctx is None else SVP._work(ctx, dict(work=['antrah', 'sashe', 'vidhi', 'roar', 'brandgen', 'growcred'], work_feature='spacestudio',
-                               work_h='Websites I designed and built.',
-                               work_lead='Client websites, and GrowCred, a project of my own. Each one designed in Figma and coded by hand; every card opens the live site.'))
+                               work_h='Websites we designed and built.',
+                               work_lead='Client websites, and GrowCred, a project of my own. Each was designed in Figma and coded by hand, and every card opens the live site.'))
     return dict(
         slug='freelance-web-designer-mumbai', path='freelance-web-designer-mumbai', kind='business', crumb='Freelance web designer',
         trail=CROSS + [('Website design', '/services/website-design-mumbai')],
-        service='Freelance web design and development in Mumbai', service_type='Website design',
+        service='Website design and development in Mumbai, led by the founder', service_type='Website design',
         wa_msg="Hi Mehul, I'm looking for a freelance web designer. I'd like a free audit and a price for my website.",
-        title='Freelance Web Designer in Mumbai: Hire Mehul, from ₹25,000',
-        desc='Hire a freelance web designer and developer in Mumbai: Mehul Karotra designs in Figma and hand-codes your site at a fixed price. 21+ projects shipped.',
-        h1='Freelance web designer in Mumbai', eyebrow='Hire a person, not an agency',
-        lead='I’m Mehul Karotra, a freelance web designer and developer based in Ghatkopar West, Mumbai. You hire me, not a team behind me. I design your site in Figma, code it by hand and answer your WhatsApp myself, for a fixed price we agree before I start.',
-        stats=[('21+', 'Projects shipped'), (price('Landing page'), 'Websites from'), ('1', 'Person does the work')],
-        art=dict(kind='portrait', chips=[('pen', 'Designs in Figma'), ('bolt', 'Hand-codes every site')]),
-        answer=(f'Mehul Karotra is a freelance web designer and developer in Mumbai, based in Ghatkopar West. He designs every website in Figma and '
-                f'hand-codes it himself. The price is fixed in writing before work starts: a landing page {price("Landing page")}, a 5–10 page business '
-                f'site {price("Business site, 5–10 pages")} and an online store from {STORE}. Clients deal with him directly, from the first WhatsApp '
-                'message to launch, and own the domain, code and every login.'),
-        facts=[('Who', 'Mehul Karotra, freelance web designer and developer; founder of U Scale'),
+        title='Freelance Web Designer in Mumbai? Founder-led, from ₹25,000',
+        desc='Looking for a freelance web designer in Mumbai? At U Scale you deal directly with the founder, and his team builds with him. Fixed prices from ₹25,000.',
+        h1='Hiring a freelance web designer in Mumbai', eyebrow='You deal with the founder',
+        lead='I’m Mehul Karotra, a website designer and developer in Ghatkopar West, Mumbai, and the founder of U Scale. You deal with me directly, the way you would with a freelancer. My team and I design your site in Figma and code it by hand, for a fixed price agreed before we start.',
+        stats=[(price('Landing page'), 'Websites from'), ('3–4 wk', 'To go live'), ('60%', 'Paid only at launch')],
+        art=dict(kind='portrait', chips=[('pen', 'Designed in Figma'), ('chat', 'Replies on WhatsApp')]),
+        answer=(f'U Scale is a founder-led web design studio in Mumbai. For someone looking for a freelance web designer, it works in much the same way: '
+                f'clients deal directly with the founder, Mehul Karotra, a website designer and developer based in Ghatkopar West, from the first WhatsApp '
+                f'message to launch. The U Scale team designs every site in Figma and hand-codes it with him. The price is fixed in writing before work '
+                f'starts: a landing page {price("Landing page")}, a 5–10 page business site {price("Business site, 5–10 pages")} and an online store '
+                f'from {STORE}. Clients own the domain, code and every login.'),
+        facts=[('Who', 'Mehul Karotra, website designer and developer, founder of U Scale. He leads every project and works on it with the U Scale team'),
                ('Based in', 'Ghatkopar West, Mumbai; meets clients across Mumbai, Thane and Navi Mumbai, and works with businesses across India remotely'),
                ('Website prices', WEB_PRICES),
                ('Timeline', 'Most business sites go live in 3–4 weeks; a landing page in under two weeks'),
@@ -235,22 +236,24 @@ def freelancer_dict(ctx=None):
                ('Also', 'SEO, Google Business Profile, social media, Google and Meta ads, AI search visibility'),
                ('Languages', 'English and Hindi')],
         sections=[
-            Sec('What hiring a freelance web designer means',
-                Cards([('user', 'One person, start to finish', 'The person you talk to on WhatsApp designs the screens and writes the code.'),
+            Sec('What you want from a freelance web designer, and what you get here',
+                Cards([('user', 'You deal with the founder', 'I do the first audit myself, answer your WhatsApp and lead the project to the handover. You are not passed to an account manager.'),
                        ('rupee', 'A fixed price, in writing', 'Agreed before work starts: 20% to start, 20% on design sign-off, 60% on launch.'),
                        ('key', 'Everything in your name', 'Your domain, hosting, code and logins, handed over at launch.'),
-                       ('calendar', 'A start date before you pay', 'One person can only take a few projects at a time, so you get a start date in writing before the advance.'),
+                       ('calendar', 'A start date before you pay', 'You get a start date in writing before you pay the advance, so you know when the work begins.'),
                        ('shield', 'Bug fixes after launch', 'For 30 days after launch, we fix anything that doesn’t work as agreed, at no charge.'),
-                       ('team', 'Specialists when needed', 'A photographer for a shoot, a developer friend for a tricky build. I stay your single point of contact.')], cols=3),
+                       ('team', 'A team on the build', 'My team and I design and build the site together. If your project needs someone from outside the team, such as a photographer, we tell you first and quote it before any work starts.')], cols=3),
                 eyebrow='What you get', layout='wide'),
-            Sec('A freelancer or an agency?',
-                Options([dict(name='A freelance web designer', tag='One person', hi=True, rows=[('Good for', 'Small businesses with a clear brief'),
-                                                                                                 ('You deal with', 'The person designing and coding your site'),
-                                                                                                 ('Ask about', 'When they can start, and who fixes things after launch')]),
-                         dict(name='An agency', tag='A team', rows=[('Good for', 'Large sites that need several specialists at once'),
-                                                                    ('You deal with', 'Usually an account manager'),
-                                                                    ('Ask about', 'Who actually designs and builds your site')])]),
-                P('For prices from 16 published guides, and six checks to make before you hire anyone, read the '
+            Sec('A freelancer or a founder-led studio?',
+                Options([dict(name='A freelance web designer', tag='One person', rows=[('Good for', 'A small job with a clear brief, such as changes to a site you already have'),
+                                                                                        ('You deal with', 'The person designing and coding your site'),
+                                                                                        ('Ask about', 'When they can start, and who fixes things after launch')]),
+                         dict(name='A founder-led studio', tag='How U Scale works', hi=True, rows=[('Good for', 'A new site, or a rebuild, for an independent business'),
+                                                                                                 ('You deal with', 'The founder, who works on it with the team'),
+                                                                                                 ('Ask about', 'What is in writing: scope, price, payment stages and handover')])]),
+                P('A solo freelancer can be the better choice when the job is small and you are happy to work around one person’s calendar. '
+                  'A large agency suits a site that needs several specialists working at once. We sit between the two.',
+                  'For prices from 16 published guides, and six checks to make before you hire anyone, read the '
                   + _link('/services/website-design-mumbai/freelancer-vs-agency-vs-website-builder', 'freelancer vs agency vs website builder') + ' guide.'),
                 eyebrow='Compared', layout='wide', tone='band', sid='compared'),
             Sec('Fixed prices',
@@ -260,27 +263,30 @@ def freelancer_dict(ctx=None):
                        ('Business site, 10–20 pages + blog', price('Business site, 10–20 pages + blog'), 'Agreed in the plan'),
                        ('Restaurant site + own online ordering', price('Restaurant site + own online ordering'), '3–4 weeks'),
                        ('Online store, up to 50 products', STORE, 'Agreed in the plan')],
-                      'Freelance website prices from Mehul Karotra of U Scale'),
+                      'Website prices from U Scale, each fixed in writing before work starts'),
                 P('Every price is published on the ' + _link('/pricing', 'pricing page') + '. For a quick estimate with your own choices, try the '
                   + _link('/tools/website-cost-calculator', 'website cost calculator') + '.'),
                 eyebrow='Prices', layout='wide', sid='prices'),
         ],
         after_sections=work,
         faq=[('How much does a freelance web designer cost in Mumbai?',
-              f'With me, a landing page is {price("Landing page")}, a 5–10 page business site {price("Business site, 5–10 pages")} and an online store '
-              f'starts at {STORE}, fixed and agreed in writing before I start. Freelancer projects in Mumbai mostly cost ₹10,000–₹80,000 according to '
+              f'With U Scale, a landing page is {price("Landing page")}, a 5–10 page business site {price("Business site, 5–10 pages")} and an online store '
+              f'starts at {STORE}, fixed and agreed in writing before we start. Freelancer projects in Mumbai mostly cost ₹10,000–₹80,000 according to '
               '16 published price guides, compared in the freelancer vs agency vs website builder guide.'),
              ('Is it safe to hire a freelance web designer?',
-              'It is when the basics are in writing: a fixed price, what you get, a start date, and the domain and logins in your name. Pay in stages '
-              '(I ask for 20% to start, 20% on design sign-off and 60% on launch), so most of the payment comes after you have seen the work.'),
+              'It is when the basics are in writing: a fixed price, what you get, a start date, and the domain and logins in your name. Pay in stages, '
+              'so most of the payment comes after you have seen the work. We ask for 20% to start, 20% on design sign-off and 60% on launch.'),
+             ('Am I hiring a freelancer or a company?',
+              'You are hiring U Scale, a studio that Mehul Karotra founded and leads. You deal with him directly, as you would with a freelancer, '
+              'and his team works on the site with him. The scope, the price and the payment stages are agreed in writing before work starts.'),
              ('What if you are busy or unavailable?',
-              'I take on a few projects at a time and give you a start date in writing before the advance. During a project you get updates on '
-              'WhatsApp, and after launch everything is in your name, so you are never locked in.'),
+              'You get a start date in writing before you pay the advance, and a progress update every week during the build. After launch '
+              'everything is in your name, so you are never locked in.'),
              ('Do you also do SEO and digital marketing?',
-              'Yes. Besides websites I run local SEO and Google Business Profiles, social media, Google and Meta ads and AI search visibility, on monthly '
+              'Yes. Besides websites we run local SEO and Google Business Profiles, social media, Google and Meta ads and AI search visibility, on monthly '
               'plans with published prices.'),
              ('Do you work with businesses outside Mumbai?',
-              'Yes. I meet clients in person across Mumbai, Thane and Navi Mumbai. With businesses elsewhere in India I work over WhatsApp and video calls, at the same prices.'),
+              'Yes. We meet clients in person across Mumbai, Thane and Navi Mumbai. With businesses elsewhere in India we work over WhatsApp and video calls, at the same prices.'),
              ('Will I own my website?',
               'Yes. The domain, hosting account, code and design files are yours, and every login is handed over at launch.')],
         sources=['g-pac', 'g-mwd', 'g-webbird', 'g-hostinger', 'g-goodfirms'],
@@ -288,7 +294,7 @@ def freelancer_dict(ctx=None):
         work=[],
         related_html=_rel([('/services/website-design-mumbai', 'Service', 'Website design in Mumbai', 'Designed in Figma, hand-coded, fixed price.'),
                            ('/services/website-design-mumbai/freelancer-vs-agency-vs-website-builder', 'Guide', 'Freelancer vs agency vs builder', 'Who each one suits, what each costs.'),
-                           ('/about', 'About', 'About Mehul Karotra', 'Where I worked before, how I work, where I meet clients.'),
+                           ('/about', 'About', 'About Mehul Karotra', 'Why I started U Scale, who you’ll work with and where we meet clients.'),
                            ('/blog/website-design-cost-mumbai', 'Guide', 'Website design cost in Mumbai (2026)', 'Market ranges, yearly costs and red flags.'),
                            ('/tools/website-cost-calculator', 'Free tool', 'Website cost calculator', 'An estimate in a minute, from published prices.'),
                            ('/pricing', 'Prices', 'Full price list', 'Websites, monthly plans and single pieces.')]))
@@ -447,18 +453,18 @@ def digital_dict():
         trail=CROSS, service='Digital marketing services in Mumbai', service_type='Digital marketing',
         related_ld=lambda site: {'@type': 'Service', '@id': site + 'services/seo-mumbai#service', 'name': 'SEO Services', 'url': site + 'services/seo-mumbai'},
         wa_msg="Hi Mehul, I'm looking for digital marketing for my business. I'd like a free audit.",
-        title='Digital Marketing Company in Mumbai? An Agency Alternative',
-        desc=f'Looking for a digital marketing company or agency in Mumbai? U Scale is one specialist, Mehul Karotra: local SEO {LOCAL}, ads {ADS}, posts from {price("Social post")}.',
-        h1='Digital marketing in Mumbai', eyebrow='An alternative to an agency',
-        lead='SEO, Google Maps, social media, Google and Meta ads and AI search, run by one person instead of an agency team. I’m Mehul Karotra; you talk to me, I do the work, and every price is published before we speak.',
-        stats=[(LOCAL.split('/')[0], 'Local SEO, per month'), (ADS.split('/')[0], 'Ads, per month'), ('1', 'Person does the work')],
+        title='Digital Marketing Company in Mumbai? Every Price Published',
+        desc=f'Digital marketing company or agency in Mumbai? U Scale is a founder-led studio with published prices: local SEO {LOCAL}, ads {ADS}, posts from {price("Social post")}.',
+        h1='Digital marketing in Mumbai', eyebrow='A founder-led studio',
+        lead='We run SEO, Google Maps listings, social media, Google and Meta ads and AI search for Mumbai businesses, each at its own published price. I’m Mehul Karotra. I lead the work with my team, and I’m the person you talk to.',
+        stats=[(LOCAL.split('/')[0], 'Local SEO, per month'), (ADS.split('/')[0], 'Ads, per month'), ('3 mo', 'Minimum, then monthly')],
         art=dict(kind='card', card='menu'),
-        answer=(f'U Scale is the independent digital marketing practice of Mehul Karotra in Mumbai, an alternative to hiring a digital marketing agency. '
-                f'He personally runs local SEO and Google Business Profiles ({_mo(LOCAL)}), technical and on-page SEO ({_mo(SEO_TECH)}), Google and Meta ads '
+        answer=(f'U Scale is a digital marketing studio in Mumbai, founded and led by Mehul Karotra. '
+                f'He and the U Scale team run local SEO and Google Business Profiles ({_mo(LOCAL)}), technical and on-page SEO ({_mo(SEO_TECH)}), Google and Meta ads '
                 f'({_mo(ADS)}, plus a one-time ₹10,000 setup), social media (posts from {price("Social post")}, reel edits from {price("Reel edit (your footage)")}) '
                 f'and AI search visibility ({_mo(GEO)}). Every price is published, and monthly plans run for 3 months, then month to month. '
                 'Two sources published in 2026 put full-service agency retainers in Mumbai between about ₹25,000 and ₹5 lakh a month.'),
-        facts=[('Who does the work', 'Mehul Karotra, personally. U Scale is one person, not an agency team'),
+        facts=[('Who does the work', 'Mehul Karotra and the U Scale team; Mehul leads every project and is the person you talk to'),
                ('Local SEO and Google Business Profile', LOCAL),
                ('Technical and on-page SEO', SEO_TECH),
                ('Google and Meta ads', f'{ADS} up to ₹1.5 lakh monthly ad spend, then 12% of spend; ₹10,000 one-time setup; ad spend paid to Google or Meta directly'),
@@ -479,14 +485,14 @@ def digital_dict():
                 P('You don’t need all of it. Most businesses start with one or two and add the rest when the first is working. The '
                   + _link('/pricing', 'pricing page') + ' has a quote builder for mixing them.'),
                 eyebrow='Services and prices', layout='wide', sid='services'),
-            Sec('A digital marketing company, an agency, or one specialist?',
+            Sec('A digital marketing company, an agency, or a founder-led studio?',
                 P('Digital marketing companies in Mumbai come in every size, and most of them call themselves an agency. Whatever the name on '
                   'the door, ask two things first: who will do your work, and what it will cost each month.'),
                 Options([dict(name='A digital marketing company or agency', tag='A team', rows=[('Good for', 'Brands running many channels and campaigns at once'),
                                                                                     ('You deal with', 'Usually an account manager'),
                                                                                     ('Monthly cost', 'About ₹25,000 to ₹5 lakh for full service, in two sources published in 2026')]),
-                         dict(name='U Scale', tag='One specialist', hi=True, rows=[('Good for', 'Small and mid-sized businesses that want one person accountable'),
-                                                                                   ('You deal with', 'Mehul, who also does the work'),
+                         dict(name='U Scale', tag='A founder-led studio', hi=True, rows=[('Good for', 'Small and mid-sized businesses that want one person accountable'),
+                                                                                   ('You deal with', 'Mehul, the founder, who works on it with the team'),
                                                                                    ('Monthly cost', f'Published for each service, from {price("Email marketing")}')])],
                         note='If you need large shoots every week, influencer campaigns or a team on call all day, an agency is the better choice, and I will tell you so in the free audit.'),
                 P('Where the agency figures come from: one 2026 guide to Mumbai agencies puts full-service retainers at ₹25,000 to ₹2.5 lakh a month and more '
@@ -505,16 +511,16 @@ def digital_dict():
                 P('I can’t tell you which is the best digital marketing company in Mumbai, and nobody else can either. It depends on your budget '
                   'and on how you like to work. What I can give you is the six things I would check, and you should hold me to the same list.'),
                 Cards([('rupee', 'Prices in writing', 'You get a price list or a written quote before anyone gets you on a sales call.'),
-                       ('user', 'Who does the work', 'Ask to speak to the person who will run your account. The one selling it is often someone else.'),
+                       ('user', 'Who does the work', 'Ask to speak to the person who will run your account, before you sign.'),
                        ('key', 'Accounts in your name', 'The Google listing, ad accounts and social pages are opened in your name, with you as the owner.'),
                        ('shield', 'No guarantees', 'Nobody can promise a ranking or a number of leads. Be wary of a company that does.'),
-                       ('calendar', 'A short minimum term', 'Three months is fair for SEO. A one-year lock-in is there for the seller’s benefit.'),
+                       ('calendar', 'A short minimum term', 'Three months is fair for SEO. Ask what it costs to stop after that.'),
                        ('file', 'A report you can read', 'Every month: calls, enquiries and what changed, in plain words.')], cols=3),
                 eyebrow='Six checks', layout='wide', sid='choose'),
-            Sec('What I won’t do',
-                Cards([('shield', 'Promise a ranking', 'Nobody controls Google. I report what was done and what changed, every month.'),
+            Sec('What we won’t do',
+                Cards([('shield', 'Promise a ranking', 'Nobody controls Google. We report what was done and what changed, every month.'),
                        ('star', 'Buy reviews or followers', 'Bought reviews break Google’s rules and can get reviews removed or a listing restricted. Bought followers don’t buy from you.'),
-                       ('key', 'Hold your accounts', 'Your Google listing, ad accounts and pages stay in your name. You add me, and can remove me any time.')], cols=3),
+                       ('key', 'Hold your accounts', 'Your Google listing, ad accounts and pages stay in your name. You add us, and can remove us any time.')], cols=3),
                 eyebrow='Ground rules', layout='wide', tone='dark', sid='wont'),
             Sec('Check where you stand first, free', Tools(), eyebrow='Free tools', layout='wide'),
         ],
@@ -523,12 +529,12 @@ def digital_dict():
               f'management {_mo(ADS)} plus a ₹10,000 setup, and AI search visibility {_mo(GEO)}. Social media is priced by the piece, from {price("Social post")} '
               'a post. Two sources published in 2026 put full-service agency retainers in Mumbai between about ₹25,000 and ₹5 lakh a month.'),
              ('Is U Scale a digital marketing company or an agency?',
-              'It is a company of one. I’m Mehul Karotra, and I plan and do the work myself, so there is no agency team behind me. When a job '
-              'needs a photographer or another specialist I bring one in, and you still deal with me.'),
+              'It is a studio that I, Mehul Karotra, started and lead. My team and I plan and do the work, and you talk to me. When a job '
+              'needs someone from outside the team, such as a photographer, we tell you first and quote it before any work starts.'),
              ('Which is the best digital marketing company in Mumbai?',
               'I don’t think anyone can answer that honestly. It depends on your budget, your industry and how involved you want to be. Shortlist '
               'two or three and compare them on the same points: are the prices published, who does the work, whose name are the accounts in, and '
-              'how long is the minimum term. U Scale suits small and mid-sized businesses that want to deal with one person and see the prices '
+              'how long is the minimum term. U Scale suits small and mid-sized businesses that want to deal with the founder and see the prices '
               'before the first call.'),
              ('Which service should I start with?',
               'If customers look for you on Google Maps, start with your Google Business Profile and local SEO. If you have no website, or one that does '
@@ -539,7 +545,7 @@ def digital_dict():
              ('Do I have to sign a long contract?',
               'No. Monthly plans run for 3 months, then month to month with 30 days’ notice. Websites are one-time, fixed-price projects.'),
              ('Do you work with businesses outside Mumbai?',
-              'Yes. I meet clients across Mumbai, Thane and Navi Mumbai, and work with businesses across India over WhatsApp and video calls, at the same prices.')],
+              'Yes. We meet clients across Mumbai, Thane and Navi Mumbai, and work with businesses across India over WhatsApp and video calls, at the same prices.')],
         sources=['dm-edtech', 'dm-scalegrowth', 'local-rank', 'ugc-policy'],
         offers=['Local SEO / Google Business Profile', 'Technical + on-page SEO', 'Ads management', 'AI search visibility (GEO)', 'Community & inbox management'],
         work=[],
@@ -566,13 +572,13 @@ def india_dict():
         area_ld=[aeo.place('India', 'Country')],
         wa_msg="Hi Mehul, my business is outside Mumbai. I'd like a free audit and a fixed price for my website.",
         title='Website Design & Development Company in India? From ₹25,000',
-        desc=f'A web design and development company of one, working across India from Mumbai: landing page {price("Landing page")}, business site {price("Business site, 5–10 pages")}, fixed in writing, over WhatsApp.',
+        desc=f'A founder-led web design studio working across India from Mumbai: landing page {price("Landing page")}, business site {price("Business site, 5–10 pages")}, fixed in writing, over WhatsApp.',
         h1='Website design & development in India', eyebrow='For businesses anywhere in India',
-        lead='I’m Mehul Karotra, a website designer and developer in Mumbai. I build websites for businesses across India over WhatsApp and video calls. The prices are the same fixed ones I charge in Mumbai, agreed in writing before I start.',
+        lead='I’m Mehul Karotra, a website designer and developer in Mumbai, and the founder of U Scale. My team and I build websites for businesses across India over WhatsApp and video calls. The prices are the same fixed ones we charge in Mumbai, agreed in writing before we start.',
         stats=[(price('Landing page'), 'Websites from'), ('3–4 wk', 'Live in'), ('60%', 'Paid after launch')],
         art=dict(kind='card', card='prices'),
-        answer=(f'U Scale is Mehul Karotra, a website designer and developer based in Mumbai who works with businesses across India over WhatsApp and video '
-                f'calls. Prices are fixed in writing and the same in every city: a landing page {price("Landing page")}, a 5–10 page business site '
+        answer=(f'U Scale is a web design studio in Mumbai, founded and led by Mehul Karotra, a website designer and developer. It works with businesses '
+                f'across India over WhatsApp and video calls. Prices are fixed in writing and the same in every city: a landing page {price("Landing page")}, a 5–10 page business site '
                 f'{price("Business site, 5–10 pages")}, a 10–20 page site with a blog {price("Business site, 10–20 pages + blog")} and an online store from '
                 f'{STORE}. Most business sites go live in 3–4 weeks, 60% of the price is paid at launch, and the domain, code and logins are in your name. '
                 'For comparison, 16 published price guides put a custom-designed website in India at about ₹40,000 to ₹2 lakh.'),
@@ -598,24 +604,27 @@ def india_dict():
                 eyebrow='Prices', layout='wide', sid='prices'),
             Sec('How a project runs when we are in different cities',
                 Cards([('chat', 'WhatsApp and video calls', 'You talk to me directly, from the first message to launch. No account manager in between.'),
-                       ('pen', 'Designs you review on your own phone', 'Real screens in Figma, desktop and mobile, approved by you before I write any code.'),
+                       ('pen', 'Designs you review on your own phone', 'Real screens in Figma, desktop and mobile, approved by you before we write any code.'),
                        ('rupee', 'Most of the price after launch', '20% to start, 20% when you approve the design and 60% when the site is live.'),
                        ('key', 'Everything in your name', 'Your domain, hosting, code and logins, handed over at launch.'),
                        ('file', 'A written plan first', 'Pages, timeline and the exact price, agreed before you pay anything.'),
                        ('shield', 'Bug fixes after launch', 'For 30 days after launch, we fix anything that doesn’t work as agreed, at no charge.')], cols=3),
+                P('Space Studio Chennai is one example. The practice is in Chennai and we are in Mumbai, and its website was rebuilt this way: '
+                  '86 pages, each written and coded by hand, with every old address kept working.'),
+                Html(*__import__('proof').block('spacestudio')),
                 eyebrow='Working remotely', layout='wide', tone='band', sid='remote'),
             Sec('Website design by city',
                 P('Every city below has its own page, with what local studios charge there (from their own price pages) and how customers in that city search.'),
                 Links(cities),
-                P('In and around Mumbai I also meet clients in person:'),
+                P('In and around Mumbai we also meet clients in person:'),
                 Links(near),
                 eyebrow='City pages', layout='wide', sid='cities'),
-            Sec('A local studio, or a designer in another city?',
+            Sec('A local studio, or a studio in another city?',
                 Options([dict(name='A studio in your city', tag='Local', rows=[('Good for', 'Owners who want to sit across a table'),
                                                                               ('Ask about', 'Who designs and builds the site, and whose name the domain is in'),
                                                                               ('Price', 'Varies by city: see the city pages')]),
                          dict(name='U Scale, from Mumbai', tag='Remote', hi=True, rows=[('Good for', 'Owners happy to work over WhatsApp and video calls'),
-                                                                                        ('Ask about', 'When I can start; I take a few projects at a time'),
+                                                                                        ('Ask about', 'When we can start, and how design reviews will run'),
                                                                                         ('Price', f'Fixed in writing, from {price("Landing page")}')])],
                         note='If you can’t decide, the first audit is free either way, and I will tell you if a local studio would suit you better.'),
                 eyebrow='Compared', layout='wide', sid='compared'),
@@ -640,14 +649,14 @@ def india_dict():
               f'to 16 published price guides compared in 2026. U Scale’s fixed prices are {price("Landing page")} for a landing page, '
               f'{price("Business site, 5–10 pages")} for a 5–10 page business site and from {STORE} for an online store.'),
              ('Is U Scale a web development company in India?',
-              'A very small one. U Scale is me, Mehul Karotra, in Mumbai. I design each site in Figma and write the code myself. You get the same '
-              'website development services a larger web design company offers: design, build, launch and care afterwards. And the '
-              'person you message is the person doing the work.'),
+              'It is a studio in Mumbai that I, Mehul Karotra, started and lead. My team and I design each site in Figma and code it by hand. You get the '
+              'website development services a web design company offers: design, build, launch and care afterwards. The difference is that '
+              'you talk to the founder throughout.'),
              ('Can you build my website if I am not in Mumbai?',
               'Yes. The whole project runs over WhatsApp and video calls: a free audit, a written plan with a fixed price, designs you review in Figma on '
               'your own phone and laptop, then the build and launch. The prices are the same as in Mumbai.'),
              ('Which cities do you work with?',
-              f'Any city in India. There are pages for {names}, and I meet clients in person in Mumbai, Thane and Navi Mumbai.'),
+              f'Any city in India. There are pages for {names}, and we meet clients in person in Mumbai, Thane and Navi Mumbai.'),
              ('Do you have an office in my city?',
               'No. U Scale is based in Mumbai (Ghatkopar West) and has no offices elsewhere. If you want someone who can visit you, a studio in your '
               'city is the better choice.'),
@@ -656,7 +665,7 @@ def india_dict():
              ('How long does a website take?',
               'Most business sites go live in 3–4 weeks from the start date, and a landing page in under two weeks. You get the start date in writing before the advance.'),
              ('Can my website be in Hindi or another Indian language?',
-              f'Yes. I write in English and Hindi. For other languages I build the pages from your own text or a translator’s, with a language switch '
+              f'Yes. We write in English and Hindi. For other languages we build the pages from your own text or a translator’s, with a language switch '
               f'Google understands. Writing the copy is {price("Website copy")}.'),
              ('Do you also do SEO for businesses outside Mumbai?',
               'Yes. Technical and on-page SEO, AI search visibility and Google Business Profile management are all done remotely, on monthly plans with '
@@ -665,7 +674,7 @@ def india_dict():
         offers=['Landing page', 'Business site, 5–10 pages', 'Business site, 10–20 pages + blog', 'E-commerce, under 50 products'],
         work=[],
         related_html=_rel([('/services/website-design-mumbai', 'Service', 'Website design in Mumbai', 'Designed in Figma, hand-coded, fixed price.'),
-                           ('/freelance-web-designer-mumbai', 'Hire', 'Freelance web designer', 'Hire one person, not an agency team.'),
+                           ('/freelance-web-designer-mumbai', 'Compare', 'Freelancer or studio?', 'What you get when you deal with the founder.'),
                            ('/tools/website-cost-calculator', 'Free tool', 'Website cost calculator', 'An estimate in a minute, from published prices.'),
                            ('/blog/website-design-cost-mumbai', 'Guide', 'Website design cost (2026)', 'Market ranges, yearly costs and red flags.'),
                            ('/services/website-design-mumbai/website-banane-ka-kharcha', 'Guide', 'Website banane ka kharcha', 'Poora hisaab, Hinglish mein.'),
@@ -678,11 +687,11 @@ GP.OG.update({'ecommerce-website-mumbai': 'og-ecommerce-website-mumbai', 'google
               'digital-marketing-mumbai': 'og-digital-marketing-mumbai', 'website-design-india': 'og-website-design-india'})
 GP.OG_ALT.update({'ecommerce-website-mumbai': 'E-commerce website development in Mumbai, by U Scale',
                   'google-business-profile-mumbai': 'Google Business Profile management in Mumbai, by U Scale',
-                  'freelance-web-designer-mumbai': 'Freelance web designer in Mumbai: Mehul Karotra of U Scale',
+                  'freelance-web-designer-mumbai': 'Hiring a freelance web designer in Mumbai: how U Scale works',
                   'website-cost-calculator': 'Free website cost calculator for India, by U Scale',
                   'website-design-thane': 'Website design in Thane, Kalyan and Dombivli, by U Scale',
                   'website-design-navi-mumbai': 'Website design in Navi Mumbai, Vashi to Panvel, by U Scale',
-                  'digital-marketing-mumbai': 'Digital marketing in Mumbai by one specialist: Mehul Karotra of U Scale',
+                  'digital-marketing-mumbai': 'Digital marketing in Mumbai with every price published, by U Scale',
                   'website-design-india': 'Website design and development for businesses across India, by U Scale'})
 
 GP.SRC.update({
