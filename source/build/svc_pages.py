@@ -11,6 +11,7 @@ import json, urllib.parse
 
 import aeo
 import geo_pages as GP
+import proof
 import seo_pages as SP
 from geo_pages import (P, Cards, Check, Table, Options, Links, Chips, Svg, Tools, Img, Sec, icon, price, _fmt)
 
@@ -134,6 +135,15 @@ SEO = dict(
                     note='If you are comparing a few SEO companies in Mumbai, ask all of them the same four questions. Who will actually do the work? '
                          'What is in the monthly report? How long is the contract? And does the Google listing stay in my name?'),
             eyebrow='Company, agency or consultant', sid='company'),
+        Sec('SEO work you can open and check',
+            P('Space Studio Chennai is an office architecture practice. Its old website ran on WordPress. When we rebuilt it, we kept every old '
+              'address working, so a link or a search result that pointed to the old site still opens the right page. When a site is rebuilt '
+              'without this, the old links break, and the pages have to earn their place on Google again.',
+              'The new site has 86 pages, each written and coded by hand. Open '
+              '<a class="tlink" href="https://spacestudiochennai.com" target="_blank" rel="noopener">spacestudiochennai.com</a>'
+              '<span class="sr-only"> (opens in a new tab)</span> on your phone and judge the work for yourself.'),
+            GP.Html(*proof.block('spacestudio')),
+            eyebrow='On a live site', sid='proof'),
         Sec('Local SEO across Mumbai',
             P('Local results depend on where the searcher is, so local SEO is done area by area: your listing, your pages and your reviews have to '
               'name the places you serve. We work with businesses across Mumbai, from Andheri, Borivali and Kandivali in the west to Ghatkopar, '
@@ -717,6 +727,10 @@ def about_page(ctx, parts):
                             ('key', 'You own everything', 'Your domain, code, logins, ad accounts and listings stay in your name.'),
                             ('shield', 'No promises we can’t keep', 'No guaranteed rankings, leads or AI mentions. You get a plain monthly report of what we did and what changed.')], cols=3),
                      eyebrow='Principles', layout='wide'),
+                 Sec('What clients have said',
+                     P('Three clients, in their own words. Each quote links to the place where the client wrote it, so you can check it.'),
+                     GP.Html(*proof.block('sashe', 'spacestudio', 'vidhi')),
+                     eyebrow='In their own words', layout='wide', sid='clients'),
                  Sec('My background',
                      P('I’m a website designer and developer. I design the screens and I write the code.',
                        'Before U Scale, I designed and built digital products in-house: interface design and web development at My Country Mobile and Callmama, '

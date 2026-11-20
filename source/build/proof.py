@@ -32,7 +32,7 @@ def quote(key):
                f'<span>Verified review on Clutch</span></p>')
     else:
         top = f'<p class="rv__src">{e(q["source"])}</p>'
-    return (f'<figure class="rv" data-reveal>{top}<blockquote><p>{e(q["quote"])}</p></blockquote>'
+    return (f'<figure class="rv rv--p" data-reveal>{top}<blockquote><p>{e(q["quote"])}</p></blockquote>'
             f'<figcaption><span class="rv__av" aria-hidden="true">{e(q["name"][0])}</span><span><b>{e(q["name"])}</b>'
             f'<small>{e(q["role"])}</small><small class="rv__job">{e(JOB[key])}</small></span>'
             f'<a class="tlink" href="{ea(q["url"])}" target="_blank" rel="noopener">{e(LINK[key])}'
