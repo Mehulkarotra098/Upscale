@@ -821,7 +821,7 @@ CITIES = [
         'Yes. Google ranks local results on relevance, distance and prominence, and distance is measured from your business to the person searching, '
         'not from your designer. What matters is that your website and Google Business Profile name your area, services and timings, and match each other.'),
        ('Can my website be in Marathi and English?',
-        'Yes. Marathi, Hindi and English are Pune’s major languages, according to the district administration. I build bilingual pages from your own '
+        'Yes. Marathi, Hindi and English are Pune’s major languages, according to the district administration. We build bilingual pages from your own '
         f'Marathi text, or a translator’s, with a language switch Google understands. Writing the copy is {COPY}.'),
        ('How do I get my Pune business on Google Maps?',
         GP.MAPS_FAQ + ' If you visit customers rather than them visiting you, list Pune and Pimpri-Chinchwad as service areas.'),
@@ -1119,7 +1119,7 @@ CITIES += [
          'Ghaziabad and Faridabad. If customers come to you, keep your exact address instead, and name the NCR cities you serve on your website.'),
         ('Should my Delhi website be in Hindi?',
          'About 81% of Delhi gave Hindi as their first language in the 2011 Census, so Hindi pages help if your customers search in it. Most business sites still lead in '
-         f'English and add Hindi on the key pages. I build them from your own Hindi text. If you need the copy written, that is {COPY}.')],
+         f'English and add Hindi on the key pages. We build them from your own Hindi text. If you need the copy written, that is {COPY}.')],
        ['dl-p1', 'dl-p2', 'dl-p3', 'dl-ec', 'dl-lang', 'gbp-areas', 'local-rank']),
 
  _city('hyderabad', 'Hyderabad', 'Telangana', 'https://en.wikipedia.org/wiki/Hyderabad', 'For Hyderabad businesses',
@@ -1152,7 +1152,7 @@ CITIES += [
          '“Hyderabad”, so keep it, and also name your locality (Kukatpally, Gachibowli, Secunderabad and so on) on your website and Google listing.'),
         ('Should my website be in Telugu or Urdu?',
          'In the 2011 Census, Telugu and Urdu were each the first language of about 43% of Hyderabad district. Most business sites lead in English; '
-         f'add Telugu or Urdu pages if your customers are local. I build them from your own text; writing the copy is {COPY}.')],
+         f'add Telugu or Urdu pages if your customers are local. We build them from your own text, and writing the copy is {COPY}.')],
        ['hy-p1', 'hy-p2', 'hy-p3', 'hy-corp', 'hy-lang', 'hy-pharma', 'local-rank']),
 
  _city('kolkata', 'Kolkata', 'West Bengal', 'https://en.wikipedia.org/wiki/Kolkata', 'For Kolkata businesses',
@@ -1185,7 +1185,7 @@ CITIES += [
          'name matches the name on your storefront, so use the same Bengali and English name on your board, Google listing and website.'),
         ('Should my Kolkata website be in Bengali?',
          'For about 61% of Kolkata district, Bengali is the first language (Census 2011), and Hindi and Urdu come next. Lead with the language your customers search in, '
-         f'and add the other on key pages. I build Bengali pages from your own text. Writing the copy is {COPY}.')],
+         f'and add the other on key pages. We build Bengali pages from your own text. Writing the copy is {COPY}.')],
        ['kol-p1', 'kol-p2', 'kol-p3', 'kol-lang', 'kol-boards', 'gbp-guidelines', 'local-rank']),
 
  _city('ahmedabad', 'Ahmedabad', 'Gujarat', 'https://en.wikipedia.org/wiki/Ahmedabad', 'For Ahmedabad businesses',
@@ -1218,7 +1218,7 @@ CITIES += [
          'exact: in the old city, some markets change trade through the day. Put the same address and landmark on your website.'),
         ('Should my Ahmedabad website be in Gujarati?',
          'Gujarati is the first language of about 75% of Ahmedabad district (Census 2011), with Hindi next. Lead in English or Gujarati, whichever your '
-         f'customers use, then add the other on key pages. I build Gujarati pages from your own text; copywriting is {COPY} if you want it.')],
+         f'customers use, then add the other on key pages. We build Gujarati pages from your own text, and copywriting is {COPY} if you want it.')],
        ['ahd-p1', 'ahd-p2', 'ahd-msme', 'ahd-lang', 'ahd-heritage', 'local-rank']),
 
  _city('surat', 'Surat', 'Gujarat', 'https://en.wikipedia.org/wiki/Surat', 'For Surat traders and makers',
@@ -1252,7 +1252,7 @@ CITIES += [
          'markets in Surat, buyers need all three. Use exactly the same address on your website, Google listing and IndiaMART.'),
         ('Should my Surat website be in Gujarati?',
          'Traders selling across India usually lead in English or Hindi. Shops serving Surat add Gujarati, the first language of about 60% of Surat district '
-         f'(Census 2011), with Hindi and Marathi next. I build the pages from your own text; writing the copy is {COPY}.')],
+         f'(Census 2011), with Hindi and Marathi next. We build the pages from your own text, and writing the copy is {COPY}.')],
        ['srt-p1', 'srt-p2', 'srt-p3', 'srt-tex', 'srt-dia', 'srt-lang', 'gbp-guidelines', 'local-rank']),
 
  _city('jaipur', 'Jaipur', 'Rajasthan', 'https://en.wikipedia.org/wiki/Jaipur', 'For Jaipur stays, shops and makers',
@@ -1285,7 +1285,7 @@ CITIES += [
          'June 2026, the most of any city in Rajasthan, and visitors book the place that answers quickly. A “Check availability on WhatsApp” button helps.'),
         ('Should my Jaipur website be in Hindi?',
          'Hindi was the first language of about 46% of Jaipur district in the 2011 Census, with Rajasthani next. Lead in English if you serve tourists, '
-         f'and add Hindi for local customers. I build Hindi pages from your own text, and writing the copy is {COPY}.')],
+         f'and add Hindi for local customers. We build Hindi pages from your own text, and writing the copy is {COPY}.')],
        ['jpr-p1', 'jpr-p2', 'jpr-p3', 'jpr-tour', 'jpr-lang', 'local-rank']),
 ]
 

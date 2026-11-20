@@ -52,8 +52,8 @@ ECOM = dict(
     art=dict(kind='card', card='store'),
     answer=(f'U Scale builds e-commerce websites for Mumbai businesses: your own online store with product pages, a cart and online payments by UPI '
             f'and cards, for {STORE} with up to 50 products or {STORE_BIG} for 51–500 products, fixed and agreed in writing. You pay the payment '
-            'gateway a small fee on each order, about 2% plus GST on Razorpay’s standard plan, and no marketplace commission. Mehul Karotra designs '
-            'and builds every store himself.'),
+            'gateway a small fee on each order, about 2% plus GST on Razorpay’s standard plan, and no marketplace commission. Mehul Karotra leads '
+            'every store project and builds it with the U Scale team.'),
     facts=[('Price', f'Up to 50 products {STORE} · 51–500 products {STORE_BIG}'),
            ('Who builds it', 'Mehul Karotra and the U Scale team; designed in Figma, then hand-coded'),
            ('Payments', 'UPI, cards and netbanking through a payment gateway; gateway fees are separate (Razorpay standard: 2% + GST per payment)'),
@@ -101,7 +101,7 @@ ECOM = dict(
           'before work starts. The payment gateway charges a small fee on each order, and a care plan for updates and backups is optional. Market '
           'prices for online stores range from about ₹25,000 to ₹3 lakh, according to the 16 published price guides U Scale compared in 2026.'),
          ('Do you build on Shopify?',
-          'I design and build custom stores. If Shopify suits your business better, for example if you want to run and change everything yourself '
+          'We design and build custom stores. If Shopify suits your business better, for example if you want to run and change everything yourself '
           'from day one, I will say so in the free audit. Shopify’s Basic plan costs about ₹1,500–₹1,800 a month billed yearly, plus 2% on each sale in India.'),
          ('Can customers pay by UPI on my online store?',
           'Yes. Payments go through a payment gateway that supports UPI, cards and netbanking. Razorpay’s standard plan, for example, charges 2% per '
@@ -135,8 +135,8 @@ def gbp_page_dict():
         art=dict(kind='card', card='profile'),
         answer=(f'U Scale manages Google Business Profiles for Mumbai businesses as part of local SEO, at {LOCAL.replace("/mo", " a month")}: set-up and '
                 'verification, the right categories and services, hours and photos, weekly posts, a plan for genuine reviews and replies, and help when a '
-                f'listing is suspended or missing. Review and reputation management on its own is {REVIEWS.replace("/mo", " a month")}. Mehul Karotra does the '
-                'work himself, and the listing always stays in your name.'),
+                f'listing is suspended or missing. Review and reputation management on its own is {REVIEWS.replace("/mo", " a month")}. Mehul Karotra leads the '
+                'work with the U Scale team, and the listing always stays in your name.'),
         facts=[('Price', f'Part of local SEO, {LOCAL}; review and reputation management {REVIEWS}'),
                ('Who does the work', 'Mehul Karotra and the U Scale team; Mehul leads every project'),
                ('Includes', 'Set-up and verification, categories and services, hours, photos, weekly posts, review plan and replies, monthly report'),
@@ -182,7 +182,7 @@ def gbp_page_dict():
               f'management on its own is {REVIEWS.replace("/mo", " a month")}. Monthly plans run for 3 months, then month to month. The first check is free '
               'with the Google Business Profile checker.'),
              ('Can you verify my Google Business Profile?',
-              'I set up the listing and guide you through verification, but Google decides the method: often a short video of your business, a phone '
+              'We set up the listing and guide you through verification, but Google decides the method: often a short video of your business, a phone '
               'call or a text, and sometimes a postcard. Google sends the code to you as the owner, so you share it with me or enter it yourself.'),
              ('My Google listing is suspended. Can you fix it?',
               'I can find what triggered it, fix what goes against Google’s guidelines and file a reinstatement request through Google’s own form. '
@@ -773,15 +773,15 @@ THANE = dict(
             eyebrow='Services', layout='wide', sid='services'),
     ],
     faq=[('Is there a website designer near me in Thane?',
-          'Yes. I’m Mehul Karotra of U Scale, based in Ghatkopar West, a short ride down the Central line. I design and build websites for businesses '
-          'across Thane, Kalyan and Dombivli, I can meet you at your shop or office, and every project starts with a free audit.'),
+          'Yes. I’m Mehul Karotra of U Scale, based in Ghatkopar West, a short ride down the Central line. My team and I design and build websites for businesses '
+          'across Thane, Kalyan and Dombivli. I can meet you at your shop or office, and every project starts with a free audit.'),
          ('How much does a website cost in Thane?', WEB_FAQ + ' Other Thane studios list anything from about ₹4,000 for a template package to over ₹1.5 lakh, going by their own pages in November 2026.'),
          ('Do you work with businesses on Ghodbunder Road?',
           'Yes. Ghodbunder Road’s housing societies keep salons, clinics, gyms, tuition classes and cafés busy, and most of their customers search on '
           'Google Maps by society or landmark. A complete listing with real photos, a website with your services and prices, and steady reviews '
           'from residents is usually the place to start.'),
          ('Can my Thane website be in Marathi?',
-          'Yes. Many Thane customers read Marathi, so a Marathi version of your key pages, or a Marathi line next to the English, can help. I build '
+          'Yes. Many Thane customers read Marathi, so a Marathi version of your key pages, or a Marathi line next to the English, can help. We build '
           f'the pages from your own Marathi text or a translator’s, with a language switch Google understands; writing the copy is {price("Website copy")}.'),
          ('Do you work in Kalyan and Dombivli?',
           'Yes. Kalyan and Dombivli are further up the same Central line, and the prices are the same. Meetings can be at your shop or office, or over WhatsApp and video calls.'),
@@ -793,7 +793,7 @@ THANE = dict(
           'If you serve customers at home across Thane, Kalyan and Dombivli, list those as service areas instead. Then complete the hours, photos and '
           'services, and ask every customer for a review. Nobody can promise a top-3 spot, because distance from the searcher decides part of it.'),
          ('Do you also handle social media and ads for Thane businesses?',
-          'Yes. Besides the website and Google listing, I run Instagram and Facebook, and Google and Meta ads, for Thane businesses on monthly plans with '
+          'Yes. Besides the website and Google listing, we run Instagram and Facebook, and Google and Meta ads, for Thane businesses on monthly plans with '
           'published prices. Most start with the website and the listing, then add the rest.')],
     sources=['tmc-list', 'mpcb-thane', 'mpcb-dombivli', 'local-rank', 'th-websetgo', 'th-vebbly', 'th-s2h'],
     offers=['Landing page', 'Business site, 5–10 pages', 'Business site, 10–20 pages + blog', 'Local SEO / Google Business Profile'],
@@ -809,7 +809,7 @@ NAVI = dict(
     title='Website Design & SEO in Navi Mumbai: Vashi to Panvel',
     desc='Websites, Google Maps and local SEO for Navi Mumbai businesses in Vashi, Nerul, Belapur, Kharghar, Airoli and Panvel. Fixed prices from ₹25,000.',
     h1='Website design in Navi Mumbai', eyebrow='Vashi to Panvel',
-    lead='I’m Mehul Karotra, a website designer based in Ghatkopar West, across Thane Creek from Navi Mumbai. From Airoli and Vashi down to Nerul, Belapur, Kharghar and Panvel, I design and build websites and run Google listings and local SEO. We can meet at your shop or office.',
+    lead='I’m Mehul Karotra, a website designer based in Ghatkopar West, across Thane Creek from Navi Mumbai. From Airoli and Vashi down to Nerul, Belapur, Kharghar and Panvel, my team and I design and build websites and run Google listings and local SEO. We can meet at your shop or office.',
     stats=[(price('Landing page'), 'Websites from'), (LOCAL.split('/')[0], 'Local SEO, per month'), ('In person', 'Meetings at your shop')],
     art=dict(kind='map', map='nm-map'),
     answer=(f'U Scale is Mehul Karotra, a website designer and digital marketer based in Ghatkopar West, Mumbai, across Thane Creek from Navi Mumbai. '
@@ -856,7 +856,7 @@ NAVI = dict(
             eyebrow='Services', layout='wide', sid='services'),
     ],
     faq=[('Is there a website designer near me in Navi Mumbai?',
-          'Yes, across Thane Creek in Ghatkopar West. I’m Mehul Karotra of U Scale, and I design and build websites for businesses from Airoli and '
+          'Yes, across Thane Creek in Ghatkopar West. I’m Mehul Karotra of U Scale, and my team and I design and build websites for businesses from Airoli and '
           'Vashi to Nerul, CBD Belapur, Kharghar and Panvel. The first audit is free, in person or on a video call.'),
          ('How much does a website cost in Navi Mumbai?', WEB_FAQ + ' Template packages from Navi Mumbai studios start at about ₹5,000, according to their own pages in November 2026.'),
          ('Do you work in Panvel and Kharghar?',

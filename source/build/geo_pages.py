@@ -392,7 +392,7 @@ PAGES = [
   desc=f'Website designer and developer based in Ghatkopar West: websites from {price("Landing page")}, plus Google listings and local SEO for Ghatkopar '
        'businesses. Free audit.',
   h1='Website designer & developer in Ghatkopar', eyebrow='Near you',
-  lead='I’m Mehul Karotra, based in Ghatkopar West. I design and build websites and run Google listings and local SEO for businesses here, and I can come to your shop to talk it through.',
+  lead='I’m Mehul Karotra, based in Ghatkopar West. My team and I design and build websites and run Google listings and local SEO for businesses here, and I can come to your shop to talk it through.',
   stats=[(price('Landing page'), 'Websites from'), (_fmt(rupees('Local SEO / Google Business Profile')), 'Local SEO, per month'), ('Free', 'Audit at your shop')],
   art=dict(kind='portrait', chips=[('pin', 'Ghatkopar West, Mumbai'), ('chat', 'Replies on WhatsApp')]),
   answer='U Scale is Mehul Karotra, a freelance website designer and digital marketer based in Ghatkopar West, Mumbai. He designs and hand-codes '
@@ -454,8 +454,8 @@ PAGES = [
         'give directions here, East or West and the nearest landmark or road, like LBS Marg or the station. Add real photos and timings, and ask every '
         'customer for a review. Distance from the person searching decides part of the ranking, so nobody can promise a top-3 spot.'),
        ('Is there a digital marketing agency in Ghatkopar?',
-        'There are several. U Scale is not an agency with a team: it is Mehul Karotra, based in Ghatkopar West, who builds websites and runs '
-        'Google listings, local SEO, social media and ads for local businesses himself, at published prices.'),
+        'There are several. U Scale is a studio based in Ghatkopar West, founded and led by Mehul Karotra. He and his team build websites and run '
+        'Google listings, local SEO, social media and ads for local businesses, at published prices.'),
        ('Can you meet at my shop in Ghatkopar East?',
         'Yes. Ghatkopar East is across the station from my base in Ghatkopar West, so a meeting at your shop or office is easy to arrange. '
         'The first audit is free.'),
@@ -473,7 +473,7 @@ PAGES = [
   desc='Websites, Google listings and local SEO for shops, cafés and offices in Andheri East and West: Marol, Chakala, MIDC, Lokhandwala, Versova. '
        f'From {price("Landing page")}.',
   h1='Website design in Andheri, East and West', eyebrow='Near you',
-  lead='Shops, cafés and offices in Andheri East compete for the same searches on Google. I design websites and fix Google listings here, and in October 2026 I ran a free audit day for local shops.',
+  lead='Shops, cafés and offices in Andheri East compete for the same searches on Google. We design websites and fix Google listings here, and in October 2026 I ran a free audit day for local shops.',
   stats=[('30+', 'Local listings checked'), (price('Landing page'), 'Websites from'), ('Free', 'Audit, in person')],
   art=dict(kind='img', img='found'),
   answer='U Scale’s Mehul Karotra designs websites and sets up Google Business Profiles and local SEO for shops, cafés, restaurants and offices in '
@@ -519,8 +519,8 @@ PAGES = [
         f'U Scale’s Mehul Karotra designs and builds websites for shops, cafés, restaurants and offices in Andheri East, at fixed prices from {price("Landing page")}. '
         'He leads every project, works on it with the U Scale team, and offers a free audit, in person or online.'),
        ('Is there a web design company in Andheri East?',
-        'There are several. U Scale is not a company with an office in Andheri: it is Mehul Karotra, a one-person practice based in Ghatkopar West, one '
-        'Metro line away, who works with Andheri East businesses at published, fixed prices and meets clients at their shop or office.'),
+        'There are several. U Scale has no office in Andheri. It is a studio founded and led by Mehul Karotra, based in Ghatkopar West, one '
+        'Metro line away. We work with Andheri East businesses at published, fixed prices and meet clients at their shop or office.'),
        ('How much does a website cost for a shop or café in Andheri East?',
         f'With U Scale, a landing page is {price("Landing page")}, a 5–10 page business website {price("Business site, 5–10 pages")}, a restaurant or café '
         f'website with its own online ordering {price("Restaurant site + own online ordering")} and an online store from {price("E-commerce, under 50 products")}. '
@@ -656,13 +656,13 @@ PAGES = [
   desc='Freelancer, agency or DIY website builder for a Mumbai business? Price ranges from 16 published guides (2025–26), '
        'who each one suits and what to watch for.',
   h1='Freelancer, agency or website builder?', eyebrow='Guide · Compared',
-  lead='Should you hire a freelancer or an agency for your Mumbai business, or build the website yourself on a DIY builder? I run U Scale, so I am not neutral. That is why the price ranges here come from 16 published price guides (2025–26), listed below, and not from my own prices.',
+  lead='A freelancer, an agency, a DIY website builder or a founder-led studio: this guide compares what each costs and who each suits, for a Mumbai business. I run U Scale, so I am not neutral. That is why the price ranges here come from 16 published price guides (2025–26), listed below, and not from our own prices.',
   stats=[('₹10k–₹80k', 'Freelancer'), ('₹50k–₹3L', 'Agency'), ('16', 'Price guides, listed below')],
   art=dict(kind='img', img='paths'),
-  answer='For a small Mumbai business with a simple site, a freelancer or one-person studio is often enough, and usually costs less than an agency. Freelancer projects mostly cost '
+  answer='For a small Mumbai business with a simple site, a freelancer or a founder-led studio is often enough, and usually costs less than an agency. Freelancer projects mostly cost '
          '₹10,000–₹80,000 and agency projects ₹50,000–₹3 lakh, according to 16 recent website price guides '
          '(listed below). A DIY builder costs least upfront but takes your time and a monthly fee. Choose an agency when you need a large team '
-         'working in parallel. U Scale sits in between: one person doing the work, with written scope and a fixed price.',
+         'working in parallel. U Scale sits in between: a founder-led studio where you deal with the founder, with a written scope and a fixed price.',
   facts=[('DIY website builder', 'A monthly plan (Wix from ₹250/month, Shopify Basic about ₹1,500–₹1,800/month, billed yearly) plus your own time'),
          ('Freelancer', '₹10,000–₹80,000 for most projects'),
          ('Agency', '₹50,000–₹3,00,000 for most projects'),
@@ -676,14 +676,14 @@ PAGES = [
                      ('Good for', 'Simple sites with a clear brief'), ('Watch out for', 'Who fixes things after launch, and who holds the logins')]),
                 dict(name='Agency', tag='Large sites', rows=[('Typical cost', '₹50,000–₹3,00,000'), ('Who does the work', 'A team: designer, developer, account manager'), ('Design', 'Custom, or a customised theme (ask which)'),
                      ('Good for', 'Large sites with many people working in parallel'), ('Watch out for', 'Part of the price pays for the team around the work, and you may deal with an account manager rather than the designer')]),
-                dict(name='U Scale', tag='One person, fixed price', hi=True, rows=[('Typical cost', f'Fixed, {price("Landing page")}–{price("E-commerce, under 50 products")} for most sites'),
+                dict(name='U Scale', tag='Founder-led, fixed price', hi=True, rows=[('Typical cost', f'Fixed, {price("Landing page")}–{price("E-commerce, under 50 products")} for most sites'),
                      ('Who does the work', 'Mehul Karotra and the U Scale team'), ('Design', 'Custom, designed in Figma'),
-                     ('Good for', 'Small businesses that want custom work and one point of contact'), ('Watch out for', 'One person, so the start date depends on how busy he is: ask when he can start')])],
+                     ('Good for', 'Small businesses that want custom work and one point of contact'), ('Watch out for', 'Not the right fit for very large sites that need many specialists at once. Ask when we can start')])],
                note=GUIDES_NOTE),
        eyebrow='Compared', layout='wide'),
    Sec('When an agency is the better choice',
        P('Pick an agency when the site is large, needs several specialists at once (developers, writers, a photographer, an ads team) or has a hard '
-         'launch date that one person can’t meet. You pay for the team, and for a big project that is worth it.'),
+         'launch date that a smaller team can’t meet. You pay for the team, and for a big project that is worth it.'),
        eyebrow='Agency', layout='half'),
    Sec('When a DIY builder is enough',
        P('If you are testing an idea, need a single page for a few weeks, or have more time than budget, a builder like Shopify, Wix or WordPress.com is a '
@@ -709,14 +709,14 @@ PAGES = [
        eyebrow='Checklist', layout='wide', tone='dark'),
   ],
   faq=[('Should I hire a freelancer or an agency for my website in Mumbai?',
-        'For a small business with a simple site, a freelancer or one-person studio is often enough: you talk directly to the person doing the work, decisions '
-        'are faster, and you don’t pay for account managers. Choose an agency for large sites that need a team working in parallel.'),
+        'For a small business with a simple site, a freelancer or a founder-led studio is often enough: you talk directly to the person responsible for '
+        'the work, and decisions are faster. Choose an agency for large sites that need a team working in parallel.'),
        ('Is a website builder like Wix or Shopify good enough?',
         'For testing an idea on a small budget, yes. You pay a monthly plan and spend your own time, the design is a template, and online stores pay '
         'fees on every sale. A custom site makes sense once your website is where most new customers first see you.'),
        ('Is U Scale a freelancer or an agency?',
-        'A bit of both. U Scale is one person, Mehul Karotra, working with an agency’s process: a written scope, a fixed price agreed before work '
-        'starts, and design approval before the build.'),
+        'It is a studio led by its founder. Mehul Karotra and the team work on each project together, and you deal with Mehul directly. The process '
+        'is the one a larger company would use: a written scope, a fixed price agreed before work starts, and design approval before the build.'),
        ('Who should own my website and domain?',
         'You. Whoever builds it, the domain should be registered in your business’s name with your email, and you should get the admin and hosting '
         'logins at launch.')],
