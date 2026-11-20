@@ -257,7 +257,7 @@ def trust(cur, tld, keys=('pay', 'own', 'fix', 'bank')):
                  f'<span class="tb-bank__ok">{icon("check")}Paid in {e(s_)}</span></div>',
                  f'Pay in {PD.FX[cur][2] if cur in PD.FX else "rupees"}.', 'A bank transfer, like paying a supplier at home.'),
         'me': (f'<div class="tb__g tb-me" aria-hidden="true"><span class="tb-me__on"><i></i>On WhatsApp</span>{me}'
-               '<span class="tb-me__chat"><span class="tb-me__typing"><i></i><i></i><i></i></span><span class="tb-me__msg">Your design is ready. Have a look!</span></span></div>',
+               '<span class="tb-me__chat"><span class="tb-me__typing"><i></i><i></i><i></i></span><span class="tb-me__msg">Your design is ready. Have a look.</span></span></div>',
                'You talk to Mehul.', 'The founder leads your project. No account manager.'),
         'nda': ('<div class="tb__g tb-nda" aria-hidden="true"><span class="tb-nda__doc"><b>NDA</b><i></i><i></i><i></i><span class="tb-nda__sig">Signed</span></span></div>',
                 'NDA before the brief.', 'We sign first, and your client never hears our name.'),

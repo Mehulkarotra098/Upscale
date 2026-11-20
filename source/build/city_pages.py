@@ -85,7 +85,7 @@ HOW = dict(head='Same price. Same process. Over WhatsApp.', sub='From a free aud
                   ('file', 'Written plan', 'Pages, timeline and the exact price, in writing, agreed on a video call before you pay anything.', 'Fixed price'),
                   ('pen', 'Design & build', 'You review real screens in Figma on your own phone and laptop, then I code and test the site.', '20% to start · 20% on design sign-off'),
                   ('check', 'Launch', 'Domain, hosting, Google Search Console and a final check on real phones. Every login handed over to you.', '60% on launch')],
-           promise=[('key', 'Your domain, code and logins, in your name'), ('file', 'Price fixed in writing, no hidden charges'), ('shield', '15–30 day bug-fix window after launch')])
+           promise=[('key', 'Your domain, code and logins, in your name'), ('file', 'Price fixed in writing, no hidden charges'), ('shield', '30 days of bug fixes after launch')])
 
 
 def _who(p):
@@ -428,7 +428,6 @@ def _sheets(n, cls=''):
 
 PAGE_STACK = [_sheets(1), _sheets(3), _sheets(5),
               '<span class="pg pg--store" aria-hidden="true"><i style="--k:0;--m:1"></i><i style="--k:1;--m:1"></i><i style="--k:2;--m:1"></i><b></b></span>']
-PROJECTS = 21  # Mehul, 9 Nov 2026 (the home page stat says the same)
 LOCK = '<svg viewBox="0 0 24 24" aria-hidden="true"><rect x="5" y="10.5" width="14" height="10" rx="2.5"/><path d="M8 10.5V8a4 4 0 018 0v2.5"/></svg>'
 
 
@@ -449,8 +448,8 @@ def trust_bento(keys=('pay', 'own', 'fix', 'me')):
                 f'<i style="--i:2;--w:76%"></i><span class="tb-doc__total"><small>Total</small><b>{e(BIZ)}</b></span></span><span class="tb-doc__stamp">Fixed</span></div>',
          'Price fixed in writing.', 'Agreed before work starts. No extra bills later.'),
         ('me', f'<div class="tb__g tb-me" aria-hidden="true"><span class="tb-me__on"><i></i>On WhatsApp</span>{me}'
-               '<span class="tb-me__chat"><span class="tb-me__typing"><i></i><i></i><i></i></span><span class="tb-me__msg">Your design is ready. Have a look!</span></span></div>',
-         'You talk to me.', 'Mehul, directly. Never an account manager.'),
+               '<span class="tb-me__chat"><span class="tb-me__typing"><i></i><i></i><i></i></span><span class="tb-me__msg">Your design is ready. Have a look.</span></span></div>',
+         'You talk to Mehul.', 'The founder leads your project. No account manager.'),
     ]
     tiles += EXTRA_TILES
     by = {k: (k, g, h, x) for k, g, h, x in tiles}
@@ -467,8 +466,9 @@ def work_rail(ctx, keys):
                f'width="768" height="480" alt="{ea("Website for " + w[1] + ", designed and built by U Scale")}" loading="lazy" decoding="async"></span>'
                f'<span class="wr__meta"><span class="wr__logo"><img src="{GP.vurl(f"/assets/logos/{k}.webp")}" width="{lw}" height="{lh}" alt="" loading="lazy" decoding="async"></span>'
                f'<span class="wr__name"><b>{e(w[1])}</b><small>{e(w[2])}</small></span></span><span class="wr__go">Visit live ↗<span class="sr-only"> (opens in a new tab)</span></span></a></li>')
-    dots = ''.join(f'<i style="--i:{i}"></i>' for i in range(PROJECTS))
-    return (f'<div class="wr-top"><div class="wr-count" data-reveal><b data-countto="{PROJECTS}" data-suf="+">{PROJECTS}+</b><span>projects shipped</span>'
+    n = len(keys[:6])
+    dots = ''.join(f'<i style="--i:{i}"></i>' for i in range(n))
+    return (f'<div class="wr-top"><div class="wr-count" data-reveal><b data-countto="{n}" data-suf="">{n}</b><span>live sites you can open</span>'
             f'<span class="wr-dots" aria-hidden="true">{dots}</span></div>'
             f'<div class="wr-nav"><button type="button" data-rail-go="-1" aria-label="Previous projects">←</button><button type="button" data-rail-go="1" aria-label="Next projects">→</button></div></div>'
             f'<ul class="wr fp-snap" data-snap>{li}</ul>')
@@ -755,7 +755,7 @@ CITIES = [
   answer='U Scale is Mehul Karotra, a Mumbai web designer who builds hand-coded websites for Pune businesses over WhatsApp and video calls. '
          f'One page costs {LANDING}, 5–10 pages {BIZ} and an online store from {STORE}, each price fixed in writing, '
          'and you pay 60% only after launch.',
-  facts=[('Who builds it', 'Mehul Karotra, personally: designed in Figma, then hand-coded'),
+  facts=[('Who builds it', 'Mehul Karotra and the U Scale team; designed in Figma, then hand-coded'),
          ('Based in', 'Mumbai (Ghatkopar West). No Pune office: the work happens over WhatsApp and video calls'),
          ('Website prices', GP.WEB_PRICES + '. The same prices as in Mumbai'),
          ('Pune market, for comparison', 'Template site ₹5,000–₹18,000 · business site (5–10 pages) ₹20,000–₹60,000 · custom-designed ₹60,000–₹1.5 lakh · '
@@ -821,7 +821,7 @@ CITIES = [
         'Yes. Google ranks local results on relevance, distance and prominence, and distance is measured from your business to the person searching, '
         'not from your designer. What matters is that your website and Google Business Profile name your area, services and timings, and match each other.'),
        ('Can my website be in Marathi and English?',
-        'Yes. Marathi, Hindi and English are Pune’s major languages, according to the district administration. I build bilingual pages from your own '
+        'Yes. Marathi, Hindi and English are Pune’s major languages, according to the district administration. We build bilingual pages from your own '
         f'Marathi text, or a translator’s, with a language switch Google understands. Writing the copy is {COPY}.'),
        ('How do I get my Pune business on Google Maps?',
         GP.MAPS_FAQ + ' If you visit customers rather than them visiting you, list Pune and Pimpri-Chinchwad as service areas.'),
@@ -852,7 +852,7 @@ CITIES = [
   answer='U Scale is Mehul Karotra, a Mumbai web designer who builds hand-coded websites for Bengaluru startups and small businesses over WhatsApp and '
          f'video calls. A landing page is {LANDING}, a 5–10 page site {BIZ} and an online store with UPI checkout from {STORE}, '
          'all fixed in writing. You pay 60% only after launch.',
-  facts=[('Who builds it', 'Mehul Karotra, personally: designed in Figma, then hand-coded'),
+  facts=[('Who builds it', 'Mehul Karotra and the U Scale team; designed in Figma, then hand-coded'),
          ('Based in', 'Mumbai (Ghatkopar West). No Bengaluru office: the work happens over WhatsApp and video calls'),
          ('Website prices', GP.WEB_PRICES + '. The same prices as in Mumbai'),
          ('Bengaluru market, for comparison', 'Basic site (about 5 pages) ₹8,750–₹22,750 · “premium” design ₹23,350–₹75,900 · custom design from ₹15,000 at one '
@@ -937,7 +937,7 @@ CITIES = [
   answer='U Scale is Mehul Karotra, a Mumbai web designer who rebuilt the website of Space Studio, a Chennai architecture practice: 86 hand-coded pages. '
          f'He builds websites for Chennai businesses over WhatsApp and video calls, at fixed prices: {LANDING} for one page, {BIZ} for 5–10 pages '
          f'and from {STORE} for an online store.',
-  facts=[('Who builds it', 'Mehul Karotra, personally: designed in Figma, then hand-coded'),
+  facts=[('Who builds it', 'Mehul Karotra and the U Scale team; designed in Figma, then hand-coded'),
          ('Chennai work', 'Space Studio, an office-architecture practice: a rebuilt website with 86 hand-coded pages, live at spacestudiochennai.com'),
          ('Based in', 'Mumbai (Ghatkopar West). No Chennai office: the work happens over WhatsApp and video calls'),
          ('Website prices', GP.WEB_PRICES + '. The same prices as in Mumbai'),
@@ -1014,7 +1014,7 @@ SAFE_Q = ('Is it safe to pay a web designer in another city?',
 
 
 def _facts(city, market, langs):
-    return [('Who builds it', 'Mehul Karotra, personally: designed in Figma, then hand-coded'),
+    return [('Who builds it', 'Mehul Karotra and the U Scale team; designed in Figma, then hand-coded'),
             ('Based in', f'Mumbai (Ghatkopar West). No {city} office: the work happens over WhatsApp and video calls'),
             ('Website prices', GP.WEB_PRICES + '. The same prices as in Mumbai'),
             (f'{city} market, for comparison', market),
@@ -1119,7 +1119,7 @@ CITIES += [
          'Ghaziabad and Faridabad. If customers come to you, keep your exact address instead, and name the NCR cities you serve on your website.'),
         ('Should my Delhi website be in Hindi?',
          'About 81% of Delhi gave Hindi as their first language in the 2011 Census, so Hindi pages help if your customers search in it. Most business sites still lead in '
-         f'English and add Hindi on the key pages. I build them from your own Hindi text. If you need the copy written, that is {COPY}.')],
+         f'English and add Hindi on the key pages. We build them from your own Hindi text. If you need the copy written, that is {COPY}.')],
        ['dl-p1', 'dl-p2', 'dl-p3', 'dl-ec', 'dl-lang', 'gbp-areas', 'local-rank']),
 
  _city('hyderabad', 'Hyderabad', 'Telangana', 'https://en.wikipedia.org/wiki/Hyderabad', 'For Hyderabad businesses',
@@ -1152,7 +1152,7 @@ CITIES += [
          '“Hyderabad”, so keep it, and also name your locality (Kukatpally, Gachibowli, Secunderabad and so on) on your website and Google listing.'),
         ('Should my website be in Telugu or Urdu?',
          'In the 2011 Census, Telugu and Urdu were each the first language of about 43% of Hyderabad district. Most business sites lead in English; '
-         f'add Telugu or Urdu pages if your customers are local. I build them from your own text; writing the copy is {COPY}.')],
+         f'add Telugu or Urdu pages if your customers are local. We build them from your own text, and writing the copy is {COPY}.')],
        ['hy-p1', 'hy-p2', 'hy-p3', 'hy-corp', 'hy-lang', 'hy-pharma', 'local-rank']),
 
  _city('kolkata', 'Kolkata', 'West Bengal', 'https://en.wikipedia.org/wiki/Kolkata', 'For Kolkata businesses',
@@ -1185,7 +1185,7 @@ CITIES += [
          'name matches the name on your storefront, so use the same Bengali and English name on your board, Google listing and website.'),
         ('Should my Kolkata website be in Bengali?',
          'For about 61% of Kolkata district, Bengali is the first language (Census 2011), and Hindi and Urdu come next. Lead with the language your customers search in, '
-         f'and add the other on key pages. I build Bengali pages from your own text. Writing the copy is {COPY}.')],
+         f'and add the other on key pages. We build Bengali pages from your own text. Writing the copy is {COPY}.')],
        ['kol-p1', 'kol-p2', 'kol-p3', 'kol-lang', 'kol-boards', 'gbp-guidelines', 'local-rank']),
 
  _city('ahmedabad', 'Ahmedabad', 'Gujarat', 'https://en.wikipedia.org/wiki/Ahmedabad', 'For Ahmedabad businesses',
@@ -1218,7 +1218,7 @@ CITIES += [
          'exact: in the old city, some markets change trade through the day. Put the same address and landmark on your website.'),
         ('Should my Ahmedabad website be in Gujarati?',
          'Gujarati is the first language of about 75% of Ahmedabad district (Census 2011), with Hindi next. Lead in English or Gujarati, whichever your '
-         f'customers use, then add the other on key pages. I build Gujarati pages from your own text; copywriting is {COPY} if you want it.')],
+         f'customers use, then add the other on key pages. We build Gujarati pages from your own text, and copywriting is {COPY} if you want it.')],
        ['ahd-p1', 'ahd-p2', 'ahd-msme', 'ahd-lang', 'ahd-heritage', 'local-rank']),
 
  _city('surat', 'Surat', 'Gujarat', 'https://en.wikipedia.org/wiki/Surat', 'For Surat traders and makers',
@@ -1252,7 +1252,7 @@ CITIES += [
          'markets in Surat, buyers need all three. Use exactly the same address on your website, Google listing and IndiaMART.'),
         ('Should my Surat website be in Gujarati?',
          'Traders selling across India usually lead in English or Hindi. Shops serving Surat add Gujarati, the first language of about 60% of Surat district '
-         f'(Census 2011), with Hindi and Marathi next. I build the pages from your own text; writing the copy is {COPY}.')],
+         f'(Census 2011), with Hindi and Marathi next. We build the pages from your own text, and writing the copy is {COPY}.')],
        ['srt-p1', 'srt-p2', 'srt-p3', 'srt-tex', 'srt-dia', 'srt-lang', 'gbp-guidelines', 'local-rank']),
 
  _city('jaipur', 'Jaipur', 'Rajasthan', 'https://en.wikipedia.org/wiki/Jaipur', 'For Jaipur stays, shops and makers',
@@ -1285,7 +1285,7 @@ CITIES += [
          'June 2026, the most of any city in Rajasthan, and visitors book the place that answers quickly. A “Check availability on WhatsApp” button helps.'),
         ('Should my Jaipur website be in Hindi?',
          'Hindi was the first language of about 46% of Jaipur district in the 2011 Census, with Rajasthani next. Lead in English if you serve tourists, '
-         f'and add Hindi for local customers. I build Hindi pages from your own text, and writing the copy is {COPY}.')],
+         f'and add Hindi for local customers. We build Hindi pages from your own text, and writing the copy is {COPY}.')],
        ['jpr-p1', 'jpr-p2', 'jpr-p3', 'jpr-tour', 'jpr-lang', 'local-rank']),
 ]
 

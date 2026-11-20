@@ -672,7 +672,7 @@ def privacy_page(ctx, parts):
     <div class="wrap sp-prose">
       <h2 id="short-title">The short version</h2>
       <ul class="sp-bullets">
-        <li>U Scale is one person: me, Mehul Karotra, in Mumbai. I keep what you send me so that I can reply to you.</li>
+        <li>U Scale is run by me, Mehul Karotra, in Mumbai. I keep what you send me so that I can reply to you.</li>
         <li>In the EU, the UK, Switzerland and Quebec, Analytics stay off until you say yes. Everywhere else they are on, and you can turn them off with “Change cookie choice” at the bottom of any page.</li>
         <li>I don’t sell your details and I don’t give them to anyone for advertising.</li>
         <li>To see, correct or delete what I hold about you, email {mail}.</li>

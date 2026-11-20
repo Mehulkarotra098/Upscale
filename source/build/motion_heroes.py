@@ -17,7 +17,7 @@ def pricing():
     tags = [('Landing page', GP.price('Landing page'), 'One page, one offer'),
             ('Business site', GP.price('Business site, 5–10 pages'), '5–10 pages'),
             ('Bigger site', GP.price('Business site, 10–20 pages + blog'), '10–20 pages + blog'),
-            ('Online store', GP.price('E-commerce, under 50 products'), 'Under 50 products')]
+            ('Online store', GP.price('E-commerce, under 50 products'), 'Up to 50 products')]
     t = ''.join(f'<li class="mhp__tag mhp__tag--{i}" style="--i:{i}"><span class="mhp__cord" aria-hidden="true"></span>'
                 f'<span class="mhp__card"><i class="mhp__hole" aria-hidden="true"></i><small>{e(n)}</small>' + ('<span class="mhp__from">from</span>' if i == 3 else '') + f'<b>{e(p)}</b><em>{e(s)}</em></span></li>'
                 for i, (n, p, s) in enumerate(tags))

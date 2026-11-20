@@ -197,7 +197,7 @@ def _short(n):
 # ---------------------------------------------------------------- the pages
 WEB_PRICES = (f'Landing page {price("Landing page")} · Business site, 5–10 pages {price("Business site, 5–10 pages")} · '
               f'10–20 pages + blog {price("Business site, 10–20 pages + blog")} · Online store from {price("E-commerce, under 50 products")}')
-INCLUDED = 'mobile-first design, enquiry forms, basic SEO, Google Maps, social links, 2–3 revision rounds and a 15–30 day bug-fix window'
+INCLUDED = 'mobile-first design, enquiry forms, basic SEO, Google Maps, social links, 2–3 revision rounds and 30 days of bug fixes after launch'
 
 
 def svc_links(extra=()):
@@ -235,7 +235,7 @@ PAGES = [
          'regulars a way to order direct.',
   facts=[('Price', f'Website + own online ordering {price("Restaurant site + own online ordering")}, fixed. Without ordering (menu, photos, '
                    f'timings, contact), the business-site price applies: {price("Business site, 5–10 pages")} for 5–10 pages'),
-         ('Who builds it', 'Mehul Karotra, personally: designed in Figma, then hand-coded'),
+         ('Who builds it', 'Mehul Karotra and the U Scale team; designed in Figma, then hand-coded'),
          ('Commission on direct orders', 'None. Only the payment gateway fee, for example 2% + GST on Razorpay’s standard plan'),
          ('Delivery', 'Your choice: your own riders, takeaway pickup, or a delivery partner you book'),
          ('Timeline', 'Most sites go live in 3–4 weeks'),
@@ -313,15 +313,15 @@ PAGES = [
        f'{price("E-commerce, under 50 products")}. Designed by Mehul Karotra.',
   h1='Boutique & clothing store website design', eyebrow='Websites by business',
   lead='A catalogue your Instagram followers can browse properly, product pages Google can find, and orders on WhatsApp or online. Fixed price.',
-  stats=[(price('Business site, 5–10 pages'), 'Catalogue site, starting price'), (price('E-commerce, under 50 products'), 'Online store, under 50 products'), ('1 tap', 'To order on WhatsApp')],
+  stats=[(price('Business site, 5–10 pages'), 'Catalogue site, starting price'), (price('E-commerce, under 50 products'), 'Online store, up to 50 products'), ('1 tap', 'To order on WhatsApp')],
   art=dict(kind='img', img='bout', chips=[('chat', 'Order on WhatsApp'), ('tag', 'Size M · ₹3,450')]),
   answer='U Scale designs and builds websites for boutiques, saree shops and fashion labels in Mumbai: a catalogue site with an “Order on WhatsApp” '
-         f'button on every product, or a full online store with cart and payments from {price("E-commerce, under 50 products")} for under 50 products. '
+         f'button on every product, or a full online store with cart and payments from {price("E-commerce, under 50 products")} for up to 50 products. '
          'Every product gets its own page that Google can find. Product pages that show the price, availability and a way to buy can also be '
          'submitted to Google Merchant Center for free listings on Google Search, Images, Lens and the Shopping tab.',
   facts=[('Catalogue site', f'Products, lookbook and “Order on WhatsApp” buttons, priced by pages after a free audit, from {price("Business site, 5–10 pages")}'),
-         ('Online store', f'Under 50 products {price("E-commerce, under 50 products")} · 50–500 products {price("E-commerce, 50–500 products")}'),
-         ('Who builds it', 'Mehul Karotra, personally: designed in Figma, then hand-coded'),
+         ('Online store', f'Up to 50 products {price("E-commerce, under 50 products")} · 51–500 products {price("E-commerce, 50–500 products")}'),
+         ('Who builds it', 'Mehul Karotra and the U Scale team; designed in Figma, then hand-coded'),
          ('Payments', 'UPI, cards and netbanking through a payment gateway; gateway fees are separate'),
          ('Timeline', 'Most sites go live in 3–4 weeks'),
          ('Ownership', 'Your domain, product pages, code and customer list stay yours'),
@@ -352,7 +352,7 @@ PAGES = [
                     ('Best for', 'Ready stock with fixed sizes and prices'),
                     ('How people order', 'Add to cart and pay at checkout'),
                     ('Payments', 'UPI, cards and netbanking at checkout, with a gateway fee per order'),
-                    ('Price with U Scale', f'{price("E-commerce, under 50 products")} under 50 products; {price("E-commerce, 50–500 products")} for 50–500')])]),
+                    ('Price with U Scale', f'{price("E-commerce, under 50 products")} up to 50 products; {price("E-commerce, 50–500 products")} for 51–500')])]),
        eyebrow='Choose your model', layout='wide'),
    Sec('What every boutique website includes',
        Cards([('tag', 'A page for every product', 'Photos, fabric, sizes and price, on its own page Google can find.'),
@@ -371,7 +371,7 @@ PAGES = [
   ],
   faq=[('How much does a boutique website cost in Mumbai?',
         f'With U Scale, a catalogue website with WhatsApp ordering starts at {price("Business site, 5–10 pages")} and is priced by pages after a free audit. '
-        f'A full online store is {price("E-commerce, under 50 products")} for under 50 products and {price("E-commerce, 50–500 products")} for 50–500 '
+        f'A full online store is {price("E-commerce, under 50 products")} for up to 50 products and {price("E-commerce, 50–500 products")} for 51–500 '
         'products. Prices are fixed and agreed in writing before work starts.'),
        ('Can customers order on WhatsApp from my website?',
         'Yes. Each product can have an “Order on WhatsApp” button that opens a chat with the product name already typed, so you confirm size, '
@@ -392,7 +392,7 @@ PAGES = [
   desc=f'Website designer and developer based in Ghatkopar West: websites from {price("Landing page")}, plus Google listings and local SEO for Ghatkopar '
        'businesses. Free audit.',
   h1='Website designer & developer in Ghatkopar', eyebrow='Near you',
-  lead='I’m Mehul Karotra, based in Ghatkopar West. I design and build websites and run Google listings and local SEO for businesses here, and I can come to your shop to talk it through.',
+  lead='I’m Mehul Karotra, based in Ghatkopar West. My team and I design and build websites and run Google listings and local SEO for businesses here, and I can come to your shop to talk it through.',
   stats=[(price('Landing page'), 'Websites from'), (_fmt(rupees('Local SEO / Google Business Profile')), 'Local SEO, per month'), ('Free', 'Audit at your shop')],
   art=dict(kind='portrait', chips=[('pin', 'Ghatkopar West, Mumbai'), ('chat', 'Replies on WhatsApp')]),
   answer='U Scale is Mehul Karotra, a freelance website designer and digital marketer based in Ghatkopar West, Mumbai. He designs and hand-codes '
@@ -454,8 +454,8 @@ PAGES = [
         'give directions here, East or West and the nearest landmark or road, like LBS Marg or the station. Add real photos and timings, and ask every '
         'customer for a review. Distance from the person searching decides part of the ranking, so nobody can promise a top-3 spot.'),
        ('Is there a digital marketing agency in Ghatkopar?',
-        'There are several. U Scale is not an agency with a team: it is Mehul Karotra, based in Ghatkopar West, who builds websites and runs '
-        'Google listings, local SEO, social media and ads for local businesses himself, at published prices.'),
+        'There are several. U Scale is a studio based in Ghatkopar West, founded and led by Mehul Karotra. He and his team build websites and run '
+        'Google listings, local SEO, social media and ads for local businesses, at published prices.'),
        ('Can you meet at my shop in Ghatkopar East?',
         'Yes. Ghatkopar East is across the station from my base in Ghatkopar West, so a meeting at your shop or office is easy to arrange. '
         'The first audit is free.'),
@@ -473,14 +473,14 @@ PAGES = [
   desc='Websites, Google listings and local SEO for shops, cafés and offices in Andheri East and West: Marol, Chakala, MIDC, Lokhandwala, Versova. '
        f'From {price("Landing page")}.',
   h1='Website design in Andheri, East and West', eyebrow='Near you',
-  lead='Shops, cafés and offices in Andheri East compete for the same searches on Google. I design websites and fix Google listings here, and in October 2026 I ran a free audit day for local shops.',
+  lead='Shops, cafés and offices in Andheri East compete for the same searches on Google. We design websites and fix Google listings here, and in October 2026 I ran a free audit day for local shops.',
   stats=[('30+', 'Local listings checked'), (price('Landing page'), 'Websites from'), ('Free', 'Audit, in person')],
   art=dict(kind='img', img='found'),
   answer='U Scale’s Mehul Karotra designs websites and sets up Google Business Profiles and local SEO for shops, cafés, restaurants and offices in '
          f'Andheri East, including Marol, Chakala, Saki Naka, MIDC and JB Nagar, and in Andheri West. Websites have fixed prices from {price("Landing page")}, local SEO is '
          f'{price("Local SEO / Google Business Profile")}, and every project starts with a free audit, which U Scale also runs in person for shops in the area.',
   facts=[('Areas', 'Marol, Chakala, Saki Naka, MIDC, JB Nagar, Gundavali and the rest of Andheri East; Lokhandwala, Versova, Oshiwara and Four Bungalows in Andheri West'),
-         ('Who', 'Mehul Karotra, personally; based in Ghatkopar West, on the same Metro line'),
+         ('Who', 'Mehul Karotra and the U Scale team; based in Ghatkopar West, on the same Metro line'),
          ('Website prices', WEB_PRICES),
          ('Restaurants and cafés', f'Website + own online ordering {price("Restaurant site + own online ordering")}'),
          ('Local SEO', f'Google Business Profile and local SEO {price("Local SEO / Google Business Profile")}'),
@@ -517,10 +517,10 @@ PAGES = [
   ],
   faq=[('Who designs websites for small businesses in Andheri East?',
         f'U Scale’s Mehul Karotra designs and builds websites for shops, cafés, restaurants and offices in Andheri East, at fixed prices from {price("Landing page")}. '
-        'He works personally with each client and offers a free audit, in person or online.'),
+        'He leads every project, works on it with the U Scale team, and offers a free audit, in person or online.'),
        ('Is there a web design company in Andheri East?',
-        'There are several. U Scale is not a company with an office in Andheri: it is Mehul Karotra, a one-person practice based in Ghatkopar West, one '
-        'Metro line away, who works with Andheri East businesses at published, fixed prices and meets clients at their shop or office.'),
+        'There are several. U Scale has no office in Andheri. It is a studio founded and led by Mehul Karotra, based in Ghatkopar West, one '
+        'Metro line away. We work with Andheri East businesses at published, fixed prices and meet clients at their shop or office.'),
        ('How much does a website cost for a shop or café in Andheri East?',
         f'With U Scale, a landing page is {price("Landing page")}, a 5–10 page business website {price("Business site, 5–10 pages")}, a restaurant or café '
         f'website with its own online ordering {price("Restaurant site + own online ordering")} and an online store from {price("E-commerce, under 50 products")}. '
@@ -626,8 +626,8 @@ PAGES = [
         'Template wali basic business website lagbhag ₹8,000–₹30,000, Mumbai studio se ₹15,000–₹50,000, aur custom design ₹40,000 se ₹2 lakh tak. '
         f'U Scale ke fixed prices: landing page {price("Landing page")}, 5–10 page business website {price("Business site, 5–10 pages")}, online store {price("E-commerce, under 50 products")} se.'),
        ('E-commerce website banane mein kitna kharcha aata hai?',
-        'Market mein online store ₹25,000 se ₹3 lakh tak, products aur features pe depend karta hai. U Scale se 50 se kam products ka store '
-        f'{price("E-commerce, under 50 products")} aur 50–500 products ka {_fmt(rupees("E-commerce, 50–500 products"))} se. Iske upar har payment pe gateway fee, '
+        'Market mein online store ₹25,000 se ₹3 lakh tak, products aur features pe depend karta hai. U Scale se 50 products tak ka store '
+        f'{price("E-commerce, under 50 products")} aur 51–500 products ka {_fmt(rupees("E-commerce, 50–500 products"))} se. Iske upar har payment pe gateway fee, '
         'aur Shopify jaisa platform ho toh uski monthly fee alag.'),
        ('Website ka har saal kya kharcha aata hai?',
         'Domain aur hosting: offer khatam hone ke baad lagbhag ₹4,400–₹9,400 saal ka, GST se pehle. .in domain ka renewal ₹899 saal ka hai. '
@@ -656,13 +656,13 @@ PAGES = [
   desc='Freelancer, agency or DIY website builder for a Mumbai business? Price ranges from 16 published guides (2025–26), '
        'who each one suits and what to watch for.',
   h1='Freelancer, agency or website builder?', eyebrow='Guide · Compared',
-  lead='Should you hire a freelancer or an agency for your Mumbai business, or build the website yourself on a DIY builder? I run U Scale, so I am not neutral. That is why the price ranges here come from 16 published price guides (2025–26), listed below, and not from my own prices.',
+  lead='A freelancer, an agency, a DIY website builder or a founder-led studio: this guide compares what each costs and who each suits, for a Mumbai business. I run U Scale, so I am not neutral. That is why the price ranges here come from 16 published price guides (2025–26), listed below, and not from our own prices.',
   stats=[('₹10k–₹80k', 'Freelancer'), ('₹50k–₹3L', 'Agency'), ('16', 'Price guides, listed below')],
   art=dict(kind='img', img='paths'),
-  answer='For a small Mumbai business with a simple site, a freelancer or one-person studio is often enough, and usually costs less than an agency. Freelancer projects mostly cost '
+  answer='For a small Mumbai business with a simple site, a freelancer or a founder-led studio is often enough, and usually costs less than an agency. Freelancer projects mostly cost '
          '₹10,000–₹80,000 and agency projects ₹50,000–₹3 lakh, according to 16 recent website price guides '
          '(listed below). A DIY builder costs least upfront but takes your time and a monthly fee. Choose an agency when you need a large team '
-         'working in parallel. U Scale sits in between: one person doing the work, with written scope and a fixed price.',
+         'working in parallel. U Scale sits in between: a founder-led studio where you deal with the founder, with a written scope and a fixed price.',
   facts=[('DIY website builder', 'A monthly plan (Wix from ₹250/month, Shopify Basic about ₹1,500–₹1,800/month, billed yearly) plus your own time'),
          ('Freelancer', '₹10,000–₹80,000 for most projects'),
          ('Agency', '₹50,000–₹3,00,000 for most projects'),
@@ -676,14 +676,14 @@ PAGES = [
                      ('Good for', 'Simple sites with a clear brief'), ('Watch out for', 'Who fixes things after launch, and who holds the logins')]),
                 dict(name='Agency', tag='Large sites', rows=[('Typical cost', '₹50,000–₹3,00,000'), ('Who does the work', 'A team: designer, developer, account manager'), ('Design', 'Custom, or a customised theme (ask which)'),
                      ('Good for', 'Large sites with many people working in parallel'), ('Watch out for', 'Part of the price pays for the team around the work, and you may deal with an account manager rather than the designer')]),
-                dict(name='U Scale', tag='One person, fixed price', hi=True, rows=[('Typical cost', f'Fixed, {price("Landing page")}–{price("E-commerce, under 50 products")} for most sites'),
-                     ('Who does the work', 'Mehul Karotra, personally'), ('Design', 'Custom, designed in Figma'),
-                     ('Good for', 'Small businesses that want custom work and one point of contact'), ('Watch out for', 'One person, so the start date depends on how busy he is: ask when he can start')])],
+                dict(name='U Scale', tag='Founder-led, fixed price', hi=True, rows=[('Typical cost', f'Fixed, {price("Landing page")}–{price("E-commerce, under 50 products")} for most sites'),
+                     ('Who does the work', 'Mehul Karotra and the U Scale team'), ('Design', 'Custom, designed in Figma'),
+                     ('Good for', 'Small businesses that want custom work and one point of contact'), ('Watch out for', 'Not the right fit for very large sites that need many specialists at once. Ask when we can start')])],
                note=GUIDES_NOTE),
        eyebrow='Compared', layout='wide'),
    Sec('When an agency is the better choice',
        P('Pick an agency when the site is large, needs several specialists at once (developers, writers, a photographer, an ads team) or has a hard '
-         'launch date that one person can’t meet. You pay for the team, and for a big project that is worth it.'),
+         'launch date that a smaller team can’t meet. You pay for the team, and for a big project that is worth it.'),
        eyebrow='Agency', layout='half'),
    Sec('When a DIY builder is enough',
        P('If you are testing an idea, need a single page for a few weeks, or have more time than budget, a builder like Shopify, Wix or WordPress.com is a '
@@ -709,14 +709,14 @@ PAGES = [
        eyebrow='Checklist', layout='wide', tone='dark'),
   ],
   faq=[('Should I hire a freelancer or an agency for my website in Mumbai?',
-        'For a small business with a simple site, a freelancer or one-person studio is often enough: you talk directly to the person doing the work, decisions '
-        'are faster, and you don’t pay for account managers. Choose an agency for large sites that need a team working in parallel.'),
+        'For a small business with a simple site, a freelancer or a founder-led studio is often enough: you talk directly to the person responsible for '
+        'the work, and decisions are faster. Choose an agency for large sites that need a team working in parallel.'),
        ('Is a website builder like Wix or Shopify good enough?',
         'For testing an idea on a small budget, yes. You pay a monthly plan and spend your own time, the design is a template, and online stores pay '
         'fees on every sale. A custom site makes sense once your website is where most new customers first see you.'),
        ('Is U Scale a freelancer or an agency?',
-        'A bit of both. U Scale is one person, Mehul Karotra, working with an agency’s process: a written scope, a fixed price agreed before work '
-        'starts, and design approval before the build.'),
+        'It is a studio led by its founder. Mehul Karotra and the team work on each project together, and you deal with Mehul directly. The process '
+        'is the one a larger company would use: a written scope, a fixed price agreed before work starts, and design approval before the build.'),
        ('Who should own my website and domain?',
         'You. Whoever builds it, the domain should be registered in your business’s name with your email, and you should get the admin and hosting '
         'logins at launch.')],
@@ -1238,18 +1238,15 @@ def _who(p):
     img = IMG['mehul']
     base = 'Ghatkopar West' if p['kind'] == 'area' else 'Mumbai'  # the office area is named only on area pages
     if hi:
-        k, h, d = 'Aap kiske saath kaam karenge', 'Mehul Karotra, khud.', ('Main har website Figma mein design karta hoon aur khud code karta hoon. Mumbai '
-                                                                     'mein based hoon; baat WhatsApp pe seedha mujhse hoti hai, kisi account manager se nahi.')
+        k, h, d = 'Aap kiske saath kaam karenge', 'Mehul Karotra aapka project lead karte hain.', ('Main aur meri team har website Figma mein design karte hain aur haath se code karte hain. Mumbai '
+                                                                     'mein based hoon, aur baat WhatsApp pe seedha mujhse hoti hai, kisi account manager se nahi.')
         badges = ['Mumbai', 'Figma design, hand-coded', 'English aur Hindi']
         more = 'Mehul ke baare mein'
     else:
-        k, h, d = 'Who you’ll work with', 'Mehul Karotra, personally.', (f'I design every site in Figma and code it myself. I’m based in {base}, '
+        k, h, d = 'Who you’ll work with', 'Mehul Karotra leads your project.', (f'My team and I design every site in Figma and code it by hand. I’m based in {base}, '
                                                                         'and you talk to me directly on WhatsApp, not to an account manager.')
         badges = [f'Based in {base}', 'Designs in Figma, hand-codes', 'English and Hindi']
         more = 'More about Mehul'
-        if p.get('kind') == 'parent':  # the website design page speaks for the team (19 Nov 2026); the area and industry pages follow in a later pass
-            h, d = 'Mehul Karotra leads your project.', ('My team and I design every site in Figma and code it by hand. I’m based in Mumbai, '
-                                                         'and you talk to me directly on WhatsApp, not to an account manager.')
     li = ''.join(f'<li>{icon("check")}{e(x)}</li>' for x in badges)
     return f'''
   <section class="section fp-sec fp-sec--who" aria-labelledby="who-title">
@@ -1274,17 +1271,17 @@ def _how(p):
         head, sub = 'Fixed price, kaam shuru hone se pehle tay.', 'Free audit se launch tak, chaar steps.'
         steps = [('Free audit', 'Aapki website, Google listing aur Instagram dekhta hoon, goals aur pages tay karte hain.', 'Free'),
                  ('Written plan', 'Kaun se pages, kab tak, aur exact price, kuch bhi pay karne se pehle likhit mein.', 'Fixed price'),
-                 ('Design aur build', 'Figma mein asli screens, desktop aur mobile. Aap approve karte hain, phir main code karke phone pe test karta hoon.', '20% shuru mein · 20% design approve pe'),
-                 ('Launch', 'Domain, hosting, Google Search Console aur real phones pe final check. Phir saare logins aapko de deta hoon.', '60% launch pe')]
-        promise = [('key', 'Domain, code aur logins aapke naam'), ('file', 'Price kaam se pehle likhit mein'), ('shield', 'Launch ke baad 15–30 din bug-fix')]
+                 ('Design aur build', 'Figma mein asli screens, desktop aur mobile. Aap approve karte hain, phir hum code karke phone pe test karte hain.', '20% shuru mein · 20% design approve pe'),
+                 ('Launch', 'Domain, hosting, Google Search Console aur real phones pe final check. Phir saare logins aapko de dete hain.', '60% launch pe')]
+        promise = [('key', 'Domain, code aur logins aapke naam'), ('file', 'Price kaam se pehle likhit mein'), ('shield', 'Launch ke baad 30 din bug-fix')]
     else:
-        head, sub = 'Fixed price, agreed before I start.', 'From free audit to launch, in four steps.'
+        head, sub = 'Fixed price, agreed before we start.', 'From free audit to launch, in four steps.'
         # The same four steps as the home page, each shown with its product shot (audit, quote, design review, launch).
         steps = [('Free audit', 'I check your website, Google listing and Instagram, and we agree the goals, pages and must-haves.', 'Free'),
-                 ('Written plan', 'What I will build, by when, and the exact price, in writing before you pay anything.', 'Fixed price'),
-                 ('Design & build', 'You approve real screens in Figma, desktop and mobile, before I code them and test on phones.', '20% to start · 20% on design sign-off'),
-                 ('Launch', 'Domain, hosting, Google Search Console and a final check on real phones. Then I hand over every login.', '60% on launch')]
-        promise = [('key', 'Your domain, code and logins, in your name'), ('file', 'Price fixed in writing, no hidden charges'), ('shield', '15–30 day bug-fix window after launch')]
+                 ('Written plan', 'What we will build, by when, and the exact price, in writing before you pay anything.', 'Fixed price'),
+                 ('Design & build', 'You approve real screens in Figma, desktop and mobile, before we code them and test on phones.', '20% to start · 20% on design sign-off'),
+                 ('Launch', 'Domain, hosting, Google Search Console and a final check on real phones. Then we hand over every login.', '60% on launch')]
+        promise = [('key', 'Your domain, code and logins, in your name'), ('file', 'Price fixed in writing, no hidden charges'), ('shield', '30 days of bug fixes after launch')]
         if not p:  # called with an empty page by the website design page only: team wording (19 Nov 2026); the area and industry pages follow in a later pass
             head = 'Fixed price, agreed before we start.'
             steps = [('Free audit', 'I check your website, Google listing and Instagram, and we agree the goals, pages and must-haves.', 'Free'),

@@ -45,7 +45,7 @@ SERVICES = [
        ('Can you redesign my existing website?','Yes. We start with an audit of what works and what leaks enquiries, then redesign around that. A redesign costs 70% of a fresh build.')]),
  dict(slug='seo-mumbai', short='SEO', cta='SEO', name='SEO Services', cta_h='Let’s get you found on Google', wa="Hi Mehul, I'd like to talk about SEO for my business.",
   title='SEO Company in Mumbai? Services & Packages from ₹15,000/mo',
-  desc='Looking for an SEO company or SEO agency in Mumbai? Published packages: local SEO ₹15,000 a month, technical SEO ₹25,000. A plain report every month, and no ranking guarantees.',
+  desc='SEO company or SEO agency in Mumbai? Published packages: local SEO ₹15,000 a month, technical SEO ₹25,000. A plain monthly report. No ranking guarantees.',
   h1='SEO services in Mumbai',
   lead='We work as the SEO consultant for local businesses in Mumbai, and get them found on Google and Google Maps by the people already searching nearby. SEO, or search engine optimisation, is that work: the listing, the technical fixes and the writing. You get a plain report every month.',
   who='For local businesses that depend on people searching "near me", and for service businesses that want steady enquiries without paying for every click.',
@@ -179,6 +179,7 @@ def home_jsonld(site, faq):
             'description': desc, 'isPartOf': {'@id': site + '#website'}, 'about': {'@id': site + '#business'},
             'primaryImageOfPage': {'@type': 'ImageObject', '@id': site + '#og-image', 'url': site + 'og-image.png', 'contentUrl': site + 'og-image.png',
                                    'width': 1200, 'height': 630, 'caption': 'U Scale by Mehul Karotra: web design and digital marketing in Mumbai'},
+            'author': {'@id': site + '#mehul'}, 'publisher': {'@id': site + '#business'},
             'inLanguage': 'en-IN', 'dateModified': '__LASTMOD__'}
     faqp = {'@type': 'FAQPage', '@id': site + '#faq', 'mainEntity': [{'@type': 'Question', 'name': q, 'acceptedAnswer': {'@type': 'Answer', 'text': a}} for q, a in faq]}
     return json.dumps({'@context': 'https://schema.org', '@graph': [website, page, biz, person, faqp]}, ensure_ascii=False, separators=(',', ':'))
@@ -243,7 +244,6 @@ FAQ_LINKS = {
     'website cost calculator': '/tools/website-cost-calculator',
     'website design in Thane': '/services/website-design-thane',
     'website design in Navi Mumbai': '/services/website-design-navi-mumbai',
-    'hire me as a freelance web designer': '/freelance-web-designer-mumbai',
     'website design across India': '/services/website-design-india',
     'digital marketing in Mumbai': '/services/digital-marketing-mumbai',
     'Google Business Profile management': '/services/google-business-profile-mumbai',
@@ -376,6 +376,7 @@ def service_page(ctx, s, parts):
          '<h2 class="h2" id="work-title" data-split>Websites we&rsquo;ve built.</h2><p class="lead" data-reveal>U Scale started in 2026, so most of our work so far is websites. Here are a few.</p>'}
       </header>
       <ul class="rw-grid" data-reveal-group>{''.join(cards)}</ul>
+      {__import__('proof').block('sashe', 'vidhi')[0] if s['slug'] == 'website-design-mumbai' else ''}
       <p class="sp-price" data-reveal><strong>Pricing.</strong> {e(s['price'])} <a class="tlink" href="/pricing">See every price</a></p>
       {s.get('related', '')}
     </div>
@@ -517,7 +518,7 @@ def llms_txt(site, faq, updated=TODAY):
               f'- [Website cost calculator]({site}tools/website-cost-calculator): an estimate from U Scale’s published prices, with market ranges from 16 price guides and yearly costs (runs in the browser, no sign-up)',
               f'- [All free tools]({site}tools)', '',
               '## Work', '', f'- [Selected work]({site}#work): TIS Admissions (concept), Antrah Wellness, Roar Arena, My Country Mobile (in-house role), Callmama (in-house role), GrowCred, Sashe by Prachi, Vidhi Parmar, BrandGen. Live links are on the home page.', '',
-              '## About Mehul Karotra', '', f'- [Profile]({site}about): website designer and developer from Mumbai and founder of U Scale, working as an independent, contract-based partner']
+              '## About Mehul Karotra', '', f'- [Profile]({site}about): website designer and developer from Mumbai and founder of U Scale, the studio he leads']
     lines += [f'- [{"LinkedIn" if "linkedin.com" in u else "GitHub" if "github.com" in u else "Portfolio"}]({u}): Mehul Karotra' for u in ENTITY['founder']['sameAs']]
     lines += ['', '## Sister company', '', '- [Apex36 Technologies](https://www.apex36tech.com/): a separate software and AI studio in Mumbai, run independently. U Scale does websites and marketing; Apex36 builds custom software and AI products.', '',
               '## FAQ', '']

@@ -6,10 +6,10 @@ export default Object.freeze({
   name: 'U Scale by Mehul Karotra',
   alternateName: ['U Scale', 'uscale'],
   description:
-    'Freelance web design, development and digital marketing in Mumbai by Mehul Karotra: an independent, contract-based alternative to a digital marketing agency. Websites, SEO, social media, Google and Meta ads and AI search visibility, with every price published.',
+    'Web design, development and digital marketing studio in Mumbai, founded and led by Mehul Karotra. Websites, SEO, social media, Google and Meta ads and AI search visibility for independent businesses, with every price published.',
   disambiguatingDescription:
-    'The independent web design and digital marketing practice of Mehul Karotra, based in Mumbai and working with businesses across India and abroad, at uscale.in.',
-  slogan: 'Agency-quality work, without the agency.',
+    'The web design and digital marketing studio founded and led by Mehul Karotra, based in Mumbai and working with businesses across India and abroad, at uscale.in.',
+  slogan: 'Be found. Be chosen.',
   foundingDate: '2026',
   phone: '+91-79773-60142',
   phoneDisplay: '+91 79773 60142',
@@ -31,7 +31,7 @@ export default Object.freeze({
     name: 'Mehul Karotra',
     givenName: 'Mehul',
     familyName: 'Karotra',
-    jobTitle: 'Founder of U Scale; freelance website designer, developer and digital marketer',
+    jobTitle: 'Founder of U Scale; website designer and developer',
     sameAs: ['https://www.linkedin.com/in/mehulkarotra/', 'https://github.com/Mehulkarotra098', 'https://mehulpatel.vercel.app/'],
     image: 'assets/pages/mehul-karotra-website-designer-ghatkopar.webp',
   },
