@@ -415,6 +415,17 @@
 .rv figcaption b{display:block;font:700 15px/1.2 var(--sans);color:var(--violet)}
 .rv figcaption small{font:500 13px/1.3 var(--sans);color:var(--body)}
 .rv figcaption .tlink{margin-left:auto}
+/* Quotes placed beside a claim on service and area pages (proof.py): the source line for quotes without a star rating, what the client
+   hired us for, and two or three quotes side by side on wide screens. */
+.rv__src{margin:0;font:600 13px/1.2 var(--sans);color:var(--body)}
+.rv figcaption small.rv__job{display:block;margin-top:3px;color:var(--violet);opacity:.78}
+.rv-row{display:grid;grid-template-columns:minmax(0,1fr);gap:16px;margin:22px 0 0}
+.rv-row .rv{margin:0;align-content:start}
+@media (min-width:900px){
+  .rv-row{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .rv-row .rv blockquote p{font-size:clamp(17px,1.45vw,20px)}
+}
+@media (min-width:1180px){.rv-row--3{grid-template-columns:repeat(3,minmax(0,1fr))}}
 .quote__stars{margin-bottom:10px}
 @media (prefers-reduced-motion:no-preference){
   .js .rv.is-in .rv__stars i,.js .quote.is-in .quote__stars i{animation:cvPop .45s var(--ease-spring) both;animation-delay:calc(.2s + var(--s) * .1s)}
