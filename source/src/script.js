@@ -749,6 +749,34 @@
   var snaps=$$('[data-snap]');
   function snapTabs(){ snaps.forEach(function(s){ var over=s.scrollWidth>s.clientWidth+2&&!$('a,button',s); if(over) s.setAttribute('tabindex','0'); else s.removeAttribute('tabindex'); }); }
   if(snaps.length){ snapTabs(); window.addEventListener('resize',snapTabs,{passive:true}); }
+  /* Phones and tablets: the card rows that used to swipe sideways run down the page (stack.css). When the tallest card
+     fits the screen, each card pins near the top and the next slides over it (.stk-on), so every card is seen before the
+     section moves on. If a card is taller than the screen, the row stays a plain list, so nothing is hidden. */
+  var STK=[['.work__track',1023,1],['.quotes',859,0],['.page-sub .fp-steps.fp-snap',759,0],['.tb',559,0],['.wr',759,0],['.mv-smp',899,0]], stks=[];
+  STK.forEach(function(s){ $$(s[0]).forEach(function(el){ stks.push({el:el,mq:matchMedia('(max-width:'+s[1]+'px)'),count:s[2]}); }); });
+  function stackFit(){
+    stks.forEach(function(s){
+      var el=s.el, kids=[].slice.call(el.children), n=kids.length;
+      el.classList.remove('stk-on');
+      if(!s.mq.matches||n<2) return;
+      var top=12, tall=0;
+      kids.forEach(function(k,i){ k.style.setProperty('--sk',i); tall=Math.max(tall,k.offsetHeight); });
+      var room=innerHeight-16-top-tall; if(room<0) return;
+      el.style.setProperty('--stk-top',top+'px'); el.style.setProperty('--stk-step',Math.min(10,room/(n-1)).toFixed(1)+'px');
+      el.classList.add('stk-on');
+      if(s.count&&!el.hasAttribute('data-stk-n')){ el.setAttribute('data-stk-n',''); kids.forEach(function(k,i){ var c=document.createElement('span'); c.className='stk-n'; c.setAttribute('aria-hidden','true'); c.textContent=(i<9?'0':'')+(i+1)+' / '+n; ($('.wk__a',k)||k).appendChild(c); }); }
+    });
+  }
+  /* "On this page" on phones: the first four links, then one button for the rest (stack.css hides the others) */
+  $$('.sp-toc').forEach(function(nav){
+    var ol=$('ol',nav), n=ol?ol.children.length:0; if(n<6) return;
+    var b=document.createElement('button'); b.type='button'; b.className='sp-toc__more'; b.setAttribute('aria-expanded','false');
+    var label=function(open){ return (open?'Show fewer sections':'Show all '+n+' sections')+'<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg>'; };
+    b.innerHTML=label(false);
+    b.addEventListener('click',function(){ var open=!nav.classList.contains('is-open'); nav.classList.toggle('is-open',open); b.setAttribute('aria-expanded',open?'true':'false'); b.innerHTML=label(open); });
+    nav.appendChild(b);
+  });
+  if(stks.length){ var stkT; stackFit(); window.addEventListener('load',stackFit); window.addEventListener('resize',function(){ clearTimeout(stkT); stkT=setTimeout(stackFit,150); },{passive:true}); }
 })();
 
 /* Analytics (Google Tag Manager): one event per tap on a WhatsApp, phone or email link, so enquiries can be counted
