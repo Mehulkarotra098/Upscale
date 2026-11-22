@@ -740,7 +740,7 @@ def about_page(ctx, parts):
                      eyebrow='Editorial standards', layout='wide', sid='standards'),
                  Sec('Registrations and listings',
                      P('These are the places outside this site where you can check that U Scale is what it says it is.'),
-                     Cards([('shield', 'MSME registered', 'U Scale is registered under Udyam, the Government of India’s registration for micro, small and medium enterprises.'),
+                     Cards([('shield', 'MSME registered', 'U Scale is registered as a micro enterprise under Udyam, the Government of India’s registration for small businesses, since 15 March 2026. The number is UDYAM-MH-19-0479973, and you can check it on the <a class="tlink" href="https://udyamregistration.gov.in/Udyam_Verify.aspx" target="_blank" rel="noopener">Udyam verification page</a><span class="sr-only"> (opens in a new tab)</span>.'),
                             ('star', 'Reviewed on Clutch', 'Clutch is an independent directory that verifies client reviews. Our profile has one review so far, rated 5.0. <a class="tlink" href="https://clutch.co/profile/u-scale" target="_blank" rel="noopener">See the Clutch profile</a><span class="sr-only"> (opens in a new tab)</span>.'),
                             ('layers', 'On Product Hunt', 'U Scale is listed on Product Hunt, where makers share new products and tools. <a class="tlink" href="https://www.producthunt.com/@u_scale" target="_blank" rel="noopener">See the profile</a><span class="sr-only"> (opens in a new tab)</span>.'),
                             ('pin', 'An address you can find', 'Silver Point, Ghatkopar West, Mumbai 400086. We usually meet clients at their own shop or office, so message before you come.'),
@@ -784,7 +784,7 @@ def about_page(ctx, parts):
     p.update(work=work_keys[1:], work_feature=work_keys[0], work_h='Work you can open and check.',
              work_lead='Client websites, in-house product work and my own projects. Each card opens the live site.')
     faq = list(aeo.ABOUT_FAQ) + [('Who owns U Scale?', 'Mehul Karotra owns U Scale. Apex36 Technologies is a separate sister company for custom software and AI.')]
-    body = (_hero(p, wa, icons) + aeo.brief_html(aeo.ABOUT_ANSWER, aeo.ABOUT_FACTS + [('Registered', 'MSME (Udyam), Government of India'), ('Reviewed', '5.0 on Clutch, from one verified client review')], 'Key facts about Mehul Karotra', 'brief-title',
+    body = (_hero(p, wa, icons) + aeo.brief_html(aeo.ABOUT_ANSWER, aeo.ABOUT_FACTS + [('Registered', 'MSME (Udyam), no. UDYAM-MH-19-0479973, micro enterprise, since 15 March 2026'), ('Reviewed', '5.0 on Clutch, from one verified client review')], 'Key facts about Mehul Karotra', 'brief-title',
                                                  [((s['sid'] or f's{i}') + '-title', s['h']) for i, s in enumerate(p['sections'])] + [('faq-title', 'Questions')], 'On this page', fold=4)
             + GP._sections(p) + _work(ctx, p) + aeo._faq_section(faq, 'About U Scale.') + _cta_about(wa, icons))
     img = GP.IMG['mehul']

@@ -65,7 +65,9 @@ def biz_ref(site):
     return {'@type': 'LocalBusiness', '@id': site + '#business', 'name': ENTITY['name'], 'alternateName': ENTITY['alternateName'],
             'disambiguatingDescription': ENTITY['disambiguatingDescription'],
             'url': site, 'logo': site + 'icon-512.png', 'image': site + 'og-image.png', 'telephone': ENTITY['phone'], 'email': ENTITY['email'],
-            'priceRange': PRICE_RANGE, 'address': ADDRESS, 'founder': {'@id': site + '#mehul'}, 'sameAs': ENTITY['sameAs']}
+            'priceRange': PRICE_RANGE, 'address': ADDRESS, 'founder': {'@id': site + '#mehul'}, 'sameAs': ENTITY['sameAs'],
+            # Udyam: the Government of India's registration for micro, small and medium enterprises; anyone can verify the number.
+            'identifier': {'@type': 'PropertyValue', 'propertyID': 'Udyam Registration Number', 'name': 'Udyam Registration Number', 'value': ENTITY['udyam']}}
 
 
 def biz_full(site, catalog=None):
