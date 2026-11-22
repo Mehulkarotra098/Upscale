@@ -39,7 +39,7 @@ def _rel(items):
 def space_studio(ctx=None):
     live = 'https://spacestudiochennai.com'
     return dict(
-        slug='space-studio-chennai', path='work/space-studio-chennai', kind='guide', crumb='Space Studio Chennai', trail=TRAIL,
+        slug='space-studio-chennai', path='work/space-studio-chennai', kind='guide', crumb='Space Studio Chennai', trail=TRAIL, published='2026-11-22T00:00:00+05:30',
         service='Website rebuild and SEO for an architecture practice', service_type='Website design',
         wa_msg="Hi Mehul, I read the Space Studio case study. I'd like a free audit of my website.",
         title='Space Studio Chennai Website Rebuild: Case Study | U Scale',
@@ -114,7 +114,7 @@ def space_studio(ctx=None):
 def sashe(ctx=None):
     live = 'https://sashebyprachi.in'
     return dict(
-        slug='sashe-by-prachi', path='work/sashe-by-prachi', kind='guide', crumb='Sashe by Prachi', trail=TRAIL,
+        slug='sashe-by-prachi', path='work/sashe-by-prachi', kind='guide', crumb='Sashe by Prachi', trail=TRAIL, published='2026-11-22T00:00:00+05:30',
         service='Website design and build for a made-to-order fashion label', service_type='Website design',
         wa_msg="Hi Mehul, I read the Sashe by Prachi case study. I'd like a free audit for my label.",
         title='Sashe by Prachi Website: Fashion Label Case Study | U Scale',

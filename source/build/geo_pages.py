@@ -1167,7 +1167,7 @@ def _jsonld(site, p):
         main = p['main_ld'](site, url, imgs)
     elif p['kind'] == 'guide':  # a guide is an article by Mehul about the service, not the service itself
         main = {'@type': 'Article', '@id': url + '#article', 'headline': p['h1'], 'description': p['answer'], 'inLanguage': lang,
-                'author': {'@id': site + '#mehul'}, 'publisher': {'@id': site + '#business'}, 'datePublished': '2026-10-23T00:00:00+05:30', 'dateModified': '__LASTMOD__',
+                'author': {'@id': site + '#mehul'}, 'publisher': {'@id': site + '#business'}, 'datePublished': p.get('published', '2026-10-23T00:00:00+05:30'), 'dateModified': '__LASTMOD__',
                 'mainEntityOfPage': {'@id': url + '#webpage'}, 'image': [i['contentUrl'] for i in imgs],
                 'about': {'@type': 'Service', '@id': parent + '#service', 'name': PARENT['name'], 'url': parent}}
     else:

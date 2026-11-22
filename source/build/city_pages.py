@@ -357,7 +357,7 @@ def price_cards(market, sources, city=''):
     nohid = ('No hidden charges: domain and hosting are paid to your provider, in your name, and anything optional is priced in your written plan before you pay.')
     return Html(f'<ul class="pc" data-reveal-group>{li}</ul><p class="pc__inc">{icon("check")}<span>{e(inc)} {e(nohid)} '
                 f'<a class="tlink" href="/services/website-design-mumbai#no-hidden-charges">See every other cost</a></span></p>'
-                f'<p class="pc__mkt">{e(market)} <a class="tlink" href="#sources">Sources</a></p>',
+                f'<p class="pc__mkt">{e(market)} <a class="tlink" href="#sources">Sources</a> · <a class="tlink" href="/website-design-prices-india">Compare 12 cities</a></p>',
                 text='\n'.join(f'- {k}: {price(name)}{" onwards" if onwards else ""}. {(CARD_DESC.get(city) or [c[3] for c in PRICE_CARDS])[i]}' + (f' {t}.' if t else '')
                                for i, (k, name, onwards, d, t, _) in enumerate(PRICE_CARDS))
                      + f'\n{inc} {nohid}\n{market}')

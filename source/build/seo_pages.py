@@ -241,6 +241,7 @@ def post_link(href, text):
 FAQ_LINKS = {
     'freelancer vs agency vs website builder': '/services/website-design-mumbai/freelancer-vs-agency-vs-website-builder',
     'website design cost guide': '/blog/website-design-cost-mumbai',
+    'website prices in 12 Indian cities': '/website-design-prices-india',
     'website cost calculator': '/tools/website-cost-calculator',
     'website design in Thane': '/services/website-design-thane',
     'website design in Navi Mumbai': '/services/website-design-navi-mumbai',
@@ -1456,7 +1457,8 @@ PRICING_FAQ_MORE = [
 def compare_html():
     """Guides and tools that put these prices in context, under the price list."""
     import geo_pages as GP
-    items = [('/blog/website-design-cost-mumbai', 'rupee', 'Website design cost in Mumbai (2026)', 'Market ranges from 16 price guides, yearly costs, GST and red flags.', ''),
+    items = [('/website-design-prices-india', 'pin', 'Website prices in 12 Indian cities', 'What studios in each city publish, side by side, with every source.', 'Data'),
+             ('/blog/website-design-cost-mumbai', 'rupee', 'Website design cost in Mumbai (2026)', 'Market ranges from 16 price guides, yearly costs, GST and red flags.', ''),
              ('/tools/website-cost-calculator', 'layers', 'Website cost calculator', 'Pick your pages and features for a market range and a fixed U Scale price.', 'Free'),
              ('/services/website-design-mumbai/freelancer-vs-agency-vs-website-builder', 'user', 'Freelancer vs agency vs builder', 'Who each one suits, what each costs, and six checks before you hire.', ''),
              ('/services/website-design-mumbai/website-banane-ka-kharcha', 'file', 'Website banane ka kharcha (Hinglish)', 'Poora hisaab: market rates, saal ka kharcha aur GST.', '')]
