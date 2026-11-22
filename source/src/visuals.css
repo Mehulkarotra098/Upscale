@@ -414,6 +414,7 @@
 .mv-rg li{padding-top:18px}
 .mv-rg__axis{position:relative;height:18px;margin:10px 0 0 240px;font:600 12px/1 var(--sans);color:var(--body)}
 .mv-rg__axis span{position:absolute;left:var(--x);transform:translateX(-50%)}
+.mv-rg__axis span:first-child{transform:none}.mv-rg__axis span:last-child{transform:translateX(-100%)}
 @media (max-width:699px){.mv-rg li{grid-template-columns:minmax(0,1fr)}.mv-rg li small{grid-column:1}.mv-rg__axis{margin-left:0}}
 @media (prefers-reduced-motion:no-preference){
   .js .mv-rg.is-in .mv-rg__bar{animation:mvGrowX .9s var(--ease-out) both;animation-delay:calc(.2s + var(--i) * .15s)}

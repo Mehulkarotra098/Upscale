@@ -345,7 +345,7 @@ def _calc_html():
       <tr><th scope="row">Website copy, about {d0["pages"]} pages</th><td>{_fmt(copy0)}</td></tr>
     </tbody></table>
     <div class="wc__mkt"><p data-w="mlabel">Market price for {e(d0["ml"])}</p><p><b data-w="market">{_fmt(d0["m"][0])}–{_fmt(d0["m"][1])}</b></p>
-      <p class="wc__note">From 16 published price guides, compared by U Scale in October 2026.</p></div>
+      <p class="wc__note">From 16 published price guides, compared by U Scale in October 2026. <a class="tlink" href="/website-design-prices-india">Prices in 12 Indian cities</a></p></div>
     <div class="wc__year"><p>Every year after</p><ul data-w="yearly"><li>Domain and hosting: about {_fmt(YEARLY[0])}–{_fmt(YEARLY[1])}, before GST</li></ul></div>
     <a class="btn btn--go wc__send" data-w="wa" href="{ea(wa)}" target="_blank" rel="noopener">{icon("chat")}Send on WhatsApp</a>
   </div>
@@ -615,7 +615,8 @@ def india_dict():
                 Html(*__import__('proof').block('spacestudio')),
                 eyebrow='Working remotely', layout='wide', tone='band', sid='remote'),
             Sec('Website design by city',
-                P('Every city below has its own page, with what local studios charge there (from their own price pages) and how customers in that city search.'),
+                P('Every city below has its own page, with what local studios charge there (from their own price pages) and how customers in that city search. '
+                  'All 12 cities side by side, with every source: ' + _link('/website-design-prices-india', 'website design prices in India, city by city') + '.'),
                 Links(cities),
                 P('In and around Mumbai we also meet clients in person:'),
                 Links(near),
@@ -901,7 +902,7 @@ def hub_cards():
 
 def standalone(ctx=None):
     """The pages that are not in GP.PAGES (they don't belong in the website-design "Keep reading" rail)."""
-    return [gbp_page_dict(), freelancer_dict(ctx), calc_dict(), digital_dict(), india_dict()] + __import__('case_pages').pages(ctx)
+    return [gbp_page_dict(), freelancer_dict(ctx), calc_dict(), digital_dict(), india_dict()] + __import__('case_pages').pages(ctx) + [__import__('prices_page').page(ctx)]
 
 
 def build(ctx, parts):
