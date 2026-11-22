@@ -26,7 +26,7 @@ export default Object.freeze({
   },
   areaServed: ['Mumbai', 'Thane', 'Navi Mumbai'],
   languages: ['English', 'Hindi'],
-  sameAs: ['https://www.instagram.com/uscalewithus/'],
+  sameAs: ['https://www.instagram.com/uscalewithus/', 'https://clutch.co/profile/u-scale', 'https://www.producthunt.com/@u_scale'],
   founder: {
     name: 'Mehul Karotra',
     givenName: 'Mehul',

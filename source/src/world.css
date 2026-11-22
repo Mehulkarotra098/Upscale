@@ -415,6 +415,18 @@
 .rv figcaption b{display:block;font:700 15px/1.2 var(--sans);color:var(--violet)}
 .rv figcaption small{font:500 13px/1.3 var(--sans);color:var(--body)}
 .rv figcaption .tlink{margin-left:auto}
+/* Registrations and listings under the home page quotes (.vouch): a row of small cards, each a fact a visitor can check. */
+.vouch{list-style:none;margin:26px 0 0;padding:0;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
+.vouch li{display:grid}
+.vouch li>*{display:grid;align-content:center;gap:5px;min-height:74px;padding:14px 16px;border-radius:16px;background:var(--white);box-shadow:0 0 0 1px var(--line-light);color:var(--violet);text-decoration:none}
+.vouch b{font:700 15px/1.2 var(--sans)}
+.vouch small{font:500 12.5px/1.3 var(--sans);color:var(--body)}
+.vouch a{transition:box-shadow .2s,transform .2s}
+.vouch a:hover,.vouch a:focus-visible{box-shadow:0 0 0 2px var(--green);transform:translateY(-2px)}
+@media (max-width:699px){.vouch li:last-child:nth-child(odd){grid-column:1/-1}}
+@media (min-width:700px){.vouch{grid-template-columns:repeat(3,minmax(0,1fr))}}
+@media (min-width:1100px){.vouch{grid-template-columns:repeat(5,minmax(0,1fr));gap:14px}}
+.footer__vouch{margin-top:6px}
 /* Quotes placed beside a claim on service and area pages (proof.py, .rv--p): the source line for quotes without a star rating, what the
    client hired us for, and two or three quotes side by side on wide screens. The name row sits at the bottom of each card, so cards
    of different lengths still line up. */

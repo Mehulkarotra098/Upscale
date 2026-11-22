@@ -1257,6 +1257,7 @@ def build(ctx):
     (out / 'about.html').write_text(svc_pages.about_page(ctx, parts))
     (out / f'{aeo.LICENSE_SLUG}.html').write_text(aeo.image_license_page(ctx, parts))
     (out / f'{aeo.PRIVACY_SLUG}.html').write_text(aeo.privacy_page(ctx, parts))
+    (out / f'{aeo.TERMS_SLUG}.html').write_text(aeo.terms_page(ctx, parts))
     (out / 'services.html').write_text(aeo.services_hub(ctx, parts))
     import pitch_deck  # the U Scale pitch deck: ten animated slides at /pitch-deck
     (out / f'{pitch_deck.SLUG}.html').write_text(pitch_deck.page(ctx), encoding='utf-8')
@@ -1268,7 +1269,7 @@ def build(ctx):
     import world_more  # clients abroad, AI services with Apex36, trades across India (Nov 2026)
     geo_rels += world_more.build(ctx, parts)
     rels = (['index.html', 'about.html', 'services.html', 'pricing.html'] + [f'services/{x["slug"]}.html' for x in SERVICES] + geo_rels
-            + ['tools/index.html', f'tools/{GBP["slug"]}.html', f'tools/{TOOL["slug"]}.html', f'tools/{card_page.SLUG}.html', f'tools/{qr_page.SLUG}.html', f'{aeo.LICENSE_SLUG}.html', f'{aeo.PRIVACY_SLUG}.html', f'{pitch_deck.SLUG}.html'])
+            + ['tools/index.html', f'tools/{GBP["slug"]}.html', f'tools/{TOOL["slug"]}.html', f'tools/{card_page.SLUG}.html', f'tools/{qr_page.SLUG}.html', f'{aeo.LICENSE_SLUG}.html', f'{aeo.PRIVACY_SLUG}.html', f'{aeo.TERMS_SLUG}.html', f'{pitch_deck.SLUG}.html'])
     dates = aeo.stamp_pages(out, site, rels)  # each page's date moves only when its content changes
     prio = {site: '1.0', site + 'pricing': '0.9', site + 'services': '0.9', site + 'about': '0.8', site + 'tools': '0.7', site + aeo.LICENSE_SLUG: '0.2', site + aeo.PRIVACY_SLUG: '0.2'}
     # Sitemap index: static pages here, blog posts from the live database at /sitemap-blog.xml (server-rendered).

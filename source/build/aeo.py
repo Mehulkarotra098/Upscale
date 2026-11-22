@@ -635,6 +635,79 @@ def image_license_page(ctx, parts):
     return _page(ctx, parts, url, title, desc, ld, body)
 
 
+# ---------------------------------------------------------------- /terms
+TERMS_SLUG = 'terms'
+
+
+def terms_page(ctx, parts):
+    site = ctx['SITE_URL']; url = site + TERMS_SLUG
+    title = 'How We Work: Payment, Revisions and Ownership | U Scale'
+    desc = ('The terms U Scale works on, in plain words: a fixed price in writing, payment in three stages, what you own, 30 days of bug fixes and how to stop.')
+    care = _price('Care plan: updates, backups, security')[0].replace('/mo', ' a month')
+    ld = json.dumps({'@context': 'https://schema.org', '@graph': [
+        {'@type': 'WebPage', '@id': url + '#webpage', 'url': url, 'name': title, 'description': desc, 'inLanguage': 'en-IN',
+         'isPartOf': {'@id': site + '#website'}, 'about': {'@id': site + '#business'}, 'publisher': {'@id': site + '#business'},
+         'author': {'@id': site + '#mehul'}, 'breadcrumb': {'@id': url + '#breadcrumb'}, 'dateModified': '__LASTMOD__'},
+        biz_ref(site), person_ref(site),
+        {'@type': 'BreadcrumbList', '@id': url + '#breadcrumb', 'itemListElement': [
+            {'@type': 'ListItem', 'position': 1, 'name': 'Home', 'item': site},
+            {'@type': 'ListItem', 'position': 2, 'name': 'Working terms', 'item': url}]}]},
+        ensure_ascii=False, separators=(',', ':')).replace('</', '<\\/')
+    body = f'''{_hero('Working terms', 'How we work, in plain words', 'What you pay and when, what you approve, what you own and what happens after launch. Each project also gets its own written plan, and that plan is what we both sign off.', cta=False)}
+
+  <section class="section" aria-labelledby="t-before">
+    <div class="wrap sp-prose">
+      <h2 id="t-before">Before you pay anything</h2>
+      <p>Every project starts with a free audit. I look at your website, your Google listing and your Instagram myself, and tell you what I would fix first.</p>
+      <p>If you want us to do the work, you get a written plan: the pages or the monthly work, the timeline and the exact price. A quote stays valid for 14 days. Nothing starts until you approve the plan.</p>
+
+      <h2 id="t-web">Websites</h2>
+      <ul class="sp-bullets">
+        <li><strong>The price is fixed.</strong> It is agreed in writing before work starts and there is no hourly billing.</li>
+        <li><strong>You pay in three stages:</strong> 20% to start, 20% when you approve the design and 60% at launch. On a ₹55,000 business site that is ₹11,000, ₹11,000 and ₹33,000.</li>
+        <li><strong>You approve the design before we build.</strong> You see real screens in Figma, a design tool that opens in your browser, on desktop and mobile.</li>
+        <li><strong>Revisions:</strong> 2–3 rounds are included, and the number is written in your plan.</li>
+        <li><strong>Timing:</strong> most business sites go live in 3–4 weeks and a landing page in under two weeks, depending on how ready your text and photos are. You get a progress update every week.</li>
+      </ul>
+
+      <h2 id="t-own">What is yours</h2>
+      <p>Your domain and hosting are registered in your name from the start. The code, the design files and every login are handed over at launch, once the final payment is made. If we ever stop working together, you keep all of it.</p>
+
+      <h2 id="t-after">After launch</h2>
+      <p>Bug fixes are included for 30 days. If something we built doesn’t work as agreed, we fix it at no charge.</p>
+      <p>After that it is your choice. You can look after the site yourself, or take the care plan for updates, backups and security at {e(care)}. The care plan is optional.</p>
+
+      <h2 id="t-monthly">Monthly work: SEO, social media and ads</h2>
+      <ul class="sp-bullets">
+        <li><strong>Term:</strong> 3 months minimum, then month to month. Give 30 days’ notice to pause or stop.</li>
+        <li><strong>Accounts:</strong> your Google listing, ad accounts and social pages stay in your name. You add us, and you can remove us at any time.</li>
+        <li><strong>Reporting:</strong> every month you get a plain report of what we did and what changed.</li>
+        <li><strong>No promised results:</strong> nobody can guarantee a ranking, a number of leads or a mention in AI answers, so we don’t.</li>
+      </ul>
+
+      <h2 id="t-others">Costs you pay to others</h2>
+      <p>These are not part of our price, and we tell you about them before you start.</p>
+      <ul class="sp-bullets">
+        <li><strong>Domain and hosting:</strong> about ₹4,400–₹9,400 a year at renewal prices, before GST, paid by you to your provider.</li>
+        <li><strong>Payment gateway:</strong> the gateway’s own fee on each online payment, if your site takes payments.</li>
+        <li><strong>Ad spend:</strong> paid by you directly to Google or Meta, from accounts you own.</li>
+        <li><strong>Extras:</strong> {e(PD.WEBSITES_NOTE)}</li>
+      </ul>
+
+      <h2 id="t-tax">Tax</h2>
+      <p>No GST is charged on U Scale prices right now. If that changes, you will be told in writing before it applies to you.</p>
+
+      <h2 id="t-who">Who does the work</h2>
+      <p>I lead every project and I am the person you talk to. My team and I work on it together. If your project needs someone from outside the team, such as a photographer, we tell you first and quote it before any work starts.</p>
+      <p>Chatbots, AI receptionists and larger automations are built by our sister company, <a class="tlink" href="https://www.apex36tech.com/" target="_blank" rel="noopener">Apex36 Technologies</a><span class="sr-only"> (opens in a new tab)</span>.</p>
+
+      <h2 id="t-ask">Questions</h2>
+      <p>Email <a class="tlink" href="mailto:{ea(SP.EMAIL)}">{e(SP.EMAIL)}</a> or WhatsApp {e(SP.PHONE_D)}. I reply within 24 hours, usually much faster on WhatsApp. Every price is on the <a class="tlink" href="/pricing">pricing page</a>, and how your details are handled is on the <a class="tlink" href="/privacy">privacy page</a>.</p>
+    </div>
+  </section>'''
+    return _page(ctx, parts, url, title, desc, ld, body)
+
+
 # ---------------------------------------------------------------- /privacy
 PRIVACY_SLUG = 'privacy'
 # What the site keeps in the visitor's browser. Keep in step with the code: us-consent and the analytics state (tracking.py,

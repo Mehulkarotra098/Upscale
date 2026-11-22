@@ -1240,12 +1240,12 @@ def _who(p):
     if hi:
         k, h, d = 'Aap kiske saath kaam karenge', 'Mehul Karotra aapka project lead karte hain.', ('Main aur meri team har website Figma mein design karte hain aur haath se code karte hain. Mumbai '
                                                                      'mein based hoon, aur baat WhatsApp pe seedha mujhse hoti hai, kisi account manager se nahi.')
-        badges = ['Mumbai', 'Figma design, hand-coded', 'English aur Hindi']
+        badges = ['Mumbai', 'Figma design, hand-coded', 'English aur Hindi', 'MSME registered', 'Clutch par 5.0 review']
         more = 'Mehul ke baare mein'
     else:
         k, h, d = 'Who you’ll work with', 'Mehul Karotra leads your project.', (f'My team and I design every site in Figma and code it by hand. I’m based in {base}, '
                                                                         'and you talk to me directly on WhatsApp, not to an account manager.')
-        badges = [f'Based in {base}', 'Designs in Figma, hand-codes', 'English and Hindi']
+        badges = [f'Based in {base}', 'Designs in Figma, hand-codes', 'English and Hindi', 'MSME registered', 'Reviewed 5.0 on Clutch']
         more = 'More about Mehul'
     li = ''.join(f'<li>{icon("check")}{e(x)}</li>' for x in badges)
     return f'''

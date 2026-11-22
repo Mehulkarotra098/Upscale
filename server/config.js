@@ -88,7 +88,7 @@ export const BRAND = Object.freeze({
   author: 'Mehul Karotra',
   authorTitle: 'Founder, U Scale',
   authorBio:
-    'Mehul Karotra is a UI/UX developer-designer in Mumbai. Through U Scale he personally builds websites and runs SEO, social media, ads and AI search visibility for Indian businesses.',
+    'Mehul Karotra is a website designer and developer in Mumbai and the founder of U Scale. He and his team build websites and run SEO, social media, ads and AI search visibility for Indian businesses.',
   email: ENTITY.email,
   phone: ENTITY.phoneDisplay,
   wa: `https://wa.me/917977360142?text=${encodeURIComponent("Hi Mehul, I read your blog and I'd like to talk about my business.")}`,
