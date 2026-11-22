@@ -202,7 +202,7 @@ def _site_bot():
     return _ai(
         slug='ai-chatbot-for-website', crumb='AI chatbot for websites', service='AI chatbot for your website', service_type='Chatbot development',
         countries=['India', 'United Kingdom', 'United States', 'Australia', 'United Arab Emirates'],
-        title='AI Chatbot for Your Website, Built on Your Own Pages | U Scale',
+        title='AI Chatbot for Your Website, Built on Your Own Pages',
         desc='An AI chatbot that answers visitors from your own pages, says “I don’t know” when it doesn’t, and passes leads to WhatsApp. Built by Apex36.',
         h1='An AI chatbot for your website', eyebrow='AI, with Apex36',
         lead='It answers visitors from your own pages and price list, says so when it doesn’t know, and sends the good leads to your WhatsApp. Designed to look like part of your site.',
@@ -259,7 +259,7 @@ def _receptionist():
     return _ai(
         slug='ai-receptionist', crumb='AI receptionist', service='AI receptionist for small business', service_type='AI voice receptionist',
         countries=['India', 'United States', 'United Kingdom', 'Australia'],
-        title='AI Receptionist for Small Business: Every Call Answered | U Scale',
+        title='AI Receptionist for Small Business: Every Call Answered',
         desc='An AI receptionist that answers your calls day and night, books appointments and sends you a summary. Convo AI, built by our sister company Apex36.',
         h1='An AI receptionist that answers every call', eyebrow='AI, with Apex36',
         lead='It picks up when you can’t, answers the usual questions, books the appointment and sends you a summary. Convo AI, built by our sister company, Apex36.',
@@ -313,7 +313,7 @@ def _automation():
     return _ai(
         slug='n8n-automation', crumb='Automation', service='n8n, Make and Zapier automation for small businesses', service_type='Workflow automation',
         countries=['India', 'United Kingdom', 'Australia'],
-        title='n8n, Make and Zapier Automation for Small Businesses | U Scale',
+        title='n8n, Make and Zapier Automation for Small Businesses',
         desc='The repetitive jobs, automated with n8n, Make or Zapier: enquiries into a sheet, WhatsApp alerts, reminders and review requests. Bigger ones built by Apex36.',
         h1='Automation with n8n, Make and Zapier', eyebrow='Automation, with Apex36',
         lead='Enquiries into a sheet, a WhatsApp alert to you, the reply email, the invoice reminder. The jobs you do by hand every day can run by themselves, the same way every time.',

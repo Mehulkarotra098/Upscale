@@ -177,7 +177,7 @@ def _hub():
     return page_dict(
         slug='outsource-web-design-india', trail=[('Services', '/services')], crumb='Clients abroad',
         service='Web design and development for businesses outside India', countries=[c['name'] for c in COUNTRIES],
-        title='Outsource Web Design to India: Fixed Prices in $, £, € | U Scale',
+        title='Outsource Web Design to India: Fixed Prices in $, £, €',
         desc=f'A Mumbai studio that hand-codes websites for businesses in the UK, US, Australia and six more countries. From {fx(LANDING, "USD")}, fixed in your currency.',
         h1='Web design from India, priced in your currency', eyebrow='For businesses outside India',
         lead='A studio in Mumbai that designs and hand-codes websites for businesses in nine countries. One price list, fixed in your currency. You pay most of it after launch.',
@@ -264,7 +264,7 @@ def _white_label():
     return page_dict(
         slug='white-label-web-design', crumb='White label', service='White label web design and development for agencies', service_type='White label web design',
         countries=['United States', 'United Kingdom', 'Australia', 'Canada'],
-        title=f'White Label Web Design for Agencies, from {fx(LANDING, "USD")} a Site | U Scale',
+        title=f'White Label Web Design for Agencies, from {fx(LANDING, "USD")} a Site',
         desc=f'White label web design for agencies: a fixed price per site from {fx(LANDING, "USD")}, your brand on everything, an NDA first, and no contact with your client.',
         h1='White label web design for agencies', eyebrow='For agencies',
         lead='We design and hand-code the sites; you deliver them under your name. A fixed price per site, an NDA before the brief, and we never contact your client.',
@@ -453,7 +453,7 @@ def _fashion():
     return page_dict(
         slug='website-design-for-indian-fashion-brands', crumb='Indian fashion labels', service='Online stores for Indian fashion and ethnic wear labels',
         service_type='E-commerce website development', countries=['India', 'United Kingdom', 'United States', 'Canada', 'United Arab Emirates'],
-        title='Online Stores for Indian Fashion and Ethnic Wear Labels | U Scale',
+        title='Online Stores for Indian Fashion and Ethnic Wear Labels',
         desc=f'Online stores for Indian fashion labels selling at home and abroad: prices in rupees and the buyer’s currency, worldwide shipping. From {price(STORE)}.',
         h1='Online stores for Indian fashion labels', eyebrow='For labels in India and boutiques abroad',
         lead='Online stores that show the fabric properly and sell in your customers’ currency. For labels in India selling abroad, and boutiques abroad selling Indian wear.',
@@ -513,7 +513,7 @@ def _hotels():
     return page_dict(
         slug='website-design-for-independent-hotels', crumb='Independent hotels', service='Direct-booking websites for independent hotels and motels',
         service_type='Hotel website design', countries=['United States', 'Canada', 'United Kingdom', 'India'],
-        title=f'Hotel and Motel Websites for Direct Bookings, from {fx(BIZ, "USD")} | U Scale',
+        title=f'Hotel and Motel Websites for Direct Bookings, from {fx(BIZ, "USD")}',
         desc=f'Websites for independent hotels and motels that send guests to book direct, built around your booking engine. 5–10 pages {fx(BIZ, "USD")}, fixed, built to WCAG 2.1 AA.',
         h1='Hotel and motel websites', eyebrow='For owner-run hotels',
         lead='A fast website that gets guests to book with you directly, built around the booking engine you already use. For owner-run hotels and motels in the US, and anywhere else.',

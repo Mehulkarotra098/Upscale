@@ -112,7 +112,7 @@ SERVICES = [
        ('Will I see where my money goes?','Yes. You own the ad accounts and get a monthly report showing spend, leads and cost per lead.')]),
  dict(slug='ai-search-visibility', short='AI search', cta='AI search visibility', name='AI Search Visibility (GEO)', cta_h='Let’s see what AI says about you', wa="Hi Mehul, I'd like to check what ChatGPT and Google say about my business.",
   title='AI Search Visibility Services in India (GEO & AI SEO)',
-  desc='See what ChatGPT, Gemini and Google AI tell customers about your business, then fix the facts they use. ₹2,500 audit or ₹12,000 a month. No mention guaranteed.',
+  desc='See what ChatGPT, Gemini and Google AI tell customers about your business, then fix the facts they use. ₹2,500 audit, ₹12,000 a month. No mention guaranteed.',
   h1='AI SEO and AI search visibility (GEO)',
   lead="More people now ask ChatGPT, Gemini or Google’s AI to recommend a business. AI search visibility, also called AI SEO, GEO or AEO, is the work of making sure they mention you and get the facts right. We check what AI tools say about you today, then correct the facts, listings and pages they draw on, and help you earn genuine reviews. No one can guarantee a mention. You see what changed every month.",
   who='For local businesses whose customers already ask AI assistants for recommendations, and who want those answers to get their name, services, prices and area right.',
@@ -1257,6 +1257,7 @@ def build(ctx):
     (out / 'about.html').write_text(svc_pages.about_page(ctx, parts))
     (out / f'{aeo.LICENSE_SLUG}.html').write_text(aeo.image_license_page(ctx, parts))
     (out / f'{aeo.PRIVACY_SLUG}.html').write_text(aeo.privacy_page(ctx, parts))
+    (out / f'{aeo.TERMS_SLUG}.html').write_text(aeo.terms_page(ctx, parts))
     (out / 'services.html').write_text(aeo.services_hub(ctx, parts))
     import pitch_deck  # the U Scale pitch deck: ten animated slides at /pitch-deck
     (out / f'{pitch_deck.SLUG}.html').write_text(pitch_deck.page(ctx), encoding='utf-8')
@@ -1268,7 +1269,7 @@ def build(ctx):
     import world_more  # clients abroad, AI services with Apex36, trades across India (Nov 2026)
     geo_rels += world_more.build(ctx, parts)
     rels = (['index.html', 'about.html', 'services.html', 'pricing.html'] + [f'services/{x["slug"]}.html' for x in SERVICES] + geo_rels
-            + ['tools/index.html', f'tools/{GBP["slug"]}.html', f'tools/{TOOL["slug"]}.html', f'tools/{card_page.SLUG}.html', f'tools/{qr_page.SLUG}.html', f'{aeo.LICENSE_SLUG}.html', f'{aeo.PRIVACY_SLUG}.html', f'{pitch_deck.SLUG}.html'])
+            + ['tools/index.html', f'tools/{GBP["slug"]}.html', f'tools/{TOOL["slug"]}.html', f'tools/{card_page.SLUG}.html', f'tools/{qr_page.SLUG}.html', f'{aeo.LICENSE_SLUG}.html', f'{aeo.PRIVACY_SLUG}.html', f'{aeo.TERMS_SLUG}.html', f'{pitch_deck.SLUG}.html'])
     dates = aeo.stamp_pages(out, site, rels)  # each page's date moves only when its content changes
     prio = {site: '1.0', site + 'pricing': '0.9', site + 'services': '0.9', site + 'about': '0.8', site + 'tools': '0.7', site + aeo.LICENSE_SLUG: '0.2', site + aeo.PRIVACY_SLUG: '0.2'}
     # Sitemap index: static pages here, blog posts from the live database at /sitemap-blog.xml (server-rendered).
@@ -1507,7 +1508,7 @@ def pricing_page(ctx, parts):
     header, menu, footer, tail = parts
     url = site + 'pricing'
     title = 'Website, SEO & Social Media Packages and Prices in Mumbai'
-    desc = ('Every U Scale package and price on one page: website packages from ₹25,000, SEO packages from ₹15,000 a month, '
+    desc = ('Every U Scale package and price on one page: websites from ₹25,000, SEO packages from ₹15,000 a month, '
             'social media posts from ₹800. No hidden charges.')
     faq = [ctx['FAQ'][i] for i in PRICING_FAQ_IDX] + PRICING_FAQ_MORE
     ld = json.dumps({'@context': 'https://schema.org', '@graph': [

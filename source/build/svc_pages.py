@@ -141,7 +141,8 @@ SEO = dict(
               'without this, the old links break, and the pages have to earn their place on Google again.',
               'The new site has 86 pages, each written and coded by hand. Open '
               '<a class="tlink" href="https://spacestudiochennai.com" target="_blank" rel="noopener">spacestudiochennai.com</a>'
-              '<span class="sr-only"> (opens in a new tab)</span> on your phone and judge the work for yourself.'),
+              '<span class="sr-only"> (opens in a new tab)</span> on your phone and judge the work for yourself, or read the '
+              '<a class="tlink" href="/work/space-studio-chennai">Space Studio case study</a>.'),
             GP.Html(*proof.block('spacestudio')),
             eyebrow='On a live site', sid='proof'),
         Sec('Local SEO across Mumbai',
@@ -500,7 +501,7 @@ def _how(p):
 
 def _who(p):
     img = GP.IMG['mehul']
-    badges = ['Based in Mumbai', 'Works with businesses across India', 'English and Hindi']
+    badges = ['Based in Mumbai', 'Works with businesses across India', 'English and Hindi', 'MSME registered', 'Reviewed 5.0 on Clutch']
     li = ''.join(f'<li>{icon("check")}{e(x)}</li>' for x in badges)
     return f'''
   <section class="section fp-sec fp-sec--who" aria-labelledby="who-title">
@@ -662,7 +663,8 @@ def service_page(ctx, parts, p):
     if p['art']['kind'] == 'img':
         img = GP.IMG[p['art']['img']]
         preload = (f'<link rel="preload" as="image" type="image/avif" imagesrcset="{GP.srcset(img, "avif")}" imagesizes="{GP.HERO_SIZES}" fetchpriority="high">')
-    return aeo._page(ctx, parts, url, p['title'], p['desc'], _jsonld(site, url, p, faq), body, extra_head=preload)
+    og = (site + f'assets/pages/og-{p["slug"]}.jpg', p['service'] + ', by U Scale')
+    return aeo._page(ctx, parts, url, p['title'], p['desc'], _jsonld(site, url, p, faq), body, og=og, extra_head=preload)
 
 
 # ---------------------------------------------------------------- About
@@ -727,8 +729,28 @@ def about_page(ctx, parts):
                             ('key', 'You own everything', 'Your domain, code, logins, ad accounts and listings stay in your name.'),
                             ('shield', 'No promises we can’t keep', 'No guaranteed rankings, leads or AI mentions. You get a plain monthly report of what we did and what changed.')], cols=3),
                      eyebrow='Principles', layout='wide'),
+                 Sec('How this site is written and checked',
+                     P('Every page here carries my name. This is how the facts on it are kept right.'),
+                     Cards([('rupee', 'One price list', 'Every price on every page is read from one list when the site is built, so two pages can’t disagree. When a price changes, it changes everywhere on the same day.'),
+                            ('file', 'Sources beside the figures', 'When a number is not ours, such as a market price range or a Google rule, its source is linked right next to it.'),
+                            ('calendar', 'Honest dates', 'The “Updated” date on a page changes only when that page changes.'),
+                            ('user', 'Client words, unedited', 'Client quotes are shown word for word, each with a link to where the client wrote it. Concept work, in-house roles and my own projects are labelled as such.'),
+                            ('shield', 'No promised results', 'No page promises a ranking, a number of leads or a mention in AI answers, because nobody can.'),
+                            ('chat', 'Corrections', f'If you spot a mistake, email {SP.EMAIL} or WhatsApp me. I fix it, and the page date changes.')], cols=3),
+                     eyebrow='Editorial standards', layout='wide', sid='standards'),
+                 Sec('Registrations and listings',
+                     P('These are the places outside this site where you can check that U Scale is what it says it is.'),
+                     Cards([('shield', 'MSME registered', 'U Scale is registered under Udyam, the Government of India’s registration for micro, small and medium enterprises.'),
+                            ('star', 'Reviewed on Clutch', 'Clutch is an independent directory that verifies client reviews. Our profile has one review so far, rated 5.0. <a class="tlink" href="https://clutch.co/profile/u-scale" target="_blank" rel="noopener">See the Clutch profile</a><span class="sr-only"> (opens in a new tab)</span>.'),
+                            ('layers', 'On Product Hunt', 'U Scale is listed on Product Hunt, where makers share new products and tools. <a class="tlink" href="https://www.producthunt.com/@u_scale" target="_blank" rel="noopener">See the profile</a><span class="sr-only"> (opens in a new tab)</span>.'),
+                            ('pin', 'An address you can find', 'Silver Point, Ghatkopar West, Mumbai 400086. We usually meet clients at their own shop or office, so message before you come.'),
+                            ('user', 'A founder you can look up', 'My work history is on LinkedIn and my code is on GitHub. Both are linked under “Elsewhere” below.'),
+                            ('file', 'Terms in plain words', 'Payment stages, revisions, ownership and what happens after launch are on the <a class="tlink" href="/terms">working terms</a> page.')], cols=3),
+                     eyebrow='Check us elsewhere', layout='wide', sid='credentials'),
                  Sec('What clients have said',
-                     P('Three clients, in their own words. Each quote links to the place where the client wrote it, so you can check it.'),
+                     P('Three clients, in their own words. Each quote links to the place where the client wrote it, so you can check it.',
+                       'Two of these projects are written up in full: <a class="tlink" href="/work/space-studio-chennai">Space Studio Chennai</a> and '
+                       '<a class="tlink" href="/work/sashe-by-prachi">Sashe by Prachi</a>.'),
                      GP.Html(*proof.block('sashe', 'spacestudio', 'vidhi')),
                      eyebrow='In their own words', layout='wide', sid='clients'),
                  Sec('My background',
@@ -754,6 +776,7 @@ def about_page(ctx, parts):
                      Links([(aeo.LINKEDIN, 'user', 'LinkedIn', 'Work history and posts.', ''),
                             (aeo.GITHUB, 'file', 'GitHub', 'Code I’ve published.', ''),
                             (aeo.INSTAGRAM, 'camera', 'Instagram @uscalewithus', 'Short tips for local businesses.', ''),
+                            ('/pitch-deck', 'layers', 'U Scale in ten slides', 'The pitch deck: what we do, what it costs and the work.', ''),
                             (next(u for u in founder['sameAs'] if 'linkedin' not in u and 'github' not in u), 'globe', 'Portfolio', 'My personal portfolio site.', '')]),
                      eyebrow='Find me', layout='wide'),
              ])
@@ -761,7 +784,7 @@ def about_page(ctx, parts):
     p.update(work=work_keys[1:], work_feature=work_keys[0], work_h='Work you can open and check.',
              work_lead='Client websites, in-house product work and my own projects. Each card opens the live site.')
     faq = list(aeo.ABOUT_FAQ) + [('Who owns U Scale?', 'Mehul Karotra owns U Scale. Apex36 Technologies is a separate sister company for custom software and AI.')]
-    body = (_hero(p, wa, icons) + aeo.brief_html(aeo.ABOUT_ANSWER, aeo.ABOUT_FACTS, 'Key facts about Mehul Karotra', 'brief-title',
+    body = (_hero(p, wa, icons) + aeo.brief_html(aeo.ABOUT_ANSWER, aeo.ABOUT_FACTS + [('Registered', 'MSME (Udyam), Government of India'), ('Reviewed', '5.0 on Clutch, from one verified client review')], 'Key facts about Mehul Karotra', 'brief-title',
                                                  [((s['sid'] or f's{i}') + '-title', s['h']) for i, s in enumerate(p['sections'])] + [('faq-title', 'Questions')], 'On this page', fold=4)
             + GP._sections(p) + _work(ctx, p) + aeo._faq_section(faq, 'About U Scale.') + _cta_about(wa, icons))
     img = GP.IMG['mehul']

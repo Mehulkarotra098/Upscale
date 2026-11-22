@@ -395,7 +395,7 @@ PAGES = [
   lead='I’m Mehul Karotra, based in Ghatkopar West. My team and I design and build websites and run Google listings and local SEO for businesses here, and I can come to your shop to talk it through.',
   stats=[(price('Landing page'), 'Websites from'), (_fmt(rupees('Local SEO / Google Business Profile')), 'Local SEO, per month'), ('Free', 'Audit at your shop')],
   art=dict(kind='portrait', chips=[('pin', 'Ghatkopar West, Mumbai'), ('chat', 'Replies on WhatsApp')]),
-  answer='U Scale is Mehul Karotra, a freelance website designer and digital marketer based in Ghatkopar West, Mumbai. He designs and hand-codes '
+  answer='U Scale is a web design and digital marketing studio in Ghatkopar West, Mumbai, founded and led by Mehul Karotra. It designs and hand-codes '
          f'websites at fixed prices (a landing page {price("Landing page")}, a 5–10 page business site {price("Business site, 5–10 pages")}) and runs '
          'Google Business Profile and local SEO work for businesses in Ghatkopar, Vikhroli, Kurla, Chembur, Powai and Mulund. Every project starts '
          'with a free audit.',
@@ -1240,12 +1240,12 @@ def _who(p):
     if hi:
         k, h, d = 'Aap kiske saath kaam karenge', 'Mehul Karotra aapka project lead karte hain.', ('Main aur meri team har website Figma mein design karte hain aur haath se code karte hain. Mumbai '
                                                                      'mein based hoon, aur baat WhatsApp pe seedha mujhse hoti hai, kisi account manager se nahi.')
-        badges = ['Mumbai', 'Figma design, hand-coded', 'English aur Hindi']
+        badges = ['Mumbai', 'Figma design, hand-coded', 'English aur Hindi', 'MSME registered', 'Clutch par 5.0 review']
         more = 'Mehul ke baare mein'
     else:
         k, h, d = 'Who you’ll work with', 'Mehul Karotra leads your project.', (f'My team and I design every site in Figma and code it by hand. I’m based in {base}, '
                                                                         'and you talk to me directly on WhatsApp, not to an account manager.')
-        badges = [f'Based in {base}', 'Designs in Figma, hand-codes', 'English and Hindi']
+        badges = [f'Based in {base}', 'Designs in Figma, hand-codes', 'English and Hindi', 'MSME registered', 'Reviewed 5.0 on Clutch']
         more = 'More about Mehul'
     li = ''.join(f'<li>{icon("check")}{e(x)}</li>' for x in badges)
     return f'''
