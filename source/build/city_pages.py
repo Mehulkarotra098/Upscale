@@ -573,7 +573,7 @@ def case_study():
     tiles = [(f'<div class="cs__g cs-pages" aria-hidden="true">{pages}</div>', '<b data-countto="86">86</b>', 'hand-coded pages, each one designed'),
              ('<div class="cs__g cs-cube" aria-hidden="true"><span class="cs-cube__c"><i></i><i></i><i></i><i></i><i></i><i></i></span></div>',
               '<b>3D</b>', 'a live building model on every service page'),
-             (f'<div class="cs__g cs-links" aria-hidden="true">{links}</div>', '<b>Every</b>', 'old WordPress link kept, so search traffic stayed')]
+             (f'<div class="cs__g cs-links" aria-hidden="true">{links}</div>', '<b>Every</b>', 'old WordPress link kept working')]
     li = ''.join(f'<li class="cs__c" data-reveal>{g}<p class="cs__n">{n}</p><p class="cs__d">{e(d)}</p></li>' for g, n, d in tiles)
     return (f'<ul class="cs" data-reveal-group>{li}</ul><p class="cs__go"><a class="tlink" href="https://spacestudiochennai.com" target="_blank" rel="noopener">'
             f'Visit spacestudiochennai.com<span class="sr-only"> (opens in a new tab)</span> ↗</a></p>')
@@ -752,7 +752,7 @@ CITIES = [
             rows=[('Template site', 'Ready-made WordPress or Wix theme', 5000, 18000, '₹5k–₹18k'),
                   ('Business site, 5–10 pages', 'Pune studios', 20000, 60000, '₹20k–₹60k'),
                   ('Custom-designed site', 'Pune studios', 60000, 150000, '₹60k–₹1.5L')]),
-  answer='U Scale is Mehul Karotra, a Mumbai web designer who builds hand-coded websites for Pune businesses over WhatsApp and video calls. '
+  answer='U Scale is a web design studio in Mumbai, founded and led by Mehul Karotra, that builds hand-coded websites for Pune businesses over WhatsApp and video calls. '
          f'One page costs {LANDING}, 5–10 pages {BIZ} and an online store from {STORE}, each price fixed in writing, '
          'and you pay 60% only after launch.',
   facts=[('Who builds it', 'Mehul Karotra and the U Scale team; designed in Figma, then hand-coded'),
@@ -849,7 +849,7 @@ CITIES = [
             rows=[('Basic site', 'Ready-made design, about 5 pages', 8750, 22750, '₹9k–₹23k'),
                   ('Premium design', 'Up to 10 pages', 19999, 75900, '₹20k–₹76k'),
                   ('Online store', 'Starting prices', 25000, 35000, 'from ₹25k–₹35k')]),
-  answer='U Scale is Mehul Karotra, a Mumbai web designer who builds hand-coded websites for Bengaluru startups and small businesses over WhatsApp and '
+  answer='U Scale is a web design studio in Mumbai, founded and led by Mehul Karotra, that builds hand-coded websites for Bengaluru startups and small businesses over WhatsApp and '
          f'video calls. A landing page is {LANDING}, a 5–10 page site {BIZ} and an online store with UPI checkout from {STORE}, '
          'all fixed in writing. You pay 60% only after launch.',
   facts=[('Who builds it', 'Mehul Karotra and the U Scale team; designed in Figma, then hand-coded'),
@@ -923,9 +923,9 @@ CITIES = [
   crumb='Website design in Chennai', service='Website design and development for Chennai businesses',
   card='Chennai websites at fixed prices, from the designer who rebuilt Space Studio Chennai’s site.',
   title='Website Design & Development in Chennai, from ₹25,000',
-  desc=f'Websites for Chennai businesses by Mehul Karotra, who built Space Studio Chennai’s site. Landing page {LANDING}, business site {BIZ}, fixed in writing.',
+  desc=f'Websites for Chennai businesses by U Scale, which rebuilt Space Studio Chennai’s site. Landing page {LANDING}, business site {BIZ}, fixed in writing.',
   h1='Website design & development in Chennai', eyebrow='For Chennai businesses',
-  lead='I rebuilt the website of Space Studio, a Chennai architecture practice. Your business gets the same care, at a fixed price, over WhatsApp.',
+  lead='We rebuilt the website of Space Studio, a Chennai architecture practice. Your business gets the same care, at a fixed price, over WhatsApp.',
   stats=[(LANDING, 'Websites from'), ('3–4 wk', 'Live in'), ('60%', 'Paid after launch')],
   art='proof', imgs=['city-chennai'], hero_btn='Free audit on WhatsApp', hero_more=('#case', 'See the Chennai work'),
   wa="Hi Mehul, I run a business in Chennai. I'd like a free audit for my website.",
@@ -934,8 +934,8 @@ CITIES = [
             rows=[('Template or static site', 'About 5–6 pages', 5000, 30000, '₹5k–₹30k'),
                   ('Custom business site', 'Up to 10 pages', 20000, 100000, '₹20k–₹1L'),
                   ('Online store', 'Most quotes', 40000, 120000, '₹40k–₹1.2L')]),
-  answer='U Scale is Mehul Karotra, a Mumbai web designer who rebuilt the website of Space Studio, a Chennai architecture practice: 86 hand-coded pages. '
-         f'He builds websites for Chennai businesses over WhatsApp and video calls, at fixed prices: {LANDING} for one page, {BIZ} for 5–10 pages '
+  answer='U Scale is a web design studio in Mumbai, founded and led by Mehul Karotra, that rebuilt the website of Space Studio, a Chennai architecture practice: 86 hand-coded pages. '
+         f'It builds websites for Chennai businesses over WhatsApp and video calls, at fixed prices: {LANDING} for one page, {BIZ} for 5–10 pages '
          f'and from {STORE} for an online store.',
   facts=[('Who builds it', 'Mehul Karotra and the U Scale team; designed in Figma, then hand-coded'),
          ('Chennai work', 'Space Studio, an office-architecture practice: a rebuilt website with 86 hand-coded pages, live at spacestudiochennai.com'),
@@ -1025,7 +1025,7 @@ def _facts(city, market, langs):
 
 
 def _answer(city, who):
-    return (f'U Scale is Mehul Karotra, a Mumbai web designer who builds hand-coded websites for {who} over WhatsApp and video calls. '
+    return (f'U Scale is a web design studio in Mumbai, founded and led by Mehul Karotra, that builds hand-coded websites for {who} over WhatsApp and video calls. '
             f'Prices are fixed in writing: {LANDING} for one page, {BIZ} for 5–10 pages and from {STORE} for an online store, and you pay 60% only after launch.')
 
 

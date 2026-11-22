@@ -141,7 +141,8 @@ SEO = dict(
               'without this, the old links break, and the pages have to earn their place on Google again.',
               'The new site has 86 pages, each written and coded by hand. Open '
               '<a class="tlink" href="https://spacestudiochennai.com" target="_blank" rel="noopener">spacestudiochennai.com</a>'
-              '<span class="sr-only"> (opens in a new tab)</span> on your phone and judge the work for yourself.'),
+              '<span class="sr-only"> (opens in a new tab)</span> on your phone and judge the work for yourself, or read the '
+              '<a class="tlink" href="/work/space-studio-chennai">Space Studio case study</a>.'),
             GP.Html(*proof.block('spacestudio')),
             eyebrow='On a live site', sid='proof'),
         Sec('Local SEO across Mumbai',
@@ -727,8 +728,19 @@ def about_page(ctx, parts):
                             ('key', 'You own everything', 'Your domain, code, logins, ad accounts and listings stay in your name.'),
                             ('shield', 'No promises we can’t keep', 'No guaranteed rankings, leads or AI mentions. You get a plain monthly report of what we did and what changed.')], cols=3),
                      eyebrow='Principles', layout='wide'),
+                 Sec('How this site is written and checked',
+                     P('Every page here carries my name. This is how the facts on it are kept right.'),
+                     Cards([('rupee', 'One price list', 'Every price on every page is read from one list when the site is built, so two pages can’t disagree. When a price changes, it changes everywhere on the same day.'),
+                            ('file', 'Sources beside the figures', 'When a number is not ours, such as a market price range or a Google rule, its source is linked right next to it.'),
+                            ('calendar', 'Honest dates', 'The “Updated” date on a page changes only when that page changes.'),
+                            ('user', 'Client words, unedited', 'Client quotes are shown word for word, each with a link to where the client wrote it. Concept work, in-house roles and my own projects are labelled as such.'),
+                            ('shield', 'No promised results', 'No page promises a ranking, a number of leads or a mention in AI answers, because nobody can.'),
+                            ('chat', 'Corrections', f'If you spot a mistake, email {SP.EMAIL} or WhatsApp me. I fix it, and the page date changes.')], cols=3),
+                     eyebrow='Editorial standards', layout='wide', sid='standards'),
                  Sec('What clients have said',
-                     P('Three clients, in their own words. Each quote links to the place where the client wrote it, so you can check it.'),
+                     P('Three clients, in their own words. Each quote links to the place where the client wrote it, so you can check it.',
+                       'Two of these projects are written up in full: <a class="tlink" href="/work/space-studio-chennai">Space Studio Chennai</a> and '
+                       '<a class="tlink" href="/work/sashe-by-prachi">Sashe by Prachi</a>.'),
                      GP.Html(*proof.block('sashe', 'spacestudio', 'vidhi')),
                      eyebrow='In their own words', layout='wide', sid='clients'),
                  Sec('My background',
@@ -754,6 +766,7 @@ def about_page(ctx, parts):
                      Links([(aeo.LINKEDIN, 'user', 'LinkedIn', 'Work history and posts.', ''),
                             (aeo.GITHUB, 'file', 'GitHub', 'Code I’ve published.', ''),
                             (aeo.INSTAGRAM, 'camera', 'Instagram @uscalewithus', 'Short tips for local businesses.', ''),
+                            ('/pitch-deck', 'layers', 'U Scale in ten slides', 'The pitch deck: what we do, what it costs and the work.', ''),
                             (next(u for u in founder['sameAs'] if 'linkedin' not in u and 'github' not in u), 'globe', 'Portfolio', 'My personal portfolio site.', '')]),
                      eyebrow='Find me', layout='wide'),
              ])

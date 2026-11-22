@@ -610,7 +610,8 @@ def india_dict():
                        ('file', 'A written plan first', 'Pages, timeline and the exact price, agreed before you pay anything.'),
                        ('shield', 'Bug fixes after launch', 'For 30 days after launch, we fix anything that doesn’t work as agreed, at no charge.')], cols=3),
                 P('Space Studio Chennai is one example. The practice is in Chennai and we are in Mumbai, and its website was rebuilt this way: '
-                  '86 pages, each written and coded by hand, with every old address kept working.'),
+                  '86 pages, each written and coded by hand, with every old address kept working. '
+                  + _link('/work/space-studio-chennai', 'Read the Space Studio case study') + '.'),
                 Html(*__import__('proof').block('spacestudio')),
                 eyebrow='Working remotely', layout='wide', tone='band', sid='remote'),
             Sec('Website design by city',
@@ -728,8 +729,8 @@ THANE = dict(
     lead='I’m Mehul Karotra, a website designer based in Ghatkopar West, a short ride down the Central line from Thane. If your business is in Thane, Kalyan or Dombivli, I can design and build your website, look after your Google listing and local SEO, and meet you at your shop or office.',
     stats=[(price('Landing page'), 'Websites from'), (LOCAL.split('/')[0], 'Local SEO, per month'), ('In person', 'Meetings at your shop')],
     art=dict(kind='map', map='th-map'),
-    answer=(f'U Scale is Mehul Karotra, a website designer and digital marketer based in Ghatkopar West, Mumbai, who meets clients in Thane, Kalyan '
-            f'and Dombivli in person. His websites are designed and hand-coded at fixed prices: a landing page {price("Landing page")}, a 5–10 page business '
+    answer=(f'U Scale is a web design and digital marketing studio in Ghatkopar West, Mumbai, founded and led by Mehul Karotra, who meets clients in Thane, Kalyan '
+            f'and Dombivli in person. Its websites are designed and hand-coded at fixed prices: a landing page {price("Landing page")}, a 5–10 page business '
             f'site {price("Business site, 5–10 pages")}, an online store from {STORE}. Google Business Profile and local SEO work costs '
             f'{LOCAL.replace("/mo", " a month")}. Every project starts with a free audit.'),
     facts=[('Based in', 'Ghatkopar West, Mumbai, on the Central line to Thane'),
@@ -812,8 +813,8 @@ NAVI = dict(
     lead='I’m Mehul Karotra, a website designer based in Ghatkopar West, across Thane Creek from Navi Mumbai. From Airoli and Vashi down to Nerul, Belapur, Kharghar and Panvel, my team and I design and build websites and run Google listings and local SEO. We can meet at your shop or office.',
     stats=[(price('Landing page'), 'Websites from'), (LOCAL.split('/')[0], 'Local SEO, per month'), ('In person', 'Meetings at your shop')],
     art=dict(kind='map', map='nm-map'),
-    answer=(f'U Scale is Mehul Karotra, a website designer and digital marketer based in Ghatkopar West, Mumbai, across Thane Creek from Navi Mumbai. '
-            f'He works in person with businesses from Airoli and Vashi to Nerul, CBD Belapur, Kharghar and Panvel. A landing page costs {price("Landing page")}, '
+    answer=(f'U Scale is a web design and digital marketing studio in Ghatkopar West, Mumbai, across Thane Creek from Navi Mumbai, founded and led by Mehul Karotra. '
+            f'He meets businesses in person from Airoli and Vashi to Nerul, CBD Belapur, Kharghar and Panvel. A landing page costs {price("Landing page")}, '
             f'a 5–10 page business site {price("Business site, 5–10 pages")} and an online store from {STORE}, each designed and hand-coded at a fixed price. '
             f'Google Business Profile and local SEO run at {LOCAL.replace("/mo", " a month")}. Each project begins with a free audit.'),
     facts=[('Based in', 'Ghatkopar West, Mumbai, across Thane Creek'),
@@ -885,9 +886,9 @@ if ECOM not in GP.PAGES:
 
 def hub_cards():
     """Link cards on the services hub for the pages that are not one of the five core services or a website type."""
-    items = [('/services/digital-marketing-mumbai', 'Digital marketing', 'Digital marketing in Mumbai', 'What one specialist covers instead of an agency team, with every price.'),
+    items = [('/services/digital-marketing-mumbai', 'Digital marketing', 'Digital marketing in Mumbai', 'How SEO, social media and ads fit into one plan, with every price.'),
              ('/services/google-business-profile-mumbai', 'Local SEO', 'Google Business Profile management', 'Set-up, verification, weekly posts, reviews and suspension fixes.'),
-             ('/freelance-web-designer-mumbai', 'Hire', 'Freelance web designer in Mumbai', 'Hire Mehul directly: fixed price, designed in Figma, hand-coded.'),
+             ('/freelance-web-designer-mumbai', 'Hire', 'Freelance web designer in Mumbai', 'What you get when you deal with the founder, and when a freelancer suits you better.'),
              ('/tools/website-cost-calculator', 'Free tool', 'Website cost calculator', 'An estimate in a minute, from published prices.'),
              ('/services/outsource-web-design-india', 'Clients abroad', 'Web design for businesses outside India', 'One price list in eight currencies, nine country pages.'),
              ('/services/white-label-web-design', 'For agencies', 'White label web design', 'A fixed price per site, your brand, NDA first.'),
@@ -900,7 +901,7 @@ def hub_cards():
 
 def standalone(ctx=None):
     """The pages that are not in GP.PAGES (they don't belong in the website-design "Keep reading" rail)."""
-    return [gbp_page_dict(), freelancer_dict(ctx), calc_dict(), digital_dict(), india_dict()]
+    return [gbp_page_dict(), freelancer_dict(ctx), calc_dict(), digital_dict(), india_dict()] + __import__('case_pages').pages(ctx)
 
 
 def build(ctx, parts):

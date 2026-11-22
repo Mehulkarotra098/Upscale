@@ -147,7 +147,7 @@ def pages():
         'Timings, fees and booking on WhatsApp, within medical ethics rules.'),
 
      _trade('real-estate', 'Real estate', 'Real estate websites', 'For builders and brokers',
-        f'Real Estate Website Design for Builders, from {price(LANDING)} | U Scale',
+        f'Real Estate Website Design for Builders, from {price(LANDING)}',
         f'Real estate websites for builders and brokers: project pages with RERA details, floor plans, prices and site visits on WhatsApp. From {price(LANDING)}, fixed.',
         'Project pages with floor plans, prices and the RERA details the law asks for, and a site visit button that reaches your sales team on WhatsApp.',
         estate_card, "Hi Mehul, I'm a builder or broker and I'd like a real estate website. Can we talk?",
@@ -183,7 +183,7 @@ def pages():
         'Project pages with RERA details, and site visits on WhatsApp.', sources=['rera-11']),
 
      _trade('exporters', 'Exporters and manufacturers', 'Websites for exporters and manufacturers', 'For exporters',
-        f'Websites for Exporters and Manufacturers, from {price(LANDING)} | U Scale',
+        f'Websites for Exporters and Manufacturers, from {price(LANDING)}',
         f'Websites for Indian exporters and manufacturers that buyers abroad trust: product specs, certifications, RFQ forms and fast replies. From {price(LANDING)}.',
         'A website that reads like a supplier buyers abroad already trust: specifications, certifications, a proper RFQ form, and replies in their morning.',
         export_card, "Hi Mehul, we're exporters and we'd like a website that brings enquiries from abroad.",
