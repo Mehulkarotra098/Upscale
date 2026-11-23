@@ -175,6 +175,10 @@ def gbp_page_dict():
                   'filtering reviews breaks Google’s rules and can get reviews removed or a listing restricted. ' + GP.src_chip('ugc-policy')),
                 RANKING,
                 eyebrow='Reviews', layout='wide'),
+            Sec('Just want it fixed once?',
+                P(f'If you don’t want a monthly plan, the ' + _link('/google-maps-fix', 'Google Maps Fix') + f' is a one-time job: categories, hours, photos, a WhatsApp '
+                  f'chat link, a review QR standee and four posts, done in 5 working days for {price("Google Maps Fix")}.'),
+                eyebrow='One-time', sid='once'),
             Sec('Check your listing first, free', Tools(), eyebrow='Free tools', layout='wide'),
         ],
         faq=[('How much does Google Business Profile management cost in Mumbai?',
@@ -902,7 +906,7 @@ def hub_cards():
 
 def standalone(ctx=None):
     """The pages that are not in GP.PAGES (they don't belong in the website-design "Keep reading" rail)."""
-    return [gbp_page_dict(), freelancer_dict(ctx), calc_dict(), digital_dict(), india_dict()] + __import__('case_pages').pages(ctx) + [__import__('prices_page').page(ctx)]
+    return [gbp_page_dict(), freelancer_dict(ctx), calc_dict(), digital_dict(), india_dict()] + __import__('case_pages').pages(ctx) + [__import__('prices_page').page(ctx)] + __import__('offer_pages').pages(ctx)
 
 
 def build(ctx, parts):

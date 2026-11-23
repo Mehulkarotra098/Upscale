@@ -1215,7 +1215,7 @@ def _hero(p, wa, icons):
     stats = ''.join(f'<li class="stat"><span class="stat__num{long}">{e(n)}</span><span class="stat__label">{e(l)}</span></li>'
                     for n, l in p['stats'])
     see = p['hero_more'][1] if p.get('hero_more') else 'Prices dekhiye' if hi else 'See prices & facts'
-    talk = 'WhatsApp pe free audit' if hi else 'Free audit on WhatsApp'
+    talk = p.get('talk') or ('WhatsApp pe free audit' if hi else 'Free audit on WhatsApp')  # talk: an offer page names its own first step
     return f'''  <div class="wrap hero-shell">
     <section class="sp-hero fp-hero on-dark" data-tone="dark" aria-labelledby="page-title">
       <div class="fp-hero__copy">
@@ -1421,10 +1421,10 @@ def page(ctx, parts, p):
            else f"Hi Mehul, I found your page on {p['crumb'].lower()} websites. I'd like a free audit for my business.")
     wa = f'https://wa.me/{aeo.ENTITY["whatsapp"]}?text=' + urllib.parse.quote(msg)
     toc = [((s['sid'] or f's{i}') + '-title', s['h']) for i, s in enumerate(p['sections'])]
-    toc += [('how-title', 'Kaise kaam hota hai' if _hi(p) else 'How it works'), ('faq-title', 'Sawaal-jawaab' if _hi(p) else 'Questions')]
+    toc += ([] if p.get('no_how') else [('how-title', 'Kaise kaam hota hai' if _hi(p) else 'How it works')]) + [('faq-title', 'Sawaal-jawaab' if _hi(p) else 'Questions')]
     content = (_hero(p, wa, icons) + aeo.brief_html(p['answer'], p['facts'], 'Key facts: ' + p['service'], 'brief-title', toc, 'Is page pe' if _hi(p) else 'On this page',
                                                     fold=3, more='Saare facts' if _hi(p) else 'All facts')
-               + _sections(p) + p.get('after_sections', '') + _work(ctx, p['work']) + ('' if p['art']['kind'] == 'portrait' else _who(p)) + _how(p)
+               + _sections(p) + p.get('after_sections', '') + _work(ctx, p['work']) + ('' if p['art']['kind'] == 'portrait' else _who(p)) + ('' if p.get('no_how') else _how(p))  # no_how: the page explains its own steps (offer_pages.py)
                + aeo._faq_section(p['faq'], 'Sawaal-jawaab.' if _hi(p) else 'Questions, answered.') + _foot(p))
     body = (f'<div lang="{p["lang"]}">{content}</div>' if p.get('lang') else content) + _cta(p, wa, icons)
     og = (f'{site}assets/pages/{OG[p["slug"]]}.jpg', OG_ALT[p['slug']])

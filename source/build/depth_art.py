@@ -708,6 +708,39 @@ def card_profile():
     return _dk('prof', card, floats, sheets=2, label='Illustration: a Google Business Profile kept up to date: verified, hours, photos and posts, and reviews replied to')
 
 
+def _fix_card(kicker, name, sub, head, rows, foot, chip, label, listing=True):
+    """The card for a one-time fix (offer_pages.py): what is fixed, on raised rows with a tick, and the price floating in front.
+    Same build and classes as card_profile, so it needs no styles of its own."""
+    li = ''.join(f'<li style="--i:{i}"><span class="sv-pack__ic">{icon(ic)}</span><span class="sv-pack__l"><b>{e(n)}</b><small>{e(t)}</small></span>'
+                 f'<span class="sv-prof__ok">{icon("check")}</span></li>' for i, (ic, n, t) in enumerate(rows))
+    top = ''
+    if listing:
+        acts = ''.join(f'<li>{icon(ic)}<span>{e(t)}</span></li>' for ic, t in [('phone', 'Call'), ('chat', 'Message'), ('map', 'Directions'), ('globe', 'Website')])
+        top = (f'<p class="sv-prof__stars" aria-hidden="true"><span>★★★★★</span><small>Open now · closes 9 pm</small></p>'
+               f'<ul class="sv-prof__acts" aria-hidden="true">{acts}</ul>')
+    card = (f'<div class="dk__card sv-card sv-pack sv-prof"><p class="sv-card__k">{icon("pin" if listing else "globe")}{e(kicker)}</p>'
+            f'<div class="sv-prof__head"><span class="sv-prof__logo" aria-hidden="true">Y</span><span><b>{e(name)}</b><small>{e(sub)}</small></span></div>{top}'
+            f'<p class="sv-card__h">{e(head)}</p><ul>{li}</ul>'
+            f'<p class="sv-card__f">{icon("key")}{e(foot)}</p></div>')
+    return _dk('prof', card, _float('dk-chip dk-chip--prof1', f'{icon("check")}{e(chip)}', 120, 0), sheets=2, label=label)
+
+
+def card_mapsfix():
+    return _fix_card('Your Google listing · illustration', 'Your business', 'Salon · Ghatkopar West', 'Fixed in 5 working days',
+                     [('tag', 'Categories and services', 'The most specific true ones'), ('clock', 'Hours and contact details', 'Matching your signboard'),
+                      ('chat', 'WhatsApp on the listing', 'Message button, where Google offers it'), ('star', 'Review QR standee', 'Ready to print for the counter')],
+                     'Your listing stays in your name', 'One-time',
+                     'Illustration: a Google listing fixed in 5 working days: categories, hours, WhatsApp and a review QR standee')
+
+
+def card_rescue():
+    return _fix_card('Your website · illustration', 'Your website', 'Up to 10 pages', 'Fixed in 7 working days',
+                     [('phone', 'Works on phones', 'Every page, on real screen sizes'), ('bolt', 'Loads faster', 'Images compressed and resized'),
+                      ('chat', 'WhatsApp, call and form', 'Tested until the message arrives'), ('search', 'Google set up', 'Search Console and Analytics')],
+                     'Your domain and logins stay yours', 'One-time',
+                     'Illustration: a website fixed in 7 working days: phones, speed, ways to get in touch and Google set-up', listing=False)
+
+
 def card_store():
     """Online stores: a product page on your own domain, the cart and a UPI payment floating in front. Illustrative product and prices."""
     sizes = ''.join(('<li class="is-on">' if z == 'M' else '<li>') + z + '</li>' for z in ('S', 'M', 'L', 'XL'))
@@ -737,4 +770,4 @@ def card_estimate():
     return _dk('est', card, floats, sheets=2, label='Illustration: a website estimate with a business site and website copy, its fixed total and yearly running costs')
 
 
-CARDS.update(profile=card_profile, store=card_store, estimate=card_estimate)
+CARDS.update(profile=card_profile, store=card_store, estimate=card_estimate, mapsfix=card_mapsfix, rescue=card_rescue)

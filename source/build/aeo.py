@@ -906,6 +906,8 @@ def services_hub(ctx, parts):
   <section class="section" aria-labelledby="more-title">
     <div class="wrap sp-prose">
       <h2 id="more-title">More pages, by what you need</h2>
+      <h3>Two small jobs to start with</h3>
+      <p>If you want one thing fixed without a monthly plan: the <a class="tlink" href="/google-maps-fix">Google Maps Fix</a> cleans up your Google listing in 5 working days for ₹4,999, and the <a class="tlink" href="/website-rescue">Website Rescue</a> fixes a website you already have in 7 working days for ₹9,999. Both are one-time, with the work listed in writing first.</p>
       <h3>Websites by trade</h3>
       <p>Some trades work under their own rules, so each has its own page: websites for <a class="tlink" href="/services/website-design-india/clinics">clinics and doctors</a>, <a class="tlink" href="/services/website-design-india/ca-and-law-firms">CA firms and law firms</a>, <a class="tlink" href="/services/website-design-india/coaching-institutes">coaching institutes</a>, <a class="tlink" href="/services/website-design-india/real-estate">real estate builders</a> and <a class="tlink" href="/services/website-design-india/exporters">exporters and manufacturers</a>. For food and fashion there are <a class="tlink" href="/services/website-design-mumbai/restaurants-cafes">restaurant and café websites</a>, <a class="tlink" href="/services/website-design-mumbai/boutiques-fashion">boutique and clothing store websites</a> and <a class="tlink" href="/services/ecommerce-website-mumbai">e-commerce website development</a>.</p>
       <h3>Chatbots and automation</h3>
