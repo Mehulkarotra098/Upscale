@@ -414,6 +414,28 @@ for _page in site.rglob('*.html'):
     _no_leftovers(_page.relative_to(site), _out)
     _page.write_text(_out)
 
+# Per-page CSS (css_trim.py): each page gets only the rules it can use, inline, instead of the whole stylesheet as a
+# render-blocking file. Class names that scripts add later are kept by reading every script in the repo (site scripts,
+# the card and QR tools, the 3D engine), so nothing a script turns on can lose its style. The full /styles.css stays
+# published for the server-rendered blog. CSS_TRIM=0 turns this off.
+import os as _os
+if _os.environ.get('CSS_TRIM', '1') != '0':
+    import css_trim
+    _js = [f.read_text(encoding='utf-8', errors='ignore') for f in list(SRC.glob('*.js')) + list((REPO / 'card').rglob('*.js'))
+           + list((REPO / 'card').rglob('*.mjs')) + list((REPO / 'card').rglob('*.jsx')) + list(STATIC.rglob('*.js')) if 'node_modules' not in f.parts]
+    _trim = css_trim.Trimmer(css, _js)
+    _link = f'<link rel="stylesheet" href="/styles.css?v={_v}">'
+    _n = _kb = 0
+    for _page in site.rglob('*.html'):
+        _parts = _page.relative_to(site).parts
+        if 'admin' in _parts or '_blog' in _parts: continue
+        _h = _page.read_text()
+        if _link not in _h: continue
+        _css = _trim.for_page(_h)
+        _page.write_text(_h.replace(_link, '<style>' + _css.replace('</style', r'<\/style') + '</style>', 1))
+        _n += 1; _kb += len(_css)
+    print(f'per-page css: {_n} pages, average {_kb // max(1, _n) // 1024} KB (full stylesheet {len(css) // 1024} KB)')
+
 # Preview: one file; the artifact skeleton supplies doctype/head/body
 pv = src.replace('{{STYLES}}', '<style>\n' + css + '\n.pv-replay{position:fixed;left:calc(16px + env(safe-area-inset-left,0px));bottom:calc(16px + env(safe-area-inset-bottom,0px));z-index:1001;display:inline-flex;align-items:center;gap:8px;font:600 14px/1 var(--sans);background:var(--violet);color:var(--white);border:1px solid var(--line-dark);border-radius:999px;padding:13px 18px;cursor:pointer;box-shadow:0 12px 24px -14px rgba(37,30,69,.6)}\n</style>')
 pv = pv.replace('{{SCRIPT}}', '<script>\n' + js + '\n</script>')
