@@ -30,7 +30,7 @@
       pdf: 'Save report as PDF', send: 'Send my report to U Scale', copy: 'Copy report', copied: 'Copied', reset: 'Start again', resetQ: 'Clear all answers and start again?',
       waIntro: 'Hi Mehul, I checked my Google Business Profile on uscale.in.', waBiz: 'Business', waScore: 'Score', waFix: 'Top fixes', waAsk: 'Can you help me fix these?',
       found: '✓ Found: {n}', finding: 'Finding your business…', badLink: 'Paste the link from Google Maps (Share → Copy link).', yourBiz: 'Your business',
-      cta: 'Want these fixed for you?', ctaL: 'I fix Google profiles for Mumbai businesses: categories, photos, posts, review system and website. Send me your report and I’ll reply with a plan.',
+      cta: 'Want these fixed for you?', ctaL: 'Google Maps Fix: I fix your listing in 5 working days for ₹4,999, one-time. Categories, hours, photos, WhatsApp button, review QR standee and 4 posts. Send me your report and I’ll confirm the start date.', ctaMore: 'See what’s included',
       keep: 'Keep going: {n} to go', cheer: '🎉 {s} done! {n} to go.', cheerAll: '🎉 All done! Here’s your report.', next: 'Next: {s}', secLeft: '{n} of {t} answered', secDone: 'Done · tap to change', tabMe: 'Your listing', tabNear: 'Who’s near you',
       needName: 'Type your business name and area, or paste your Google Maps link.', live: 'Your live Google listing', liveNote: 'Live from Google Maps. Keep it open while you answer the questions below.',
       openMaps: 'Open in Google Maps', compT: 'Who shows up near you', compNote: 'This is what a customer sees when they search “{t}” near you. Are you in the first few?', compOpen: 'Open this search in Google Maps', compNeed: 'Add what customers search for (like “saree shop”) to see your competition.',
@@ -54,7 +54,7 @@
       pdf: 'Report PDF mein save karo', send: 'Report U Scale ko bhejo', copy: 'Report copy karo', copied: 'Copy ho gaya', reset: 'Phir se shuru karo', resetQ: 'Saare jawab hata kar phir se shuru karein?',
       waIntro: 'Hi Mehul, maine uscale.in par apna Google Business Profile check kiya.', waBiz: 'Business', waScore: 'Score', waFix: 'Zaroori fixes', waAsk: 'Kya aap yeh theek karne mein madad karenge?',
       found: '✓ Mil gaya: {n}', finding: 'Aapka business dhoondh rahe hain…', badLink: 'Google Maps se link copy karke daaliye (Share → Copy link).', yourBiz: 'Aapka business',
-      cta: 'Yeh sab main theek kar doon?', ctaL: 'Main Mumbai ke businesses ke Google profile theek karta hoon: category, photos, posts, review system aur website. Apni report bhejiye, main plan ke saath reply karunga.',
+      cta: 'Yeh sab main theek kar doon?', ctaL: 'Google Maps Fix: 5 working days mein aapki listing theek, ₹4,999 one-time. Category, hours, photos, WhatsApp button, review QR standee aur 4 posts. Apni report bhejiye, main start date confirm karunga.', ctaMore: 'Kya-kya shaamil hai',
       keep: 'Chaliye, {n} aur baaki', cheer: '🎉 {s} ho gaya! {n} aur baaki.', cheerAll: '🎉 Sab ho gaya! Yeh rahi aapki report.', next: 'Aage: {s}', secLeft: '{t} mein se {n} ho gaye', secDone: 'Ho gaya · badalne ke liye tap karein', tabMe: 'Aapki listing', tabNear: 'Aas-paas kaun hai',
       needName: 'Business ka naam aur area likhiye, ya Google Maps link daaliye.', live: 'Aapki live Google listing', liveNote: 'Seedha Google Maps se. Neeche ke sawaal isse dekh kar jawab dijiye.',
       openMaps: 'Google Maps mein kholo', compT: 'Aapke aas-paas kaun dikhta hai', compNote: 'Jab customer aapke paas “{t}” search karta hai, toh yeh dikhta hai. Kya aap pehle kuch mein hain?', compOpen: 'Yeh search Google Maps mein kholo', compNeed: 'Customer kya search karte hain (jaise “saree shop”) woh daaliye, competition dikhega.',
@@ -518,7 +518,7 @@
         '</div><div class="gp-calc__out" id="gp-calc-out" aria-live="polite">' + calcHtml() + '</div></div>' +
       '<div class="gp-acts"><button type="button" class="btn btn--go" data-gp-send>' + esc(t.send) + '</button><button type="button" class="btn btn--ink" data-gp-pdf>' + esc(t.pdf) + '</button>' +
         '<button type="button" class="btn btn--line" data-gp-copy>' + esc(t.copy) + '</button><button type="button" class="tlink rq-linkbtn" data-gp-reset>' + esc(t.reset) + '</button></div>' +
-      '<div class="gp-cta"><div><h3>' + esc(t.cta) + '</h3><p>' + esc(t.ctaL) + '</p></div><button type="button" class="btn btn--go" data-gp-send>' + esc(t.send) + ' <span class="arw" aria-hidden="true"><b>↗</b><b>↗</b></span></button></div>';
+      '<div class="gp-cta"><div><h3>' + esc(t.cta) + '</h3><p>' + esc(t.ctaL) + ' <a class="tlink" href="/google-maps-fix">' + esc(t.ctaMore) + '</a></p></div><button type="button" class="btn btn--go" data-gp-send>' + esc(t.send) + ' <span class="arw" aria-hidden="true"><b>↗</b><b>↗</b></span></button></div>';
   }
 
   /* ---------- find the business: live Google listing + nearby competition (Google's free Maps embed) ---------- */

@@ -9,9 +9,9 @@ PILLARS = [
     dict(key='add', kick='Monthly', name='Growth', lead='SEO, ads, social, email and more, paid monthly. Combine only what you need.', pop=True,
          start='8,000', unit='/mo', noun='monthly services', step='step-2', cta='Build my monthly mix',
          rows=['Local SEO / Google Business Profile', 'Ads management', 'AI search visibility (GEO)']),
-    dict(key='unit', kick='One-off', name='Single pieces', lead='For when you need one thing: a post, a reel, a logo or a blog.',
+    dict(key='unit', kick='One-off', name='Single pieces', lead='For when you need one thing: a quick fix, a post, a reel or a logo.',
          start='800', unit='', noun='single-piece prices', step='step-3', cta='Pick single pieces',
-         rows=['Social post', 'Reel edit (your footage)', 'Logo']),
+         rows=['Google Maps Fix', 'Website Rescue', 'Social post']),
 ]
 
 WEBSITES = [  # one-time, fixed price after a free audit
@@ -43,6 +43,8 @@ ADDONS = [  # monthly; stack on any plan or buy on their own
 ]
 
 UNITS = [  # pick exactly what you need
+    # Two small one-time jobs with a fixed scope and a fixed number of working days (offer_pages.py: /google-maps-fix, /website-rescue).
+    ('Quick fixes', [('Google Maps Fix', '₹4,999'), ('Website Rescue', '₹9,999')]),
     ('Social design', [('Social post', '₹800'), ('Carousel', '₹1,500'), ('Designed story', '₹800'), ('Infographic', '₹4,000')]),
     ('Reel editing', [('Reel edit (your footage)', '₹2,500'), ('Premium edit (colour grading, motion graphics)', '₹5,000')]),
     ('Reel production', [('Half-day shoot + 3 reels', '₹15,000'), ('Full-day shoot + 6 reels', '₹25,000')]),
